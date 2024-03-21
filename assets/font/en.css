@@ -1,0 +1,32 @@
+@font-face {
+	font-family: "Noto Sans Lao UI";
+	src: url("NotoSansLao-Regular.ttf");
+	font-weight: normal;
+  }
+  
+  .ldbcenter {
+	text-align: center;
+  }
+  
+  .bga4 {
+	background: url("../../assets/image/bg_a4.png") !important;
+  }
+  
+  .ldb-print {
+	position: relative;
+	font-family: "Phetsarath OT";
+	font-weight: normal;
+  }
+  
+  .ldb-print .ldb-text {
+	position: absolute;
+	top: 60px;
+	width: 100%;
+  }
+
+  @media print {
+	@page {
+	  size: landscape
+	}
+  }
+  

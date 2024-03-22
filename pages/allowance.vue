@@ -449,7 +449,8 @@ export default {
                 this.loading_processing = true;
                 let data = {
                     startDate: this.start_date,
-                    endDate: this.end_date
+                    endDate: this.end_date,
+                    toKen: localStorage.getItem("toKen")
                 }
                 this.$axios.$post('/listPaymentStaff.service', data).then((data) => {
                     console.log("allReport:", data)

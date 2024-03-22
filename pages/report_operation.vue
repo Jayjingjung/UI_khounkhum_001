@@ -132,7 +132,7 @@
                                 <td>
                                     <h3>ລວມທັງໝົດ:</h3>
                                 </td>
-                                <td v-if="sumAmount != null">
+                                <td >
                                     <b>
                                         <h3 class="green--text "> {{ sumAmount }} LAK </h3>
                                     </b>
@@ -539,7 +539,6 @@ export default {
                 this.loading_processing = false;
             }
         },
-
         onSeachPermance() {
             if (!this.$refs.form.validate()) return null;
             try {
@@ -548,17 +547,29 @@ export default {
                     performanceReDate: this.start_date,
                     toKen: localStorage.getItem('toKen'),
                     performanceDate: this.end_date
-                }
-                this.$axios.$post('/SearchBillPerformance.service', data).then((data) => {
-                    if (data?.data) {
-                        this.report_peration_list = data?.data;
-                        console.log("search:", data?.data)
+                };
+                this.$axios.$post('/SearchBillPerformance.service', data).then((response) => {
+                    if (response?.data) {
+                        this.report_peration_list = response.data;
+                        this.sumAmount = response?.sumAmount; // Update sumAmount here
+                        this.sumAmount = response?.sumAmount; // Update sumAmount here
+
+                        this.successList = response.data.filter(item => item.status === 'Y').length;
+                        this.waitingList = response.data.filter(item => item.status === 'N').length;
+
+                        // Format the sumAmount with commas
+                        if (this.sumAmount !== null) {
+                            this.sumAmount = this.sumAmount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+                        } else {
+                            this.sumAmount = 'N/A';
+                        }
                     } else {
-                        this.report_peration_list = []
+                        this.report_peration_list = [];
+                        this.sumAmount = null; // Reset sumAmount if no data is returned
                     }
-                })
+                });
             } catch (error) {
-                console.log(error)
+                console.log(error);
             }
         },
         print() {

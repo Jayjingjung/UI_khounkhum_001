@@ -292,6 +292,10 @@
                     v-model="formattedFeeJumPo2"></v-text-field>
 
                 </div>
+                <div style="width:100%" class="pl-2">
+                  <v-text-field outlined background-color="#f5f5f5" dense label="ຄ່າຊິງນາອິນ"
+                    v-model="feePassport"></v-text-field>
+                </div>
                 <div style="width:100%" class="px-2">
                   <v-text-field outlined background-color="#f5f5f5" dense label="ຄ່າຕຳລວດ"
                     v-model="formattedFeePolish3"></v-text-field>
@@ -331,46 +335,15 @@
                   <v-text-field outlined background-color="#f5f5f5" dense label="ຄ່າລ່ວງເວລາ"
                     v-model="formattedFeeyoktu"></v-text-field>
                 </div>
-               
-              </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-              <div style="display:flex;justify-content:space-between">
-                <div style="width:100%" class="pl-2">
-                  <v-text-field outlined background-color="#f5f5f5" dense label="ຄ່າຊິງນາອິນ"
-                    v-model="feePassport"></v-text-field>
-                </div>
+              
 
                 <div style="width:100%" class="pl-2">
                   <v-text-field outlined background-color="#f5f5f5" dense label="ອື່ນໆ"
                     v-model="feevacin"></v-text-field>
                 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-               
+              </div>
+              <div style="display:flex;justify-content:space-between">
+             
               </div>
             </div>
           </div>
@@ -1785,7 +1758,7 @@
             <td
               style="padding:2px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px;">
               <span style="font-size:8pt">ຄ່າປະທັບກາພາສປອດ</span><br />
-              <span>{{ FeePassport?.replace(/\D/g, '').replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</span>
+              <span>{{ feePassport?.replace(/\D/g, '').replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</span>
             </td>
             <td
               style="padding:2px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px;">
@@ -1843,28 +1816,11 @@ export default {
       FeeTaxung4: '',
       FeeTiew5: '',
       FeeLakSao: '',
-
-
-
-
-
-
-      FeePassport: '',
-
-
-
-
-
-
-
-
-
-
+      feePassport: '',
       feevacin: '',
       Feesing: '',
       Feesaphan: '',
       Feeyoktu: '',
-
       Feecontrainer: '',
       Feepayang: '',
 
@@ -2299,11 +2255,11 @@ export default {
 
     formattedFeeOvertime1: {
       get() {
-        if (!this.FeeOvertime1) return '';
-        return this.FeeOvertime1.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        if (!this.feeOvertime1) return '';
+        return this.feeOvertime1.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
       },
       set(value) {
-        this.FeeOvertime1 = value.replace(/,/g, '').replace(/\D/g, '');
+        this.feeOvertime1 = value.replace(/,/g, '').replace(/\D/g, '');
       }
     },
     formattedFeeTaxung4: {
@@ -2501,27 +2457,13 @@ export default {
           staff_Curr: this.currency1,
           staff_Status01: this.money_still_pay == 0 ? 'done' : 'not-pay',
           staff_Status02: this.money_still_pay1 == 0 ? 'done' : 'not-pay',
-          FeeOvertime1: this.FeeOvertime1 !== '' ? this.FeeOvertime1 : 0,
+          feeOvertime1: this.feeOvertime1 !== '' ? this.feeOvertime1 : 0,
           feeJumPo2: this.FeeJumPo2 !== '' ? this.FeeJumPo2 : 0,
           feePolish3: this.FeePolish3 !== '' ? this.FeePolish3 : 0,
           feeTaxung4: this.FeeTaxung4 !== '' ? this.FeeTaxung4 : 0,
           feeTiew5: this.FeeTiew5 !== '' ? this.FeeTiew5 : 0,
           feeLakSao: this.FeeLakSao !== '' ? this.FeeLakSao : 0,
-
-
-
-
-          
           feePassport: this.feePassport !== '' ? this.feePassport : 0,
-
-
-
-
-
-
-
-
-
           feevacin: this.feevacin !== '' ? this.feevacin : 0,
           feesing: this.Feesing !== '' ? this.Feesing : 0,
           feesaphan: this.Feesaphan !== '' ? this.Feesaphan : 0,

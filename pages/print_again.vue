@@ -849,15 +849,16 @@ export default {
             this.product_weight = result
         },
         money: function (newValue) {
-            const real_money = parseInt(newValue?.split(',').
-            join('')) - parseInt(this.money_aready_pay ? this.money_aready_pay?.split(',').join('') : 0)
-            this.money_still_pay = real_money?.toString()?.replace(/\D/g, '')
-                ?.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
-            const result = newValue
-                ?.replace(/\D/g, '')
-                ?.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
-            this.money = result
-        },
+      if (newValue === '0') {
+        this.money_still_pay = '0';
+      } else {
+        const real_money = parseInt(newValue?.split(',').join('')) - parseInt(this.money_aready_pay ? this.money_aready_pay?.split(',').join('') : 0);
+        this.money_still_pay = real_money?.toString()?.replace(/\D/g, '').replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+
+      }
+      const result = newValue.replace(/\D/g, '').replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+      this.money_value = result;
+    },
         money_aready_pay: function (newValue) {
             // const real_money = parseInt(this.money?.split(',').join('')) - parseInt(newValue ? newValue?.split(',').join('') : 0)
 

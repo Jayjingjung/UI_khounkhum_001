@@ -1,6 +1,6 @@
 <template>
   <div>
-    <span style="font-size:15px; font-weight:bold">ບໍລິສັດ ຄູນຄໍາ ຂົນສົ່ງ {{ branchDisplayName }}</span>  
+    <span style="font-size:20px; font-weight:bold">ບໍລິສັດ ຄູນຄໍາ ຂົນສົ່ງ {{ branchDisplayName }}</span>  
     <!-- Other template code -->
   </div>
 </template>

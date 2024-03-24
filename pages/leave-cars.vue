@@ -294,7 +294,7 @@
                 </div>
                 <div style="width:100%" class="pl-2">
                   <v-text-field outlined background-color="#f5f5f5" dense label="ຄ່າຊິງນາອິນ"
-                    v-model="feePassport"></v-text-field>
+                    v-model="formattedfeePassport"></v-text-field>
                 </div>
                 <div style="width:100%" class="px-2">
                   <v-text-field outlined background-color="#f5f5f5" dense label="ຄ່າຕຳລວດ"
@@ -339,7 +339,7 @@
 
                 <div style="width:100%" class="pl-2">
                   <v-text-field outlined background-color="#f5f5f5" dense label="ອື່ນໆ"
-                    v-model="feevacin"></v-text-field>
+                    v-model="formattedfeevacin"></v-text-field>
                 </div>
               </div>
               <div style="display:flex;justify-content:space-between">
@@ -2312,25 +2312,24 @@ export default {
       }
     },
 
-    // feePassport: {
-    //   get() {
-    //     if (!this.feePassporttestt) return '';
-    //     return this.feePassporttestt.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-    //   },
-    //   set(value) {
-    //     this.feePassporttestt = value.replace(/,/g, '').replace(/\D/g, '');
-    //   }
-    // },
-
-    // formattedfeevacin: {
-    //   get() {
-    //     if (!this.feevacin) return '';
-    //     return this.feevacin.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-    //   },
-    //   set(value) {
-    //     this.feevacin = value.replace(/,/g, '').replace(/\D/g, '');
-    //   }
-    // }
+    formattedfeePassport: {
+      get() {
+        if (!this.feePassport) return '';
+        return this.feePassport.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+      },
+      set(value) {
+        this.feePassport = value.replace(/,/g, '').replace(/\D/g, '');
+      }
+    },
+    formattedfeevacin: {
+      get() {
+        if (!this.feevacin) return '';
+        return this.feevacin.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+      },
+      set(value) {
+        this.feevacin = value.replace(/,/g, '').replace(/\D/g, '');
+      }
+    }
 
   },
 

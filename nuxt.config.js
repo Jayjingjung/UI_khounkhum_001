@@ -57,8 +57,15 @@ export default {
   axios: {
     // Workaround to avoid enforcing hard-coded localhost:3000: https://github.com/nuxt-community/axios-module/issues/308
     // baseURL: '/api-prod/v1/truck/',
+
+    // for up to production 
     baseURL: 'http://khounkham.com/api-prod/v1/truck'
+
+    // connect by wifi
     //  baseURL: 'http://192.168.137.1:9988/api-prod/v1/truck'
+
+    //my intelliJ api back-end
+    //  baseURL: 'http://localhost:9988/api-prod/v1/truck'
   },
   server:{
     port:'3200'

@@ -52,12 +52,12 @@
                                         </v-btn>
                                     </div>
                                 </td>
-                                <!-- <td>
-                                    <v-btn @click=" onGoToEdit(row?.item?.key_ID)" block small
+                                <td>
+                                    <v-btn @click=" onGoToEdit(row?.item?.key_ID2)" block small
                                         class="card-shadow" color="#1db733"><v-icon color="white">mdi-pencil</v-icon>
                                         <span class="white--text">ເພີ່ມຄ່າສິ້ນເປືອງ ງວດ 2 </span><v-spacer></v-spacer>
                                     </v-btn>
-                                </td> -->
+                                </td>
 
                             </tr>
                         </template>

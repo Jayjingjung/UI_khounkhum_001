@@ -102,12 +102,12 @@
                                 <td>{{ row?.item?.f_CARD_NO }}</td>
                                 <td>{{ moment(row?.item?.out_DATE).format('DD/MM/YYYY') }}</td>
                                 <td>{{ row?.item?.staft_NAME }} <span>{{ row?.item?.staft_SURNAME }}</span></td>
-                                <td>{{ row?.item?.staft_NAME1 }} <span>{{ row?.item?.staft_SURNAME1 }}</span></td>
+                                <!-- <td>{{ row?.item?.staft_NAME1 }} <span>{{ row?.item?.staft_SURNAME1 }}</span></td> -->
                                 <td>{{ row?.item?.pro_NAME }}</td>
                                 <td>{{ row?.item?.totalBiaLieng }}</td>
                                 <td>{{ row?.item?.staff_BIALINEG_KANGJAIY }}</td>
-                                <td>{{ row?.item?.staff02_beforepay }}</td>
-                                <td>{{ row?.item?.staff_BIALINEG_KANGSecond }}</td>
+                                <!-- <td>{{ row?.item?.staff02_beforepay }}</td> -->
+                                <!-- <td>{{ row?.item?.staff_BIALINEG_KANGSecond }}</td> -->
                                 <td> {{ row?.item?.sainummun }} </td>
                                 <td>{{ row?.item?.priceNamMun }} </td>
                                 <td>{{ row?.item?.totalPriceFuel }} </td>
@@ -175,12 +175,11 @@
                             <tr>
                                 <td> </td>
                                 <td> </td>
-                                <td> </td>
-                                <td> </td>
-                                <td> </td>
                                 <td>
-                                    <h3>ລວມ:</h3>
+                                    <h3>ລວມ :</h3>
                                 </td>
+                                <td> </td>
+                                <td> </td>
                                 <td> </td>
                                 <td v-if="sumFooter != null">
                                     <b>
@@ -192,16 +191,8 @@
                                         <h3 class="black--text ">{{ sumFooter.todtalLaiyJaiyFrist }}</h3>
                                     </b>
                                 </td>
-                                <td v-if="sumFooter != null">
-                                    <b>
-                                        <h3 class="black--text ">{{ sumFooter.todtalLaiyJaiySecond }}</h3>
-                                    </b>
-                                </td>
-                                <td v-if="sumFooter != null">
-                                    <b>
-                                        <h3 class="black--text ">{{ sumFooter.totalstaff02_beforepay }}</h3>
-                                    </b>
-                                </td>
+                               
+                                
 
                                 <td v-if="sumFooter != null">
                                     <b>
@@ -230,15 +221,18 @@
                                 </td>
                             </tr>
                             <tr>
+                                
+                                
                                 <td> </td>
                                 <td> </td>
                                 <td> </td>
                                 <td> </td>
-                                <td> </td>
-                                <td> </td>
-                                <td> </td>
-                                <td> </td>
-                                <td> </td>
+                                <td> <h4> ລວມເບ້ຍລ້ຽງ:</h4></td>
+                                <td v-if="sumFooter != null">
+                                    <b>
+                                        <h3 class="red--text ">{{ sumFooter.totalSopher }}</h3>
+                                    </b>
+                                </td>
                                 <td> </td>
                                 <td> </td>
                                 <td> </td>
@@ -262,15 +256,18 @@
 
                             <!-- ລາຍຈ່າຍທີ່ລວມກັນເບັດເສັດ -->
                             <tr>
+                                
+                                
                                 <td> </td>
                                 <td> </td>
                                 <td> </td>
                                 <td> </td>
-                                <td> </td>
-                                <td> </td>
-                                <td> </td>
-                                <td> </td>
-                                <td> </td>
+                                <td> <h4>ເບ້ຍລ້ຽງ+ລາຍຈ່າຍອື່ນ</h4></td>
+                                <td v-if="sumFooter != null">
+                                    <b>
+                                        <h3 class="red--text ">{{ sumFooter.totalSopherAndlaiJaiyOutFrist }}</h3>
+                                    </b>
+                                </td>
                                 <td> </td>
                                 <td> </td>
                                 <td> </td>
@@ -299,16 +296,17 @@
                     </v-col>
                     <v-col cols="9">
                         <div style="display:flex;justify-content:start;flex-direction:column;align-items:start">
-                            
-                                <span style="font-size:14px">
-                                   
-                                        <Noti/>
-                                   
-                                </span>
-                            
+
+                            <span style="font-size:14px">
+
+                                <Noti />
+
+                            </span>
+
                             <span style="font-size:12px">ສໍານັກງານຕັ້ງຢູ່ ອາຄານ ສະໜາມຍິງປືນ 20 ມັງກອນ, ສະໜາມກີລາກອງທັບ,
                                 ບ້ານຈອມມະນີ, ເມືອງ ໄຊເສດຖາ, ນະຄອນຫຼວງວຽງຈັນ, ສປປ ລາວ</span>
-                            <span style="font-size:12px">ໂທລະສັບ: 020 92661111, 020 92 254 999 | ອີເມວ: kounkham@Mining |
+                            <span style="font-size:12px">ໂທລະສັບ: 020 92661111, 020 92 254 999 | ອີເມວ: kounkham@Mining
+                                |
                                 ເວັບໄຊ: kounkham</span>
                         </div>
                     </v-col>
@@ -454,12 +452,12 @@ export default {
                 { text: 'ທະບຽນຫາງ', value: 'f_CARD_NO' },
                 { text: 'ວັນທີອອກ', value: 'out_DATE' },
                 { text: 'ຄົນຂັບ1', value: 'staft_NAME' },
-                { text: 'ຄົນຂັບ2', value: 'staft_NAME1' },
+                // { text: 'ຄົນຂັບ2', value: 'staft_NAME1' },
                 { text: 'ຊື່ສິນຄ້າ', value: 'pro_NAME' },
                 { text: 'ເບ້ຍລ້ຽງຈ່າຍຕົວຈິງຂອງຜູ້ທີ1', value: 'totalBiaLieng' },
                 { text: 'ເບ້ຍລ້ຽງຄ້າງຈ່າຍຜູ້ທີ1', value: 'staff_BIALINEG_KANGJAIY' },
-                { text: 'ເບ້ຍລ້ຽງຄ້າງຈ່າຍຜູ້ທີ2', value: 'staff_BIALINEG_KANGSecond' },
-                { text: 'ເບ້ຍລ້ຽງຈ່າຍຕົວຈິງຂອງຜູ້ທີ2', value: 'staff02_beforepay' },
+                // { text: 'ເບ້ຍລ້ຽງຄ້າງຈ່າຍຜູ້ທີ2', value: 'staff_BIALINEG_KANGSecond' },
+                // { text: 'ເບ້ຍລ້ຽງຈ່າຍຕົວຈິງຂອງຜູ້ທີ2', value: 'staff02_beforepay' },
                 { text: 'ໃສ່ນ້ຳມັນ', value: 'sainummun' },
                 { text: 'ລາຄານ້ຳມັນຕໍ່ລິດ', value: 'priceNamMun' },
                 { text: 'ລວມເງິນນ້ຳມັນ', value: 'totalPriceFuel' },
@@ -477,8 +475,6 @@ export default {
 
         }
     },
-
-
     mounted() {
         this.onSearchLeaveCarReport()
     },

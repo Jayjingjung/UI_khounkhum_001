@@ -316,7 +316,7 @@ export default {
         async ongetData() {
             try {
                 // this.loading_processing = true;
-                await this.$axios.$post('/ReportGiveCarAllNo', { carLodNo: this.$route.query.key, startDate: this.$route.query.startDate, endDate: this.$route.query.endDate }).then((data) => {
+                await this.$axios.$post('/ReportGiveCarAllNo', { carLodNo: this.$route.query.key, startDate: this.$route.query.startDate, endDate: this.$route.query.endDate,toKen:localStorage.getItem("toKen") }).then((data) => {
                     // this.loading_processing = false;
                     console.log("dataUpd", data)
                     if (data?.data?.length > 0) {

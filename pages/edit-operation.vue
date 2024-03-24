@@ -62,7 +62,7 @@
                         </span>
                     </div>
                     <div class="text-center">
-                        <span style="color: red ;font-size:15px">ຄ່າສິ້ນເປືອງ ງວດ 1 ບໍ່ສາມາດເເກ່ໄດ້
+                        <span style="color: red ;font-size:15px">ຄ່າສິ້ນເປືອງ ງວດ 1 ບໍ່ສາມາດເເກ້ໄດ້
                         </span>
                     </div>
 
@@ -74,6 +74,7 @@
                                     placeholder="ຄ່າຊິງມະຫາໄຊ" v-model="performanceJumPho"></v-text-field>
 
                             </div>
+                           
                             <div style="width:100%" class="px-2">
                                 <span>ຄ່າຕຳລວດ</span>
                                 <v-text-field readonly solo flat background-color="#fcd59d" dense placeholder="ຄ່າຕຳລວດ"
@@ -100,6 +101,11 @@
                                 <v-text-field readonly solo flat background-color="#fcd59d" dense placeholder="ຄ່າໃບຊິງ"
                                     v-model="performanceFeeTaxung"></v-text-field>
                             </div> -->
+                            <div style="width:100%" class="pl-2">
+                                <span>ຄ່າຊິງນາອິນ</span>
+                                <v-text-field readonly solo flat background-color="#fcd59d" dense
+                                    placeholder="ຄ່າຊິງນາອິນ" v-model="performancepassport"></v-text-field>
+                            </div>
                         </div>
                         <div style="display:flex;justify-content:space-between">
                             <div style="width:100%">
@@ -150,20 +156,14 @@
                                     v-model="performanceOvertime"></v-text-field>
                             </div> -->
                             <!-- <div style="width:100%" class="pl-2"></div> -->
-                        </div>
-                        <div style="display:flex;justify-content:space-between">
-
-                            <div style="width:100%" class="pl-2">
-                                <span>ຄ່າຊິງນາອິນ</span>
-                                <v-text-field readonly solo flat background-color="#fcd59d" dense
-                                    placeholder="ຄ່າຊິງນາອິນ" v-model="performancepassport"></v-text-field>
-                            </div>
+                           
                             <div style="width:100%" class="pl-2">
                                 <span>ອື່ນໆ</span>
                                 <v-text-field readonly solo flat background-color="#fcd59d" dense
                                     placeholder="ອື່ນໆ" v-model="performancevaccine"></v-text-field>
                             </div>
                         </div>
+                        
                         
 
                     </div>
@@ -184,28 +184,28 @@
                             <div style="width:100%">
                                 <span>ຄ່າຊິງມະຫາໄຊ 2</span>
                                 <v-text-field solo flat background-color="#d4ebff" dense placeholder="ຄ່າຊິງມະຫາໄຊ"
-                                    v-model="add_feeOvertime1"></v-text-field>
+                                    v-model="formattedadd_feeOvertime1"></v-text-field>
 
                             </div>
                             <div style="width:100% " class="px-2">
                                 <span>ຄ່າຕຳລວດ 2</span>
                                 <v-text-field solo flat background-color="#d4ebff" dense placeholder="ຄ່າຕຳລວດ"
-                                    v-model="add_feeJumPo2"></v-text-field>
+                                    v-model="formattedadd_feeJumPo2"></v-text-field>
                             </div>
                             <div style="width:100%" class="px-2">
                                 <span>ຄ່າສິ້ນເປືອງຢູ່ສາງພາສີ 2</span>
                                 <v-text-field solo flat background-color="#d4ebff" dense
-                                    placeholder="ຄ່າສິ້ນເປືອງຢູ່ສາງພາສີ" v-model="add_feePolish3"></v-text-field>
+                                    placeholder="ຄ່າສິ້ນເປືອງຢູ່ສາງພາສີ" v-model="formattedadd_feePolish3"></v-text-field>
                             </div>
                             <div style="width:100%" class="px-2">
                                 <span>ຄ່າດ່ານຫວຽດຂາກັບ 2</span>
                                 <v-text-field solo flat background-color="#d4ebff" dense placeholder="ຄ່າດ່ານຫວຽດຂາກັບ"
-                                    v-model="add_feeTaxung4"></v-text-field>
+                                    v-model="formattedadd_feeTaxung4"></v-text-field>
                             </div>
                             <div style="width:100%" class="px-2">
                                 <span>ຄ່າດ່ານລາວຂາໄປ - ຂາກັບ 2</span>
                                 <v-text-field solo flat background-color="#d4ebff" dense
-                                    placeholder="ຄ່າດ່ານລາວຂາໄປ - ຂາກັບ" v-model="add_feeTiew5"></v-text-field>
+                                    placeholder="ຄ່າດ່ານລາວຂາໄປ - ຂາກັບ" v-model="formattedadd_feeTiew5"></v-text-field>
                             </div>
 
                             <!-- <div style="width:100%" class="pl-2">
@@ -218,22 +218,22 @@
                             <div style="width:100%">
                                 <span>ຄ່າຊິບປິ້ງຫວຽດແລ່ນເອກະສານ 2</span>
                                 <v-text-field solo flat background-color="#d4ebff" dense
-                                    placeholder="ຄ່າຊິບປິ້ງຫວຽດແລ່ນເອກະສານ" v-model="add_feesing"></v-text-field>
+                                    placeholder="ຄ່າຊິບປິ້ງຫວຽດແລ່ນເອກະສານ" v-model="formattedadd_feesing"></v-text-field>
                             </div>
                             <div style="width:100%" class="px-2">
                                 <span>ຄ່າໃບຊິງ 2</span>
                                 <v-text-field solo flat background-color="#d4ebff" dense placeholder="ຄ່າໃບຊິງ"
-                                    v-model="add_feesaphan"></v-text-field>
+                                    v-model="formattedadd_feesaphan"></v-text-field>
                             </div>
                             <div style="width:100%">
                                 <span>ຄ່າແຈ້ງເອກະສານຢູ່ບ່ອນຂຶ້ນເກືອ 2</span>
                                 <v-text-field solo flat background-color="#d4ebff" dense
-                                    placeholder="ຄ່າແຈ້ງເອກະສານຢູ່ບ່ອນຂຶ້ນເກືອ" v-model="add_feeyoktu"></v-text-field>
+                                    placeholder="ຄ່າແຈ້ງເອກະສານຢູ່ບ່ອນຂຶ້ນເກືອ" v-model="formattedadd_feeyoktu"></v-text-field>
                             </div>
                             <div style="width:100%" class="px-2">
                                 <span>ຄ່າລົງເກືອ 2</span>
                                 <v-text-field solo flat background-color="#d4ebff" dense placeholder="ຄ່າລົງເກືອ"
-                                    v-model="add_feecontrainer"></v-text-field>
+                                    v-model="formattedadd_feecontrainer"></v-text-field>
                             </div>
 
                             <!-- 
@@ -246,7 +246,7 @@
                             <div style="width:100%" class="pl-2">
                                 <span>ຄ່າລ່ວງເວລາ 2</span>
                                 <v-text-field solo flat background-color="#d4ebff" dense placeholder="ຄ່າລ່ວງເວລາ"
-                                    v-model="add_feepayang"></v-text-field>
+                                    v-model="formattedadd_feepayang"></v-text-field>
                             </div>
 
                             <!-- <div style="width:100%" class="pl-2">
@@ -358,6 +358,101 @@ export default {
             this.proSize = newValue;
         },
     },
+
+    computed: {
+    formattedadd_feeOvertime1: {
+      get() {
+        if (!this.add_feeOvertime1) return '';
+        return this.add_feeOvertime1.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+      },
+      set(value) {
+        this.add_feeOvertime1 = value.replace(/,/g, '').replace(/\D/g, '');
+      }
+    },
+    formattedadd_feeJumPo2: {
+      get() {
+        if (!this.add_feeJumPo2) return '';
+        return this.add_feeJumPo2.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+      },
+      set(value) {
+        this.add_feeJumPo2 = value.replace(/,/g, '').replace(/\D/g, '');
+      }
+    },
+    formattedadd_feePolish3: {
+      get() {
+        if (!this.add_feePolish3) return '';
+        return this.add_feePolish3.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+      },
+      set(value) {
+        this.add_feePolish3 = value.replace(/,/g, '').replace(/\D/g, '');
+      }
+    },
+    formattedadd_feeTaxung4: {
+      get() {
+        if (!this.add_feeTaxung4) return '';
+        return this.add_feeTaxung4.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+      },
+      set(value) {
+        this.add_feeTaxung4 = value.replace(/,/g, '').replace(/\D/g, '');
+      }
+    },
+    formattedadd_feeTiew5: {
+      get() {
+        if (!this.add_feeTiew5) return '';
+        return this.add_feeTiew5.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+      },
+      set(value) {
+        this.add_feeTiew5 = value.replace(/,/g, '').replace(/\D/g, '');
+      }
+    },
+    formattedadd_feesing: {
+      get() {
+        if (!this.add_feesing) return '';
+        return this.add_feesing.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+      },
+      set(value) {
+        this.add_feesing = value.replace(/,/g, '').replace(/\D/g, '');
+      }
+    },
+    formattedadd_feesaphan: {
+      get() {
+        if (!this.add_feesaphan) return '';
+        return this.add_feesaphan.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+      },
+      set(value) {
+        this.add_feesaphan = value.replace(/,/g, '').replace(/\D/g, '');
+      }
+    },
+    formattedadd_feeyoktu: {
+      get() {
+        if (!this.add_feeyoktu) return '';
+        return this.add_feeyoktu.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+      },
+      set(value) {
+        this.add_feeyoktu = value.replace(/,/g, '').replace(/\D/g, '');
+      }
+    },
+    formattedadd_feecontrainer: {
+      get() {
+        if (!this.add_feecontrainer) return '';
+        return this.add_feecontrainer.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+      },
+      set(value) {
+        this.add_feecontrainer = value.replace(/,/g, '').replace(/\D/g, '');
+      }
+    },
+
+    formattedadd_feepayang: {
+      get() {
+        if (!this.add_feepayang) return '';
+        return this.add_feepayang.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+      },
+      set(value) {
+        this.add_feepayang = value.replace(/,/g, '').replace(/\D/g, '');
+      }
+    },
+
+  },
 
 
     mounted() {

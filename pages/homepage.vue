@@ -217,7 +217,7 @@
                 <v-icon color="#8b0c9c" size="55">mdi-account-box-edit-outline</v-icon>
 
                 <div class="pl-5 pb-5 pt-5 pr-5">
-                  <span style="font-size: 17pt;font-weight: bold;">ລາຍຮັບລາຍຈ່າຍເພີນ</span><br />
+                  <span style="font-size: 17pt;font-weight: bold;">ລາຍຮັບ-ລາຍຈ່າຍອື່ນໆ</span><br />
                 </div>
               </div>
             </v-card-text>

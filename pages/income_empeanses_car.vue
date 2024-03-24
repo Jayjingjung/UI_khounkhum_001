@@ -47,7 +47,7 @@
 
                                 <div style="margin-top:-25px" class="ml-2">
                                     <v-btn color="#90A4AE" class="white--text" elevation="0"
-                                        @click="onSearcReport"><v-icon>mdi-magnify</v-icon>ຄົ້ນຫາ</v-btn>
+                                        @click="onSearcReport(); onSearchLeaveCarReport();"><v-icon>mdi-magnify</v-icon>ຄົ້ນຫາ</v-btn>
                                 </div>
                             </div>
                         </div>

@@ -191,8 +191,8 @@
                                         <h3 class="black--text ">{{ sumFooter.todtalLaiyJaiyFrist }}</h3>
                                     </b>
                                 </td>
-                               
-                                
+
+
 
                                 <td v-if="sumFooter != null">
                                     <b>
@@ -221,13 +221,15 @@
                                 </td>
                             </tr>
                             <tr>
-                                
-                                
+
+
                                 <td> </td>
                                 <td> </td>
                                 <td> </td>
                                 <td> </td>
-                                <td> <h4> ລວມເບ້ຍລ້ຽງ:</h4></td>
+                                <td>
+                                    <h4> ລວມເບ້ຍລ້ຽງ:</h4>
+                                </td>
                                 <td v-if="sumFooter != null">
                                     <b>
                                         <h3 class="red--text ">{{ sumFooter.totalSopher }}</h3>
@@ -256,13 +258,15 @@
 
                             <!-- ລາຍຈ່າຍທີ່ລວມກັນເບັດເສັດ -->
                             <tr>
-                                
-                                
+
+
                                 <td> </td>
                                 <td> </td>
                                 <td> </td>
                                 <td> </td>
-                                <td> <h4>ເບ້ຍລ້ຽງ+ລາຍຈ່າຍອື່ນ</h4></td>
+                                <td>
+                                    <h4>ເບ້ຍລ້ຽງ+ລາຍຈ່າຍອື່ນ</h4>
+                                </td>
                                 <td v-if="sumFooter != null">
                                     <b>
                                         <h3 class="red--text ">{{ sumFooter.totalSopherAndlaiJaiyOutFrist }}</h3>
@@ -282,6 +286,25 @@
                                     </b>
                                 </td>
                             </tr>
+
+                            <tr>
+                                <td> </td>
+                                <td> </td>
+                                <td> </td>
+                                <td> </td>
+
+                                <td>
+                                    <h4> ລວມເງິນສິ້ນເປືອງເບ້ຍລ້ຽງ:</h4>
+                                </td>
+                                <td v-if="sumFooter != null">
+                                    <b>
+                                        <h3 class="red--text ">{{ sumFooter.biaOutWasted }}</h3>
+                                    </b>
+                                </td>
+                                <td> </td>
+
+                            </tr>
+
                         </template>
                     </v-data-table>
                 </div>
@@ -376,6 +399,61 @@
 
                     </tr>
                 </table>
+
+
+
+                <div
+                    style="display: flex;margin-top:10px; flex-direction: column; justify-content: flex-end; font-size: 13px;">
+
+                    <div style="height: 35px;">
+
+                        <td>
+                            <h3> ລວມເບ້ຍລ້ຽງ: </h3>
+                        </td>
+                        <td v-if="sumFooter != null">
+                            <b>
+                                <h3 class="red--text ">{{ sumFooter.totalSopher }} LAK</h3>
+                            </b>
+                        </td>
+
+                    </div>
+
+                    <div style="height: 35px;">
+                        <td>
+                            <h3>ລາຍຈ່າຍນອກ: </h3>
+                        </td>
+                        <td v-if="sumFooter != null">
+                            <b>
+                                <h3 class="red--text ">{{ sumFooter.laiJaiyOutFrist }} LAK</h3>
+
+                            </b>
+                        </td>
+                    </div>
+
+                    <div style="height: 35px;">
+                        <td>
+                            <h3>ລວມຄ່າສິ້ນເປືອງ: </h3>
+                        </td>
+                        <td v-if="sumFooter != null">
+                            <b>
+                                <h3 class="red--text ">{{ sumFooter.runningTotal }} LAK</h3>
+                            </b>
+                        </td>
+                    </div>
+                    <div style="height: 35px;">
+                        <td>
+                            <h3> ລວມເງິນສິ້ນເປືອງເບ້ຍລ້ຽງ: </h3>
+                        </td>
+                        <td v-if="sumFooter != null">
+                            <b>
+                                <h3 class="red--text ">{{ sumFooter.biaOutWasted }} LAK</h3>
+                            </b>
+                        </td>
+                    </div>
+
+
+                </div>
+
                 <div
                     style="display:flex;flex-direction:row;justify-content:space-between;margin-top:120px; font-size: 12px">
 

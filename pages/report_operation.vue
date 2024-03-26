@@ -41,7 +41,7 @@
                         </div>
                         <div class="ml-2 pt-1">
                             <v-btn color="#90A4AE" elevation="0" class="white--text"
-                                @click="onSeachPermance"><v-icon>mdi-magnify</v-icon>ຄົ້ນຫາ</v-btn>
+                                @click="onSeachPermance(row?.item?.key_ID)"><v-icon>mdi-magnify</v-icon>ຄົ້ນຫາ</v-btn>
                         </div>
                         <v-spacer></v-spacer>
                         <div style="width:300px">
@@ -94,8 +94,9 @@
                                 <td>{{ row?.item?.laiyathang }}</td> -->
                                 <td>{{ row?.item?.pro_TYPE }}</td>
                                 <td>{{ moment(row?.item?.performancedate).format('DD/MM/YYYY') }}</td>
-                                <td class="green--text">{{ row?.item?.total_PRICE?.replace(/\B(?=(\d{3})+(?!\d))/g,
-            ',') }} {{ row?.item?.currency }}</td>
+                                <td>{{ row?.item?.proSize }}</td>
+                                <td>{{ row?.item?.prizeProcuctPerT.replace(/\B(?=(\d{3})+(?!\d))/g,',') }} {{ row?.item?.currency }}</td>
+                                <td class="green--text">{{ row?.item?.total_PRICE?.replace(/\B(?=(\d{3})+(?!\d))/g,',') }} {{ row?.item?.currency }}</td>
 
                                 <td v-if="row?.item?.status === 'N'">
 
@@ -130,6 +131,14 @@
                                 <td> </td>
                                 <td> </td>
                                 <td>
+                                    <h3>ລວມຈຳນວນໂຕນ:</h3>
+                                </td>
+                                <td>
+                                    <b>
+                                        <h3 class="green--text "> {{ sumTonProSize }} T </h3>
+                                    </b>
+                                </td>
+                                <td>
                                     <h3>ລວມທັງໝົດ:</h3>
                                 </td>
                                 <td >
@@ -140,11 +149,7 @@
 
 
 
-                                <td>
-                                    <b>
-                                        <h3 class="black--text ">{{ }}</h3>
-                                    </b>
-                                </td>
+                                
 
                             </tr>
                         </template>
@@ -418,6 +423,7 @@ export default {
         return {
             moment: moment,
             sumAmount: null,
+            sumTonProSize: null,
             showAlert: false,
             valid: true,
             nameRules: [(v) => !!v || 'ຕ້ອງເລືອກ'],
@@ -435,6 +441,8 @@ export default {
                 { text: 'ສິນຄ້າ', value: 'pro_NAME' },
                 { text: 'ຮ້ານຄ້າປາຍທາງ', value: 'pro_TYPE' },
                 { text: 'ວັນທີ', value: 'performancedate' },
+                { text: 'ຈຳນວນໂຕນ(T)', value: 'proSize' },
+                { text: 'ລາຄາຕໍ່ໂຕນ', value: 'prizeProcuctPerT' },
                 { text: 'ລາຍຮັບທັງໝົດ', value: 'total_PRICE' },
                 { text: 'ສະຖານະ', value: 'status' },
                 { text: '', value: '' }
@@ -506,13 +514,16 @@ export default {
                 }).then((data) => {
                     if (data?.data) {
                         this.report_peration_list = data.data;
+                        this.sumTonProSize = data?.sumTonProSize;
 
                         // Format the sumAmount with commas
                         if (data?.sumAmount) {
                             const formattedSumAmount = data.sumAmount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
                             this.sumAmount = formattedSumAmount;
+                            this.sumTonProSize = sumTonProSize;
                         } else {
                             this.sumAmount = 'N/A';
+                            this.sumTonProSize = 'N/A';
                         }
 
                         // Count success and waiting statuses in the fetched data
@@ -539,11 +550,11 @@ export default {
                 this.loading_processing = false;
             }
         },
-        onSeachPermance() {
-            if (!this.$refs.form.validate()) return null;
+        onSeachPermance(key) {
+            // if (!this.$refs.form.validate()) return null;
             try {
                 let data = {
-                    performanceBillNo: this.per_key,
+                    performanceBillNo: key,
                     performanceReDate: this.start_date,
                     toKen: localStorage.getItem('toKen'),
                     performanceDate: this.end_date
@@ -552,7 +563,7 @@ export default {
                     if (response?.data) {
                         this.report_peration_list = response.data;
                         this.sumAmount = response?.sumAmount; // Update sumAmount here
-                        this.sumAmount = response?.sumAmount; // Update sumAmount here
+                        this.sumTonProSize = response?.sumTonProSize;
 
                         this.successList = response.data.filter(item => item.status === 'Y').length;
                         this.waitingList = response.data.filter(item => item.status === 'N').length;

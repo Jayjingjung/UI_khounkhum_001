@@ -343,20 +343,20 @@ export default {
             // Update proAmount with the input value
             this.proAmount = newValue;
         },
-        proSize: function (newValue) {
-            // Remove commas and spaces from the input value
-            const size = parseFloat(newValue?.replace(/[, ]/g, ''));
-            const amount = parseFloat(this.proAmount?.replace(/[, ]/g, ''));
+        // proSize: function (newValue) {
+        //     // Remove commas and spaces from the input value
+        //     const size = parseFloat(newValue?.replace(/[, ]/g, ''));
+        //     const amount = parseFloat(this.proAmount?.replace(/[, ]/g, ''));
 
-            let total = size * amount;
+        //     let total = size * amount;
 
-            if (!isNaN(total)) {
-                this.proTotalAmount = total.toLocaleString(undefined, { maximumFractionDigits: 2 });
-            }
+        //     if (!isNaN(total)) {
+        //         this.proTotalAmount = total.toLocaleString(undefined, { maximumFractionDigits: 2 });
+        //     }
 
-            // Update proSize with the input value
-            this.proSize = newValue;
-        },
+        //     // Update proSize with the input value
+        //     this.proSize = newValue;
+        // },
     },
 
     computed: {
@@ -469,7 +469,7 @@ export default {
                 console.log("datadend:", data)
                 this.$axios.$post('/showPerformanceByNo.service', data).then((data) => {
                     if (data?.status === '00') {
-                        // this.performancedate = data?.data[0]?.performancedate
+                        this.performancedate = data?.data[0]?.performancedate
                         this.proAmount = data?.data[0]?.price
                         this.currency = data?.data[0]?.currency
                         this.proSize = data?.data[0]?.proSize

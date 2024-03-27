@@ -39,10 +39,16 @@
                                 </v-date-picker>
                             </v-menu>
                         </div>
+                        
                         <div class="ml-2 pt-1">
                             <v-btn color="#90A4AE" elevation="0" class="white--text"
                                 @click="onSeachPermance(row?.item?.key_ID)"><v-icon>mdi-magnify</v-icon>ຄົ້ນຫາ</v-btn>
                         </div>
+                        <td class="ml-2 pt-1">
+                            <v-btn color="#2F7DBB" class="white--text" @click="Print2">
+                                <v-icon>mdi-printer</v-icon>ພິມລາຍງານທັງໝົດ
+                            </v-btn>
+                        </td>
                         <v-spacer></v-spacer>
                         <div style="width:300px">
                             <v-text-field placeholder="ຄົ້ນຫາດ້ວຍລະຫັດປ່ອຍລົດ..." v-model="search" rounded
@@ -419,6 +425,66 @@
                 <!-- customer -->
             </div>
         </div>
+        <div style="display:none">
+            <div id="Print_all">
+                <v-row>
+                    <v-col cols="3">
+                        <img class="mx-auto" src="../assets/images/khounkham.png" height="70px" cover />
+                    </v-col>
+                    <v-col cols="9">
+                        <div style="display:flex;justify-content:start;flex-direction:column;align-items:start">
+
+                            <span style="font-size:14px">
+
+                                <Noti />
+
+                            </span>
+
+                            <span style="font-size:12px">ສໍານັກງານຕັ້ງຢູ່ ອາຄານ ສະໜາມຍິງປືນ 20 ມັງກອນ, ສະໜາມກີລາກອງທັບ,
+                                ບ້ານຈອມມະນີ, ເມືອງ ໄຊເສດຖາ, ນະຄອນຫຼວງວຽງຈັນ, ສປປ ລາວ</span>
+                            <span style="font-size:12px">ໂທລະສັບ: 020 92661111, 020 92 254 999 | ອີເມວ: kounkham@Mining
+                                |
+                                ເວັບໄຊ: kounkham</span>
+                        </div>
+                    </v-col>
+                </v-row>
+                <br>
+                <div class="text-center" style="display:flex;justify-content:center;font-size:20px;font-weight:bold">
+                    ລາຍງານໃບປ່ອຍລົດ</div>
+
+                <span style="width:100%;margin-top:20px;;font-size:12px;display:flex;justify-content:start" class="pt-4 mb-10">
+
+                    <div  class="ml-10 mr-5">
+                        <span> ທັງໝົດ: </span>
+                        <span  class="green--text ml-10 mr-5">{{ report_peration_list?.length }}</span>
+                    </div>
+
+                    <div class="ml-5 mr-5">
+                        <span> ອອກໃບຮຽກເກັບເງິນແລ້ວ: <span class="green--text">{{ successList }}</span></span>
+                        <!-- Display number of paid invoices -->
+                    </div>
+
+                    <div class="ml-10 mr-5">
+                        <span> ຍັງບໍ່ໄດ້ອອກໃບຮຽກເກັບເງິນ: <span class="red--text">{{ waitingList }}</span></span>
+                        <!-- Display number of unpaid invoices -->
+                    </div>
+                </span>
+              
+
+                <div
+                    style="display:flex;flex-direction:row;justify-content:space-between;margin-top:120px; font-size: 12px">
+
+                    <div
+                        style="width:100%;display:flex;flex-direction:column;justify-content:center;align-items:center;padding-left:20px; font-size: 12px">
+                        <div>ບັນຊີຂົນສົ່ງ</div>
+                        <div style="height: 50px;"></div>
+                        <div style="display:flex;justify-content:space-between">
+                            ...............................
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -597,6 +663,19 @@ export default {
                 section = document.createElement("div")
                 section.id = "print"
                 document.body.appendChild(section)
+            }
+            section.innerHTML = "";
+            section.appendChild(cloned);
+            window.print();
+        },
+        Print2() {
+            const modal = document.getElementById("Print_all");
+            const cloned = modal.cloneNode(true);
+            let section = document.getElementById("print");
+            if (!section) {
+                section = document.createElement("div");
+                section.id = "print";
+                document.body.appendChild(section);
             }
             section.innerHTML = "";
             section.appendChild(cloned);

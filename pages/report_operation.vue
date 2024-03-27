@@ -261,7 +261,7 @@
             performaceGroupFee?.staff_BIALIENG }} {{ performaceGroupDetails?.staff_Cur }}</td>
                             </tr>
                             <tr style="padding:5px;border: 0.5px solid #999;">
-                                <td style="border: 0.5px solid #999;padding:5px">ຄ່າຈໍ້າປື້ມຕັ່ງສິດລົດ</td>
+                                <td style="border: 0.5px solid #999;padding:5px">ຄ່າຊິງມະຫາໄຊ</td>
                                 <td style="border: 0.5px solid #999;padding:5px">{{
             performaceGroupFee?.performancejumpho }}</td>
                             </tr>
@@ -271,59 +271,60 @@
             performaceGroupFee?.performancefeepolish }}</td>
                             </tr>
                             <tr style="padding:5px;border: 0.5px solid #999;">
-                                <td style="border: 0.5px solid #999;padding:5px">ຄ່າປະຢາງ</td>
+                                <td style="border: 0.5px solid #999;padding:5px">ຄ່າສິ້ນເປືອງຢູ່ສາງພາສີ</td>
                                 <td style="border: 0.5px solid #999;padding:5px">{{
             performaceGroupFee?.performancefe_PAYANG }}</td>
                             </tr>
                             <tr style="padding:5px;border: 0.5px solid #999;">
-                                <td style="border: 0.5px solid #999;padding:5px">ຄ່າຕາຊັ່ງ</td>
+                                <td style="border: 0.5px solid #999;padding:5px">ຄ່າຊິບປິ້ງຫວຽດແລ່ນເອກະສານ</td>
                                 <td style="border: 0.5px solid #999;padding:5px">{{
             performaceGroupFee?.performancefeetaxung }}</td>
                             </tr>
                             <tr style="padding:5px;border: 0.5px solid #999;">
-                                <td style="border: 0.5px solid #999;padding:5px">ຄ່າທ່ຽວ</td>
+                                <td style="border: 0.5px solid #999;padding:5px">ຄ່າດ່ານຫວຽດຂາກັບ</td>
                                 <td style="border: 0.5px solid #999;padding:5px">{{
-            performaceGroupFee?.performancefeetiew }}</td>
+            performaceGroupFee?.performanceovertime }}</td>
                             </tr>
                             <tr style="padding:5px;border: 0.5px solid #999;">
-                                <td style="border: 0.5px solid #999;padding:5px">ຄ່າລ່ວງເວລາຢູ່ຫວຽດນາມ</td>
+                                <td style="border: 0.5px solid #999;padding:5px">ຄ່າດ່ານລາວຂາໄປ - ຂາກັບ</td>
                                 <td style="border: 0.5px solid #999;padding:5px">{{
             performaceGroupFee?.performanceovervn }}</td>
                             </tr>
-                            <tr style="padding:5px;border: 0.5px solid #999;">
+                            <!-- <tr style="padding:5px;border: 0.5px solid #999;">
                                 <td style="border: 0.5px solid #999;padding:5px">ຄ່າລ່ວງເວລາຢູ່ດ່ານຫຼັກ20</td>
                                 <td style="border: 0.5px solid #999;padding:5px">{{
             performaceGroupFee?.performanceboderlak20 }}</td>
-                            </tr>
+                            </tr> -->
                             <tr style="padding:5px;border: 0.5px solid #999;">
-                                <td style="border: 0.5px solid #999;padding:5px">ຄ່າປະທັບກາພາສປອດ</td>
+                                <td style="border: 0.5px solid #999;padding:5px">ຄ່າຊິງນາອິນ</td>
                                 <td style="border: 0.5px solid #999;padding:5px">{{
             performaceGroupFee?.performancepassport }}</td>
                             </tr>
                             <tr style="padding:5px;border: 0.5px solid #999;">
-                                <td style="border: 0.5px solid #999;padding:5px">ຄ່າຊິດຢາຕ້ານເສື້ອ</td>
+                                <td style="border: 0.5px solid #999;padding:5px">ອື່ນໆ</td>
                                 <td style="border: 0.5px solid #999;padding:5px">{{
             performaceGroupFee?.performancevaccine }}</td>
                             </tr>
                             <tr style="padding:5px;border: 0.5px solid #999;">
-                                <td style="border: 0.5px solid #999;padding:5px">ຄ່າແຈ້ງຊີງ</td>
+                                <td style="border: 0.5px solid #999;padding:5px">ຄ່າໃບຊີງ</td>
                                 <td style="border: 0.5px solid #999;padding:5px">{{
             performaceGroupFee?.performancefeesing }}</td>
                             </tr>
+                            
                             <tr style="padding:5px;border: 0.5px solid #999;">
-                                <td style="border: 0.5px solid #999;padding:5px">ຄ່າສະພານ</td>
+                                <td style="border: 0.5px solid #999;padding:5px">ຄ່າແຈ້ງເອກະສານຢູ່ບ່ອນຂຶ້ນເກືອ</td>
                                 <td style="border: 0.5px solid #999;padding:5px">{{
             performaceGroupFee?.performancefeesaphan }}</td>
                             </tr>
                             <tr style="padding:5px;border: 0.5px solid #999;">
-                                <td style="border: 0.5px solid #999;padding:5px">ຄ່າຍົກຕູ້</td>
-                                <td style="border: 0.5px solid #999;padding:5px">{{
-            performaceGroupFee?.performancefeeyoktu }}</td>
-                            </tr>
-                            <tr style="padding:5px;border: 0.5px solid #999;">
-                                <td style="border: 0.5px solid #999;padding:5px">ຄ່າເອົາຕູ້ອອກຈາກດ່ານສາວ</td>
+                                <td style="border: 0.5px solid #999;padding:5px">ຄ່າລົງເກືອ</td>
                                 <td style="border: 0.5px solid #999;padding:5px">{{
             performaceGroupFee?.performancefeeoutcontainer }}</td>
+                            </tr>
+                            <tr style="padding:5px;border: 0.5px solid #999;">
+                                <td style="border: 0.5px solid #999;padding:5px">ຄ່າລ່ວງເວລາ</td>
+                                <td style="border: 0.5px solid #999;padding:5px">{{
+            performaceGroupFee?.performancefeeyoktu }}</td>
                             </tr>
                             <tr style="padding:5px;border: 0.5px solid #999;">
                                 <td style="border: 0.5px solid #999;padding:5px">ລວມລາຍຈ່າຍທັງໝົດ</td>
@@ -332,6 +333,11 @@
                                     ',')
                                     }}</td>
                             </tr>
+                            <!-- <tr style="padding:5px;border: 0.5px solid #999;">
+                                <td style="border: 0.5px solid #999;padding:5px">ຄ່າສະພານ</td>
+                                <td style="border: 0.5px solid #999;padding:5px">{{
+            performaceGroupFee?.performancefeesaphan }}</td>
+                            </tr> -->
 
                         </table>
                     </div>

@@ -101,7 +101,7 @@
                                 min-width="auto">
                                 <template v-slot:activator="{ on, attrs }">
                                     <span>ວັນທີກັບ</span>
-                                    <v-text-field v-model="start_go_date" dense flat solo background-color="#a4eaff"
+                                    <v-text-field v-model="start_go_date" dense flat solo background-color="#f5f5f5"
                                         required placeholder="ເລືອກວັນທີກັບ" prepend-inner-icon="mdi-calendar" readonly
                                         v-bind="attrs" v-on="on"></v-text-field>
                                 </template>
@@ -114,27 +114,26 @@
 
 
 
-                        <div style="width: 700px" class="pl-2">
-                            <span>ນໍ້າໜັກລົດເປົ່າ<span  style="color: red"> 1</span></span>
-                            <v-text-field flat solo dense background-color="#ffb6b6" placeholder="ປ້ອນນ້ຳໜັກລົດເປົ່າ"
-                                v-model="numnuklod"></v-text-field>
-                        </div>
 
-                        <div style="width:700px" class="pl-2">
-                            <span>ລາຄາ <span  style="color: red"> 2</span> </span>
-                            <v-text-field flat solo dense background-color="#fc9a9a" placeholder="ປ້ອນລາຄາ"
-                                v-model="price"></v-text-field>
-                        </div>
-
-                        <div style="width:700px" class="pl-2">
-                            <span>ນໍ້າໜັກສິນຄ້າ <span  style="color: red"> 3</span></span>
-                            <v-text-field flat solo dense background-color="#ff8383" placeholder="ປ້ອນນໍ້າໜັກສິນຄ້າ"
-                                append-icon="mdi-format-title" v-model="proSize"></v-text-field>
-                        </div>
                         <div style="width: 750px" class="pl-2">
                             <span>ນໍ້າໜັກທັງໝົດ <spam :style="{ color: 'red' }">( ຄິດໄລເເບບໂອໂຕ )</spam></span>
                             <v-text-field flat solo dense background-color="#ffdb9c" placeholder="ນໍ້າໜັກທັງໝົດ"
                                 v-model="numnuktotal" readonly></v-text-field>
+                        </div>
+                        <div style="width: 700px" class="pl-2">
+                            <span>ນໍ້າໜັກລົດເປົ່າ<span  style="color: red"> 1</span></span>
+                            <v-text-field flat solo dense background-color="#E1F5FE" placeholder="ປ້ອນນ້ຳໜັກລົດເປົ່າ"
+                                v-model="numnuklod"></v-text-field>
+                        </div>
+                        <div style="width:700px" class="pl-2">
+                            <span>ນໍ້າໜັກສິນຄ້າ <span  style="color: red"> 3</span></span>
+                            <v-text-field flat solo dense background-color="#E1F5FE" placeholder="ປ້ອນນໍ້າໜັກສິນຄ້າ"
+                                append-icon="mdi-format-title" v-model="proSize"></v-text-field>
+                        </div>
+                        <div style="width:700px" class="pl-2">
+                            <span>ລາຄາ <span  style="color: red"> 2</span> </span>
+                            <v-text-field flat solo dense background-color="#E1F5FE" placeholder="ປ້ອນລາຄາ"
+                                v-model="price"></v-text-field>
                         </div>
                         <div style="width:700px" class="pl-2">
                             <span>ລາຄາລວມ <spam :style="{ color: 'red' }">( ຄິດໄລເເບບໂອໂຕ )</spam></span>
@@ -143,7 +142,7 @@
                         </div>
                         <div style="width:700px" class="pl-2">
                             <span>ສະກຸນເງິນ</span>
-                            <v-select label="ເລືອກສະກຸນເງິນ" class="pl-2" flat solo dense background-color="#ea90f4"
+                            <v-select label="ເລືອກສະກຸນເງິນ" class="pl-2" flat solo dense background-color="#f5f5f5"
                                 :items="currency_items" v-model="currency"></v-select>
                         </div>
 
@@ -225,7 +224,7 @@
 
                         <template v-slot:activator="{ on, attrs }">
                             <span>ວັນທີເກັບເງິນ</span>
-                            <v-text-field v-model="dpay_Money" dense flat solo background-color="#a4eaff" required
+                            <v-text-field v-model="dpay_Money" dense flat solo background-color="#f5f5f5" required
                                 placeholder="ເລືອກວັນກຳນົດເກັບເງິນ" prepend-inner-icon="mdi-calendar" readonly
                                 v-bind="attrs" v-on="on"></v-text-field>
                         </template>

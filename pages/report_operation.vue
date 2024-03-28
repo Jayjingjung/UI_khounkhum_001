@@ -450,13 +450,14 @@
                 </v-row>
                 <br>
                 <div class="text-center" style="display:flex;justify-content:center;font-size:20px;font-weight:bold">
-                    ລາຍງານໃບປ່ອຍລົດ</div>
+                    ລາຍງານໃບປະຕິບັດງານ</div>
 
-                <span style="width:100%;margin-top:20px;;font-size:12px;display:flex;justify-content:start" class="pt-4 mb-10">
+                <span style="width:100%;margin-top:20px;;font-size:12px;display:flex;justify-content:start"
+                    class="pt-4 mb-10">
 
-                    <div  class="ml-10 mr-5">
+                    <div class="ml-10 mr-5">
                         <span> ທັງໝົດ: </span>
-                        <span  class="green--text ml-10 mr-5">{{ report_peration_list?.length }}</span>
+                        <span class="green--text ml-10 mr-5">{{ report_peration_list?.length }}</span>
                     </div>
 
                     <div class="ml-5 mr-5">
@@ -469,10 +470,69 @@
                         <!-- Display number of unpaid invoices -->
                     </div>
                 </span>
-              
+
+
+                <table style="border-collapse: collapse; width: 100%; font-size: 12px; margin-top: 20px;">
+                    <tr>
+                        <td style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px"
+                            class="font-weight-bold">ລຳດັບ</td>
+                        <th style="border: 1px solid #999; padding: 8px;">ວັນທີ</th>
+                        <th style="border: 1px solid #999; padding: 8px;">ເລກບິນ</th>
+                        <th style="border: 1px solid #999; padding: 8px;">ເລກປ່ອຍລົດ</th>
+                        <th style="border: 1px solid #999; padding: 8px;">ຊື່ລູກຄ້າ</th>
+                        <th style="border: 1px solid #999; padding: 8px;">ສິນຄ້າ</th>
+                        <th style="border: 1px solid #999; padding: 8px;">ຮ້ານຄ້າປາຍທາງ</th>
+                        <th style="border: 1px solid #999; padding: 8px;">ຈຳນວນໂຕນ(T)</th>
+                        <th style="border: 1px solid #999; padding: 8px;">ລາຄາຕໍ່ໂຕນ</th>
+                        <th style="border: 1px solid #999; padding: 8px;">ລາຍຮັບທັງໝົດ</th>
+                        <!-- Add other table headers as needed -->
+                    </tr>
+
+                    <tr v-for="(item, index) in report_peration_list" :key="index">
+                        <td style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px;text-align: center;"
+                            class="font-weight-bold">{{ index + 1 }}</td>
+                        <td style="border: 1px solid #999; padding: 8px;">{{ item.performancedate }}</td>
+                        <td style="border: 1px solid #999; padding: 8px;">{{ item.key_ID }}</td>
+                        <td style="border: 1px solid #999; padding: 8px;">{{ item.performancebillno }}</td>
+                        <td style="border: 1px solid #999; padding: 8px;">{{ item.customer_NAME }}</td>
+                        <td style="border: 1px solid #999; padding: 8px;">{{ item.pro_NAME }}</td>
+                        <td style="border: 1px solid #999; padding: 8px;">{{ item.pro_TYPE }}</td>
+                        <td style="border: 1px solid #999; padding: 8px;">{{ item.proSize }}</td>
+                        <td style="border: 1px solid #999; padding: 8px;">{{ item.prizeProcuctPerT }}</td>
+                        <td style="border: 1px solid #999; padding: 8px;">{{ item.total_PRICE }}</td>
+                        <!-- Add other table data cells as needed -->
+                    </tr>
+                </table>
+
+                <div
+                    style="display: flex;margin-top:10px; flex-direction: column; justify-content: flex-end; font-size: 13px;">
+                    <div style="height: 35px;">
+                        <td>
+                            <h3>ລວມຈຳນວນໂຕນ: </h3>
+                        </td>
+                        <td>
+                            <b>
+                                <h3 class="green--text "> {{ sumTonProSize }} T </h3>
+                            </b>
+                        </td>
+                    </div>
+
+                    <div style="height: 35px;">
+                        <td>
+                            <h3>ລວມທັງໝົດ: </h3>
+                        </td>
+                        <td>
+                            <b>
+                                <h3 class="green--text "> {{ sumAmount }} LAK </h3>
+                            </b>
+                        </td>
+                    </div>
+
+                </div>
 
                 <div
                     style="display:flex;flex-direction:row;justify-content:space-between;margin-top:120px; font-size: 12px">
+
 
                     <div
                         style="width:100%;display:flex;flex-direction:column;justify-content:center;align-items:center;padding-left:20px; font-size: 12px">

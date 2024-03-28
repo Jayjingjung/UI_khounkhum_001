@@ -30,7 +30,7 @@
                                 <td>{{ row?.item?.customer_NAME }}</td>
                                 <td>{{ row?.item?.pro_NAME }}</td>
                                 <td>{{ row?.item?.pro_TYPE }}</td>
-                                <td>{{ moment(row?.item?.performancedate).format('DD/MM/YYYY HH:mm:ss') }}</td>
+                                <td>{{ moment(row?.item?.performancedate).format('DD/MM/YYYY') }}</td>
                                 <td class="green--text">{{ row?.item?.total_PRICE?.replace(/\B(?=(\d{3})+(?!\d))/g,
                                     ',') }} {{ row?.item?.currency }}</td>
                                 <td v-if="row?.item?.status === 'N'">

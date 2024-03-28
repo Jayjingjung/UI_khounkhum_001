@@ -232,7 +232,7 @@
                                 </td>
                                 <td v-if="sumFooter != null">
                                     <b>
-                                        <h3 class="red--text ">{{ sumFooter.totalSopher }}</h3>
+                                        <h3 class="red--text ">{{ sumFooter.totalBiaLieng }}</h3>
                                     </b>
                                 </td>
                                 <td> </td>
@@ -269,7 +269,7 @@
                                 </td>
                                 <td v-if="sumFooter != null">
                                     <b>
-                                        <h3 class="red--text ">{{ sumFooter.totalSopherAndlaiJaiyOutFrist }}</h3>
+                                        <h3 class="red--text ">{{ sumFooter.totalBiaLiengAndlaiJaiyOutFrist }}</h3>
                                     </b>
                                 </td>
                                 <td> </td>
@@ -412,7 +412,7 @@
                         </td>
                         <td v-if="sumFooter != null">
                             <b>
-                                <h3 class="red--text ">{{ sumFooter.totalSopher }} LAK</h3>
+                                <h3 class="red--text ">{{ sumFooter.totalBiaLieng }} LAK</h3>
                             </b>
                         </td>
 

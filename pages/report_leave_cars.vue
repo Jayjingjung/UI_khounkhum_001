@@ -346,9 +346,9 @@
                     <tr style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;border-radius:10px">
 
                         <td style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px"
-                            class=" font-weight-bold">ວັນທີອອກ</td>
-                        <td style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px"
                             class=" font-weight-bold">ລຳດັບ</td>
+                        <td style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px"
+                            class=" font-weight-bold">ວັນທີອອກ</td>
                         <td style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px"
                             class=" font-weight-bold">ເລກປ່ອຍລົດ</td>
                         <td style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px"
@@ -370,14 +370,14 @@
 
                         <!-- {{ moment(row?.item?.out_DATE).format('DD/MM/YYYY') }} -->
 
+                        <td style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px;text-align: center;"
+                            class=" font-weight-bold">{{ i + 1 }}</td>
                         <td style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px"
                             class=" font-weight-bold">{{ moment(item?.out_DATE).format('DD/MM/YYYY') }}</td>
 
                         <!-- <td style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px"
                             class=" font-weight-bold">{{ item?.out_DATE }}</td> -->
 
-                        <td style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px;text-align: center;"
-                            class=" font-weight-bold">{{ i + 1 }}</td>
                         <!-- <td style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px"
                             class=" font-weight-bold">{{ item?.out_DATE }}</td> -->
                         <td style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px"

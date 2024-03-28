@@ -39,7 +39,7 @@
                                 </v-date-picker>
                             </v-menu>
                         </div>
-                        
+
                         <div class="ml-2 pt-1">
                             <v-btn color="#90A4AE" elevation="0" class="white--text"
                                 @click="onSeachPermance(row?.item?.key_ID)"><v-icon>mdi-magnify</v-icon>ຄົ້ນຫາ</v-btn>
@@ -101,8 +101,9 @@
                                 <td>{{ row?.item?.pro_TYPE }}</td>
                                 <td>{{ moment(row?.item?.performancedate).format('DD/MM/YYYY') }}</td>
                                 <td>{{ row?.item?.proSize }}</td>
-                                <td>{{ row?.item?.prizeProcuctPerT.replace(/\B(?=(\d{3})+(?!\d))/g,',') }} {{ row?.item?.currency }}</td>
-                                <td class="green--text">{{ row?.item?.total_PRICE?.replace(/\B(?=(\d{3})+(?!\d))/g,',') }} {{ row?.item?.currency }}</td>
+                                <td>{{ row?.item?.prizeProcuctPerT }} {{ row?.item?.currency }}</td>
+                                <td class="green--text">{{ row?.item?.total_PRICE?.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+                                    }} {{ row?.item?.currency }}</td>
 
                                 <td v-if="row?.item?.status === 'N'">
 
@@ -147,7 +148,7 @@
                                 <td>
                                     <h3>ລວມທັງໝົດ:</h3>
                                 </td>
-                                <td >
+                                <td>
                                     <b>
                                         <h3 class="green--text "> {{ sumAmount }} LAK </h3>
                                     </b>
@@ -155,7 +156,7 @@
 
 
 
-                                
+
 
                             </tr>
                         </template>
@@ -316,7 +317,7 @@
                                 <td style="border: 0.5px solid #999;padding:5px">{{
             performaceGroupFee?.performancefeesing }}</td>
                             </tr>
-                            
+
                             <tr style="padding:5px;border: 0.5px solid #999;">
                                 <td style="border: 0.5px solid #999;padding:5px">ຄ່າແຈ້ງເອກະສານຢູ່ບ່ອນຂຶ້ນເກືອ</td>
                                 <td style="border: 0.5px solid #999;padding:5px">{{
@@ -336,8 +337,8 @@
                                 <td style="border: 0.5px solid #999;padding:5px">ລວມລາຍຈ່າຍທັງໝົດ</td>
                                 <td style="border: 0.5px solid #999;padding:5px">{{
             performaceGroupFee?.feetotal?.replace(/\D/g, '')?.replace(/\B(?=(\d{3})+(?!\d))/g,
-                                    ',')
-                                    }}</td>
+                ',')
+        }}</td>
                             </tr>
                             <!-- <tr style="padding:5px;border: 0.5px solid #999;">
                                 <td style="border: 0.5px solid #999;padding:5px">ຄ່າສະພານ</td>
@@ -370,8 +371,8 @@
                                         <span>ລວມ</span>
                                         <v-spacer></v-spacer>
                                         <span>{{ (performance_GroupFeePower?.totalNumMun)?.replace(/\D/g, '')
-                                            .slice(0, -3) // Remove the last three digits (,000)
-                                            .replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</span>
+            .slice(0, -3) // Remove the last three digits (,000)
+            .replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</span>
                                     </div>
 
                                     <!-- <div style="display:flex;flex-direction:row;justify-content:space-between">

@@ -279,6 +279,14 @@
                     :rules="nameRules"></v-text-field>
                 </div>
               </div>
+              <!-- <div>
+                <label for="paymentMethod">Payment Method:</label>
+                <select dense outlined label="paymentMethod" id="paymentMethod" v-model="selectedPayment"
+                  :rules="nameRules" class="custom-select">
+                  <option value="0">Pay</option>
+                  <option value="1">Cash</option>
+                </select>
+              </div> -->
             </div>
           </div>
           <!-- all payments ຄ່າສິ້ນເປືອງ -->
@@ -335,7 +343,7 @@
                   <v-text-field outlined background-color="#f5f5f5" dense label="ຄ່າລ່ວງເວລາ"
                     v-model="formattedFeeyoktu"></v-text-field>
                 </div>
-              
+
 
                 <div style="width:100%" class="pl-2">
                   <v-text-field outlined background-color="#f5f5f5" dense label="ອື່ນໆ"
@@ -343,7 +351,7 @@
                 </div>
               </div>
               <div style="display:flex;justify-content:space-between">
-             
+
               </div>
             </div>
           </div>
@@ -368,7 +376,9 @@
           </v-col>
           <v-col cols="9">
             <div style="display:flex;justify-content:start;flex-direction:column;align-items:start">
-              <span style="font-size:14px"><b><Noti/> </b> </span>
+              <span style="font-size:14px"><b>
+                  <Noti />
+                </b> </span>
               <span style="font-size:12px">ສໍານັກງານຕັ້ງຢູ່ ອາຄານ ສະໜາມຍິງປືນ 20 ມັງກອນ, ສະໜາມກີລາກອງທັບ, ບ້ານຈອມມະນີ,
                 ເມືອງ ໄຊເສດຖາ, ນະຄອນຫຼວງວຽງຈັນ, ສປປ ລາວ</span>
               <span style="font-size:12px">ໂທລະສັບ: 020 92661111, 020 92 254 999 | ອີເມວ: kounkham@Mining | ເວັບໄຊ:
@@ -1611,7 +1621,7 @@
                   class="font-weight-bold">
                   <div style="width:100%;display:flex;justify-content:center;align-items:center">
                     <span>{{
-                      parseFloat(br_TRIES_KM_5?.split(',')?.join('')) - parseFloat(road_send_km?.split(',')?.join(''))
+      parseFloat(br_TRIES_KM_5?.split(',')?.join('')) - parseFloat(road_send_km?.split(',')?.join(''))
                       }}</span>
                   </div>
                 </td>
@@ -2441,8 +2451,8 @@ export default {
           header_ID: this.header_ID,//
           staff_ID_NUM2: this.staff_ID_NUM2,//
           khg_MUE_TIDLOD: this.digital_with_car,//
-        
-          
+
+
 
 
           toKen: localStorage.getItem('toKen'),
@@ -2472,9 +2482,9 @@ export default {
 
 
           add_feeOvertime1: 0,
-          add_feeJumPo2:  0,
+          add_feeJumPo2: 0,
           add_feePolish3: 0,
-          add_feeTaxung4:  0,
+          add_feeTaxung4: 0,
           add_feeTiew5: 0,
 
           add_feesing: 0,
@@ -2952,7 +2962,9 @@ export default {
         })
       }
     },
+
   },
+
 }
 </script>
 <style lang="scss">
@@ -3020,5 +3032,11 @@ export default {
 .top {
   margin-top: 5px;
   margin-left: 10px;
+}
+
+.custom-select {
+  border: 1px solid #ccc;
+  width: 400px;
+  background-color: #f5f5f5;
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-    <v-card padding-top="1" height="640" width="2000" class="mx-auto">
+    <v-card padding-top="1" height="840" width="2000" class="mx-auto">
         <v-row>
             <v-col cols="2">
                 <v-navigation-drawer permanent :active="active">
@@ -94,154 +94,11 @@
                 <div v-if="page === 3">
                     <div>
                         <!-- <div>ເພີ່ມລາຍຈ່າຍ</div> -->
-                        <div class="d-flex align-center">
-                            <v-form v-model="valid" ref="form" lazy-validation>
-                                <div style="height:80vh;width:250px;border-radius:5px;border:1px solid #e0e0e0"
-                                    class="pa-8">
-                                    <v-select dense outlined label="ເລືອກປະເພດລາຍຈ່າຍ" v-model="type"
-                                        :items="expense_list_type" item-text="typeName" item-value="key_id"
-                                        :rules="nameRules"></v-select>
-                                    <v-text-field dense outlined label="ຈຳນວນ" v-model="amount"></v-text-field>
-                                    <!-- <v-text-field dense outlined label="ເລກໃບບີນ" v-model="?"></v-text-field> -->
-                                    <v-text-field dense outlined label="ລາຄາ/ອັນ" v-model="perAmount"></v-text-field>
-                                    <v-text-field dense outlined label="ລາຄາທັງໝົດ" v-model="totalAmount" readonly
-                                        :rules="nameRules"></v-text-field>
-                                    <v-menu ref="start_menu" v-model="start_menu" :close-on-content-click="false"
-                                        :return-value.sync="dateSave" transition="scale-transition" offset-y
-                                        min-width="auto">
-                                        <template v-slot:activator="{ on, attrs }">
-                                            <v-text-field dense outlined v-model="dateSave" :rules="nameRules" required
-                                                label="ວັນທີຈ່າຍຄ່າ" append-icon="mdi-calendar" readonly v-bind="attrs"
-                                                v-on="on"></v-text-field>
-                                        </template>
-                                        <v-date-picker v-model="dateSave" no-title scrollable
-                                            @input="$refs.start_menu.save(dateSave)">
-                                            <v-spacer></v-spacer>
-                                        </v-date-picker>
-                                    </v-menu>
-                                    <div>
-                                        <v-btn elevation="0" block color="#448AFF" class="white--text"
-                                            @click="onSave">ເພີ່ມ</v-btn>
-                                    </div>
-                                </div>
-                            </v-form>
-                            <!-- ອັບເດດ -->
-                            <v-dialog v-model="updateDia" max-width="400">
-                                <v-card>
-                                    <v-card-title>ແກ້ໄຂ</v-card-title>
-                                    <v-card-text>
-                                        <div style="border-radius:5px;background-color:#f5f5f5" class="pa-8">
-                                            <v-select dense outlined label="ເລືອກປະເພດລາຍຈ່າຍ" v-model="type1"
-                                                :items="list_expense_type_for_up"></v-select>
-                                            <v-text-field dense outlined label="ຈຳນວນ" v-model="amount1"></v-text-field>
-                                            <v-text-field dense outlined label="ລາຄາ/ອັນ"
-                                                v-model="perAmount1"></v-text-field>
-                                            <v-text-field dense outlined label="ລາຄາທັງໝົດ" v-model="totalAmount1"
-                                                readonly></v-text-field>
-                                            <v-menu ref="start_menu1" v-model="start_menu1" :close-on-content-click="false"
-                                                :return-value.sync="dateSave1" transition="scale-transition" offset-y
-                                                min-width="auto">
-                                                <template v-slot:activator="{ on, attrs }">
-                                                    <v-text-field dense outlined v-model="dateSave1" :rules="nameRules"
-                                                        required label="ວັນທີຈ່າຍຄ່າ" append-icon="mdi-calendar" readonly
-                                                        v-bind="attrs" v-on="on"></v-text-field>
-                                                </template>
-                                                <v-date-picker v-model="dateSave1" no-title scrollable
-                                                    @input="$refs.start_menu1.save(dateSave1)">
-                                                    <v-spacer></v-spacer>
-                                                </v-date-picker>
-                                            </v-menu>
-                                            <div class="d-flex align-center">
-                                                <v-spacer></v-spacer>
-                                                <v-btn elevation="0" color="red" class="white--text mr-2"
-                                                    @click="updateDia = false">ຍົກເລຶກ</v-btn>
-                                                <v-btn elevation="0" color="#FFB74D" class="white--text"
-                                                    @click="onUpdate">ອັບເດດ</v-btn>
-                                            </div>
-                                        </div>
-                                    </v-card-text>
-                                </v-card>
-                            </v-dialog>
-                            <!-- ຂໍ້ມູນລາຍຈ່າຍ -->
-                            <div style="width:100%;height:80vh;border:1px solid #e0e0e0;border-radius:5px" class="ml-2">
-                                <div style="">
-                                    <v-card-title style="background-color:#E57373;color:white">ຂໍ້ມູນລາຍຈ່າຍ</v-card-title>
-                                    <v-card-text class="pt-3">
-                                        <div style="padding-bottom:10px">
-                                            <span>ທັງໝົດ:
-                                                <span class="green--text" style="font-size: 12pt; font-weight: bold">{{
-                                                    expense_list?.length
-                                                        ?.toString()
-                                                        ?.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
-                                                }}</span></span>
-                                        </div>
-                                        <v-divider></v-divider>
-                                        <div style="overflow: scroll;overflow-y: scroll;overflow-x: hidden;height:65vh">
-                                            <v-data-table :items="expense_list" :headers="expense_header">
-                                                <template v-slot:item="row">
-                                                    <tr>
-                                                        <td>{{ row?.item?.exPType }}</td>
-                                                        <td>{{ row?.item?.amount?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}
-                                                        </td>
-                                                        <td>{{ row?.item?.perAmount?.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
-                                                        }}</td>
-                                                        <td>{{ row?.item?.toTal?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}
-                                                        </td>
-                                                        <td>{{ row?.item?.cdate }}</td>
-                                                        <td>{{ row?.item?.expDate }}</td>
-                                                        <td>
-                                                            <v-btn color="#FFB74D" small elevation="0"
-                                                                @click="onGetDaForUp(row?.item?.key_id, row?.item?.exPType, row?.item?.amount, row?.item?.perAmount, row?.item?.toTal, row?.item?.expDate)">
-                                                                <v-icon color="white">mdi-pencil</v-icon>
-                                                                <span class="white--text">ແກ້ໄຂ</span>
-                                                            </v-btn>
-                                                        </td>
-                                                        <td>
-                                                            <v-btn color="red" small elevation="0"
-                                                                @click="onDelete(row?.item?.key_id)">
-                                                                <v-icon color="white">mdi-delete</v-icon>
-                                                                <span class="white--text">ລົບ</span>
-                                                            </v-btn>
-                                                        </td>
-                                                    </tr>
-                                                </template>
-                                            </v-data-table>
-                                        </div>
-                                    </v-card-text>
-                                </div>
-                            </div>
-
-                        </div>
+                    <create-expense2/>
                     </div>
                 </div>
                 <div v-if="page === 4">
-                    <v-vol>
-                        <c-card>
-                            <v-vol>
-                                <v-card class="d-flex align-center" width="400">
-                                    <v-col clos="1">
-                                        <v-text-field label="ປ້ອນປະເພດລາຍລາຍຈ່າຍ" outlined dense v-model="money"
-                                            :rules="nameRules"></v-text-field>
-                                        <v-vol>
-                                            <v-btn elevation="3" color="green" @click="onInserTruct">
-                                                <v-icon color="white">mdi-plus</v-icon>
-                                                <span class="white--text">ເພີ່ມ</span>
-                                            </v-btn>
-                                        </v-vol>
-                                    </v-col>
-                                </v-card>
-                                <v-vol class="d-flex align-center mt-3">
-                                    <v-col clos="1" md="5" sm="5">
-                                        <span>ຊື່ປະເພດລາຍຈ່າຍ</span>
-                                    </v-col>
-                                </v-vol>
-                                <v-data-table>
-
-                                </v-data-table>
-
-                            </v-vol>
-                        </c-card>
-                    </v-vol>
+                    <create-expense-type2/>
 
                 </div>
             </v-col>

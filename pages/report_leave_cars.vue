@@ -294,7 +294,7 @@
                                 <td> </td>
 
                                 <td>
-                                    <h4> ລວມເງິນສິ້ນເປືອງເບ້ຍລ້ຽງ:</h4>
+                                    <h4>ລວມ(ສິ້ນເປືອງ+ຈ່າຍນອກ+ເບ້ຍລ້ຽງ):</h4>
                                 </td>
                                 <td v-if="sumFooter != null">
                                     <b>
@@ -442,11 +442,11 @@
                     </div>
                     <div style="height: 35px;">
                         <td>
-                            <h3> ລວມເງິນສິ້ນເປືອງເບ້ຍລ້ຽງ: </h3>
+                            <h3> ລວມເງິນສິ້ນເປືອງ (ສິ້ນເປືອງ+ຈ່າຍນອກ+ເບ້ຍລ້ຽງ ):  </h3>
                         </td>
-                        <td v-if="sumFooter != null">
+                        <td v-if="sumFooter != null" >
                             <b>
-                                <h3 class="red--text ">{{ sumFooter.biaOutWasted }} LAK</h3>
+                                <h3 class="red--text "> {{ sumFooter.biaOutWasted }} LAK</h3>
                             </b>
                         </td>
                     </div>

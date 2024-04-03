@@ -43,6 +43,13 @@
               ລາຍຈ່າຍ</span><v-spacer></v-spacer></v-btn>
           <!-- <v-btn v-if="USER_ROLE !=='USER'" color="white" to="create-expense" elevation="0" block><span
               class="black--text">ເພີ່ມລາຍຈ່າຍ</span><v-spacer></v-spacer></v-btn> -->
+
+            <!-- Gas -->
+
+              <v-btn color="white" to="insert _gas" elevation="0" block><span
+              class="black--text">ເພີ່ມສະຖານີປໍານໍ້າມັນ</span><v-spacer></v-spacer></v-btn>
+
+              <!-- Gas -->
         </v-list>
       </v-menu>
 

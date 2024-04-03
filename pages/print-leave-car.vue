@@ -277,88 +277,118 @@
                         </div>
                     </div>
                 </v-card-text>
+                <div style="width:100%;background-color:#f5f5f5;border-radius:5px" class="mr-6 pa-4">
+                    <span class="text-center">- ຄ່າສິ້ນເປືອງ</span>
+                    <div>
 
-                <!-- ค่าสิ้นเปือง=============================Start======================== -->
-                <div>
-            
-              <div style="width:100%;background-color:#f5f5f5;border-radius:5px" class="mr-6 pa-4"> 
-              <span>- ຄ່າສິ້ນເປືອງ</span>
-            <div style="width:100%" class="pt-4">
-                        <div style="display:flex;justify-content:space-between">
-                            <div style="width:100%">
-                                <span>ຄ່າຊິງມະຫາໄຊ</span>
-                                <v-text-field readonly solo flat background-color="#FCE4ECFF" outlined dense
-                                    placeholder="ຄ່າຊິງມະຫາໄຊ" v-model="performanceJumPho"></v-text-field>
-                            </div>
-                           
-                            <div style="width:100%" class="px-2">
-                                <span>ຄ່າຕຳລວດ</span>
-                                <v-text-field readonly solo flat background-color="#FCE4ECFF" outlined dense placeholder="ຄ່າຕຳລວດ"
-                                    v-model="performanceFeePolish"></v-text-field>
-                            </div>
-                            <div style="width:100%" class="px-2">
-                                <span>ຄ່າສິ້ນເປືອງຢູ່ສາງພາສີ</span>
-                                <v-text-field readonly solo flat background-color="#FCE4ECFF" outlined dense
-                                    placeholder="ຄ່າສິ້ນເປືອງຢູ່ສາງພາສີ" v-model="per_PA"></v-text-field>
-                            </div>
-                            <div style="width:100%" class="px-2">
-                                <span>ຄ່າດ່ານຫວຽດຂາກັບ</span>
-                                <v-text-field readonly solo flat background-color="#FCE4ECFF" outlined dense
-                                    placeholder="ຄ່າດ່ານຫວຽດຂາກັບ" v-model="performanceovervn"></v-text-field>
-                            </div>
-                            <div style="width:100%" class="px-2">
-                                <span>ຄ່າດ່ານລາວຂາໄປ - ຂາກັບ</span>
-                                <v-text-field readonly solo flat background-color="#FCE4ECFF" outlined dense
-                                    placeholder="ຄ່າດ່ານລາວຂາໄປ - ຂາກັບ" v-model="performanceovertime"></v-text-field>
-                            </div>
-                            <div style="width:100%" class="pl-2">
-                                <span>ຄ່າຊິງນາອິນ</span>
-                                <v-text-field readonly solo flat background-color="#FCE4ECFF" outlined dense
-                                    placeholder="ຄ່າຊິງນາອິນ" v-model="performancepassport"></v-text-field>
-                            </div>
+                        <div v-if="wastedValueData" style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                        <div  v-for="(item, index) in wastedValueData" :key="index">
+                                <div style="display:flex">
+                                    <div style="height: 50px; font-size: 18px ; " class="mr-5 ml-5 mt-5 mb-5 text-center " > ຄ່າຊິງມະຫາໄຊ: {{ item.feeJumPo2 }}</div >
+                                    <div style="height: 50px; font-size: 18px ; " class="mr-5 ml-5 mt-5 mb-5 text-center " > ຄ່າຊິງນາອິນ: {{ item.feePassport }}</div >
+                                    <div style="height: 50px; font-size: 18px ; " class="mr-5 ml-5 mt-5 mb-5 text-center " > ຄ່າຕຳລວດ: {{ item.feePolish3 }}</div >
+                                    <div style="height: 50px; font-size: 18px ; " class="mr-5 ml-5 mt-5 mb-5 text-center " > ຄ່າສິ້ນເປືອງຢູ່ສາງພາສີ: {{ item.feepayang }}</div >
+                                    <div style="height: 50px; font-size: 18px ; " class="mr-5 ml-5 mt-5 mb-5 text-center " > ຄ່າດ່ານລາວຂາໄປ - ຂາກັບ: {{ item.feeTiew5 }}</div >
+                                    <div style="height: 50px; font-size: 18px ; " class="mr-5 ml-5 mt-5 mb-5 text-center " > ຄ່າດ່ານຫວຽດຂາກັບ: {{ item.feeOvertime1 }}</div >
+                                </div>
+                    <v-divider></v-divider>
+                                
+                                <div style="display:flex">
+                                    <div style="height: 50px; font-size: 18px ; " class="mr-5 ml-5 mt-5 mb-5 text-center " > ຄ່າຊິບປິ້ງຫວຽດແລ່ນເອກະສານ: {{ item.feeTaxung4 }}</div >
+                                    <div style="height: 50px; font-size: 18px ; " class="mr-5 ml-5 mt-5 mb-5 text-center " > ຄ່າໃບຊີງ: {{ item.feesing }}</div >
+                                    <div style="height: 50px; font-size: 18px ; " class="mr-5 ml-5 mt-5 mb-5 text-center " > ຄ່າແຈ້ງເອກະສານຢູ່ບ່ອນຂຶ້ນເກືອ: {{ item.feesaphan }}</div >
+                                    <div style="height: 50px; font-size: 18px ; " class="mr-5 ml-5 mt-5 mb-5 text-center " > ຄ່າລົງເກືອ: {{ item.feecontrainer }}</div >
+                                    <div style="height: 50px; font-size: 18px ; " class="mr-5 ml-5 mt-5 mb-5 text-center " > ຄ່າລ່ວງເວລາ: {{ item.feeyoktu }}</div >
+                                    <div style="height: 50px; font-size: 18px ; " class="mr-5 ml-5 mt-5 mb-5 text-center " > ອື່ນໆ: {{ item.feevacin }}</div >                    
+                                </div>                
+                            </div>                            
                         </div>
-                        <div style="display:flex;justify-content:space-between">
-                            <div style="width:100%">
-                                <span>ຄ່າຊິບປິ້ງຫວຽດແລ່ນເອກະສານ</span>
-                                <v-text-field readonly solo flat background-color="#FCE4ECFF" outlined dense
-                                    placeholder="ຄ່າຊິບປິ້ງຫວຽດແລ່ນເອກະສານ"
-                                    v-model="performanceFeeTaxung"></v-text-field>
-                            </div>
-                            <div style="width:100%" class="px-2">
-                                <span>ຄ່າໃບຊິງ</span>
-                                <v-text-field readonly solo flat background-color="#FCE4ECFF" outlined dense placeholder="ຄ່າໃບຊິງ"
-                                    v-model="performanceFeeSing"></v-text-field>
-                            </div>
-                            <div style="width:100%">
-                                <span>ຄ່າແຈ້ງເອກະສານຢູ່ບ່ອນຂຶ້ນເກືອ</span>
-                                <v-text-field readonly solo flat background-color="#FCE4ECFF" outlined dense
-                                    placeholder="ຄ່າແຈ້ງເອກະສານຢູ່ບ່ອນຂຶ້ນເກືອ"
-                                    v-model="performanceFeeSaPhan"></v-text-field>
-                            </div>
-                            <div style="width:100%" class="px-2">
-                                <span>ຄ່າລົງເກືອ</span>
-                                <v-text-field readonly solo flat background-color="#FCE4ECFF" outlined dense
-                                    placeholder="ຄ່າລົງເກືອ" v-model="performanceFeeOutContainer"></v-text-field>
-                            </div>
-
-                            <div style="width:100%" class="pl-2">
-                                <span>ຄ່າລ່ວງເວລາ</span>
-                                <v-text-field readonly solo flat background-color="#FCE4ECFF" outlined dense
-                                    placeholder="ຄ່າລ່ວງເວລາ" v-model="performanceFeeYoktu"></v-text-field>
-                            </div>
-                            <div style="width:100%" class="pl-2">
-                                <span>ອື່ນໆ</span>
-                                <v-text-field readonly solo flat background-color="#FCE4ECFF" outlined dense
-                                    placeholder="ອື່ນໆ" v-model="performancevaccine"></v-text-field>
-                            </div>
-                        </div>
-                        
-                        
-
                     </div>
                 </div>
-            <v-divider class="mb-2"></v-divider>
-          </div>
+
+                <!-- ค่าสิ้นเปือง=============================Start======================== -->
+                <!-- <div v-if="wastedValueData">
+
+                    <div style="width:100%;background-color:#f5f5f5;border-radius:5px" class="mr-6 pa-4">
+                        <span>- ຄ່າສິ້ນເປືອງ</span>
+                        <div style="width:100%" class="pt-4">
+                            <div  v-for="(item, index) in wastedValueData" :key="index" style="display:flex;justify-content:space-between">
+                                <div style="width:100%">
+                                    <span>ຄ່າຊິງມະຫາໄຊ</span>
+                                    <v-text-field readonly solo flat background-color="#FCE4ECFF" outlined dense
+                                        placeholder="ຄ່າຊິງມະຫາໄຊ" {{ item.feeJumPo2 }}></v-text-field>
+                                </div>
+                               
+
+                                <div style="width:100%" class="px-2">
+                                    <span>ຄ່າຕຳລວດ</span>
+                                    <v-text-field readonly solo flat background-color="#FCE4ECFF" outlined dense
+                                        placeholder="ຄ່າຕຳລວດ" {{ item.feeJumPo2 }}></v-text-field>
+                                </div>
+                                <div style="width:100%" class="px-2">
+                                    <span>ຄ່າສິ້ນເປືອງຢູ່ສາງພາສີ</span>
+                                    <v-text-field readonly solo flat background-color="#FCE4ECFF" outlined dense
+                                        placeholder="ຄ່າສິ້ນເປືອງຢູ່ສາງພາສີ" {{ item.feeJumPo2 }}></v-text-field>
+                                </div>
+                                <div style="width:100%" class="px-2">
+                                    <span>ຄ່າດ່ານຫວຽດຂາກັບ</span>
+                                    <v-text-field readonly solo flat background-color="#FCE4ECFF" outlined dense
+                                        placeholder="ຄ່າດ່ານຫວຽດຂາກັບ" {{ item.feeJumPo2 }}></v-text-field>
+                                </div>
+                                <div style="width:100%" class="px-2">
+                                    <span>ຄ່າດ່ານລາວຂາໄປ - ຂາກັບ</span>
+                                    <v-text-field readonly solo flat background-color="#FCE4ECFF" outlined dense
+                                        placeholder="ຄ່າດ່ານລາວຂາໄປ - ຂາກັບ"
+                                        {{ item.feeJumPo2 }}></v-text-field>
+                                </div>
+                                <div style="width:100%" class="pl-2">
+                                    <span>ຄ່າຊິງນາອິນ</span>
+                                    <v-text-field readonly solo flat background-color="#FCE4ECFF" outlined dense
+                                        placeholder="ຄ່າຊິງນາອິນ" {{ item.feeJumPo2 }}></v-text-field>
+                                </div>
+                            </div>
+                            <div style="display:flex;justify-content:space-between">
+                                <div style="width:100%">
+                                    <span>ຄ່າຊິບປິ້ງຫວຽດແລ່ນເອກະສານ</span>
+                                    <v-text-field readonly solo flat background-color="#FCE4ECFF" outlined dense
+                                        placeholder="ຄ່າຊິບປິ້ງຫວຽດແລ່ນເອກະສານ"
+                                        {{ item.feeJumPo2 }}></v-text-field>
+                                </div>
+                                <div style="width:100%" class="px-2">
+                                    <span>ຄ່າໃບຊິງ</span>
+                                    <v-text-field readonly solo flat background-color="#FCE4ECFF" outlined dense
+                                        placeholder="ຄ່າໃບຊິງ" {{ item.feeJumPo2 }}></v-text-field>
+                                </div>
+                                <div style="width:100%">
+                                    <span>ຄ່າແຈ້ງເອກະສານຢູ່ບ່ອນຂຶ້ນເກືອ</span>
+                                    <v-text-field readonly solo flat background-color="#FCE4ECFF" outlined dense
+                                        placeholder="ຄ່າແຈ້ງເອກະສານຢູ່ບ່ອນຂຶ້ນເກືອ"
+                                        {{ item.feeJumPo2 }}></v-text-field>
+                                </div>
+                                <div style="width:100%" class="px-2">
+                                    <span>ຄ່າລົງເກືອ</span>
+                                    <v-text-field readonly solo flat background-color="#FCE4ECFF" outlined dense
+                                        placeholder="ຄ່າລົງເກືອ" {{ item.feeJumPo2 }}></v-text-field>
+                                </div>
+
+                                <div style="width:100%" class="pl-2">
+                                    <span>ຄ່າລ່ວງເວລາ</span>
+                                    <v-text-field readonly solo flat background-color="#FCE4ECFF" outlined dense
+                                        placeholder="ຄ່າລ່ວງເວລາ" {{ item.feeJumPo2 }}></v-text-field>
+                                </div>
+                                <div style="width:100%" class="pl-2">
+                                    <span>ອື່ນໆ</span>
+                                    <v-text-field readonly solo flat background-color="#FCE4ECFF" outlined dense
+                                        placeholder="ອື່ນໆ" {{ item.feeJumPo2 }}></v-text-field>
+                                </div>
+                            </div>
+
+
+
+                        </div>
+                    </div>
+                    <v-divider class="mb-2"></v-divider>
+                </div> -->
                 <!-- ค่าสิ้นเปือง=============================End======================== -->
                 <div
                     style="position:fixed;top: 98%;left: 50%;transform: translate(-50%, -50%); width:100%;background-color:#f5f5f5;display:flex;justify-content:center;height:50px;align-items:center">
@@ -379,10 +409,13 @@
                     </v-col>
                     <v-col cols="9">
                         <div style="display:flex;justify-content:start;flex-direction:column;align-items:start">
-                            <span style="font-size:14px"><b><Noti/> </b> </span>
+                            <span style="font-size:14px"><b>
+                                    <Noti />
+                                </b> </span>
                             <span style="font-size:12px">ສໍານັກງານຕັ້ງຢູ່ ອາຄານ ສະໜາມຍິງປືນ 20 ມັງກອນ, ສະໜາມກີລາກອງທັບ,
                                 ບ້ານຈອມມະນີ, ເມືອງ ໄຊເສດຖາ, ນະຄອນຫຼວງວຽງຈັນ, ສປປ ລາວ</span>
-                            <span style="font-size:12px">ໂທລະສັບ: 020 92661111, 020 92 254 999 | ອີເມວ: kounkham@Mining |
+                            <span style="font-size:12px">ໂທລະສັບ: 020 92661111, 020 92 254 999 | ອີເມວ: kounkham@Mining
+                                |
                                 ເວັບໄຊ: kounkham</span>
                         </div>
                     </v-col>
@@ -1537,6 +1570,24 @@ import moment from 'moment'
 export default {
     data() {
         return {
+            feeOvertime1: '',
+            feeJumPo2: '',
+            feePolish3: '',
+            feeTaxung4: '',
+            feeTiew5: '',
+            feeLakSao: '',
+            feePassport: '',
+            feevacin: '',
+            feesing: '',
+            feesaphan: '',
+            feeyoktu: '',
+            feecontrainer: '',
+            feepayang: '',
+
+
+
+
+
             saiystay: '',
             galick: '',
             pha_But: '',
@@ -1749,6 +1800,22 @@ export default {
             br_TRIES_KM_7: '',
             br_TRIES_KM_8: '',
 
+            performanceovertime: '',
+            performancejumpho: '',
+            performancefeepolish: '',
+            performancefeetaxung: '',
+            performancefeetiew: '',
+            performanceovervn: '',
+            performanceboderlak20: '',
+            performancepassport: '',
+            performancevaccine: '',
+            performancefeesing: '',
+            performancefeesaphan: '',
+            performancefeeyoktu: '',
+            performancefeeoutcontainer: '',
+            performancefe_PAYANG: '',
+
+
             // create report
             key_ID: '',
             staff_BIALIENG_FRIST: '',
@@ -1885,7 +1952,7 @@ export default {
         const date =
             today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate()
         this.current_date = date,
-        this.leave_card_no = this.$route.query.key;
+            this.leave_card_no = this.$route.query.key;
         this.product_quality = this.$route.query.proAmount;
         this.product_weight = this.$route.query.proWeight;
         this.product_detail = this.$route.query.product_detail;
@@ -1938,6 +2005,7 @@ export default {
                     }
                 })
         },
+        
         async onCreateReports() {
             this.print()
             return;
@@ -2229,7 +2297,7 @@ export default {
         async onGetTruckList() {
             try {
                 this.loading_processing = true
-                await this.$axios.$post('listVicicleHeader.service',{
+                await this.$axios.$post('listVicicleHeader.service', {
                     toKen: localStorage.getItem("toKen"),
 
                 }).then((data) => {
@@ -2308,49 +2376,49 @@ export default {
                 })
             }
         },
-        // api สะแดงค่าสิ้นเปือง ============start==========
-        showWastedValue() {
-            try {
-                let data = {
-                    performanceBillNo: this.$route?.query?.key,
-                    lahudBaiPoy:this.leave_card_no = this.$route.query.key,
-                    toKen: localStorage.getItem("toKen")
+        // // api สะแดงค่าสิ้นเปือง ============start==========
+        // showWastedValue() {
+        //     try {
+        //         let data = {
+        //             performanceBillNo: this.$route?.query?.key,
+        //             lahudBaiPoy: this.leave_card_no = this.$route.query.key,
+        //             toKen: localStorage.getItem("toKen")
 
-                }
-                console.log("datadend:", data)
-                this.$axios.$post('/showPerformanceByNo.service', data).then((data) => {
-                    if (data?.status === '00') {
-                        this.performancedate = data?.data[0]?.performancedate
-                        this.proAmount = data?.data[0]?.price
-                        this.currency = data?.data[0]?.currency
-                        this.proSize = data?.data[0]?.proSize
-                        this.performanceReDate = data?.data[0].performanceReDate
-                        this.performanceTotal = data?.data[0].performanceTotal
-                        this.performanceovertime = data?.data[0].performanceovertime
-                        this.performanceJumPho = data?.data[0].performancejumpho
-                        this.performanceFeePolish = data?.data[0].performancefeepolish
-                        this.performanceFeeTaxung = data?.data[0].performancefeetaxung
-                        this.performanceFeeTiew = data?.data[0].performancefeetiew
-                        this.performanceovervn = data?.data[0].performanceovervn
-                        this.performanceBoderLak20 = data?.data[0].performanceboderlak20
-                        this.performancepassport = data?.data[0].performancepassport
-                        this.performancevaccine = data?.data[0].performancevaccine
-                        this.performanceFeeSing = data?.data[0].performancefeesing
-                        this.performanceFeeSaPhan = data?.data[0].performancefeesaphan
-                        this.performanceFeeYoktu = data?.data[0].performancefeeyoktu
-                        this.performanceFeeOutContainer = data?.data[0].performancefeeoutcontainer
-                        this.per_PA = data?.data[0]?.performancefe_PAYANG
-                    }
-                })
-            } catch (error) {
-                console.log(error)
-            }
-        },
-        // api สะแดงค่าสิ้นเปือง  ============end==========
+        //         }
+        //         console.log("datadend:", data)
+        //         this.$axios.$post('/showPerformanceByNo.service', data).then((data) => {
+        //             if (data?.status === '00') {
+        //                 this.performancedate = data?.data[0]?.performancedate
+        //                 this.proAmount = data?.data[0]?.price
+        //                 this.currency = data?.data[0]?.currency
+        //                 this.proSize = data?.data[0]?.proSize
+        //                 this.performanceReDate = data?.data[0].performanceReDate
+        //                 this.performanceTotal = data?.data[0].performanceTotal
+        //                 this.performanceovertime = data?.data[0].performanceovertime
+        //                 this.performancejumpho = data?.data[0].performancejumpho
+        //                 this.performancefeepolish = data?.data[0].performancefeepolish
+        //                 this.performanceFeeTaxung = data?.data[0].performancefeetaxung
+        //                 this.performanceFeeTiew = data?.data[0].performancefeetiew
+        //                 this.performanceovervn = data?.data[0].performanceovervn
+        //                 this.performanceBoderLak20 = data?.data[0].performanceboderlak20
+        //                 this.performancepassport = data?.data[0].performancepassport
+        //                 this.performancevaccine = data?.data[0].performancevaccine
+        //                 this.performancefeesing = data?.data[0].performancefeesing
+        //                 this.performanceFeeSaPhan = data?.data[0].performancefeesaphan
+        //                 this.performanceFeeYoktu = data?.data[0].performancefeeyoktu
+        //                 this.performanceFeeOutContainer = data?.data[0].performancefeeoutcontainer
+        //                 this.per_PA = data?.data[0]?.performancefe_PAYANG
+        //             }
+        //         })
+        //     } catch (error) {
+        //         console.log(error)
+        //     }
+        // },
+        // // api สะแดงค่าสิ้นเปือง  ============end==========
         async onGetTruckFooter() {
             try {
                 this.loading_processing = true
-                await this.$axios.$post('listViciclefooter.service',{
+                await this.$axios.$post('listViciclefooter.service', {
                     toKen: localStorage.getItem("toKen"),
 
                 }).then((data) => {
@@ -2454,7 +2522,7 @@ export default {
         async onGetEmployeeListForChoose() {
             try {
                 this.loading_processing = true
-                await this.$axios.$post('getChooseStaft01.service',{
+                await this.$axios.$post('getChooseStaft01.service', {
                     toKen: localStorage.getItem("toKen"),
 
                 }).then((data) => {
@@ -2484,7 +2552,7 @@ export default {
         async onGetEmployeeList() {
             try {
                 this.loading_processing = true
-                await this.$axios.$post('getAllStaft',{
+                await this.$axios.$post('getAllStaft', {
                     toKen: localStorage.getItem("toKen"),
 
                 }).then((data) => {
@@ -2520,7 +2588,7 @@ export default {
         async onGetEmployeeList1() {
             try {
                 this.loading_processing = true
-                await this.$axios.$post('getAllStaft',{
+                await this.$axios.$post('getAllStaft', {
                     toKen: localStorage.getItem("toKen"),
 
                 }).then((data) => {
@@ -2574,7 +2642,7 @@ export default {
         async onGetLocationList() {
             try {
                 // this.loading_processing = true
-                await this.$axios.$post('/getAllLocation',{
+                await this.$axios.$post('/getAllLocation', {
                     toKen: localStorage.getItem("toKen"),
 
                 }).then((data) => {
@@ -2607,7 +2675,7 @@ export default {
         async onGetLocationList1() {
             try {
                 // this.loading_processing = true
-                await this.$axios.$post('/getAllLocation',{
+                await this.$axios.$post('/getAllLocation', {
                     toKen: localStorage.getItem("toKen"),
 
                 }).then((data) => {
@@ -2639,7 +2707,7 @@ export default {
         async onGetCustomerList() {
             try {
                 this.loading_processing = true
-                await this.$axios.$post('getAllCustomer',{
+                await this.$axios.$post('getAllCustomer', {
                     toKen: localStorage.getItem("toKen"),
 
                 }).then((data) => {
@@ -2671,7 +2739,7 @@ export default {
         async onGetProductsList() {
             try {
                 this.loading_processing = true
-                await this.$axios.$post('getAllProduct',{
+                await this.$axios.$post('getAllProduct', {
                     toKen: localStorage.getItem("toKen"),
 
                 }).then((data) => {
@@ -2696,6 +2764,57 @@ export default {
                 })
             }
         },
+        // async showWastedValue() {
+        //     try {
+        //         let data = {
+        //             performanceBillNo: this.$route?.query?.key,
+        //             lahudBaiPoy: this.leave_card_no = this.$route.query.key,
+        //             toKen: localStorage.getItem("toKen")
+
+        //         }
+        //         console.log("datadend:", data)
+              
+        //         await this.$axios.$post('showWastedValue.service',data );
+        //         if (response.status === '00') {
+        //             console.log('Wasted value data:', response.data);
+        //             // Handle the response data as needed
+        //         } else {
+        //             console.log('Error fetching wasted value data:', response.message);
+        //             // Handle error message display or other logic here
+        //         }
+        //     } catch (error) {
+        //         console.error('Error fetching wasted value data:', error);
+        //         // Handle error message display or other logic here
+        //     }
+        // },
+        async showWastedValue() {
+            try {
+                let data = {
+                    performanceBillNo: this.$route?.query?.key,
+                    lahudBaiPoy: this.leave_card_no = this.$route.query.key, // Removed redundant assignment
+                    toKen: localStorage.getItem("toKen")
+                };
+
+                console.log("Data to send:", data);
+
+                // Make the API request using Axios
+                let response = await this.$axios.$post('showWastedValue.service', data);
+
+                console.log('Response:', response);
+
+                if (response.status === '00') {
+                    this.wastedValueData = response.data;
+                    console.log('Wasted value data:', this.wastedValueData);
+                    // Handle the response data as needed
+                } else {
+                    console.log('Error fetching wasted value data:', response.message);
+                    // Handle error message display or other logic here
+                }
+            } catch (error) {
+                console.error('Error fetching wasted value data:', error);
+                // Handle error message display or other logic here
+            }
+        }
     },
 }
 </script>

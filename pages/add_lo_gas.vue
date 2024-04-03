@@ -6,16 +6,14 @@
             </v-card>
         </v-dialog>
         <v-card width="800" class="mx-auto card-shadow mb-6"  rounded="lg" >
-            <v-card-title style="background-color:#E57373;color:white">ຂໍ້ມູນສະຖານທີ່</v-card-title>
+            <v-card-title style="background-color:#E57373;color:white">ເພີ່ມສະຖານີປໍານໍ້າມັນ</v-card-title>
             <v-card-text class="pt-4">
-
                 <v-form ref="form" v-model="valid" lazy-validation>
                     <div style="display:flex;justify-content:space-between;flex-direction:row">
                         <v-text-field :rules="nameRules" label="ແຂວງ" outlined dense v-model="in_province"></v-text-field>
 
                         <v-text-field :rules="nameRules" label="ລາຍລະອຽດ" outlined dense v-model="in_details"
                             class="mx-2"></v-text-field>
-                            
                         <v-btn color="#448AFF" @click="onInsertLocation" height="40">
                             <span class="white--text">ບັນທຶກ</span>
                         </v-btn>

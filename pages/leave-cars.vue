@@ -20,10 +20,13 @@
           <!-- customer and products -->
           <div style="display:flex;justify-content:space-between;width:100%">
             <div style="background-color:#f5f5f5;width:100%;border-radius:5px" class="mr-6 pa-4">
+
               <div style="width:100%">
                 <v-autocomplete outlined dense label="ເລືອກລູກຄ້າ" :items="customer_data_list" item-text="customerName"
                   item-value="id" @change="onGetCustomerDetails" :rules="nameRules"></v-autocomplete>
               </div>
+
+
               <div class="d-flex align-center ">
                 <span>ລະຫັດລູກຄ້າ:</span>
                 <span class="ml-4">{{ customer_id }}</span>
@@ -202,16 +205,24 @@
 
             </div>
             <v-spacer></v-spacer>
+
             <div style="background-color:#f5f5f5;width:100%;border-radius:5px" class="pa-4">
+
+
               <div style="width:100%">
                 <v-autocomplete outlined dense label="ເລືອກຫາງລົດ" :items="truct_footer_data_list" item-text="f_CARD_NO"
-                  item-value="key_id" @change="onGetTructFooterDetail" :rules="nameRules"></v-autocomplete>
+                  item-value="key_id" @change="onGetTructFooterDetail" :rules="nameRules">
+                </v-autocomplete>
               </div>
+
+
+
               <div style="width:100%" class="d-flex align-center pl-2">
                 <span>ປ້າຍຫາງລົດ:</span>
                 <span class="ml-4"> {{ f_CARD_NO }}</span>
               </div>
             </div>
+
           </div>
           <!-- start date and end date -->
           <div class="d-flex align-center mt-6 mb-6">
@@ -259,7 +270,42 @@
               </div>
 
             </div>
-            <v-spacer></v-spacer>
+
+            <!-- gass -->
+
+            <div style="background-color:	#eae9da;width:100%;border-radius:5px" class="pa-4 ">
+
+              <div style="width:100%" class="d-flex align-center pl-2">
+                <span>ປໍ້ານໍ້າມັນ:</span>
+                <span class="ml-4"> {{ selectedGasStation }}</span>
+              </div>
+
+              <div style="width:100%">
+                <v-select outlined dense label="ເລືອກປໍ້ານໍ້າມັນ" :items="AllFuelStation_gas"
+                  item-text="fuelStationName" item-value="fuelStationId" @change="onGetgas" v-model="selectedGasStation"
+                  :rules="nameRules">
+                </v-select>
+              </div>
+
+
+
+              <div id="appDebt" style="width: 100%; margin-top: 10px; margin-bottom: 10px;">
+                <label for="out_in_debt">ຄ້າງຈ່າຍ ຫຼື ສໍາລະເເລ້ວ:</label>
+                <select id="out_in_debt" v-model="debtType"
+                  :style="{ width: '100%', border: '2px solid ' + (debtType === 'in_debt' ? '#ff2819' : '#75CCC7'), borderRadius: '5px', padding: '5px' }">
+                  <option value="out_debt">ສໍາລະເເລ້ວ</option>
+                  <option value="in_debt">ຄ້າງຈ່າຍ</option>
+                </select>
+              </div>
+
+
+
+            </div>
+
+            <!-- gass -->
+
+
+            <!-- <v-spacer></v-spacer> -->
             <!-- weight glass  ເລກໄມປ່ຽນນໍ້າມັນເຄື່ອງຮອບຕໍ່ໄປ ເລກໄມປ່ຽນລີນເກຍ-->
             <div style="width:100%;background-color:#f5f5f5;border-radius:5px" class="pa-4">
               <div class="d-flex align-center">
@@ -273,20 +319,18 @@
                     :rules="nameRules"></v-text-field>
                 </div>
               </div>
+
               <div class="d-flex align-center">
                 <div class="d-flex align-center" style="width: 100%">
                   <v-text-field dense outlined label="ລາຄານໍ້າມັນຕໍ່ລິດ" v-model="priceNamMun"
                     :rules="nameRules"></v-text-field>
                 </div>
               </div>
-              <!-- <div>
-                <label for="paymentMethod">Payment Method:</label>
-                <select dense outlined label="paymentMethod" id="paymentMethod" v-model="selectedPayment"
-                  :rules="nameRules" class="custom-select">
-                  <option value="0">Pay</option>
-                  <option value="1">Cash</option>
-                </select>
-              </div> -->
+
+
+
+
+
             </div>
           </div>
           <!-- all payments ຄ່າສິ້ນເປືອງ -->
@@ -1813,6 +1857,12 @@ import moment from 'moment'
 export default {
   data() {
     return {
+      debtType: 'out_debt',
+      name: '', // Input field for the name
+
+
+      outDebtChecked: false,
+      inDebtChecked: false,
       totalRoad: '',
       money_all: '',
       priceNamMun_Total: '',
@@ -1844,6 +1894,7 @@ export default {
       valid: true,
       nameRules: [(v) => !!v || 'ຕ້ອງປ້ອນ'],
       nameRules2: [(v) => !!v || 'ເລືອກ [ບໍ່ເລືອກຄົນຂັບ2]'],
+
       loading_processing: false,
       open_dialog_print: false,
 
@@ -1918,6 +1969,7 @@ export default {
       money_still_pay1: '',
       money_aready_All: '',
       Total_money: '',
+      fuelStationName: '',
       //========location
       loca_data_list: [],
       loca_send_province: '',
@@ -2013,6 +2065,8 @@ export default {
       f_GALATY_NO: '',
       f_GALATY_DEP: '',
       f_CAR_TYPE: '',
+      AllFuelStation_gas: [],
+      selectedGasStation: '',
 
       truct_footer_data_list: [],
       bl_TRIES_1: '',
@@ -2079,6 +2133,7 @@ export default {
       product_FROM: '',
       customer_ID: '',
       product_ID: '',
+      fuelStationId: '',
       product_AMOUNT: '',
       product_TO: '',
       staff_BIALIENG: '',
@@ -2220,6 +2275,26 @@ export default {
       this.truck_kilomen = result
     },
 
+    outDebtChecked: {
+      handler(value) {
+        if (value) {
+          alert('Outgoing Debt selected (P)');
+          // Here you can add further logic for handling outgoing debt selection
+        }
+      },
+      immediate: true, // Add this line if you want the watcher to run immediately on component mount
+    },
+    inDebtChecked: {
+      handler(value) {
+        if (value) {
+          alert('Incoming Debt selected (UP)');
+          // Here you can add further logic for handling incoming debt selection
+        }
+      },
+      immediate: true, // Add this line if you want the watcher to run immediately on component mount
+    },
+
+
 
   },
 
@@ -2351,6 +2426,7 @@ export default {
     this.onGetEmployeeList()
     this.onGetLocationList()
     this.onGetCustomerList()
+    this.onGetgassLocationList()
     this.onGetProductsList()
     this.onGetTruckFooter()
     const today = new Date()
@@ -2435,6 +2511,9 @@ export default {
           product_FROM: this.detail_send,//
           customer_ID: this.customer_id,//
           product_ID: this.product_ID,//
+          fuelStationId: this.fuelStationId,//
+          fuel_status: this.fuel_status,
+
           product_AMOUNT: this.product_quality,//
           product_TO: this.detail_recive,//
           place_PD_TO: this.place_PD_TO,//
@@ -2494,7 +2573,14 @@ export default {
           add_feepayang: 0
 
         }
-        console.log("send:", data)
+        console.log("send:", data);
+        if (this.debtType === 'out_debt') {
+          data.fuel_status = 'P'; // Set to 'P' if out_debt is selected
+        } else if (this.debtType === 'in_debt' && this.outDebtChecked) {
+          data.fuel_status = 'P'; // Set to 'P' if in_debt is selected and checkbox is checked
+        } else if (this.debtType === 'in_debt' && !this.outDebtChecked) {
+          data.fuel_status = 'UP'; // Set to 'UP' if in_debt is selected and checkbox is not checked
+        }
 
         await this.$axios.$post('/saveDataDetails.service', data).then((data) => {
           console.log("createReport:", data)
@@ -2659,6 +2745,7 @@ export default {
         this.galick = data[0]?.galick,
         this.pha_But = data[0]?.pha_But
     },
+
     print() {
       const modal = document.getElementById("modalInvoice")
       const cloned = modal.cloneNode(true)
@@ -2880,6 +2967,39 @@ export default {
       this.product_name = data[0]?.proName;
       this.product_ID = id;
     },
+
+    onGetgas(id) {
+
+      let data = this.AllFuelStation_gas.filter((el => el.id === id));
+      this.selectedGasStation = data[0]?.proName;
+      this.fuelStationId = id;
+    },
+
+    async onGetTruckList() {
+      try {
+        this.loading_processing = true
+        await this.$axios.$post('listVicicleHeaderCombo1.service',
+          {
+            toKen: localStorage.getItem('toKen'),
+
+          }).then((data) => {
+            console.log('truck_list:', data?.data)
+            this.cars_list = data?.data
+
+          })
+      } catch (error) {
+        this.loading_processing = false
+        console.log(error)
+        swal.fire({
+          title: 'ແຈ້ງເຕືອນ',
+          text: error,
+          icon: 'error',
+          allowOutsideClick: false,
+          confirmButtonColor: '#3085d6',
+          confirmButtonText: 'OK',
+        })
+      }
+    },
     async onGetLocationList() {
       try {
         // this.loading_processing = true
@@ -2936,6 +3056,30 @@ export default {
         })
       }
     },
+
+
+    async onGetgassLocationList() {
+      try {
+        const response = await this.$axios.$post('/getAllFuelStation.service',
+          {
+            toKen: localStorage.getItem('toKen'),
+          });
+        if (response?.status == '00') {
+          console.log('Fuel stations:', response.data);
+          this.AllFuelStation_gas = response.data; // Update AllFuelStation_gas with retrieved data
+        } else {
+          console.log('Error fetching fuel stations:', response?.message);
+          // Handle error message display or other logic here
+        }
+      } catch (error) {
+        console.error('Error fetching fuel stations:', error);
+        // Handle error message display or other logic here
+      }
+    },
+
+
+
+
     async onGetProductsList() {
       try {
         this.loading_processing = true
@@ -2962,6 +3106,10 @@ export default {
         })
       }
     },
+
+
+
+
 
   },
 
@@ -3036,7 +3184,7 @@ export default {
 
 .custom-select {
   border: 1px solid #ccc;
-  width: 400px;
+  width: 100px;
   background-color: #f5f5f5;
 }
 </style>

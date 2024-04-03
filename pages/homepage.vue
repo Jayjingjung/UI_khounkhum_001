@@ -131,8 +131,8 @@
               <v-card-text>
                 <div class="d-flex align-center">
                   <!-- <v-badge :content="TOTAL_payStatus" color="error">  </v-badge> -->
-                    <v-icon color="success" size="55">mdi-cash-100</v-icon>
-                
+                  <v-icon color="success" size="55">mdi-cash-100</v-icon>
+
                   <div class="pl-5 pb-5 pt-5 pr-5">
                     <span style="font-size: 18pt;font-weight: bold;">ຮັບເງິນ</span><br />
                   </div>
@@ -182,7 +182,21 @@
 
       <v-col cols="12" md="3">
         <div v-if="USER_ROLE === 'ADMIN' || USER_ROLE === 'USER'">
+          <v-card to="getgass" height="100" elevation="2" rounded="lg" width="310px"
+            style="border: 1px solid rgb(222, 222, 222);">
+            <v-card-text>
+              <div class="d-flex align-center">
+                <v-icon color="orange" size="55">mdi-gas-station
+                  mdi:gas-station
 
+                </v-icon>
+
+                <div class="pl-5 pb-5 pt-5 pr-5">
+                  <span style="font-size: 17pt;font-weight: bold;">ນີ້ນໍ້າມັນ</span><br />
+                </div>
+              </div>
+            </v-card-text>
+          </v-card>
         </div>
       </v-col>
 
@@ -195,10 +209,10 @@
             style="border: 1px solid rgb(222, 222, 222);">
             <v-card-text>
               <div class="d-flex align-center">
-                <v-icon color="green" size="55">mdi-poll</v-icon>
+                <v-icon color="orange" size="55">mdi-poll</v-icon>
                 <div class="pl-5 pb-5 pt-5 pr-5">
                   <span style="font-size: 17pt; font-weight: bold;">ຫາຍງານສະລຸມ</span><br />
-            
+
                 </div>
               </div>
             </v-card-text>
@@ -233,7 +247,7 @@
             style="border: 1px solid rgb(222, 222, 222);">
             <v-card-text>
               <div class="d-flex align-center">
-                <v-icon color="indigo" size="55">mdi-warehouse</v-icon>
+                <v-icon color="orange" size="55">mdi-warehouse</v-icon>
 
                 <div class="pl-5 pb-5 pt-5 pr-5">
                   <span style="font-size: 17pt;font-weight: bold;">ສາງອາໄລ່</span><br />
@@ -261,20 +275,20 @@
       <!-- ບັນຊີລາຍຈ່າຍ -->
 
       <v-col cols="12" md="3">
-        <!-- <div v-if="USER_ROLE === 'ADMIN' || USER_ROLE === 'USER'">
-          <v-card to="./accountExpense/account-expense" height="100" elevation="2" rounded="lg" width="310px"
+        <div v-if="USER_ROLE === 'ADMIN' || USER_ROLE === 'USER'">
+          <!-- <v-card to="./accountExpense/account-expense" height="100" elevation="2" rounded="lg" width="310px"
             style="border: 1px solid rgb(222, 222, 222);">
             <v-card-text>
               <div class="d-flex align-center">
-                <v-icon color="green" size="55">mdi-account-box-edit-outline</v-icon>
+                <v-icon color="orange" size="55">mdi-account-box-edit-outline</v-icon>
 
                 <div class="pl-5 pb-5 pt-5 pr-5">
                   <span style="font-size: 17pt;font-weight: bold;">ບັນຊີລາຍຈ່າຍ</span><br />
                 </div>
               </div>
             </v-card-text>
-          </v-card>
-        </div> -->
+          </v-card> -->
+        </div>
       </v-col>
     </v-row>
     <!-- ຂໍ້ມູນພະນັກງານຂັບລົດ -->
@@ -285,7 +299,7 @@
             style="border: 1px solid rgb(222, 222, 222);">
             <v-card-text>
               <div class="d-flex align-center">
-                <v-icon color="indigo" size="55">mdi-cogs</v-icon>
+                <v-icon color="orange" size="55">mdi-cogs</v-icon>
 
                 <div class="pl-5 pb-5 pt-5 pr-5">
                   <span style="font-size: 17pt;font-weight: bold;">ສ້ອມເເປງ</span><br />
@@ -300,6 +314,8 @@
 
       <v-col cols="12" md="3">
         <div v-if="USER_ROLE === 'ADMIN' || USER_ROLE === 'USER'">
+
+
 
         </div>
       </v-col>
@@ -318,7 +334,7 @@
         </div>
       </v-col>
     </v-row>
-  
+
   </div>
 </template>
 
@@ -352,10 +368,10 @@ export default {
       try {
         this.loading_processing = true;
         this.$axios.$post('/getNotiTab3.service'
-        ,{
-          toKen: localStorage.getItem('toKen'),
+          , {
+            toKen: localStorage.getItem('toKen'),
 
-        }
+          }
         ).then((data) => {
           this.loading_processing = false
           this.TOTAL = data?.totalRow
@@ -385,4 +401,3 @@ export default {
 }
 
 </script>
-

@@ -73,8 +73,12 @@
             </v-dialog>
             <!-- ຂໍ້ມູນລາຍຈ່າຍ -->
             <div style="width:100%;height:80vh;border:1px solid #e0e0e0;border-radius:5px" class="ml-2">
+                <div style="width:15%;">
+                <v-btn to="/report-expense"  style="margin-bottom:10px ;margin-top: 10px; margin-left: 10px; margin-right: 10px;" block color="#3d3d3d" class="white--text" >ລາຍງານຮັບ - ລາຍຈ່າຍ ອື່ນໆ</v-btn>
+                </div>
                 <div style="">
                     <v-card-title style="background-color:#e64141;color:white">ຂໍ້ມູນລາຍຮັບ - ລາຍຈ່າຍ</v-card-title>
+                    
                     <v-card-text class="pt-3">
                         <div style="padding-bottom:10px">
                             <span>ທັງໝົດ:

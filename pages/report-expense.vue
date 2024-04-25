@@ -14,7 +14,7 @@
             <v-menu ref="start_menu" v-model="start_menu" :close-on-content-click="false"
               :return-value.sync="start_date" transition="scale-transition" offset-y min-width="auto">
               <template v-slot:activator="{ on, attrs }">
-                <v-text-field dense outlined v-model="start_date" required label="ວັນທີເລີ່ມຕົ້ນ"
+                <v-text-field dense outlined :value="formattedStartDate" required label="ວັນທີເລີ່ມຕົ້ນ"
                   append-icon="mdi-calendar" readonly v-bind="attrs" v-on="on"></v-text-field>
               </template>
               <v-date-picker v-model="start_date" no-title scrollable @input="$refs.start_menu.save(start_date)">
@@ -26,31 +26,34 @@
             <v-menu ref="end_menu" v-model="end_menu" :close-on-content-click="false" :return-value.sync="end_date"
               transition="scale-transition" offset-y min-width="auto">
               <template v-slot:activator="{ on, attrs }">
-                <v-text-field dense outlined v-model="end_date" required label="ວັນທີສຸດທ້າຍ" append-icon="mdi-calendar"
-                  readonly v-bind="attrs" v-on="on"></v-text-field>
+                <v-text-field dense outlined :value="formattedEndDate" required label="ວັນທີສຸດທ້າຍ"
+                  append-icon="mdi-calendar" readonly v-bind="attrs" v-on="on"></v-text-field>
               </template>
               <v-date-picker v-model="end_date" no-title scrollable @input="$refs.end_menu.save(end_date)">
                 <v-spacer></v-spacer>
               </v-date-picker>
             </v-menu>
           </div>
+
+
+
           <div style="margin-top:-25px" class="ml-2">
             <v-btn color="deep-purple" class="white--text" elevation="0"
               @click="onGetAll"><v-icon>mdi-magnify</v-icon>ຄົ້ນຫາ</v-btn>
           </div>
           <!-- ເພີ່ມລາຍຈ່າຍ -->
-          <div style="margin-top:-25px" class="ml-2">
-            <v-btn to="/create-expense" color="#c71546" class="white--text"
+          <div style="margin-top:-25px;width: auto;" class="ml-2">
+            <v-btn to="/create-expense" color="#159fc7" class="white--text"
               elevation="0"><v-icon>mdi-cash-plus</v-icon>ເພີ່ມລາຍຮັບ - ລາຍຈ່າຍ</v-btn>
           </div>
           <!-- ເພີ່ມປະເພດລາຍຈ່າຍ -->
-          <div style="margin-top:-25px" class="ml-2">
-            <v-btn to="/create-expense-type" color="#c71546" class="white--text"
+          <div style="margin-top:-25px ;width: auto;" class="ml-2">
+            <v-btn to="/create-expense-type" color="#c72746" class="white--text"
               elevation="0"><v-icon>mdi-wallet-plus</v-icon>ເພີ່ມປະເພດຮັບ - ລາຍຈ່າຍ</v-btn>
           </div>
 
           <div style="margin-top:-25px" class="ml-2">
-            <v-btn color="#e91e63" class="white--text"
+            <v-btn color="#f593b3" class="white--text"
               @click="print"><v-icon>mdi-printer</v-icon>ພິມລາຍງານທັງໝົດ</v-btn>
           </div>
         </div>
@@ -245,10 +248,13 @@
                 :class="{ 'green--text': item?.status === 'INCOME', 'red--text': item?.status === 'PAY' }">
                 {{ item?.exPType }}</td>
               <!-- ສະຖານະ -->
+
               <td style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;border-top-right-radius:3px"
                 :class="{ 'green--text': item?.status === 'INCOME', 'red--text': item?.status === 'PAY' }">
                 {{ item?.status === 'INCOME' ? 'ລາຍຮັບ' : (item?.status === 'PAY' ? 'ລາຍຈ່າຍ' : item?.status) }}
               </td>
+
+              
               <td
                 style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px"
                 :class="{ 'green--text': item?.status === 'INCOME', 'red--text': item?.status === 'PAY' }">{{
@@ -313,7 +319,7 @@
 
           <div
             style="width:100%;margin-top:50px;display:flex;flex-direction:column;justify-content:center;align-items:center;padding-left:20px; font-size: 18px">
-            <div >ບັນຊີຂົນສົ່ງ</div>
+            <div>ບັນຊີຂົນສົ່ງ</div>
             <div style="height: 50px;"></div>
             <div style="display:flex;justify-content:space-between">
               ...............................
@@ -352,6 +358,27 @@ export default {
       ],
     }
   },
+
+  computed: {
+    formattedStartDate() {
+      if (!this.start_date) return ''; // Return empty string if date is not set
+      const dateObj = new Date(this.start_date);
+      const day = dateObj.getDate();
+      const month = dateObj.getMonth() + 1; // January is 0, so add 1 to get correct month
+      const year = dateObj.getFullYear();
+      return `${day}/${month}/${year}`;
+    },
+    formattedEndDate() {
+      if (!this.end_date) return ''; // Return empty string if date is not set
+      const dateObj = new Date(this.end_date);
+      const day = dateObj.getDate();
+      const month = dateObj.getMonth() + 1; // January is 0, so add 1 to get correct month
+      const year = dateObj.getFullYear();
+      return `${day}/${month}/${year}`;
+    }
+  },
+
+
   mounted() {
     this.onGetAll()
   },

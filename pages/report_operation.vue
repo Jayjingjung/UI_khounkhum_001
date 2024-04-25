@@ -15,9 +15,9 @@
                             <v-menu ref="start_menu" v-model="start_menu" :close-on-content-click="false"
                                 :return-value.sync="start_date" transition="scale-transition" offset-y min-width="auto">
                                 <template v-slot:activator="{ on, attrs }">
-                                    <v-text-field dense outlined v-model="start_date" required label="ວັນທີເລີ່ມຕົ້ນ"
-                                        append-icon="mdi-calendar" readonly v-bind="attrs" v-on="on"
-                                        :rules="nameRules"></v-text-field>
+                                    <v-text-field dense outlined v-model="formattedStartDate" required
+                                        label="ວັນທີເລີ່ມຕົ້ນ" append-icon="mdi-calendar" readonly v-bind="attrs"
+                                        v-on="on" :rules="nameRules"></v-text-field>
                                 </template>
                                 <v-date-picker v-model="start_date" no-title scrollable
                                     @input="$refs.start_menu.save(start_date)">
@@ -29,9 +29,9 @@
                             <v-menu ref="end_menu" v-model="end_menu" :close-on-content-click="false"
                                 :return-value.sync="end_date" transition="scale-transition" offset-y min-width="auto">
                                 <template v-slot:activator="{ on, attrs }">
-                                    <v-text-field dense outlined v-model="end_date" required label="ວັນທີສຸດທ້າຍ"
-                                        append-icon="mdi-calendar" readonly v-bind="attrs" v-on="on"
-                                        :rules="nameRules"></v-text-field>
+                                    <v-text-field dense outlined v-model="formattedEndDate" required
+                                        label="ວັນທີສຸດທ້າຍ" append-icon="mdi-calendar" readonly v-bind="attrs"
+                                        v-on="on" :rules="nameRules"></v-text-field>
                                 </template>
                                 <v-date-picker v-model="end_date" no-title scrollable
                                     @input="$refs.end_menu.save(end_date)">
@@ -40,15 +40,55 @@
                             </v-menu>
                         </div>
 
-                        <div class="ml-2 pt-1">
+
+                        <div class="ml-2 pt-2 pl-2 mt-5">
                             <v-btn color="#90A4AE" elevation="0" class="white--text"
                                 @click="onSeachPermance(row?.item?.key_ID)"><v-icon>mdi-magnify</v-icon>ຄົ້ນຫາ</v-btn>
                         </div>
-                        <td class="ml-2 pt-1">
+                        <td class="ml-2 pt-2 mt-5">
                             <v-btn color="#2F7DBB" class="white--text" @click="Print2">
                                 <v-icon>mdi-printer</v-icon>ພິມລາຍງານທັງໝົດ
                             </v-btn>
                         </td>
+
+                        <div style="background-color:#f5f5f5;width:250px;border-radius:5px" class="pa-4 mr-10 ml-10">
+                            <div style="width:100%">
+                                <v-autocomplete outlined dense label="ເລືອກສິນຄ້າ" 
+                                :items="products_data_list"
+                                    item-text="proName" item-value="id" @change="onGetProductDetails"></v-autocomplete>
+                            </div>
+
+                            <div class="d-flex align-center">
+                                <span>ຊື່ສິນຄ້າ:</span>
+                                <span class="ml-4">{{ product_name }}</span>
+                            </div>
+
+                        </div>
+
+                        <div>
+                            <div style="width:80%">
+                                <v-autocomplete outlined dense label="ເລືອກລູກຄ້າ" :items="customer_data_list"
+                                    item-text="customerName" item-value="id" @change="onGetCustomerDetails"
+                                    :rules="nameRules"></v-autocomplete>
+                            </div>
+
+
+                            <div class="d-flex align-center ">
+                                <span>ລະຫັດລູກຄ້າ:</span>
+                                <span class="ml-4">{{ customer_id }}</span>
+                            </div>
+                            <div class="d-flex align-center">
+                                <span>ຊື່ລູກຄ້າ:</span>
+                                <span class="ml-4">{{ customer_name }}</span>
+                            </div>
+                            <div class="d-flex align-center">
+                                <span>ເບີໂທລູກຄ້າ:</span>
+                                <span class="ml-4">{{ customer_mobile }}</span>
+                            </div>
+
+                        </div>
+
+
                         <v-spacer></v-spacer>
                         <div style="width:300px">
                             <v-text-field placeholder="ຄົ້ນຫາດ້ວຍລະຫັດປ່ອຍລົດ..." v-model="search" rounded
@@ -153,10 +193,6 @@
                                         <h3 class="green--text "> {{ sumAmount }} LAK </h3>
                                     </b>
                                 </td>
-
-
-
-
 
                             </tr>
                         </template>
@@ -265,37 +301,37 @@
                             <tr style="padding:5px;border: 0.5px solid #999;">
                                 <td style="border: 0.5px solid #999;padding:5px">ຄ່າເບ້ຍລ້ຽງ</td>
                                 <td style="border: 0.5px solid #999;padding:5px">{{
-            performaceGroupFee?.staff_BIALIENG }} {{ performaceGroupDetails?.staff_Cur }}</td>
+                                    performaceGroupFee?.staff_BIALIENG }} {{ performaceGroupDetails?.staff_Cur }}</td>
                             </tr>
                             <tr style="padding:5px;border: 0.5px solid #999;">
                                 <td style="border: 0.5px solid #999;padding:5px">ຄ່າຊິງມະຫາໄຊ</td>
                                 <td style="border: 0.5px solid #999;padding:5px">{{
-            performaceGroupFee?.performancejumpho }}</td>
+                                    performaceGroupFee?.performancejumpho }}</td>
                             </tr>
                             <tr style="padding:5px;border: 0.5px solid #999;">
                                 <td style="border: 0.5px solid #999;padding:5px">ຄ່າຕຳລວດ</td>
                                 <td style="border: 0.5px solid #999;padding:5px">{{
-            performaceGroupFee?.performancefeepolish }}</td>
+                                    performaceGroupFee?.performancefeepolish }}</td>
                             </tr>
                             <tr style="padding:5px;border: 0.5px solid #999;">
                                 <td style="border: 0.5px solid #999;padding:5px">ຄ່າສິ້ນເປືອງຢູ່ສາງພາສີ</td>
                                 <td style="border: 0.5px solid #999;padding:5px">{{
-            performaceGroupFee?.performancefe_PAYANG }}</td>
+                                    performaceGroupFee?.performancefe_PAYANG }}</td>
                             </tr>
                             <tr style="padding:5px;border: 0.5px solid #999;">
                                 <td style="border: 0.5px solid #999;padding:5px">ຄ່າຊິບປິ້ງຫວຽດແລ່ນເອກະສານ</td>
                                 <td style="border: 0.5px solid #999;padding:5px">{{
-            performaceGroupFee?.performancefeetaxung }}</td>
+                                    performaceGroupFee?.performancefeetaxung }}</td>
                             </tr>
                             <tr style="padding:5px;border: 0.5px solid #999;">
                                 <td style="border: 0.5px solid #999;padding:5px">ຄ່າດ່ານຫວຽດຂາກັບ</td>
                                 <td style="border: 0.5px solid #999;padding:5px">{{
-            performaceGroupFee?.performanceovertime }}</td>
+                                    performaceGroupFee?.performanceovertime }}</td>
                             </tr>
                             <tr style="padding:5px;border: 0.5px solid #999;">
                                 <td style="border: 0.5px solid #999;padding:5px">ຄ່າດ່ານລາວຂາໄປ - ຂາກັບ</td>
                                 <td style="border: 0.5px solid #999;padding:5px">{{
-            performaceGroupFee?.performanceovervn }}</td>
+                                    performaceGroupFee?.performanceovervn }}</td>
                             </tr>
                             <!-- <tr style="padding:5px;border: 0.5px solid #999;">
                                 <td style="border: 0.5px solid #999;padding:5px">ຄ່າລ່ວງເວລາຢູ່ດ່ານຫຼັກ20</td>
@@ -305,40 +341,40 @@
                             <tr style="padding:5px;border: 0.5px solid #999;">
                                 <td style="border: 0.5px solid #999;padding:5px">ຄ່າຊິງນາອິນ</td>
                                 <td style="border: 0.5px solid #999;padding:5px">{{
-            performaceGroupFee?.performancepassport }}</td>
+                                    performaceGroupFee?.performancepassport }}</td>
                             </tr>
                             <tr style="padding:5px;border: 0.5px solid #999;">
                                 <td style="border: 0.5px solid #999;padding:5px">ອື່ນໆ</td>
                                 <td style="border: 0.5px solid #999;padding:5px">{{
-            performaceGroupFee?.performancevaccine }}</td>
+                                    performaceGroupFee?.performancevaccine }}</td>
                             </tr>
                             <tr style="padding:5px;border: 0.5px solid #999;">
                                 <td style="border: 0.5px solid #999;padding:5px">ຄ່າໃບຊີງ</td>
                                 <td style="border: 0.5px solid #999;padding:5px">{{
-            performaceGroupFee?.performancefeesing }}</td>
+                                    performaceGroupFee?.performancefeesing }}</td>
                             </tr>
 
                             <tr style="padding:5px;border: 0.5px solid #999;">
                                 <td style="border: 0.5px solid #999;padding:5px">ຄ່າແຈ້ງເອກະສານຢູ່ບ່ອນຂຶ້ນເກືອ</td>
                                 <td style="border: 0.5px solid #999;padding:5px">{{
-            performaceGroupFee?.performancefeesaphan }}</td>
+                                    performaceGroupFee?.performancefeesaphan }}</td>
                             </tr>
                             <tr style="padding:5px;border: 0.5px solid #999;">
                                 <td style="border: 0.5px solid #999;padding:5px">ຄ່າລົງເກືອ</td>
                                 <td style="border: 0.5px solid #999;padding:5px">{{
-            performaceGroupFee?.performancefeeoutcontainer }}</td>
+                                    performaceGroupFee?.performancefeeoutcontainer }}</td>
                             </tr>
                             <tr style="padding:5px;border: 0.5px solid #999;">
                                 <td style="border: 0.5px solid #999;padding:5px">ຄ່າລ່ວງເວລາ</td>
                                 <td style="border: 0.5px solid #999;padding:5px">{{
-            performaceGroupFee?.performancefeeyoktu }}</td>
+                                    performaceGroupFee?.performancefeeyoktu }}</td>
                             </tr>
                             <tr style="padding:5px;border: 0.5px solid #999;">
                                 <td style="border: 0.5px solid #999;padding:5px">ລວມລາຍຈ່າຍທັງໝົດ</td>
                                 <td style="border: 0.5px solid #999;padding:5px">{{
-            performaceGroupFee?.feetotal?.replace(/\D/g, '')?.replace(/\B(?=(\d{3})+(?!\d))/g,
-                ',')
-        }}</td>
+                                    performaceGroupFee?.feetotal?.replace(/\D/g, '')?.replace(/\B(?=(\d{3})+(?!\d))/g,
+                                        ',')
+                                }}</td>
                             </tr>
                             <!-- <tr style="padding:5px;border: 0.5px solid #999;">
                                 <td style="border: 0.5px solid #999;padding:5px">ຄ່າສະພານ</td>
@@ -371,8 +407,8 @@
                                         <span>ລວມ</span>
                                         <v-spacer></v-spacer>
                                         <span>{{ (performance_GroupFeePower?.totalNumMun)?.replace(/\D/g, '')
-            .slice(0, -3) // Remove the last three digits (,000)
-            .replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</span>
+                                            .slice(0, -3) // Remove the last three digits (,000)
+                                            .replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</span>
                                     </div>
 
                                     <!-- <div style="display:flex;flex-direction:row;justify-content:space-between">
@@ -554,6 +590,7 @@ import moment from 'moment'
 export default {
     data() {
         return {
+            products_data_list: [],
             moment: moment,
             sumAmount: null,
             sumTonProSize: null,
@@ -563,9 +600,12 @@ export default {
             search: '',
             loading_processing: false,
             end_menu: false,
+            product_name: '',
+            customer_data_list:[],
             end_date: null,
             start_menu: false,
             start_date: null,
+
             report_peration_list: [],
             report_operation_header: [
                 { text: 'ເລກບິນ', value: 'key_ID' },
@@ -595,10 +635,79 @@ export default {
 
     },
 
+    computed: {
+        formattedStartDate() {
+            if (!this.start_date) return ''; // Return empty string if date is not set
+            const dateObj = new Date(this.start_date);
+            const day = dateObj.getDate();
+            const month = dateObj.getMonth() + 1; // January is 0, so add 1 to get correct month
+            const year = dateObj.getFullYear();
+            return `${day}/${month}/${year}`;
+        },
+        formattedEndDate() {
+            if (!this.end_date) return ''; // Return empty string if date is not set
+            const dateObj = new Date(this.end_date);
+            const day = dateObj.getDate();
+            const month = dateObj.getMonth() + 1; // January is 0, so add 1 to get correct month
+            const year = dateObj.getFullYear();
+            return `${day}/${month}/${year}`;
+        }
+    },
+
     mounted() {
         this.onGetAllPermance()
+        this.onGetProductsList();
+        this.onGetCustomerList(); 
     },
     methods: {
+
+        async onGetProductsList() {
+            try {
+                this.loading_processing = true;
+                const response = await this.$axios.$post('getAllProduct', {
+                    toKen: localStorage.getItem('toKen'),
+                });
+                if (response?.status === '00') {
+                    this.products_data_list = response.data;
+                    this.loading_processing = false;
+                    console.log('products_list:', response);
+                }
+            } catch (error) {
+                this.loading_processing = false;
+                swal.fire({
+                    title: 'ແຈ້ງເຕືອນ',
+                    text: error,
+                    icon: 'error',
+                    allowOutsideClick: false,
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: 'OK',
+                });
+            }
+        },
+        async onGetCustomerList() {
+        try {
+            this.loading_processing = true;
+            const response = await this.$axios.$post('getAllCustomer', {
+                toKen: localStorage.getItem('toKen'),
+            });
+            if (response?.status === '00') {
+                this.customer_data_list = response?.data;
+                this.loading_processing = false;
+                console.log('customer_list:', response);
+            }
+        } catch (error) {
+            this.loading_processing = false;
+            console.error(error);
+            swal.fire({
+                title: 'ແຈ້ງເຕືອນ',
+                text: error.message || 'Unknown error occurred',
+                icon: 'error',
+                allowOutsideClick: false,
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'OK',
+            });
+        }
+    },
         onCheckAlert() {
             this.report_peration_list.map((list) => {
                 if (list?.totalDay >= '7' && list?.status === 'N') {
@@ -683,6 +792,21 @@ export default {
                 this.loading_processing = false;
             }
         },
+        onGetProductDetails(id) {
+
+            let data = this.products_data_list.filter((el => el.id === id));
+            this.product_name = data[0]?.proName;
+            this.product_ID = id;
+        },
+        onGetCustomerDetails(id) {
+            console.log(id)
+            let data = this.customer_data_list.filter((el => el.id === id));
+            // console.log("filter:",data)
+            this.customer_name = data[0]?.customerName
+            this.customer_mobile = data[0]?.mobile
+            this.customer_id = id
+        },
+
         onSeachPermance(key) {
             // if (!this.$refs.form.validate()) return null;
             try {
@@ -690,7 +814,9 @@ export default {
                     performanceBillNo: key,
                     performanceReDate: this.start_date,
                     toKen: localStorage.getItem('toKen'),
-                    performanceDate: this.end_date
+                    performanceDate: this.end_date,
+                    productId: this.product_ID,
+                    custormerId: this.customer_id
                 };
                 this.$axios.$post('/SearchBillPerformance.service', data).then((response) => {
                     if (response?.data) {
@@ -742,6 +868,7 @@ export default {
             section.appendChild(cloned);
             window.print();
         },
+
     }
 }
 </script>

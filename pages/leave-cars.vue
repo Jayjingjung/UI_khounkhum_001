@@ -40,11 +40,14 @@
                 <span class="ml-4">{{ customer_mobile }}</span>
               </div>
             </div>
+
             <div style="background-color:#f5f5f5;width:100%;border-radius:5px" class="pa-4">
               <div style="width:100%">
                 <v-autocomplete outlined dense label="ເລືອກສິນຄ້າ" :items="products_data_list" item-text="proName"
                   item-value="id" @change="onGetProductDetails" :rules="nameRules"></v-autocomplete>
               </div>
+
+
               <div class="d-flex align-center">
                 <span>ຊື່ສິນຄ້າ:</span>
                 <span class="ml-4">{{ product_name }}</span>
@@ -275,6 +278,7 @@
 
             <div style="background-color:	#eae9da;width:100%;border-radius:5px" class="pa-4 ">
 
+
               <div style="width:100%" class="d-flex align-center pl-2">
                 <span>ປໍ້ານໍ້າມັນ:</span>
                 <span class="ml-4"> {{ selectedGasStation }}</span>
@@ -282,10 +286,10 @@
 
               <div style="width:100%">
                 <v-select outlined dense label="ເລືອກປໍ້ານໍ້າມັນ" :items="AllFuelStation_gas"
-                  item-text="fuelStationName" item-value="fuelStationId" @change="onGetgas" v-model="selectedGasStation"
-                  :rules="nameRules">
+                  item-text="fuelStationName" item-value="fuelStationId" @change="onGetgas" :rules="nameRules">
                 </v-select>
               </div>
+
 
 
 
@@ -483,7 +487,7 @@
                 style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px;">
                 <div style="display:flex;flex-direction:row;justify-content:space-between;">
                   <div style="width:100%;display:flex;align-items:end"><span style="font-size:12px">ແຂວງຮັບ: {{
-      loca_recieve_province }}</span>
+                    loca_recieve_province }}</span>
                   </div>
                 </div>
                 <div style="display:flex;flex-direction:row;justify-content:space-between;">
@@ -493,6 +497,7 @@
                 </div>
               </td>
             </tr>
+
             <tr
               style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;border-radius:10px; font-size: 12px;">
               <td
@@ -524,6 +529,7 @@
                 </div>
               </td>
             </tr>
+            
             <tr style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;border-radius:10px">
               <td
                 style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px;">
@@ -686,8 +692,8 @@
                 class="font-weight-bold green--text">
                 <div style="width:100%;display:flex;justify-content:end">
                   <span>{{ (parseFloat(money?.split(',').join('')) -
-      parseFloat(money_aready_pay?.split(',')?.join('')))?.toString()?.replace(/\D/g, '')
-      .replace(/\B(?=(\d{3})+(?!\d))/g, ',') }} {{ currency1 }}</span>
+                    parseFloat(money_aready_pay?.split(',')?.join('')))?.toString()?.replace(/\D/g, '')
+                    .replace(/\B(?=(\d{3})+(?!\d))/g, ',') }} {{ currency1 }}</span>
                 </div>
               </td>
               <td
@@ -702,8 +708,8 @@
                 class="font-weight-bold green--text">
                 <div style="width:100%;display:flex;justify-content:end">
                   <span>{{ (parseFloat(money1?.split(',').join('')) -
-      parseFloat(money_aready_pay1?.split(',').join('')))?.toString()?.replace(/\D/g, '')
-      .replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}
+                    parseFloat(money_aready_pay1?.split(',').join('')))?.toString()?.replace(/\D/g, '')
+                    .replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}
                     {{ currency1 }}</span>
                 </div>
               </td>
@@ -770,10 +776,10 @@
                 class="font-weight-bold">
                 <div style="width:100%;display:flex;justify-content:end">
                   <span>{{ (parseFloat(money_aready_pay ? money_aready_pay?.split(',').join('') : 0) +
-      parseFloat(money_aready_pay1 ? money_aready_pay1?.split(',').join('') :
-        0))?.toString()?.replace(/\D/g,
-          '')
-      .replace(/\B(?=(\d{3})+(?!\d))/g, ',') }} {{ currency1 }}</span>
+                    parseFloat(money_aready_pay1 ? money_aready_pay1?.split(',').join('') :
+                      0))?.toString()?.replace(/\D/g,
+                        '')
+                    .replace(/\B(?=(\d{3})+(?!\d))/g, ',') }} {{ currency1 }}</span>
                 </div>
               </td>
             </tr>
@@ -791,10 +797,10 @@
                 class="font-weight-bold">
                 <div style="width:100%;display:flex;justify-content:end">
                   <span>{{ (parseFloat(money_aready_pay ? money_aready_pay?.split(',').join('') : 0) +
-      parseFloat(money_aready_pay1 ? money_aready_pay1?.split(',').join('') : 0) +
-      parseFloat(priceNamMun_Total
-        ? priceNamMun_Total?.split(',').join('') : 0))?.toString()?.replace(/\D/g, '')
-      .replace(/\B(?=(\d{3})+(?!\d))/g, ',') }} LAK</span>
+                    parseFloat(money_aready_pay1 ? money_aready_pay1?.split(',').join('') : 0) +
+                    parseFloat(priceNamMun_Total
+                      ? priceNamMun_Total?.split(',').join('') : 0))?.toString()?.replace(/\D/g, '')
+                    .replace(/\B(?=(\d{3})+(?!\d))/g, ',') }} LAK</span>
                 </div>
               </td>
             </tr>
@@ -892,7 +898,7 @@
                   style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px">
                   <div style="width:100%;display:flex;justify-content:space-between">
                     <span>{{ parseFloat(ll_TIRE_KM_1?.split(',')?.join('')) -
-      parseFloat(road_send_km?.split(',')?.join(''))
+                      parseFloat(road_send_km?.split(',')?.join(''))
                       }}</span>
                   </div>
                 </td>
@@ -921,7 +927,7 @@
                   style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px">
                   <div style="width:100%;display:flex;justify-content:space-between">
                     <span>{{ parseFloat(ll_TIRE_KM_2?.split(',')?.join('')) -
-      parseFloat(road_send_km?.split(',')?.join(''))
+                      parseFloat(road_send_km?.split(',')?.join(''))
                       }}</span>
                   </div>
                 </td>
@@ -950,7 +956,7 @@
                   style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px">
                   <div style="width:100%;display:flex;justify-content:space-between">
                     <span>{{ parseFloat(ll_TIRE_KM_3?.split(',')?.join('')) -
-      parseFloat(road_send_km?.split(',')?.join(''))
+                      parseFloat(road_send_km?.split(',')?.join(''))
                       }}</span>
                   </div>
                 </td>
@@ -979,7 +985,7 @@
                   style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px">
                   <div style="width:100%;display:flex;justify-content:space-between">
                     <span>{{ parseFloat(ll_TIRE_KM_4?.split(',')?.join('')) -
-      parseFloat(road_send_km?.split(',')?.join(''))
+                      parseFloat(road_send_km?.split(',')?.join(''))
                       }}</span>
                   </div>
                 </td>
@@ -1008,7 +1014,7 @@
                   style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px">
                   <div style="width:100%;display:flex;justify-content:space-between">
                     <span>{{ parseFloat(ll_TIRE_KM_5?.split(',')?.join('')) -
-      parseFloat(road_send_km?.split(',')?.join(''))
+                      parseFloat(road_send_km?.split(',')?.join(''))
                       }}</span>
                   </div>
                 </td>
@@ -1037,7 +1043,7 @@
                   style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px">
                   <div style="width:100%;display:flex;justify-content:space-between">
                     <span>{{ parseFloat(ll_TIRE_KM_6?.split(',')?.join('')) -
-      parseFloat(road_send_km?.split(',')?.join(''))
+                      parseFloat(road_send_km?.split(',')?.join(''))
                       }}</span>
                   </div>
                 </td>
@@ -1066,7 +1072,7 @@
                   style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px">
                   <div style="width:100%;display:flex;justify-content:space-between">
                     <span>{{ parseFloat(r_TIRE_KM_1?.split(',')?.join('')) -
-      parseFloat(road_send_km?.split(',')?.join(''))
+                      parseFloat(road_send_km?.split(',')?.join(''))
                       }}</span>
                   </div>
                 </td>
@@ -1095,7 +1101,7 @@
                   style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px">
                   <div style="width:100%;display:flex;justify-content:space-between">
                     <span>{{ parseFloat(r_TIRE_KM_2?.split(',')?.join('')) -
-      parseFloat(road_send_km?.split(',')?.join(''))
+                      parseFloat(road_send_km?.split(',')?.join(''))
                       }}</span>
                   </div>
                 </td>
@@ -1124,7 +1130,7 @@
                   style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px">
                   <div style="width:100%;display:flex;justify-content:space-between">
                     <span>{{ parseFloat(r_TIRE_KM_3?.split(',')?.join('')) -
-      parseFloat(road_send_km?.split(',')?.join(''))
+                      parseFloat(road_send_km?.split(',')?.join(''))
                       }}</span>
                   </div>
                 </td>
@@ -1153,7 +1159,7 @@
                   style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px">
                   <div style="width:100%;display:flex;justify-content:space-between">
                     <span>{{ parseFloat(r_TIRE_KM_4?.split(',')?.join('')) -
-      parseFloat(road_send_km?.split(',')?.join(''))
+                      parseFloat(road_send_km?.split(',')?.join(''))
                       }}</span>
                   </div>
                 </td>
@@ -1182,7 +1188,7 @@
                   style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px">
                   <div style="width:100%;display:flex;justify-content:space-between">
                     <span>{{ parseFloat(r_TIRE_KM_5?.split(',')?.join('')) -
-      parseFloat(road_send_km?.split(',')?.join(''))
+                      parseFloat(road_send_km?.split(',')?.join(''))
                       }}</span>
                   </div>
                 </td>
@@ -1211,7 +1217,7 @@
                   style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px">
                   <div style="width:100%;display:flex;justify-content:space-between">
                     <span>{{ parseFloat(r_TIRE_KM_6?.split(',')?.join('')) -
-      parseFloat(road_send_km?.split(',')?.join(''))
+                      parseFloat(road_send_km?.split(',')?.join(''))
                       }}</span>
                   </div>
                 </td>
@@ -1305,8 +1311,8 @@
                   class="font-weight-bold">
                   <div style="width:100%;display:flex;justify-content:center;align-items:center">
                     <span>{{
-      parseFloat(bl_TRIES_KM_1?.split(',')?.join('')) - parseFloat(road_send_km?.split(',')?.join(''))
-    }}</span>
+                      parseFloat(bl_TRIES_KM_1?.split(',')?.join('')) - parseFloat(road_send_km?.split(',')?.join(''))
+                    }}</span>
                   </div>
                 </td>
               </tr>
@@ -1335,8 +1341,8 @@
                   class="font-weight-bold">
                   <div style="width:100%;display:flex;justify-content:center;align-items:center">
                     <span>{{
-      parseFloat(bl_TRIES_KM_2?.split(',')?.join('')) - parseFloat(road_send_km?.split(',')?.join(''))
-    }}</span>
+                      parseFloat(bl_TRIES_KM_2?.split(',')?.join('')) - parseFloat(road_send_km?.split(',')?.join(''))
+                    }}</span>
                   </div>
                 </td>
               </tr>
@@ -1365,8 +1371,8 @@
                   class="font-weight-bold">
                   <div style="width:100%;display:flex;justify-content:center;align-items:center">
                     <span>{{
-      parseFloat(bl_TRIES_KM_3?.split(',')?.join('')) - parseFloat(road_send_km?.split(',')?.join(''))
-    }}</span>
+                      parseFloat(bl_TRIES_KM_3?.split(',')?.join('')) - parseFloat(road_send_km?.split(',')?.join(''))
+                    }}</span>
                   </div>
                 </td>
               </tr>
@@ -1395,8 +1401,8 @@
                   class="font-weight-bold">
                   <div style="width:100%;display:flex;justify-content:center;align-items:center">
                     <span>{{
-      parseFloat(bl_TRIES_KM_4?.split(',')?.join('')) - parseFloat(road_send_km?.split(',')?.join(''))
-    }}</span>
+                      parseFloat(bl_TRIES_KM_4?.split(',')?.join('')) - parseFloat(road_send_km?.split(',')?.join(''))
+                    }}</span>
                   </div>
                 </td>
               </tr>
@@ -1425,8 +1431,8 @@
                   class="font-weight-bold">
                   <div style="width:100%;display:flex;justify-content:center;align-items:center">
                     <span>{{
-      parseFloat(bl_TRIES_KM_5?.split(',')?.join('')) - parseFloat(road_send_km?.split(',')?.join(''))
-    }}</span>
+                      parseFloat(bl_TRIES_KM_5?.split(',')?.join('')) - parseFloat(road_send_km?.split(',')?.join(''))
+                    }}</span>
                   </div>
                 </td>
               </tr>
@@ -1455,8 +1461,8 @@
                   class="font-weight-bold">
                   <div style="width:100%;display:flex;justify-content:center;align-items:center">
                     <span>{{
-      parseFloat(bl_TRIES_KM_6?.split(',')?.join('')) - parseFloat(road_send_km?.split(',')?.join(''))
-    }}</span>
+                      parseFloat(bl_TRIES_KM_6?.split(',')?.join('')) - parseFloat(road_send_km?.split(',')?.join(''))
+                    }}</span>
                   </div>
                 </td>
               </tr>
@@ -1485,8 +1491,8 @@
                   class="font-weight-bold">
                   <div style="width:100%;display:flex;justify-content:center;align-items:center">
                     <span>{{
-      parseFloat(bl_TRIES_KM_7?.split(',')?.join('')) - parseFloat(road_send_km?.split(',')?.join(''))
-    }}</span>
+                      parseFloat(bl_TRIES_KM_7?.split(',')?.join('')) - parseFloat(road_send_km?.split(',')?.join(''))
+                    }}</span>
                   </div>
                 </td>
               </tr>
@@ -1515,8 +1521,8 @@
                   class="font-weight-bold">
                   <div style="width:100%;display:flex;justify-content:center;align-items:center">
                     <span>{{
-      parseFloat(bl_TRIES_KM_8?.split(',')?.join('')) - parseFloat(road_send_km?.split(',')?.join(''))
-    }}</span>
+                      parseFloat(bl_TRIES_KM_8?.split(',')?.join('')) - parseFloat(road_send_km?.split(',')?.join(''))
+                    }}</span>
                   </div>
                 </td>
               </tr>
@@ -1545,8 +1551,8 @@
                   class="font-weight-bold">
                   <div style="width:100%;display:flex;justify-content:center;align-items:center">
                     <span>{{
-      parseFloat(br_TRIES_KM_1?.split(',')?.join('')) - parseFloat(road_send_km?.split(',')?.join(''))
-    }}</span>
+                      parseFloat(br_TRIES_KM_1?.split(',')?.join('')) - parseFloat(road_send_km?.split(',')?.join(''))
+                    }}</span>
                   </div>
                 </td>
               </tr>
@@ -1575,8 +1581,8 @@
                   class="font-weight-bold">
                   <div style="width:100%;display:flex;justify-content:center;align-items:center">
                     <span>{{
-      parseFloat(br_TRIES_KM_2?.split(',')?.join('')) - parseFloat(road_send_km?.split(',')?.join(''))
-    }}</span>
+                      parseFloat(br_TRIES_KM_2?.split(',')?.join('')) - parseFloat(road_send_km?.split(',')?.join(''))
+                    }}</span>
                   </div>
                 </td>
               </tr>
@@ -1605,8 +1611,8 @@
                   class="font-weight-bold">
                   <div style="width:100%;display:flex;justify-content:center;align-items:center">
                     <span>{{
-      parseFloat(br_TRIES_KM_3?.split(',')?.join('')) - parseFloat(road_send_km?.split(',')?.join(''))
-    }}</span>
+                      parseFloat(br_TRIES_KM_3?.split(',')?.join('')) - parseFloat(road_send_km?.split(',')?.join(''))
+                    }}</span>
                   </div>
                 </td>
               </tr>
@@ -1635,8 +1641,8 @@
                   class="font-weight-bold">
                   <div style="width:100%;display:flex;justify-content:center;align-items:center">
                     <span>{{
-      parseFloat(br_TRIES_KM_4?.split(',')?.join('')) - parseFloat(road_send_km?.split(',')?.join(''))
-    }}</span>
+                      parseFloat(br_TRIES_KM_4?.split(',')?.join('')) - parseFloat(road_send_km?.split(',')?.join(''))
+                    }}</span>
                   </div>
                 </td>
               </tr>
@@ -1665,8 +1671,8 @@
                   class="font-weight-bold">
                   <div style="width:100%;display:flex;justify-content:center;align-items:center">
                     <span>{{
-      parseFloat(br_TRIES_KM_5?.split(',')?.join('')) - parseFloat(road_send_km?.split(',')?.join(''))
-                      }}</span>
+                      parseFloat(br_TRIES_KM_5?.split(',')?.join('')) - parseFloat(road_send_km?.split(',')?.join(''))
+                    }}</span>
                   </div>
                 </td>
               </tr>
@@ -1696,7 +1702,7 @@
                   <div style="width:100%;display:flex;justify-content:center;align-items:center">
                     <span>{{
                       parseFloat(br_TRIES_KM_6?.split(',')?.join('')) - parseFloat(road_send_km?.split(',')?.join(''))
-                      }}</span>
+                    }}</span>
                   </div>
                 </td>
               </tr>
@@ -1726,7 +1732,7 @@
                   <div style="width:100%;display:flex;justify-content:center;align-items:center">
                     <span>{{
                       parseFloat(br_TRIES_KM_7?.split(',')?.join('')) - parseFloat(road_send_km?.split(',')?.join(''))
-                      }}</span>
+                    }}</span>
                   </div>
                 </td>
               </tr>
@@ -1756,7 +1762,7 @@
                   <div style="width:100%;display:flex;justify-content:center;align-items:center">
                     <span>{{
                       parseFloat(br_TRIES_KM_8?.split(',')?.join('')) - parseFloat(road_send_km?.split(',')?.join(''))
-                      }}</span>
+                    }}</span>
                   </div>
                 </td>
               </tr>

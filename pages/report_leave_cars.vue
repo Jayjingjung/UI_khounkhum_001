@@ -18,8 +18,9 @@
                         <v-menu ref="start_menu" v-model="start_menu" :close-on-content-click="false"
                             :return-value.sync="start_date" transition="scale-transition" offset-y min-width="auto">
                             <template v-slot:activator="{ on, attrs }">
-                                <v-text-field dense outlined v-model="start_date" required label="ວັນທີເລີ່ມຕົ້ນ"
-                                    append-icon="mdi-calendar" readonly v-bind="attrs" v-on="on"></v-text-field>
+                                <v-text-field dense outlined v-model="formattedStartDate" required
+                                    label="ວັນທີເລີ່ມຕົ້ນ" append-icon="mdi-calendar" readonly v-bind="attrs"
+                                    v-on="on"></v-text-field>
                             </template>
                             <v-date-picker v-model="start_date" no-title scrollable
                                 @input="$refs.start_menu.save(start_date)">
@@ -32,7 +33,7 @@
                             :return-value.sync="end_date" transition="scale-transition" offset-y min-width="auto">
 
                             <template v-slot:activator="{ on, attrs }">
-                                <v-text-field dense outlined v-model="end_date" required label="ວັນທີສຸດທ້າຍ"
+                                <v-text-field dense outlined v-model="formattedEndDate" required label="ວັນທີສຸດທ້າຍ"
                                     append-icon="mdi-calendar" readonly v-bind="attrs" v-on="on"></v-text-field>
                             </template>
                             <v-date-picker v-model="end_date" no-title scrollable
@@ -41,6 +42,8 @@
                             </v-date-picker>
                         </v-menu>
                     </div>
+
+
                     <div class="ml-2 pt-1">
                         <v-btn color="#90A4AE" class="white--text" elevation="0"
                             @click="() => { onSearchLeaveCarReport(); }">
@@ -136,37 +139,37 @@
 
 
                                 <td><v-btn small color="primary" class="card-shadow" @click="onPrintAgain(
-            row?.item?.lahud_POYLOD,
-            row?.item?.customer_ID,
-            row?.item?.product_ID,
-            row?.item?.product_AMOUNT,
-            row?.item?.product_SIZE,
-            row?.item?.product_DETAILS,
-            row?.item?.product_FROM,
-            row?.item?.product_TO,
-            row?.item?.place_PD_FROM,
-            row?.item?.place_PD_TO,
-            row?.item?.staff_ID_NUM1,
-            row?.item?.staff_ID_NUM2,
-            row?.item?.staff_BIALIENG_FRIST,
-            row?.item?.staff_BIALIENG,
-            row?.item?.staff_BIALINEG_KANGJAIY,
-            row?.item?.header_ID,
-            row?.item?.footer_ID,
-            row?.item?.out_DATE,
-            row?.item?.in_DATE,
-            row?.item?.laiyathang,
-            row?.item?.sainummun,
-            row?.item?.numnuklod,
-            row?.item?.kongnarlod,
-            row?.item?.khg_MUE_TIDLOD,
-            row?.item?.kim_KILO,
-            row?.item?.price,
-            row?.item?.total_price,
-            row?.item?.priceNamMun,
-            row?.item?.currency,
-            row?.item?.staff_Curr
-        )"><v-icon>mdi-printer</v-icon>ພິມບິນຄືນ</v-btn></td>
+                                    row?.item?.lahud_POYLOD,
+                                    row?.item?.customer_ID,
+                                    row?.item?.product_ID,
+                                    row?.item?.product_AMOUNT,
+                                    row?.item?.product_SIZE,
+                                    row?.item?.product_DETAILS,
+                                    row?.item?.product_FROM,
+                                    row?.item?.product_TO,
+                                    row?.item?.place_PD_FROM,
+                                    row?.item?.place_PD_TO,
+                                    row?.item?.staff_ID_NUM1,
+                                    row?.item?.staff_ID_NUM2,
+                                    row?.item?.staff_BIALIENG_FRIST,
+                                    row?.item?.staff_BIALIENG,
+                                    row?.item?.staff_BIALINEG_KANGJAIY,
+                                    row?.item?.header_ID,
+                                    row?.item?.footer_ID,
+                                    row?.item?.out_DATE,
+                                    row?.item?.in_DATE,
+                                    row?.item?.laiyathang,
+                                    row?.item?.sainummun,
+                                    row?.item?.numnuklod,
+                                    row?.item?.kongnarlod,
+                                    row?.item?.khg_MUE_TIDLOD,
+                                    row?.item?.kim_KILO,
+                                    row?.item?.price,
+                                    row?.item?.total_price,
+                                    row?.item?.priceNamMun,
+                                    row?.item?.currency,
+                                    row?.item?.staff_Curr
+                                )"><v-icon>mdi-printer</v-icon>ພິມບິນຄືນ</v-btn></td>
                             </tr>
                         </template>
                         <!-- sum footer -->
@@ -320,7 +323,7 @@
                     <v-col cols="9">
                         <div style="display:flex;justify-content:start;flex-direction:column;align-items:start">
 
-                            <span style="font-size:14px">
+                            <span>
 
                                 <Noti />
 
@@ -442,9 +445,9 @@
                     </div>
                     <div style="height: 35px;">
                         <td>
-                            <h3> ລວມເງິນສິ້ນເປືອງ (ສິ້ນເປືອງ+ຈ່າຍນອກ+ເບ້ຍລ້ຽງ ):  </h3>
+                            <h3> ລວມເງິນສິ້ນເປືອງ (ສິ້ນເປືອງ+ຈ່າຍນອກ+ເບ້ຍລ້ຽງ ): </h3>
                         </td>
-                        <td v-if="sumFooter != null" >
+                        <td v-if="sumFooter != null">
                             <b>
                                 <h3 class="red--text "> {{ sumFooter.biaOutWasted }} LAK</h3>
                             </b>
@@ -553,6 +556,25 @@ export default {
 
         }
     },
+    computed: {
+        formattedStartDate() {
+            if (!this.start_date) return ''; // Return empty string if date is not set
+            const dateObj = new Date(this.start_date);
+            const day = dateObj.getDate();
+            const month = dateObj.getMonth() + 1; // January is 0, so add 1 to get correct month
+            const year = dateObj.getFullYear();
+            return `${day}/${month}/${year}`;
+        },
+        formattedEndDate() {
+            if (!this.end_date) return ''; // Return empty string if date is not set
+            const dateObj = new Date(this.end_date);
+            const day = dateObj.getDate();
+            const month = dateObj.getMonth() + 1; // January is 0, so add 1 to get correct month
+            const year = dateObj.getFullYear();
+            return `${day}/${month}/${year}`;
+        }
+    },
+
     mounted() {
         this.onSearchLeaveCarReport()
     },

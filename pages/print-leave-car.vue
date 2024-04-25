@@ -281,27 +281,48 @@
                     <span class="text-center">- ຄ່າສິ້ນເປືອງ</span>
                     <div>
 
-                        <div v-if="wastedValueData" style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
-                        <div  v-for="(item, index) in wastedValueData" :key="index">
+                        <div v-if="wastedValueData"
+                            style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                            <div v-for="(item, index) in wastedValueData" :key="index">
                                 <div style="display:flex">
-                                    <div style="height: 50px; font-size: 18px ; " class="mr-5 ml-5 mt-5 mb-5 text-center " > ຄ່າຊິງມະຫາໄຊ: {{ item.feeJumPo2 }}</div >
-                                    <div style="height: 50px; font-size: 18px ; " class="mr-5 ml-5 mt-5 mb-5 text-center " > ຄ່າຊິງນາອິນ: {{ item.feePassport }}</div >
-                                    <div style="height: 50px; font-size: 18px ; " class="mr-5 ml-5 mt-5 mb-5 text-center " > ຄ່າຕຳລວດ: {{ item.feePolish3 }}</div >
-                                    <div style="height: 50px; font-size: 18px ; " class="mr-5 ml-5 mt-5 mb-5 text-center " > ຄ່າສິ້ນເປືອງຢູ່ສາງພາສີ: {{ item.feepayang }}</div >
-                                    <div style="height: 50px; font-size: 18px ; " class="mr-5 ml-5 mt-5 mb-5 text-center " > ຄ່າດ່ານລາວຂາໄປ - ຂາກັບ: {{ item.feeTiew5 }}</div >
-                                    <div style="height: 50px; font-size: 18px ; " class="mr-5 ml-5 mt-5 mb-5 text-center " > ຄ່າດ່ານຫວຽດຂາກັບ: {{ item.feeOvertime1 }}</div >
+                                    <div style="height: 50px; font-size: 18px ; "
+                                        class="mr-5 ml-5 mt-5 mb-5 text-center "> ຄ່າຊິງມະຫາໄຊ: {{ item.feeJumPo2 }}
+                                    </div>
+                                    <div style="height: 50px; font-size: 18px ; "
+                                        class="mr-5 ml-5 mt-5 mb-5 text-center "> ຄ່າຊິງນາອິນ: {{ item.feePassport }}
+                                    </div>
+                                    <div style="height: 50px; font-size: 18px ; "
+                                        class="mr-5 ml-5 mt-5 mb-5 text-center "> ຄ່າຕຳລວດ: {{ item.feePolish3 }}</div>
+                                    <div style="height: 50px; font-size: 18px ; "
+                                        class="mr-5 ml-5 mt-5 mb-5 text-center "> ຄ່າສິ້ນເປືອງຢູ່ສາງພາສີ: {{
+                                            item.feepayang }}</div>
+                                    <div style="height: 50px; font-size: 18px ; "
+                                        class="mr-5 ml-5 mt-5 mb-5 text-center "> ຄ່າດ່ານລາວຂາໄປ - ຂາກັບ: {{
+                                            item.feeTiew5 }}</div>
+                                    <div style="height: 50px; font-size: 18px ; "
+                                        class="mr-5 ml-5 mt-5 mb-5 text-center "> ຄ່າດ່ານຫວຽດຂາກັບ: {{ item.feeOvertime1
+                                        }}</div>
                                 </div>
-                    <v-divider></v-divider>
-                                
+                                <v-divider></v-divider>
+
                                 <div style="display:flex">
-                                    <div style="height: 50px; font-size: 18px ; " class="mr-5 ml-5 mt-5 mb-5 text-center " > ຄ່າຊິບປິ້ງຫວຽດແລ່ນເອກະສານ: {{ item.feeTaxung4 }}</div >
-                                    <div style="height: 50px; font-size: 18px ; " class="mr-5 ml-5 mt-5 mb-5 text-center " > ຄ່າໃບຊີງ: {{ item.feesing }}</div >
-                                    <div style="height: 50px; font-size: 18px ; " class="mr-5 ml-5 mt-5 mb-5 text-center " > ຄ່າແຈ້ງເອກະສານຢູ່ບ່ອນຂຶ້ນເກືອ: {{ item.feesaphan }}</div >
-                                    <div style="height: 50px; font-size: 18px ; " class="mr-5 ml-5 mt-5 mb-5 text-center " > ຄ່າລົງເກືອ: {{ item.feecontrainer }}</div >
-                                    <div style="height: 50px; font-size: 18px ; " class="mr-5 ml-5 mt-5 mb-5 text-center " > ຄ່າລ່ວງເວລາ: {{ item.feeyoktu }}</div >
-                                    <div style="height: 50px; font-size: 18px ; " class="mr-5 ml-5 mt-5 mb-5 text-center " > ອື່ນໆ: {{ item.feevacin }}</div >                    
-                                </div>                
-                            </div>                            
+                                    <div style="height: 50px; font-size: 18px ; "
+                                        class="mr-5 ml-5 mt-5 mb-5 text-center "> ຄ່າຊິບປິ້ງຫວຽດແລ່ນເອກະສານ: {{
+                                            item.feeTaxung4 }}</div>
+                                    <div style="height: 50px; font-size: 18px ; "
+                                        class="mr-5 ml-5 mt-5 mb-5 text-center "> ຄ່າໃບຊີງ: {{ item.feesing }}</div>
+                                    <div style="height: 50px; font-size: 18px ; "
+                                        class="mr-5 ml-5 mt-5 mb-5 text-center "> ຄ່າແຈ້ງເອກະສານຢູ່ບ່ອນຂຶ້ນເກືອ: {{
+                                            item.feesaphan }}</div>
+                                    <div style="height: 50px; font-size: 18px ; "
+                                        class="mr-5 ml-5 mt-5 mb-5 text-center "> ຄ່າລົງເກືອ: {{ item.feecontrainer }}
+                                    </div>
+                                    <div style="height: 50px; font-size: 18px ; "
+                                        class="mr-5 ml-5 mt-5 mb-5 text-center "> ຄ່າລ່ວງເວລາ: {{ item.feeyoktu }}</div>
+                                    <div style="height: 50px; font-size: 18px ; "
+                                        class="mr-5 ml-5 mt-5 mb-5 text-center "> ອື່ນໆ: {{ item.feevacin }}</div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -468,14 +489,14 @@
                                 <div style="display:flex;flex-direction:row;justify-content:space-between;">
 
                                     <div style="width:100%"><span style="font-size:12px">ແຂວງທີ່ສົ່ງ: {{
-            loca_send_province
-        }}</span></div>
+                                        loca_send_province
+                                            }}</span></div>
 
                                 </div>
                                 <div style="display:flex;flex-direction:row;justify-content:space-between;">
                                     <div style="width:100%"><span style="font-size:12px">ສະຖານທີສົ່ງ: {{
-                loca_send_station
-            }}</span></div>
+                                        loca_send_station
+                                            }}</span></div>
                                 </div>
                             </td>
                             <td colspan="2"
@@ -483,19 +504,25 @@
                                 <div style="display:flex;flex-direction:row;justify-content:space-between;">
                                     <div style="width:100%;display:flex;align-items:end"><span
                                             style="font-size:12px">ແຂວງຮັບ: {{
-                loca_recieve_province }}</span>
+                                                loca_recieve_province }}</span>
                                     </div>
                                 </div>
                                 <div style="display:flex;flex-direction:row;justify-content:space-between;">
 
                                     <div style="width:100%"><span style="font-size:12px">ສະຖານທີຮັບ: {{
-            loca_revieve_station
-        }}</span></div>
+                                        loca_revieve_station
+                                            }}</span></div>
                                 </div>
                             </td>
                         </tr>
                         <tr
                             style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;border-radius:10px; font-size: 12px;">
+                            <td style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px"
+                                class="font-weight-bold">
+                                <div style="width:100%;display:flex;justify-content:center;align-items:center">
+                                    <span>ເຂັມກິໂລແມັດກ່ອນປ່ອຍ</span>
+                                </div>
+                            </td>
                             <td style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px"
                                 class="font-weight-bold">
                                 <div style="width:100%;display:flex;justify-content:center;align-items:center">
@@ -505,9 +532,10 @@
                             <td style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px"
                                 class="font-weight-bold">
                                 <div style="width:100%;display:flex;justify-content:center;align-items:center">
-                                    <span>ເຂັມກິໂລແມັດກ່ອນປ່ອຍ</span>
+                                    <span>ລວມໄລຍະທາງ</span>
                                 </div>
                             </td>
+
                             <td colspan="2"
                                 style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px"
                                 class="font-weight-bold">
@@ -517,16 +545,23 @@
                             </td>
                         </tr>
                         <tr style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;border-radius:10px">
+
+                            <td
+                                style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px;">
+                                <div style="width:100%;display:flex;justify-content:center;">
+                                    <span style="font-size:12px">{{ kim_KM }} </span>
+                                </div>
                             <td
                                 style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px;">
                                 <div style="width:100%;display:flex;justify-content:center;">
                                     <span style="font-size:12px"> {{ road_send_km }} Km</span>
                                 </div>
                             </td>
+                            </td>
                             <td
                                 style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px;">
                                 <div style="width:100%;display:flex;justify-content:center;">
-                                    <span style="font-size:12px"> {{ truck_kilomen }} </span>
+                                    <span style="font-size:12px"> {{ truck_kilomen }}Km</span>
                                 </div>
                             </td>
                             <td colspan="2"
@@ -618,7 +653,7 @@
                                         </div>
                                         <div style="display:flex;flex-direction:row;justify-content:space-between;">
                                             <div style="width:100%"><span style="font-size:12px"> ເລກໃບຂັບຂີ່: {{
-            emp_id_card }}</span></div>
+                                                emp_id_card }}</span></div>
                                         </div>
                                     </v-col>
                                 </v-row>
@@ -642,7 +677,7 @@
                                         </div>
                                         <div style="display:flex;flex-direction:row;justify-content:space-between;">
                                             <div style="width:100%"><span style="font-size:12px"> ເລກໃບຂັບຂີ່: {{
-            emp_id_card1 }}</span></div>
+                                                emp_id_card1 }}</span></div>
                                         </div>
                                     </v-col>
                                 </v-row>
@@ -760,9 +795,9 @@
                                 class="font-weight-bold">
                                 <div style="width:100%;display:flex;justify-content:end">
                                     <span>{{ (parseFloat(money_aready_pay ? money_aready_pay?.split(',').join('') : 0) +
-            parseFloat(money_aready_pay1 ?
-                money_aready_pay1?.split(',').join('') : 0))?.toString()?.replace(/\D/g, '')
-            .replace(/\B(?=(\d{3})+(?!\d))/g, ',') }} {{ currency1 }} LAK</span>
+                                        parseFloat(money_aready_pay1 ?
+                                            money_aready_pay1?.split(',').join('') : 0))?.toString()?.replace(/\D/g, '')
+                                        .replace(/\B(?=(\d{3})+(?!\d))/g, ',') }} {{ currency1 }} LAK</span>
                                 </div>
                             </td>
                         </tr>
@@ -780,10 +815,10 @@
                                 class="font-weight-bold">
                                 <div style="width:100%;display:flex;justify-content:end">
                                     <span>{{ (parseFloat(money_aready_pay ? money_aready_pay?.split(',').join('') : 0) +
-            parseFloat(money_aready_pay1 ?
-                money_aready_pay1?.split(',').join('') : 0) + parseFloat(priceNamMun_Total ?
-                    priceNamMun_Total?.split(',').join('') : 0))?.toString()?.replace(/\D/g, '')
-            .replace(/\B(?=(\d{3})+(?!\d))/g, ',') }} LAK</span>
+                                        parseFloat(money_aready_pay1 ?
+                                            money_aready_pay1?.split(',').join('') : 0) + parseFloat(priceNamMun_Total ?
+                                                priceNamMun_Total?.split(',').join('') : 0))?.toString()?.replace(/\D/g, '')
+                                        .replace(/\B(?=(\d{3})+(?!\d))/g, ',') }} LAK</span>
                                 </div>
                             </td>
                         </tr>
@@ -1611,7 +1646,7 @@ export default {
             end_date: null,
             cars_category_list: [],
             leave_card_no: '',
-
+            rtt: '', // Define rtt here if it's not already defined
             // l_plate_No: '',
             // fullName: '',
             //==========truck
@@ -1865,12 +1900,12 @@ export default {
             const result = newValue?.replace(/\D/g, '')?.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
             this.product_price = result
         },
-        // product_quality: function (newValue) {
-        //     const real_total = parseInt(newValue?.split(',').join('')) * parseInt(this.product_price ? this.product_price?.split(',').join('') : 1);
-        //     this.total_price = (real_total)?.toString()?.replace(/\D/g, '')?.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-        //     const result = newValue?.replace(/\D/g, '')?.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-        //     this.product_quality = result;
-        // },
+        product_quality: function (newValue) {
+            const real_total = parseInt(newValue?.split(',').join('')) * parseInt(this.product_price ? this.product_price?.split(',').join('') : 1);
+            this.total_price = (real_total)?.toString()?.replace(/\D/g, '')?.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+            const result = newValue?.replace(/\D/g, '')?.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+            this.product_quality = result;
+        },
         product_weight: function (newValue) {
             const result = newValue
                 ?.replace(/\D/g, '')
@@ -1911,12 +1946,15 @@ export default {
                 ?.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
             this.money_aready_pay = result
         },
+
+
         road_send_km: function (newValue) {
             const totalR = parseFloat(newValue?.split(',')?.join('')) + parseFloat(this.kim_KM ? this.kim_KM?.split(',').join('') : 0)
             this.totalRoad = totalR?.toString()
             // const result = newValue.replace(/\D/g, '').replace(/\B(?=(\d{3})+(?!\d))/g, ',')
             this.road_send_km = newValue
         },
+
         truck_glass: function (newValue) {
             const result = newValue
                 ?.replace(/\D/g, '')
@@ -1935,6 +1973,10 @@ export default {
                 ?.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
             this.truck_kilomen = result
         },
+        rtt: function () {
+            const totalrtt = parseInt(this.truck_kilomen?.split(',').join('')) - parseInt(this.road_send_km?.split(',').join(''));
+            this.rtt = totalrtt.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+        }
     },
     mounted() {
         // this.onCreateReports()
@@ -2005,7 +2047,7 @@ export default {
                     }
                 })
         },
-        
+
         async onCreateReports() {
             this.print()
             return;
@@ -2773,7 +2815,7 @@ export default {
 
         //         }
         //         console.log("datadend:", data)
-              
+
         //         await this.$axios.$post('showWastedValue.service',data );
         //         if (response.status === '00') {
         //             console.log('Wasted value data:', response.data);

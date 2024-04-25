@@ -1,6 +1,25 @@
 <template>
   <div>
-    <span style="font-size:20px; font-weight:bold">ບໍລິສັດ ຄູນຄໍາ ຂົນສົ່ງ {{ branchDisplayName }}</span>  
+    <div>
+      <v-col cols="3">
+        <!-- <img class="mx-auto" src="../assets/images/khounkham.png" height="70px" cover /> -->
+
+      </v-col>
+      <v-row>
+        <v-col cols="9">
+          <div>
+            <span ><b>
+                <span style="font-size:20px; font-weight:bold;width: max-content;">ບໍລິສັດ ຄູນຄໍາ ຂົນສົ່ງ {{ branchDisplayName }}</span>
+              </b> </span>
+            <!-- <span style="font-size:12px">ສໍານັກງານຕັ້ງຢູ່ ອາຄານ ສະໜາມຍິງປືນ 20 ມັງກອນ, ສະໜາມກີລາກອງທັບ,
+              ບ້ານຈອມມະນີ, ເມືອງ ໄຊເສດຖາ, ນະຄອນຫຼວງວຽງຈັນ, ສປປ ລາວ</span>
+            <span style="font-size:12px">ໂທລະສັບ: 020 92661111, 020 92 254 999 | ອີເມວ: kounkham@Mining
+              |
+              ເວັບໄຊ: kounkham</span> -->
+          </div>
+        </v-col>
+      </v-row>
+    </div>
     <!-- Other template code -->
   </div>
 </template>

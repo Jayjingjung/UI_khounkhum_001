@@ -243,10 +243,13 @@
                     </v-col>
                     <v-col cols="9">
                         <div style="display:flex;justify-content:start;flex-direction:column;align-items:start">
-                            <span style="font-size:14px"><b><Noti/> </b> </span>
+                            <span style="font-size:14px"><b>
+                                    <Noti />
+                                </b> </span>
                             <span style="font-size:12px">ສໍານັກງານຕັ້ງຢູ່ ອາຄານ ສະໜາມຍິງປືນ 20 ມັງກອນ, ສະໜາມກີລາກອງທັບ,
                                 ບ້ານຈອມມະນີ, ເມືອງ ໄຊເສດຖາ, ນະຄອນຫຼວງວຽງຈັນ, ສປປ ລາວ</span>
-                            <span style="font-size:12px">ໂທລະສັບ: 020 92661111, 020 92 254 999 | ອີເມວ: kounkham@Mining |
+                            <span style="font-size:12px">ໂທລະສັບ: 020 92661111, 020 92 254 999 | ອີເມວ: kounkham@Mining
+                                |
                                 ເວັບໄຊ: kounkham</span>
                         </div>
                     </v-col>
@@ -480,6 +483,7 @@ export default {
                 console.log(error)
             }
         },
+  
         async onGetDatsForPrint() {
             this.loading_processing = true; // Set loading to true at the start
 

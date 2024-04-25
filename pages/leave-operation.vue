@@ -95,15 +95,19 @@
                     </table>
                     <div class="pt-4 d-flex align-center" style="">
                         <!-- ເລືອກວັນທີກັບ -->
+
+
+
                         <div style="width: 770px">
                             <v-menu ref="start_go_menu" v-model="start_go_menu" :close-on-content-click="false"
                                 :return-value.sync="start_go_date" transition="scale-transition" offset-y
                                 min-width="auto">
                                 <template v-slot:activator="{ on, attrs }">
                                     <span>ວັນທີກັບ</span>
-                                    <v-text-field v-model="start_go_date" dense flat solo background-color="#f5f5f5"
-                                        required placeholder="ເລືອກວັນທີກັບ" prepend-inner-icon="mdi-calendar" readonly
-                                        v-bind="attrs" v-on="on"></v-text-field>
+                                    <v-text-field v-model="formattedStartDate" dense flat solo
+                                        background-color="#f5f5f5" required placeholder="ເລືອກວັນທີກັບ"
+                                        prepend-inner-icon="mdi-calendar" readonly v-bind="attrs"
+                                        v-on="on"></v-text-field>
                                 </template>
                                 <v-date-picker v-model="start_go_date" no-title scrollable
                                     @input="$refs.start_go_menu.save(start_go_date)">
@@ -115,23 +119,25 @@
 
 
 
+
+
                         <div style="width: 750px" class="pl-2">
                             <span>ນໍ້າໜັກທັງໝົດ <spam :style="{ color: 'red' }">( ຄິດໄລເເບບໂອໂຕ )</spam></span>
                             <v-text-field flat solo dense background-color="#ffdb9c" placeholder="ນໍ້າໜັກທັງໝົດ"
                                 v-model="numnuktotal" readonly></v-text-field>
                         </div>
                         <div style="width: 700px" class="pl-2">
-                            <span>ນໍ້າໜັກລົດເປົ່າ<span  style="color: red"> 1</span></span>
+                            <span>ນໍ້າໜັກລົດເປົ່າ<span style="color: red"> 1</span></span>
                             <v-text-field flat solo dense background-color="#E1F5FE" placeholder="ປ້ອນນ້ຳໜັກລົດເປົ່າ"
                                 v-model="numnuklod"></v-text-field>
                         </div>
                         <div style="width:700px" class="pl-2">
-                            <span>ນໍ້າໜັກສິນຄ້າ <span  style="color: red"> 3</span></span>
+                            <span>ນໍ້າໜັກສິນຄ້າ <span style="color: red"> 3</span></span>
                             <v-text-field flat solo dense background-color="#E1F5FE" placeholder="ປ້ອນນໍ້າໜັກສິນຄ້າ"
                                 append-icon="mdi-format-title" v-model="proSize"></v-text-field>
                         </div>
                         <div style="width:700px" class="pl-2">
-                            <span>ລາຄາ <span  style="color: red"> 2</span> </span>
+                            <span>ລາຄາ <span style="color: red"> 2</span> </span>
                             <v-text-field flat solo dense background-color="#E1F5FE" placeholder="ປ້ອນລາຄາ"
                                 v-model="price"></v-text-field>
                         </div>
@@ -218,14 +224,15 @@
 
 
                 <!-- ເລືອກວັນກຳນົດເກັບເງິນ -->
+                <!-- ເລືອກວັນກຳນົດເກັບເງິນ -->
                 <div style="width:15%">
                     <v-menu ref="dpay_Moneyy" v-model="dpay_Moneyy" :close-on-content-click="false"
                         :return-value.sync="dpay_Money" transition="scale-transition" offset-y min-width="auto">
 
                         <template v-slot:activator="{ on, attrs }">
                             <span>ວັນທີເກັບເງິນ</span>
-                            <v-text-field v-model="dpay_Money" dense flat solo background-color="#f5f5f5" required
-                                placeholder="ເລືອກວັນກຳນົດເກັບເງິນ" prepend-inner-icon="mdi-calendar" readonly
+                            <v-text-field v-model="formattedDpayMoney" dense flat solo background-color="#f5f5f5"
+                                required placeholder="ເລືອກວັນກຳນົດເກັບເງິນ" prepend-inner-icon="mdi-calendar" readonly
                                 v-bind="attrs" v-on="on"></v-text-field>
                         </template>
                         <v-date-picker v-model="dpay_Money" no-title scrollable
@@ -233,11 +240,17 @@
                         </v-date-picker>
                     </v-menu>
                 </div>
+
+
                 <div class="text-center">
-                    <span class="white-text large-text" style="color: red;font-size:15px;font-weight:bold">ໃຫ້ໃສຂໍມູນຕາມລໍາດັບ 1 2 3</span>
+                    <span class="white-text large-text"
+                        style="color: red;font-size:15px;font-weight:bold">ໃຫ້ໃສຂໍມູນຕາມລໍາດັບ 1 2
+                        3</span>
                 </div>
                 <div class="text-center">
-                    <span class="white-text large-text" style="color: red;font-size:15px;font-weight:bold">ຖ້າມີການ ປຽນຂໍມູນ 1 2 ໃຫ້ ໃສ ຂໍມູນ 3 ຄືນໄໝ່</span>
+                    <span class="white-text large-text" style="color: red;font-size:15px;font-weight:bold">ຖ້າມີການ
+                        ປຽນຂໍມູນ 1 2 ໃຫ້ ໃສ
+                        ຂໍມູນ 3 ຄືນໄໝ່</span>
                 </div>
 
                 <div class="pl-2 d-flex">
@@ -337,10 +350,13 @@
                     </v-col>
                     <v-col cols="9">
                         <div style="display:flex;justify-content:start;flex-direction:column;align-items:start">
-                            <span style="font-size:14px"><b><Noti/> </b> </span>
+                            <span style="font-size:14px"><b>
+                                    <Noti />
+                                </b> </span>
                             <span style="font-size:12px">ສໍານັກງານຕັ້ງຢູ່ ອາຄານ ສະໜາມຍິງປືນ 20 ມັງກອນ, ສະໜາມກີລາກອງທັບ,
                                 ບ້ານຈອມມະນີ, ເມືອງ ໄຊເສດຖາ, ນະຄອນຫຼວງວຽງຈັນ, ສປປ ລາວ</span>
-                            <span style="font-size:12px">ໂທລະສັບ: 020 92661111, 020 92 254 999 | ອີເມວ: kounkham@Mining |
+                            <span style="font-size:12px">ໂທລະສັບ: 020 92661111, 020 92 254 999 | ອີເມວ: kounkham@Mining
+                                |
                                 ເວັບໄຊ: kounkham</span>
                         </div>
                     </v-col>
@@ -517,7 +533,7 @@
                             </tr>
 
 
-                          
+
                             <!-- <tr style="padding:5px;border: 0.5px solid #999;">
                                 <td style="border: 0.5px solid #999;padding:5px">ຄ່າລ່ວງເວລາຢູ່ດ່ານຫຼັກ20</td>
                                 <td style="border: 0.5px solid #999;padding:5px">{{
@@ -631,7 +647,7 @@
 </template>
 
 <script>
-import swal from 'sweetalert2'
+
 import moment from 'moment'
 export default {
     data() {
@@ -687,6 +703,7 @@ export default {
             nameRules: [(v) => !!v || 'ຕ້ອງປ້ອນຂໍ້ມູນ'],
             perBillNoAuto: '',
             kim: '',
+      
             report_peration_list: [],
             report_operation_header: [
                 { text: 'ເລກບິນ', value: 'lahud_POYLOD' },
@@ -707,76 +724,77 @@ export default {
         let test = 25.50 * 100
         console.log(test)
     },
+    computed: {
+        formattedStartDate() {
+            if (!this.start_go_date) return ''; // Return empty string if date is not set
+            const dateObj = new Date(this.start_go_date);
+            const day = dateObj.getDate();
+            const month = dateObj.getMonth() + 1; // January is 0, so add 1 to get correct month
+            const year = dateObj.getFullYear();
+            return `${day}/${month}/${year}`;
+        },
+        formattedDpayMoney() {
+            if (!this.dpay_Money) return ''; // Return empty string if date is not set
+            const dateObj = new Date(this.dpay_Money);
+            const day = dateObj.getDate();
+            const month = dateObj.getMonth() + 1; // January is 0, so add 1 to get correct month
+            const year = dateObj.getFullYear();
+            return `${day}/${month}/${year}`;
+        }
+    },
     watch: {
-        numnuklod: function (newValue) {
-            const result = newValue?.replace(/[^\d.]/g, '').replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+    numnuklod: function (newValue) {
+        const result = newValue?.replace(/[^\d.]/g, '').replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
 
-            this.numnuklod = result;
-            //numnuktotal
+        this.numnuklod = result;
 
-            this.numnuktotal = totalNumnuk?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-            const totalNumnuk = parseFloat(newValue?.split(' ')?.join('')) + parseFloat(this.proSize?.split(' ')?.join(''));
+        // Calculate totalNumnuk
+        const totalNumnuk = parseFloat(newValue?.split(' ')?.join('')) + parseFloat(this.proSize?.split(' ')?.join(''));
 
-            //numnuktotal
+        // Check if numnuklod is greater than 0
+        if (parseFloat(this.numnuklod?.split(' ')?.join('')) > 0) {
+            this.numnuktotal = totalNumnuk?.toFixed(2)?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+        } else {
+            this.numnuktotal = ''; // Reset numnuktotal if numnuklod is not greater than 0
+        }
+    },
+    let_mai: function (value) {
+        this.check_kim = (parseFloat(value?.split(' ')?.join('')) - parseFloat(this.kim?.split('-').join('')))?.toFixed(2);
+    },
+    proSize: function (newValue) {
+        const reals = parseFloat(newValue?.split(' ')?.join('')) * parseFloat(this.price ? this.price?.split(' ')?.join('') : 1);
+
+        // Calculate price_total
+        this.price_total = reals?.toFixed(2)?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+
+        // Calculate numnuktotal only if numnuklod is greater than 0
+        if (parseFloat(this.numnuklod?.split(' ')?.join('')) > 0) {
+            const totalNumnuk = parseFloat(newValue?.split(' ')?.join('')) + parseFloat(this.numnuklod?.split(' ')?.join(''));
+            this.numnuktotal = totalNumnuk?.toFixed(2)?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+        }
+
+        // Set proSize to newValue
+        this.proSize = newValue;
+    },
+
+    price: function (newValue) {
+        const result = newValue?.replace(/[^\d.]/g, '').replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+
+        const reals = parseFloat(newValue?.split(' ')?.join('')) * parseFloat(this.proSize !== '0' ? this.proSize?.split(' ')?.join('') : 1);
+
+        this.price_total = reals?.toFixed(2)?.toString()?.replace(/\D/g, '')?.replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+
+        this.price = result;
+    },
 
 
-        },
-        let_mai: function (value) {
-            this.check_kim = parseFloat(value?.split(' ')?.join('')) - parseFloat(this.kim?.split('-').join(''));
-        },
-        proSize: function (newValue) {
-            const reals = parseFloat(newValue?.split(' ')?.join('')) * parseFloat(this.price ? this.price?.split(' ')?.join('') : 1);
 
-            // Calculate price_total
-            this.price_total = reals?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+        price_total: function (newValue) {
+            const result = newValue?.replace(/[^\d.]/g, ','); // Remove all characters except digits and decimals
 
-            // Calculate numnuktotal only if numnuklod is greater than 0
-            if (parseFloat(this.numnuklod?.split(' ')?.join('')) > 0) {
-                const totalNumnuk = parseFloat(newValue?.split(' ')?.join('')) + parseFloat(this.numnuklod?.split(' ')?.join(''));
-                this.numnuktotal = totalNumnuk?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-            }
+            this.price_total = result; // Update price_total with the modified value
+        } 
 
-            // Set proSize to newValue
-            this.proSize = newValue;
-        },
-
-        price: function (newValue) {
-            const result = newValue?.replace(/[^\d.]/g, '').replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
-
-            const reals = parseFloat(newValue?.split(' ')?.join('')) * parseFloat(this.proSize !== '0' ? this.proSize?.split(' ')?.join('') : 1);
-
-
-            this.price_total = reals?.toString()?.replace(/\D/g, '')?.replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
-
-            this.price = result;
-
-        },
-
-        price_total: function(newValue) {
-        const result = newValue?.replace(/[^\d.]/g, ','); // Remove all characters except digits and decimals
-
-        this.price_total = result; // Update price_total with the modified value
-    }
-
-        //     price_total: function(newValue) {
-        //     // Ensure newValue is not null or undefined
-        //     if (newValue != null) {
-        //         // Parse newValue as a float
-        //         const floatValue = parseFloat(newValue);
-
-        //         // Check if floatValue is a valid number
-        //         if (!isNaN(floatValue)) {
-        //             // Format floatValue with commas and update price_total
-        //             this.price_total = floatValue.toLocaleString(undefined, {
-        //                 minimumFractionDigits: 2, // Set the minimum number of decimal places
-        //                 maximumFractionDigits: 2, // Set the maximum number of decimal places
-        //             });
-        //         } else {
-        //             // Handle invalid input (e.g., non-numeric value)
-        //             this.price_total = '';
-        //         }
-        //     }
-        // },
     },
 
 
@@ -916,6 +934,7 @@ export default {
                 console.log(error)
             }
         },
+ 
         onSavePerformance() {
             if (this.performance_data?.length === 0) {
                 this.$toast.success('ກະລຸນາຄົ້ນຫາຂໍ້ມູນກ່ອນ')

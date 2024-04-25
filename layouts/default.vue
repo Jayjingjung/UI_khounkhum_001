@@ -11,7 +11,7 @@
         <img @click="onGoTo" class="mx-auto" src="../assets/images/khounkham.png" width="80" />
       </v-btn>
       <!-- menu ຈັດການຂໍ້ມູນພື້ນຖານ -->
-      <v-menu v-if="USER_ROLE !== 'FINANCE'" offset-y>
+      <v-menu style="width: 190px;" v-if="USER_ROLE !== 'FINANCE'" offset-y>
         <template v-slot:activator="{ on, attrs }">
           <v-btn color="white" v-bind="attrs" v-on="on" text class="ml-2" elevation="0">
             <v-icon color="#fff" size="18">mdi-hammer-wrench</v-icon>

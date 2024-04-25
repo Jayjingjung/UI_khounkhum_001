@@ -2,16 +2,9 @@
   <div>
     <div class="ml-5" style="display: flex; justify-content: flex-start;">
       <div v-if="sumFooter">
-        <h3 class="mb-5">ລວມ ທີກຽວກັບນໍ້າມັນ</h3>
-
         <div style="display: flex; justify-content: flex-start;">
-          <p>ລວມລິດນໍ້າມັນທັງໝົດ: </p>
-          <p class="text-red">{{ sumFooter.totalLidFuel }}</p>
-        </div>
-
-        <div style="display: flex; justify-content: flex-start;">
-          <p>ລວມເງິນຄ້າງຈ່າຍນໍ້າມັນ: </p>
-          <p class="text-red">{{ sumFooter.totalPriceFuel }}</p>
+          <p>ລວມຄ່າເບ້ຍລ້ຽງທີ່ຄ້າງຊໍາລະທັງໝົດ: </p>
+          <p style="font-size: 24px; margin-top: -8px;" class="text-red">{{ sumFooter.alltotalBialiengKangjaiy }}</p>
         </div>
       </div>
       <!-- Start Date Picker -->
@@ -43,50 +36,24 @@
       <div class="ml-10 pt-1">
         <v-text-field v-model="search" label="Search" outlined dense></v-text-field>
       </div>
-
       <div style="margin-top:5px" class="ml-10">
         <v-btn color="#e91e63" class="white--text" @click="print"><v-icon>mdi-printer</v-icon>ພິມລາຍງານທັງໝົດ</v-btn>
-      </div>
-
-    </div>
-
-    <div class="ml-5" style="display: flex; justify-content: flex-start;">
-      <div style="width:20%; display:flex; justify-content:start" class="ml-5 mt-10 mb-10">
-        <div>
-          <h3>ທັງໝົດ: <span class="pp--text">{{numDataRows     }}</span></h3>
-        </div>
-        
-        <div class="ml-5 mr-1">
-          <h3>ຄ້າງຈ່າຍ: <span class="red--text">{{ waitingList }}</span></h3>
-        </div>
-        <div class="ml-5 mr-1">
-          <h3>ສໍາລະເເລ້ວ: <span class="green--text">{{ successList}}</span></h3>
-        </div>
-      </div>
-
-      <div class="mt-2">
-        <v-radio-group v-model="status" column>
-          <v-radio label="ຍັງບໍ່ຈ່າຍ" color="red darken-3" value="P"></v-radio>
-          <v-radio label="ຈ່າຍເເລ້ວ" color="success" value="UP"></v-radio>
-        </v-radio-group>
       </div>
     </div>
     <!-- Data Table -->
 
-    <v-data-table :headers="headers" :items="filteredGasReports" :items-per-page="10" class="elevation-1">
+    <v-data-table v-if="dataLoaded" :headers="headers" :items="filteredGasReports" :items-per-page="10"
+      class="elevation-1">
       <template v-slot:top>
         <v-toolbar flat color="white">
-          <v-toolbar-title>ລາຍງານບິນນໍ້າມັນທັງໝົດ</v-toolbar-title>
+          <v-toolbar-title>ລາຍລະອຽດຄ່າເບ້ຍລ້ຽງທີ່ຄ້າງຊໍາລະ</v-toolbar-title>
           <v-divider class="mx-4" inset vertical></v-divider>
           <v-spacer></v-spacer>
-
-          <v-toolbar-title  class="text-center">ເລືອກ​ທັງ​ຫມົດ
+          <v-toolbar-title class="text-center">ເລືອກ​ທັງ​ຫມົດ
             <!-- Select All checkbox -->
             <v-checkbox v-model="selectAllCheckbox" @change="selectAll"
-              :indeterminate="selectAllIndeterminate"> </v-checkbox>
+              :indeterminate="selectAllIndeterminate"></v-checkbox>
           </v-toolbar-title>
-
-
         </v-toolbar>
       </template>
 
@@ -97,13 +64,6 @@
           <v-checkbox v-model="selectedItems" :value="item"></v-checkbox>
         </td>
       </template>
-
-
-      <!-- Status Column -->
-      <template v-slot:item.status_fuel="{ item }">
-        <span :style="{ color: getStatusColor(item.status_fuel) }">{{ getStatusText(item.status_fuel) }}</span>
-      </template>
-
       <!-- Custom Cell Content -->
       <template v-slot:item.sen="{ item }">
         <td>
@@ -112,31 +72,20 @@
         </td>
       </template>
       <!-- /Status Column -->
+
+
     </v-data-table>
     <!-- Data Table -->
     <!-- Data Table printer -->
     <div style="display:none">
       <div id="modalInvoice">
         <v-row>
-          <v-col cols="3">
-            <img class="mx-auto" src="../assets/images/khounkham.png" height="90px" cover />
-          </v-col>
-          <v-col cols="9">
-            <div style="display:flex;justify-content:start;flex-direction:column;align-items:start">
-
-              <span style="font-size:19px">
+         
 
                 <Noti />
 
-              </span>
-
-              <span style="font-size:18px">ສໍານັກງານຕັ້ງຢູ່ ອາຄານ ສະໜາມຍິງປືນ 20 ມັງກອນ, ສະໜາມກີລາກອງທັບ,
-                ບ້ານຈອມມະນີ, ເມືອງ ໄຊເສດຖາ, ນະຄອນຫຼວງວຽງຈັນ, ສປປ ລາວ</span>
-              <span style="font-size:18px">ໂທລະສັບ: 020 92661111, 020 92 254 999 | ອີເມວ: kounkham@Mining
-                |
-                ເວັບໄຊ: kounkham</span>
-            </div>
-          </v-col>
+            
+         
         </v-row>
         <br>
 
@@ -147,16 +96,17 @@
             <tr>
               <th>ລ/ດ</th>
               <th>ID</th>
-              <th>ຊື່ ປໍ້ານໍ້າມັນ</th>
-              <th>ປ້າຍຫົວລົດ</th>
-              <th>ລິດນໍ້າມັນ</th>
-              <th>ລາຄານໍ້າມັນ</th>
-              <th>ລວມເປັນເງິນ</th>
-              <th>ແຂວງ</th>
-              <th>ເມືອງ</th>
-              <th>ບ້ານ</th>
-              <th>ສະຖານະ</th>
-              <th>ວັນທີຕື່ມນໍ້າມັນ</th>
+              <th>ຊື່</th>
+              <th>ຫົວລາກ</th>
+              <th>ຫາງລາກ</th>
+              <th>ສະຖານທີຮັບ</th>
+              <th>ສະຖານທີສົ່ງ</th>
+              <th>ຄ່າເບ້ຍລ້ຽງທີ່ຊໍາລະແລ້ວ</th>
+              <th>ຄ່າເບ້ຍລ້ຽງທັງໝົດ</th>
+              <th>ຄ່າເບ້ຍລ້ຽງທີ່ຄ້າງຊໍາລະ</th>
+          
+              <th>ວັນທີອອກໃບປອຍ</th>
+              <th>ວັນທີປະຕິບັດງານ</th>
             </tr>
           </thead>
           <tbody>
@@ -165,17 +115,19 @@
               <td
                 style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:2px"
                 class="  text-center mr-2 ml-2">{{ i + 1 }}</td>
-              <td>{{ report.del }}</td>
-              <td>{{ report.pumpName }}</td>
-              <td>{{ report.plateTruckHead }}</td>
-              <td>{{ report.lidFuel }}</td>
-              <td>{{ report.prizPerLid }}</td>
-              <td>{{ report.totalPrizeFuelAll }}</td>
+              <td>{{ report.lahudPoyLod }}</td>
+              <td>{{ report.staft_NAME }}</td>
+              <td>{{ report.h_VICIVLE_NUMBER }}</td>
+              <td>{{ report.f_BRANCH }}</td>
               <td>{{ report.province }}</td>
-              <td>{{ report.district }}</td>
-              <td>{{ report.village }}</td>
-              <td>{{ getStatusText(report.status_fuel) }}</td> <!-- Use a method to get the status text -->
-              <td>{{ formatDate(report.dateFillFuel) }}</td> <!-- Format the date here -->
+              <td>{{ report.detail }}</td>
+              <td>{{ report.staff_BIALIENG }}</td>
+              <td>{{ report.staff_BIALIENG_FRIST }}</td>
+              <td>{{ report.staff_BIALINEG_KANGJAIY }}</td>
+
+             
+              <td>{{ formatDate(report.out_DATE) }}</td> <!-- Format the date here -->
+              <td>{{ formatDate(report.in_DATE) }}</td> <!-- Format the date here -->
             </tr>
           </tbody>
         </table>
@@ -207,15 +159,14 @@ export default {
       formattedEndDate: null,
       gasReports: [], // Fetched gas reports data
       sumFooter: null, // Sum footer data
-     
+      all_statu: 0,
       search: '', // Initialize search variable
       status: null,
       selectedCircles: [],
       selectAllCheckbox: false, // Checkbox state for Select All
       selectedItems: [], // New property to store selected items
-      all_statu: 0, // Initialize all_statu to 0
-      gasReports: [], // Assuming this is where your data is stored
-
+      filteredGasReports: [],
+      dataLoaded: false, // Flag to track data loading status
 
     };
   },
@@ -228,39 +179,23 @@ export default {
     headers() {
       return [
         { text: 'circle', value: 'circle' },
-        { text: 'ID', value: 'del' },
-        { text: 'ຊື່ ປໍ້ານໍ້າມັນ', value: 'pumpName' },
-        { text: 'ປ້າຍຫົວລົດ', value: 'plateTruckHead' },
-        { text: 'ລິດນໍ້າມັນ', value: 'lidFuel' },
-        { text: 'ລາຄານໍ້າມັນ', value: 'prizPerLid' },
-        { text: 'ລວມເປັນເງິນ', value: 'totalPrizeFuelAll' },
-        { text: 'ແຂວງ', value: 'province' },
-        { text: 'ເມືອງ', value: 'district' },
-        { text: 'ບ້ານ', value: 'village' },
-        { text: 'ວັນທີຕື່ມນໍ້າມັນ', value: 'dateFillFuel' },
-        { text: 'status_fuel', value: 'status_fuel' },
+        { text: 'ID', value: 'lahudPoyLod' },
+        { text: 'ຊື່:', value: 'staft_NAME' },
+        { text: 'ຫົວລາກ', value: 'h_VICIVLE_NUMBER' },
+        { text: 'ຫາງລາກ', value: 'f_BRANCH' },
+        { text: 'ສະຖານທີຮັບ', value: 'province' },
+        { text: 'ສະຖານທີສົ່ງ:', value: 'detail' },
+        { text: 'ຄ່າເບ້ຍລ້ຽງທີ່ຊໍາລະແລ້ວ:', value: 'staff_BIALIENG' },
+        { text: 'ຄ່າເບ້ຍລ້ຽງທັງໝົດ:', value: 'staff_BIALIENG_FRIST' },
+        { text: 'ຄ່າເບ້ຍລ້ຽງທີ່ຄ້າງຊໍາລະ:', value: 'staff_BIALINEG_KANGJAIY' },
+        { text: 'ເງີນ', value: 'staff_Cur' },
+        { text: 'ວັນທີອອກໃບປອຍ', value: 'out_DATE' },
+        { text: 'ວັນທີປະຕິບັດງານ', value: 'in_DATE' },
+        // { text: 'status_fuel', value: 'totalBialiengKangjaiy' },
         { text: 'ຈ່າຍ', value: 'sen' },
       ];
 
-    },
-    numDataRows() {
-      return this.gasReports.length;
-    },
-    allStatuCount() {
-      let successCount = 0;
-      let waitingCount = 0;
 
-      this.gasReports.forEach(report => {
-        if (report.status_fuel === 'P') {
-          successCount++;
-        } else if (report.status_fuel === 'UP') {
-          waitingCount++;
-        }
-      });
-
-      this.all_statu = successCount + waitingCount;
-
-      return this.all_statu;
     },
     selectAllIndeterminate() {
       return this.selectedItems.length > 0 && this.selectedItems.length < this.filteredGasReports.length;
@@ -293,41 +228,37 @@ export default {
   methods: {
     async fetchReportFuel() {
       try {
-        this.loading_processing = true;
-        this.successList = 0;
-        this.waitingList = 0;
-     
-
+        this.dataLoaded = false; // Set loading flag to false before fetching data
         let data = {
           startDate: this.startDate,
           endDate: this.endDate,
           toKen: localStorage.getItem('toKen'),
-          status: this.status, // Use the selected status
         };
-        const response = await this.$axios.$post('/ShowAllReportFuel.service', data);
+        const response = await this.$axios.$post('/listPaymentStaff.service', data);
         if (response?.data) {
-
-          response.data.forEach(item => {
-            if (item.status_fuel === 'UP') {
-              this.waitingList++;
-            } else if (item.status_fuel === 'P') {
-              this.successList++;
-            }
-          });
-          this.gasReports = response.data;
-          this.report_leave_car_list = response.data;
+          this.filteredGasReports = response.data;
           this.sumFooter = response.sumFooter;
-          this.onCheckAlert();
-     
-        } else {
-          this.gasReports = [];
-          this.report_leave_car_list = [];
 
+          this.dataLoaded = true; // Set loading flag to true after fetching data
+        } else {
+          this.filteredGasReports = [];
         }
       } catch (error) {
         console.error('Error fetching report fuel data:', error);
         // Handle error message display or other logic here
       }
+    },
+    updateStartDate(date) {
+      this.startDate = date;
+      this.formattedStartDate = this.formatDate(date);
+    },
+    updateEndDate(date) {
+      this.endDate = date;
+      this.formattedEndDate = this.formatDate(date);
+    },
+    formatDate(date) {
+      // Implement your date formatting logic here
+      return date; // Placeholder for actual date formatting
     },
 
     // Select All method
@@ -346,38 +277,45 @@ export default {
       }
 
       try {
-        this.loading_processing = true;
+    this.loading_processing = true;
 
-        // Prepare data to send to the API
-        const requestData = {
-          keyIds: this.selectedItems.map(item => item.keyIds),
-          dels: this.selectedItems.map(item => item.del),
-          toKen: localStorage.getItem('toKen'),
-        };
+    // Calculate the total of allofthem
+    const totalAllofthem = this.selectedItems.reduce((total, item) => total + item.totalBialiengKangjaiy, 0);
 
-        console.log('Request data:', requestData);
+    // Prepare data to send to the API
+    const requestData = {
+        keyIds: this.selectedItems.map(item => item.keyIds),
+        dels: this.selectedItems.map(item => item.lahudPoyLod),
+        allofthem: totalAllofthem, // Send the total directly
 
-        // Make the API call to update the status
-        const response = await this.$axios.$post('/UpdateStatusFuelStation.service', requestData);
-        console.log('API response:', response);
+        toKen: localStorage.getItem('toKen'),
+    };
 
-        if (response?.status === '00') {
-          console.log('Status updated successfully.');
+    console.log('Request data:', requestData);
 
-          // Fetch report data again after status update
-          await this.fetchReportFuel();
-        } else {
-          console.error('Failed to update status:', response?.message);
-          // Handle error message display or other logic here
-        }
-      } catch (error) {
-        console.error('Error updating status:', error);
+    // Make the API call to update the status
+    const response = await this.$axios.$post('/paymentStaff.service', requestData);
+    console.log('API response:', response);
+
+    if (response?.status === '00') {
+        console.log('Status updated successfully.');
+
+        // Fetch report data again after status update
+        await this.fetchReportFuel();
+    } else {
+        console.error('Failed to update status:', response?.message);
         // Handle error message display or other logic here
-      } finally {
-        this.loading_processing = false;
-        this.selectedItems = []; // Clear selected items after update
-        this.selectAllCheckbox = false; // Clear Select All checkbox after update
-      }
+    }
+} catch (error) {
+    console.error('Error updating status:', error);
+    // Handle error message display or other logic here
+} finally {
+    this.loading_processing = false;
+    this.selectedItems = []; // Clear selected items after update
+    this.selectAllCheckbox = false; // Clear Select All checkbox after update
+}
+
+
     },
 
 
@@ -416,27 +354,19 @@ export default {
     },
 
     formatDate(dateString) {
-      // Assuming dateString is in the format "YYYY-MM-DD", you can adjust this format as needed
-      const [year, month, day] = dateString.split('-');
-      return `${day}/${month}/${year}`;
-    },
-
-    updateStartDate(date) {
-      // Update startDate and formattedStartDate
-      this.startDate = date;
-      this.formatStartDate();
-      this.startDateMenu = false;
-    },
-
-    formatStartDate() {
-      // Format startDate to desired display format
-      if (this.startDate) {
-        const formattedDate = new Date(this.startDate).toLocaleDateString('en-GB');
-        this.formattedStartDate = formattedDate;
-      } else {
-        this.formattedStartDate = null;
+      if (!dateString) {
+        return ''; // Return an empty string if dateString is undefined or null
       }
-    },
+      const parts = dateString.split('-'); // Assuming dateString is in the format 'YYYY-MM-DD'
+      if (parts.length !== 3) {
+        console.error('Invalid date format:', dateString);
+        return ''; // Return an empty string if dateString format is not as expected
+      }
+      const [year, month, day] = parts;
+      // Construct the formatted date in the desired format, for example: DD/MM/YYYY
+      return `${day}/${month}/${year}`;
+    }
+    ,
 
     updateEndDate(date) {
       // Update endDate and formattedEndDate

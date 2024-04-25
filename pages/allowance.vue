@@ -20,12 +20,14 @@
 
             <v-card-text>
                 <div style="width:100%;display:flex;justify-content:start" class="pt-4">
+
                     <div class="d-flex align-center">
                         <v-menu ref="start_menu" v-model="start_menu" :close-on-content-click="false"
                             :return-value.sync="start_date" transition="scale-transition" offset-y min-width="auto">
                             <template v-slot:activator="{ on, attrs }">
-                                <v-text-field dense outlined v-model="start_date" required label="ວັນທີເລີ່ມຕົ້ນ"
-                                    append-icon="mdi-calendar" readonly v-bind="attrs" v-on="on"></v-text-field>
+                                <v-text-field dense outlined v-model="formattedStartDate" required
+                                    label="ວັນທີເລີ່ມຕົ້ນ" append-icon="mdi-calendar" readonly v-bind="attrs" v-on="on"
+                                    :rules="nameRules"></v-text-field>
                             </template>
                             <v-date-picker v-model="start_date" no-title scrollable
                                 @input="$refs.start_menu.save(start_date)">
@@ -37,24 +39,80 @@
                         <v-menu ref="end_menu" v-model="end_menu" :close-on-content-click="false"
                             :return-value.sync="end_date" transition="scale-transition" offset-y min-width="auto">
                             <template v-slot:activator="{ on, attrs }">
-                                <v-text-field dense outlined v-model="end_date" required label="ວັນທີສຸດທ້າຍ"
-                                    append-icon="mdi-calendar" readonly v-bind="attrs" v-on="on"></v-text-field>
+                                <v-text-field dense outlined v-model="formattedEndDate" required label="ວັນທີສຸດທ້າຍ"
+                                    append-icon="mdi-calendar" readonly v-bind="attrs" v-on="on"
+                                    :rules="nameRules"></v-text-field>
                             </template>
-                            <v-date-picker v-model="end_date" no-title scrollable @input="$refs.end_menu.save(end_date)">
+                            <v-date-picker v-model="end_date" no-title scrollable
+                                @input="$refs.end_menu.save(end_date)">
                                 <v-spacer></v-spacer>
                             </v-date-picker>
                         </v-menu>
                     </div>
+
+
+
+
                     <div class="ml-2 pt-1">
                         <v-btn color="#90A4AE" class="white--text" elevation="0"
-                            @click="onSearchallowance"><v-icon>mdi-magnify</v-icon>ຄົ້ນຫາ</v-btn>
+                            @click="onSearchallowance(); ontop5()"><v-icon>mdi-magnify</v-icon>ຄົ້ນຫາ</v-btn>
                     </div>
+
+
+
+
+
+
+                    <div style="background-color:#f5f5f5;width:250px;border-radius:5px" class="pa-4 mr-10 ml-10">
+                        <div style="width:100%">
+                            <v-autocomplete outlined dense label="ເລືອກສິນຄ້າ" :items="products_data_list"
+                                item-text="proName" item-value="id" @change="onGetProductDetails"></v-autocomplete>
+                        </div>
+
+                        <div class="d-flex align-center">
+                            <span>ຊື່ສິນຄ້າ:</span>
+                            <span class="ml-4">{{ product_name }}</span>
+                        </div>
+
+                    </div>
+
+                    <div>
+                        <div class=" gold-text">
+                            <p class="text-center " style="font-size: 20px;">5 ອັນດັບ ພະນັກງານຂັບລົດ ທີໄດ້ຖ້ຽວຫຼາຍ</p>
+                        </div>
+                        <!-- Display top 5 data in a table with border color -->
+                        <!-- Display top 5 data in a table with green text color and font size 18px, and center-aligned text -->
+                        <table class="custom-table">
+                            <thead>
+                                <tr>
+                                    <th>ລຳດັບ</th>
+                                    <th style="width: 100px;">ຊື່ພະນັກງານ</th>
+                                    <th style="width: 100px;">ນາມສະກຸນ</th>
+                                    <th>ຈຳນວນເງິນ</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr v-for="(item, index) in top5all" :key="index">
+                                    <td class="text-center">{{ index + 1 }}</td>
+                                    <td style="width: 100px;" class="text-center">{{ item.staffName }}</td>
+                                    <td style="width: 100px;" class="text-center">{{ item.staffSurname }}</td>
+                                    <td style="color: green; font-size: 18px;" class="text-center">{{ item.allTiew }}
+                                    </td>
+                                    <!-- Green text color and font size 18px -->
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
                     <v-spacer></v-spacer>
                     <div class="mt-2 ml-4" style="width:300px">
                         <v-text-field label="ຄົ້ນຫາ..." rounded background-color="#f5f5f5" append-icon="mdi-magnify"
                             v-model="search"></v-text-field>
                     </div>
                 </div>
+
+
                 <div class="py-2">
                     <span>ທັງໝົດ:
                         <span class="green--text" style="font-size: 12pt; font-weight: bold">
@@ -68,6 +126,7 @@
                     <template v-slot:item="row">
                         <tr :style="{ 'background-color': row?.item?.totalDay >= '7' ? '#FFCDD2' : '#fff' }"
                             @mouseover="active = row?.index" @mouseleave="active = ''">
+                           
                             <td>
                                 <div class="py-1" style="display:flex;flex-direction:column">
                                     {{ row.item.h_VICIVLE_BRANCHTYPE }}: {{ row.item.h_VICIVLE_NUMBER }}
@@ -93,11 +152,12 @@
                                     ຄ່າເບ້ຍລ້ຽງທີ່ຊໍາລະແລ້ວ: {{ row.item.staff_BIALIENG }} {{ row.item.staff_Cur }}
                                 </div>
                                 <div class="py-1 red--text" style="display:flex;flex-direction:column">
-                                    ຄ່າເບ້ຍລ້ຽງທີ່ຄ້າງຊໍາລະ: {{ row.item.staff_BIALINEG_KANGJAIY }} {{ row.item.staff_Cur }}
+                                    ຄ່າເບ້ຍລ້ຽງທີ່ຄ້າງຊໍາລະ: {{ row.item.staff_BIALINEG_KANGJAIY }} {{
+                                        row.item.staff_Cur }}
                                 </div>
 
                             </td>
-
+                            <!--  
                             <td>
                                 <div class="py-1" style="display:flex;flex-direction:column">
                                     ຊື່: {{ row.item.staft_NAME02 }} {{ row.item.staft_SURNAME02 }}
@@ -111,7 +171,8 @@
                                 <div class="py-1 red--text" style="display:flex;flex-direction:column">
                                     ຄ່າເບ້ຍລ້ຽງທີ່ຄ້າງຊໍາລະ: {{ row.item.staff02_notpay }} {{ row.item.staff_Cur }}
                                 </div>
-                            </td>
+                            </td> -->
+
                             <td>
                                 <v-btn color="#7CB342" small @click="
                                     onGetDataForUpdatestaft1(
@@ -173,7 +234,8 @@
                                         min-width="auto">
                                         <template v-slot:activator="{ on, attrs }">
                                             <v-text-field dense outlined v-model="now_date" required label="ວັນທີຈ່າຍ"
-                                                append-icon="mdi-calendar" readonly v-bind="attrs" v-on="on"></v-text-field>
+                                                append-icon="mdi-calendar" readonly v-bind="attrs"
+                                                v-on="on"></v-text-field>
                                         </template>
                                         <v-date-picker v-model="now_date" no-title scrollable
                                             @input="$refs.now_menu.save(now_date)">
@@ -222,7 +284,8 @@
                                     }}</span>
                                 </div>
                                 <div style="display:flex;flex-direction:column">
-                                    <span class="red--text"><b>ຄ່າເບ້ຍລ້ຽງທີ່ຄ້າງຊໍາລະ: </b> {{ staff_BIALINEG_KANGJAIY }}
+                                    <span class="red--text"><b>ຄ່າເບ້ຍລ້ຽງທີ່ຄ້າງຊໍາລະ: </b> {{ staff_BIALINEG_KANGJAIY
+                                        }}
                                         {{
                                             staff_Cur }}</span>
                                 </div>
@@ -242,9 +305,10 @@
                                     <span><b>ຄ່າເບ້ຍລ້ຽງທັງໝົດ: </b> {{ staff02_payAll }} {{ staff_Cur }}</span>
                                 </div>
                                 <div class="py-1" style="display:flex;flex-direction:column">
-                                    <span class="green--text"><b>ຄ່າເບ້ຍລ້ຽງທີ່ຊໍາລະແລ້ວ: </b> {{ staff02_beforepay }} {{
-                                        staff_Cur
-                                    }}</span>
+                                    <span class="green--text"><b>ຄ່າເບ້ຍລ້ຽງທີ່ຊໍາລະແລ້ວ: </b> {{ staff02_beforepay }}
+                                        {{
+                                            staff_Cur
+                                        }}</span>
                                 </div>
                                 <div style="display:flex;flex-direction:column">
                                     <span class="red--text"><b>ຄ່າເບ້ຍລ້ຽງທີ່ຄ້າງຊໍາລະ: </b> {{ staff02_notpay }}
@@ -367,18 +431,26 @@ import moment from 'moment'
 export default {
     data() {
         return {
+            products_data_list: [],
+
             moment: moment,
             showModalAddexchang: false,
             loading_processing: false,
             showModalupdatestaft1: false,
             showModalupdatestaft2: false,
             allowance_data_list: [],
+            top5all: [],
             allowance_table_headers: [
+              
+                { text: 'ຫົວລາກ:', value: 'h_VICIVLE_BRANCHTYPE' },
+                { text: 'ຫາງລາກ', value: 'h_VICIVLE_NUMBER' },
+                { text: 'ຫາງລາກ', value: 'car' },
+                { text: 'ຂໍ້ມູນລົດ', value: 'car' },
                 { text: 'ຂໍ້ມູນລົດ', value: 'car' },
                 { text: 'ພະນັກງານຂັບຜູ້ທີ 1', value: 'saff1' },
                 // { text: '', value: '' },
 
-                { text: 'ພະນັກງານຂັບຜູ້ທີ 2', value: 'staff2' },
+                // { text: 'ພະນັກງານຂັບຜູ້ທີ 2', value: 'staff2' },
 
                 { text: '', value: '' },
             ],
@@ -428,6 +500,25 @@ export default {
 
         }
     },
+
+    computed: {
+        formattedStartDate() {
+            if (!this.start_date) return ''; // Return empty string if date is not set
+            const dateObj = new Date(this.start_date);
+            const day = dateObj.getDate();
+            const month = dateObj.getMonth() + 1; // January is 0, so add 1 to get correct month
+            const year = dateObj.getFullYear();
+            return `${day}/${month}/${year}`;
+        },
+        formattedEndDate() {
+            if (!this.end_date) return ''; // Return empty string if date is not set
+            const dateObj = new Date(this.end_date);
+            const day = dateObj.getDate();
+            const month = dateObj.getMonth() + 1; // January is 0, so add 1 to get correct month
+            const year = dateObj.getFullYear();
+            return `${day}/${month}/${year}`;
+        }
+    },
     watch: {
         amount_staff1: function (newValue) {
             const result = newValue?.replace(/\D/g, '').replace(/\B(?=(\d{3})+(?!\d))/g, ',');
@@ -441,16 +532,22 @@ export default {
     mounted() {
         this.onSearchallowance()
         this.onGetInvoiceBillNo()
+        this.ontop5()
+        this.onGetProductsList(); // Call the method to fetch products list initially
     },
 
     methods: {
         onSearchallowance() {
+
+
             try {
                 this.loading_processing = true;
                 let data = {
                     startDate: this.start_date,
                     endDate: this.end_date,
-                    toKen: localStorage.getItem("toKen")
+                    productId: this.product_ID,
+                    toKen: localStorage.getItem("toKen"),
+
                 }
                 this.$axios.$post('/listPaymentStaff.service', data).then((data) => {
                     console.log("allReport:", data)
@@ -472,7 +569,48 @@ export default {
                 })
                 console.log(error)
             }
+            // this.ontop5()
         },
+
+        ontop5() {
+            try {
+                this.loading_processing = true;
+                let data = {
+                    startDate: this.start_date,
+                    endDate: this.end_date,
+                    toKen: localStorage.getItem("toKen")
+
+                }
+                this.$axios.$post('/TopFiveRanking.service', data).then((data) => {
+                    console.log("allReport:", data)
+                    if (data?.data) {
+
+                        this.top5all = data?.data
+                        this.loading_processing = false
+
+                    } else {
+                        this.top5all = []
+                        this.loading_processing = false
+                    }
+                })
+            } catch (error) {
+                this.loading_processing = false
+                swal.fire({
+                    icon: 'error',
+                    text: error
+                })
+                console.log(error)
+            }
+
+        },
+
+
+
+
+
+
+
+
         onGetInvoiceBillNo() {
             this.loading_processing = true
             try {
@@ -493,12 +631,40 @@ export default {
             this.onClearData()
             this.showModalupdatestaft1 = false
         },
+        onGetProductDetails(id) {
+
+            let data = this.products_data_list.filter((el => el.id === id));
+            this.product_name = data[0]?.proName;
+            this.product_ID = id;
+        },
 
         onClearData() {
             this.amount_staff1 = '0'
             this.amount_staft2 = '0'
         },
-
+        async onGetProductsList() {
+            try {
+                this.loading_processing = true;
+                const response = await this.$axios.$post('getAllProduct', {
+                    toKen: localStorage.getItem('toKen'),
+                });
+                if (response?.status === '00') {
+                    this.products_data_list = response.data;
+                    this.loading_processing = false;
+                    console.log('products_list:', response);
+                }
+            } catch (error) {
+                this.loading_processing = false;
+                swal.fire({
+                    title: 'ແຈ້ງເຕືອນ',
+                    text: error,
+                    icon: 'error',
+                    allowOutsideClick: false,
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: 'OK',
+                });
+            }
+        },
         // onCloseDialogupdate() {
         //     this.showModalupdateexchang = false
         // },
@@ -871,50 +1037,41 @@ export default {
 
         async onUpdatestaff1() {
             try {
-                let data = {
-                    key_Id: this.lahudPoyLod,
-                    payDate: this.now_date,
-                    staffID01: this.staft_ID,
-                    staffID02: this.staft_ID02,
-                    payAmount_NotPay01: this.totalDebt1,
-                    payAmount_NotPay02: this.totalDebt2,
-                    payAmount_Pay01: this.price_total1,
-                    payAmount_Pay02: this.price_total2,
-                    payAmount_TotalPay01: this.staff_BIALIENG_FRIST,
-                    payAmount_TotalPay02: this.staff02_payAll,
-                    payAmount_status01: this.totalDebt1 == 0 ? 'done' : 'not-pay',
-                    payAmount_status02: this.totalDebt2 == 0 ? 'done' : 'not-pay',
+                let data = [{
+                    keyIds: this.lahudPoyLod,
+                    //   payDate: this.now_date,
+                    allofthem: this.staff_BIALINEG_KANGJAIY,
+                    dels: this.staft_ID,
+                    toKen: localStorage.getItem('toKen'),
+                }];
+                this.loading_processing = true;
+                const response = await this.$axios.$post('/paymentStaff.service', data);
+                console.log('updateStatus:', response);
+                if (response?.status == '00') {
+                    this.loading_processing = false;
+                    this.onSearchallowance();
+                    this.showModalupdatestaft1 = false;
+                    swal.fire({
+                        title: 'ສຳເລັດ',
+                        icon: 'success',
+                        allowOutsideClick: false,
+                    });
+                    this.onClearData();
+                } else {
+                    this.loading_processing = false;
+                    this.showModalupdatestaft1 = false;
+                    swal.fire({
+                        title: 'ແຈ້ງເຕືອນ',
+                        text: response?.message,
+                        icon: 'error',
+                        allowOutsideClick: false,
+                        confirmButtonColor: '#3085d6',
+                        confirmButtonText: 'OK',
+                    });
                 }
-                this.loading_processing = true
-                await this.$axios.$post('/paymentStaff.service', data).then((data) => {
-                    console.log('updateSatatu:', data)
-                    if (data?.status == '00') {
-                        this.loading_processing = false
-                        this.onSearchallowance()
-                        this.showModalupdatestaft1 = false
-                        swal.fire({
-                            title: 'ສຳເລັດ',
-                            icon: 'success',
-                            allowOutsideClick: false,
-                        })
-                        this.onSearchallowance()
-                        this.onClearData()
-                    } else {
-                        this.loading_processing = false
-                        this.showModalupdatestaft1 = false
-                        swal.fire({
-                            title: 'ແຈ້ງເຕືອນ',
-                            text: data?.message,
-                            icon: 'error',
-                            allowOutsideClick: false,
-                            confirmButtonColor: '#3085d6',
-                            confirmButtonText: 'OK',
-                        })
-                    }
-                })
             } catch (error) {
-                this.loading_processing = false
-                this.showModalupdatestaft1 = false
+                this.loading_processing = false;
+                this.showModalupdatestaft1 = false;
                 swal.fire({
                     title: 'ແຈ້ງເຕືອນ',
                     text: error,
@@ -922,9 +1079,10 @@ export default {
                     allowOutsideClick: false,
                     confirmButtonColor: '#3085d6',
                     confirmButtonText: 'OK',
-                })
+                });
             }
         },
+
 
         // async onUpdatestaff2() {
         //     try {
@@ -1049,4 +1207,17 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style>
+.custom-table {
+    border: 2px solid #ff00ff;
+    border-radius: 9px;
+
+}
+
+.gold-text {
+    color: #000000;
+    /* Set the text color to golden */
+    /* background-color: rgb(202, 202, 202); */
+    border-radius: 9999px;
+}
+</style>

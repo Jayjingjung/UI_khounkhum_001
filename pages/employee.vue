@@ -24,8 +24,8 @@
         <div class="py-2">
           <span class="">ທັງໝົດ:
             <span class="green--text" style="font-size: 12pt; font-weight: bold">{{
-      emp_data_list.length.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
-    }}</span></span>
+              emp_data_list.length.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+              }}</span></span>
         </div>
         <v-data-table :headers="emp_table_headers" :items="emp_data_list" :search="emp_search">
           <template v-slot:item="row">
@@ -43,25 +43,25 @@
 
               <td>
                 <v-btn color="#FFB74D" small @click="
-      onGetDataForUpdate(
-        row.item.id,
-        row.item.imageStaff,
-        row.item.staftId,
-        row.item.name,
-        row.item.surname,
-        row.item.vaillage,
-        row.item.district,
-        row.item.province,
-        row.item.gender,
-        row.item.genderStatus,
-        row.item.idCard,
-        row.item.licenceId,
-        row.item.licenceExp,
-        row.item.mobile,
-        row.item.mobile1,
-        row.item.verBy
-      )
-      ">
+                  onGetDataForUpdate(
+                    row.item.id,
+                    row.item.imageStaff,
+                    row.item.staftId,
+                    row.item.name,
+                    row.item.surname,
+                    row.item.vaillage,
+                    row.item.district,
+                    row.item.province,
+                    row.item.gender,
+                    row.item.genderStatus,
+                    row.item.idCard,
+                    row.item.licenceId,
+                    row.item.licenceExp,
+                    row.item.mobile,
+                    row.item.mobile1,
+                    row.item.verBy
+                  )
+                  ">
                   <v-icon color="white">mdi-pencil</v-icon>
                   <span class="white--text">ແກ້ໄຂ</span>
                 </v-btn>
@@ -429,7 +429,7 @@ export default {
 
           // Autorization: localStorage.getItem('toKen')
           toKen: localStorage.getItem('toKen'),
-         
+
 
         }).then((data) => {
           console.log('staffList:', data)
@@ -549,39 +549,39 @@ export default {
         formdata.append('mobile1', this.up_emp_mobile1)
         formdata.append('imageStaff', null)
         formdata.append(' toKen', localStorage.getItem("toKen"))
-        
 
-        
-        
+
+
+
 
 
         // console.log(datas)
         this.loading_processing = true
         await this.$axios.$post('updateStaft'
 
-        ,formdata).then((data) => {
-          // console.log('send:', datas)
-          if (data?.status == '00') {
-            this.loading_processing = false
-            this.onGetEmployeeList()
-            this.showModalUpdateEmployee = false
-            swal.fire({
-              title: 'ສຳເລັດ',
-              icon: 'success',
-              allowOutsideClick: false,
-            })
-          } else {
-            this.loading_processing = false
-            swal.fire({
-              title: 'ແຈ້ງເຕືອນ',
-              text: data?.message,
-              icon: 'error',
-              allowOutsideClick: false,
-              confirmButtonColor: '#3085d6',
-              confirmButtonText: 'OK',
-            })
-          }
-        })
+          , formdata).then((data) => {
+            // console.log('send:', datas)
+            if (data?.status == '00') {
+              this.loading_processing = false
+              this.onGetEmployeeList()
+              this.showModalUpdateEmployee = false
+              swal.fire({
+                title: 'ສຳເລັດ',
+                icon: 'success',
+                allowOutsideClick: false,
+              })
+            } else {
+              this.loading_processing = false
+              swal.fire({
+                title: 'ແຈ້ງເຕືອນ',
+                text: data?.message,
+                icon: 'error',
+                allowOutsideClick: false,
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'OK',
+              })
+            }
+          })
       } catch (error) {
         this.loading_processing = false
         swal.fire({
@@ -624,6 +624,7 @@ export default {
             console.log(this.key_up_emp)
             this.loading_processing = false
             this.onGetEmployeeList()
+            
             swal.fire({
               title: 'ສຳເລັດ',
               icon: 'success',

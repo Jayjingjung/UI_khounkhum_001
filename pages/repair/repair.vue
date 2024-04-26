@@ -34,7 +34,21 @@
                 <template v-slot:item="row">
 
                     <tr>
-                        <td>{{ row }}</td>
+                        <td>{{ row?.item?.unit_price }}</td>
+                        <td><v-avatar><img :src="row.item.img"></v-avatar></td>
+                        <td>{{ row?.item?.qty_offer }}</td>
+                        <td>{{ row?.item?.totalMoney }}</td>
+                        <td>{{ row?.item?.description }}</td>
+                        <td>{{ row?.item?.offerManName }}</td>
+                        <td>{{ row?.item?.job }}</td>
+                        <td>{{ row?.item?.f_CARD_NO }}</td>
+                        <td>{{ row?.item?.h_VICIVLE_NUMBER }}</td>
+                        <td>{{ row?.item?.dateCreate }}</td>
+                        <td>{{ row?.item?.status }}</td>
+                        <td>{{ row?.item?.stock_status }}</td>
+                        <td>{{ row?.item?.statusPO }}</td>
+                        <td>{{ row?.item?.item_id }}</td>
+                        <td>{{ row?.item?.offer_CODE }}</td>
 
                     </tr>
 
@@ -104,18 +118,57 @@ export default {
     data() {
         return {
             search: '',
+   
             truck_table_headers: [
-                { text: 'ຮູບພາບ', value: '' },
-                { text: 'ທະບຽນລົດ', value: 'f_CARD_NO' },
-                { text: 'ຍີ່ຫໍ້ລົດ', value: 'f_BRANCH' },
-                { text: 'ປະເພດລົດ', value: 'f_CAR_TYPE' },
+                { text: 'ລາ​ຄາ​ຕໍ່​ຫນ່ວຍ', value: 'unit_price' },
+                { text: 'ຮູບພາບ', value: 'img' },
+                { text: 'ໜ້າຈໍານວນ', value: 'qty_offer' },
+                { text: 'ລາຄາລວມ', value: 'totalMoney' },
+                { text: 'ລາຍລະອຽດ', value: 'description' },
+                { text: 'ຊື່ຜູ້ສະເໜີ', value: 'offerManName' },
+                { text: 'ວຽກ', value: 'job' },
+                { text: 'f_CARD_NO', value: 'f_CARD_NO' },
+                { text: 'h_VICIVLE_NUMBER', value: 'h_VICIVLE_NUMBER' },
+                { text: 'ວັນທີສ້າງ', value: 'dateCreate' },
+                { text: 'ສະຖານະ', value: 'status' },
+                { text: 'stock_status', value: 'stock_status' },
+                { text: 'statusPO', value: 'statusPO' },
+                { text: 'ID ລາຍການ', value: 'item_id' },
+                { text: 'ລະຫັດສະເຫນີ', value: 'offer_CODE' },
+
+
+
             ],
             truck_data_list: [],
 
         }
     },
+
     // Your component logic here
     methods: {
+        async onGetshowdata_table() {
+            try {
+                this.loading_processing = true;
+                const response = await this.$axios.$post('showofferpaper.service', {
+                    toKen: localStorage.getItem('toKen'),
+                });
+
+                console.log('API response:', response);
+
+                if (response?.status === '00' && response?.data) {
+                    this.truck_data_list = response.data;
+                } else {
+                    this.showErrorAlert('Error', 'Failed to fetch data from the API');
+                }
+            } catch (error) {
+                console.error('API error:', error);
+                this.showErrorAlert('Error', 'Failed to fetch data from the API');
+            } finally {
+                this.loading_processing = false;
+            }
+
+
+        },
         print() {
             const modal = document.getElementById("modalInvoice");
             const cloned = modal.cloneNode(true);
@@ -130,6 +183,11 @@ export default {
             window.print();
         },
         // Other methods...
+    },
+    mounted() {
+
+        this.onGetshowdata_table(); // Fetch truck footer data when component is mounted
+       
     },
 };
 </script>

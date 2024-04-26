@@ -7,7 +7,10 @@
             <v-row>
                 <div>
                     <v-col>
-                        <v-btn style="border: 2px solid rgb(225,93,158)" to="./purchase_order_paper">ສາງບິນສັງຊື້</v-btn>
+                        <v-badge :content="total_Offer_List" color="teal">
+                            <v-btn style="border: 2px solid rgb(225,93,158)"
+                                to="./purchase_order_paper">ສາງບິນສັງຊື້</v-btn>
+                        </v-badge>
                     </v-col>
                 </div>
 
@@ -111,6 +114,7 @@ export default {
     data() {
         return {
             search: '',
+            total_Offer_List: '',
             truck_table_headers: [
                 { text: 'ຮູບພາບ', value: '' },
                 { text: 'ທະບຽນລົດ', value: 'f_CARD_NO' },
@@ -121,8 +125,53 @@ export default {
 
         }
     },
+    mounted() {
+    this.total_count()
+    this.USER_ID = localStorage.getItem('USER_ID')
+    this.USER_NAME = localStorage.getItem('USER_NAME')
+    this.USER_ROLE = localStorage.getItem('USER_ROLE')
+
+
+  },
     // Your component logic here
     methods: {
+        total_count() {
+            try {
+                this.loading_processing = true;
+                this.$axios.$post('/getNotiTab3.service', {
+                    toKen: localStorage.getItem('toKen'),
+                }).then((data) => {
+                    this.loading_processing = false;
+
+                    if (data && data.status === '00') {
+                        this.total_Offer_List = data.total_Offer_List;
+                    } else {
+                        // Handle API response with error status
+                        swal.fire({
+                            icon: 'error',
+                            text: data?.message || 'Failed to fetch data',
+                        });
+                    }
+                }).catch((error) => {
+                    this.loading_processing = false;
+                    console.log(error);
+                    // Display error alert using SweetAlert2
+                    swal.fire({
+                        icon: 'error',
+                        text: 'Failed to fetch data from the API',
+                    });
+                });
+            } catch (error) {
+                this.loading_processing = false;
+                console.log(error);
+                // Display error alert using SweetAlert2
+                swal.fire({
+                    icon: 'error',
+                    text: error.toString(),
+                });
+            }
+        },
+
         print() {
             const modal = document.getElementById("modalInvoice");
             const cloned = modal.cloneNode(true);

@@ -94,13 +94,81 @@
                                 <td>{{ row?.item?.add_on }}</td>
                                 <td>{{ row?.item?.description }}</td>
                                 <td>{{ row?.item?.dateFix }}</td>
+                                <td>
+                                    <v-btn small color="primary" class="card-shadow"
+                                        @click="onGetinbox(row.item.fixId)">
+                                        <v-icon>mdi-clipboard-text</v-icon>ລາຍລະອຽດ
+                                    </v-btn>
+                                </td>
 
                             </tr>
                         </template>
                     </v-data-table>
                 </v-card>
             </div>
+            <v-dialog v-model="dialogVisible" max-width="800px" style="max-height: 800px;">
+                <v-card>
+                    <v-card-title style="font-size: 24px;">ປ້ອນຂໍ້ມູນ</v-card-title>
+                    <v-card-actions>
+                        <v-btn style="font-size: 20px;" color="primary" @click="closeDialog">
+                            <v-icon>mdi-printer</v-icon>ພິມບິນ</v-btn>
 
+
+                    </v-card-actions>
+                    <div style="display: flex;">
+                        <v-card-text style="font-size: 18px;">
+                            <div>
+                                <label for="fixId">fixId:</label>
+                                <span id="fixId">{{ fixId }}</span>
+                            </div>
+                            <div>
+                                <label for="h_VICIVLE_NUMBER">h_VICIVLE_NUMBER</label>
+                                <span id="h_VICIVLE_NUMBER">{{ h_VICIVLE_NUMBER }}</span>
+                            </div>
+                            <div>
+                                <label for="qty_offer">f_BRANCH</label>
+                                <span id="qty_offer">{{ f_BRANCH }}</span>
+                            </div>
+                            <div>
+                                <label for="qty_offer">qty_Fix</label>
+                                <span id="qty_offer">{{ qty_Fix }}</span>
+                            </div>
+                            <div>
+                                <label for="qty_offer">total_Price</label>
+                                <span id="qty_offer">{{ total_Price }}</span>
+                            </div>
+
+                            <div>
+                                <label for="qty_offer">description</label>
+                                <span id="qty_offer">{{ description }}</span>
+                            </div>
+                            <div>
+                                <label for="qty_offer">dateFix</label>
+                                <span id="qty_offer">{{ dateFix }}</span>
+                            </div>
+                        </v-card-text>
+                        <v-card-text style="display: flex;">
+                            <div>
+                                <label for="add_on">add_on</label>
+                                <span id="add_on">{{ add_on }}</span>
+
+                                <v-text-field label="*add_on" dense outlined background-color="#f5f5f5"
+                                    v-model="add_on"></v-text-field>
+
+
+                            </div>
+                            <v-btn style="margin-top: -10px;margin-left: 10px;" color="primary" @click="onSubmit">
+                                <v-icon>mdi-border-color</v-icon>ເເກ່ໄຂ</v-btn>
+                        </v-card-text>
+                    </div>
+                    <v-card-actions >
+
+                        <v-btn color="red darken-1" text @click="closeDialog">ຍົກເລີກ</v-btn>
+
+
+                    </v-card-actions>
+                </v-card>
+            </v-dialog>
 
         </div>
     </div>
@@ -139,9 +207,10 @@ export default {
             itemId: '', // Add itemId property
             Mechanicequipment: [],
             show_list: [],
-            show_list: [],
+
             name: '',
             address: '',
+            fixId: '',
             offerCode: '',
             h_VICIVLE_NUMBER: '',
             number: '',
@@ -351,6 +420,77 @@ export default {
                 this.loading_processing = false;
                 // window.location.reload();
 
+            }
+        },
+        async onGetinbox(fixId) {
+            try {
+                const response = await this.$axios.$post('/showFixDetail.service', {
+                    toKen: localStorage.getItem('toKen'),
+                    fixId: fixId,
+                });
+
+                console.log('Print API response:', response);
+                this.fixId = response.data[0].fixId; // Assuming you want the first item's name
+                this.h_VICIVLE_NUMBER = response.data[0].h_VICIVLE_NUMBER; // Assuming you want the first item's qty_offer
+                this.f_BRANCH = response.data[0].f_BRANCH; // Assuming you want the first item's qty_offer
+                this.qty_Fix = response.data[0].qty_Fix; // Assuming you want the first item's qty_offer
+                this.total_Price = response.data[0].total_Price; // Assuming you want the first item's qty_offer
+                this.add_on = response.data[0].add_on; // Assuming you want the first item's qty_offer
+                this.description = response.data[0].description; // Assuming you want the first item's qty_offer
+                this.dateFix = response.data[0].dateFix; // Assuming you want the first item's qty_offer
+                // Handle the response as needed, such as displaying a success message or handling errors
+                this.openDialog(fixId); // Open the dialog after API call success
+            } catch (error) {
+                console.error('Print API error:', error);
+                // Handle the error, such as displaying an error message
+            }
+        },
+        openDialog(fixId) {
+            this.fixId = fixId;
+            this.dialogVisible = true;
+        },
+        closeDialog() {
+            this.dialogVisible = false;
+        },
+        onSubmit() {
+            // Implement your logic to handle form submission
+            console.log('fixId:', this.fixId);
+            console.log('h_VICIVLE_NUMBER:', this.h_VICIVLE_NUMBER);
+            console.log('f_BRANCH:', this.f_BRANCH);
+            console.log('qty_Fix:', this.qty_Fix);
+            console.log('total_Price:', this.total_Price);
+            console.log('add_on:', this.add_on);
+            console.log('description:', this.description);
+            console.log('dateFix:', this.dateFix);
+
+
+            // Close the dialog after submission
+            this.closeDialog();
+
+        },
+        async onSubmit() {
+            try {
+                // Prepare the data to be sent in the request body
+                const requestData = {
+                    // toKen: localStorage.getItem('toKen'),
+                    fixId: this.fixId, // Using the offerCode property
+                    add_on: this.add_on, // Assuming you have an itemId property set from somewhere
+                  
+                };
+
+                // Send the POST request to the API endpoint
+                const response = await this.$axios.$post('/UpdateFixCost.service', requestData);
+
+                console.log('UpdateFixCost API response:', response);
+
+                // Close the dialog after submission
+                this.closeDialog();
+
+                // You can handle the response here, such as showing a success message or updating UI
+            } catch (error) {
+                console.error('UpdateFixCost API error:', error);
+                // Handle the error, such as displaying an error message
+            
             }
         },
     },

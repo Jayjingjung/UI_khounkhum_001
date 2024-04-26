@@ -228,7 +228,7 @@
                 </v-icon>
 
                 <div class="pl-5 pb-5 pt-5 pr-5">
-                  <span style="font-size: 17pt;font-weight: bold;">ນີ້ນໍ້າມັນ</span><br />
+                  <span style="font-size: 17pt;font-weight: bold;">ໜີ້ນໍ້າມັນ</span><br />
                 </div>
               </div>
             </v-card-text>

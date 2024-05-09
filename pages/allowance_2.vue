@@ -1,147 +1,174 @@
 <template>
   <div>
-    <div class="ml-5" style="display: flex; justify-content: flex-start;">
-      <div v-if="sumFooter">
-        <div style="display: flex; justify-content: flex-start;">
-          <p>ລວມຄ່າເບ້ຍລ້ຽງທີ່ຄ້າງຊໍາລະທັງໝົດ: </p>
-          <p style="font-size: 24px; margin-top: -8px;" class="text-red">{{ sumFooter.alltotalBialiengKangjaiy }}</p>
-        </div>
-      </div>
-      <!-- Start Date Picker -->
-      <div class="mr-5 ml-10" style="width: auto;">
-        <v-menu v-model="startDateMenu" :close-on-content-click="false" :nudge-right="40" transition="scale-transition"
-          offset-y>
-          <template v-slot:activator="{ on }">
-            <v-text-field v-model="formattedStartDate" label="ວັນ​ທີ່​ເລີ່ມ" readonly v-on="on"></v-text-field>
-          </template>
-          <v-date-picker v-model="startDate" no-title scrollable @input="updateStartDate"></v-date-picker>
-        </v-menu>
-      </div>
-      <!-- End Date Picker -->
-      <div class="mr-5 ml-5" style="width: auto;">
-        <v-menu v-model="endDateMenu" :close-on-content-click="false" :nudge-right="40" transition="scale-transition"
-          offset-y>
-          <template v-slot:activator="{ on }">
-            <v-text-field v-model="formattedEndDate" label="ວັນທີສິ້ນສຸດ" readonly v-on="on"></v-text-field>
-          </template>
-          <v-date-picker v-model="endDate" no-title scrollable @input="updateEndDate"></v-date-picker>
-        </v-menu>
-      </div>
-      <div class="ml-2 pt-1 mr-5">
-        <v-btn color="#90A4AE" background-color="#f5f5f5" class="white--text" elevation="0" @click="fetchReportFuel">
-          <v-icon>mdi-magnify</v-icon> ຄົ້ນຫາ
-        </v-btn>
-      </div>
-
-      <div class="ml-10 pt-1">
-        <v-text-field v-model="search" label="Search" outlined dense></v-text-field>
-      </div>
-      <div style="margin-top:5px" class="ml-10">
-        <v-btn color="#e91e63" class="white--text" @click="print"><v-icon>mdi-printer</v-icon>ພິມລາຍງານທັງໝົດ</v-btn>
-      </div>
-    </div>
-    <!-- Data Table -->
-
-    <v-data-table v-if="dataLoaded" :headers="headers" :items="filteredGasReports" :items-per-page="10"
-      class="elevation-1">
-      <template v-slot:top>
-        <v-toolbar flat color="white">
-          <v-toolbar-title>ລາຍລະອຽດຄ່າເບ້ຍລ້ຽງທີ່ຄ້າງຊໍາລະ</v-toolbar-title>
-          <v-divider class="mx-4" inset vertical></v-divider>
-          <v-spacer></v-spacer>
-          <v-toolbar-title class="text-center">ເລືອກ​ທັງ​ຫມົດ
-            <!-- Select All checkbox -->
-            <v-checkbox v-model="selectAllCheckbox" @change="selectAll"
-              :indeterminate="selectAllIndeterminate"></v-checkbox>
-          </v-toolbar-title>
-        </v-toolbar>
-      </template>
-
-      <!-- Custom Cell Content - Circle Selection -->
-      <template v-slot:item.circle="{ item }">
-        <td v-if="item.status_fuel !== 'P'">
-          <!-- Use a checkbox for circle selection -->
-          <v-checkbox v-model="selectedItems" :value="item"></v-checkbox>
-        </td>
-      </template>
-      <!-- Custom Cell Content -->
-      <template v-slot:item.sen="{ item }">
-        <td>
-          <!-- Conditionally render the button based on status -->
-          <v-btn v-if="item.status_fuel !== 'P'" @click="updateStatusFuelStation(item)" color="success">Send</v-btn>
-        </td>
-      </template>
-      <!-- /Status Column -->
-
-
-    </v-data-table>
-    <!-- Data Table -->
-    <!-- Data Table printer -->
-    <div style="display:none">
-      <div id="modalInvoice">
-        <v-row>
-         
-
-                <Noti />
-
-            
-         
-        </v-row>
-        <br>
-
-
-
-        <table class="table">
+    <v-card style="width: 400px;" class="mt-10 mb-10 mr-10 ml-10">
+      <div class="text-center">
+        <p style="font-size: 20px;">5 ອັນດັບ ພະນັກງານຂັບລົດ ທີໄດ້ຖ້ຽວຫຼາຍ</p>
+        <table class="text-center">
           <thead>
             <tr>
-              <th>ລ/ດ</th>
-              <th>ID</th>
-              <th>ຊື່</th>
-              <th>ຫົວລາກ</th>
-              <th>ຫາງລາກ</th>
-              <th>ສະຖານທີຮັບ</th>
-              <th>ສະຖານທີສົ່ງ</th>
-              <th>ຄ່າເບ້ຍລ້ຽງທີ່ຊໍາລະແລ້ວ</th>
-              <th>ຄ່າເບ້ຍລ້ຽງທັງໝົດ</th>
-              <th>ຄ່າເບ້ຍລ້ຽງທີ່ຄ້າງຊໍາລະ</th>
-          
-              <th>ວັນທີອອກໃບປອຍ</th>
-              <th>ວັນທີປະຕິບັດງານ</th>
+              <th>ລຳດັບ</th>
+              <th style="width: 100px;">ຊື່ພະນັກງານ</th>
+              <th style="width: 100px;">ນາມສະກຸນ</th>
+              <th>ຈຳນວນເງິນ</th>
             </tr>
           </thead>
           <tbody>
-            <!-- Loop through your filteredGasReports and populate the table rows -->
-            <tr v-for="(report, i) in filteredGasReports" :key="report.id">
-              <td
-                style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:2px"
-                class="  text-center mr-2 ml-2">{{ i + 1 }}</td>
-              <td>{{ report.lahudPoyLod }}</td>
-              <td>{{ report.staft_NAME }}</td>
-              <td>{{ report.h_VICIVLE_NUMBER }}</td>
-              <td>{{ report.f_BRANCH }}</td>
-              <td>{{ report.province }}</td>
-              <td>{{ report.detail }}</td>
-              <td>{{ report.staff_BIALIENG }}</td>
-              <td>{{ report.staff_BIALIENG_FRIST }}</td>
-              <td>{{ report.staff_BIALINEG_KANGJAIY }}</td>
-
-             
-              <td>{{ formatDate(report.out_DATE) }}</td> <!-- Format the date here -->
-              <td>{{ formatDate(report.in_DATE) }}</td> <!-- Format the date here -->
+            <tr v-for="(item, index) in top5all" :key="index">
+              <td class="text-center">{{ index + 1 }}</td>
+              <td style="width: 100px;" class="text-center">{{ item.staffName }}</td>
+              <td style="width: 100px;" class="text-center">{{ item.staffSurname }}</td>
+              <td style="color: green; font-size: 18px;" class="text-center">{{ item.allTiew }}</td>
+              <!-- Green text color and font size 18px -->
             </tr>
           </tbody>
         </table>
-        <div
-          style="width:100%;margin-top:50px;display:flex;flex-direction:column;justify-content:center;align-items:center;padding-left:20px; font-size: 18px">
-          <div>ບັນຊີຂົນສົ່ງ</div>
-          <div style="height: 50px;"></div>
-          <div style="display:flex;justify-content:space-between">
-            ...............................
+      </div>
+    </v-card>
+
+    <v-card>
+      <div class="ml-5" style="display: flex; justify-content: flex-start;">
+        <div v-if="sumFooter">
+          <div style="display: flex; justify-content: flex-start;">
+            <p>ລວມຄ່າເບ້ຍລ້ຽງທີ່ຄ້າງຊໍາລະທັງໝົດ: </p>
+            <p style="font-size: 24px; margin-top: -8px;" class="text-red">{{ sumFooter.alltotalBialiengKangjaiy }}</p>
+          </div>
+        </div>
+        <!-- Start Date Picker -->
+        <div class="mr-5 ml-10" style="width: auto;">
+          <v-menu v-model="startDateMenu" :close-on-content-click="false" :nudge-right="40"
+            transition="scale-transition" offset-y>
+            <template v-slot:activator="{ on }">
+              <v-text-field v-model="formattedStartDate" label="ວັນ​ທີ່​ເລີ່ມ" readonly v-on="on"></v-text-field>
+            </template>
+            <v-date-picker v-model="startDate" no-title scrollable @input="updateStartDate"></v-date-picker>
+          </v-menu>
+        </div>
+        <!-- End Date Picker -->
+        <div class="mr-5 ml-5" style="width: auto;">
+          <v-menu v-model="endDateMenu" :close-on-content-click="false" :nudge-right="40" transition="scale-transition"
+            offset-y>
+            <template v-slot:activator="{ on }">
+              <v-text-field v-model="formattedEndDate" label="ວັນທີສິ້ນສຸດ" readonly v-on="on"></v-text-field>
+            </template>
+            <v-date-picker v-model="endDate" no-title scrollable @input="updateEndDate"></v-date-picker>
+          </v-menu>
+        </div>
+        <div class="ml-2 pt-1 mr-5">
+          <v-btn color="#90A4AE" background-color="#f5f5f5" class="white--text" elevation="0" @click="fetchReportFuel(); ontop5()">
+            <v-icon>mdi-magnify</v-icon> ຄົ້ນຫາ
+          </v-btn>
+        </div>
+
+        <div class="ml-10 pt-1">
+          <v-text-field v-model="search" label="Search" outlined dense></v-text-field>
+        </div>
+        <div style="margin-top:5px" class="ml-10">
+          <v-btn color="#e91e63" class="white--text" @click="print"><v-icon>mdi-printer</v-icon>ພິມລາຍງານທັງໝົດ</v-btn>
+        </div>
+      </div>
+      <!-- Data Table -->
+
+      <v-data-table v-if="dataLoaded" :headers="headers" :items="filteredGasReports" :items-per-page="10"
+        class="elevation-1">
+        <template v-slot:top>
+          <v-toolbar flat color="white">
+            <v-toolbar-title>ລາຍລະອຽດຄ່າເບ້ຍລ້ຽງທີ່ຄ້າງຊໍາລະ</v-toolbar-title>
+            <v-divider class="mx-4" inset vertical></v-divider>
+            <v-spacer></v-spacer>
+            <v-toolbar-title class="text-center">ເລືອກ​ທັງ​ຫມົດ
+              <!-- Select All checkbox -->
+              <v-checkbox v-model="selectAllCheckbox" @change="selectAll"
+                :indeterminate="selectAllIndeterminate"></v-checkbox>
+            </v-toolbar-title>
+          </v-toolbar>
+        </template>
+
+        <!-- Custom Cell Content - Circle Selection -->
+        <template v-slot:item.circle="{ item }">
+          <td v-if="item.status_fuel !== 'P'">
+            <!-- Use a checkbox for circle selection -->
+            <v-checkbox v-model="selectedItems" :value="item"></v-checkbox>
+          </td>
+        </template>
+        <!-- Custom Cell Content -->
+        <template v-slot:item.sen="{ item }">
+          <td>
+            <!-- Conditionally render the button based on status -->
+            <v-btn v-if="item.status_fuel !== 'P'" @click="updateStatusFuelStation(item)" color="success">Send</v-btn>
+          </td>
+        </template>
+        <!-- /Status Column -->
+
+
+      </v-data-table>
+      <!-- Data Table -->
+      <!-- Data Table printer -->
+      <div style="display:none">
+        <div id="modalInvoice">
+          <v-row>
+
+
+            <Noti />
+
+
+
+          </v-row>
+          <br>
+
+
+
+          <table class="table">
+            <thead>
+              <tr>
+                <th>ລ/ດ</th>
+                <th>ID</th>
+                <th>ຊື່</th>
+                <th>ຫົວລາກ</th>
+                <th>ຫາງລາກ</th>
+                <th>ສະຖານທີຮັບ</th>
+                <th>ສະຖານທີສົ່ງ</th>
+                <th>ຄ່າເບ້ຍລ້ຽງທີ່ຊໍາລະແລ້ວ</th>
+                <th>ຄ່າເບ້ຍລ້ຽງທັງໝົດ</th>
+                <th>ຄ່າເບ້ຍລ້ຽງທີ່ຄ້າງຊໍາລະ</th>
+
+                <th>ວັນທີອອກໃບປອຍ</th>
+                <th>ວັນທີປະຕິບັດງານ</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Loop through your filteredGasReports and populate the table rows -->
+              <tr v-for="(report, i) in filteredGasReports" :key="report.id">
+                <td
+                  style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:2px"
+                  class="  text-center mr-2 ml-2">{{ i + 1 }}</td>
+                <td>{{ report.lahudPoyLod }}</td>
+                <td>{{ report.staft_NAME }}</td>
+                <td>{{ report.h_VICIVLE_NUMBER }}</td>
+                <td>{{ report.f_BRANCH }}</td>
+                <td>{{ report.province }}</td>
+                <td>{{ report.detail }}</td>
+                <td>{{ report.staff_BIALIENG }}</td>
+                <td>{{ report.staff_BIALIENG_FRIST }}</td>
+                <td>{{ report.staff_BIALINEG_KANGJAIY }}</td>
+
+
+                <td>{{ formatDate(report.out_DATE) }}</td> <!-- Format the date here -->
+                <td>{{ formatDate(report.in_DATE) }}</td> <!-- Format the date here -->
+              </tr>
+            </tbody>
+          </table>
+          <div
+            style="width:100%;margin-top:50px;display:flex;flex-direction:column;justify-content:center;align-items:center;padding-left:20px; font-size: 18px">
+            <div>ບັນຊີຂົນສົ່ງ</div>
+            <div style="height: 50px;"></div>
+            <div style="display:flex;justify-content:space-between">
+              ...............................
+            </div>
           </div>
         </div>
       </div>
-    </div>
-    <!-- Data Table printer -->
+      <!-- Data Table printer -->
+    </v-card>
   </div>
 </template>
 <script>
@@ -157,6 +184,9 @@ export default {
       endDateMenu: false,
       endDate: null,
       formattedEndDate: null,
+      topFiveList: [],
+      loading: true,
+
       gasReports: [], // Fetched gas reports data
       sumFooter: null, // Sum footer data
       all_statu: 0,
@@ -165,15 +195,17 @@ export default {
       selectedCircles: [],
       selectAllCheckbox: false, // Checkbox state for Select All
       selectedItems: [], // New property to store selected items
-      filteredGasReports: [],
+      initialGasReports: [], // Rename to avoid conflict with computed property
       dataLoaded: false, // Flag to track data loading status
-
     };
   },
-
   mounted() {
     this.fetchReportFuel(); // Call the method to fetch report data
+    this.ontop5()
+
+
   },
+
 
   computed: {
     headers() {
@@ -200,9 +232,9 @@ export default {
     selectAllIndeterminate() {
       return this.selectedItems.length > 0 && this.selectedItems.length < this.filteredGasReports.length;
     },
-    filteredGasReports() {
+    computedFilteredGasReports() { // Renamed computed property
       // Filter gasReports based on startDate, endDate, and search input
-      let filteredReports = this.gasReports;
+      let filteredReports = this.initialGasReports; // Use the renamed data property
 
       if (this.startDate && this.endDate) {
         filteredReports = filteredReports.filter(report => {
@@ -220,12 +252,13 @@ export default {
           // Add more fields to search as needed
         );
       }
-
       return filteredReports;
     },
   },
 
   methods: {
+
+
     async fetchReportFuel() {
       try {
         this.dataLoaded = false; // Set loading flag to false before fetching data
@@ -277,43 +310,43 @@ export default {
       }
 
       try {
-    this.loading_processing = true;
+        this.loading_processing = true;
 
-    // Calculate the total of allofthem
-    const totalAllofthem = this.selectedItems.reduce((total, item) => total + item.totalBialiengKangjaiy, 0);
+        // Calculate the total of allofthem
+        const totalAllofthem = this.selectedItems.reduce((total, item) => total + item.totalBialiengKangjaiy, 0);
 
-    // Prepare data to send to the API
-    const requestData = {
-        keyIds: this.selectedItems.map(item => item.keyIds),
-        dels: this.selectedItems.map(item => item.lahudPoyLod),
-        allofthem: totalAllofthem, // Send the total directly
+        // Prepare data to send to the API
+        const requestData = {
+          keyIds: this.selectedItems.map(item => item.keyIds),
+          dels: this.selectedItems.map(item => item.lahudPoyLod),
+          allofthem: totalAllofthem, // Send the total directly
 
-        toKen: localStorage.getItem('toKen'),
-    };
+          toKen: localStorage.getItem('toKen'),
+        };
 
-    console.log('Request data:', requestData);
+        console.log('Request data:', requestData);
 
-    // Make the API call to update the status
-    const response = await this.$axios.$post('/paymentStaff.service', requestData);
-    console.log('API response:', response);
+        // Make the API call to update the status
+        const response = await this.$axios.$post('/paymentStaff.service', requestData);
+        console.log('API response:', response);
 
-    if (response?.status === '00') {
-        console.log('Status updated successfully.');
+        if (response?.status === '00') {
+          console.log('Status updated successfully.');
 
-        // Fetch report data again after status update
-        await this.fetchReportFuel();
-    } else {
-        console.error('Failed to update status:', response?.message);
+          // Fetch report data again after status update
+          await this.fetchReportFuel();
+        } else {
+          console.error('Failed to update status:', response?.message);
+          // Handle error message display or other logic here
+        }
+      } catch (error) {
+        console.error('Error updating status:', error);
         // Handle error message display or other logic here
-    }
-} catch (error) {
-    console.error('Error updating status:', error);
-    // Handle error message display or other logic here
-} finally {
-    this.loading_processing = false;
-    this.selectedItems = []; // Clear selected items after update
-    this.selectAllCheckbox = false; // Clear Select All checkbox after update
-}
+      } finally {
+        this.loading_processing = false;
+        this.selectedItems = []; // Clear selected items after update
+        this.selectAllCheckbox = false; // Clear Select All checkbox after update
+      }
 
 
     },
@@ -383,7 +416,39 @@ export default {
       } else {
         this.formattedEndDate = null;
       }
-    }
+    },
+    ontop5() {
+      try {
+        this.loading_processing = true;
+        let data = {
+          startDate: this.startDate,
+          endDate: this.endDate,
+          toKen: localStorage.getItem("toKen")
+
+        }
+        this.$axios.$post('/TopFiveRanking.service', data).then((data) => {
+          console.log("allReport:", data)
+          if (data?.data) {
+
+            this.top5all = data?.data
+            this.loading_processing = false
+
+          } else {
+            this.top5all = []
+            this.loading_processing = false
+          }
+        })
+      } catch (error) {
+        this.loading_processing = false
+        swal.fire({
+          icon: 'error',
+          text: error
+        })
+        console.log(error)
+      }
+
+    },
+
   }
 };
 

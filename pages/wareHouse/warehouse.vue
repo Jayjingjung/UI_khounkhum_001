@@ -7,7 +7,11 @@
             <v-row>
                 <div>
                     <v-col>
+                        <!-- <v-badge :content="" color="teal"> -->
                         <v-btn style="border: 2px solid rgb(160,93,225)" to="./product-list">ນໍາເຂົ້າອາໄລ</v-btn>
+                        <v-badge style="margin-left: -35px;" :content="total_PO" color="teal">
+                        </v-badge>
+                        <!-- </v-badge> -->
                     </v-col>
                 </div>
                 <!-- <div>
@@ -20,26 +24,27 @@
                         <v-btn to="./oil_paid">ສະເໝີ ໃຊ້</v-btn>
                     </v-col>
                 </div> -->
-                <div style="margin-top:10px" class="ml-10">
+                <!-- <div style="margin-top:10px" class="ml-10">
                     <v-btn color="#e91e63" class="white--text"
                         @click="print"><v-icon>mdi-printer</v-icon>ພິມລາຍງານທັງໝົດ</v-btn>
-                </div>
+                </div> -->
                 <div class="mt-2 ml-4 pt-6" style="width: 500px; ">
                     <v-text-field dense solo flat background-color="#f5f5f5" v-model="search" placeholder="ຄົ້ນຫາ..."
                         prepend-inner-icon="mdi-magnify" clearable></v-text-field>
                 </div>
             </v-row>
 
-            <v-data-table :headers="truck_table_headers" :items="truck_data_list" :search="search">
+            <v-data-table :items-per-page="5" :headers="truck_table_headers" :items="truck_data_list" :search="search">
                 <template v-slot:item="row">
-
                     <tr>
-                        <td>{{ row }}</td>
-
+                        <td><v-avatar style="width: 80px; height: 80px;"><img :src="row.item.img"
+                                    style="width:100%; height:100%;" /></v-avatar></td>
+                        <td style="font-size: 18px;">{{ row?.item?.item_name }}</td>
+                        <td style="font-size: 18px;">{{ row?.item?.qty }}</td>
                     </tr>
-
-                </template> <!-- Your data table content here -->
+                </template>
             </v-data-table>
+
         </v-card>
         <!-- Data Table printer -->
         <div style="display:none">
@@ -105,18 +110,66 @@ export default {
     data() {
         return {
             search: '',
+            total_PO: '',
+
+
             truck_table_headers: [
-                { text: 'ຮູບພາບ', value: '' },
-                { text: 'ທະບຽນລົດ', value: 'f_CARD_NO' },
-                { text: 'ຍີ່ຫໍ້ລົດ', value: 'f_BRANCH' },
-                { text: 'ປະເພດລົດ', value: 'f_CAR_TYPE' },
+
+                { text: 'ຮູບພາບ', value: 'img' },
+                { text: 'ລາໄລ', value: 'item_name' },
+                { text: 'ຈໍານວນ', value: 'qty' },
+
             ],
             truck_data_list: [],
 
         }
     },
+    mounted() {
+        this.total_count()
+        this.USER_ID = localStorage.getItem('USER_ID')
+        this.USER_NAME = localStorage.getItem('USER_NAME')
+        this.USER_ROLE = localStorage.getItem('USER_ROLE')
+        this.onGetshowdata_table(); // Fetch truck footer data when component is mounted
+
+    },
     // Your component logic here
     methods: {
+        total_count() {
+            try {
+                this.loading_processing = true;
+                this.$axios.$post('/getNotiTab3.service', {
+                    toKen: localStorage.getItem('toKen'),
+                }).then((data) => {
+                    this.loading_processing = false;
+
+                    if (data && data.status === '00') {
+                        this.total_PO = data.total_PO;
+                    } else {
+                        // Handle API response with error status
+                        swal.fire({
+                            icon: 'error',
+                            text: data?.message || 'Failed to fetch data',
+                        });
+                    }
+                }).catch((error) => {
+                    this.loading_processing = false;
+                    console.log(error);
+                    // Display error alert using SweetAlert2
+                    swal.fire({
+                        icon: 'error',
+                        text: 'Failed to fetch data from the API',
+                    });
+                });
+            } catch (error) {
+                this.loading_processing = false;
+                console.log(error);
+                // Display error alert using SweetAlert2
+                swal.fire({
+                    icon: 'error',
+                    text: error.toString(),
+                });
+            }
+        },
         print() {
             const modal = document.getElementById("modalInvoice");
             const cloned = modal.cloneNode(true);
@@ -129,6 +182,29 @@ export default {
             section.innerHTML = "";
             section.appendChild(cloned);
             window.print();
+        },
+        async onGetshowdata_table() {
+            try {
+                this.loading_processing = true;
+                const response = await this.$axios.$post('ReportStock.service', {
+                    toKen: localStorage.getItem('toKen'),
+                });
+
+                console.log('API response:', response);
+
+                if (response?.status === '00' && response?.data) {
+                    this.truck_data_list = response.data;
+                } else {
+                    this.showErrorAlert('Error', 'Failed to fetch data from the API');
+                }
+            } catch (error) {
+                console.error('API error:', error);
+                this.showErrorAlert('Error', 'Failed to fetch data from the API');
+            } finally {
+                this.loading_processing = false;
+                // window.location.reload();
+
+            }
         },
         // Other methods...
     },

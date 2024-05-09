@@ -7,16 +7,19 @@
             <v-row>
                 <div>
                     <v-col>
-                        <v-badge :content="total_Offer_List" color="teal">
-                            <v-btn style="border: 2px solid rgb(225,93,158)"
-                                to="./purchase_order_paper">ສາງບິນສັງຊື້</v-btn>
+                        <v-btn style="border: 2px solid rgb(225,93,158)"
+                        to="./purchase_order_paper">ສາງບິນສັງຊື້</v-btn>
+                        <v-badge  style="margin-left: -35px;"  :content="total_Offer_List" color="teal">
                         </v-badge>
                     </v-col>
                 </div>
 
                 <div>
                     <v-col>
+                        
                         <v-btn style="border: 2px solid rgb(225,93,158)" to="./ListShopsMustPay">ຈາຍນີ້</v-btn>
+                        <!-- <v-badge :content="total_FuelUnpaid" color="teal" style="margin-left: -35px;" >
+                        </v-badge> -->
                     </v-col>
                 </div>
                 <!-- <div>
@@ -29,10 +32,10 @@
                         <v-btn to="./oil_paid">ສະເໝີ ໃຊ້</v-btn>
                     </v-col>
                 </div> -->
-                <div style="margin-top:10px" class="ml-10">
+                <!-- <div style="margin-top:10px" class="ml-10">
                     <v-btn color="#e91e63" class="white--text"
                         @click="print"><v-icon>mdi-printer</v-icon>ພິມລາຍງານທັງໝົດ</v-btn>
-                </div>
+                </div> -->
                 <div class="mt-2 ml-4 pt-6" style="width: 500px; ">
                     <v-text-field dense solo flat background-color="#f5f5f5" v-model="search" placeholder="ຄົ້ນຫາ..."
                         prepend-inner-icon="mdi-magnify" clearable></v-text-field>
@@ -115,6 +118,7 @@ export default {
         return {
             search: '',
             total_Offer_List: '',
+            total_FuelUnpaid: '',
             truck_table_headers: [
                 { text: 'ຮູບພາບ', value: '' },
                 { text: 'ທະບຽນລົດ', value: 'f_CARD_NO' },
@@ -126,13 +130,13 @@ export default {
         }
     },
     mounted() {
-    this.total_count()
-    this.USER_ID = localStorage.getItem('USER_ID')
-    this.USER_NAME = localStorage.getItem('USER_NAME')
-    this.USER_ROLE = localStorage.getItem('USER_ROLE')
+        this.total_count()
+        this.USER_ID = localStorage.getItem('USER_ID')
+        this.USER_NAME = localStorage.getItem('USER_NAME')
+        this.USER_ROLE = localStorage.getItem('USER_ROLE')
 
 
-  },
+    },
     // Your component logic here
     methods: {
         total_count() {
@@ -145,6 +149,7 @@ export default {
 
                     if (data && data.status === '00') {
                         this.total_Offer_List = data.total_Offer_List;
+                        this.total_FuelUnpaid = data.total_FuelUnpaid;
                     } else {
                         // Handle API response with error status
                         swal.fire({

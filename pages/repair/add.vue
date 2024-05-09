@@ -107,12 +107,12 @@
                         <div class="tops">
                         </div>
                     </v-col>
-                    <v-col>
-                        <v-text-field label="* ເມືອງ" dense outlined background-color="#f5f5f5"
+                    <!-- <v-col>
+                        <v-text-field label="* ຈຳນວນ_ເງິນ" dense outlined background-color="#f5f5f5"
                             v-model="amount_money"></v-text-field>
                         <div class="tops">
                         </div>
-                    </v-col>
+                    </v-col> -->
                     <v-col>
                         <v-text-field label="ເງິນຕາ" outlined dense append-inner-icon="mdi-card-account-details"
                             background-color="#f5f5f5" v-model="currency"></v-text-field>
@@ -120,17 +120,12 @@
                         </div>
                     </v-col>
                     <v-col>
-                        <v-text-field label="* ຈຳນວນ_ເງິນ" dense outlined background-color="#f5f5f5"
-                            v-model="amount_money"></v-text-field>
+                        <v-text-field label="* ປະເທດ" dense outlined background-color="#f5f5f5"
+                            v-model="country"></v-text-field>
                         <div class="tops">
                         </div>
                     </v-col>
-                    <v-col>
-                        <v-text-field label="* ສາຂາ" dense outlined background-color="#f5f5f5"
-                            v-model="amount_money"></v-text-field>
-                        <div class="tops">
-                        </div>
-                    </v-col>
+                   
                 </v-row>
             </div>
             <div class="center-btn">
@@ -151,10 +146,10 @@
                         <td>{{ row?.item?.shop_name }}</td>
                         <td>{{ row?.item?.address }}</td>
                         <td>{{ row?.item?.phone }}</td>
-                        <td>{{ row?.item?.country }}</td>
+                        <!-- <td>{{ row?.item?.amount_money }}</td> -->
                         <td>{{ row?.item?.currency }}</td>
-                        <td>{{ row?.item?.amount_money }}</td>
-                        <td>{{ row?.item?.branch }}</td>
+                        <td>{{ row?.item?.country }}</td>
+                        <!-- <td>{{ row?.item?.branch }}</td> -->
 
                         <td>
                             <v-btn class="red" small @click="deleteshow(row.item.shop_id)">
@@ -181,7 +176,7 @@ export default {
             itemName: '',
             unit: '',
             img: null,
-
+            amount_money:'0',
             unit_price: '',
             item_id: '', // Add item_id property
             // qty: '',
@@ -197,13 +192,14 @@ export default {
             ],
             truck_data_list: [],
             truck_table_repairs: [
+                { text: 'ລດ', value: '' },
                 { text: 'ຮ້ານ', value: 'shop_name' },
                 { text: 'ທີຢູ່', value: 'address' },
                 { text: 'ໂທ', value: 'phone' },
-                { text: 'ເມືອງ', value: 'country' },
+                { text: 'ປະເທດ', value: 'country' },
                 { text: 'ເງິນຕາ', value: 'currency' },
-                { text: 'ຈຳນວນ_ເງິນ', value: 'amount_money' },
-                { text: 'ສາຂາ', value: 'branch' },
+                // { text: 'ຈຳນວນ_ເງິນ', value: 'amount_money' },
+                // { text: 'ສາຂາ', value: 'branch' },
                 { text: '', value: '' },
 
             ],
@@ -219,6 +215,7 @@ export default {
 
     },
     methods: {
+        
         onGetrepImage(file) {
             if (file) {
                 this.url = URL.createObjectURL(this.img)
@@ -296,8 +293,8 @@ export default {
                 })
             } catch (error) {
                 console.log(error)
+                this.onGetaddshow();
             }
-            this.onGetaddshow();
         },
         deleteshow(key) {
             this.shop_id = key; // Set item_id property

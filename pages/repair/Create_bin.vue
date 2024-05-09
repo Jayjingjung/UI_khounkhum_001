@@ -1,90 +1,89 @@
 <template>
     <div>
-        <v-card class="flex-container mr-10 ml-10">
+        <v-card class="card-shadow" rounded="lg" style="border:0.5px solid #e0e0e0;border-radius:3px;width: 100%;">
+            <v-card-title style="background-color:	#b76d22" class="white--text">
+                ອາໄລໃນສາງ
+            </v-card-title>
+            <v-card class="flex-container ">
+                <div style="width:95%;" class="pl-2">
+                    <v-select outlined dense label="ເລືອກ ອຸປະກອນ" :items="Mechanicequipment" item-text="itemName"
+                        item-value="item_id" @change="onGetMechanicequipment">
+                    </v-select>
 
-            <div style="width:95%;" class="pl-2">
-                <v-select outlined dense label="ເລືອກ ອຸປະກອນ" :items="Mechanicequipment" item-text="itemName"
-                    item-value="item_id" @change="onGetMechanicequipment">
-                </v-select>
-
-                <div class="d-flex align-center pl-2">
-                    <v-text-field label="*qty_Fix" dense outlined background-color="#f5f5f5"
-                        v-model="qty_Fix"></v-text-field>
-                    <div class="tops"></div>
-                </div>
-            </div>
-
-            <div style="width:95%;" class="pl-2">
-                <!-- Autocomplete for selecting vehicle -->
-                <div>
-                    <v-autocomplete outlined dense label="ເລືອກຫົວລົດ" :items="cars_list" item-text="h_VICIVLE_NUMBER"
-                        item-value="key_id" @change="onGetCarDetails" :rules="nameRules">
-                    </v-autocomplete>
                     <div class="d-flex align-center pl-2">
-                        <v-text-field label="*total_Price" dense outlined background-color="#f5f5f5"
-                            v-model="total_Price"></v-text-field>
+                        <v-text-field label="*ຈໍານວນ" dense outlined background-color="#f5f5f5"
+                            v-model="qty_Fix"></v-text-field>
                         <div class="tops"></div>
                     </div>
                 </div>
-            </div>
 
-            <div style="width:95%;" class="pl-2">
-                <div>
-                    <v-autocomplete outlined dense label="ເລືອກຫາງລົດ" :items="truct_footer_data_list"
-                        item-text="f_CARD_NO" item-value="key_id" @change="onGetTructFooterDetail" :rules="nameRules">
-                    </v-autocomplete>
-                    <div class="d-flex align-center pl-2">
-                        <v-text-field label="*description" dense outlined background-color="#f5f5f5"
-                            v-model="description"></v-text-field>
-                        <div class="tops"></div>
+                <div style="width:95%;" class="pl-2">
+                    <!-- Autocomplete for selecting vehicle -->
+                    <div>
+                        <v-autocomplete outlined dense label="ເລືອກຫົວລົດ" :items="cars_list"
+                            item-text="h_VICIVLE_NUMBER" item-value="key_id" @change="onGetCarDetails"
+                            :rules="nameRules">
+                        </v-autocomplete>
+                        <div class="d-flex align-center pl-2">
+                            <v-text-field label="*ລາ​ຄາ​ລວມ" dense outlined background-color="#f5f5f5"
+                                v-model="total_Price"></v-text-field>
+                            <div class="tops"></div>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div style="width:95%;" class=" ml-2 mb-2">
-                <v-btn elevation="0" color="#448AFF" @click="onGetLeaveNumber">
-                    <v-icon color="white">mdi-check</v-icon>
-                    <span class="white--text">ບັນທຶກ</span>
-                </v-btn>
-            </div>
+
+                <div style="width:95%;" class="pl-2">
+                    <div>
+                        <v-autocomplete outlined dense label="ເລືອກຫາງລົດ" :items="truct_footer_data_list"
+                            item-text="f_CARD_NO" item-value="key_id" @change="onGetTructFooterDetail"
+                            :rules="nameRules">
+                        </v-autocomplete>
+                        <div class="d-flex align-center pl-2">
+                            <v-text-field label="*ລາຍລະອຽດ" dense outlined background-color="#f5f5f5"
+                                v-model="description"></v-text-field>
+                            <div class="tops"></div>
+                        </div>
+                    </div>
+                </div>
+                <div style="width:95%;" class=" ml-2 mb-2">
+                    <v-btn elevation="0" color="#448AFF" @click="onGetLeaveNumber">
+                        <v-icon color="white">mdi-check</v-icon>
+                        <span class="white--text">ບັນທຶກ</span>
+                    </v-btn>
+                </div>
+            </v-card>
         </v-card>
-        <div style="display: flex;margin-top: 10px;">
-            <div>
-                <v-card class="card-shadow" rounded="lg"
-                    style="border:0.5px solid #e0e0e0;border-radius:3px;width: 100%;">
-                    <v-card-title style="background-color:	#b76d22" class="white--text">
+        <div style="display: flex; margin-top: 10px; width: 100%;">
+            <div style="width: 20%;"> <!-- Updated this div -->
+                <v-card class="card-shadow" rounded="lg" style="border: 0.5px solid #e0e0e0; border-radius: 3px;">
+                    <v-card-title style="background-color: #b76d22" class="white--text">
                         ອາໄລໃນສາງ
                     </v-card-title>
 
-                    <div style="display: flex;margin-top: 10px;margin-left: 10px;">
-                    </div>
+                    <div style="display: flex; margin-top: 10px; margin-left: 10px;"></div>
                     <v-data-table :items-per-page="5" :headers="truck_table_headers" :items="truck_data_list"
                         :search="search">
                         <template v-slot:item="row">
                             <tr>
-
                                 <td><v-avatar><img :src="row.item.img"></v-avatar></td>
                                 <td>{{ row?.item?.item_name }}</td>
                                 <td>{{ row?.item?.qty }}</td>
-
                             </tr>
                         </template>
                     </v-data-table>
                 </v-card>
             </div>
-            <div>
-                <v-card class="card-shadow" rounded="lg"
-                    style="border:0.5px solid #e0e0e0;border-radius:3px;width: 100%;">
-                    <v-card-title style="background-color:	#b72222" class="white--text">
+            <v-card style="width: 80%;"> <!-- Updated this v-card -->
+                <v-card class="card-shadow" rounded="lg" style="border: 0.5px solid #e0e0e0; border-radius: 3px;">
+                    <v-card-title style="background-color: #b72222" class="white--text">
                         ອາໄລທີນໍາອອກຈາກສາງ
                     </v-card-title>
 
-                    <div style="display: flex;margin-top: 10px;margin-left: 10px;">
-                    </div>
+                    <div style="display: flex; margin-top: 10px;"></div>
                     <v-data-table :items-per-page="5" :headers="data_list_showFix" :items="showFix_data_list"
                         :search="search">
                         <template v-slot:item="row">
                             <tr>
-
                                 <td><v-avatar><img :src="row.item.img"></v-avatar></td>
                                 <td>{{ row?.item?.fixId }}</td>
                                 <td>{{ row?.item?.h_VICIVLE_NUMBER }}</td>
@@ -100,77 +99,76 @@
                                         <v-icon>mdi-clipboard-text</v-icon>ລາຍລະອຽດ
                                     </v-btn>
                                 </td>
-
                             </tr>
                         </template>
                     </v-data-table>
                 </v-card>
-            </div>
-            <v-dialog v-model="dialogVisible" max-width="800px" style="max-height: 800px;">
-                <v-card>
-                    <v-card-title style="font-size: 24px;">ປ້ອນຂໍ້ມູນ</v-card-title>
-                    <v-card-actions>
-                        <v-btn style="font-size: 20px;" color="primary" @click="closeDialog">
-                            <v-icon>mdi-printer</v-icon>ພິມບິນ</v-btn>
-
-
-                    </v-card-actions>
-                    <div style="display: flex;">
-                        <v-card-text style="font-size: 18px;">
-                            <div>
-                                <label for="fixId">fixId:</label>
-                                <span id="fixId">{{ fixId }}</span>
-                            </div>
-                            <div>
-                                <label for="h_VICIVLE_NUMBER">h_VICIVLE_NUMBER</label>
-                                <span id="h_VICIVLE_NUMBER">{{ h_VICIVLE_NUMBER }}</span>
-                            </div>
-                            <div>
-                                <label for="qty_offer">f_BRANCH</label>
-                                <span id="qty_offer">{{ f_BRANCH }}</span>
-                            </div>
-                            <div>
-                                <label for="qty_offer">qty_Fix</label>
-                                <span id="qty_offer">{{ qty_Fix }}</span>
-                            </div>
-                            <div>
-                                <label for="qty_offer">total_Price</label>
-                                <span id="qty_offer">{{ total_Price }}</span>
-                            </div>
-
-                            <div>
-                                <label for="qty_offer">description</label>
-                                <span id="qty_offer">{{ description }}</span>
-                            </div>
-                            <div>
-                                <label for="qty_offer">dateFix</label>
-                                <span id="qty_offer">{{ dateFix }}</span>
-                            </div>
-                        </v-card-text>
-                        <v-card-text style="display: flex;">
-                            <div>
-                                <label for="add_on">add_on</label>
-                                <span id="add_on">{{ add_on }}</span>
-
-                                <v-text-field label="*add_on" dense outlined background-color="#f5f5f5"
-                                    v-model="add_on"></v-text-field>
-
-
-                            </div>
-                            <v-btn style="margin-top: -10px;margin-left: 10px;" color="primary" @click="onSubmit">
-                                <v-icon>mdi-border-color</v-icon>ເເກ່ໄຂ</v-btn>
-                        </v-card-text>
-                    </div>
-                    <v-card-actions >
-
-                        <v-btn color="red darken-1" text @click="closeDialog">ຍົກເລີກ</v-btn>
-
-
-                    </v-card-actions>
-                </v-card>
-            </v-dialog>
-
+            </v-card>
         </div>
+
+        <v-dialog v-model="dialogVisible" max-width="800px" style="max-height: 800px;">
+            <v-card>
+                <v-card-title style="font-size: 24px;">ປ້ອນຂໍ້ມູນ</v-card-title>
+                <v-card-actions>
+                    <v-btn style="font-size: 20px;" color="primary" @click="closeDialog">
+                        <v-icon>mdi-printer</v-icon>ພິມບິນ</v-btn>
+
+
+                </v-card-actions>
+                <div style="display: flex;">
+                    <v-card-text style="font-size: 18px;">
+                        <div>
+                            <label for="fixId">fixId:</label>
+                            <span id="fixId">{{ fixId }}</span>
+                        </div>
+                        <div>
+                            <label for="h_VICIVLE_NUMBER">h_VICIVLE_NUMBER</label>
+                            <span id="h_VICIVLE_NUMBER">{{ h_VICIVLE_NUMBER }}</span>
+                        </div>
+                        <div>
+                            <label for="qty_offer">f_BRANCH</label>
+                            <span id="qty_offer">{{ f_BRANCH }}</span>
+                        </div>
+                        <div>
+                            <label for="qty_offer">qty_Fix</label>
+                            <span id="qty_offer">{{ qty_Fix }}</span>
+                        </div>
+                        <div>
+                            <label for="qty_offer">total_Price</label>
+                            <span id="qty_offer">{{ total_Price }}</span>
+                        </div>
+
+                        <div>
+                            <label for="qty_offer">description</label>
+                            <span id="qty_offer">{{ description }}</span>
+                        </div>
+                        <div>
+                            <label for="qty_offer">dateFix</label>
+                            <span id="qty_offer">{{ dateFix }}</span>
+                        </div>
+                    </v-card-text>
+                    <v-card-text style="display: flex;">
+                        <div>
+                            <label for="add_on">add_on</label>
+                            <span id="add_on">{{ add_on }}</span>
+
+                            <v-text-field label="*add_on" dense outlined background-color="#f5f5f5"
+                                v-model="add_on"></v-text-field>
+
+
+                        </div>
+                        <v-btn style="margin-top: -10px;margin-left: 10px;" color="primary" @click="onSubmit">
+                            <v-icon>mdi-border-color</v-icon>ເເກ່ໄຂ</v-btn>
+                    </v-card-text>
+                </div>
+                <v-card-actions>
+
+                    <v-btn color="red darken-1" text @click="closeDialog">ຍົກເລີກ</v-btn>
+
+
+                </v-card-actions>
+            </v-card>
+        </v-dialog>
     </div>
 </template>
 
@@ -226,15 +224,16 @@ export default {
             truck_data_list: [],
 
             data_list_showFix: [
+                { text: 'ຮູບພາບ', value: 'img' },
 
-                { text: 'ຮູບພາບ', value: 'fixId' },
-                { text: 'ລາໄລ', value: 'h_VICIVLE_NUMBER' },
-                { text: 'ຈໍານວນ', value: 'f_BRANCH' },
+                { text: 'ID', value: 'fixId' },
+                { text: 'ຫົວລັດ', value: 'h_VICIVLE_NUMBER' },
+                { text: 'ຫາງລົດ', value: 'f_BRANCH' },
                 { text: 'ຈໍານວນ', value: 'qty_Fix' },
-                { text: 'ຈໍານວນ', value: 'total_Price' },
-                { text: 'ຈໍານວນ', value: 'add_on' },
-                { text: 'ຈໍານວນ', value: 'description' },
-                { text: 'ຈໍານວນ', value: 'dateFix' },
+                { text: 'ລາ​ຄາ​ລວມ', value: 'total_Price' },
+                { text: 'ລາຍຈາຍເພີນ(ຄ່າສ່າງ)', value: 'add_on' },
+                { text: 'ລາຍລະອຽດ', value: 'description' },
+                { text: 'ວັນທີເເປງ', value: 'dateFix' },
 
             ],
             showFix_data_list: [],
@@ -335,6 +334,9 @@ export default {
                         text: 'Your message here', // Customize the success message
                         confirmButtonText: 'OK',
                     });
+                    window.location.reload();
+
+
                 }
             } catch (error) {
                 console.log(error);
@@ -475,7 +477,7 @@ export default {
                     // toKen: localStorage.getItem('toKen'),
                     fixId: this.fixId, // Using the offerCode property
                     add_on: this.add_on, // Assuming you have an itemId property set from somewhere
-                  
+
                 };
 
                 // Send the POST request to the API endpoint
@@ -486,12 +488,29 @@ export default {
                 // Close the dialog after submission
                 this.closeDialog();
 
+                if (response?.status === '00') {
+                    this.loading_processing = false;
+                    // this.print();
+                    // Other actions upon successful creation
+
+
+                    // Display success alert using SweetAlert2
+                    await Swal.fire({
+                        icon: 'success',
+                        title: 'Success',
+                        text: 'Your message here', // Customize the success message
+                        confirmButtonText: 'OK',
+                    });
+                    window.location.reload();
+                }
+
                 // You can handle the response here, such as showing a success message or updating UI
             } catch (error) {
                 console.error('UpdateFixCost API error:', error);
                 // Handle the error, such as displaying an error message
-            
+                
             }
+            window.location.reload();
         },
     },
     mounted() {

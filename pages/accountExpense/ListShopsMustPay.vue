@@ -1,31 +1,40 @@
 <template>
     <div>
-    <v-card>
-        <v-data-table :items-per-page="5" :headers="truck_table_headers" :items="truck_data_list" :search="search">
-            <template v-slot:item="row">
-                <tr>
+        <v-card class="card-shadow" rounded="lg" style="border: 0.5px solid #e0e0e0; border-radius: 3px;">
+                    <v-card-title style="background-color: #b722b7" class="white--text">
+                        ອາໄລໃນສາງ
+                    </v-card-title>
+            <v-data-table :items-per-page="5" :headers="truck_table_headers" :items="filteredItems" :search="search">
+                <template v-slot:item="row">
+                    <tr>
 
 
-                    <td>{{ row?.item?.offer_CODE }}</td>
-                    <td>{{ row?.item?.item_name }}</td>
-                    <td>{{ row?.item?.qty_offer }}</td>
-                    <!-- <td>{{ row?.item?.pocode }}</td> -->
-                    <td>{{ row?.item?.total }}</td>
-                    <td>{{ row?.item?.paid }}</td>
-                    <td>{{ row?.item?.tid }}</td>
-                    <td>{{ row?.item?.shop_name }}</td>
-                    <td>{{ row?.item?.dateCreatePO }}</td>
-                    <td>{{ row?.item?.cur }}</td>
-                    <!-- <td>{{ row?.item?.timeToPay }}</td> -->
-
-                </tr>
-            </template>
-        </v-data-table>
-    </v-card>
+                        <td>{{ row?.item?.offer_CODE }}</td>
+                        <td>{{ row?.item?.pocode }}</td>
+                        <td>{{ row?.item?.item_name }}</td>
+                        <td>{{ row?.item?.qty_offer }}</td>
+                        <td>{{ row?.item?.total }}</td>
+                        <td>{{ row?.item?.paid }}</td>
+                        <td>{{ row?.item?.tid }}</td>
+                        <td>{{ row?.item?.shop_name }}</td>
+                        <td>{{ row?.item?.dateCreatePO }}</td>
+                        <td>{{ row?.item?.cur }}</td>
+                        <!-- <td>{{ row?.item?.timeToPay }}</td> -->
+                        <td>
+                            <v-btn small color="primary" class="card-shadow"
+                                @click="onSubmit(row.item.pocode, row.item.paid)">
+                                <v-icon>mdi-currency-usd</v-icon>ສັງຈ່າຍ
+                            </v-btn>
+                        </td>
+                    </tr>
+                </template>
+            </v-data-table>
+        </v-card>
+        
     </div>
 </template>
 <script>
-
+import Swal from 'sweetalert2';
 export default {
     data() {
         return {
@@ -41,6 +50,7 @@ export default {
             qty_offer: '',
             totalMoney: '',
             description: '',
+            paid: '', // Define the paid variable here
             offerManName: '',
             job: '',
             f_CARD_NO: '',
@@ -66,17 +76,17 @@ export default {
             search: '',
             truck_table_headers: [
 
-                { text: 'ຈໍານວນ', value: 'offer_CODE' },
+                { text: 'offer_CODE', value: 'offer_CODE' },
+                { text: 'pocode', value: 'pocode' },
                 { text: 'ລາໄລ', value: 'item_name' },
-                // { text: 'ຮູບພາບ', value: 'pocode' },
                 { text: 'ຈໍານວນ', value: 'qty_offer' },
                 { text: 'ຈໍານວນ', value: 'total' },
                 { text: 'ຈໍານວນ', value: 'tid' },
                 { text: 'ຈໍານວນ', value: 'shop_name' },
                 { text: 'ຈໍານວນ', value: 'dateCreatePO' },
                 { text: 'ຈໍານວນ', value: 'cur' },
-                // { text: 'ຈໍານວນ', value: 'timeToPay' },
-  
+                { text: 'ຈໍານວນ', value: 'timeToPay' },
+
 
             ],
             truck_data_list: [],
@@ -84,7 +94,47 @@ export default {
             // Other data properties...
         };
     },
+    computed: {
+        filteredItems() {
+            if (!Array.isArray(this.truck_data_list)) {
+                return [];
+            }
+            return this.truck_data_list.filter(item =>
+                item.statusNy === 'notjaiy'
+            );
+        },
+    },
     methods: {
+        async onSubmit(pocode, paid) {
+            try {
+                const requestData = {
+                    toKen: localStorage.getItem('toKen'),
+                    pocode: pocode,
+                    paid: paid,
+                };
+                const response = await this.$axios.$post('/PayToShop.service', requestData);
+                console.log('PayToShop API response:', response);
+                // Handle response as needed
+                if (response?.status === '00') {
+                    this.loading_processing = false;
+                    // this.print();
+                    // Other actions upon successful creation
+
+
+                    // Display success alert using SweetAlert2
+                    await Swal.fire({
+                        icon: 'success',
+                        title: 'Success',
+                        text: 'Your message here', // Customize the success message
+                        confirmButtonText: 'OK',
+                    });
+                    window.location.reload();
+                }
+            } catch (error) {
+                console.error('PayToShop API error:', error);
+                // Handle error as needed
+            }
+        },
 
 
         async onGetshowdata_table() {
@@ -93,9 +143,7 @@ export default {
                 const response = await this.$axios.$post('ListShopsMustPay.service', {
                     toKen: localStorage.getItem('toKen'),
                 });
-
                 console.log('API response:', response);
-
                 if (response?.status === '00' && response?.data) {
                     this.truck_data_list = response.data;
                 } else {
@@ -106,14 +154,11 @@ export default {
                 this.showErrorAlert('Error', 'Failed to fetch data from the API');
             } finally {
                 this.loading_processing = false;
-                // window.location.reload();
-
             }
         },
     },
     mounted() {
-
-        this.onGetshowdata_table(); // Fetch truck footer data when component is mounted
+        this.onGetshowdata_table();
     },
 };
 </script>

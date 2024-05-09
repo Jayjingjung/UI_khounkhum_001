@@ -5,7 +5,7 @@
           <img style="margin-top: -10px;" class="mx-auto" src="../assets/images/khounkham.png" height="120px" cover />
   
         </div>
-        <div cols="9">
+        <div >
           <span style="font-size:26px; font-weight:bold; justify-content: center;">ບໍລິສັດ ຄູນຄໍາ ຂົນສົ່ງ {{
             branchDisplayName }}</span>
           <div style="font-weight:300;width: max-content;font-size:18px">
@@ -17,8 +17,8 @@
           </div>
         </div>
       </div>
-      <div class="text-center" style="display:flex;justify-content:center;font-size:25px;font-weight:bold;margin-top: 10px;margin-left: 230px;">
-        ລາຍງານໃບປ່ອຍລົດ</div>
+      <div class="text-center" style="display:flex;justify-content:center;font-size:25px;font-weight:bold;margin-top: 10px;margin-left: ">
+        ໃບສະເໝີສັ່ງຊື້ສິນຄ້າ</div>
       <!-- Other template code -->
     </div>
   </template>

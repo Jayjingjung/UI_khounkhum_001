@@ -522,8 +522,8 @@ export default {
             loading_processing: false,
             end_menu: false,
             end_date: null,
-            start_menu: false,
             start_date: null,
+            start_menu: false,
             status: 'A',
 
             // totalPriceNm:priceNamMun*sainummun,

@@ -126,7 +126,7 @@
                     <template v-slot:item="row">
                         <tr :style="{ 'background-color': row?.item?.totalDay >= '7' ? '#FFCDD2' : '#fff' }"
                             @mouseover="active = row?.index" @mouseleave="active = ''">
-                           
+
                             <td>
                                 <div class="py-1" style="display:flex;flex-direction:column">
                                     {{ row.item.h_VICIVLE_BRANCHTYPE }}: {{ row.item.h_VICIVLE_NUMBER }}
@@ -281,7 +281,7 @@
                                 <div class="py-1" style="display:flex;flex-direction:column">
                                     <span class="green--text"><b>ຄ່າເບ້ຍລ້ຽງທີ່ຊໍາລະແລ້ວ: </b> {{ staff_BIALIENG }} {{
                                         staff_Cur
-                                    }}</span>
+                                        }}</span>
                                 </div>
                                 <div style="display:flex;flex-direction:column">
                                     <span class="red--text"><b>ຄ່າເບ້ຍລ້ຽງທີ່ຄ້າງຊໍາລະ: </b> {{ staff_BIALINEG_KANGJAIY
@@ -441,7 +441,7 @@ export default {
             allowance_data_list: [],
             top5all: [],
             allowance_table_headers: [
-              
+
                 { text: 'ຫົວລາກ:', value: 'h_VICIVLE_BRANCHTYPE' },
                 { text: 'ຫາງລາກ', value: 'h_VICIVLE_NUMBER' },
                 { text: 'ຫາງລາກ', value: 'car' },

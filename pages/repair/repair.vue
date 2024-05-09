@@ -4,7 +4,7 @@
             <v-card-title style="background-color:#e5ac73" class="white--text">
                 ສ້ອມເເປງ
             </v-card-title>
-                   <v-row>
+            <v-row>
                 <div>
                     <v-col>
                         <v-btn style="border: 2px solid rgb(151,90,28)" to="./Create_bin">ສາງບິນສະເໝີ</v-btn>
@@ -12,18 +12,22 @@
                 </div>
                 <div>
                     <v-col>
-                        <v-btn style="width: 200px;border: 2px solid rgb(151,90,28)" to="./add">ເພີ່ມຂໍ້ມູນ ອາໄລ ບໍລິສັດ ຫຼື ຮ້ານ</v-btn>
+                        <v-btn style="width: 200px;border: 2px solid rgb(151,90,28)" to="./add">ເພີ່ມຂໍ້ມູນ ອາໄລ ບໍລິສັດ
+                            ຫຼື ຮ້ານ</v-btn>
                     </v-col>
                 </div>
                 <div>
                     <v-col>
-                        <v-btn style="border: 2px solid rgb(151,90,28)"  to="./Payment_for_repairs">ສະເໝີ ໃຊ້</v-btn>
+                        <v-btn style="border: 2px solid rgb(151,90,28)" to="./Payment_for_repairs">ສະເໝີ ໃຊ້</v-btn>
+                        <v-badge  style="margin-left: -35px;"  :content="total_Offer_List" color="teal">
+                        </v-badge>
                     </v-col>
                 </div>
-                <div style="margin-top:10px" class="ml-10">
+
+                <!-- <div style="margin-top:10px" class="ml-10">
                     <v-btn color="#e91e63" class="white--text"
                         @click="print"><v-icon>mdi-printer</v-icon>ພິມລາຍງານທັງໝົດ</v-btn>
-                </div>
+                </div> -->
                 <div class="mt-2 ml-4 pt-6" style="width: 500px; ">
                     <v-text-field dense solo flat background-color="#f5f5f5" v-model="search" placeholder="ຄົ້ນຫາ..."
                         prepend-inner-icon="mdi-magnify" clearable></v-text-field>
@@ -34,21 +38,31 @@
                 <template v-slot:item="row">
 
                     <tr>
-                        <td>{{ row?.item?.unit_price }}</td>
+                        <td>{{ row?.item?.offer_CODE }}</td>
                         <td><v-avatar><img :src="row.item.img"></v-avatar></td>
+                        <td>{{ row?.item?.item_id }}</td>
                         <td>{{ row?.item?.qty_offer }}</td>
+                        <td>{{ row?.item?.unit_price }}</td>
                         <td>{{ row?.item?.totalMoney }}</td>
                         <td>{{ row?.item?.description }}</td>
                         <td>{{ row?.item?.offerManName }}</td>
                         <td>{{ row?.item?.job }}</td>
                         <td>{{ row?.item?.f_CARD_NO }}</td>
                         <td>{{ row?.item?.h_VICIVLE_NUMBER }}</td>
+
+                        <td :class="getStatusClass(row.item.status)">
+                            {{ getStatusText(row.item.status) }}
+                        </td>
+
+                        <td :class="getStatusClasspo(row.item.statusPO)">
+                            {{ getStatusTextpo(row.item.statusPO) }}
+                        </td>
+
+                        <td :class="getStatusClassstock_status(row.item.stock_status)">
+                            {{ getStatusTextstock_status(row.item.stock_status) }}
+                        </td>
+
                         <td>{{ row?.item?.dateCreate }}</td>
-                        <td>{{ row?.item?.status }}</td>
-                        <td>{{ row?.item?.stock_status }}</td>
-                        <td>{{ row?.item?.statusPO }}</td>
-                        <td>{{ row?.item?.item_id }}</td>
-                        <td>{{ row?.item?.offer_CODE }}</td>
 
                     </tr>
 
@@ -118,23 +132,24 @@ export default {
     data() {
         return {
             search: '',
-   
+            total_Offer_List: '',
+
             truck_table_headers: [
-                { text: 'ລາ​ຄາ​ຕໍ່​ຫນ່ວຍ', value: 'unit_price' },
+                { text: 'ລະຫັດສະເຫນີ', value: 'offer_CODE' },
                 { text: 'ຮູບພາບ', value: 'img' },
-                { text: 'ໜ້າຈໍານວນ', value: 'qty_offer' },
+                { text: 'ID ລາຍການ', value: 'item_id' },
+                { text: 'ຈໍານວນ', value: 'qty_offer' },
+                { text: 'ລາ​ຄາ​ຕໍ່​ຫນ່ວຍ', value: 'unit_price' },
                 { text: 'ລາຄາລວມ', value: 'totalMoney' },
                 { text: 'ລາຍລະອຽດ', value: 'description' },
                 { text: 'ຊື່ຜູ້ສະເໜີ', value: 'offerManName' },
                 { text: 'ວຽກ', value: 'job' },
-                { text: 'f_CARD_NO', value: 'f_CARD_NO' },
-                { text: 'h_VICIVLE_NUMBER', value: 'h_VICIVLE_NUMBER' },
+                { text: 'ຫາງລົດ', value: 'f_CARD_NO' },
+                { text: 'ຫົວລົດ', value: 'h_VICIVLE_NUMBER' },
+                { text: 'ສະຖານະຮ້ານ', value: 'status' },
+                { text: 'ສະຖານະການສັງຊື', value: 'statusPO' },
+                { text: 'ສະຖານະການນໍາເຂົ້າ', value: 'stock_status' },
                 { text: 'ວັນທີສ້າງ', value: 'dateCreate' },
-                { text: 'ສະຖານະ', value: 'status' },
-                { text: 'stock_status', value: 'stock_status' },
-                { text: 'statusPO', value: 'statusPO' },
-                { text: 'ID ລາຍການ', value: 'item_id' },
-                { text: 'ລະຫັດສະເຫນີ', value: 'offer_CODE' },
 
 
 
@@ -143,9 +158,27 @@ export default {
 
         }
     },
-
+   
     // Your component logic here
     methods: {
+        getStatusClass(status) {
+            return status === 'N' ? 'red' : 'green';
+        },
+        getStatusText(status) {
+            return status === 'Y' ? 'ຮ້ານນອກ' : 'ຮ້ານເຄດິດ';
+        },
+        getStatusClasspo(statusPO) {
+            return statusPO === 'NO' ? 'orange' : 'blue';
+        },
+        getStatusTextpo(statusPO) {
+            return statusPO === 'YES' ? 'ສັງຊືເເລ້ວ' : 'ຍັງບໍ່ໄດ້ສັງຊື';
+        },
+        getStatusClassstock_status(stock_status) {
+            return stock_status === 'IN' ? 'red' : 'yellow';
+        },
+        getStatusTextstock_status(stock_status) {
+            return stock_status === 'wait' ? 'ຖ້ານໍາເຂົ້າ' : 'ຍັງບໍ່ໄດ້ສັງຊື';
+        },
         async onGetshowdata_table() {
             try {
                 this.loading_processing = true;
@@ -169,6 +202,43 @@ export default {
 
 
         },
+        total_count() {
+            try {
+                this.loading_processing = true;
+                this.$axios.$post('/getNotiTab3.service', {
+                    toKen: localStorage.getItem('toKen'),
+                }).then((data) => {
+                    this.loading_processing = false;
+
+                    if (data && data.status === '00') {
+                        this.total_Offer_List = data.total_Offer_List;
+                        this.total_FuelUnpaid = data.total_FuelUnpaid;
+                    } else {
+                        // Handle API response with error status
+                        swal.fire({
+                            icon: 'error',
+                            text: data?.message || 'Failed to fetch data',
+                        });
+                    }
+                }).catch((error) => {
+                    this.loading_processing = false;
+                    console.log(error);
+                    // Display error alert using SweetAlert2
+                    swal.fire({
+                        icon: 'error',
+                        text: 'Failed to fetch data from the API',
+                    });
+                });
+            } catch (error) {
+                this.loading_processing = false;
+                console.log(error);
+                // Display error alert using SweetAlert2
+                swal.fire({
+                    icon: 'error',
+                    text: error.toString(),
+                });
+            }
+        },
         print() {
             const modal = document.getElementById("modalInvoice");
             const cloned = modal.cloneNode(true);
@@ -187,7 +257,13 @@ export default {
     mounted() {
 
         this.onGetshowdata_table(); // Fetch truck footer data when component is mounted
-       
+  
+        this.total_count()
+        this.USER_ID = localStorage.getItem('USER_ID')
+        this.USER_NAME = localStorage.getItem('USER_NAME')
+        this.USER_ROLE = localStorage.getItem('USER_ROLE')
+
+
     },
 };
 </script>

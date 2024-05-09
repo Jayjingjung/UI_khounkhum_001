@@ -33,12 +33,12 @@
                         <td>{{ row?.item?.stock_status }}</td>
                         <!-- <td>{{ row?.item?.statusPO }}</td> -->
 
-                        <td>
+                        <!-- <td>
                             <v-btn small color="primary" class="card-shadow"
                                 @click="onGetDatsForPrint(row.item.offer_CODE)">
                                 <v-icon>mdi-printer</v-icon>ພິມບິນຄືນ
                             </v-btn>
-                        </td>
+                        </td> -->
                         <td>
                             <v-btn small color="primary" class="card-shadow" @click="onGetinbox(row.item.offer_CODE)">
                                 <v-icon>mdi mdi-archive-plus</v-icon>ນໍາເຂົ້າ
@@ -48,22 +48,33 @@
                 </template>
             </v-data-table>
             <!-- component for print  -->
-            <v-dialog v-model="dialogVisible" max-width="800px" >
+            <v-dialog v-model="dialogVisible" max-width="400px">
                 <v-card>
-                    <v-card-title>ປ້ອນຂໍ້ມູນ</v-card-title>
-                    <v-card-text>
-                        <div>
-                            <label for="item_name">ອາໄລ:</label>
-                            <span id="item_name">{{ itemName }}</span>
-                        </div>
-                        <div>
-                            <label for="qty_offer">ຈໍານວນ</label>
-                            <span id="qty_offer">{{ qtyOffer }}</span>
-                        </div>
+                    <v-card-title style="font-size: 25px;">ປ້ອນຂໍ້ມູນ</v-card-title>
+                    <v-card-text style="font-size: 22px;">
                      
+
+                                <div>
+                                    <label for="item_name">ອາໄລ:</label>
+                                    <span id="item_name">{{ itemName }}</span>
+                                </div>
+                                <div>
+                                    <label for="qty_offer">ຈໍານວນ</label>
+                                    <span id="qty_offer">{{ qtyOffer }}</span>
+                                </div>
+                           
+                            <!-- Display the image using the img tag -->
+                         
+
+                                <label for="img">ຮູບພາບ:</label>
+                                <div v-if="imgUrl">
+                                    <img id="img" :src="imgUrl" alt="Image" width="200" height="200">
+                                </div>
+                         
+
                     </v-card-text>
                     <v-card-actions>
-                        <v-btn color="primary" @click="onSubmit">ບັນທຶກ</v-btn>
+                        <v-btn color="primary" @click="onSubmit">ນໍາເຂົ້າ</v-btn>
                         <v-btn color="red darken-1" text @click="closeDialog">ຍົກເລີກ</v-btn>
                     </v-card-actions>
                 </v-card>
@@ -74,6 +85,7 @@
 </template>
 
 <script>
+import Swal from 'sweetalert2';
 export default {
     data() {
         return {
@@ -128,7 +140,7 @@ export default {
                 // { text: 'SS', value: 'stock_status' },
                 { text: 'ສະທານະຊື້', value: '' },
                 // { text: 'SPO', value: 'statusPO' },
-                { text: 'ພິມບິນ', value: '' },
+                // { text: 'ພິມບິນ', value: '' },
                 // { text: 'ໃບສັງຊື້', value: '' },
 
 
@@ -204,15 +216,33 @@ export default {
                 });
 
                 console.log('Print API response:', response);
-                this.itemName = response.data[0].item_name; // Assuming you want the first item's name
-                this.qtyOffer = response.data[0].qty_offer; // Assuming you want the first item's qty_offer
-                this.qtyOffer = response.data[0].qty_offer; // Assuming you want the first item's qty_offer
-                this.itemId = response.data[0].item_id; // Assuming you want the first item's qty_offer
-                // Handle the response as needed, such as displaying a success message or handling errors
-                this.openDialog(offerCode); // Open the dialog after API call success
+
+                if (response?.status === '00' && response?.data) {
+                    const item = response.data[0]; // Assuming you want the first item from the API response
+                    this.itemName = item.item_name;
+                    this.qtyOffer = item.qty_offer;
+                    this.imgUrl = item.img;
+                    this.itemId = item.item_id;
+                    this.offerCode = offerCode;
+
+                    // Open the dialog after setting the data
+                    this.openDialog(offerCode);
+                } else {
+                    console.error('Invalid API response');
+                    // Handle invalid response, such as showing an error message
+                }
             } catch (error) {
                 console.error('Print API error:', error);
                 // Handle the error, such as displaying an error message
+            }
+        },
+
+        onGetrepImage(file) {
+            if (file) {
+                this.url = URL.createObjectURL(this.img)
+                console.log(this.url)
+            } else {
+                this.url = null
             }
         },
         openDialog(offerCode) {
@@ -222,6 +252,7 @@ export default {
         closeDialog() {
             this.dialogVisible = false;
         },
+
         onSubmit() {
             // Implement your logic to handle form submission
             console.log('Name:', this.name);
@@ -239,7 +270,7 @@ export default {
                     offer_CODE: this.offerCode, // Using the offerCode property
                     item_id: this.itemId, // Assuming you have an itemId property set from somewhere
                     qty_offer: this.qtyOffer, // Using the qtyOffer property
-                 
+
                 };
 
                 // Send the POST request to the API endpoint
@@ -250,11 +281,27 @@ export default {
                 // Close the dialog after submission
                 this.closeDialog();
 
+                if (response?.status === "00") {
+                    this.loading_processing = false;
+                    // this.print();
+                    // Other actions upon successful creation
+
+
+                    // Display success alert using SweetAlert2
+                    await Swal.fire({
+                        icon: 'success',
+                        title: 'Success',
+                        text: 'Your message here', // Customize the success message
+                        confirmButtonText: 'OK',
+                    });
+                    window.location.reload();
+                }
+
                 // You can handle the response here, such as showing a success message or updating UI
             } catch (error) {
                 console.error('MoveItemToStock API error:', error);
                 // Handle the error, such as displaying an error message
-            
+
             }
         },
 

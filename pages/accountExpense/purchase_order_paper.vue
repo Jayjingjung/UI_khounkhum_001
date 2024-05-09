@@ -1,29 +1,13 @@
 <template>
     <div>
-        <v-card class="card-shadow" rounded="lg" style="border:0.5px solid #e0e0e0;border-radius:3px">
+        <v-card class="card-shadow" rounded="lg"
+            style="border:0.5px solid #e0e0e0;border-radius:3px;margin-bottom: 500px;">
             <v-card-title style="background-color:#ed9ec5" class="white--text">
                 ໃບສະເໜີຊື້
             </v-card-title>
 
-            <div style="margin-top: 10px;margin-left: 10px;margin-right: 10px;">
-                <div style="display: flex;">
-                    <div style="width:100%;" class="pl-2">
-                        <span>ເພີ້ມ ອຸປະກອນ:</span>
 
-                    </div>
-                </div>
-
-
-                <!-- <div style="width:100%;" class="pl-2">
-
-                    <div style="width:100%">
-                        <v-autocomplete outlined dense label="ຮ້ານ" :items="show_list" item-text="shop_name"
-                            item-value="shop_id" @change="onGetshow" :rules="nameRules">
-                        </v-autocomplete>
-                    </div>
-                </div> -->
-            </div>
-            <v-data-table :items-per-page="10" :headers="truck_table_headers" :items="truck_data_list" :search="search">
+            <v-data-table :items-per-page="10" :headers="truck_table_headers" :items="filteredItems" :search="search">
                 <template v-slot:item="row">
                     <tr>
                         <td>{{ row?.item?.unit_price }}</td>
@@ -43,12 +27,6 @@
                         </td>
 
 
-                        <td>
-                            <v-btn small color="primary" class="card-shadow"
-                                @click="onGetDatsForPrint(row.item.offer_CODE)">
-                                <v-icon>mdi-printer</v-icon>ພິມບິນຄືນ
-                            </v-btn>
-                        </td>
 
                         <td>
                             <v-btn small color="primary" class="card-shadow" @click="onGetinbox(row.item.offer_CODE)">
@@ -58,150 +36,177 @@
                     </tr>
                 </template>
             </v-data-table>
-
-            <v-dialog v-model="dialogVisible" max-width="800px" style="max-height: 800px;">
-                <v-card>
-                    <v-card-title style="font-size: 24px;">ປ້ອນຂໍ້ມູນ</v-card-title>
-                    <v-card-actions>
-                        <v-btn style="font-size: 20px;" color="primary" @click="closeDialog">
-                            <v-icon>mdi-printer</v-icon>ພິມບິນ</v-btn>
-
-
-                    </v-card-actions>
-                    <div style="display: flex;">
-                        <v-card-text style="font-size: 18px;">
-                            <div>
-                                <label for="unit_price">unit_price:</label>
-                                <span id="unit_price">{{ unit_price }}</span>
-                            </div>
-                            <div>
-                                <label for="offer_CODE">offer_CODE</label>
-                                <span id="offer_CODE">{{ offer_CODE }}</span>
-                            </div>
-                            <div>
-                                <label for="qty_offer">qty_offer</label>
-                                <span id="qty_offer">{{ qty_offer }}</span>
-                            </div>
-                            <div>
-                                <label for="totalMoney">totalMoney</label>
-                                <span id="totalMoney">{{ totalMoney }}</span>
-                            </div>
-                            <div>
-                                <label for="description">description</label>
-                                <span id="description">{{ description }}</span>
-                            </div>
-
-                            <div>
-                                <label for="offerManName">offerManName</label>
-                                <span id="offerManName">{{ offerManName }}</span>
-                            </div>
-                            <div>
-                                <label for="h_VICIVLE_NUMBER">h_VICIVLE_NUMBER</label>
-                                <span id="h_VICIVLE_NUMBER">{{ h_VICIVLE_NUMBER }}</span>
-                            </div>
-                            <div>
-                                <label for="item_name">item_name</label>
-                                <span id="item_name">{{ item_name }}</span>
-                            </div>
-                            <div>
-                                <label for="img">img</label>
-                                <span id="img">{{ img }}</span>
-                            </div>
-                            <div>
-                                <label for="dateCreate">dateCreate</label>
-                                <span id="dateCreate">{{ dateCreate }}</span>
-                            </div>
-                            <div>
-                                <label for="status">status</label>
-                                <span id="status">{{ status }}</span>
-                            </div>
-                            <div>
-                                <label for="stock_status">stock_status</label>
-                                <span id="stock_status">{{ stock_status }}</span>
-                            </div>
-
-                            <div>
-                                <label for="statusPO">statusPO</label>
-                                <span id="statusPO">{{ statusPO }}</span>
-                            </div>
-                            <div>
-                                <label for="item_id">item_id</label>
-                                <span id="item_id">{{ item_id }}</span>
-                            </div>
-                            <div>
-                                <label for="offer_CODE">offer_CODE</label>
-                                <span id="offer_CODE">{{ offer_CODE }}</span>
-                            </div>
-
-                        </v-card-text>
-                        <v-card-text style="display: flex;">
-                            <div>
-                                <div style="width:100%">
-                                    <v-autocomplete outlined dense label="ຮ້ານ" :items="show_list" item-text="shop_name"
-                                        item-value="shop_id" @change="onGetshow" :rules="nameRules">
-                                    </v-autocomplete>
-                                </div>
-
-                                <v-text-field label="*add_on" dense outlined background-color="#f5f5f5"
-                                    v-model="total"></v-text-field>
-
-                                <v-text-field label="*add_on" dense outlined background-color="#f5f5f5"
-                                    v-model="paid"></v-text-field>
-
-                                <v-text-field label="*add_on" dense outlined background-color="#f5f5f5"
-                                    v-model="tid"></v-text-field>
-
-                                    <v-text-field label="*add_on" dense outlined background-color="#f5f5f5"
-                                    v-model="cur"></v-text-field>  
-                                    
-                              
-
-                            </div>
-                            <v-btn style="margin-top: -10px;margin-left: 10px;" color="primary" @click="ongetppocode">
-                                <v-icon>mdi-border-color</v-icon>ບັນທຶກສັງຊື</v-btn>
-                        </v-card-text>
-                    </div>
-                    <v-card-actions>
-
-                        <v-btn color="red darken-1" text @click="closeDialog">ຍົກເລີກ</v-btn>
-
-
-                    </v-card-actions>
-                </v-card>
-            </v-dialog>
-
-            <!-- component for print  -->
         </v-card>
+
+
+        <v-dialog v-model="dialogVisible" max-width="800px" style="max-height: 800px;">
+            <v-card>
+                <v-card-title style="font-size: 24px;">ປ້ອນຂໍ້ມູນ</v-card-title>
+                <v-card-actions>
+                    <!-- <v-btn style="font-size: 20px;" color="primary" @click="onPrint">
+                        <v-icon>mdi-printer</v-icon>ພິມບິນ
+                    </v-btn> -->
+
+
+
+                </v-card-actions>
+                <div style="display: flex;margin-left: 10px;margin-right: 10px;">
+                    <v-card-text style="font-size: 18px;">
+                        <div>
+                            <label for="shopName">ວັນທີສ້າງ:</label>
+                            <span id="shopName">{{ shopName }}</span>
+                        </div>
+                        <div>
+                            <label for="unit_price">ລາ​ຄາ​ຕໍ່​ຫນ່ວຍ:</label>
+                            <span id="unit_price">{{ unit_price }}</span>
+                        </div>
+                        <div>
+                            <label for="offer_CODE">offer_CODE:</label>
+                            <span id="offer_CODE">{{ offer_CODE }}</span>
+                        </div>
+                        <div>
+                            <label for="qty_offer">ຂໍ້ສະເໜີ ຈໍານວນ:</label>
+                            <span id="qty_offer">{{ qty_offer }}</span>
+                        </div>
+                        <div>
+                            <label for="totalMoney">ເງິນທັງໝົດ:</label>
+                            <span id="totalMoney">{{ totalMoney }}</span>
+                        </div>
+                        <div>
+                            <label for="description">ລາຍລະອຽດ:</label>
+                            <span id="description">{{ description }}</span>
+                        </div>
+
+                    </v-card-text>
+
+                    <v-card-text style="font-size: 18px;">
+
+                        <div>
+                            <label for="offerManName">ຜູ້ສະເໜີ:</label>
+                            <span id="offerManName">{{ offerManName }}</span>
+                        </div>
+                        <div>
+                            <label for="h_VICIVLE_NUMBER">ຫົວລັດ:</label>
+                            <span id="h_VICIVLE_NUMBER">{{ h_VICIVLE_NUMBER }}</span>
+                        </div>
+                        <div>
+                            <label for="item_name">ອາໄລ ຊື່:</label>
+                            <span id="item_name">{{ item_name }}</span>
+                        </div>
+                        <div>
+                            <label for="dateCreate">ວັນທີສ້າງ:</label>
+                            <span id="dateCreate">{{ dateCreate }}</span>
+                        </div>
+
+                        <label for="img">ຮູບພາບ:</label>
+                        <div>
+                            <img :src="img" style="width: 150px; height: 160px;">
+                        </div>
+
+                    </v-card-text>
+                    <v-card-text>
+                        <div>
+
+
+                            <v-text-field label="*ທັງໝົດ" dense outlined background-color="#f5f5f5"
+                                v-model="totalMoney"     @input="calculateTotalMoney"></v-text-field>
+
+                            <v-text-field label="*ຈ່າຍ" dense outlined background-color="#f5f5f5"
+                                v-model="paid"     @input="calculateTotalMoney"></v-text-field>
+
+                            <v-text-field label="*ຕິດໜີ້" dense outlined background-color="#f5f5f5"
+                                v-model="tid"readonly></v-text-field>
+
+                            <v-text-field label="*ສະກູນເງິນ" dense outlined background-color="#f5f5f5"
+                                v-model="cur"></v-text-field>
+                        </div>
+                        <v-btn style="margin-top: -10px;margin-left: 10px;" color="primary" @click="ongetppocode">
+                            <v-icon>mdi-border-color</v-icon>ບັນທຶກສັງຊື</v-btn>
+                    </v-card-text>
+                </div>
+                <v-card-actions>
+
+                    <v-btn color="red darken-1" text @click="closeDialog">ຍົກເລີກ</v-btn>
+
+
+                </v-card-actions>
+            </v-card>
+        </v-dialog>
+
+        <!-- component for print  -->
+        <!-- 
         <div>
             <div id="modalInvoice">
                 <v-row>
-
                     <v-col cols="9">
-
                         <Notiv2 />
-                        <div style="display:flex;justify-content:start;flex-direction:column;align-items:start">
-                            <!-- Notification component -->
+
+                        <div>
+                            <label for="dateCreate">ວັນທີສ້າງ:</label>
+                            <span id="dateCreate">{{ dateCreate }}</span>
+                        </div>
+
+                        <div>
+                            <label for="shopName">ວັນທີສ້າງ:</label>
+                            <span id="shopName">{{ shopName }}</span>
+                        </div>
+
+                        <div style="display: flex;margin-left: 10px;margin-right: 10px;">
+                            <v-card-text style="font-size: 18px;">
+                                <div>
+                                    <label for="unit_price">ລາ​ຄາ​ຕໍ່​ຫນ່ວຍ:</label>
+                                    <span id="unit_price">{{ unit_price }}</span>
+                                </div>
+                                <div>
+                                    <label for="offer_CODE">offer_CODE:</label>
+                                    <span id="offer_CODE">{{ offer_CODE }}</span>
+                                </div>
+                                <div>
+                                    <label for="qty_offer">ຂໍ້ສະເໜີ ຈໍານວນ:</label>
+                                    <span id="qty_offer">{{ qty_offer }}</span>
+                                </div>
+                                <div>
+                                    <label for="totalMoney">ເງິນທັງໝົດ:</label>
+                                    <span id="totalMoney">{{ totalMoney }}</span>
+                                </div>
+                                <div>
+                                    <label for="description">ລາຍລະອຽດ:</label>
+                                    <span id="description">{{ description }}</span>
+                                </div>
+                            </v-card-text>
+                            <v-card-text style="font-size: 18px;">
+                                <div>
+                                    <label for="offerManName">ຜູ້ສະເໜີ:</label>
+                                    <span id="offerManName">{{ offerManName }}</span>
+                                </div>
+                                <div>
+                                    <label for="h_VICIVLE_NUMBER">ຫົວລັດ:</label>
+                                    <span id="h_VICIVLE_NUMBER">{{ h_VICIVLE_NUMBER }}</span>
+                                </div>
+                                <div>
+                                    <label for="item_name">ອາໄລ ຊື່:</label>
+                                    <span id="item_name">{{ item_name }}</span>
+                                </div>
 
 
-                            <!-- Offer details -->
-                            <span v-if="printData">Unit Price: {{ printData.unit_price }}</span>
-                            <span v-if="printData">Quantity Offered: {{ printData.qty_offer }}</span>
-                            <span v-if="printData">Total Money: {{ printData.totalMoney }}</span>
-                            <!-- Other properties... -->
+                                <label for="img">ຮູບພາບ:</label>
+                                <div>
+
+                                    <img :src="img" style="width: 150px; height: 160px;">
+
+                                </div>
+                            </v-card-text>
+
                         </div>
                     </v-col>
                 </v-row>
             </div>
-        </div>
-
-
-
-
-
+        </div> -->
     </div>
 </template>
 
 <script>
+import Swal from 'sweetalert2';
 export default {
     data() {
         return {
@@ -212,10 +217,12 @@ export default {
             item_id: '',
             hkey_id: '',
             fkey_id: '',
-
+            isPrintClicked: false,
             unit_price: '',
             img: '',
             qty_offer: '',
+            sumFooter: null, // Sum footer data
+
             totalMoney: '',
             description: '',
             offerManName: '',
@@ -224,6 +231,10 @@ export default {
             item_name: '',
             pocode: '',
             dateCreate: '',
+            paid: 0,
+            tid: 0,
+            cur: '',
+            shopName: '',
             offer_CODE: '',
             printData: null,
             showModal: false,
@@ -254,7 +265,7 @@ export default {
                 // { text: 'SS', value: 'stock_status' },
                 { text: 'ສະທານະຊື້', value: '' },
                 // { text: 'SPO', value: 'statusPO' },
-                { text: 'ພິມບິນ', value: '' },
+                // { text: 'ພິມບິນ', value: '' },
                 { text: 'ໃບສັງຊື້', value: '' },
 
 
@@ -267,8 +278,22 @@ export default {
         // Fetch data here or populate truck_data_list from props
         this.fetchPrintData();
     },
+    computed: {
+        filteredItems() {
+            if (!Array.isArray(this.truck_data_list)) {
+                return [];
+            }
+            return this.truck_data_list.filter(item =>
+                item.statusPO === 'NO'
+            );
+        },
+        // Compute the value of tid based on totalMoney and paid
+    },
     methods: {
-
+        
+        calculateTotalMoney() {
+            this.tid =  this.totalMoney - this.paid;
+        },
         closeDialog() {
             this.dialogVisible = false;
         },
@@ -285,16 +310,7 @@ export default {
             console.log('Fetching data for printing with keyId:', keyId);
             // Add your logic here to fetch the data for printing
         },
-        onGetshow(shop_id) {
-            console.log(shop_id);
 
-            let data = this.show_list.filter((el) => el.shop_id === shop_id); // Use id parameter instead of shop_id
-            console.log('head:', data);
-            this.shop_name = data[0]?.shop_name;
-            this.shop_id = shop_id; // Assign id to skey_id
-
-            // Set other data properties as needed
-        },
         onGetMechanicequipment(item_id) {
             console.log(item_id);
 
@@ -315,21 +331,7 @@ export default {
                 console.error('Error fetching print data:', error);
             }
         },
-        async onGetaddshow() {
-            try {
-                this.loading_processing = true;
-                const data = await this.$axios.$post('ListShops.service', {
-                    toKen: localStorage.getItem('toKen'),
-                });
-                console.log('itemName:', data?.data);
-                this.show_list = data?.data || [];
-            } catch (error) {
-                console.log(error);
-                this.showErrorAlert('ແຈ້ງເຕືອນ', error);
-            } finally {
-                this.loading_processing = false;
-            }
-        },
+
         async onSaveshow() {
             if (!this.$refs.form.validate()) return null
             let data = {
@@ -390,7 +392,7 @@ export default {
                 });
 
                 console.log('Print API response:', response);
-
+                this.sumFooter = response.sumFooter;
                 // Update your data properties with the response data
                 this.offer_CODE = response.data[0].offer_CODE;
                 this.unit_price = response.data[0].unit_price;
@@ -402,10 +404,13 @@ export default {
                 this.item_name = response.data[0].item_name;
                 this.img = response.data[0].img;
                 this.dateCreate = response.data[0].dateCreate;
+                this.shopName = response.data[0].shopName;
                 this.status = response.data[0].status;
                 this.stock_status = response.data[0].stock_status;
                 this.statusPO = response.data[0].statusPO;
                 this.item_id = response.data[0].item_id;
+
+
 
                 // Open the dialog after API call success
                 this.openDialog(this.offer_CODE);
@@ -417,8 +422,6 @@ export default {
                 // Handle the error, such as displaying an error message
             }
         },
-
-
 
         openDialog(offerCode) {
             this.offerCode = offerCode;
@@ -442,6 +445,7 @@ export default {
             // Close the dialog after submission
             this.closeDialog();
         },
+
         async ongetppocode() {
             try {
                 const response = await this.$axios.$post('/GenCodePO.service');
@@ -451,6 +455,7 @@ export default {
 
                 // Call onSubmit with the generated po_CODE
                 this.onSubmit(po_CODE);
+
             } catch (error) {
                 console.error('GenCodePO API error:', error);
                 // Handle the error, such as displaying an error message
@@ -464,26 +469,22 @@ export default {
                 // Prepare the data to be sent in the request body
                 const requestData = {
                     toKen: localStorage.getItem('toKen'),
-                  
+
                     offer_CODE: this.offerCode, // Using the offerCode property
-                   
-                    po_CODE: po_CODE, // Using the po_CODE parameter
-                   
-                    total: this.total, // Using the qtyOffer property
-                    
+
+                    pocode: po_CODE, // Using the po_CODE parameter
+
+                    total: this.totalMoney, // Using the qtyOffer property
+
                     paid: this.paid, // Using the qtyOffer property
-                    
+
                     tid: this.tid, // Using the qtyOffer property
-                    
 
                     item_id: this.item_id, // Assuming you have an itemId property set from somewhere
-                  
 
                     cur: this.cur, // Using the qtyOffer property
 
-                    shop_id :this.shop_id, // Using the qtyOffer property
                 };
-
                 // Send the POST request to the API endpoint
                 const response = await this.$axios.$post('/SavePurchaseOrder.service', requestData);
 
@@ -491,6 +492,8 @@ export default {
 
                 // Close the dialog after submission
                 this.closeDialog();
+
+                window.location.reload();
 
                 // You can handle the response here, such as showing a success message or updating UI
             } catch (error) {
@@ -525,17 +528,24 @@ export default {
 
 
         },
-        print() {
+        onPrint() {
+            // Clone the modal content
             const modal = document.getElementById("modalInvoice");
             const cloned = modal.cloneNode(true);
+            this.isPrintClicked = true;
+            // Create a new section for printing
             let section = document.getElementById("print");
             if (!section) {
                 section = document.createElement("div");
                 section.id = "print";
                 document.body.appendChild(section);
             }
+
+            // Clear existing content and append the cloned modal
             section.innerHTML = "";
             section.appendChild(cloned);
+
+            // Print the content
             window.print();
         },
 
@@ -585,7 +595,7 @@ export default {
     },
 
     mounted() {
-        this.onGetaddshow(); // Fetch truck footer data when component is mounted
+
         this.onGetshowdata_table(); // Fetch truck footer data when component is mounted
 
     },

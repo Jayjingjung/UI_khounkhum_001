@@ -242,7 +242,9 @@
                             <div class="d-flex align-center">
                                 <div style="width:100%" class="d-flex align-center pb-5">
                                     <span>ເຂັມກິໂລແມັດກ່ອນປ່ອຍ:</span>
-                                    <span class="ml-2"> {{ truck_kilomen }}</span>
+                                    <div v-for="(item, index) in wastedValueData" :key="index">
+                                    <span class="ml-2"> {{item.kilometer_before }}</span>
+                                    </div>
                                 </div>
                                 <div style="width:100%" class="d-flex align-center">
                                     <v-text-field dense outlined label="ໄລຍະທາງຂົນສົ່ງ"
@@ -250,7 +252,9 @@
                                 </div>
                                 <div style="width:100%" class="d-flex align-center pl-4 pb-5">
                                     <span>ລວມໄລຍະທາງ:</span>
-                                    <span class="ml-2"> {{ let_next }}</span>
+                                    <div v-for="(item, index) in wastedValueData" :key="index">
+                                    <span class="ml-2"> {{item.distance_sum }}</span>
+                                    </div>
                                 </div>
                             </div>
 
@@ -544,12 +548,15 @@
                                 </div>
                             </td>
                         </tr>
+
                         <tr style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;border-radius:10px">
 
                             <td
                                 style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px;">
                                 <div style="width:100%;display:flex;justify-content:center;">
-                                    <span style="font-size:12px">{{ kim_KM }} </span>
+                                    <div v-for="(item, index) in wastedValueData" :key="index">
+                                    <span style="font-size:12px">{{item.kilometer_before }}</span>
+                                    </div>
                                 </div>
                             <td
                                 style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px;">
@@ -561,21 +568,18 @@
                             <td
                                 style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px;">
                                 <div style="width:100%;display:flex;justify-content:center;">
-                                    <span style="font-size:12px"> {{ truck_kilomen }}Km</span>
+                                    <div v-for="(item, index) in wastedValueData" :key="index">
+                                    <span style="font-size:12px"> {{item.distance_sum }} Km</span>
+                                    </div>
                                 </div>
                             </td>
                             <td colspan="2"
                                 style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px;">
                                 <div style="width:100%;display:flex;justify-content:center;">
+                                    
                                     <span style="font-size:12px"> {{ let_next }}</span>
                                 </div>
                             </td>
-                            <!-- <td
-                                style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px;">
-                                <div style="width:100%;display:flex;justify-content:end;">
-                                <span style="font-size:14px"> {{ total_price }} {{ currency }}</span>
-                                </div>
-                            </td> -->
                         </tr>
                     </table>
                 </div>
@@ -1880,6 +1884,8 @@ export default {
             imageTruck: null,
             imageStaff: null,
             imageStaff1: null,
+            kim_KM1: '', // Initialize kim_KM with a default value
+
         }
     },
     watch: {
@@ -1979,6 +1985,7 @@ export default {
         }
     },
     mounted() {
+        this.calculateTotalMoney();
         // this.onCreateReports()
         this.showWastedValue()
         this.onGetEmployeeListForChoose()
@@ -2020,6 +2027,10 @@ export default {
     },
 
     methods: {
+        calculateTotalMoney() {
+            // Calculate kim_KM based on road_send_km and truck_kilomen
+            this.kim_KM1 = this.road_send_km - this.truck_kilomen;
+        },
         onAskBeforePrintBill() {
             // this.print()
             if (!this.$refs.form.validate()) {

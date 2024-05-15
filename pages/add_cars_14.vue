@@ -43,13 +43,16 @@
                   </div>
                 </v-col>
                 <v-col>
+                  
                   <v-menu ref="end_cardate" v-model="end_cardate" :close-on-content-click="false"
                     :return-value.sync="exCarDate" transition="scale-transition" offset-y min-width="auto">
+                   
                     <template v-slot:activator="{ on, attrs }">
                       <v-text-field dense outlined v-model="exCarDate" background-color="#f5f5f5" required
                         label="* ວັນໝົດອາຍຸທະບຽນລົດ" append-icon="mdi-calendar" readonly v-bind="attrs" v-on="on"
                         :rules="nameRules"></v-text-field>
                     </template>
+
                     <v-date-picker v-model="exCarDate" no-title scrollable @input="$refs.end_cardate.save(exCarDate)">
                       <v-spacer></v-spacer>
                     </v-date-picker>

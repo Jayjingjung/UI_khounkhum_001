@@ -146,20 +146,23 @@
                             <label for="qty_offer">dateFix</label>
                             <span id="qty_offer">{{ dateFix }}</span>
                         </div>
-                    </v-card-text>
-                    <v-card-text style="display: flex;">
                         <div>
                             <label for="add_on">add_on</label>
                             <span id="add_on">{{ add_on }}</span>
-
+                        </div>
+                    </v-card-text>
+                    <v-card-text v-if="add_on < 1" style="display: flex;">
+                        <div>
+                            <label for="add_on">ລາຍຈາຍເພີນ(ຄ່າສ່າງ)</label>
+                            <span id="add_on">{{ add_on }}</span>
                             <v-text-field label="*add_on" dense outlined background-color="#f5f5f5"
                                 v-model="add_on"></v-text-field>
-
-
                         </div>
-                        <v-btn style="margin-top: -10px;margin-left: 10px;" color="primary" @click="onSubmit">
-                            <v-icon>mdi-border-color</v-icon>ເເກ່ໄຂ</v-btn>
+                        <v-btn style="margin-top: -10px; margin-left: 10px;" color="primary" @click="onSubmit">
+                            <v-icon>mdi-border-color</v-icon>ເເກ່ໄຂ
+                        </v-btn>
                     </v-card-text>
+
                 </div>
                 <v-card-actions>
 
@@ -508,7 +511,7 @@ export default {
             } catch (error) {
                 console.error('UpdateFixCost API error:', error);
                 // Handle the error, such as displaying an error message
-                
+
             }
             window.location.reload();
         },

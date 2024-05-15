@@ -19,8 +19,8 @@
         <v-form v-model="valid" lazy-validation ref="form">
           <v-row>
             <!-- <v-col cols="3" class="text-center"> -->
-              <height />
-              <!-- <div class="text-center">
+            <height />
+            <!-- <div class="text-center">
                 <div v-if="imagePreview == ''">
                   <img src="../assets/images/profile.png" class="preview-image" v-on:click="openUpload" height="200px"
                     cover>
@@ -29,7 +29,7 @@
                   <img v-bind:src="imagePreview" class="preview-image" v-on:click="openUpload" height="200px" cover>
                 </div>
               </div> -->
-              <!-- <input name="imageStaff" type="file" id="file-field" v-on:change="updagePreview" style="display: none;"> -->       
+            <!-- <input name="imageStaff" type="file" id="file-field" v-on:change="updagePreview" style="display: none;"> -->
             <!-- </v-col> -->
             <v-col cols="12">
               <v-row>
@@ -40,14 +40,15 @@
                   </div>
                 </v-col>
                 <v-col clos="6" md="7" sm="7">
-                  <v-file-input label="ອັບໂຫຼດຮູູບ" outlined dense  prepend-icon="mdi-camera" v-model="imageStaff" ></v-file-input>
+                  <v-file-input label="ອັບໂຫຼດຮູູບ" outlined dense prepend-icon="mdi-camera"
+                    v-model="imageStaff"></v-file-input>
                   <div class="tops">
                     <span class="red--text">{{ id_mess }}</span>
                   </div>
                 </v-col>
               </v-row>
               <v-row>
-          
+
                 <v-col clos="6" md="4" sm="4">
                   <v-text-field :rules="nameRules" label="ຊື່" outlined dense v-model="emp_name"></v-text-field>
                   <div class="tops">
@@ -95,7 +96,7 @@
                 </v-col>
               </v-row>
               <v-row>
-                
+
                 <v-col clos="6" md="4" sm="4">
                   <v-text-field :rules="nameRules" label="ສະຖານະ" outlined dense
                     v-model="emp_gender_status"></v-text-field>
@@ -108,22 +109,59 @@
                   <div class="tops">
                   </div>
                 </v-col>
-                <v-col clos="6" md="4" sm="4">
-              <v-text-field :rules="nameRules" label="ໃບຂັບຂີ່ອອກທີ" outlined dense v-model="emp_verby"></v-text-field>
-              <div class="tops">
-              </div>
-            </v-col>
+
+                <v-col>
+                  <v-menu ref="empverby" v-model="empverby" :close-on-content-click="false"
+                    :return-value.sync="emp_verby" transition="scale-transition" offset-y min-width="auto">
+
+                    <template v-slot:activator="{ on, attrs }">
+                      <v-text-field dense outlined v-model="emp_verby" background-color="#f5f5f5" required
+                        label="* ໃບຂັບຂີ່ອອກທີ" append-icon="mdi-calendar" readonly v-bind="attrs" v-on="on"
+                        :rules="nameRules"></v-text-field>
+                    </template>
+
+                    <v-date-picker v-model="emp_verby" no-title scrollable @input="$refs.empverby.save(emp_verby)">
+                      <v-spacer></v-spacer>
+                    </v-date-picker>
+                  </v-menu>
+                </v-col>
+
+                <!-- <v-col clos="6" md="4" sm="4">
+                  <v-text-field :rules="nameRules" label="ໃບຂັບຂີ່ອອກທີ" outlined dense
+                    v-model="emp_verby"></v-text-field>
+                  <div class="tops">
+                  </div>
+                </v-col> -->
+
               </v-row>
             </v-col>
           </v-row>
           <v-row>
-            
-            <v-col clos="6" md="4" sm="4">
+
+            <v-col>
+              <v-menu ref="emplicens_expire_date" v-model="emplicens_expire_date" :close-on-content-click="false"
+                :return-value.sync="emp_licens_expire_date" transition="scale-transition" offset-y min-width="auto">
+
+                <template v-slot:activator="{ on, attrs }">
+                  <v-text-field dense outlined v-model="emp_licens_expire_date" background-color="#f5f5f5" required
+                    label="* ໃບຂັບຂີ່ໝົດອາຍຸ" append-icon="mdi-calendar" readonly v-bind="attrs" v-on="on"
+                    :rules="nameRules"></v-text-field>
+                </template>
+
+                <v-date-picker v-model="emp_licens_expire_date" no-title scrollable
+                  @input="$refs.emplicens_expire_date.save(emp_licens_expire_date)">
+                  <v-spacer></v-spacer>
+                </v-date-picker>
+              </v-menu>
+            </v-col>
+
+            <!-- <v-col clos="6" md="4" sm="4">
               <v-text-field :rules="nameRules" label="ໃບຂັບຂີ່ໝົດອາຍຸ" outlined dense
                 v-model="emp_licens_expire_date"></v-text-field>
               <div class="tops">
               </div>
-            </v-col>
+            </v-col> -->
+
             <v-col clos="6" md="4" sm="4">
               <v-text-field :rules="nameRules" label="ເບີໂທ1" outlined dense type="number"
                 v-model="emp_mobile"></v-text-field>
@@ -171,6 +209,8 @@ export default {
       emp_id: '',
       emp_name: '',
       emp_surname: '',
+      emplicens_expire_date: null,
+      empverby: null,
       emp_village: '',
       emp_district: '',
       emp_province: '',
@@ -221,7 +261,7 @@ export default {
       } else {
         this.url = null
       }
-      
+
     },
     onClearData() {
       this.$refs.form.reset();

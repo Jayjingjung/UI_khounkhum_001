@@ -99,6 +99,17 @@ export default {
             unit_price: '',
             img: '',
             qty_offer: '',
+            qty_offer1: '',
+            qty_offer2: '',
+            qty_offer3: '',
+            qty_offer4: '',
+            qty_offer5: '',
+            qty_offer6: '',
+            qty_offer7: '',
+            qty_offer8: '',
+            qty_offer9: '',
+            qty_offer10: '',
+            
             totalMoney: '',
             description: '',
             offerManName: '',
@@ -113,10 +124,23 @@ export default {
             dialogVisible: false,
             offerManName: '',
             job: '',
-            itemId: '', // Add itemId property
+            itemId: '', 
+            itemId1: '', 
+            itemId2: '', 
+            itemId3: '', 
+            itemId4: '', 
+            itemId5: '', 
+            itemId6: '', 
+            itemId7: '', 
+            itemId8: '', 
+            itemId9: '', 
+            itemId10: '', 
+            itemName: '', 
+            qtyOffer: '', 
+            imgUrl: '', 
             Mechanicequipment: [],
             show_list: [],
-            show_list: [],
+   
             name: '',
             address: '',
             offerCode: '',
@@ -219,11 +243,42 @@ export default {
 
                 if (response?.status === '00' && response?.data) {
                     const item = response.data[0]; // Assuming you want the first item from the API response
+                    this.offerCode = offerCode;
                     this.itemName = item.item_name;
                     this.qtyOffer = item.qty_offer;
                     this.imgUrl = item.img;
                     this.itemId = item.item_id;
-                    this.offerCode = offerCode;
+
+                    this.item_id1 = item.item_id1;
+                    this.qty_offer1 = item.qty_offer1;
+                    
+                    this.itemId10 = item.item_id10;
+                    this.qty_offer10 = item.qty_offer10;
+                
+                    this.itemId2 = item.item_id2;
+                    this.qty_offer2 = item.qty_offer2;
+                
+                    this.itemId3 = item.item_id3;
+                    this.qty_offer3 = item.qty_offer3;
+                
+                    this.itemId4 = item.item_id4;
+                    this.qty_offer4 = item.qty_offer4;
+                
+                    this.itemId5 = item.item_id5;
+                    this.qty_offer5 = item.qty_offer5;
+                
+                    this.itemId6 = item.item_id6;
+                    this.qty_offer6 = item.qty_offer6;
+                
+                    this.itemId7 = item.item_id7;
+                    this.qty_offer7 = item.qty_offer7;
+               
+                    this.itemId8 = item.item_id8;
+                    this.qty_offer8 = item.qty_offer8;
+               
+                    this.itemId9 = item.item_id9;
+                    this.qty_offer9 = item.qty_offer9;
+               
 
                     // Open the dialog after setting the data
                     this.openDialog(offerCode);
@@ -271,6 +326,39 @@ export default {
                     item_id: this.itemId, // Assuming you have an itemId property set from somewhere
                     qty_offer: this.qtyOffer, // Using the qtyOffer property
 
+                    item_id: this.itemId,
+                    qty_offer: this.qtyOffer,
+
+                    item_id1: this.item_id1,
+                    qty_offer1: this.qty_offer1,
+
+                    item_id2: this.itemId2,
+                    qty_offer2: this.qtyOffer2,
+
+                    item_id3: this.itemId3,
+                    qty_offer3: this.qtyOffer3,
+
+                    item_id4: this.itemId4,
+                    qty_offer4: this.qtyOffer4,
+
+                    item_id5: this.itemId5,
+                    qty_offer5: this.qtyOffer5,
+
+                    item_id6: this.itemId6,
+                    qty_offer6: this.qtyOffer6,
+
+                    item_id7: this.itemId7,
+                    qty_offer7: this.qtyOffer7,
+
+                    item_id8: this.itemId8,
+                    qty_offer8: this.qtyOffer8,
+
+                    item_id9: this.itemId9,
+                    qty_offer9: this.qtyOffer9,
+
+                    item_id10: this.itemId10,
+                    qty_offer10: this.qtyOffer10,
+
                 };
 
                 // Send the POST request to the API endpoint
@@ -294,7 +382,7 @@ export default {
                         text: 'Your message here', // Customize the success message
                         confirmButtonText: 'OK',
                     });
-                    window.location.reload();
+                    // window.location.reload();
                 }
 
                 // You can handle the response here, such as showing a success message or updating UI

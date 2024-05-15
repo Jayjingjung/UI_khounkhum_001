@@ -34,7 +34,7 @@
                 </div>
             </v-row>
 
-            <v-data-table :headers="truck_table_headers" :items="truck_data_list" :search="search">
+            <v-data-table :headers="truck_table_headers" :items="filteredItems" :search="search">
                 <template v-slot:item="row">
 
                     <tr>
@@ -158,6 +158,17 @@ export default {
 
         }
     },
+    computed: {
+        filteredItems() {
+            if (!Array.isArray(this.truck_data_list)) {
+                return [];
+            }
+            return this.truck_data_list.filter(item =>
+                item.statusPO === 'YES'
+            );
+        },
+
+    },
    
     // Your component logic here
     methods: {
@@ -199,8 +210,6 @@ export default {
             } finally {
                 this.loading_processing = false;
             }
-
-
         },
         total_count() {
             try {

@@ -766,6 +766,7 @@ export default {
                         } else {
                             this.sumAmount = 'N/A';
                             this.sumTonProSize = 'N/A';
+                            
                         }
 
                         // Count success and waiting statuses in the fetched data
@@ -784,7 +785,7 @@ export default {
                     }
                     this.loading_processing = false;
                 }).catch(error => {
-                    console.error("Error in onGetAllPermance:", error);
+                    // console.error("Error in onGetAllPermance:", error);
                     this.loading_processing = false;
                 });
             } catch (error) {

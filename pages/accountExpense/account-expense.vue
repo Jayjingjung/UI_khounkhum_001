@@ -46,7 +46,16 @@
                 <template v-slot:item="row">
 
                     <tr>
-                        <td>{{ row }}</td>
+                        <!-- <td>{{ row?.item?.offer_CODE }}</td> -->
+                        <!-- <td><v-avatar><img :src="row.item.img"></v-avatar></td> -->
+                        <td>{{ row?.item?.h_VICIVLE_NUMBER }}</td>
+                        <td>{{ row?.item?.h_BRANCH }}</td>
+                        <td>{{ row?.item?.total_Price }}</td>
+                        <td>{{ row?.item?.dateFix }}</td>
+                        <td>{{ row?.item?.totalTimeFix }}</td>
+                        <td>{{ row?.item?.totalFixCost }}</td>
+                        <!-- <td>{{ sumFooter?.totalFixCost }}</td> -->
+                        
 
                     </tr>
 
@@ -120,16 +129,19 @@ export default {
             total_Offer_List: '',
             total_FuelUnpaid: '',
             truck_table_headers: [
-                { text: 'ຮູບພາບ', value: '' },
-                { text: 'ທະບຽນລົດ', value: 'f_CARD_NO' },
-                { text: 'ຍີ່ຫໍ້ລົດ', value: 'f_BRANCH' },
-                { text: 'ປະເພດລົດ', value: 'f_CAR_TYPE' },
+                { text: 'h_VICIVLE_NUMBER', value: 'h_VICIVLE_NUMBER' },
+                { text: 'h_BRANCH', value: 'h_BRANCH' },
+                { text: 'total_Price', value: 'total_Price' },
+                { text: 'dateFix', value: 'dateFix' },
+                { text: 'totalTimeFix', value: 'totalTimeFix' },
+                { text: 'totalFixCost', value: 'totalFixCost' },
             ],
             truck_data_list: [],
 
         }
     },
     mounted() {
+        this.onGetshowdata_table(); 
         this.total_count()
         this.USER_ID = localStorage.getItem('USER_ID')
         this.USER_NAME = localStorage.getItem('USER_NAME')
@@ -176,7 +188,27 @@ export default {
                 });
             }
         },
+        async onGetshowdata_table() {
+            try {
+                this.loading_processing = true;
+                const response = await this.$axios.$post('FixReport.service', {
+                    toKen: localStorage.getItem('toKen'),
+                });
 
+                console.log('API response:', response);
+
+                if (response?.status === '00' && response?.data) {
+                    this.truck_data_list = response.data;
+                } else {
+                    this.showErrorAlert('Error', 'Failed to fetch data from the API');
+                }
+            } catch (error) {
+                console.error('API error:', error);
+                this.showErrorAlert('Error', 'Failed to fetch data from the API');
+            } finally {
+                this.loading_processing = false;
+            }
+        },
         print() {
             const modal = document.getElementById("modalInvoice");
             const cloned = modal.cloneNode(true);

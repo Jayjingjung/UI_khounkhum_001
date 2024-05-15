@@ -88,10 +88,29 @@
                                 <v-text-field :rules="nameRules" label="ເລກປະກັນໄພ" dense outlined
                                     background-color="#f5f5f5" v-model="f_GALATY_NO"></v-text-field>
                             </v-col>
-                            <v-col cols="12" md="3" class="pl-2" style="width:100%">
+
+                            <v-col>
+                                <v-menu ref="fGALATYDEP" v-model="fGALATYDEP" :close-on-content-click="false"
+                                    :return-value.sync="f_GALATY_DEP" transition="scale-transition" offset-y
+                                    min-width="auto">
+
+                                    <template v-slot:activator="{ on, attrs }">
+                                        <v-text-field dense outlined v-model="f_GALATY_DEP" background-color="#f5f5f5"
+                                            required label="* ວັນທີປະກັນໄພໝົດ" append-icon="mdi-calendar" readonly
+                                            v-bind="attrs" v-on="on" :rules="nameRules"></v-text-field>
+                                    </template>
+
+                                    <v-date-picker v-model="f_GALATY_DEP" no-title scrollable
+                                        @input="$refs.fGALATYDEP.save(f_GALATY_DEP)">
+                                        <v-spacer></v-spacer>
+                                    </v-date-picker>
+                                </v-menu>
+                            </v-col>
+
+                            <!-- <v-col cols="12" md="3" class="pl-2" style="width:100%">
                                 <v-text-field :rules="nameRules" label="ວັນທີປະກັນໄພໝົດ" dense outlined
                                     background-color="#f5f5f5" v-model="f_GALATY_DEP"></v-text-field>
-                            </v-col>
+                            </v-col> -->
                         </v-row>
 
                     </div>
@@ -470,6 +489,7 @@ export default {
         return {
             //insert
             imgFootTruck: null,
+            fGALATYDEP: null,
             loading_processing: false,
             chooseCarType: '12',
             valid: true,

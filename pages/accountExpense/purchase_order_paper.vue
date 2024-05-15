@@ -69,8 +69,8 @@
                             <span id="qty_offer">{{ qty_offer }}</span>
                         </div>
                         <div>
-                            <label for="totalMoney">ເງິນທັງໝົດ:</label>
-                            <span id="totalMoney">{{ totalMoney }}</span>
+                            <label for="real_totalMoney">ເງິນທັງໝົດ:</label>
+                            <span id="real_totalMoney">{{ real_totalMoney }}</span>
                         </div>
                         <div>
                             <label for="description">ລາຍລະອຽດ:</label>
@@ -109,13 +109,13 @@
 
 
                             <v-text-field label="*ທັງໝົດ" dense outlined background-color="#f5f5f5"
-                                v-model="totalMoney"     @input="calculateTotalMoney"></v-text-field>
+                                v-model="real_totalMoney" @input="calculateTotalMoney"></v-text-field>
 
-                            <v-text-field label="*ຈ່າຍ" dense outlined background-color="#f5f5f5"
-                                v-model="paid"     @input="calculateTotalMoney"></v-text-field>
+                            <v-text-field label="*ຈ່າຍ" dense outlined background-color="#f5f5f5" v-model="paid"
+                                @input="calculateTotalMoney"></v-text-field>
 
-                            <v-text-field label="*ຕິດໜີ້" dense outlined background-color="#f5f5f5"
-                                v-model="tid"readonly></v-text-field>
+                            <v-text-field label="*ຕິດໜີ້" dense outlined background-color="#f5f5f5" v-model="tid"
+                                readonly></v-text-field>
 
                             <v-text-field label="*ສະກູນເງິນ" dense outlined background-color="#f5f5f5"
                                 v-model="cur"></v-text-field>
@@ -221,11 +221,31 @@ export default {
             unit_price: '',
             img: '',
             qty_offer: '',
+            real_totalMoney: '',
             sumFooter: null, // Sum footer data
+            truck_table_headers: [
+                { text: 'ລາຄາໜ້າຈໍານວນ', value: 'unit_price' },
+                { text: 'ຮູບພາບ', value: 'img' },
+                { text: 'ໜ້າຈໍານວນ', value: 'qty_offer' },
+                { text: 'ລາຄາລວມ', value: 'totalMoney' },
+                { text: 'ລາຍລະອຽດ', value: 'description' },
+                { text: 'ຊື່ຜູ້ສະເໜີ', value: 'offerManName' },
+                { text: 'ອາຊີບ', value: 'job' },
+                { text: 'ລຳດັບຍ້າຍລົດ', value: 'f_CARD_NO' },
+                { text: 'ລຳດັບລົດ', value: 'h_VICIVLE_NUMBER' },
+                { text: 'ຊື່ສິ່ງທີ່ສະເໜີລຶບ', value: 'item_name' },
+                { text: 'ວັນທີສ້າງໃບບິນ', value: 'dateCreate' },
+                { text: 'ເລກທີໃບສ້າງໃບບິນ', value: 'offer_CODE' },
+                { text: 'ສະທານະ', value: 'status' },
 
+
+
+            ],
+            truck_data_list: [],
             totalMoney: '',
             description: '',
             offerManName: '',
+            item_id1: '', // Ensure item_id1 is correctly initialized
             job: '',
             f_CARD_NO: '',
             item_name: '',
@@ -243,37 +263,16 @@ export default {
             job: '',
             Mechanicequipment: [],
             show_list: [],
-            show_list: [],
 
+            // Ensure no duplicate property names
             h_VICIVLE_NUMBER: '',
             number: '',
-            // Other data properties...
             search: '',
-            truck_table_headers: [
-                { text: 'ລາຄາ', value: 'unit_price' },
-                { text: 'ຮູບພາບ', value: 'img' },
-                { text: 'ຈໍານວນ', value: 'qty_offer' },
-                { text: 'ລາຄາລວມ', value: 'totalMoney' },
-                { text: 'ລາຍລະອຽດ', value: 'description' },
-                { text: 'ຊື່ຜູ້ສະເໜີ', value: 'offerManName' },
-                { text: 'ອາຊີບ', value: 'job' },
-                { text: 'ລຳດັບຍ້າຍລົດ', value: 'f_CARD_NO' },
-                { text: 'ລຳດັບລົດ', value: 'h_VICIVLE_NUMBER' },
-                { text: 'ຊື່ສິ່ງທີ່ສະເໜີລຶບ', value: 'item_name' },
-                { text: 'ວັນທີສ້າງໃບບິນ', value: 'dateCreate' },
-                { text: 'ເລກທີໃບສ້າງໃບບິນ', value: 'offer_CODE' },
-                // { text: 'SS', value: 'stock_status' },
-                { text: 'ສະທານະຊື້', value: '' },
-                // { text: 'SPO', value: 'statusPO' },
-                // { text: 'ພິມບິນ', value: '' },
-                { text: 'ໃບສັງຊື້', value: '' },
 
 
-
-            ],
-            truck_data_list: [],
         };
     },
+
     mounted() {
         // Fetch data here or populate truck_data_list from props
         this.fetchPrintData();
@@ -290,9 +289,9 @@ export default {
         // Compute the value of tid based on totalMoney and paid
     },
     methods: {
-        
+
         calculateTotalMoney() {
-            this.tid =  this.totalMoney - this.paid;
+            this.tid = this.real_totalMoney - this.paid;
         },
         closeDialog() {
             this.dialogVisible = false;
@@ -320,6 +319,23 @@ export default {
             this.item_id = item_id;
 
         },
+        // onGetMechanicequipment1(item_id) {
+        //     console.log(item_id);
+
+        //     // Use item_id1 to filter Mechanicequipment1 array
+        //     let data = this.Mechanicequipment1.filter((el) => el.item_id === item_id);
+        //     console.log('head:', data);
+
+        //     if (data.length > 0) {
+        //         this.itemName1 = data[0].itemName; // Access itemName directly from the first item in the filtered data
+        //         this.item_id1 = item_id;
+        //         this.img1 = data[0].img; // Assuming 'img' is a property in your data structure
+        //     } else {
+        //         // Handle the case when data is not found
+        //         console.error('Data not found for item_id1:', item_id);
+        //     }
+        // },
+
 
 
 
@@ -397,6 +413,7 @@ export default {
                 this.offer_CODE = response.data[0].offer_CODE;
                 this.unit_price = response.data[0].unit_price;
                 this.qty_offer = response.data[0].qty_offer;
+                this.real_totalMoney = response.data[0].real_totalMoney;
                 this.totalMoney = response.data[0].totalMoney;
                 this.description = response.data[0].description;
                 this.offerManName = response.data[0].offerManName;
@@ -410,7 +427,35 @@ export default {
                 this.statusPO = response.data[0].statusPO;
                 this.item_id = response.data[0].item_id;
 
+                // this.item_id1 = response.data[0].item.item_id1;
+                // this.qty_offer1 = response.data[0].item.qty_offer1;
 
+                // this.itemId10 =response.data[0].response.data[0]. item.item_id10;
+                // this.qty_offer10 =response.data[0].response.data[0]. item.qty_offer10;
+
+                // this.itemId2 =response.data[0]. item.item_id2;
+                // this.qty_offer2 =response.data[0]. item.qty_offer2;
+
+                // this.itemId3 =response.data[0]. item.item_id3;
+                // this.qty_offer3 =response.data[0]. item.qty_offer3;
+
+                // this.itemId4 =response.data[0]. item.item_id4;
+                // this.qty_offer4 =response.data[0]. item.qty_offer4;
+
+                // this.itemId5 =response.data[0]. item.item_id5;
+                // this.qty_offer5 =response.data[0]. item.qty_offer5;
+
+                // this.itemId6 =response.data[0]. item.item_id6;
+                // this.qty_offer6 =response.data[0]. item.qty_offer6;
+
+                // this.itemId7 =response.data[0]. item.item_id7;
+                // this.qty_offer7 =response.data[0]. item.qty_offer7;
+
+                // this.itemId8 =response.data[0]. item.item_id8;
+                // this.qty_offer8 = response.data[0].item.qty_offer8;
+
+                // this.itemId9 =response.data[0]. item.item_id9;
+                // this.qty_offer9 =response.data[0]. item.qty_offer9;
 
                 // Open the dialog after API call success
                 this.openDialog(this.offer_CODE);
@@ -436,6 +481,7 @@ export default {
             // Implement your logic to handle form submission
             console.log('offer_CODE:', this.offer_CODE);
             console.log('item_id:', this.item_id);
+            // console.log('item_id1:', this.item_id1);
             console.log('pocode:', this.pocode);
             console.log('total:', this.total);
             console.log('paid:', this.paid);
@@ -475,6 +521,7 @@ export default {
                     pocode: po_CODE, // Using the po_CODE parameter
 
                     total: this.totalMoney, // Using the qtyOffer property
+                    real_totalMoney: this.real_totalMoney, // Using the qtyOffer property
 
                     paid: this.paid, // Using the qtyOffer property
 
@@ -483,6 +530,38 @@ export default {
                     item_id: this.item_id, // Assuming you have an itemId property set from somewhere
 
                     cur: this.cur, // Using the qtyOffer property
+
+
+                    item_id1: this.item_id1,
+                    qty_offer1: this.qty_offer1,
+
+                    item_id2: this.itemId2,
+                    qty_offer2: this.qtyOffer2,
+
+                    item_id3: this.itemId3,
+                    qty_offer3: this.qtyOffer3,
+
+                    item_id4: this.itemId4,
+                    qty_offer4: this.qtyOffer4,
+
+                    item_id5: this.itemId5,
+                    qty_offer5: this.qtyOffer5,
+
+                    item_id6: this.itemId6,
+                    qty_offer6: this.qtyOffer6,
+
+                    item_id7: this.itemId7,
+                    qty_offer7: this.qtyOffer7,
+
+                    item_id8: this.itemId8,
+                    qty_offer8: this.qtyOffer8,
+
+                    item_id9: this.itemId9,
+                    qty_offer9: this.qtyOffer9,
+
+                    item_id10: this.itemId10,
+                    qty_offer10: this.qtyOffer10,
+
 
                 };
                 // Send the POST request to the API endpoint
@@ -493,7 +572,7 @@ export default {
                 // Close the dialog after submission
                 this.closeDialog();
 
-                window.location.reload();
+                // window.location.reload();
 
                 // You can handle the response here, such as showing a success message or updating UI
             } catch (error) {
@@ -546,7 +625,7 @@ export default {
             section.appendChild(cloned);
 
             // Print the content
-            window.print();
+            // window.print();
         },
 
         async onGetDatsForPrint(offer_CODE) {

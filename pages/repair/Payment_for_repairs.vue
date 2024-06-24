@@ -3,7 +3,7 @@
         <v-card class="card-shadow" rounded="lg"
             style="border:0.5px solid #e0e0e0;border-radius:3px;margin-bottom: 400px;">
             <v-card-title style="background-color:#edc69e" class="white--text">
-                ສະເໜີໃຊ້
+                ສະເໜີຊື້
             </v-card-title>
             <div style="margin-top: 10px;margin-left: 10px;margin-right: 10px;">
                 <div style="display: flex;">
@@ -63,22 +63,23 @@
                             <v-select outlined dense label="ເລືອກ ອຸປະກອນ" :items="Mechanicequipment"
                                 item-text="itemName" item-value="item_id" @change="onGetMechanicequipment">
                             </v-select>
-
                         </div>
                         <div style="width:100%;" class="d-flex align-center pl-2">
-                            <v-text-field label="*ຈໍານວນ " dense outlined background-color="#f5f5f5" v-model="qty_offer"
-                                @input="calculateTotalMoney"></v-text-field>
+                            <v-text-field label="*ຈໍານວນ" dense outlined background-color="#f5f5f5" v-model="qty_offer"
+                                @input="calculateTotalMoney">
+                            </v-text-field>
                             <div class="tops"></div>
                         </div>
                         <div style="width:100%;" class="d-flex align-center pl-2">
                             <v-text-field label="*ລາຄາຕໍ່ອັນ" dense outlined background-color="#f5f5f5"
-                                v-model="unit_price" @input="calculateTotalMoney"></v-text-field>
+                                v-model="unit_price" @input="calculateTotalMoney">
+                            </v-text-field>
                             <div class="tops"></div>
                         </div>
-
                         <div style="width:100%;" class="d-flex align-center pl-2">
                             <v-text-field label="*ເປັນເງິນທັງໝົດ" dense outlined background-color="#f5f5f5"
-                                v-model="totalMoney" readonly></v-text-field>
+                                :value="formattedTotalMoney0" readonly>
+                            </v-text-field>
                             <div class="tops"></div>
                         </div>
                     </div>
@@ -90,21 +91,23 @@
                             <v-select outlined dense label="1:*ເລືອກ ອຸປະກອນ" :items="Mechanicequipment1"
                                 item-text="itemName" item-value="item_id" @change="onGetMechanicequipment1">
                             </v-select>
-
                         </div>
                         <div style="width:100%;" class="d-flex align-center pl-2">
-                            <v-text-field label="1:*ຈໍານວນ " dense outlined background-color="#f5f5f5"
-                                v-model="qty_offer1" @input="calculateTotalMoney1"></v-text-field>
+                            <v-text-field label="1:*ຈໍານວນ" dense outlined background-color="#f5f5f5"
+                                v-model="qty_offer1" @input="calculateTotalMoney1">
+                            </v-text-field>
                             <div class="tops"></div>
                         </div>
                         <div style="width:100%;" class="d-flex align-center pl-2">
                             <v-text-field label="1:*ລາຄາຕໍ່ອັນ" dense outlined background-color="#f5f5f5"
-                                v-model="unit_price1" @input="calculateTotalMoney1"></v-text-field>
+                                v-model="unit_price1" @input="calculateTotalMoney1">
+                            </v-text-field>
                             <div class="tops"></div>
                         </div>
                         <div style="width:100%;" class="d-flex align-center pl-2">
                             <v-text-field label="1:*ເປັນເງິນທັງໝົດ" dense outlined background-color="#f5f5f5"
-                                v-model="totalMoney1" readonly></v-text-field>
+                                :value="formattedTotalMoney1" readonly>
+                            </v-text-field>
                             <div class="tops"></div>
                         </div>
                     </div>
@@ -133,7 +136,7 @@
 
                     <div style="width:100%;" class="d-flex align-center pl-2">
                         <v-text-field label="2:*ເປັນເງິນທັງໝົດ" dense outlined background-color="#f5f5f5"
-                            v-model="totalMoney2" readonly></v-text-field>
+                            v-model="formattedTotalMoney2" readonly></v-text-field>
                         <div class="tops"></div>
                     </div>
                 </div>
@@ -160,7 +163,7 @@
 
                     <div style="width:100%;" class="d-flex align-center pl-2">
                         <v-text-field label="3:*ເປັນເງິນທັງໝົດ" dense outlined background-color="#f5f5f5"
-                            v-model="totalMoney3" readonly></v-text-field>
+                            v-model="formattedTotalMoney3" readonly></v-text-field>
                         <div class="tops"></div>
                     </div>
                 </div>
@@ -187,7 +190,7 @@
 
                     <div style="width:100%;" class="d-flex align-center pl-2">
                         <v-text-field label="4:*ເປັນເງິນທັງໝົດ" dense outlined background-color="#f5f5f5"
-                            v-model="totalMoney4" readonly></v-text-field>
+                            v-model="formattedTotalMoney4" readonly></v-text-field>
                         <div class="tops"></div>
                     </div>
                 </div>
@@ -214,7 +217,7 @@
 
                     <div style="width:100%;" class="d-flex align-center pl-2">
                         <v-text-field label="5:*ເປັນເງິນທັງໝົດ" dense outlined background-color="#f5f5f5"
-                            v-model="totalMoney5" readonly></v-text-field>
+                            v-model="formattedTotalMoney5" readonly></v-text-field>
                         <div class="tops"></div>
                     </div>
                 </div>
@@ -241,7 +244,7 @@
 
                     <div style="width:100%;" class="d-flex align-center pl-2">
                         <v-text-field label="6:*ເປັນເງິນທັງໝົດ" dense outlined background-color="#f5f5f5"
-                            v-model="totalMoney6" readonly></v-text-field>
+                            v-model="formattedTotalMoney6" readonly></v-text-field>
                         <div class="tops"></div>
                     </div>
                 </div>
@@ -263,13 +266,13 @@
                     </div>
                     <div style="width:100%;" class="d-flex align-center pl-2">
                         <v-text-field label="7:*ລາຄາຕໍ່ອັນ" dense outlined background-color="#f5f5f5"
-                            v-model="unit_price7" @input="calculateTotalMoney6"></v-text-field>
+                            v-model="unit_price7" @input="calculateTotalMoney7"></v-text-field>
                         <div class="tops"></div>
                     </div>
 
                     <div style="width:100%;" class="d-flex align-center pl-2">
                         <v-text-field label="7:*ເປັນເງິນທັງໝົດ" dense outlined background-color="#f5f5f5"
-                            v-model="totalMoney7" readonly></v-text-field>
+                            v-model="formattedTotalMoney7" readonly></v-text-field>
                         <div class="tops"></div>
                     </div>
                 </div>
@@ -297,7 +300,7 @@
 
                     <div style="width:100%;" class="d-flex align-center pl-2">
                         <v-text-field label="8:*ເປັນເງິນທັງໝົດ" dense outlined background-color="#f5f5f5"
-                            v-model="totalMoney8" readonly></v-text-field>
+                            v-model="formattedTotalMoney8" readonly></v-text-field>
                         <div class="tops"></div>
                     </div>
                 </div>
@@ -325,7 +328,7 @@
 
                     <div style="width:100%;" class="d-flex align-center pl-2">
                         <v-text-field label="9:*ເປັນເງິນທັງໝົດ" dense outlined background-color="#f5f5f5"
-                            v-model="totalMoney9" readonly></v-text-field>
+                            v-model="formattedTotalMoney9" readonly></v-text-field>
                         <div class="tops"></div>
                     </div>
                 </div>
@@ -377,9 +380,9 @@
                         <td><v-avatar>
                                 <img :src="row.item.img">
                             </v-avatar></td>
-                        <td>{{ row?.item?.qty_offer }}</td>
-                        <td>{{ row?.item?.unit_price }}</td>
-                        <td>{{ row?.item?.totalMoney }}</td>
+                        <td>{{ formatNumber(row?.item?.qty_offer) }}</td>
+                        <td>{{ formatNumber(row?.item?.unit_price) }}</td>
+                        <td>{{ formatNumber(row?.item?.totalMoney) }}</td>
                         <td>{{ row?.item?.description }}</td>
                         <td>{{ row?.item?.offerManName }}</td>
                         <td>{{ row?.item?.job }}</td>
@@ -559,7 +562,7 @@
                     </v-card-text>
                 </div>
 
-                <div  v-if="item_name4 !== 'null'"  style="display: flex;margin-left: 10px;margin-right: 10px;">
+                <div v-if="item_name4 !== 'null'" style="display: flex;margin-left: 10px;margin-right: 10px;">
                     <v-card-text style="font-size: 18px;">
                         <div>
                             <label for="unit_price1">ລາ​ຄາ​ຕໍ່​ຫນ່ວຍ:</label>
@@ -587,7 +590,7 @@
                         </div>
                     </v-card-text>
                 </div>
-                <div  v-if="item_name5 !== 'null'"  style="display: flex;margin-left: 10px;margin-right: 10px;">
+                <div v-if="item_name5 !== 'null'" style="display: flex;margin-left: 10px;margin-right: 10px;">
                     <v-card-text style="font-size: 18px;">
                         <div>
                             <label for="unit_price1">ລາ​ຄາ​ຕໍ່​ຫນ່ວຍ:</label>
@@ -615,7 +618,7 @@
                         </div>
                     </v-card-text>
                 </div>
-                <div  v-if="item_name6 !== 'null'"  style="display: flex;margin-left: 10px;margin-right: 10px;">
+                <div v-if="item_name6 !== 'null'" style="display: flex;margin-left: 10px;margin-right: 10px;">
                     <v-card-text style="font-size: 18px;">
                         <div>
                             <label for="unit_price1">ລາ​ຄາ​ຕໍ່​ຫນ່ວຍ:</label>
@@ -643,7 +646,7 @@
                         </div>
                     </v-card-text>
                 </div>
-                <div  v-if="item_name7 !== 'null'"  style="display: flex;margin-left: 10px;margin-right: 10px;">
+                <div v-if="item_name7 !== 'null'" style="display: flex;margin-left: 10px;margin-right: 10px;">
                     <v-card-text style="font-size: 18px;">
                         <div>
                             <label for="unit_price1">ລາ​ຄາ​ຕໍ່​ຫນ່ວຍ:</label>
@@ -671,7 +674,7 @@
                         </div>
                     </v-card-text>
                 </div>
-                <div  v-if="item_name8 !== 'null'"  style="display: flex;margin-left: 10px;margin-right: 10px;">
+                <div v-if="item_name8 !== 'null'" style="display: flex;margin-left: 10px;margin-right: 10px;">
                     <v-card-text style="font-size: 18px;">
                         <div>
                             <label for="unit_price1">ລາ​ຄາ​ຕໍ່​ຫນ່ວຍ:</label>
@@ -699,7 +702,7 @@
                         </div>
                     </v-card-text>
                 </div>
-                <div  v-if="item_name9 !== 'null'"  style="display: flex;margin-left: 10px;margin-right: 10px;">
+                <div v-if="item_name9 !== 'null'" style="display: flex;margin-left: 10px;margin-right: 10px;">
                     <v-card-text style="font-size: 18px;">
                         <div>
                             <label for="unit_price1">ລາ​ຄາ​ຕໍ່​ຫນ່ວຍ:</label>
@@ -745,307 +748,327 @@
                 <v-row>
                     <v-col>
                         <Notiv2 />
-                        <div style="font-size: 18px;font-weight: bold;margin-top: 80px;margin-bottom: 80px;">
+                        <div class="text-center"
+                            style="display:flex;justify-content:center;font-size:25px;font-weight:bold;margin-top: 10px;margin-left: ">
+                            ໃບສະເໝີສັ່ງຊື້ສິນຄ້າ</div>
+                        <div style="font-size: 18px;font-weight: bold;margin-top: 80px;margin-bottom: 50px;">
 
                             <div>
                                 <label for="dateCreate">ວັນທີສ້າງ:</label>
-                                <span id="dateCreate">{{ dateCreate }}</span>
+                                <span id="dateCreate">{{ dateCreate?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</span>
                             </div>
 
                             <div>
                                 <label for="shopName">ຊື່ຮ້ານ:</label>
-                                <span id="shopName">{{ shopName }}</span>
+                                <span id="shopName">{{ shopName?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</span>
                             </div>
                         </div>
 
-                        <div style="display: flex;justify-content: space-between;">
+                        <div style="display: flex;justify-content: space-between;margin-bottom: 20px;">
                             <div style="margin-bottom: 15px;">
                                 <label for="offer_CODE">ເລກທີໃບສ:</label>
-                                <span id="offer_CODE">{{ offer_CODE }}</span>
+                                <span id="offer_CODE">{{ offer_CODE?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</span>
                             </div>
                             <div style="margin-bottom: 15px;">
                                 <label for="offerManName">ຜູ້ສະເໜີ:</label>
-                                <span id="offerManName">{{ offerManName }}</span>
+                                <span id="offerManName">{{ offerManName?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</span>
                             </div>
                             <div style="margin-bottom: 15px;">
                                 <label for="job">ໜ້າທີ່ຮັບຜິດຊອບ:</label>
-                                <span id="job">{{ job }}</span>
+                                <span id="job">{{ job?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</span>
                             </div>
                         </div>
-                        <div style="margin-bottom: 15px;justify-self: center;">
+                        <div style="margin-bottom: 25px;justify-self: center;">
                             <label for="description">ລາຍລະອຽດ:</label>
-                            <span id="description">{{ description }}</span>
+                            <span id="description">{{ description?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</span>
                         </div>
 
-                        <div style="display: flex;margin-left: 10px;margin-right: 10px;margin-top: 30px;justify-content: space-between;">
-                                <div style="margin-bottom: 15px;">
-                                    <label for="qty_offer">ຂໍ້ສະເໜີ ຈໍານວນ:</label>
-                                    <span id="qty_offer">{{ qty_offer }}</span>
-                                </div>
-                                <div style="margin-bottom: 15px;">
-                                    <label for="unit_price">ລາ​ຄາ​ຕໍ່​ຫນ່ວຍ:</label>
-                                    <span id="unit_price">{{ unit_price }}</span>
-                                </div>
-                                <div style="margin-bottom: 15px;">
-                                    <label for="totalMoney">ເງິນທັງໝົດ:</label>
-                                    <span id="totalMoney">{{ totalMoney }}</span>
-                                </div>
-                                <div style="margin-bottom: 15px;">
-                                    <label for="item_name">ອາໄລ ຊື່:</label>
-                                    <span id="item_name">{{ item_name }}</span>
-                                </div>
-                                <label for="img">ຮູບພາບ:</label>
-                                <div>
-                                    <img :src="img" style="width: 100px; height: 100px;margin-top: -20px;">
-                                </div>
-                            <!-- <div style="margin-bottom: 10px;">
-                                    <label for="h_VICIVLE_NUMBER">ຫົວລັດ:</label>
-                                    <span id="h_VICIVLE_NUMBER">{{ h_VICIVLE_NUMBER }}</span>
-                                </div> -->
-                        </div>
-
-                        <div v-if="item_name1 !== 'null'" style="display: flex;margin-left: 10px;margin-right: 10px;margin-top: 30px;justify-content: space-between;">
-                                <div style="margin-bottom: 15px;">
-                                    <label for="qty_offer">ຂໍ້ສະເໜີ ຈໍານວນ:</label>
-                                    <span id="qty_offer">{{ qty_offer1 }}</span>
-                                </div>
-                                <div style="margin-bottom: 15px;">
-                                    <label for="unit_price">ລາ​ຄາ​ຕໍ່​ຫນ່ວຍ:</label>
-                                    <span id="unit_price">{{ unit_price1 }}</span>
-                                </div>
-                                <div style="margin-bottom: 15px;">
-                                    <label for="totalMoney">ເງິນທັງໝົດ:</label>
-                                    <span id="totalMoney">{{ totalMoney1 }}</span>
-                                </div>
-                                <div style="margin-bottom: 15px;">
-                                    <label for="item_name">ອາໄລ ຊື່:</label>
-                                    <span id="item_name">{{ item_name1 }}</span>
-                                </div>
-                                <label for="img">ຮູບພາບ:</label>
-                                <div>
-                                    <img :src="img1" style="width: 100px; height: 100px;margin-top: -20px;">
-                                </div>
+                        <div
+                            style="display: flex;margin-left: 10px;margin-right: 10px;margin-top: 30px;justify-content: space-between;">
+                            <label for="img">ຮູບພາບ:</label>
+                            <div>
+                                <img :src="img" style="width: 100px; height: 100px;margin-top: -20px;">
+                            </div>
+                            <div style="margin-bottom: 15px;">
+                                <label for="item_name">ອາໄລ ຊື່:</label>
+                                <span id="item_name">{{ item_name?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</span>
+                            </div>
+                            <div style="margin-bottom: 15px;">
+                                <label for="qty_offer">ຂໍ້ສະເໜີ ຈໍານວນ:</label>
+                                <span id="qty_offer">{{ qty_offer?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</span>
+                            </div>
+                            <div style="margin-bottom: 15px;">
+                                <label for="unit_price">ລາ​ຄາ​ຕໍ່​ຫນ່ວຍ:</label>
+                                <span id="unit_price">{{ unit_price?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</span>
+                            </div>
+                            <div style="margin-bottom: 15px;">
+                                <label for="totalMoney">ເງິນທັງໝົດ:</label>
+                                <span id="totalMoney">{{ totalMoney?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</span>
+                            </div>
                             <!-- <div style="margin-bottom: 10px;">
                                     <label for="h_VICIVLE_NUMBER">ຫົວລັດ:</label>
                                     <span id="h_VICIVLE_NUMBER">{{ h_VICIVLE_NUMBER }}</span>
                                 </div> -->
                         </div>
 
-                        <div v-if="item_name2 !== 'null'" style="display: flex;margin-left: 10px;margin-right: 10px;margin-top: 30px;justify-content: space-between;">
-                                <div style="margin-bottom: 15px;">
-                                    <label for="qty_offer">ຂໍ້ສະເໜີ ຈໍານວນ:</label>
-                                    <span id="qty_offer">{{ qty_offer2 }}</span>
-                                </div>
-                                <div style="margin-bottom: 15px;">
-                                    <label for="unit_price">ລາ​ຄາ​ຕໍ່​ຫນ່ວຍ:</label>
-                                    <span id="unit_price">{{ unit_price2 }}</span>
-                                </div>
-                                <div style="margin-bottom: 15px;">
-                                    <label for="totalMoney">ເງິນທັງໝົດ:</label>
-                                    <span id="totalMoney">{{ totalMoney2 }}</span>
-                                </div>
-                                <div style="margin-bottom: 15px;">
-                                    <label for="item_name">ອາໄລ ຊື່:</label>
-                                    <span id="item_name">{{ item_name2 }}</span>
-                                </div>
-                                <label for="img">ຮູບພາບ:</label>
-                                <div>
-                                    <img :src="img2" style="width: 100px; height: 100px;margin-top: -20px;">
-                                </div>
-                            <!-- <div style="margin-bottom: 10px;">
-                                    <label for="h_VICIVLE_NUMBER">ຫົວລັດ:</label>
-                                    <span id="h_VICIVLE_NUMBER">{{ h_VICIVLE_NUMBER }}</span>
-                                </div> -->
-                        </div>
-                        <div v-if="item_name3 !== 'null'" style="display: flex;margin-left: 10px;margin-right: 10px;margin-top: 30px;justify-content: space-between;">
-                                <div style="margin-bottom: 15px;">
-                                    <label for="qty_offer">ຂໍ້ສະເໜີ ຈໍານວນ:</label>
-                                    <span id="qty_offer">{{ qty_offer3 }}</span>
-                                </div>
-                                <div style="margin-bottom: 15px;">
-                                    <label for="unit_price">ລາ​ຄາ​ຕໍ່​ຫນ່ວຍ:</label>
-                                    <span id="unit_price">{{ unit_price3 }}</span>
-                                </div>
-                                <div style="margin-bottom: 15px;">
-                                    <label for="totalMoney">ເງິນທັງໝົດ:</label>
-                                    <span id="totalMoney">{{ totalMoney3 }}</span>
-                                </div>
-                                <div style="margin-bottom: 15px;">
-                                    <label for="item_name">ອາໄລ ຊື່:</label>
-                                    <span id="item_name">{{ item_name3 }}</span>
-                                </div>
-                                <label for="img">ຮູບພາບ:</label>
-                                <div>
-                                    <img :src="img3" style="width: 100px; height: 100px;margin-top: -20px;">
-                                </div>
+                        <div v-if="item_name1 !== 'null'"
+                            style="display: flex;margin-left: 10px;margin-right: 10px;margin-top: 30px;justify-content: space-between;">
+                            <label for="img">ຮູບພາບ:</label>
+                            <div>
+                                <img :src="img1" style="width: 100px; height: 100px;margin-top: -20px;">
+                            </div>
+                            <div style="margin-bottom: 15px;">
+                                <label for="qty_offer">ຂໍ້ສະເໜີ ຈໍານວນ:</label>
+                                <span id="qty_offer">{{ qty_offer1?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</span>
+                            </div>
+                            <div style="margin-bottom: 15px;">
+                                <label for="unit_price">ລາ​ຄາ​ຕໍ່​ຫນ່ວຍ:</label>
+                                <span id="unit_price">{{ unit_price1?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</span>
+                            </div>
+                            <div style="margin-bottom: 15px;">
+                                <label for="totalMoney">ເງິນທັງໝົດ:</label>
+                                <span id="totalMoney">{{ totalMoney1?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</span>
+                            </div>
+                            <div style="margin-bottom: 15px;">
+                                <label for="item_name">ອາໄລ ຊື່:</label>
+                                <span id="item_name">{{ item_name1?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</span>
+                            </div>
                             <!-- <div style="margin-bottom: 10px;">
                                     <label for="h_VICIVLE_NUMBER">ຫົວລັດ:</label>
                                     <span id="h_VICIVLE_NUMBER">{{ h_VICIVLE_NUMBER }}</span>
                                 </div> -->
                         </div>
 
-                        <div v-if="item_name4 !== 'null'" style="display: flex;margin-left: 10px;margin-right: 10px;margin-top: 30px;justify-content: space-between;">
-                                <div style="margin-bottom: 15px;">
-                                    <label for="qty_offer">ຂໍ້ສະເໜີ ຈໍານວນ:</label>
-                                    <span id="qty_offer">{{ qty_offer4 }}</span>
-                                </div>
-                                <div style="margin-bottom: 15px;">
-                                    <label for="unit_price">ລາ​ຄາ​ຕໍ່​ຫນ່ວຍ:</label>
-                                    <span id="unit_price">{{ unit_price4 }}</span>
-                                </div>
-                                <div style="margin-bottom: 15px;">
-                                    <label for="totalMoney">ເງິນທັງໝົດ:</label>
-                                    <span id="totalMoney">{{ totalMoney4 }}</span>
-                                </div>
-                                <div style="margin-bottom: 15px;">
-                                    <label for="item_name">ອາໄລ ຊື່:</label>
-                                    <span id="item_name">{{ item_name4 }}</span>
-                                </div>
-                                <label for="img">ຮູບພາບ:</label>
-                                <div>
-                                    <img :src="img4" style="width: 100px; height: 100px;margin-top: -20px;">
-                                </div>
+
+                        <div v-if="item_name2 !== 'null'"
+                            style="display: flex;margin-left: 10px;margin-right: 10px;margin-top: 30px;justify-content: space-between;">
+                            <label for="img">ຮູບພາບ:</label>
+                            <div>
+                                <img :src="img2" style="width: 100px; height: 100px;margin-top: -20px;">
+                            </div>
+                            <div style="margin-bottom: 15px;">
+                                <label for="item_name">ອາໄລ ຊື່:</label>
+                                <span id="item_name">{{ item_name2?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</span>
+                            </div>
+                            <div style="margin-bottom: 15px;">
+                                <label for="qty_offer">ຂໍ້ສະເໜີ ຈໍານວນ:</label>
+                                <span id="qty_offer">{{ qty_offer2?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</span>
+                            </div>
+                            <div style="margin-bottom: 15px;">
+                                <label for="unit_price">ລາ​ຄາ​ຕໍ່​ຫນ່ວຍ:</label>
+                                <span id="unit_price">{{ unit_price2?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</span>
+                            </div>
+                            <div style="margin-bottom: 15px;">
+                                <label for="totalMoney">ເງິນທັງໝົດ:</label>
+                                <span id="totalMoney">{{ totalMoney2?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</span>
+                            </div>
                             <!-- <div style="margin-bottom: 10px;">
                                     <label for="h_VICIVLE_NUMBER">ຫົວລັດ:</label>
                                     <span id="h_VICIVLE_NUMBER">{{ h_VICIVLE_NUMBER }}</span>
                                 </div> -->
                         </div>
-                        <div v-if="item_name5 !== 'null'" style="display: flex;margin-left: 10px;margin-right: 10px;margin-top: 30px;justify-content: space-between;">
-                                <div style="margin-bottom: 15px;">
-                                    <label for="qty_offer">ຂໍ້ສະເໜີ ຈໍານວນ:</label>
-                                    <span id="qty_offer">{{ qty_offer5 }}</span>
-                                </div>
-                                <div style="margin-bottom: 15px;">
-                                    <label for="unit_price">ລາ​ຄາ​ຕໍ່​ຫນ່ວຍ:</label>
-                                    <span id="unit_price">{{ unit_price5 }}</span>
-                                </div>
-                                <div style="margin-bottom: 15px;">
-                                    <label for="totalMoney">ເງິນທັງໝົດ:</label>
-                                    <span id="totalMoney">{{ totalMoney5 }}</span>
-                                </div>
-                                <div style="margin-bottom: 15px;">
-                                    <label for="item_name">ອາໄລ ຊື່:</label>
-                                    <span id="item_name">{{ item_name5 }}</span>
-                                </div>
-                                <label for="img">ຮູບພາບ:</label>
-                                <div>
-                                    <img :src="img5" style="width: 100px; height: 100px;margin-top: -20px;">
-                                </div>
+                        <div v-if="item_name3 !== 'null'"
+                            style="display: flex;margin-left: 10px;margin-right: 10px;margin-top: 30px;justify-content: space-between;">
+                            <label for="img">ຮູບພາບ:</label>
+                            <div>
+                                <img :src="img3" style="width: 100px; height: 100px;margin-top: -20px;">
+                            </div>
+                            <div style="margin-bottom: 15px;">
+                                <label for="item_name">ອາໄລ ຊື່:</label>
+                                <span id="item_name">{{ item_name3?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</span>
+                            </div>
+                            <div style="margin-bottom: 15px;">
+                                <label for="qty_offer">ຂໍ້ສະເໜີ ຈໍານວນ:</label>
+                                <span id="qty_offer">{{ qty_offer3?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</span>
+                            </div>
+                            <div style="margin-bottom: 15px;">
+                                <label for="unit_price">ລາ​ຄາ​ຕໍ່​ຫນ່ວຍ:</label>
+                                <span id="unit_price">{{ unit_price3?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</span>
+                            </div>
+                            <div style="margin-bottom: 15px;">
+                                <label for="totalMoney">ເງິນທັງໝົດ:</label>
+                                <span id="totalMoney">{{ totalMoney3?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</span>
+                            </div>
                             <!-- <div style="margin-bottom: 10px;">
                                     <label for="h_VICIVLE_NUMBER">ຫົວລັດ:</label>
                                     <span id="h_VICIVLE_NUMBER">{{ h_VICIVLE_NUMBER }}</span>
                                 </div> -->
                         </div>
-                        <div v-if="item_name6 !== 'null'" style="display: flex;margin-left: 10px;margin-right: 10px;margin-top: 30px;justify-content: space-between;">
-                                <div style="margin-bottom: 15px;">
-                                    <label for="qty_offer">ຂໍ້ສະເໜີ ຈໍານວນ:</label>
-                                    <span id="qty_offer">{{ qty_offer6 }}</span>
-                                </div>
-                                <div style="margin-bottom: 15px;">
-                                    <label for="unit_price">ລາ​ຄາ​ຕໍ່​ຫນ່ວຍ:</label>
-                                    <span id="unit_price">{{ unit_price6 }}</span>
-                                </div>
-                                <div style="margin-bottom: 15px;">
-                                    <label for="totalMoney">ເງິນທັງໝົດ:</label>
-                                    <span id="totalMoney">{{ totalMoney6 }}</span>
-                                </div>
-                                <div style="margin-bottom: 15px;">
-                                    <label for="item_name">ອາໄລ ຊື່:</label>
-                                    <span id="item_name">{{ item_name6 }}</span>
-                                </div>
-                                <label for="img">ຮູບພາບ:</label>
-                                <div>
-                                    <img :src="img6" style="width: 100px; height: 100px;margin-top: -20px;">
-                                </div>
+
+                        <div v-if="item_name4 !== 'null'"
+                            style="display: flex;margin-left: 10px;margin-right: 10px;margin-top: 30px;justify-content: space-between;">
+                            <label for="img">ຮູບພາບ:</label>
+                            <div>
+                                <img :src="img4" style="width: 100px; height: 100px;margin-top: -20px;">
+                            </div>
+                            <div style="margin-bottom: 15px;">
+                                <label for="item_name">ອາໄລ ຊື່:</label>
+                                <span id="item_name">{{ item_name4?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</span>
+                            </div>
+                            <div style="margin-bottom: 15px;">
+                                <label for="qty_offer">ຂໍ້ສະເໜີ ຈໍານວນ:</label>
+                                <span id="qty_offer">{{ qty_offer4?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</span>
+                            </div>
+                            <div style="margin-bottom: 15px;">
+                                <label for="unit_price">ລາ​ຄາ​ຕໍ່​ຫນ່ວຍ:</label>
+                                <span id="unit_price">{{ unit_price4?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</span>
+                            </div>
+                            <div style="margin-bottom: 15px;">
+                                <label for="totalMoney">ເງິນທັງໝົດ:</label>
+                                <span id="totalMoney">{{ totalMoney4?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</span>
+                            </div>
                             <!-- <div style="margin-bottom: 10px;">
                                     <label for="h_VICIVLE_NUMBER">ຫົວລັດ:</label>
                                     <span id="h_VICIVLE_NUMBER">{{ h_VICIVLE_NUMBER }}</span>
                                 </div> -->
                         </div>
-                        <div v-if="item_name7 !== 'null'" style="display: flex;margin-left: 10px;margin-right: 10px;margin-top: 30px;justify-content: space-between;">
-                                <div style="margin-bottom: 15px;">
-                                    <label for="qty_offer">ຂໍ້ສະເໜີ ຈໍານວນ:</label>
-                                    <span id="qty_offer">{{ qty_offer7 }}</span>
-                                </div>
-                                <div style="margin-bottom: 15px;">
-                                    <label for="unit_price">ລາ​ຄາ​ຕໍ່​ຫນ່ວຍ:</label>
-                                    <span id="unit_price">{{ unit_price7 }}</span>
-                                </div>
-                                <div style="margin-bottom: 15px;">
-                                    <label for="totalMoney">ເງິນທັງໝົດ:</label>
-                                    <span id="totalMoney">{{ totalMoney7 }}</span>
-                                </div>
-                                <div style="margin-bottom: 15px;">
-                                    <label for="item_name">ອາໄລ ຊື່:</label>
-                                    <span id="item_name">{{ item_name7 }}</span>
-                                </div>
-                                <label for="img">ຮູບພາບ:</label>
-                                <div>
-                                    <img :src="img7" style="width: 100px; height: 100px;margin-top: -20px;">
-                                </div>
+                        <div v-if="item_name5 !== 'null'"
+                            style="display: flex;margin-left: 10px;margin-right: 10px;margin-top: 30px;justify-content: space-between;">
+                            <label for="img">ຮູບພາບ:</label>
+                            <div>
+                                <img :src="img5" style="width: 100px; height: 100px;margin-top: -20px;">
+                            </div>
+                            <div style="margin-bottom: 15px;">
+                                <label for="item_name">ອາໄລ ຊື່:</label>
+                                <span id="item_name">{{ item_name5?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</span>
+                            </div>
+                            <div style="margin-bottom: 15px;">
+                                <label for="qty_offer">ຂໍ້ສະເໜີ ຈໍານວນ:</label>
+                                <span id="qty_offer">{{ qty_offer5?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</span>
+                            </div>
+                            <div style="margin-bottom: 15px;">
+                                <label for="unit_price">ລາ​ຄາ​ຕໍ່​ຫນ່ວຍ:</label>
+                                <span id="unit_price">{{ unit_price5?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</span>
+                            </div>
+                            <div style="margin-bottom: 15px;">
+                                <label for="totalMoney">ເງິນທັງໝົດ:</label>
+                                <span id="totalMoney">{{ totalMoney5?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</span>
+                            </div>
                             <!-- <div style="margin-bottom: 10px;">
                                     <label for="h_VICIVLE_NUMBER">ຫົວລັດ:</label>
                                     <span id="h_VICIVLE_NUMBER">{{ h_VICIVLE_NUMBER }}</span>
                                 </div> -->
                         </div>
-                        <div v-if="item_name8 !== 'null'" style="display: flex;margin-left: 10px;margin-right: 10px;margin-top: 30px;justify-content: space-between;">
-                                <div style="margin-bottom: 15px;">
-                                    <label for="qty_offer">ຂໍ້ສະເໜີ ຈໍານວນ:</label>
-                                    <span id="qty_offer">{{ qty_offer8 }}</span>
-                                </div>
-                                <div style="margin-bottom: 15px;">
-                                    <label for="unit_price">ລາ​ຄາ​ຕໍ່​ຫນ່ວຍ:</label>
-                                    <span id="unit_price">{{ unit_price8 }}</span>
-                                </div>
-                                <div style="margin-bottom: 15px;">
-                                    <label for="totalMoney">ເງິນທັງໝົດ:</label>
-                                    <span id="totalMoney">{{ totalMoney8 }}</span>
-                                </div>
-                                <div style="margin-bottom: 15px;">
-                                    <label for="item_name">ອາໄລ ຊື່:</label>
-                                    <span id="item_name">{{ item_name8 }}</span>
-                                </div>
-                                <label for="img">ຮູບພາບ:</label>
-                                <div>
-                                    <img :src="img8" style="width: 100px; height: 100px;margin-top: -20px;">
-                                </div>
+                        <div v-if="item_name6 !== 'null'"
+                            style="display: flex;margin-left: 10px;margin-right: 10px;margin-top: 30px;justify-content: space-between;">
+                            <label for="img">ຮູບພາບ:</label>
+                            <div>
+                                <img :src="img6" style="width: 100px; height: 100px;margin-top: -20px;">
+                            </div>
+                            <div style="margin-bottom: 15px;">
+                                <label for="item_name">ອາໄລ ຊື່:</label>
+                                <span id="item_name">{{ item_name6?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</span>
+                            </div>
+                            <div style="margin-bottom: 15px;">
+                                <label for="qty_offer">ຂໍ້ສະເໜີ ຈໍານວນ:</label>
+                                <span id="qty_offer">{{ qty_offer6?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</span>
+                            </div>
+                            <div style="margin-bottom: 15px;">
+                                <label for="unit_price">ລາ​ຄາ​ຕໍ່​ຫນ່ວຍ:</label>
+                                <span id="unit_price">{{ unit_price6?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</span>
+                            </div>
+                            <div style="margin-bottom: 15px;">
+                                <label for="totalMoney">ເງິນທັງໝົດ:</label>
+                                <span id="totalMoney">{{ totalMoney6?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</span>
+                            </div>
                             <!-- <div style="margin-bottom: 10px;">
                                     <label for="h_VICIVLE_NUMBER">ຫົວລັດ:</label>
                                     <span id="h_VICIVLE_NUMBER">{{ h_VICIVLE_NUMBER }}</span>
                                 </div> -->
                         </div>
-                        <div v-if="item_name9 !== 'null'" style="display: flex;margin-left: 10px;margin-right: 10px;margin-top: 30px;justify-content: space-between;">
-                                <div style="margin-bottom: 15px;">
-                                    <label for="qty_offer">ຂໍ້ສະເໜີ ຈໍານວນ:</label>
-                                    <span id="qty_offer">{{ qty_offer9 }}</span>
-                                </div>
-                                <div style="margin-bottom: 15px;">
-                                    <label for="unit_price">ລາ​ຄາ​ຕໍ່​ຫນ່ວຍ:</label>
-                                    <span id="unit_price">{{ unit_price9 }}</span>
-                                </div>
-                                <div style="margin-bottom: 15px;">
-                                    <label for="totalMoney">ເງິນທັງໝົດ:</label>
-                                    <span id="totalMoney">{{ totalMoney9 }}</span>
-                                </div>
-                                <div style="margin-bottom: 15px;">
-                                    <label for="item_name">ອາໄລ ຊື່:</label>
-                                    <span id="item_name">{{ item_name9 }}</span>
-                                </div>
-                                <label for="img">ຮູບພາບ:</label>
-                                <div>
-                                    <img :src="img9" style="width: 100px; height: 100px;margin-top: -20px;">
-                                </div>
+                        <div v-if="item_name7 !== 'null'"
+                            style="display: flex;margin-left: 10px;margin-right: 10px;margin-top: 30px;justify-content: space-between;">
+                            <label for="img">ຮູບພາບ:</label>
+                            <div>
+                                <img :src="img7" style="width: 100px; height: 100px;margin-top: -20px;">
+                            </div>
+                            <div style="margin-bottom: 15px;">
+                                <label for="item_name">ອາໄລ ຊື່:</label>
+                                <span id="item_name">{{ item_name7?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',')?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</span>
+                            </div>
+                            <div style="margin-bottom: 15px;">
+                                <label for="qty_offer">ຂໍ້ສະເໜີ ຈໍານວນ:</label>
+                                <span id="qty_offer">{{ qty_offer7?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</span>
+                            </div>
+                            <div style="margin-bottom: 15px;">
+                                <label for="unit_price">ລາ​ຄາ​ຕໍ່​ຫນ່ວຍ:</label>
+                                <span id="unit_price">{{ unit_price7?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</span>
+                            </div>
+                            <div style="margin-bottom: 15px;">
+                                <label for="totalMoney">ເງິນທັງໝົດ:</label>
+                                <span id="totalMoney">{{ totalMoney7?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</span>
+                            </div>
                             <!-- <div style="margin-bottom: 10px;">
                                     <label for="h_VICIVLE_NUMBER">ຫົວລັດ:</label>
                                     <span id="h_VICIVLE_NUMBER">{{ h_VICIVLE_NUMBER }}</span>
                                 </div> -->
                         </div>
+                        <div v-if="item_name8 !== 'null'"
+                            style="display: flex;margin-left: 10px;margin-right: 10px;margin-top: 30px;justify-content: space-between;">
+                            <label for="img">ຮູບພາບ:</label>
+                            <div>
+                                <img :src="img8" style="width: 100px; height: 100px;margin-top: -20px;">
+                            </div>
+                            <div style="margin-bottom: 15px;">
+                                <label for="item_name">ອາໄລ ຊື່:</label>
+                                <span id="item_name">{{ item_name8?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</span>
+                            </div>
+                            <div style="margin-bottom: 15px;">
+                                <label for="qty_offer">ຂໍ້ສະເໜີ ຈໍານວນ:</label>
+                                <span id="qty_offer">{{ qty_offer8?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</span>
+                            </div>
+                            <div style="margin-bottom: 15px;">
+                                <label for="unit_price">ລາ​ຄາ​ຕໍ່​ຫນ່ວຍ:</label>
+                                <span id="unit_price">{{ unit_price8?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</span>
+                            </div>
+                            <div style="margin-bottom: 15px;">
+                                <label for="totalMoney">ເງິນທັງໝົດ:</label>
+                                <span id="totalMoney">{{ totalMoney8?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</span>
+                            </div>
+                            <!-- <div style="margin-bottom: 10px;">
+                                    <label for="h_VICIVLE_NUMBER">ຫົວລັດ:</label>
+                                    <span id="h_VICIVLE_NUMBER">{{ h_VICIVLE_NUMBER }}</span>
+                                </div> -->
+                        </div>
+                        <div v-if="item_name9 !== 'null'"
+                            style="display: flex;margin-left: 10px;margin-right: 10px;margin-top: 30px;justify-content: space-between;">
+                            <label for="img">ຮູບພາບ:</label>
+                            <div>
+                                <img :src="img9" style="width: 100px; height: 100px;margin-top: -20px;">
+                            </div>
+                            <div style="margin-bottom: 15px;">
+                                <label for="item_name">ອາໄລ ຊື່:</label>
+                                <span id="item_name">{{ item_name9?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</span>
+                            </div>
+                            <div style="margin-bottom: 15px;">
+                                <label for="qty_offer">ຂໍ້ສະເໜີ ຈໍານວນ:</label>
+                                <span id="qty_offer">{{ qty_offer9?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</span>
+                            </div>
+                            <div style="margin-bottom: 15px;">
+                                <label for="unit_price">ລາ​ຄາ​ຕໍ່​ຫນ່ວຍ:</label>
+                                <span id="unit_price">{{ unit_price9?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</span>
+                            </div>
+                            <div style="margin-bottom: 15px;">
+                                <label for="totalMoney">ເງິນທັງໝົດ:</label>
+                                <span id="totalMoney">{{ totalMoney9?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</span>
+                            </div>
+                            <!-- <div style="margin-bottom: 10px;">
+                                    <label for="h_VICIVLE_NUMBER">ຫົວລັດ:</label>
+                                    <span id="h_VICIVLE_NUMBER">{{ h_VICIVLE_NUMBER }}</span>
+                                </div> -->
+                        </div>
+
+                        <div style="margin-bottom: 15px;margin-top: 20px;">
+                            <label for="real_totalMoney">ລາຂາ ທັງໝົດ:</label>
+                            <span id="real_totalMoney" style="text-decoration: underline;">{{ real_totalMoney?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</span>
+                        </div>
+
                         <div style="width: 100%; margin: 0 auto;">
                             <div style="display: flex; justify-self: center;">
                                 <div
                                     style="width:100%;margin-top:50px;display:flex;flex-direction:column;justify-content:center;align-items:center;padding-left:20px; font-size: 18px">
-                                    <div>APPROVED BY</div>
-                                    <div>ຜູ້ອະນຸມັດ</div>
+
+                                    <div>ຜູ້ສະເໜີ</div>
                                     <div style="height: 50px;"></div>
                                     <div style="display:flex;justify-content:space-between">
                                         ...............................
@@ -1053,8 +1076,26 @@
                                 </div>
                                 <div
                                     style="width:100%;margin-top:50px;display:flex;flex-direction:column;justify-content:center;align-items:center;padding-left:20px; font-size: 18px">
-                                    <div>APPROVED BY KKL</div>
-                                    <div>ຜູ້ອະນຸມັດ</div>
+
+                                    <div>ຜູ້ຄຸມງານ</div>
+                                    <div style="height: 50px;"></div>
+                                    <div style="display:flex;justify-content:space-between">
+                                        ...............................
+                                    </div>
+                                </div>
+                                <div
+                                    style="width:100%;margin-top:50px;display:flex;flex-direction:column;justify-content:center;align-items:center;padding-left:20px; font-size: 18px">
+
+                                    <div>ໜ່ວຍກວດກາ</div>
+                                    <div style="height: 50px;"></div>
+                                    <div style="display:flex;justify-content:space-between">
+                                        ...............................
+                                    </div>
+                                </div>
+                                <div
+                                    style="width:100%;margin-top:50px;display:flex;flex-direction:column;justify-content:center;align-items:center;padding-left:20px; font-size: 18px">
+
+                                    <div>ອໍານວຍຍການບໍລີສັກ ຄູນຄໍາ</div>
                                     <div style="height: 50px;"></div>
                                     <div style="display:flex;justify-content:space-between">
                                         ...............................
@@ -1095,6 +1136,7 @@ export default {
             dialogVisible: false,
             shopName: '',
             fkey_id: '',
+            real_totalMoney: '0',
             job: '',
             qty_offer: 0,
             unit_price: 0,
@@ -1162,6 +1204,7 @@ export default {
             Mechanicequipment1: [],
             Mechanicequipment2: [],
             show_list: [],
+            formattedTotalMoney: '',
             h_VICIVLE_NUMBER: '',
             number: '',
             // Other data properties...
@@ -1184,6 +1227,8 @@ export default {
 
 
             ],
+            Mechanicequipment: [], // Array of equipment items for the first set
+            Mechanicequipment1: [], // Array of equipment items for the second set
             truck_data_list: [],
 
             totalMoney: '0', // Initialize totalMoney
@@ -1191,15 +1236,138 @@ export default {
         };
     },
     computed: {
+        formattedTotalMoney0() {
+            return this.formatMoney(this.totalMoney);
+        },
+        formattedTotalMoney1() {
+            return this.formatMoney1(this.totalMoney1);
+        },
+        formattedTotalMoney2() {
+            return this.formatMoney2(this.totalMoney2);
+        },
+        formattedTotalMoney3() {
+            return this.formatMoney3(this.totalMoney3);
+        },
+        formattedTotalMoney4() {
+            return this.formatMoney4(this.totalMoney4);
+        },
+        formattedTotalMoney5() {
+            return this.formatMoney5(this.totalMoney5);
+        },
+        formattedTotalMoney6() {
+            return this.formatMoney6(this.totalMoney6);
+        },
+
+        formattedTotalMoney7() {
+            return this.formatMoney7(this.totalMoney7);
+        },
+        formattedTotalMoney8() {
+            return this.formatMoney8(this.totalMoney8);
+        },
+
+        formattedTotalMoney9() {
+            return this.formatMoney9(this.totalMoney9);
+        },
+
         filteredItems() {
             if (!Array.isArray(this.truck_data_list)) {
                 return [];
             }
-            return this.truck_data_list.filter(item => item.statusPO === 'NO');
+            return this.truck_data_list.filter(item =>
+                item.statusPO === 'NO'
+            );
+        },
+    },
+
+    methods: {
+        formatNumber(value) {
+            if (typeof value === 'number' || typeof value === 'string') {
+                return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+            }
+            return value;
+        },
+        getStatusClass(status) {
+            switch (status) {
+                case 'active':
+                    return 'status-active';
+                case 'inactive':
+                    return 'status-inactive';
+                default:
+                    return '';
+            }
+        },
+        getStatusText(status) {
+            switch (status) {
+                case 'active':
+                    return 'Active';
+                case 'inactive':
+                    return 'Inactive';
+                default:
+                    return 'Unknown';
+            }
         },
 
-    },
-    methods: {
+
+        formatMoney(value) {
+            if (typeof value === 'number' || typeof value === 'string') {
+                return value.toString().replace(/\D/g, '').replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+            }
+            return value;
+        },
+        formatMoney1(value) {
+            if (typeof value === 'number' || typeof value === 'string') {
+                return value.toString().replace(/\D/g, '').replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+            }
+            return value;
+        },
+        formatMoney2(value) {
+            if (typeof value === 'number' || typeof value === 'string') {
+                return value.toString().replace(/\D/g, '').replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+            }
+            return value;
+        },
+        formatMoney3(value) {
+            if (typeof value === 'number' || typeof value === 'string') {
+                return value.toString().replace(/\D/g, '').replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+            }
+            return value;
+        },
+        formatMoney4(value) {
+            if (typeof value === 'number' || typeof value === 'string') {
+                return value.toString().replace(/\D/g, '').replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+            }
+            return value;
+        },
+        formatMoney5(value) {
+            if (typeof value === 'number' || typeof value === 'string') {
+                return value.toString().replace(/\D/g, '').replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+            }
+            return value;
+        },
+        formatMoney6(value) {
+            if (typeof value === 'number' || typeof value === 'string') {
+                return value.toString().replace(/\D/g, '').replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+            }
+            return value;
+        },
+        formatMoney7(value) {
+            if (typeof value === 'number' || typeof value === 'string') {
+                return value.toString().replace(/\D/g, '').replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+            }
+            return value;
+        },
+        formatMoney8(value) {
+            if (typeof value === 'number' || typeof value === 'string') {
+                return value.toString().replace(/\D/g, '').replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+            }
+            return value;
+        },
+        formatMoney9(value) {
+            if (typeof value === 'number' || typeof value === 'string') {
+                return value.toString().replace(/\D/g, '').replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+            }
+            return value;
+        },
         askBeforeDeleteCusInfo(itemId) {
             // Handle delete action
         },
@@ -1354,7 +1522,7 @@ export default {
             console.log(item_id);
 
             // Use item_id1 to filter Mechanicequipment1 array
-            let data = this.Mechanicequipment2.filter((el) => el.item_id === item_id);
+            let data = this.Mechanicequipment5.filter((el) => el.item_id === item_id);
             console.log('head:', data);
 
             if (data.length > 0) {
@@ -1384,7 +1552,7 @@ export default {
             console.log(item_id);
 
             // Use item_id1 to filter Mechanicequipment1 array
-            let data = this.Mechanicequipment2.filter((el) => el.item_id === item_id);
+            let data = this.Mechanicequipment7.filter((el) => el.item_id === item_id);
             console.log('head:', data);
 
             if (data.length > 0) {
@@ -1502,6 +1670,7 @@ export default {
                 this.qty_offer8 = response.data[0].qty_offer8;
                 this.qty_offer9 = response.data[0].qty_offer9;
                 this.totalMoney = response.data[0].totalMoney;
+                this.real_totalMoney = response.data[0].real_totalMoney;
                 this.totalMoney1 = response.data[0].totalMoney1;
                 this.totalMoney2 = response.data[0].totalMoney2;
                 this.totalMoney3 = response.data[0].totalMoney3;
@@ -1571,7 +1740,7 @@ export default {
             this.dialogVisible = false;
         },
 
-        onPrint() {
+        async onPrint() {
             // Clone the modal content
             const modal = document.getElementById("modalInvoice");
             const cloned = modal.cloneNode(true);
@@ -1762,7 +1931,7 @@ export default {
                     unit_price5: this.unit_price5,
                     qty_offer5: this.qty_offer5, // Assuming number is accessible in this component
                     totalMoney5: this.totalMoney5,
-                    itemName5: this.itemName5,
+                    item_name5: this.itemName5,
                     img5: this.img5,
 
 
@@ -1798,12 +1967,12 @@ export default {
                     img9: this.img9,
 
 
-                    item_id10: this.item_id10, // Assuming item_id is accessible in this component
-                    unit_price10: this.unit_price10,
-                    qty_offer10: this.qty_offer10, // Assuming number is accessible in this component
-                    totalMoney10: this.totalMoney10,
-                    item_name10: this.itemName10,
-                    img10: this.img10,
+                    // item_id10: this.item_id10, // Assuming item_id is accessible in this component
+                    // unit_price10: this.unit_price10,
+                    // qty_offer10: this.qty_offer10, // Assuming number is accessible in this component
+                    // totalMoney10: this.totalMoney10,
+                    // item_name10: this.itemName10,
+                    // img10: this.img10,
 
 
                 };
@@ -1905,6 +2074,14 @@ export default {
         this.onGetaddshow(); // Fetch truck footer data when component is mounted
         this.onGetTruckFooter(); // Fetch truck footer data when component is mounted
         this.onGetTruckList(); // Fetch truck footer data when component is mounted
+        {
+            // Assuming you fetch initial data here
+            this.Mechanicequipment1 = [
+                { itemName: 'Equipment A', item_id: 1 },
+                { itemName: 'Equipment B', item_id: 2 },
+                // More items...
+            ];
+        }
     },
 };
 </script>

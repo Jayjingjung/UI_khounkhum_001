@@ -290,10 +290,10 @@
                             <div v-for="(item, index) in wastedValueData" :key="index">
                                 <div style="display:flex">
                                     <div style="height: 50px; font-size: 18px ; "
-                                        class="mr-5 ml-5 mt-5 mb-5 text-center "> ຄ່າຊິງມະຫາໄຊ: {{ item.feeJumPo2 }}
+                                        class="mr-5 ml-5 mt-5 mb-5 text-center "> {{changnamejumpo2}}: {{ item.feeJumPo2 }}
                                     </div>
                                     <div style="height: 50px; font-size: 18px ; "
-                                        class="mr-5 ml-5 mt-5 mb-5 text-center "> ຄ່າຊິງນາອິນ: {{ item.feePassport }}
+                                        class="mr-5 ml-5 mt-5 mb-5 text-center "> {{changnamepassport}}: {{ item.feePassport }}
                                     </div>
                                     <div style="height: 50px; font-size: 18px ; "
                                         class="mr-5 ml-5 mt-5 mb-5 text-center "> ຄ່າຕຳລວດ: {{ item.feePolish3 }}</div>
@@ -311,15 +311,15 @@
 
                                 <div style="display:flex">
                                     <div style="height: 50px; font-size: 18px ; "
-                                        class="mr-5 ml-5 mt-5 mb-5 text-center "> ຄ່າຊິບປິ້ງຫວຽດແລ່ນເອກະສານ: {{
+                                        class="mr-5 ml-5 mt-5 mb-5 text-center "> {{changnameformattedFeeTaxung4}}: {{
                                             item.feeTaxung4 }}</div>
                                     <div style="height: 50px; font-size: 18px ; "
                                         class="mr-5 ml-5 mt-5 mb-5 text-center "> ຄ່າໃບຊີງ: {{ item.feesing }}</div>
                                     <div style="height: 50px; font-size: 18px ; "
-                                        class="mr-5 ml-5 mt-5 mb-5 text-center "> ຄ່າແຈ້ງເອກະສານຢູ່ບ່ອນຂຶ້ນເກືອ: {{
+                                        class="mr-5 ml-5 mt-5 mb-5 text-center "> {{changnameformattedFeesaphan}}: {{
                                             item.feesaphan }}</div>
                                     <div style="height: 50px; font-size: 18px ; "
-                                        class="mr-5 ml-5 mt-5 mb-5 text-center "> ຄ່າລົງເກືອ: {{ item.feecontrainer }}
+                                        class="mr-5 ml-5 mt-5 mb-5 text-center "> {{changnameformattedFeecontrainer}}: {{ item.feecontrainer }}
                                     </div>
                                     <div style="height: 50px; font-size: 18px ; "
                                         class="mr-5 ml-5 mt-5 mb-5 text-center "> ຄ່າລ່ວງເວລາ: {{ item.feeyoktu }}</div>
@@ -430,7 +430,7 @@
             <div id="modalInvoice">
                 <v-row>
                     <v-col cols="3">
-                        <img class="mx-auto" src="../assets/images/khounkham.png" height="70px" cover />
+                        <img class="mx-auto" src="../assets/images/logo01.png" height="70px" cover />
                     </v-col>
                     <v-col cols="9">
                         <div style="display:flex;justify-content:start;flex-direction:column;align-items:start">
@@ -1624,7 +1624,8 @@ export default {
             feepayang: '',
 
 
-
+            formattedFeeJumPo2: '', // Initialize your v-model
+            TOTAL_branchName: '', // Initialize TOTAL_branchName
 
 
             saiystay: '',
@@ -1985,6 +1986,7 @@ export default {
         }
     },
     mounted() {
+        this.total_count();
         this.calculateTotalMoney();
         // this.onCreateReports()
         this.showWastedValue()
@@ -2025,7 +2027,78 @@ export default {
         // this.h_VICIVLE_NUMBER = this.$route?.query?.plate;
         // this.f_CARD_NO = this.$route?.query?.plate1
     },
-
+    computed: {
+        changnamejumpo2() {
+            switch (this.TOTAL_branchName) {
+                case 'Thakhaek':
+                    return 'ຄ່າຊິງມະຫາໄຊ';
+                case 'XiengKhouang':
+                    return 'ຄ່າຊິງມະຫາໄຊ';
+                case 'vientiane':
+                    return 'ຄ່າຊິງມະຫາໄຊ';
+                case 'Savannakhet':
+                    return 'ຄ່າຈ້ຳພາດສະປອດ';
+                default:
+                    return this.TOTAL_branchName; // Use the branchName if no match found
+            }
+        },
+        changnamepassport() {
+            switch (this.TOTAL_branchName) {
+                case 'Thakhaek':
+                    return 'ຄ່າຊິງນາອິນ';
+                case 'XiengKhouang':
+                    return 'ຄ່າຊິງນາອິນ';
+                case 'vientiane':
+                    return 'ຄ່າຊິງນາອິນ';
+                case 'Savannakhet':
+                    return 'ຄ່າຊິງ';
+                default:
+                    return this.TOTAL_branchName; // Use the branchName if no match found
+            }
+        },
+        changnameformattedFeeTaxung4() {
+            switch (this.TOTAL_branchName) {
+                case 'Thakhaek':
+                    return 'ຄ່າຊິບປິ້ງຫວຽດແລ່ນເອກະສານ';
+                case 'XiengKhouang':
+                    return 'ຄ່າຊິບປິ້ງຫວຽດແລ່ນເອກະສານ';
+                case 'vientiane':
+                    return 'ຄ່າຊິບປິ້ງຫວຽດແລ່ນເອກະສານ';
+                case 'Savannakhet':
+                    return 'ຄ່າລົດຂ້າມຂົວດ່ານລາວ-ໄທ';
+                default:
+                    return this.TOTAL_branchName; // Use the branchName if no match found
+            }
+        },
+        changnameformattedFeesaphan() {
+            switch (this.TOTAL_branchName) {
+                case 'Thakhaek':
+                    return 'ຄ່າແຈ້ງເອກະສານຢູ່ບ່ອນຂຶ້ນເກືອ';
+                case 'XiengKhouang':
+                    return 'ຄ່າແຈ້ງເອກະສານຢູ່ບ່ອນຂຶ້ນເກືອ';
+                case 'vientiane':
+                    return 'ຄ່າແຈ້ງເອກະສານຢູ່ບ່ອນຂຶ້ນເກືອ';
+                case 'Savannakhet':
+                    return 'ຄ່າຈ້ຳຄົນແລະລົດ';
+                default:
+                    return this.TOTAL_branchName; // Use the branchName if no match found
+            }
+        },
+        changnameformattedFeecontrainer() {
+            switch (this.TOTAL_branchName) {
+                case 'Thakhaek':
+                    return 'ຄ່າລົງເກືອ';
+                case 'XiengKhouang':
+                    return 'ຄ່າລົງເກືອ';
+                case 'vientiane':
+                    return 'ຄ່າລົງເກືອ';
+                case 'Savannakhet':
+                    return 'ຄ່າສິດຢາຂ້າເຊື້ອ';
+                default:
+                    return this.TOTAL_branchName; // Use the branchName if no match found
+            }
+        },
+    },
     methods: {
         calculateTotalMoney() {
             // Calculate kim_KM based on road_send_km and truck_kilomen
@@ -2866,6 +2939,23 @@ export default {
             } catch (error) {
                 console.error('Error fetching wasted value data:', error);
                 // Handle error message display or other logic here
+            }
+        },
+        async total_count() {
+            try {
+                this.loading_processing = true;
+                const data = await this.$axios.$post('/getNotiTab3.service', {
+                    toKen: localStorage.getItem('toKen')
+                });
+                this.loading_processing = false;
+                this.TOTAL_branchName = data?.branchName || ''; // Update TOTAL_branchName with data from API
+            } catch (error) {
+                this.loading_processing = false;
+                swal.fire({
+                    icon: 'error',
+                    text: error.message || 'An error occurred'
+                });
+                console.error(error);
             }
         }
     },

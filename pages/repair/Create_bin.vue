@@ -2,14 +2,26 @@
     <div>
         <v-card class="card-shadow" rounded="lg" style="border:0.5px solid #e0e0e0;border-radius:3px;width: 100%;">
             <v-card-title style="background-color:	#b76d22" class="white--text">
-                ອາໄລໃນສາງ
+                ນໍາອາໄຫຼ່ອອກ ສາງ
             </v-card-title>
             <v-card class="flex-container ">
                 <div style="width:95%;" class="pl-2">
-                    <v-select outlined dense label="ເລືອກ ອຸປະກອນ" :items="Mechanicequipment" item-text="itemName"
-                        item-value="item_id" @change="onGetMechanicequipment">
-                    </v-select>
 
+                    <!-- Display unit_price above the v-select component -->
+                  
+                    <!-- <div v-if="selectedEquipment" class="mt-2">
+                        <p>ລາຄາຕໍ່ອັນ: {{ selectedEquipment.unit_price }} Kip</p>
+                    </div> -->
+
+                    <v-select outlined dense label="ເລືອກ ອຸປະກອນ" :items="Mechanicequipment" item-text="itemName"
+                        item-value="item_id" @change="onSelectMechanicequipment">
+                        <template v-slot:selection="data">
+                            <span>{{ data.item.itemName }} ({{ data.item.unit_price }} Kip)</span>
+                        </template>
+                        <template v-slot:item="data">
+                            <span>{{ data.item.itemName }} ({{ data.item.unit_price }} Kip)</span>
+                        </template>
+                    </v-select>
                     <div class="d-flex align-center pl-2">
                         <v-text-field label="*ຈໍານວນ" dense outlined background-color="#f5f5f5"
                             v-model="qty_Fix"></v-text-field>
@@ -18,7 +30,6 @@
                 </div>
 
                 <div style="width:95%;" class="pl-2">
-                    <!-- Autocomplete for selecting vehicle -->
                     <div>
                         <v-autocomplete outlined dense label="ເລືອກຫົວລົດ" :items="cars_list"
                             item-text="h_VICIVLE_NUMBER" item-value="key_id" @change="onGetCarDetails"
@@ -45,6 +56,28 @@
                         </div>
                     </div>
                 </div>
+
+                <div style="width:95%;" class="pl-2">
+                    <div>
+                        <div class="d-flex align-center pl-2">
+                            <v-text-field label="*ສະຖານທີ" dense outlined background-color="#f5f5f5"
+                                v-model="location_fix"></v-text-field>
+                            <div class="tops"></div>
+                        </div>
+                        <div class="d-flex align-center pl-2">
+                            <v-text-field label="*ລາຍລະອຽດ ການເເປງ" dense outlined background-color="#f5f5f5"
+                                v-model="fix_Detail"></v-text-field>
+                            <div class="tops"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="width:95%;" class="pl-2">
+                    <v-select outlined dense label="ເລືອກ ສາຂາ" :items="branches" item-text="name" item-value="value"
+                        v-model="branch_inventory">
+                    </v-select>
+                </div>
+
                 <div style="width:95%;" class=" ml-2 mb-2">
                     <v-btn elevation="0" color="#448AFF" @click="onGetLeaveNumber">
                         <v-icon color="white">mdi-check</v-icon>
@@ -54,10 +87,10 @@
             </v-card>
         </v-card>
         <div style="display: flex; margin-top: 10px; width: 100%;">
-            <div style="width: 20%;"> <!-- Updated this div -->
+            <div style="width: 100%;"> <!-- Updated this div -->
                 <v-card class="card-shadow" rounded="lg" style="border: 0.5px solid #e0e0e0; border-radius: 3px;">
                     <v-card-title style="background-color: #b76d22" class="white--text">
-                        ອາໄລໃນສາງ
+                        ອາໄຫຼ່ໃນສາງ
                     </v-card-title>
 
                     <div style="display: flex; margin-top: 10px; margin-left: 10px;"></div>
@@ -68,15 +101,18 @@
                                 <td><v-avatar><img :src="row.item.img"></v-avatar></td>
                                 <td>{{ row?.item?.item_name }}</td>
                                 <td>{{ row?.item?.qty }}</td>
+                                <td>{{ row?.item?.unit }}</td>
+                                <td>{{ row?.item?.unitPirce }}</td>
+                                <td>{{ row?.item?.sumUnitWithPrice }}</td>
                             </tr>
                         </template>
                     </v-data-table>
                 </v-card>
             </div>
-            <v-card style="width: 80%;"> <!-- Updated this v-card -->
+            <!-- <v-card style="width: 80%;">
                 <v-card class="card-shadow" rounded="lg" style="border: 0.5px solid #e0e0e0; border-radius: 3px;">
                     <v-card-title style="background-color: #b72222" class="white--text">
-                        ອາໄລທີນໍາອອກຈາກສາງ
+                        ອາໄຫຼ່ທີນໍາອອກຈາກສາງ
                     </v-card-title>
 
                     <div style="display: flex; margin-top: 10px;"></div>
@@ -103,10 +139,10 @@
                         </template>
                     </v-data-table>
                 </v-card>
-            </v-card>
+            </v-card> -->
         </div>
 
-        <v-dialog v-model="dialogVisible" max-width="800px" style="max-height: 800px;">
+        <!-- <v-dialog v-model="dialogVisible" max-width="800px" style="max-height: 800px;">
             <v-card>
                 <v-card-title style="font-size: 24px;">ປ້ອນຂໍ້ມູນ</v-card-title>
                 <v-card-actions>
@@ -171,7 +207,7 @@
 
                 </v-card-actions>
             </v-card>
-        </v-dialog>
+        </v-dialog> -->
     </div>
 </template>
 
@@ -188,7 +224,9 @@ export default {
             item_id: '',
             hkey_id: '',
             fkey_id: '',
+            fix_Detail: '',
             unit_price: '',
+            location_fix: '',
             img: '',
             qty_offer: '',
             totalMoney: '',
@@ -200,7 +238,16 @@ export default {
             pocode: '',
             dateCreate: '',
             offer_CODE: '',
+            total_Price: '',
+            qty_Fix: '',
             printData: null,
+            branch_inventory: null,
+            branches: [
+                { name: 'Thakhaek', value: 2 },
+                { name: 'XiengKhouang', value: 3 },
+                { name: 'Savannakhet', value: 4 },
+                { name: 'Vientiane', value: 5 },
+            ],
             showModal: false,
             dialogVisible: false,
             offerManName: '',
@@ -222,6 +269,9 @@ export default {
                 { text: 'ຮູບພາບ', value: 'img' },
                 { text: 'ລາໄລ', value: 'item_name' },
                 { text: 'ຈໍານວນ', value: 'qty' },
+                { text: 'ຫົວນວຍ', value: 'unit' },
+                { text: 'ລາຄາ', value: 'unitPirce' },
+                { text: 'ລາຄາທັງໝົດ', value: 'sumUnitWithPrice' },
 
             ],
             truck_data_list: [],
@@ -234,7 +284,7 @@ export default {
                 { text: 'ຫາງລົດ', value: 'f_BRANCH' },
                 { text: 'ຈໍານວນ', value: 'qty_Fix' },
                 { text: 'ລາ​ຄາ​ລວມ', value: 'total_Price' },
-                { text: 'ລາຍຈາຍເພີນ(ຄ່າສ່າງ)', value: 'add_on' },
+                { text: 'ລາຍຈ່າຍເພີນເຕີມ(ຄ່າຊ່າງ)', value: 'add_on' },
                 { text: 'ລາຍລະອຽດ', value: 'description' },
                 { text: 'ວັນທີເເປງ', value: 'dateFix' },
 
@@ -254,9 +304,25 @@ export default {
                 (item.stock_status === 'wait')
             );
         },
-    },
 
+    },
+    watch: {
+        qty_Fix(newVal) {
+            if (this.selectedEquipment) {
+                this.total_Price = this.selectedEquipment.unit_price * newVal;
+            }
+        }
+    },
     methods: {
+        onSelectMechanicequipment(selectedItem) {
+      this.selectedEquipment = this.Mechanicequipment.find(item => item.item_id === selectedItem);
+      if (this.selectedEquipment) {
+        this.item_id = this.selectedEquipment.item_id; // Set the item_id from the selected item
+        this.item_name = this.selectedEquipment.itemName; // Set the itemName from the selected item
+        this.unit_price = this.selectedEquipment.unit_price; // Set the unit_price from the selected item
+        this.total_Price = this.unit_price * this.qty_Fix; // Calculate the total price
+      }
+    },
         onGetCarDetails(id) {
             console.log(id);
 
@@ -307,54 +373,52 @@ export default {
         },
 
         async onGetLeaveNumber() {
-            try {
-                this.loading_processing = true;
-                const data = {
-                    item_id: this.item_id, // Assuming item_id is accessible in this component
-                    header_id: this.h_ID, // Assuming h_VICIVLE_NUMBER is accessible in this component
-                    footer_id: this.fkey_id, // Assuming fkey_id is accessible in this component
-                    qty_Fix: this.qty_Fix, // Assuming number is accessible in this component
-                    total_Price: this.total_Price, // Assuming number is accessible in this component
-                    description: this.description, // Assuming number is accessible in this component
+      try {
+        this.loading_processing = true;
+        const data = {
+          item_name: this.item_name,
+          branch_inventory: this.branch_inventory,
+          item_id: this.item_id,
+          header_id: this.h_ID,
+          footer_id: this.fkey_id,
+          qty_Fix: this.qty_Fix,
+          total_Price: this.total_Price,
+          description: this.description,
+          location_fix: this.location_fix,
+          fix_Detail: this.fix_Detail,
+          toKen: localStorage.getItem('toKen'),
+        };
+        console.log("send:", data);
 
-                    toKen: localStorage.getItem('toKen'),
-                };
-                console.log("send:", data);
+        const response = await this.$axios.$post('/fix.service', data);
+        console.log("createReport:", response);
 
-                const response = await this.$axios.$post('/fix.service', data);
-                console.log("createReport:", response);
+        if (response?.status === '00') {
+          this.loading_processing = false;
+          this.onGetshowdata_table();
 
-                if (response?.status === '00') {
-                    this.loading_processing = false;
-                    // this.print();
-                    // Other actions upon successful creation
-                    this.onGetshowdata_table();
-
-                    // Display success alert using SweetAlert2
-                    await Swal.fire({
-                        icon: 'success',
-                        title: 'Success',
-                        text: 'Your message here', // Customize the success message
-                        confirmButtonText: 'OK',
-                    });
-                    window.location.reload();
-
-
-                }
-            } catch (error) {
-                console.log(error);
-                this.loading_processing = false;
-
-                // Display error alert using SweetAlert2
-                await Swal.fire({
-                    icon: 'error',
-                    title: 'Error',
-                    text: 'Failed to fetch data from the API', // Customize the error message
-                    confirmButtonText: 'OK',
-                });
-            }
+          // Display success alert using SweetAlert2
+          await Swal.fire({
+            icon: 'success',
+            title: 'Success',
+            text: 'Your message here', // Customize the success message
+            confirmButtonText: 'OK',
+          });
+          window.location.reload();
         }
-        ,
+      } catch (error) {
+        console.log(error);
+        this.loading_processing = false;
+
+        // Display error alert using SweetAlert2
+        await Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'Failed to fetch data from the API', // Customize the error message
+          confirmButtonText: 'OK',
+        });
+      }
+    },
         async onGetadd() {
             try {
                 this.loading_processing = true;
@@ -444,6 +508,8 @@ export default {
                 this.description = response.data[0].description; // Assuming you want the first item's qty_offer
                 this.dateFix = response.data[0].dateFix; // Assuming you want the first item's qty_offer
                 // Handle the response as needed, such as displaying a success message or handling errors
+                this.location_fix = response.data[0].location_fix; // Assuming you want the first item's qty_offer
+
                 this.openDialog(fixId); // Open the dialog after API call success
             } catch (error) {
                 console.error('Print API error:', error);
@@ -467,6 +533,7 @@ export default {
             console.log('add_on:', this.add_on);
             console.log('description:', this.description);
             console.log('dateFix:', this.dateFix);
+            console.log('location_fix:', this.location_fix);
 
 
             // Close the dialog after submission
@@ -480,6 +547,7 @@ export default {
                     // toKen: localStorage.getItem('toKen'),
                     fixId: this.fixId, // Using the offerCode property
                     add_on: this.add_on, // Assuming you have an itemId property set from somewhere
+                    location_fix: this.location_fix,
 
                 };
 

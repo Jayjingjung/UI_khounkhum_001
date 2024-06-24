@@ -43,10 +43,10 @@
                   </div>
                 </v-col>
                 <v-col>
-                  
+
                   <v-menu ref="end_cardate" v-model="end_cardate" :close-on-content-click="false"
                     :return-value.sync="exCarDate" transition="scale-transition" offset-y min-width="auto">
-                   
+
                     <template v-slot:activator="{ on, attrs }">
                       <v-text-field dense outlined v-model="exCarDate" background-color="#f5f5f5" required
                         label="* ວັນໝົດອາຍຸທະບຽນລົດ" append-icon="mdi-calendar" readonly v-bind="attrs" v-on="on"
@@ -116,12 +116,13 @@
                   <div class="tops">
                   </div>
                 </v-col>
+
                 <v-col clos="6" md="3" sm="3">
                   <v-text-field :rules="nameRules" label="* ປ້ອນເລກໄມປະຈຸບັນ" dense outlined background-color="#f5f5f5"
-                    v-model="kim_KM"></v-text-field>
-                  <div class="tops">
-                  </div>
+                    v-model="kim_KM" @input="calculateH_LEK_NUMMUNKHG"></v-text-field>
+                  <div class="tops"></div>
                 </v-col>
+
                 <v-col clos="6" md="3" sm="3">
                   <v-text-field :rules="nameRules" label="* ປ້ອນເລກຈັກ" dense outlined background-color="#f5f5f5"
                     v-model="h_VICIVLE_LEKJUK"></v-text-field>
@@ -137,12 +138,13 @@
                   <div class="tops">
                   </div>
                 </v-col>
+
                 <v-col clos="6" md="3" sm="3">
                   <v-text-field :rules="nameRules" label="* ປ້ອນເລກໄມປ່ຽນນໍ້າມັນເຄື່ອງຮອບຕໍ່ໄປ" dense outlined
-                    background-color="#f5f5f5" v-model="h_LEK_NUMMUNKHG"></v-text-field>
-                  <div class="tops">
-                  </div>
+                  readonly background-color="#f5f5f5" v-model="h_LEK_NUMMUNKHG"></v-text-field>
+                  <div class="tops"></div>
                 </v-col>
+
                 <v-col clos="6" md="3" sm="3">
                   <v-text-field :rules="nameRules" label="* ປ້ອນGPS" dense outlined background-color="#f5f5f5"
                     v-model="h_VICIVLE_GPS"></v-text-field>
@@ -173,13 +175,8 @@
                     <!-- <img :src="imageBatery" cover height="40px" width="40px"> -->
                   </v-col>
                   <v-col clos="6" md="10" sm="10">
-                    <v-autocomplete
-                     outlined dense label="* ເລືອກໝໍ້ໄຟ" 
-                     :items="morfai_data_list" 
-                     item-text="batNo"
-                      item-value="keyId"
-                       background-color="#f5f5f5"
-                       @change="onGetmorfaiDetails"
+                    <v-autocomplete outlined dense label="* ເລືອກໝໍ້ໄຟ" :items="morfai_data_list" item-text="batNo"
+                      item-value="keyId" background-color="#f5f5f5" @change="onGetmorfaiDetails"
                       :rules="nameRules"></v-autocomplete>
                   </v-col>
 
@@ -399,7 +396,7 @@
                     <div style="width:100%"><v-text-field style="margin-top:-10px" :rules="nameRules" rounded
                         background-color="#fff" dense label="* ເລກໄມລ່າສຸດ" v-model="h_KM1"></v-text-field></div>
                     <div style="width:100%"><v-text-field style="margin-top:-10px" :rules="nameRules" rounded
-                        background-color="#fff" dense label="* ເລກໄມປະຈຸບັນ" v-model="h_KML_1"></v-text-field></div>
+                        background-color="#fff" dense label="* ເລກໄມປະຈຸບັນ" readonly v-model="h_KML_1"></v-text-field></div>
                     <div style="width:100%"></div>
                   </div>
                 </div>
@@ -417,7 +414,7 @@
                     <div style="width:100%"><v-text-field :rules="nameRules" rounded dense background-color="#fff"
                         label="* ເລກໄມລ່າສຸດ" v-model="h_KM2"></v-text-field></div>
                     <div style="width:100%"><v-text-field :rules="nameRules" rounded dense background-color="#fff"
-                        label="* ເລກໄມປະຈຸບັນ" v-model="h_KML_2"></v-text-field></div>
+                        label="* ເລກໄມປະຈຸບັນ" readonly v-model="h_KML_2"></v-text-field></div>
                     <div style="width:100%"></div>
                   </div>
                 </div>
@@ -434,7 +431,7 @@
                     <div style="width:100%"><v-text-field :rules="nameRules" rounded dense background-color="#fff"
                         label="* ເລກໄມລ່າສຸດ" v-model="h_KM3"></v-text-field></div>
                     <div style="width:100%"><v-text-field :rules="nameRules" rounded dense background-color="#fff"
-                        label="* ເລກໄມປະຈຸບັນ" v-model="h_KML_3"></v-text-field></div>
+                        label="* ເລກໄມປະຈຸບັນ" readonly v-model="h_KML_3"></v-text-field></div>
                     <div style="width:100%"></div>
                   </div>
                 </div>
@@ -452,7 +449,7 @@
                     <div style="width:100%"><v-text-field :rules="nameRules" rounded dense background-color="#fff"
                         label="* ເລກໄມລ່າສຸດ" v-model="h_KM4"></v-text-field></div>
                     <div style="width:100%"> <v-text-field :rules="nameRules" rounded dense background-color="#fff"
-                        label="* ເລກໄມປະຈຸບັນ" v-model="h_KML_4"></v-text-field></div>
+                        label="* ເລກໄມປະຈຸບັນ" readonly v-model="h_KML_4"></v-text-field></div>
                     <div style="width:100%"></div>
                   </div>
                 </div>
@@ -470,7 +467,7 @@
                     <div style="width:100%"> <v-text-field :rules="nameRules" rounded dense background-color="#fff"
                         label="* ເລກໄມລ່າສຸດ" v-model="h_KM5"></v-text-field></div>
                     <div style="width:100%"><v-text-field :rules="nameRules" rounded dense background-color="#fff"
-                        label="* ເລກໄມປະຈຸບັນ" v-model="h_KML_5"></v-text-field></div>
+                        label="* ເລກໄມປະຈຸບັນ" readonly v-model="h_KML_5"></v-text-field></div>
                     <div style="width:100%"></div>
                   </div>
                 </div>
@@ -488,7 +485,7 @@
                     <div style="width:100%"><v-text-field :rules="nameRules" rounded dense background-color="#fff"
                         label="* ເລກໄມລ່າສຸດ" v-model="h_KM6"></v-text-field></div>
                     <div style="width:100%"> <v-text-field :rules="nameRules" rounded dense background-color="#fff"
-                        label="* ເລກໄມປະຈຸບັນ" v-model="h_KML_6"></v-text-field></div>
+                        label="* ເລກໄມປະຈຸບັນ" readonly v-model="h_KML_6"></v-text-field></div>
                     <div style="width:100%"></div>
                   </div>
                 </div>
@@ -517,7 +514,7 @@
                     <div style="width:100%"> <v-text-field :rules="nameRules" rounded dense background-color="#fff"
                         label="* ເລກໄມລ່າສຸດ" v-model="h_KM7"></v-text-field></div>
                     <div style="width:100%"> <v-text-field :rules="nameRules" rounded dense background-color="#fff"
-                        label="* ເລກໄມປະຈຸບັນ" v-model="h_KML_7"></v-text-field></div>
+                        label="* ເລກໄມປະຈຸບັນ" readonly v-model="h_KML_7"></v-text-field></div>
                     <div style="width:100%"></div>
                   </div>
                 </div>
@@ -538,7 +535,7 @@
                     <div style="width:100%"><v-text-field :rules="nameRules" rounded dense background-color="#fff"
                         label="* ເລກໄມລ່າສຸດ" v-model="h_KM8"></v-text-field></div>
                     <div style="width:100%"><v-text-field :rules="nameRules" rounded dense background-color="#fff"
-                        label="* ເລກໄມປະຈຸບັນ" v-model="h_KML_8"></v-text-field></div>
+                        label="* ເລກໄມປະຈຸບັນ" readonly v-model="h_KML_8"></v-text-field></div>
                     <div style="width:100%"></div>
                   </div>
                 </div>
@@ -557,7 +554,7 @@
                     <div style="width:100%"><v-text-field :rules="nameRules" rounded dense background-color="#fff"
                         label="* ເລກໄມລ່າສຸດ" v-model="h_KM9"></v-text-field></div>
                     <div style="width:100%"> <v-text-field :rules="nameRules" rounded dense background-color="#fff"
-                        label="* ເລກໄມປະຈຸບັນ" v-model="h_KML_9"></v-text-field></div>
+                        label="* ເລກໄມປະຈຸບັນ" readonly v-model="h_KML_9"></v-text-field></div>
                     <div style="width:100%"></div>
                   </div>
                 </div>
@@ -575,7 +572,7 @@
                     <div style="width:100%"> <v-text-field :rules="nameRules" rounded dense background-color="#fff"
                         label="* ເລກໄມລ່າສຸດ" v-model="h_KM10"></v-text-field></div>
                     <div style="width:100%"> <v-text-field :rules="nameRules" rounded dense background-color="#fff"
-                        label="* ເລກໄມປະຈຸບັນ" v-model="h_KML_10"></v-text-field></div>
+                        label="* ເລກໄມປະຈຸບັນ" readonly v-model="h_KML_10"></v-text-field></div>
                     <div style="width:100%"></div>
                   </div>
                 </div>
@@ -593,7 +590,7 @@
                     <div style="width:100%"> <v-text-field :rules="nameRules" rounded dense background-color="#fff"
                         label="* ເລກໄມລ່າສຸດ" v-model="h_KM11"></v-text-field></div>
                     <div style="width:100%"> <v-text-field :rules="nameRules" rounded dense background-color="#fff"
-                        label="* ເລກໄມປະຈຸບັນ" v-model="h_KML_11"></v-text-field></div>
+                        label="* ເລກໄມປະຈຸບັນ" readonly v-model="h_KML_11"></v-text-field></div>
                     <div style="width:100%"></div>
                   </div>
                 </div>
@@ -610,7 +607,7 @@
                     <div style="width:100%"><v-text-field :rules="nameRules" rounded dense background-color="#fff"
                         label="* ເລກໄມລ່າສຸດ" v-model="h_KM12"></v-text-field></div>
                     <div style="width:100%"><v-text-field :rules="nameRules" rounded dense background-color="#fff"
-                        label="* ເລກໄມປະຈຸບັນ" v-model="h_KML_12"></v-text-field></div>
+                        label="* ເລກໄມປະຈຸບັນ" readonly v-model="h_KML_12"></v-text-field></div>
                     <div style="width:100%"></div>
                   </div>
                 </div>
@@ -631,7 +628,7 @@
                 <div style="width:100%"><v-text-field :rules="nameRules" rounded dense background-color="#fff"
                     label="* ເລກໄມລ່າສຸດ" v-model="h_KM13"></v-text-field></div>
                 <div style="width:100%"> <v-text-field :rules="nameRules" rounded dense background-color="#fff"
-                    label="* ເລກໄມປະຈຸບັນ" v-model="h_KML_13"></v-text-field></div>
+                    label="* ເລກໄມປະຈຸບັນ" readonly v-model="h_KML_13"></v-text-field></div>
                 <div style="width:100%"></div>
               </div>
             </div>
@@ -669,6 +666,11 @@ import swal from 'sweetalert2'
 export default {
   data() {
     return {
+      kim_KM: '',
+      h_LEK_NUMMUNKHG: '',
+      nameRules: [
+        v => !!v || 'ປ້ອນຂໍ້ມູນ',
+      ],
       loading_processing: false,
       chooseCarType: '10',
       valid: true,
@@ -828,6 +830,7 @@ export default {
       this.h_KML_12 = result
       this.h_KML_13 = result
     },
+
     h_LEK_NUMMUNKHG: function (value) {
 
       const result = value?.replace(/\D/g, '')?.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
@@ -896,6 +899,11 @@ export default {
     this.onGetmorfaiList()
   },
   methods: {
+    calculateH_LEK_NUMMUNKHG() {
+      const kimKMValue = parseFloat(this.kim_KM.split(',').join(''));
+      const calculatedValue = kimKMValue + 40000;
+      this.h_LEK_NUMMUNKHG = calculatedValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    },
     openUpload() {
       document.getElementById('file-field').click()
     },

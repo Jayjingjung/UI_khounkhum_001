@@ -344,12 +344,12 @@
             <div style="width:100%" class="pt-4">
               <div style="display:flex;justify-content:space-between">
                 <div style="width:100%">
-                  <v-text-field outlined background-color="#f5f5f5" dense label="ຄ່າຊິງມະຫາໄຊ"
+                  <v-text-field outlined background-color="#f5f5f5" dense :label="changnamejumpo2"
                     v-model="formattedFeeJumPo2"></v-text-field>
-
                 </div>
+
                 <div style="width:100%" class="pl-2">
-                  <v-text-field outlined background-color="#f5f5f5" dense label="ຄ່າຊິງນາອິນ"
+                  <v-text-field outlined background-color="#f5f5f5" dense :label="changnamepassport"
                     v-model="formattedfeePassport"></v-text-field>
                 </div>
                 <div style="width:100%" class="px-2">
@@ -373,7 +373,7 @@
               <div style="display:flex;justify-content:space-between">
 
                 <div style="width:100%">
-                  <v-text-field outlined background-color="#f5f5f5" dense label="ຄ່າຊິບປິ້ງຫວຽດແລ່ນເອກະສານ"
+                  <v-text-field outlined background-color="#f5f5f5" dense :label="changnameformattedFeeTaxung4"
                     v-model="formattedFeeTaxung4"></v-text-field>
                 </div>
                 <div style="width:100%" class="px-2">
@@ -381,10 +381,10 @@
                     v-model="formattedFeesing"></v-text-field>
                 </div>
                 <div style="width:100%"><v-text-field outlined background-color="#f5f5f5" dense
-                    label="ຄ່າແຈ້ງເອກະສານຢູ່ບ່ອນຂຶ້ນເກືອ" v-model="formattedFeesaphan"></v-text-field>
+                    :label="changnameformattedFeesaphan" v-model="formattedFeesaphan"></v-text-field>
                 </div>
                 <div style="width:100%" class="pl-2">
-                  <v-text-field outlined background-color="#f5f5f5" dense label="ຄ່າລົງເກືອ"
+                  <v-text-field outlined background-color="#f5f5f5" dense :label="changnameformattedFeecontrainer"
                     v-model="formattedFeecontrainer"></v-text-field>
                 </div>
                 <div style="width:100%" class="pl-2">
@@ -420,7 +420,7 @@
       <div id="modalInvoice">
         <v-row>
           <v-col cols="3">
-            <img class="mx-auto" src="../assets/images/khounkham.png" height="70px" />
+            <img class="mx-auto" src="../assets/images/logo01.png" height="70px" />
           </v-col>
           <v-col cols="9">
             <div style="display:flex;justify-content:start;flex-direction:column;align-items:start">
@@ -529,7 +529,7 @@
                 </div>
               </td>
             </tr>
-            
+
             <tr style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;border-radius:10px">
               <td
                 style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px;">
@@ -1865,7 +1865,10 @@ export default {
     return {
       debtType: 'out_debt',
       name: '', // Input field for the name
+      loading_processing: false,
 
+      TOTAL_branchName: '', // Initialize TOTAL_branchName
+      // changnamepassport: '', // Initialize TOTAL_branchName
 
       outDebtChecked: false,
       inDebtChecked: false,
@@ -2306,6 +2309,76 @@ export default {
 
 
   computed: {
+    changnamejumpo2() {
+      switch (this.TOTAL_branchName) {
+        case 'Thakhaek':
+          return 'ຄ່າຊິງມະຫາໄຊ';
+        case 'XiengKhouang':
+          return 'ຄ່າຊິງມະຫາໄຊ';
+        case 'vientiane':
+          return 'ຄ່າຊິງມະຫາໄຊ';
+        case 'Savannakhet':
+          return 'ຄ່າຈ້ຳພາດສະປອດ';
+        default:
+          return this.TOTAL_branchName; // Use the branchName if no match found
+      }
+    },
+    changnamepassport() {
+      switch (this.TOTAL_branchName) {
+        case 'Thakhaek':
+          return 'ຄ່າຊິງນາອິນ';
+        case 'XiengKhouang':
+          return 'ຄ່າຊິງນາອິນ';
+        case 'vientiane':
+          return 'ຄ່າຊິງນາອິນ';
+        case 'Savannakhet':
+          return 'ຄ່າຊິງ';
+        default:
+          return this.TOTAL_branchName; // Use the branchName if no match found
+      }
+    },
+    changnameformattedFeeTaxung4() {
+      switch (this.TOTAL_branchName) {
+        case 'Thakhaek':
+          return 'ຄ່າຊິບປິ້ງຫວຽດແລ່ນເອກະສານ';
+        case 'XiengKhouang':
+          return 'ຄ່າຊິບປິ້ງຫວຽດແລ່ນເອກະສານ';
+        case 'vientiane':
+          return 'ຄ່າຊິບປິ້ງຫວຽດແລ່ນເອກະສານ';
+        case 'Savannakhet':
+          return 'ຄ່າລົດຂ້າມຂົວດ່ານລາວ-ໄທ';
+        default:
+          return this.TOTAL_branchName; // Use the branchName if no match found
+      }
+    },
+    changnameformattedFeesaphan() {
+      switch (this.TOTAL_branchName) {
+        case 'Thakhaek':
+          return 'ຄ່າແຈ້ງເອກະສານຢູ່ບ່ອນຂຶ້ນເກືອ';
+        case 'XiengKhouang':
+          return 'ຄ່າແຈ້ງເອກະສານຢູ່ບ່ອນຂຶ້ນເກືອ';
+        case 'vientiane':
+          return 'ຄ່າແຈ້ງເອກະສານຢູ່ບ່ອນຂຶ້ນເກືອ';
+        case 'Savannakhet':
+          return 'ຄ່າຈ້ຳຄົນແລະລົດ';
+        default:
+          return this.TOTAL_branchName; // Use the branchName if no match found
+      }
+    },
+    changnameformattedFeecontrainer() {
+      switch (this.TOTAL_branchName) {
+        case 'Thakhaek':
+          return 'ຄ່າລົງເກືອ';
+        case 'XiengKhouang':
+          return 'ຄ່າລົງເກືອ';
+        case 'vientiane':
+          return 'ຄ່າລົງເກືອ';
+        case 'Savannakhet':
+          return 'ຄ່າສິດຢາຂ້າເຊື້ອ';
+        default:
+          return this.TOTAL_branchName; // Use the branchName if no match found
+      }
+    },
     formattedFeeJumPo2: {
       get() {
         if (!this.FeeJumPo2) return '';
@@ -2427,6 +2500,7 @@ export default {
 
 
   mounted() {
+    this.total_count()
     this.onGetTruckList()
     this.onGetEmployeeListStaff022()
     this.onGetEmployeeList()
@@ -3112,8 +3186,23 @@ export default {
         })
       }
     },
-
-
+    async total_count() {
+      try {
+        this.loading_processing = true;
+        const data = await this.$axios.$post('/getNotiTab3.service', {
+          toKen: localStorage.getItem('toKen')
+        });
+        this.loading_processing = false;
+        this.TOTAL_branchName = data?.branchName || ''; // Update TOTAL_branchName with data from API
+      } catch (error) {
+        this.loading_processing = false;
+        swal.fire({
+          icon: 'error',
+          text: error.message || 'An error occurred'
+        });
+        console.error(error);
+      }
+    }
 
 
 

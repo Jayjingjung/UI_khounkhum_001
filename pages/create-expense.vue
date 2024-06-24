@@ -6,13 +6,14 @@
                 <div style="height:80vh;width:350px;border-radius:5px;border:1px solid #e0e0e0" class="pa-8">
 
 
-                    <v-select dense outlined label="ເລືອກລາຍຮັບ ຫຼື ລາຍຈາຍ" v-model="statusFInsert" :items="statusOptions"
-                        item-text="text" item-value="value"></v-select>
+                    <v-select dense outlined label="ເລືອກລາຍຮັບ ຫຼື ລາຍຈ່າຍ" v-model="statusFInsert"
+                        :items="statusOptions" item-text="text" item-value="value"></v-select>
 
 
 
-                    <v-select dense outlined label="ເລືອກປະເພດລາຍຮັບ - ລາຍຈ່າຍ" v-model="type" :items="expense_list_type"
-                        item-text="typeName" item-value="key_id" :rules="nameRules"></v-select>
+                    <v-select dense outlined label="ເລືອກປະເພດລາຍຮັບ - ລາຍຈ່າຍ" v-model="type"
+                        :items="expense_list_type" item-text="typeName" item-value="key_id"
+                        :rules="nameRules"></v-select>
                     <v-text-field dense outlined label="ຈຳນວນ" v-model="amount"></v-text-field>
                     <v-text-field dense outlined label="ລາຄາ/ອັນ" v-model="perAmount"></v-text-field>
                     <v-text-field dense outlined label="ລາຄາທັງໝົດ" v-model="totalAmount" readonly
@@ -21,8 +22,9 @@
                     <v-menu ref="start_menu" v-model="start_menu" :close-on-content-click="false"
                         :return-value.sync="dateSave" transition="scale-transition" offset-y min-width="auto">
                         <template v-slot:activator="{ on, attrs }">
-                            <v-text-field dense outlined v-model="dateSave" :rules="nameRules" required  label="ວັນທີໄດ້ລາຍຮັບ ຫຼື ຈ່າຍອອກ" 
-                                append-icon="mdi-calendar" readonly v-bind="attrs" v-on="on"></v-text-field>
+                            <v-text-field dense outlined v-model="dateSave" :rules="nameRules" required
+                                label="ວັນທີໄດ້ລາຍຮັບ ຫຼື ຈ່າຍອອກ" append-icon="mdi-calendar" readonly v-bind="attrs"
+                                v-on="on"></v-text-field>
                         </template>
                         <v-date-picker v-model="dateSave" no-title scrollable @input="$refs.start_menu.save(dateSave)">
                             <v-spacer></v-spacer>
@@ -39,14 +41,15 @@
                     <v-card-title>ແກ້ໄຂ</v-card-title>
                     <v-card-text>
                         <div style="border-radius:5px;background-color:#f5f5f5" class="pa-8">
-                            <v-select dense outlined label="Select Status" v-model="statusFInsert" :items="statusOptions"
-                                item-text="text" item-value="value"></v-select>
+                            <v-select dense outlined label="Select Status" v-model="statusFInsert"
+                                :items="statusOptions" item-text="text" item-value="value"></v-select>
                             <v-select dense outlined label="ເລືອກປະເພດ" v-model="type1"
                                 :items="list_expense_type_for_up"></v-select>
 
                             <v-text-field dense outlined label="ຈຳນວນ" v-model="amount1"></v-text-field>
                             <v-text-field dense outlined label="ລາຄາ/ອັນ" v-model="perAmount1"></v-text-field>
-                            <v-text-field dense outlined label="ລາຄາທັງໝົດ" v-model="totalAmount1" readonly></v-text-field>
+                            <v-text-field dense outlined label="ລາຄາທັງໝົດ" v-model="totalAmount1"
+                                readonly></v-text-field>
                             <v-menu ref="start_menu1" v-model="start_menu1" :close-on-content-click="false"
                                 :return-value.sync="dateSave1" transition="scale-transition" offset-y min-width="auto">
                                 <template v-slot:activator="{ on, attrs }">
@@ -65,7 +68,8 @@
                                 <v-spacer></v-spacer>
                                 <v-btn elevation="0" color="red" class="white--text mr-2"
                                     @click="updateDia = false">ຍົກເລຶກ</v-btn>
-                                <v-btn elevation="0" color="#FFB74D" class="white--text" @click="onUpdate">ອັບເດດ</v-btn>
+                                <v-btn elevation="0" color="#FFB74D" class="white--text"
+                                    @click="onUpdate">ອັບເດດ</v-btn>
                             </div>
                         </div>
                     </v-card-text>
@@ -74,11 +78,13 @@
             <!-- ຂໍ້ມູນລາຍຈ່າຍ -->
             <div style="width:100%;height:80vh;border:1px solid #e0e0e0;border-radius:5px" class="ml-2">
                 <div style="width:15%;">
-                <v-btn to="/report-expense"  style="margin-bottom:10px ;margin-top: 10px; margin-left: 10px; margin-right: 10px;" block color="#3d3d3d" class="white--text" >ລາຍງານຮັບ - ລາຍຈ່າຍ ອື່ນໆ</v-btn>
+                    <v-btn to="/report-expense"
+                        style="margin-bottom:10px ;margin-top: 10px; margin-left: 10px; margin-right: 10px;" block
+                        color="#3d3d3d" class="white--text">ລາຍງານຮັບ - ລາຍຈ່າຍ ອື່ນໆ</v-btn>
                 </div>
                 <div style="">
                     <v-card-title style="background-color:#e64141;color:white">ຂໍ້ມູນລາຍຮັບ - ລາຍຈ່າຍ</v-card-title>
-                    
+
                     <v-card-text class="pt-3">
                         <div style="padding-bottom:10px">
                             <span>ທັງໝົດ:
@@ -94,17 +100,20 @@
                                 <template v-slot:item="row">
                                     <tr>
                                         <td>{{ row?.item?.exPType }}</td>
-                                        <td>{{ row?.item?.amount?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</td>
-                                        <td>{{ row?.item?.perAmount?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}
+                                        <td>{{ row?.item?.amount?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}
                                         </td>
-                                        <td>{{ row?.item?.toTal?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</td>
+                                        <td>{{ row?.item?.perAmount?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+                                            }}
+                                        </td>
+                                        <td>{{ row?.item?.toTal?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}
+                                        </td>
                                         <td>{{ row?.item?.expDate }}</td>
                                         <td>{{ row?.item?.cdate }}</td>
                                         <td>{{ row.item.ref_NO }}</td>
                                         <td>{{ row?.item?.status }}</td>
                                         <td>
                                             <v-btn color="#FFB74D" small elevation="0"
-                                                @click="onGetDaForUp(row?.item?.key_id, row?.item?.exPType, row?.item?.amount, row?.item?.perAmount, row?.item?.toTal, row?.item?.date, row?.item?.ref_NO,row?.item?.status,)">
+                                                @click="onGetDaForUp(row?.item?.key_id, row?.item?.exPType, row?.item?.amount, row?.item?.perAmount, row?.item?.toTal, row?.item?.date, row?.item?.ref_NO, row?.item?.status,)">
 
 
                                                 <v-icon color="white">mdi-pencil</v-icon>
@@ -262,8 +271,9 @@ export default {
         },
         onGetExpenseTypeAll() {
             try {
-                this.$axios.$post('/getExpensesTypeAll.service',{  toKen: localStorage.getItem('toKen'),
-            }).then((data) => {
+                this.$axios.$post('/getExpensesTypeAll.service', {
+                    toKen: localStorage.getItem('toKen'),
+                }).then((data) => {
                     this.expense_list_type = data?.data
                 })
             } catch (error) {
@@ -272,8 +282,8 @@ export default {
         },
         onGetExpense() {
             let data = {
-                "startDate":null, 
-                "endDate":null,
+                "startDate": null,
+                "endDate": null,
                 "status": "0",
                 toKen: localStorage.getItem('toKen'),
             }
@@ -290,7 +300,7 @@ export default {
                     });
                 });
         },
-        onGetDaForUp(key_id, exPType, amount, perAmount, toTal, date,ref_NO,status) {
+        onGetDaForUp(key_id, exPType, amount, perAmount, toTal, date, ref_NO, status) {
             this.list_expense_type_for_up = this.expense_list_type.map((list) => {
                 return list?.typeName;
             });
@@ -326,7 +336,7 @@ export default {
             let datas = this.expense_list_type.filter((el) => el.typeName === this.type1);
 
             let data = {
-                status:  this.statusFInsert,
+                status: this.statusFInsert,
                 key_id: this.key_up,
                 exPType: datas[0]?.key_id,
                 toTal: this.totalAmount1?.split(',').join(''),
@@ -336,7 +346,7 @@ export default {
                 toKen: localStorage.getItem('toKen'),
                 // expDate: this.updateDia,
 
-                
+
                 expDate: this.dateSave1
 
             }

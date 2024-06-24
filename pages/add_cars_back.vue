@@ -848,7 +848,9 @@ export default {
                             timer: 1000,
                         }).then(() => {
                             // Reload the page after the swal message is closed
-                            window.location.reload();
+                            // window.location.reload();
+                            window.location.href = '/cars_footer';
+
                         });
                     } else {
                         this.loading_processing = false

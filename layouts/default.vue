@@ -8,7 +8,7 @@
       </v-dialog>
 
       <v-btn class="mx-2" fab dark small color="white">
-        <img @click="onGoTo" class="mx-auto" src="../assets/images/khounkham.png" width="80" />
+        <img @click="onGoTo" class="mx-auto" src="../assets/images/logo01.png" width="80" />
       </v-btn>
       <!-- menu ຈັດການຂໍ້ມູນພື້ນຖານ -->
       <v-menu style="width: 190px;" v-if="USER_ROLE !== 'FINANCE'" offset-y>
@@ -44,12 +44,12 @@
           <!-- <v-btn v-if="USER_ROLE !=='USER'" color="white" to="create-expense" elevation="0" block><span
               class="black--text">ເພີ່ມລາຍຈ່າຍ</span><v-spacer></v-spacer></v-btn> -->
 
-            <!-- Gas -->
+          <!-- Gas -->
 
-              <v-btn color="white" to="insert _gas" elevation="0" block><span
+          <v-btn color="white" to="insert _gas" elevation="0" block><span
               class="black--text">ເພີ່ມສະຖານີປໍານໍ້າມັນ</span><v-spacer></v-spacer></v-btn>
 
-              <!-- Gas -->
+          <!-- Gas -->
         </v-list>
       </v-menu>
 
@@ -170,7 +170,7 @@
           class="black--text">ປ່ອຍລົດ</span></v-btn>  -->
 
       <!-- menu ລາຍງານ -->
-      <v-menu offset-y>
+      <v-menu style="height: 200px;" offset-y>
         <template v-slot:activator="{ on, attrs }">
           <v-btn color="white" v-bind="attrs" v-on="on" text class="ml-2" elevation="0">
             <v-icon color="#fff" size="18">mdi-poll</v-icon>
@@ -257,6 +257,7 @@
 
 
       <v-chip v-if="TOTAL_branchName">{{ branchDisplayName }}</v-chip>
+    
 
       <v-btn rounded @click="onLogOut" text elevation="0">
         <v-icon color="white">mdi-power</v-icon>
@@ -303,64 +304,60 @@ export default {
     branchDisplayName() {
       switch (this.TOTAL_branchName) {
         case 'Thakhaek':
-          return 'ທ່າເເຂກ'
+          return 'ທ່າເເຂກ';
         case 'XiengKhouang':
-          return 'ຊຽງຂວາງ'
-          case 'vientiane':
-          return 'ວຽງຈັນ'
+          return 'ຊຽງຂວາງ';
+        case 'vientiane':
+          return 'ວຽງຈັນ';
+        case 'Savannakhet':
+          return 'ສະຫວັນນະເຂດ';
         default:
-          return ''
+          return this.TOTAL_branchName;
       }
     }
   },
   mounted() {
-    this.USER_ID = localStorage.getItem('USER_ID')
-    this.USER_NAME = localStorage.getItem('USER_NAME')
-    this.USER_ROLE = localStorage.getItem('USER_ROLE')
-    this.total_count()
+    this.USER_ID = localStorage.getItem('USER_ID');
+    this.USER_NAME = localStorage.getItem('USER_NAME');
+    this.USER_ROLE = localStorage.getItem('USER_ROLE');
+    this.total_count();
   },
   methods: {
     onPrint() {
-      window.print()
+      window.print();
     },
     onGoTo() {
-      this.$router.push('/homepage')
+      this.$router.push('/homepage');
     },
     onLogOut() {
-      localStorage.clear()
-      this.$router.push('/')
+      localStorage.clear();
+      this.$router.push('/');
     },
-
-    total_count() {
+    async total_count() {
       try {
         this.loading_processing = true;
-        this.$axios.$post('/getNotiTab3.service'
-          , {
-            toKen: localStorage.getItem('toKen'),
-
-          }
-        ).then((data) => {
-          this.loading_processing = false
-          this.TOTAL = data?.totalRow
-          this.TOTAL_INVOICE = data?.notiInvoice
-          this.TOTAL_FORMANCE = data?.notiPerForMance
-          this.TOTAL_branchName = data?.branchName
-
-          this.TOTAL_payStatus = data?.payStatus
-          this.TOTAL_notiDetails = data?.notiDetails
-          this.TOTAL_totalOwe = data?.totalOwe
-        })
+        const data = await this.$axios.$post('/getNotiTab3.service', {
+          toKen: localStorage.getItem('toKen')
+        });
+        this.loading_processing = false;
+        this.TOTAL = data?.totalRow || '';
+        this.TOTAL_INVOICE = data?.notiInvoice || '';
+        this.TOTAL_FORMANCE = data?.notiPerForMance || '';
+        this.TOTAL_branchName = data?.branchName || '';
+        this.TOTAL_payStatus = data?.payStatus || '';
+        this.TOTAL_notiDetails = data?.notiDetails || '';
+        this.TOTAL_totalOwe = data?.totalOwe || '';
       } catch (error) {
-        this.loading_processing = false
+        this.loading_processing = false;
         swal.fire({
           icon: 'error',
-          text: error
-        })
-        console.log(error)
+          text: error.message || 'An error occurred'
+        });
+        console.error(error);
       }
     }
-  },
-}
+  }
+};
 </script>
 <style lang="scss">
 .bg {

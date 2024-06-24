@@ -126,7 +126,7 @@
             <div id="modalInvoice">
                 <v-row>
                     <v-col cols="3">
-                        <img class="mx-auto" src="../assets/images/khounkham.png" height="70px" cover />
+                        <img class="mx-auto" src="../assets/images/logo01.png" height="70px" cover />
                     </v-col>
                     <v-col cols="9">
                         <div style="display:flex;justify-content:start;flex-direction:column;align-items:start">
@@ -276,7 +276,7 @@
             <div id="modalInvoices">
                 <v-row>
                     <v-col cols="3">
-                        <img class="mx-auto" src="../assets/images/khounkham.png" height="70px" cover />
+                        <img class="mx-auto" src="../assets/images/logo01.png" height="70px" cover />
                     </v-col>
                     <v-col cols="9">
                         <div style="display:flex;justify-content:start;flex-direction:column;align-items:start">

@@ -53,8 +53,7 @@
 
                         <div style="background-color:#f5f5f5;width:250px;border-radius:5px" class="pa-4 mr-10 ml-10">
                             <div style="width:100%">
-                                <v-autocomplete outlined dense label="ເລືອກສິນຄ້າ" 
-                                :items="products_data_list"
+                                <v-autocomplete outlined dense label="ເລືອກສິນຄ້າ" :items="products_data_list"
                                     item-text="proName" item-value="id" @change="onGetProductDetails"></v-autocomplete>
                             </div>
 
@@ -206,7 +205,7 @@
             <div id="modalInvoice">
                 <v-row>
                     <v-col cols="3">
-                        <img class="mx-auto" src="../assets/images/khounkham.png" height="70px" cover />
+                        <img class="mx-auto" src="../assets/images/logo01.png" height="70px" cover />
                     </v-col>
                     <v-col cols="9">
                         <div style="display:flex;justify-content:start;flex-direction:column;align-items:start">
@@ -304,10 +303,12 @@
                                     performaceGroupFee?.staff_BIALIENG }} {{ performaceGroupDetails?.staff_Cur }}</td>
                             </tr>
                             <tr style="padding:5px;border: 0.5px solid #999;">
-                                <td style="border: 0.5px solid #999;padding:5px">ຄ່າຊິງມະຫາໄຊ</td>
+                                <td style="border: 0.5px solid #999;padding:5px">{{ changnamejumpo2 }}</td>
                                 <td style="border: 0.5px solid #999;padding:5px">{{
-                                    performaceGroupFee?.performancejumpho }}</td>
+                                    performaceGroupFee?.performancejumpho }}
+                                </td>
                             </tr>
+
                             <tr style="padding:5px;border: 0.5px solid #999;">
                                 <td style="border: 0.5px solid #999;padding:5px">ຄ່າຕຳລວດ</td>
                                 <td style="border: 0.5px solid #999;padding:5px">{{
@@ -319,7 +320,7 @@
                                     performaceGroupFee?.performancefe_PAYANG }}</td>
                             </tr>
                             <tr style="padding:5px;border: 0.5px solid #999;">
-                                <td style="border: 0.5px solid #999;padding:5px">ຄ່າຊິບປິ້ງຫວຽດແລ່ນເອກະສານ</td>
+                                <td style="border: 0.5px solid #999;padding:5px">{{changnameformattedFeeTaxung4}}</td>
                                 <td style="border: 0.5px solid #999;padding:5px">{{
                                     performaceGroupFee?.performancefeetaxung }}</td>
                             </tr>
@@ -339,7 +340,7 @@
             performaceGroupFee?.performanceboderlak20 }}</td>
                             </tr> -->
                             <tr style="padding:5px;border: 0.5px solid #999;">
-                                <td style="border: 0.5px solid #999;padding:5px">ຄ່າຊິງນາອິນ</td>
+                                <td style="border: 0.5px solid #999;padding:5px">{{changnamepassport}}</td>
                                 <td style="border: 0.5px solid #999;padding:5px">{{
                                     performaceGroupFee?.performancepassport }}</td>
                             </tr>
@@ -355,12 +356,12 @@
                             </tr>
 
                             <tr style="padding:5px;border: 0.5px solid #999;">
-                                <td style="border: 0.5px solid #999;padding:5px">ຄ່າແຈ້ງເອກະສານຢູ່ບ່ອນຂຶ້ນເກືອ</td>
+                                <td style="border: 0.5px solid #999;padding:5px">{{changnameformattedFeesaphan}}</td>
                                 <td style="border: 0.5px solid #999;padding:5px">{{
                                     performaceGroupFee?.performancefeesaphan }}</td>
                             </tr>
                             <tr style="padding:5px;border: 0.5px solid #999;">
-                                <td style="border: 0.5px solid #999;padding:5px">ຄ່າລົງເກືອ</td>
+                                <td style="border: 0.5px solid #999;padding:5px">{{changnameformattedFeecontrainer}}</td>
                                 <td style="border: 0.5px solid #999;padding:5px">{{
                                     performaceGroupFee?.performancefeeoutcontainer }}</td>
                             </tr>
@@ -466,7 +467,7 @@
             <div id="Print_all">
                 <v-row>
                     <v-col cols="3">
-                        <img class="mx-auto" src="../assets/images/khounkham.png" height="70px" cover />
+                        <img class="mx-auto" src="../assets/images/logo01.png" height="70px" cover />
                     </v-col>
                     <v-col cols="9">
                         <div style="display:flex;justify-content:start;flex-direction:column;align-items:start">
@@ -595,13 +596,15 @@ export default {
             sumAmount: null,
             sumTonProSize: null,
             showAlert: false,
+            formattedFeeJumPo2: '', // Initialize your v-model
+            TOTAL_branchName: '', // Initialize TOTAL_branchName
             valid: true,
             nameRules: [(v) => !!v || 'ຕ້ອງເລືອກ'],
             search: '',
             loading_processing: false,
             end_menu: false,
             product_name: '',
-            customer_data_list:[],
+            customer_data_list: [],
             end_date: null,
             start_menu: false,
             start_date: null,
@@ -636,6 +639,76 @@ export default {
     },
 
     computed: {
+        changnamejumpo2() {
+        switch (this.TOTAL_branchName) {
+            case 'Thakhaek':
+                return 'ຄ່າຊິງມະຫາໄຊ';
+            case 'XiengKhouang':
+                return 'ຄ່າຊິງມະຫາໄຊ';
+            case 'vientiane':
+                return 'ຄ່າຊິງມະຫາໄຊ';
+            case 'Savannakhet':
+                return 'ຄ່າຈ້ຳພາດສະປອດ';
+            default:
+                return this.TOTAL_branchName; // Use the branchName if no match found
+        }
+    },
+        changnamepassport() {
+            switch (this.TOTAL_branchName) {
+                case 'Thakhaek':
+                    return 'ຄ່າຊິງນາອິນ';
+                case 'XiengKhouang':
+                    return 'ຄ່າຊິງນາອິນ';
+                case 'vientiane':
+                    return 'ຄ່າຊິງນາອິນ';
+                case 'Savannakhet':
+                    return 'ຄ່າຊິງ';
+                default:
+                    return this.TOTAL_branchName; // Use the branchName if no match found
+            }
+        },
+        changnameformattedFeeTaxung4() {
+            switch (this.TOTAL_branchName) {
+                case 'Thakhaek':
+                    return 'ຄ່າຊິບປິ້ງຫວຽດແລ່ນເອກະສານ';
+                case 'XiengKhouang':
+                    return 'ຄ່າຊິບປິ້ງຫວຽດແລ່ນເອກະສານ';
+                case 'vientiane':
+                    return 'ຄ່າຊິບປິ້ງຫວຽດແລ່ນເອກະສານ';
+                case 'Savannakhet':
+                    return 'ຄ່າລົດຂ້າມຂົວດ່ານລາວ-ໄທ';
+                default:
+                    return this.TOTAL_branchName; // Use the branchName if no match found
+            }
+        },
+        changnameformattedFeesaphan() {
+            switch (this.TOTAL_branchName) {
+                case 'Thakhaek':
+                    return 'ຄ່າແຈ້ງເອກະສານຢູ່ບ່ອນຂຶ້ນເກືອ';
+                case 'XiengKhouang':
+                    return 'ຄ່າແຈ້ງເອກະສານຢູ່ບ່ອນຂຶ້ນເກືອ';
+                case 'vientiane':
+                    return 'ຄ່າແຈ້ງເອກະສານຢູ່ບ່ອນຂຶ້ນເກືອ';
+                case 'Savannakhet':
+                    return 'ຄ່າຈ້ຳຄົນແລະລົດ';
+                default:
+                    return this.TOTAL_branchName; // Use the branchName if no match found
+            }
+        },
+        changnameformattedFeecontrainer() {
+            switch (this.TOTAL_branchName) {
+                case 'Thakhaek':
+                    return 'ຄ່າລົງເກືອ';
+                case 'XiengKhouang':
+                    return 'ຄ່າລົງເກືອ';
+                case 'vientiane':
+                    return 'ຄ່າລົງເກືອ';
+                case 'Savannakhet':
+                    return 'ຄ່າສິດຢາຂ້າເຊື້ອ';
+                default:
+                    return this.TOTAL_branchName; // Use the branchName if no match found
+            }
+        },
         formattedStartDate() {
             if (!this.start_date) return ''; // Return empty string if date is not set
             const dateObj = new Date(this.start_date);
@@ -655,9 +728,10 @@ export default {
     },
 
     mounted() {
+        this.total_count()
         this.onGetAllPermance()
         this.onGetProductsList();
-        this.onGetCustomerList(); 
+        this.onGetCustomerList();
     },
     methods: {
 
@@ -685,29 +759,29 @@ export default {
             }
         },
         async onGetCustomerList() {
-        try {
-            this.loading_processing = true;
-            const response = await this.$axios.$post('getAllCustomer', {
-                toKen: localStorage.getItem('toKen'),
-            });
-            if (response?.status === '00') {
-                this.customer_data_list = response?.data;
+            try {
+                this.loading_processing = true;
+                const response = await this.$axios.$post('getAllCustomer', {
+                    toKen: localStorage.getItem('toKen'),
+                });
+                if (response?.status === '00') {
+                    this.customer_data_list = response?.data;
+                    this.loading_processing = false;
+                    console.log('customer_list:', response);
+                }
+            } catch (error) {
                 this.loading_processing = false;
-                console.log('customer_list:', response);
+                console.error(error);
+                swal.fire({
+                    title: 'ແຈ້ງເຕືອນ',
+                    text: error.message || 'Unknown error occurred',
+                    icon: 'error',
+                    allowOutsideClick: false,
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: 'OK',
+                });
             }
-        } catch (error) {
-            this.loading_processing = false;
-            console.error(error);
-            swal.fire({
-                title: 'ແຈ້ງເຕືອນ',
-                text: error.message || 'Unknown error occurred',
-                icon: 'error',
-                allowOutsideClick: false,
-                confirmButtonColor: '#3085d6',
-                confirmButtonText: 'OK',
-            });
-        }
-    },
+        },
         onCheckAlert() {
             this.report_peration_list.map((list) => {
                 if (list?.totalDay >= '7' && list?.status === 'N') {
@@ -766,7 +840,7 @@ export default {
                         } else {
                             this.sumAmount = 'N/A';
                             this.sumTonProSize = 'N/A';
-                            
+
                         }
 
                         // Count success and waiting statuses in the fetched data
@@ -869,7 +943,23 @@ export default {
             section.appendChild(cloned);
             window.print();
         },
-
+        async total_count() {
+            try {
+                this.loading_processing = true;
+                const data = await this.$axios.$post('/getNotiTab3.service', {
+                    toKen: localStorage.getItem('toKen')
+                });
+                this.loading_processing = false;
+                this.TOTAL_branchName = data?.branchName || ''; // Update TOTAL_branchName with data from API
+            } catch (error) {
+                this.loading_processing = false;
+                swal.fire({
+                    icon: 'error',
+                    text: error.message || 'An error occurred'
+                });
+                console.error(error);
+            }
+        }
     }
 }
 </script>

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <v-card class="card-shadow" rounded="lg" style="border:0.5px solid #e0e0e0;border-radius:3px">
+        <v-card class="card-shadow mb-5" rounded="lg" style="border:0.5px solid #e0e0e0;border-radius:3px">
             <v-card-title style="background-color:#e15d9e" class="white--text">
                 ບັນຊີ
             </v-card-title>
@@ -8,116 +8,52 @@
                 <div>
                     <v-col>
                         <v-btn style="border: 2px solid rgb(225,93,158)"
-                        to="./purchase_order_paper">ສາງບິນສັງຊື້</v-btn>
-                        <v-badge  style="margin-left: -35px;"  :content="total_Offer_List" color="teal">
+                            to="./purchase_order_paper">ສ້າງບິນສັ່ງຊື້</v-btn>
+                        <v-badge style="margin-left: -35px;" :content="total_Offer_List" color="teal">
                         </v-badge>
                     </v-col>
                 </div>
 
-                <div>
-                    <v-col>
-                        
-                        <v-btn style="border: 2px solid rgb(225,93,158)" to="./ListShopsMustPay">ຈາຍນີ້</v-btn>
-                        <!-- <v-badge :content="total_FuelUnpaid" color="teal" style="margin-left: -35px;" >
-                        </v-badge> -->
-                    </v-col>
-                </div>
-                <!-- <div>
-                    <v-col>
-                        <v-btn style="width: 200px;" to="./add">ເພີ່ມຂໍ້ມູນ ອາໄລ ບໍລິສັດ ຫຼື ຮ້ານ</v-btn>
-                    </v-col>
-                </div> -->
-                <!-- <div>
-                    <v-col>
-                        <v-btn to="./oil_paid">ສະເໝີ ໃຊ້</v-btn>
-                    </v-col>
-                </div> -->
-                <!-- <div style="margin-top:10px" class="ml-10">
-                    <v-btn color="#e91e63" class="white--text"
-                        @click="print"><v-icon>mdi-printer</v-icon>ພິມລາຍງານທັງໝົດ</v-btn>
-                </div> -->
                 <div class="mt-2 ml-4 pt-6" style="width: 500px; ">
                     <v-text-field dense solo flat background-color="#f5f5f5" v-model="search" placeholder="ຄົ້ນຫາ..."
                         prepend-inner-icon="mdi-magnify" clearable></v-text-field>
                 </div>
             </v-row>
-
+        </v-card>
+        <v-card class="card-shadow  mb-5" rounded="lg" style="border: 0.5px solid #e0e0e0; border-radius: 3px;">
+            <v-card-title style="background-color: #b722b7" class="white--text">
+                <v-icon color="white" size="55">mdi mdi-truck-alert</v-icon>
+                ປະວັດການເບີກທອນອາໄລ ຂອງລົດ
+                <!-- <v-btn ref="btn1" value="1" @click="selectedCard = '1'" @mouseover="changeColor('	#009fff', $refs.btn1)"
+                    @mouseleave="changeColor('white', $refs.btn1)"
+                    style="margin-left: 2px; margin-right: 2px; background-color: white; color: black; height: 65px; border: 1px solid rgb(221, 5, 245);">
+                    <v-icon style="color: rgb(221, 5, 245);" size="55">mdi-printer</v-icon>
+                    ລາຍລະອຽດ
+                </v-btn> -->
+                <v-col>
+                    <v-btn style="border: 2px solid rgb(225,93,158);width: 200px;" :to="{ name: 'dta' }">ລາຍລະອຽດການເບີກທອນອາໄລ</v-btn>
+                </v-col>
+            </v-card-title>
             <v-data-table :headers="truck_table_headers" :items="truck_data_list" :search="search">
                 <template v-slot:item="row">
 
                     <tr>
-                        <!-- <td>{{ row?.item?.offer_CODE }}</td> -->
-                        <!-- <td><v-avatar><img :src="row.item.img"></v-avatar></td> -->
+
                         <td>{{ row?.item?.h_VICIVLE_NUMBER }}</td>
                         <td>{{ row?.item?.h_BRANCH }}</td>
                         <td>{{ row?.item?.total_Price }}</td>
                         <td>{{ row?.item?.dateFix }}</td>
                         <td>{{ row?.item?.totalTimeFix }}</td>
                         <td>{{ row?.item?.totalFixCost }}</td>
-                        <!-- <td>{{ sumFooter?.totalFixCost }}</td> -->
-                        
+
+
 
                     </tr>
 
                 </template> <!-- Your data table content here -->
             </v-data-table>
         </v-card>
-        <!-- Data Table printer -->
-        <div style="display:none">
-            <div id="modalInvoice">
-                <v-row>
-                    <v-col cols="3">
-                        <!-- <img class="mx-auto" src="../assets/images/khounkham.png" height="90px" cover /> -->
-                    </v-col>
-                    <v-col cols="9">
-                        <div style="display:flex;justify-content:start;flex-direction:column;align-items:start">
 
-                            <span style="font-size:19px">
-
-                                <Noti />
-
-                            </span>
-
-                            <span style="font-size:18px">ສໍານັກງານຕັ້ງຢູ່ ອາຄານ ສະໜາມຍິງປືນ 20 ມັງກອນ, ສະໜາມກີລາກອງທັບ,
-                                ບ້ານຈອມມະນີ, ເມືອງ ໄຊເສດຖາ, ນະຄອນຫຼວງວຽງຈັນ, ສປປ ລາວ</span>
-                            <span style="font-size:18px">ໂທລະສັບ: 020 92661111, 020 92 254 999 | ອີເມວ: kounkham@Mining
-                                |
-                                ເວັບໄຊ: kounkham</span>
-                        </div>
-                    </v-col>
-
-                </v-row>
-                <br>
-
-
-
-                <div
-                    style="width:100%;margin-top:50px;display:flex;flex-direction:column;justify-content:center;align-items:center;padding-left:20px; font-size: 18px">
-                    <div>ບັນຊີຂົນສົ່ງ</div>
-                    <div style="height: 50px;"></div>
-                    <div style="display:flex;justify-content:space-between">
-                        ...............................
-                    </div>
-                </div>
-                <div
-                    style="width:100%;margin-top:50px;display:flex;flex-direction:column;justify-content:center;align-items:center;padding-left:20px; font-size: 18px">
-                    <div>ບັນຊີຂົນສົ່ງ</div>
-                    <div style="height: 50px;"></div>
-                    <div style="display:flex;justify-content:space-between">
-                        ...............................
-                    </div>
-                </div>
-                <div
-                    style="width:100%;margin-top:50px;display:flex;flex-direction:column;justify-content:center;align-items:center;padding-left:20px; font-size: 18px">
-                    <div>ບັນຊີຂົນສົ່ງ</div>
-                    <div style="height: 50px;"></div>
-                    <div style="display:flex;justify-content:space-between">
-                        ...............................
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Data Table printer -->
     </div>
 </template>
 
@@ -129,19 +65,23 @@ export default {
             total_Offer_List: '',
             total_FuelUnpaid: '',
             truck_table_headers: [
-                { text: 'h_VICIVLE_NUMBER', value: 'h_VICIVLE_NUMBER' },
-                { text: 'h_BRANCH', value: 'h_BRANCH' },
-                { text: 'total_Price', value: 'total_Price' },
-                { text: 'dateFix', value: 'dateFix' },
-                { text: 'totalTimeFix', value: 'totalTimeFix' },
-                { text: 'totalFixCost', value: 'totalFixCost' },
+                { text: 'ທະບຽນຫົວລົດ', value: 'h_VICIVLE_NUMBER' },
+                { text: 'ທະບຽນຫາງລົດ', value: 'h_BRANCH' },
+                { text: 'ຄ່າອາໄຫຼ່ໃນການເເປງ', value: 'total_Price' },
+                { text: 'ວັນທີເເປງ', value: 'dateFix' },
+                { text: 'ຈໍານວນຄັ້ງໃນການເເປງ', value: 'totalTimeFix' },
+                { text: 'ຄ່າໃຊ້ຈ່າຍທັງໜົດໃນການເເປງ', value: 'totalFixCost' },
             ],
             truck_data_list: [],
 
         }
     },
+    computed: {
+
+    },
     mounted() {
-        this.onGetshowdata_table(); 
+
+        this.onGetshowdata_table();
         this.total_count()
         this.USER_ID = localStorage.getItem('USER_ID')
         this.USER_NAME = localStorage.getItem('USER_NAME')
@@ -151,6 +91,10 @@ export default {
     },
     // Your component logic here
     methods: {
+        changeColor(color, ref) {
+            ref.$el.style.backgroundColor = color;
+        },
+
         total_count() {
             try {
                 this.loading_processing = true;

@@ -2,7 +2,7 @@
   <div>
     <div>
       <v-col cols="3">
-        <!-- <img class="mx-auto" src="../assets/images/khounkham.png" height="70px" cover /> -->
+        <!-- <img class="mx-auto" src="../assets/images/logo01.png" height="70px" cover /> -->
 
       </v-col>
       <v-row>
@@ -44,8 +44,10 @@ export default {
           return 'ຊຽງຂວາງ';
         case 'vientiane':
           return 'ວຽງຈັນ';
-        default:
-          return '';
+          case 'Savannakhet':
+          return 'ສະຫວັນນະເຂດ';
+          default:
+          return this.TOTAL_branchName;
       }
     }
   },

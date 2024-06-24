@@ -2,20 +2,20 @@
     <div>
         <v-card class="card-shadow" rounded="lg" style="border:0.5px solid #e0e0e0;border-radius:3px">
             <v-card-title style="background-color:#cc7a26" class="white--text">
-                ເພີ້ມ ອຸປະກອນ
+                ເພີ້ມ ອາໄຫຼ່
             </v-card-title>
             <div>
                 <v-form ref="form">
                     <div style="display: flex;margin-top: 10px;margin-left: 10px;margin-left: 30px;margin-right: 30px;">
                         <v-row>
                             <v-col>
-                                <v-text-field label="* ອຸປະກອນ" dense outlined background-color="#f5f5f5"
+                                <v-text-field label="* ອາໄຫຼ່" dense outlined background-color="#f5f5f5"
                                     v-model="itemName"></v-text-field>
                                 <div class="tops">
                                 </div>
                             </v-col>
                             <v-col>
-                                <v-text-field label="* ຫົວນວຍ" dense outlined background-color="#f5f5f5"
+                                <v-text-field label="* ຫົວໜ່ວຍ" dense outlined background-color="#f5f5f5"
                                     v-model="unit"></v-text-field>
                                 <div class="tops">
                                 </div>
@@ -23,7 +23,7 @@
 
 
                             <v-col>
-                                <v-text-field label="* ລາຄາຕໍ່ ອັນ" dense outlined background-color="#f5f5f5"
+                                <v-text-field label="* ລາຄາຕໍ່" dense outlined background-color="#f5f5f5"
                                     v-model="unit_price"></v-text-field>
                                 <div class="tops">
                                 </div>
@@ -65,7 +65,7 @@
                                     <img :src="row.item.img">
                                 </v-avatar></td>
                             <td>{{ row?.item?.unit }}</td>
-                            <td>{{ row?.item?.unit_price }}</td>
+                            <td>{{ row?.item?.unit_price?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</td>
                             <!-- <td>{{ row?.item?.qty }}</td> -->
 
                             <td>
@@ -83,7 +83,7 @@
 
         <v-card class="card-shadow" rounded="lg" style="border:0.5px solid #e0e0e0;border-radius:3px">
             <v-card-title style="background-color:#dd9348" class="white--text">
-                ເພີ້ມ ບໍລິສັດ ຫຼື ຮ້ານ
+                ເພີ່ມ ບໍລິສັດ ຫຼື ຮ້ານ
             </v-card-title>
             <div style="display: flex;margin-top: 10px;margin-left: 10px;margin-left: 30px;margin-right: 30px;">
                 <v-row>
@@ -94,7 +94,7 @@
                         </div>
                     </v-col>
                     <v-col>
-                        <v-text-field label="* ທີຢູ່" dense outlined background-color="#f5f5f5"
+                        <v-text-field label="* ທີ່ຢູ່" dense outlined background-color="#f5f5f5"
                             v-model="address"></v-text-field>
                         <div class="tops">
                         </div>
@@ -114,7 +114,7 @@
                         </div>
                     </v-col> -->
                     <v-col>
-                        <v-text-field label="ເງິນຕາ" outlined dense append-inner-icon="mdi-card-account-details"
+                        <v-text-field label="ສະກຸນເງິນ" outlined dense append-inner-icon="mdi-card-account-details"
                             background-color="#f5f5f5" v-model="currency"></v-text-field>
                         <div class="tops">
                         </div>
@@ -183,10 +183,10 @@ export default {
             files: null,
             truck_table_headers: [
                 { text: 'ລດ', value: '' }, // Updated value for image column
-                { text: 'ທະບຽນລົດ', value: 'item_id' },
+                { text: 'ລາໄລ', value: 'item_id' },
                 { text: 'ຮູບພາບ', value: 'img' }, // Updated value for image column
-                { text: 'ຍີ່ຫໍ້ລົດ', value: 'unit' },
-                { text: 'ປະເພດລົດ', value: 'unit_price' },
+                { text: 'ຫົວນວຍ', value: 'unit' },
+                { text: 'ລາຄາ', value: 'unit_price' },
                 // { text: 'ຈໍານວນ', value: 'qty' },
                 { text: '', value: '' },
             ],
@@ -194,10 +194,10 @@ export default {
             truck_table_repairs: [
                 { text: 'ລດ', value: '' },
                 { text: 'ຮ້ານ', value: 'shop_name' },
-                { text: 'ທີຢູ່', value: 'address' },
+                { text: 'ທີ່ຢູ່', value: 'address' },
                 { text: 'ໂທ', value: 'phone' },
+                { text: 'ສະກຸນເງິນ', value: 'currency' },
                 { text: 'ປະເທດ', value: 'country' },
-                { text: 'ເງິນຕາ', value: 'currency' },
                 // { text: 'ຈຳນວນ_ເງິນ', value: 'amount_money' },
                 // { text: 'ສາຂາ', value: 'branch' },
                 { text: '', value: '' },

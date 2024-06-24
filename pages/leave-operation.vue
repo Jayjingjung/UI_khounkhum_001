@@ -47,7 +47,7 @@
                         <span><span class="font-weight-bold">ພະນັກງານຂັບ1:</span> {{ performance_data[0]?.staffname
                             }}</span>
                         <span style="margin-left:5px"><span class="font-weight-bold">ພະນັກງານຂັບ2:</span> {{
-            performance_data[0]?.staffname1 }}</span>
+                            performance_data[0]?.staffname1 }}</span>
                     </div>
                     <!-- <div class="pl-10">
                         ວັນທີອອກ: {{performance_data[0]?.out_DATE}}
@@ -80,7 +80,7 @@
 
                             <td style="border: 0.5px solid #999;padding:5px" class="red--text">
                                 {{ (performance_data[0]?.total_PRICE)?.replace(/\D/g, '')
-            ?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }} {{ performance_data[0]?.currency }}</td>
+                                    ?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }} {{ performance_data[0]?.currency }}</td>
 
                         </tr>
                         <tr style="padding:5px;border: 0.5px solid #999;">
@@ -88,9 +88,9 @@
                                 class="font-weight-bold text-left">
                                 ລວມທັງໝົດ:</td>
                             <td style="border: 0.5px solid #999;padding:5px" class="red--text">{{
-            (performance_data[0]?.total_PRICE
-            )?.replace(/\D/g, '')
-                ?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }} {{ performance_data[0]?.currency }}</td>
+                                (performance_data[0]?.total_PRICE
+                                )?.replace(/\D/g, '')
+                                ?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }} {{ performance_data[0]?.currency }}</td>
                         </tr>
                     </table>
                     <div class="pt-4 d-flex align-center" style="">
@@ -122,7 +122,7 @@
 
 
                         <div style="width: 750px" class="pl-2">
-                            <span>ນໍ້າໜັກທັງໝົດ <spam :style="{ color: 'red' }">( ຄິດໄລເເບບໂອໂຕ )</spam></span>
+                            <span>ນໍ້າໜັກທັງໝົດ ເປັນຕົ້ນ<spam :style="{ color: 'red' }">( ຄິດໄລເເບບໂອໂຕ )</spam></span>
                             <v-text-field flat solo dense background-color="#ffdb9c" placeholder="ນໍ້າໜັກທັງໝົດ"
                                 v-model="numnuktotal" readonly></v-text-field>
                         </div>
@@ -346,7 +346,7 @@
             <div id="modalInvoice">
                 <v-row>
                     <v-col cols="3">
-                        <img class="mx-auto" src="../assets/images/khounkham.png" height="70px" cover />
+                        <img class="mx-auto" src="../assets/images/logo01.png" height="70px" cover />
                     </v-col>
                     <v-col cols="9">
                         <div style="display:flex;justify-content:start;flex-direction:column;align-items:start">
@@ -441,52 +441,52 @@
                             <tr style="padding:5px;border: 0.5px solid #999;">
                                 <td style="border: 0.5px solid #999;padding:5px">ຄ່າເບ້ຍລ້ຽງ</td>
                                 <td style="border: 0.5px solid #999;padding:5px">{{
-            performaceGroupFee?.staff_BIALIENG?.replace(/\D/g,
-                '')?.replace(/\B(?=(\d{3})+(?!\d))/g,
-                    ',') }}
+                                    performaceGroupFee?.staff_BIALIENG?.replace(/\D/g,
+                                        '')?.replace(/\B(?=(\d{3})+(?!\d))/g,
+                                    ',') }}
                                     {{ performaceGroupFee?.staff_Cur }}</td>
                             </tr>
                             <tr style="padding:5px;border: 0.5px solid #999;">
-                                <td style="border: 0.5px solid #999;padding:5px">ຄ່າຊິງມະຫາໄຊ</td>
+                                <td style="border: 0.5px solid #999;padding:5px">{{ changnamejumpo2 }}</td>
                                 <td style="border: 0.5px solid #999;padding:5px">{{
-            performaceGroupFee?.performancejumpho?.replace(/\D/g,
-                '')?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</td>
+                                    performaceGroupFee?.performancejumpho?.replace(/\D/g,
+                                        '')?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</td>
                             </tr>
                             <tr style="padding:5px;border: 0.5px solid #999;">
                                 <td style="border: 0.5px solid #999;padding:5px">ຄ່າຕຳລວດ</td>
                                 <td style="border: 0.5px solid #999;padding:5px">{{
-            performaceGroupFee?.performancefeepolish?.replace(/\D/g,
-                '')?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</td>
+                                    performaceGroupFee?.performancefeepolish?.replace(/\D/g,
+                                        '')?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</td>
                             </tr>
                             <tr style="padding:5px;border: 0.5px solid #999;">
                                 <td style="border: 0.5px solid #999;padding:5px">ຄ່າສິ້ນເປືອງຢູ່ສາງພາສີ</td>
                                 <td style="border: 0.5px solid #999;padding:5px">{{
-            performaceGroupFee?.performancefe_PAYANG?.replace(/\D/g,
-                '')?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</td>
+                                    performaceGroupFee?.performancefe_PAYANG?.replace(/\D/g,
+                                        '')?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</td>
                             </tr>
 
 
                             <tr style="padding:5px;border: 0.5px solid #999;">
                                 <td style="border: 0.5px solid #999;padding:5px">ຄ່າດ່ານລາວຂາໄປ - ຂາກັບ</td>
                                 <td style="border: 0.5px solid #999;padding:5px">{{
-            performaceGroupFee?.performanceovervn?.replace(/\D/g,
-                '')?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</td>
+                                    performaceGroupFee?.performanceovervn?.replace(/\D/g,
+                                        '')?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</td>
                             </tr>
 
                             <tr style="padding:5px;border: 0.5px solid #999;">
                                 <td style="border: 0.5px solid #999;padding:5px">ຄ່າດ່ານຫວຽດຂາກັບ</td>
                                 <td style="border: 0.5px solid #999;padding:5px">{{
-            performaceGroupFee?.performanceovertime?.replace(/\D/g,
-                '')?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</td>
+                                    performaceGroupFee?.performanceovertime?.replace(/\D/g,
+                                        '')?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</td>
                             </tr>
 
 
 
                             <tr style="padding:5px;border: 0.5px solid #999;">
-                                <td style="border: 0.5px solid #999;padding:5px">ຄ່າຊິບປິ້ງຫວຽດແລ່ນເອກະສານ</td>
+                                <td style="border: 0.5px solid #999;padding:5px">{{changnameformattedFeeTaxung4}}</td>
                                 <td style="border: 0.5px solid #999;padding:5px">{{
-            performaceGroupFee?.performancefeetaxung?.replace(/\D/g,
-                '')?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</td>
+                                    performaceGroupFee?.performancefeetaxung?.replace(/\D/g,
+                                        '')?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</td>
                             </tr>
 
 
@@ -494,42 +494,42 @@
                             <tr style="padding:5px;border: 0.5px solid #999;">
                                 <td style="border: 0.5px solid #999;padding:5px">ຄ່າໃບຊີງ</td>
                                 <td style="border: 0.5px solid #999;padding:5px">{{
-            performaceGroupFee?.performancefeesing?.replace(/\D/g,
-                '')?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</td>
+                                    performaceGroupFee?.performancefeesing?.replace(/\D/g,
+                                        '')?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</td>
                             </tr>
                             <tr style="padding:5px;border: 0.5px solid #999;">
-                                <td style="border: 0.5px solid #999;padding:5px">ຄ່າແຈ້ງເອກະສານຢູ່ບ່ອນຂຶ້ນເກືອ</td>
+                                <td style="border: 0.5px solid #999;padding:5px">{{changnameformattedFeesaphan}}</td>
                                 <td style="border: 0.5px solid #999;padding:5px">{{
-            performaceGroupFee?.performancefeesaphan?.replace(/\D/g,
-                '')?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</td>
+                                    performaceGroupFee?.performancefeesaphan?.replace(/\D/g,
+                                        '')?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</td>
                             </tr>
                             <tr style="padding:5px;border: 0.5px solid #999;">
-                                <td style="border: 0.5px solid #999;padding:5px">ຄ່າລົງເກືອ</td>
+                                <td style="border: 0.5px solid #999;padding:5px">{{changnameformattedFeecontrainer}}</td>
                                 <td style="border: 0.5px solid #999;padding:5px">{{
-            performaceGroupFee?.performancefeeoutcontainer?.replace(/\D/g,
-                '')?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</td>
+                                    performaceGroupFee?.performancefeeoutcontainer?.replace(/\D/g,
+                                        '')?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</td>
                             </tr>
                             <tr style="padding:5px;border: 0.5px solid #999;">
                                 <td style="border: 0.5px solid #999;padding:5px">ຄ່າລ່ວງເວລາ</td>
                                 <td style="border: 0.5px solid #999;padding:5px">{{
-            performaceGroupFee?.performancefeeyoktu?.replace(/\D/g,
-                '')?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</td>
+                                    performaceGroupFee?.performancefeeyoktu?.replace(/\D/g,
+                                        '')?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</td>
                             </tr>
 
 
 
                             <tr style="padding:5px;border: 0.5px solid #999;">
-                                <td style="border: 0.5px solid #999;padding:5px">ຄ່າຊິງ</td>
+                                <td style="border: 0.5px solid #999;padding:5px">{{changnamepassport}}</td>
                                 <td style="border: 0.5px solid #999;padding:5px">{{
-            performaceGroupFee?.performancepassport?.replace(/\D/g,
-                '')?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</td>
+                                    performaceGroupFee?.performancepassport?.replace(/\D/g,
+                                        '')?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</td>
                             </tr>
 
                             <tr style="padding:5px;border: 0.5px solid #999;">
                                 <td style="border: 0.5px solid #999;padding:5px">ອື່ນໆ</td>
                                 <td style="border: 0.5px solid #999;padding:5px">{{
-            performaceGroupFee?.performancevaccine?.replace(/\D/g,
-                '')?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</td>
+                                    performaceGroupFee?.performancevaccine?.replace(/\D/g,
+                                        '')?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</td>
                             </tr>
 
 
@@ -558,8 +558,8 @@
                                 <td style="border: 0.5px solid #999;padding:5px">ລວມລາຍຈ່າຍທັງໝົດ</td>
                                 <td style="border: 0.5px solid #999;padding:5px">{{
                                     performaceGroupFee?.feetotal?.replace(/\D/g, '')?.replace(/\B(?=(\d{3})+(?!\d))/g,
-                                    ',')
-                                    }}</td>
+                                        ',')
+                                }}</td>
                             </tr>
 
                         </table>
@@ -703,7 +703,7 @@ export default {
             nameRules: [(v) => !!v || 'ຕ້ອງປ້ອນຂໍ້ມູນ'],
             perBillNoAuto: '',
             kim: '',
-      
+
             report_peration_list: [],
             report_operation_header: [
                 { text: 'ເລກບິນ', value: 'lahud_POYLOD' },
@@ -715,16 +715,89 @@ export default {
                 { text: 'ເລືອກ', value: '' },
             ],
             showLeavCarDialog: false,
-            check_kim: ''
+            check_kim: '',
+            formattedFeeJumPo2: '', // Initialize your v-model
+            TOTAL_branchName: '', // Initialize TOTAL_branchName
         }
     },
     mounted() {
+        this.total_count();
         this.onGetPerIdAutoGenerate()
         this.onGetLeacarList()
         let test = 25.50 * 100
         console.log(test)
     },
     computed: {
+        changnamejumpo2() {
+            switch (this.TOTAL_branchName) {
+                case 'Thakhaek':
+                    return 'ຄ່າຊິງມະຫາໄຊ';
+                case 'XiengKhouang':
+                    return 'ຄ່າຊິງມະຫາໄຊ';
+                case 'vientiane':
+                    return 'ຄ່າຊິງມະຫາໄຊ';
+                case 'Savannakhet':
+                    return 'ຄ່າຈ້ຳພາດສະປອດ';
+                default:
+                    return this.TOTAL_branchName; // Use the branchName if no match found
+            }
+        },
+        changnamepassport() {
+            switch (this.TOTAL_branchName) {
+                case 'Thakhaek':
+                    return 'ຄ່າຊິງນາອິນ';
+                case 'XiengKhouang':
+                    return 'ຄ່າຊິງນາອິນ';
+                case 'vientiane':
+                    return 'ຄ່າຊິງນາອິນ';
+                case 'Savannakhet':
+                    return 'ຄ່າຊິງ';
+                default:
+                    return this.TOTAL_branchName; // Use the branchName if no match found
+            }
+        },
+        changnameformattedFeeTaxung4() {
+            switch (this.TOTAL_branchName) {
+                case 'Thakhaek':
+                    return 'ຄ່າຊິບປິ້ງຫວຽດແລ່ນເອກະສານ';
+                case 'XiengKhouang':
+                    return 'ຄ່າຊິບປິ້ງຫວຽດແລ່ນເອກະສານ';
+                case 'vientiane':
+                    return 'ຄ່າຊິບປິ້ງຫວຽດແລ່ນເອກະສານ';
+                case 'Savannakhet':
+                    return 'ຄ່າລົດຂ້າມຂົວດ່ານລາວ-ໄທ';
+                default:
+                    return this.TOTAL_branchName; // Use the branchName if no match found
+            }
+        },
+        changnameformattedFeesaphan() {
+            switch (this.TOTAL_branchName) {
+                case 'Thakhaek':
+                    return 'ຄ່າແຈ້ງເອກະສານຢູ່ບ່ອນຂຶ້ນເກືອ';
+                case 'XiengKhouang':
+                    return 'ຄ່າແຈ້ງເອກະສານຢູ່ບ່ອນຂຶ້ນເກືອ';
+                case 'vientiane':
+                    return 'ຄ່າແຈ້ງເອກະສານຢູ່ບ່ອນຂຶ້ນເກືອ';
+                case 'Savannakhet':
+                    return 'ຄ່າຈ້ຳຄົນແລະລົດ';
+                default:
+                    return this.TOTAL_branchName; // Use the branchName if no match found
+            }
+        },
+        changnameformattedFeecontrainer() {
+            switch (this.TOTAL_branchName) {
+                case 'Thakhaek':
+                    return 'ຄ່າລົງເກືອ';
+                case 'XiengKhouang':
+                    return 'ຄ່າລົງເກືອ';
+                case 'vientiane':
+                    return 'ຄ່າລົງເກືອ';
+                case 'Savannakhet':
+                    return 'ຄ່າສິດຢາຂ້າເຊື້ອ';
+                default:
+                    return this.TOTAL_branchName; // Use the branchName if no match found
+            }
+        },
         formattedStartDate() {
             if (!this.start_go_date) return ''; // Return empty string if date is not set
             const dateObj = new Date(this.start_go_date);
@@ -743,49 +816,49 @@ export default {
         }
     },
     watch: {
-    numnuklod: function (newValue) {
-        const result = newValue?.replace(/[^\d.]/g, '').replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+        numnuklod: function (newValue) {
+            const result = newValue?.replace(/[^\d.]/g, '').replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
 
-        this.numnuklod = result;
+            this.numnuklod = result;
 
-        // Calculate totalNumnuk
-        const totalNumnuk = parseFloat(newValue?.split(' ')?.join('')) + parseFloat(this.proSize?.split(' ')?.join(''));
+            // Calculate totalNumnuk
+            const totalNumnuk = parseFloat(newValue?.split(' ')?.join('')) + parseFloat(this.proSize?.split(' ')?.join(''));
 
-        // Check if numnuklod is greater than 0
-        if (parseFloat(this.numnuklod?.split(' ')?.join('')) > 0) {
-            this.numnuktotal = totalNumnuk?.toFixed(2)?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-        } else {
-            this.numnuktotal = ''; // Reset numnuktotal if numnuklod is not greater than 0
-        }
-    },
-    let_mai: function (value) {
-        this.check_kim = (parseFloat(value?.split(' ')?.join('')) - parseFloat(this.kim?.split('-').join('')))?.toFixed(2);
-    },
-    proSize: function (newValue) {
-        const reals = parseFloat(newValue?.split(' ')?.join('')) * parseFloat(this.price ? this.price?.split(' ')?.join('') : 1);
+            // Check if numnuklod is greater than 0
+            if (parseFloat(this.numnuklod?.split(' ')?.join('')) > 0) {
+                this.numnuktotal = totalNumnuk?.toFixed(2)?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+            } else {
+                this.numnuktotal = ''; // Reset numnuktotal if numnuklod is not greater than 0
+            }
+        },
+        let_mai: function (value) {
+            this.check_kim = (parseFloat(value?.split(' ')?.join('')) - parseFloat(this.kim?.split('-').join('')))?.toFixed(2);
+        },
+        proSize: function (newValue) {
+            const reals = parseFloat(newValue?.split(' ')?.join('')) * parseFloat(this.price ? this.price?.split(' ')?.join('') : 1);
 
-        // Calculate price_total
-        this.price_total = reals?.toFixed(2)?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+            // Calculate price_total
+            this.price_total = reals?.toFixed(2)?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
 
-        // Calculate numnuktotal only if numnuklod is greater than 0
-        if (parseFloat(this.numnuklod?.split(' ')?.join('')) > 0) {
-            const totalNumnuk = parseFloat(newValue?.split(' ')?.join('')) + parseFloat(this.numnuklod?.split(' ')?.join(''));
-            this.numnuktotal = totalNumnuk?.toFixed(2)?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-        }
+            // Calculate numnuktotal only if numnuklod is greater than 0
+            if (parseFloat(this.numnuklod?.split(' ')?.join('')) > 0) {
+                const totalNumnuk = parseFloat(newValue?.split(' ')?.join('')) + parseFloat(this.numnuklod?.split(' ')?.join(''));
+                this.numnuktotal = totalNumnuk?.toFixed(2)?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+            }
 
-        // Set proSize to newValue
-        this.proSize = newValue;
-    },
+            // Set proSize to newValue
+            this.proSize = newValue;
+        },
 
-    price: function (newValue) {
-        const result = newValue?.replace(/[^\d.]/g, '').replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+        price: function (newValue) {
+            const result = newValue?.replace(/[^\d.]/g, '').replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
 
-        const reals = parseFloat(newValue?.split(' ')?.join('')) * parseFloat(this.proSize !== '0' ? this.proSize?.split(' ')?.join('') : 1);
+            const reals = parseFloat(newValue?.split(' ')?.join('')) * parseFloat(this.proSize !== '0' ? this.proSize?.split(' ')?.join('') : 1);
 
-        this.price_total = reals?.toFixed(2)?.toString()?.replace(/\D/g, '')?.replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+            this.price_total = reals?.toFixed(2)?.toString()?.replace(/\D/g, '')?.replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
 
-        this.price = result;
-    },
+            this.price = result;
+        },
 
 
 
@@ -793,7 +866,7 @@ export default {
             const result = newValue?.replace(/[^\d.]/g, ','); // Remove all characters except digits and decimals
 
             this.price_total = result; // Update price_total with the modified value
-        } 
+        }
 
     },
 
@@ -934,7 +1007,7 @@ export default {
                 console.log(error)
             }
         },
- 
+
         onSavePerformance() {
             if (this.performance_data?.length === 0) {
                 this.$toast.success('ກະລຸນາຄົ້ນຫາຂໍ້ມູນກ່ອນ')
@@ -982,6 +1055,23 @@ export default {
                 })
             } catch (error) {
                 console.log(error)
+            }
+        },
+        async total_count() {
+            try {
+                this.loading_processing = true;
+                const data = await this.$axios.$post('/getNotiTab3.service', {
+                    toKen: localStorage.getItem('toKen')
+                });
+                this.loading_processing = false;
+                this.TOTAL_branchName = data?.branchName || ''; // Update TOTAL_branchName with data from API
+            } catch (error) {
+                this.loading_processing = false;
+                swal.fire({
+                    icon: 'error',
+                    text: error.message || 'An error occurred'
+                });
+                console.error(error);
             }
         }
     }

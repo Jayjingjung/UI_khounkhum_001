@@ -2,7 +2,7 @@
     <div>
       <div style="display: flex;">
         <div cols="3" class="mr-10 ml-10">
-          <img style="margin-top: -10px;" class="mx-auto" src="../assets/images/khounkham.png" height="120px" cover />
+          <img style="margin-top: -10px;" class="mx-auto" src="../assets/images/logo01.png" height="120px" cover />
   
         </div>
         <div >
@@ -17,8 +17,7 @@
           </div>
         </div>
       </div>
-      <div class="text-center" style="display:flex;justify-content:center;font-size:25px;font-weight:bold;margin-top: 10px;margin-left: ">
-        ໃບສະເໝີສັ່ງຊື້ສິນຄ້າ</div>
+      
       <!-- Other template code -->
     </div>
   </template>
@@ -43,8 +42,10 @@
             return 'ຊຽງຂວາງ';
           case 'vientiane':
             return 'ວຽງຈັນ';
+            case 'Savannakhet':
+          return 'ສະຫວັນນະເຂດ';
           default:
-            return '';
+          return this.TOTAL_branchName;
         }
       }
     },

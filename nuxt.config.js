@@ -19,7 +19,7 @@ export default {
       { hid: 'description', name: 'description', content: '' },
       { name: 'format-detection', content: 'telephone=no' },
     ],
-    link: [{ rel: 'icon', type: 'image/x-icon', href: '/logo01.png' }],
+    link: [{ rel: 'icon', type: 'image/x-icon', href: 'C:\vueprojacev2\assets\images\logo01.png' }],
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css

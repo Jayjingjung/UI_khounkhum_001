@@ -4,7 +4,7 @@
                     <v-card-title style="background-color: #b722b7" class="white--text">
                         ອາໄລໃນສາງ
                     </v-card-title>
-            <v-data-table :items-per-page="5" :headers="truck_table_headers" :items="filteredItems" :search="search">
+            <v-data-table :items-per-page="5" :headers="truck_table_headersv2" :items="filteredItemsv2" :search="search">
                 <template v-slot:item="row">
                     <tr>
 
@@ -74,7 +74,7 @@ export default {
             number: '',
             // Other data properties...
             search: '',
-            truck_table_headers: [
+            truck_table_headersv2: [
 
                 { text: 'offer_CODE', value: 'offer_CODE' },
                 { text: 'pocode', value: 'pocode' },
@@ -89,17 +89,17 @@ export default {
 
 
             ],
-            truck_data_list: [],
+            truck_data_listv2: [],
 
             // Other data properties...
         };
     },
     computed: {
-        filteredItems() {
-            if (!Array.isArray(this.truck_data_list)) {
+        filteredItemsv2() {
+            if (!Array.isArray(this.truck_data_listv2)) {
                 return [];
             }
-            return this.truck_data_list.filter(item =>
+            return this.truck_data_listv2.filter(item =>
                 item.statusNy === 'notjaiy'
             );
         },
@@ -145,7 +145,7 @@ export default {
                 });
                 console.log('API response:', response);
                 if (response?.status === '00' && response?.data) {
-                    this.truck_data_list = response.data;
+                    this.truck_data_listv2 = response.data;
                 } else {
                     this.showErrorAlert('Error', 'Failed to fetch data from the API');
                 }

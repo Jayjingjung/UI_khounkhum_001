@@ -31,6 +31,53 @@
                             ລາຍການ</span></span>
                 </div>
                 <v-btn color="primary" @click="selectAll">Select All</v-btn>
+
+                <div style="width:100%;display:flex;justify-content:start" class="pt-4">
+
+                    <div class="d-flex align-center">
+                        <v-menu ref="start_menu" v-model="start_menu" :close-on-content-click="false"
+                            :return-value.sync="start_date" transition="scale-transition" offset-y min-width="auto">
+                            <template v-slot:activator="{ on, attrs }">
+                                <v-text-field dense outlined v-model="formattedStartDate" required
+                                    label="ວັນທີເລີ່ມຕົ້ນ" append-icon="mdi-calendar" readonly v-bind="attrs"
+                                    v-on="on"></v-text-field>
+                            </template>
+                            <v-date-picker v-model="start_date" no-title scrollable
+                                @input="$refs.start_menu.save(start_date)">
+                                <v-spacer></v-spacer>
+                            </v-date-picker>
+                        </v-menu>
+                    </div>
+                    <div class="d-flex align-center pl-2">
+                        <v-menu ref="end_menu" v-model="end_menu" :close-on-content-click="false"
+                            :return-value.sync="end_date" transition="scale-transition" offset-y min-width="auto">
+                            <template v-slot:activator="{ on, attrs }">
+                                <v-text-field dense outlined v-model="formattedEndDate" required label="ວັນທີສຸດທ້າຍ"
+                                    append-icon="mdi-calendar" readonly v-bind="attrs" v-on="on"></v-text-field>
+                            </template>
+                            <v-date-picker v-model="end_date" no-title scrollable
+                                @input="$refs.end_menu.save(end_date)">
+                                <v-spacer></v-spacer>
+                            </v-date-picker>
+                        </v-menu>
+                    </div>
+
+
+                    <div class="ml-2 pt-1">
+                        <v-btn color="#90A4AE" class="white--text" elevation="0" @click="() => { onGetAllPermance(); }">
+                            <v-icon>mdi-magnify</v-icon> ຄົ້ນຫາ
+                        </v-btn>
+
+                    </div>
+                    <v-spacer></v-spacer>
+                    <div style="width:600px" class="d-flex align-center">
+                        <v-text-field placeholder="ຄົ້ນຫາດ້ວຍລະຫັດປ່ອຍລົດ..." v-model="search" rounded
+                            background-color="#f5f5f5" prepend-inner-icon="mdi-magnify"></v-text-field>
+                        <div style="width: 50px;"></div>
+                        <v-btn color="primary" class="card-shadow"
+                            @click="print"><v-icon>mdi-printer</v-icon>ພີມລາຍງານທັງໝົດ</v-btn>
+                    </div>
+                </div>
                 <div>
                     <v-data-table :items="report_peration_list" :headers="report_operation_header" :search="search">
                         <template v-slot:item="row">
@@ -48,6 +95,7 @@
                                 <td>{{ row?.item?.customer_ID }}</td>
                                 <td>{{ row?.item?.customer_NAME }}</td>
                                 <td>{{ row?.item?.pro_TYPE }}</td>
+                                <td>{{ row?.item?.datePerformanceCreate }}</td>
                                 <td class="green--text">{{ row?.item?.total_PRICE?.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
                                     }}
                                     {{ row?.item?.currency }}</td>
@@ -201,7 +249,7 @@
                                             class="pa-1 px-2">
                                             <div style="border:0.5px solid #999;height:30px;border-radius:3px"
                                                 class="d-flex align-center pl-2 green--text">{{ d?.total_price }} {{
-            d?.currency }}</div>
+                                                    d?.currency }}</div>
                                         </td>
                                     </tr>
                                 </table>
@@ -221,7 +269,7 @@
                                         <div style="height:40px;border-radius:3px;width:300px;background-color:#000;font-size:18pt"
                                             class="d-flex align-center pl-2 ml-2 red--text">
                                             {{ sumTotalPrice?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }} {{
-            data_for_create_invoice[0]?.currency }}</div>
+                                                data_for_create_invoice[0]?.currency }}</div>
                                     </div>
 
                                 </div>
@@ -238,9 +286,7 @@
         <div style="display:none;">
             <div id="modalInvoice">
                 <v-row>
-                    <v-col cols="3">
-                        <img class="mx-auto" src="../assets/images/logo01.png" height="70px" cover />
-                    </v-col>
+
                     <v-col cols="9">
                         <div style="display:flex;justify-content:start;flex-direction:column;align-items:start">
                             <span style="font-size:14px"><b>
@@ -417,11 +463,11 @@ export default {
             localCheckCurr: '',
             end_menu: false,
             end_date: null,
-
+            start_date: null,
+            start_menu: false,
             search: '',
             invoice: false,
             loading_processing: false,
-
             data_for_create_invoice: [],
             report_peration_list: [],
             report_operation_header: [
@@ -431,7 +477,7 @@ export default {
                 { text: 'ລະຫັດລູກຄ້າ', value: 'customer_ID' },
                 { text: 'ຊື່ລູກຄ້າ', value: 'customer_NAME' },
                 { text: 'ເນື້ອໃນການຮັບສົ່ງ', value: 'pro_TYPE' },
-
+                { text: 'ວັນທີອອກໃບປະຕິບັດງານ', value: 'datePerformanceCreate' },
                 { text: 'ລາຄາທັງໝົດ', value: 'total_PRICE' },
                 { text: 'ສະຖານະ', value: 'status' },
             ],
@@ -439,6 +485,8 @@ export default {
             sumPrice: '',
             sumTotalPrice: '',
             inVoiceBillNo: '',
+            formatDate: '',
+
             inVoiceDate: '',
             showAlert: '',
             showSnakbar: false,
@@ -446,8 +494,7 @@ export default {
             data_for_print: [],
             sum_total_print: [],
             data_header_print: []
-        }
-
+        };
     },
     watch: {
         data_for_create_invoice: function () {
@@ -467,11 +514,20 @@ export default {
             }
         },
     },
+    computed: {
+        formattedStartDate() {
+            return this.start_date ? moment(this.start_date).format('YYYY-MM-DD') : '';
+        },
+        formattedEndDate() {
+            return this.end_date ? moment(this.end_date).format('YYYY-MM-DD') : '';
+        },
+    },
     mounted() {
         this.onGetAllPermance();
         this.onGetInvoiceBillNo();
     },
     methods: {
+
         async onCreateInvoice() {
             this.loading_processing = true
             try {
@@ -483,7 +539,7 @@ export default {
                 console.log(error)
             }
         },
-  
+
         async onGetDatsForPrint() {
             this.loading_processing = true; // Set loading to true at the start
 
@@ -638,7 +694,8 @@ export default {
             this.loading_processing = true
             try {
                 this.$axios.$post('/listGetPayment.service', {
-                    toKen: localStorage.getItem("toKen")
+                    toKen: localStorage.getItem("toKen"), startDate: this.start_date,
+                    endDate: this.end_date,
 
                 }).then((data) => {
                     if (data?.data) {
@@ -662,7 +719,7 @@ export default {
 
 
             try {
-                this.$axios.$post('/gernerateID.service').then((data) => {
+                this.$axios.$post('/gernerateID.service',{ toKen: localStorage.getItem("toKen")}).then((data) => {
                     console.log("bill", data)
                     this.inVoiceBillNo = data?.data[0]?.invoice_ID;
 

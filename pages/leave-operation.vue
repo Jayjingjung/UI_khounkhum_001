@@ -121,23 +121,24 @@
 
 
 
+                       
+                        <div style="width: 700px" class="pl-2">
+                            <span style="font-size: 22px;font-weight: bold;">ນໍ້າໜັກລົດເປົ່າ<span style="color: red"> 1</span></span>
+                            <v-text-field flat solo dense background-color="#E1F5FE" placeholder="ປ້ອນນ້ຳໜັກລົດເປົ່າ"
+                                v-model="numnuklod"></v-text-field>
+                        </div>
+                        <div style="width:700px" class="pl-2">
+                            <span style="font-size: 22px;font-weight: bold;">ນໍ້າໜັກສິນຄ້າ <span style="color: red"> 3</span></span>
+                            <v-text-field flat solo dense background-color="#E1F5FE" placeholder="ປ້ອນນໍ້າໜັກສິນຄ້າ"
+                                append-icon="mdi-format-title" v-model="proSize"></v-text-field>
+                        </div>
                         <div style="width: 750px" class="pl-2">
                             <span>ນໍ້າໜັກທັງໝົດ ເປັນຕົ້ນ<spam :style="{ color: 'red' }">( ຄິດໄລເເບບໂອໂຕ )</spam></span>
                             <v-text-field flat solo dense background-color="#ffdb9c" placeholder="ນໍ້າໜັກທັງໝົດ"
                                 v-model="numnuktotal" readonly></v-text-field>
                         </div>
-                        <div style="width: 700px" class="pl-2">
-                            <span>ນໍ້າໜັກລົດເປົ່າ<span style="color: red"> 1</span></span>
-                            <v-text-field flat solo dense background-color="#E1F5FE" placeholder="ປ້ອນນ້ຳໜັກລົດເປົ່າ"
-                                v-model="numnuklod"></v-text-field>
-                        </div>
                         <div style="width:700px" class="pl-2">
-                            <span>ນໍ້າໜັກສິນຄ້າ <span style="color: red"> 3</span></span>
-                            <v-text-field flat solo dense background-color="#E1F5FE" placeholder="ປ້ອນນໍ້າໜັກສິນຄ້າ"
-                                append-icon="mdi-format-title" v-model="proSize"></v-text-field>
-                        </div>
-                        <div style="width:700px" class="pl-2">
-                            <span>ລາຄາ <span style="color: red"> 2</span> </span>
+                            <span style="font-size: 22px;font-weight: bold;">ລາຄາ <span style="color: red"> 2</span> </span>
                             <v-text-field flat solo dense background-color="#E1F5FE" placeholder="ປ້ອນລາຄາ"
                                 v-model="price"></v-text-field>
                         </div>
@@ -244,11 +245,11 @@
 
                 <div class="text-center">
                     <span class="white-text large-text"
-                        style="color: red;font-size:15px;font-weight:bold">ໃຫ້ໃສຂໍມູນຕາມລໍາດັບ 1 2
+                        style="font-weight: bold ;color: red;font-size:20px;font-weight:bold">ໃຫ້ໃສຂໍມູນຕາມລໍາດັບ 1 2
                         3</span>
                 </div>
                 <div class="text-center">
-                    <span class="white-text large-text" style="color: red;font-size:15px;font-weight:bold">ຖ້າມີການ
+                    <span class="white-text large-text" style="font-weight: bold ;color: red;font-size:20px;font-weight:bold">ຖ້າມີການ
                         ປຽນຂໍມູນ 1 2 ໃຫ້ ໃສ
                         ຂໍມູນ 3 ຄືນໄໝ່</span>
                 </div>

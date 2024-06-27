@@ -22,7 +22,8 @@
                                 <td>{{ row?.item?.cusName }}</td>
                                 <!-- <td class="red--text">{{ row?.item?.row_Total?.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
                                 }} {{ row?.item?.currency?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</td> -->
-                                <td class="green--text">{{ row?.item?.inVoiceAmount?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}
+                                <td class="green--text">{{ row?.item?.inVoiceAmount?.replace(/\B(?=(\d{3})+(?!\d))/g,
+                                    ',') }}
                                     {{ row?.item?.currency?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</td>
                                 <td>{{ moment(row?.item?.inVoiceDate).format('DD/MM/YYYY HH:mm:ss') }}</td>
                                 <td v-if="row?.item?.inVoiceStatus === 'N'" class="red--text">
@@ -43,9 +44,9 @@
                                         </v-btn>
                                     </div>
                                 </td>
-                                <td><v-btn small class="card-shadow white--text"
+                                <!-- <td><v-btn small class="card-shadow white--text"
                                         @click="askBeforeRevert(row?.item?.inVoiceID)"
-                                        color="red"><v-icon>mdi-reload</v-icon>ຍົກເລິກລາຍການ</v-btn></td>
+                                        color="red"><v-icon>mdi-reload</v-icon>ຍົກເລິກລາຍການ</v-btn></td> -->
                             </tr>
                         </template>
                     </v-data-table>
@@ -126,7 +127,7 @@ export default {
         async onGetAllInvoice() {
             this.loading_processing = true
             try {
-                this.$axios.$post('/v_popupPerInVoice.service',{
+                this.$axios.$post('/v_popupPerInVoice.service', {
                     toKen: localStorage.getItem("toKen")
 
                 }).then((data) => {

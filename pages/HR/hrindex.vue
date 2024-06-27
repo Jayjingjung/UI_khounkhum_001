@@ -155,26 +155,37 @@
                   <td>
                     <img :src="row.item.img" style="height: 100px; width: 100px;">
                   </td>
-                  <td>{{ row?.item?.pdfFile }}</td>
+                  <td>
+                    <!-- PDF viewer -->
+                    <v-btn @click="viewPDF(row.item.pdfFile)" small color="primary">View PDF</v-btn>
+                  </td>
                   <td>{{ row?.item?.license_plate }}</td>
                   <td>{{ row?.item?.pricePaid }}</td>
                   <td>{{ row?.item?.cur }}</td>
                   <td>{{ row?.item?.dateCreate }}</td>
-
                   <!-- <td>
-                    <v-btn style="height: 40px;width: 90px;" small color="#b3da64" class="white--text card-shadow" @click="viewDAO(row?.item?.key_ID)">
+                    <v-btn style="height: 40px;width: 90px;" small color="#b3da64" class="white--text card-shadow"
+                      @click="downloadPdf(row?.item?.key_ID)">
                       <v-icon size="30" color="white"></v-icon>
                     </v-btn>
                   </td> -->
-                  <!-- <td>
-                    <v-btn style="height: 40px;width: 90px;"  small color="#90A4AE" class="white--text card-shadow" @click="viewDAOup(row?.item?.key_ID)">
-                      <v-icon size="30" color="white">mdi-table-edit</v-icon>
-                    </v-btn>
-                  </td> -->
-
                 </tr>
               </template>
             </v-data-table>
+
+            <!-- Dialog for viewing PDF -->
+            <v-dialog v-model="pdfDialog" max-width="800px">
+              <v-card>
+                <v-card-title class="headline">PDF Viewer</v-card-title>
+                <v-card-text>
+                  <iframe :src="pdfFileUrl" width="100%" height="800px" frameborder="0"></iframe>
+                </v-card-text>
+                <v-card-actions>
+                  <v-spacer></v-spacer>
+                  <v-btn color="blue darken-1" text @click="pdfDialog = false">Close</v-btn>
+                </v-card-actions>
+              </v-card>
+            </v-dialog>
           </div>
         </v-card>
       </div>
@@ -189,9 +200,7 @@ export default {
       selectedCard: '1', // This will hold the selected card to display
       loading_processing: false,
       formattedStartDate: null,
-
-
-
+    
       license_plate: '',
       report_leave_caroffice_header: [
         { text: 'ຮູບພາບ', value: 'img' },
@@ -220,21 +229,24 @@ export default {
 
       ],
       report_listCarOfficeDAO: [],
+
       report_leave_caroffice_header_DAO2: [
         { text: 'ຮູບພາບ', value: 'img' },
         { text: 'PDF', value: 'pdfFile' },
         { text: 'ປ້າຍລົດ', value: 'license_plate' },
         { text: 'ຈໍານວນເງີນ', value: 'pricePaid' },
         { text: 'ສະກຸນເງີນ', value: 'cur' },
-        { text: 'ວັນທີ', value: 'dateCreate' },
-
-        // { text: 'ລາຍລະອຽດ', value: '' },
-        // { text: 'ສະຖານະ', value: '' },
+        { text: 'ວັນທີ', value: 'dateCreate' }
       ],
-      report_listCarOfficeDAO2: [],
+      pdfDialog: false,
+      pdfFileUrl: '',
+      formattedStartDate: '', // Ensure this is defined if used
+      formattedEndDate: '', // Ensure this is defined if used
       end_menu: false,
       endDate: null,
       startDate: null,
+      startDateMenu: null,
+      endDateMenu: null,
       search: '',
       start_date: null,
     };
@@ -336,14 +348,10 @@ export default {
     async listCarOfficeDAO2() {
       try {
         this.loading_processing = true;
-
-
-
         let data = {
           startDate: this.startDate,
           endDate: this.endDate,
-          toKen: localStorage.getItem('toKen'),
-
+          toKen: localStorage.getItem('toKen')
         };
         const response = await this.$axios.$post('/listCarThatPaid.service', data);
         if (response?.status === "00") {
@@ -355,6 +363,13 @@ export default {
         console.error('Error fetching report fuel data:', error);
         // Handle error message display or other logic here
       }
+    },
+    viewPDF(pdfUrl) {
+      this.pdfFileUrl = `https://docs.google.com/gview?url=${encodeURIComponent(pdfUrl)}&embedded=true`;
+      this.pdfDialog = true;
+    },
+    downloadPdf(key_ID) {
+      // Implement download logic
     },
 
     viewup(key_ID) {

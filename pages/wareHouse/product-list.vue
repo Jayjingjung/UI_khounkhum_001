@@ -1664,7 +1664,7 @@
                                 <div
                                     style="width:100%;margin-top:50px;display:flex;flex-direction:column;justify-content:center;align-items:center;padding-left:20px; font-size: 18px">
 
-                                    <div>ອໍານວຍຍການບໍລີສັກ ຄູນຄໍາ</div>
+                                    <div>ອໍານວຍຍການບໍລີສັດ ຄູນຄໍາ</div>
                                     <div style="height: 50px;"></div>
                                     <div style="display:flex;justify-content:space-between">
                                         ...............................

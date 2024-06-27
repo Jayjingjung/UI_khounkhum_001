@@ -619,7 +619,9 @@ export default {
     },
     onGetBillNoAuto() {
       try {
-        this.$axios.$post('/getBillNoForPay.service'
+        this.$axios.$post('/getBillNoForPay.service',{
+          toKen: localStorage.getItem("toKen")
+        }
 
         ).then((data) => {
           this.billNoAuto = data?.data[0]?.billNo;

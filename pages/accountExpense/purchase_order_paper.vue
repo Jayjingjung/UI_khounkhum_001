@@ -1,51 +1,61 @@
 <template>
     <div>
+        <v-btn ref="btn1" value="1" @click="selectedCard = '1'" @mouseover="changeColor('	#009fff', $refs.btn1)"
+            @mouseleave="changeColor('white', $refs.btn1)"
+            style="margin-left: 2px; margin-right: 2px; background-color: white; color: black; height: 65px; border: 1px solid rgb(221, 5, 245);">
+            <v-icon style="color: rgb(221, 5, 245);" size="55">mdi-file-document-check</v-icon>
+            ໃບສະເໜີຊື້
+        </v-btn>
 
-
-        <v-card class="card-shadow" rounded="lg"
-            style="border:0.5px solid #e0e0e0;border-radius:3px;margin-bottom: 70px;">
-            <v-card-title style="background-color:#ed9ec5" class="white--text">
-                ໃບສະເໜີຊື້
-            </v-card-title>
-
-
-            <v-data-table :items-per-page="10" :headers="truck_table_headers" :items="filteredItems" :search="search">
-                <template v-slot:item="row">
-                    <tr>
-                        <td>{{ row?.item?.unit_price?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</td>
-                        <td><v-avatar><img :src="row.item.img"></v-avatar></td>
-                        <td>{{ row?.item?.qty_offer?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</td>
-                        <td>{{ row?.item?.totalMoney?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</td>
-                        <td>{{ row?.item?.description }}</td>
-                        <td>{{ row?.item?.offerManName }}</td>
-                        <td>{{ row?.item?.job }}</td>
-                        <td>{{ row?.item?.f_CARD_NO }}</td>
-                        <td>{{ row?.item?.h_VICIVLE_NUMBER }}</td>
-                        <td>{{ row?.item?.item_name }}</td>
-                        <td>{{ row?.item?.dateCreate }}</td>
-                        <td>{{ row?.item?.offer_CODE }}</td>
-                        <td :class="getStatusClass(row.item.status)">
-                            {{ getStatusText(row.item.status) }}
-                        </td>
-
-
-
-                        <td>
-                            <v-btn small color="primary" class="card-shadow" @click="onGetinbox(row.item.offer_CODE)">
-                                <v-icon>mdi-currency-usd</v-icon>ໃບສັງຊື້v2
-                            </v-btn>
-                        </td>
-                    </tr>
-                </template>
-            </v-data-table>
-            <v-btn ref="btn1" value="1" @click="selectedCard = '1'" @mouseover="changeColor('	#009fff', $refs.btn1)"
-                @mouseleave="changeColor('white', $refs.btn1)"
-                style="margin-left: 2px; margin-right: 2px; background-color: white; color: black; height: 65px; border: 1px solid rgb(221, 5, 245);">
-                <v-icon style="color: rgb(221, 5, 245);" size="55">mdi-printer</v-icon>
-                ພິມບິນ
-            </v-btn>
-        </v-card>
+        <v-btn ref="btn1" value="2" @click="selectedCard = '2'" @mouseover="changeColor('	#009fff', $refs.btn1)"
+            @mouseleave="changeColor('white', $refs.btn1)"
+            style="margin-left: 2px; margin-right: 2px; background-color: white; color: black; height: 65px; border: 1px solid rgb(197,148,25);">
+            <v-icon style="color:rgb(197,148,25);" size="55">mdi-printer</v-icon>
+            ໃບສັງຊື້
+        </v-btn>
         <div v-if="selectedCard === '1'">
+            <v-card class="card-shadow" rounded="lg"
+                style="border:0.5px solid #e0e0e0;border-radius:3px;margin-bottom: 70px;">
+                <v-card-title style="background-color:#ed9ec5" class="white--text">
+                    ໃບສະເໜີຊື້
+                </v-card-title>
+
+
+                <v-data-table :items-per-page="10" :headers="truck_table_headers" :items="filteredItems"
+                    :search="search">
+                    <template v-slot:item="row">
+                        <tr>
+                            <td><v-avatar><img :src="row.item.img"></v-avatar></td>
+                            <td>{{ row?.item?.unit_price?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</td>
+                            <td>{{ row?.item?.qty_offer?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</td>
+                            <td>{{ row?.item?.totalMoney?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</td>
+                            <td>{{ row?.item?.description }}</td>
+                            <td>{{ row?.item?.offerManName }}</td>
+                            <td>{{ row?.item?.job }}</td>
+                            <td>{{ row?.item?.f_CARD_NO }}</td>
+                            <td>{{ row?.item?.h_VICIVLE_NUMBER }}</td>
+                            <td>{{ row?.item?.item_name }}</td>
+                            <td>{{ row?.item?.dateCreate }}</td>
+                            <td>{{ row?.item?.offer_CODE }}</td>
+                            <td :class="getStatusClass(row.item.status)">
+                                {{ getStatusText(row.item.status) }}
+                            </td>
+
+
+
+                            <td>
+                                <v-btn small color="primary" class="card-shadow"
+                                    @click="onGetinbox(row.item.offer_CODE)">
+                                    <v-icon>mdi-currency-usd</v-icon>ໃບສັງຊື້v2
+                                </v-btn>
+                            </td>
+                        </tr>
+                    </template>
+                </v-data-table>
+
+            </v-card>
+        </div>
+        <div v-if="selectedCard === '2'">
             <v-card class="card-shadow" rounded="lg"
                 style="border:0.5px solid #b9acd6;border-radius:3px;margin-bottom: 500px;">
                 <v-card-title style="background-color:#b9acd6" class="white--text">
@@ -57,8 +67,8 @@
                     :search="search">
                     <template v-slot:item="row">
                         <tr>
-                            <td>{{ row?.item?.unit_price?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</td>
                             <td><v-avatar><img :src="row.item.img"></v-avatar></td>
+                            <td>{{ row?.item?.unit_price?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</td>
                             <td>{{ row?.item?.qty_offer?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</td>
                             <td>{{ row?.item?.totalMoney?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</td>
                             <td>{{ row?.item?.description }}</td>
@@ -762,20 +772,42 @@
 
                     </v-card>
                     <v-card-text>
-                        <div>
+                        <div v-if="shopName !== 'ບໍ່ມີຊື່ຮ້ານ (ຈ່າຍສົດ)'">
+    <!-- Total Money Field -->
+    <v-text-field
+      label="*ທັງໝົດ"
+      readonly
+      dense
+      outlined
+      background-color="#f5f5f5"
+      v-model="real_totalMoney"
+      @input="calculateTotalMoney"
+    ></v-text-field>
 
+    <!-- Paid Field -->
+    <v-text-field
+      label="*ຈ່າຍ"
+      dense
+      outlined
+      background-color="#f5f5f5"
+      :rules="nameRules"
+      v-model="paid"
+      @input="calculateTotalMoney"
+    ></v-text-field>
 
-                            <v-text-field label="*ທັງໝົດ" dense outlined background-color="#f5f5f5"
-                                v-model="real_totalMoney" @input="calculateTotalMoney"></v-text-field>
+    <!-- Remaining Debt (ຕິດໜີ້) Field -->
+    <v-text-field
+      label="*ຕິດໜີ້"
+      dense
+      outlined
+      background-color="#f5f5f5"
+      v-model="tid"
+      readonly
+    ></v-text-field>
 
-                            <v-text-field label="*ຈ່າຍ" dense outlined background-color="#f5f5f5" v-model="paid"
-                                @input="calculateTotalMoney"></v-text-field>
+                            <v-text-field label="*ສະກູນເງິນ" readonly dense outlined background-color="#f5f5f5"
+                                v-model="currency"></v-text-field>
 
-                            <v-text-field label="*ຕິດໜີ້" dense outlined background-color="#f5f5f5" v-model="tid"
-                                readonly></v-text-field>
-
-                            <v-text-field label="*ສະກູນເງິນ" dense outlined background-color="#f5f5f5"
-                                v-model="cur"></v-text-field>
                         </div>
                         <v-btn style="margin-top: -10px;margin-left: 10px;" color="primary" @click="ongetppocode">
                             <v-icon>mdi-border-color</v-icon>ບັນທຶກສັງຊື</v-btn>
@@ -792,7 +824,7 @@
 
         <!-- component for print  -->
 
-        <div>
+        <div style="display:none">
             <div id="modalInvoice">
                 <v-row>
                     <v-col>
@@ -844,15 +876,20 @@
                             </div>
                             <div style="margin-bottom: 15px;">
                                 <label for="qty_offer">ຂໍ້ສະເໜີ ຈໍານວນ:</label>
-                                <span id="qty_offer">{{ qty_offer?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</span>
+                                <span id="qty_offer">{{ qty_offer?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+                                    }}</span>
                             </div>
                             <div style="margin-bottom: 15px;">
                                 <label for="unit_price">ລາ​ຄາ​ຕໍ່​ຫນ່ວຍ:</label>
-                                <span id="unit_price">{{ unit_price?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</span>
+                                <span id="unit_price">{{ unit_price?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g,
+                                    ',')
+                                    }}</span>
                             </div>
                             <div style="margin-bottom: 15px;">
                                 <label for="totalMoney">ເງິນທັງໝົດ:</label>
-                                <span id="totalMoney">{{ totalMoney?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</span>
+                                <span id="totalMoney">{{ totalMoney?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g,
+                                    ',')
+                                    }}</span>
                             </div>
                             <!-- <div style="margin-bottom: 10px;">
                                     <label for="h_VICIVLE_NUMBER">ຫົວລັດ:</label>
@@ -872,15 +909,21 @@
                             </div>
                             <div style="margin-bottom: 15px;">
                                 <label for="qty_offer">ຂໍ້ສະເໜີ ຈໍານວນ:</label>
-                                <span id="qty_offer">{{ qty_offer1?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</span>
+                                <span id="qty_offer">{{ qty_offer1?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g,
+                                    ',')
+                                    }}</span>
                             </div>
                             <div style="margin-bottom: 15px;">
                                 <label for="unit_price">ລາ​ຄາ​ຕໍ່​ຫນ່ວຍ:</label>
-                                <span id="unit_price">{{ unit_price1?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</span>
+                                <span id="unit_price">{{ unit_price1?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g,
+                                    ',')
+                                    }}</span>
                             </div>
                             <div style="margin-bottom: 15px;">
                                 <label for="totalMoney">ເງິນທັງໝົດ:</label>
-                                <span id="totalMoney">{{ totalMoney1?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</span>
+                                <span id="totalMoney">{{ totalMoney1?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g,
+                                    ',')
+                                    }}</span>
                             </div>
                             <!-- <div style="margin-bottom: 10px;">
                                     <label for="h_VICIVLE_NUMBER">ຫົວລັດ:</label>
@@ -901,15 +944,21 @@
                             </div>
                             <div style="margin-bottom: 15px;">
                                 <label for="qty_offer">ຂໍ້ສະເໜີ ຈໍານວນ:</label>
-                                <span id="qty_offer">{{ qty_offer2?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</span>
+                                <span id="qty_offer">{{ qty_offer2?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g,
+                                    ',')
+                                    }}</span>
                             </div>
                             <div style="margin-bottom: 15px;">
                                 <label for="unit_price">ລາ​ຄາ​ຕໍ່​ຫນ່ວຍ:</label>
-                                <span id="unit_price">{{ unit_price2?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</span>
+                                <span id="unit_price">{{ unit_price2?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g,
+                                    ',')
+                                    }}</span>
                             </div>
                             <div style="margin-bottom: 15px;">
                                 <label for="totalMoney">ເງິນທັງໝົດ:</label>
-                                <span id="totalMoney">{{ totalMoney2?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</span>
+                                <span id="totalMoney">{{ totalMoney2?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g,
+                                    ',')
+                                    }}</span>
                             </div>
                             <!-- <div style="margin-bottom: 10px;">
                                     <label for="h_VICIVLE_NUMBER">ຫົວລັດ:</label>
@@ -928,15 +977,21 @@
                             </div>
                             <div style="margin-bottom: 15px;">
                                 <label for="qty_offer">ຂໍ້ສະເໜີ ຈໍານວນ:</label>
-                                <span id="qty_offer">{{ qty_offer3?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</span>
+                                <span id="qty_offer">{{ qty_offer3?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g,
+                                    ',')
+                                    }}</span>
                             </div>
                             <div style="margin-bottom: 15px;">
                                 <label for="unit_price">ລາ​ຄາ​ຕໍ່​ຫນ່ວຍ:</label>
-                                <span id="unit_price">{{ unit_price3?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</span>
+                                <span id="unit_price">{{ unit_price3?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g,
+                                    ',')
+                                    }}</span>
                             </div>
                             <div style="margin-bottom: 15px;">
                                 <label for="totalMoney">ເງິນທັງໝົດ:</label>
-                                <span id="totalMoney">{{ totalMoney3?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</span>
+                                <span id="totalMoney">{{ totalMoney3?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g,
+                                    ',')
+                                    }}</span>
                             </div>
                             <!-- <div style="margin-bottom: 10px;">
                                     <label for="h_VICIVLE_NUMBER">ຫົວລັດ:</label>
@@ -956,15 +1011,21 @@
                             </div>
                             <div style="margin-bottom: 15px;">
                                 <label for="qty_offer">ຂໍ້ສະເໜີ ຈໍານວນ:</label>
-                                <span id="qty_offer">{{ qty_offer4?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</span>
+                                <span id="qty_offer">{{ qty_offer4?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g,
+                                    ',')
+                                    }}</span>
                             </div>
                             <div style="margin-bottom: 15px;">
                                 <label for="unit_price">ລາ​ຄາ​ຕໍ່​ຫນ່ວຍ:</label>
-                                <span id="unit_price">{{ unit_price4?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</span>
+                                <span id="unit_price">{{ unit_price4?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g,
+                                    ',')
+                                    }}</span>
                             </div>
                             <div style="margin-bottom: 15px;">
                                 <label for="totalMoney">ເງິນທັງໝົດ:</label>
-                                <span id="totalMoney">{{ totalMoney4?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</span>
+                                <span id="totalMoney">{{ totalMoney4?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g,
+                                    ',')
+                                    }}</span>
                             </div>
                             <!-- <div style="margin-bottom: 10px;">
                                     <label for="h_VICIVLE_NUMBER">ຫົວລັດ:</label>
@@ -983,15 +1044,21 @@
                             </div>
                             <div style="margin-bottom: 15px;">
                                 <label for="qty_offer">ຂໍ້ສະເໜີ ຈໍານວນ:</label>
-                                <span id="qty_offer">{{ qty_offer5?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</span>
+                                <span id="qty_offer">{{ qty_offer5?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g,
+                                    ',')
+                                    }}</span>
                             </div>
                             <div style="margin-bottom: 15px;">
                                 <label for="unit_price">ລາ​ຄາ​ຕໍ່​ຫນ່ວຍ:</label>
-                                <span id="unit_price">{{ unit_price5?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</span>
+                                <span id="unit_price">{{ unit_price5?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g,
+                                    ',')
+                                    }}</span>
                             </div>
                             <div style="margin-bottom: 15px;">
                                 <label for="totalMoney">ເງິນທັງໝົດ:</label>
-                                <span id="totalMoney">{{ totalMoney5?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</span>
+                                <span id="totalMoney">{{ totalMoney5?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g,
+                                    ',')
+                                    }}</span>
                             </div>
                             <!-- <div style="margin-bottom: 10px;">
                                     <label for="h_VICIVLE_NUMBER">ຫົວລັດ:</label>
@@ -1010,15 +1077,21 @@
                             </div>
                             <div style="margin-bottom: 15px;">
                                 <label for="qty_offer">ຂໍ້ສະເໜີ ຈໍານວນ:</label>
-                                <span id="qty_offer">{{ qty_offer6?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</span>
+                                <span id="qty_offer">{{ qty_offer6?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g,
+                                    ',')
+                                    }}</span>
                             </div>
                             <div style="margin-bottom: 15px;">
                                 <label for="unit_price">ລາ​ຄາ​ຕໍ່​ຫນ່ວຍ:</label>
-                                <span id="unit_price">{{ unit_price6?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</span>
+                                <span id="unit_price">{{ unit_price6?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g,
+                                    ',')
+                                    }}</span>
                             </div>
                             <div style="margin-bottom: 15px;">
                                 <label for="totalMoney">ເງິນທັງໝົດ:</label>
-                                <span id="totalMoney">{{ totalMoney6?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</span>
+                                <span id="totalMoney">{{ totalMoney6?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g,
+                                    ',')
+                                    }}</span>
                             </div>
                             <!-- <div style="margin-bottom: 10px;">
                                     <label for="h_VICIVLE_NUMBER">ຫົວລັດ:</label>
@@ -1037,15 +1110,21 @@
                             </div>
                             <div style="margin-bottom: 15px;">
                                 <label for="qty_offer">ຂໍ້ສະເໜີ ຈໍານວນ:</label>
-                                <span id="qty_offer">{{ qty_offer7?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</span>
+                                <span id="qty_offer">{{ qty_offer7?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g,
+                                    ',')
+                                    }}</span>
                             </div>
                             <div style="margin-bottom: 15px;">
                                 <label for="unit_price">ລາ​ຄາ​ຕໍ່​ຫນ່ວຍ:</label>
-                                <span id="unit_price">{{ unit_price7?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</span>
+                                <span id="unit_price">{{ unit_price7?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g,
+                                    ',')
+                                    }}</span>
                             </div>
                             <div style="margin-bottom: 15px;">
                                 <label for="totalMoney">ເງິນທັງໝົດ:</label>
-                                <span id="totalMoney">{{ totalMoney7?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</span>
+                                <span id="totalMoney">{{ totalMoney7?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g,
+                                    ',')
+                                    }}</span>
                             </div>
                             <!-- <div style="margin-bottom: 10px;">
                                     <label for="h_VICIVLE_NUMBER">ຫົວລັດ:</label>
@@ -1064,15 +1143,21 @@
                             </div>
                             <div style="margin-bottom: 15px;">
                                 <label for="qty_offer">ຂໍ້ສະເໜີ ຈໍານວນ:</label>
-                                <span id="qty_offer">{{ qty_offer8?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</span>
+                                <span id="qty_offer">{{ qty_offer8?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g,
+                                    ',')
+                                    }}</span>
                             </div>
                             <div style="margin-bottom: 15px;">
                                 <label for="unit_price">ລາ​ຄາ​ຕໍ່​ຫນ່ວຍ:</label>
-                                <span id="unit_price">{{ unit_price8?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</span>
+                                <span id="unit_price">{{ unit_price8?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g,
+                                    ',')
+                                    }}</span>
                             </div>
                             <div style="margin-bottom: 15px;">
                                 <label for="totalMoney">ເງິນທັງໝົດ:</label>
-                                <span id="totalMoney">{{ totalMoney8?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</span>
+                                <span id="totalMoney">{{ totalMoney8?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g,
+                                    ',')
+                                    }}</span>
                             </div>
                             <!-- <div style="margin-bottom: 10px;">
                                     <label for="h_VICIVLE_NUMBER">ຫົວລັດ:</label>
@@ -1091,15 +1176,21 @@
                             </div>
                             <div style="margin-bottom: 15px;">
                                 <label for="qty_offer">ຂໍ້ສະເໜີ ຈໍານວນ:</label>
-                                <span id="qty_offer">{{ qty_offer9?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</span>
+                                <span id="qty_offer">{{ qty_offer9?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g,
+                                    ',')
+                                    }}</span>
                             </div>
                             <div style="margin-bottom: 15px;">
                                 <label for="unit_price">ລາ​ຄາ​ຕໍ່​ຫນ່ວຍ:</label>
-                                <span id="unit_price">{{ unit_price9?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</span>
+                                <span id="unit_price">{{ unit_price9?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g,
+                                    ',')
+                                    }}</span>
                             </div>
                             <div style="margin-bottom: 15px;">
                                 <label for="totalMoney">ເງິນທັງໝົດ:</label>
-                                <span id="totalMoney">{{ totalMoney9?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</span>
+                                <span id="totalMoney">{{ totalMoney9?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g,
+                                    ',')
+                                    }}</span>
                             </div>
                             <!-- <div style="margin-bottom: 10px;">
                                     <label for="h_VICIVLE_NUMBER">ຫົວລັດ:</label>
@@ -1109,7 +1200,9 @@
 
                         <div style="margin-bottom: 15px;margin-top: 20px;">
                             <label for="real_totalMoney">ລາຂາ ທັງໝົດ:</label>
-                            <span id="real_totalMoney">{{ real_totalMoney?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</span>
+                            <span id="real_totalMoney">{{
+                                real_totalMoney?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+                                }}</span>
                         </div>
 
                         <div style="width: 100%; margin: 0 auto;">
@@ -1117,7 +1210,7 @@
                                 <div
                                     style="width:100%;margin-top:50px;display:flex;flex-direction:column;justify-content:center;align-items:center;padding-left:20px; font-size: 18px">
 
-                                  
+
                                     <div>ຜູ້ສະເໜີ</div>
                                     <div style="height: 50px;"></div>
                                     <div style="display:flex;justify-content:space-between">
@@ -1145,7 +1238,7 @@
                                     </div>
                                 </div>
 
-                              
+
 
                             </div>
                         </div>
@@ -1154,6 +1247,7 @@
                 </v-row>
             </div>
         </div>
+
     </div>
 </template>
 
@@ -1163,6 +1257,7 @@ export default {
     data() {
         return {
             truct_footer_data_list: [],
+
             nameRules: [(v) => !!v || 'ຕ້ອງປ້ອນ'],
             f_CARD_NO: '',
             cars_list: [],
@@ -1173,12 +1268,12 @@ export default {
             unit_price: '',
             img: '',
             qty_offer: '',
-            real_totalMoney: '',
+            real_totalMoney: 0, 
             sumFooter: null, // Sum footer data
             truck_table_headers: [
-                { text: 'ລາຄາໜ້າຈໍານວນ', value: 'unit_price' },
                 { text: 'ຮູບພາບ', value: 'img' },
-                { text: 'ໜ້າຈໍານວນ', value: 'qty_offer' },
+                { text: 'ລາຄາຕໍ່ຈໍານວນ', value: 'unit_price' },
+                { text: 'ຈໍານວນ', value: 'qty_offer' },
                 { text: 'ລາຄາລວມ', value: 'totalMoney' },
                 { text: 'ລາຍລະອຽດ', value: 'description' },
                 { text: 'ຊື່ຜູ້ສະເໜີ', value: 'offerManName' },
@@ -1193,13 +1288,13 @@ export default {
 
 
             ],
-            selectedCard: '0', // This will hold the selected card to display
+            selectedCard: '1', // This will hold the selected card to display
             loading_processing: false,
             truck_data_list: [],
             truck_table_headersv2: [
-                { text: 'ລາຄາໜ້າຈໍານວນ', value: 'unit_price' },
                 { text: 'ຮູບພາບ', value: 'img' },
-                { text: 'ໜ້າຈໍານວນ', value: 'qty_offer' },
+                { text: 'ລາຄາຕໍ່ຈໍານວນ', value: 'unit_price' },
+                { text: 'ຈໍານວນ', value: 'qty_offer' },
                 { text: 'ລາຄາລວມ', value: 'totalMoney' },
                 { text: 'ລາຍລະອຽດ', value: 'description' },
                 { text: 'ຊື່ຜູ້ສະເໜີ', value: 'offerManName' },
@@ -1224,8 +1319,8 @@ export default {
             item_name: '',
             pocode: '',
             dateCreate: '',
-            paid: 0,
-            tid: 0,
+            paid: 0,            // The amount paid by the user
+            tid: 0,   
             cur: '',
             shopName: '',
             offer_CODE: '',
@@ -1280,6 +1375,34 @@ export default {
             search: '',
 
 
+            dialogVisiblev2: '',
+            item_name1: '',
+            unit_price1: '',
+            qty_offer1: '',
+            item_name1: '',
+            item_name2: '',
+            img9: '',
+            item_name9: '',
+            img8: '',
+            item_name8: '',
+            img7: '',
+            item_name7: '',
+            img6: '',
+            item_name6: '',
+            img5: '',
+            item_name5: '',
+            img4: '',
+            item_name4: '',
+            img3: '',
+            item_name3: '',
+            img2: '',
+            currency: '',
+            item_name5: '',
+            img4: '',
+
+
+
+
         };
     },
 
@@ -1306,15 +1429,39 @@ export default {
             );
         },
         // Compute the value of tid based on totalMoney and paid
+        calculateTotalMoney() {
+            // Convert values to numbers to avoid any string-based calculations
+            const total = parseFloat(this.real_totalMoney) || 0;
+            const paidAmount = parseFloat(this.paid) || 0;
+
+            // Calculate remaining debt (total - paid)
+            this.tid = (total - paidAmount).toFixed(2); // Ensure two decimals for display
+        },
+
     },
     methods: {
         changeColor(color, ref) {
             ref.$el.style.backgroundColor = color;
         },
+      
+        // calculateTotalMoney() {
 
-        calculateTotalMoney() {
-            this.tid = this.real_totalMoney - this.paid;
-        },
+        //     const total = parseFloat(this.real_totalMoney) || 0;
+        //     const paid = parseFloat(this.paid) || 0;
+
+
+        //     this.tid = total - paid;
+
+
+
+        //     this.tid = this.formatMoney(this.tid);
+        // },
+        // formatMoney(value) {
+        //     if (typeof value === 'number' || typeof value === 'string') {
+        //         return value.toString().replace(/\D/g, '').replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+        //     }
+        //     return value;
+        // },
         closeDialog() {
             this.dialogVisible = false;
         },
@@ -1366,7 +1513,10 @@ export default {
         // },
 
 
-
+        calculateTotalMoney() {
+            // Add your logic here to calculate the total money based on input
+            console.log("Calculating total money from input value:", this.paid);
+        },
 
         async fetchPrintData() {
             try {
@@ -1449,6 +1599,7 @@ export default {
                 this.item_name = response.data[0].item_name;
                 this.img = response.data[0].img;
                 this.dateCreate = response.data[0].dateCreate;
+                this.currency = response.data[0].currency;
                 this.shopName = response.data[0].shopName;
                 this.status = response.data[0].status;
                 this.stock_status = response.data[0].stock_status;
@@ -1543,7 +1694,7 @@ export default {
                 this.openDialogv2(this.offer_CODE);
 
                 // Call onGetLeaveNumber with the offerCode
-                this.onGetLeaveNumber(offerCode);
+                // this.onGetLeaveNumber(offerCode);
             } catch (error) {
                 console.error('Print API error:', error);
                 // Handle the error, such as displaying an error message
@@ -1564,7 +1715,7 @@ export default {
                     offer_CODE: offerCode,
                 });
 
-                console.log('Print API response:', response);
+                console.log('Print API response:', offer_CODE);
                 this.sumFooter = response.sumFooter;
                 // Update your data properties with the response data
                 this.offer_CODE = response.data[0].offer_CODE;
@@ -1577,6 +1728,7 @@ export default {
                 this.h_VICIVLE_NUMBER = response.data[0].h_VICIVLE_NUMBER;
                 this.item_name = response.data[0].item_name;
                 this.img = response.data[0].img;
+                this.currency = response.data[0].currency;
                 this.dateCreate = response.data[0].dateCreate;
                 this.shopName = response.data[0].shopName;
                 this.status = response.data[0].status;
@@ -1637,44 +1789,10 @@ export default {
                 this.item_id7 = response.data[0].item_id7;
                 this.item_id8 = response.data[0].item_id8;
                 this.item_id9 = response.data[0].item_id9;
-                // this.item_id1 = response.data[0].item.item_id1;
-                // this.qty_offer1 = response.data[0].item.qty_offer1;
-
-                // this.itemId10 =response.data[0].response.data[0]. item.item_id10;
-                // this.qty_offer10 =response.data[0].response.data[0]. item.qty_offer10;
-
-                // this.itemId2 =response.data[0]. item.item_id2;
-                // this.qty_offer2 =response.data[0]. item.qty_offer2;
-
-                // this.itemId3 =response.data[0]. item.item_id3;
-                // this.qty_offer3 =response.data[0]. item.qty_offer3;
-
-                // this.itemId4 =response.data[0]. item.item_id4;
-                // this.qty_offer4 =response.data[0]. item.qty_offer4;
-
-                // this.itemId5 =response.data[0]. item.item_id5;
-                // this.qty_offer5 =response.data[0]. item.qty_offer5;
-
-                // this.itemId6 =response.data[0]. item.item_id6;
-                // this.qty_offer6 =response.data[0]. item.qty_offer6;
-
-                // this.itemId7 =response.data[0]. item.item_id7;
-                // this.qty_offer7 =response.data[0]. item.qty_offer7;
-
-                // this.itemId8 =response.data[0]. item.item_id8;
-                // this.qty_offer8 = response.data[0].item.qty_offer8;
-
-                // this.itemId9 =response.data[0]. item.item_id9;
-                // this.qty_offer9 =response.data[0]. item.qty_offer9;
-
-                // Open the dialog after API call success
                 this.openDialog(this.offer_CODE);
-
-                // Call onGetLeaveNumber with the offerCode
-                this.onGetLeaveNumber(offerCode);
+                // this.onGetLeaveNumber(offerCode);
             } catch (error) {
                 console.error('Print API error:', error);
-                // Handle the error, such as displaying an error message
             }
         },
 
@@ -1711,7 +1829,7 @@ export default {
 
                 // Call onSubmit with the generated po_CODE
                 this.onSubmit(po_CODE);
-                window.location.reload();
+                // window.location.reload();
 
             } catch (error) {
                 console.error('GenCodePO API error:', error);
@@ -1736,11 +1854,11 @@ export default {
 
                     paid: this.paid, // Using the qtyOffer property
 
-                    tid: this.tid, // Using the qtyOffer property
 
+                    tid: this.tid.replace(/,/g, ''),
                     item_id: this.item_id, // Assuming you have an itemId property set from somewhere
 
-                    cur: this.cur, // Using the qtyOffer property
+                    cur: this.currency, // Using the qtyOffer property
 
 
                     item_id1: this.item_id1,
@@ -1842,7 +1960,8 @@ export default {
             this.offer_CODE = offer_CODE;
             this.loading_processing = true;
             const data = {
-                tid: this.tid,
+                tid: this.tid.replace(/,/g, ''),
+
                 paid: this.paid,
                 show_list: this.shop_id,
                 cut: this.cut,

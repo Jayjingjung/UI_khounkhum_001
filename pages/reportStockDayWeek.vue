@@ -37,6 +37,7 @@
                                 item-value="item_id" label="ອຸປະກອນ" :loading="loading_processing"
                                 :disabled="loading_processing"></v-select>
                         </div>
+
                         <v-row justify="start">
                             <v-btn class="mr-4 mt-5" width="130" color="success"
                                 @click="reportStockDayWeek">ບັນທຶກ</v-btn>
@@ -47,6 +48,23 @@
                         </v-row>
                     </div>
 
+                </div>
+
+                <div>
+                    <div style="width:100%;display:flex;justify-content:center;margin-top: 20px;" class="pt-4">
+
+                        <div style="width: 400px;">
+                            <v-row>
+                                <v-btn v-for="month in 12" :key="month" @click="setMonth(month)">{{ month }}</v-btn>
+                            </v-row>
+                        </div>
+                        <div style="width: 400px;">
+                            <v-row>
+                                <v-btn v-for="year in availableYears" :key="year" @click="setYear(year)">{{ year
+                                    }}</v-btn>
+                            </v-row>
+                        </div>
+                    </div>
                 </div>
                 <v-container style="display: flex;margin-top: 50px;width: 1300px;">
                     <v-data-table :headers="report_reportStockDayWeek_item" :items="report_reportStockDayWeek"
@@ -68,30 +86,49 @@
                     <div style="margin-top: 10px;margin-bottom: 10px; margin-left: 20px;">
                         <div v-if="sumFooter">
                             <div style="display: flex;">
-
-                                <p>ສິນຄ້າຈໍານວນທັງຫມົດ </p>
-                                <p style="margin-left: 10px; color: red;">{{ sumFooter.total_qty_stock }}</p>
+                                <p>ຍອດຍົກມາ</p>
+                                <p style="margin-left: 10px; color: red;">{{ sumFooter.total_yodyokma }}</p>
                             </div>
                             <div style="display: flex;">
-
-                                <p>ຈໍານວນທັງຫມົດເອົາເຂົ້າ</p>
+                                <p>ຍອດຮັບເຂົ້າ</p>
                                 <p style="margin-left: 10px; color: red;">{{ sumFooter.total_qty_in }}</p>
                             </div>
                             <div style="display: flex;">
-
-                                <p>ຈໍານວນທັງຫມົດ ເອົາອອກ </p>
+                                <p>ຍອດເບີກອອກ</p>
                                 <p style="margin-left: 10px; color: red;">{{ sumFooter.total_qty_out }}</p>
                             </div>
                             <div style="display: flex;">
-
-                                <p>ຍົກມາທັງໝົດ</p>
-                                <p style="margin-left: 10px; color: red;">{{ sumFooter.total_yodyokma }}</p>
+                                <p>ຍອດຍັງເຫຼືອ</p>
+                                <p style="margin-left: 10px; color: red;">{{ sumFooter.total_qty_stock }}</p>
                             </div>
                         </div>
                     </div>
+
+                    <div style="margin-top: 10px;margin-bottom: 10px; margin-left: 20px;">
+                        <div v-if="sumFooter2">
+                            <div style="display: flex;">
+                                <p>ຍອດຍົກມາ</p>
+                                <p style="margin-left: 10px; color: red;">{{ sumFooter2.total_yodyokma2 }}</p>
+                            </div>
+                            <div style="display: flex;">
+                                <p>ຍອດຮັບເຂົ້າ</p>
+                                <p style="margin-left: 10px; color: red;">{{ sumFooter2.total_qty_in }}</p>
+                            </div>
+                            <div style="display: flex;">
+                                <p>ຍອດເບີກອອກ</p>
+                                <p style="margin-left: 10px; color: red;">{{ sumFooter2.total_qty_out }}</p>
+                            </div>
+                            <div style="display: flex;">
+                                <p>ຍອດຍັງເຫຼືອ</p>
+                                <p style="margin-left: 10px; color: red;">{{ sumFooter2.total_qty_stock2 }}</p>
+                            </div>
+                        </div>
+                    </div>
+
                 </v-container>
             </v-card>
         </div>
+
         <div style="display:none">
             <div id="modalInvoice">
 
@@ -210,6 +247,26 @@
                         </div>
                     </div>
                 </div>
+                <div style="margin-top: 10px;margin-bottom: 10px; margin-left: 20px;">
+                        <div v-if="sumFooter2">
+                            <div style="display: flex;">
+                                <p>ຍອດຍົກມາ</p>
+                                <p style="margin-left: 10px; color: red;">{{ sumFooter2.total_yodyokma2 }}</p>
+                            </div>
+                            <div style="display: flex;">
+                                <p>ຍອດຮັບເຂົ້າ</p>
+                                <p style="margin-left: 10px; color: red;">{{ sumFooter2.total_qty_in }}</p>
+                            </div>
+                            <div style="display: flex;">
+                                <p>ຍອດເບີກອອກ</p>
+                                <p style="margin-left: 10px; color: red;">{{ sumFooter2.total_qty_out }}</p>
+                            </div>
+                            <div style="display: flex;">
+                                <p>ຍອດຍັງເຫຼືອ</p>
+                                <p style="margin-left: 10px; color: red;">{{ sumFooter2.total_qty_stock2 }}</p>
+                            </div>
+                        </div>
+                    </div>
 
                 <div
                     style="margin-top:50px;display:flex;justify-content:space-between;padding-left:20px; font-size: 16px">
@@ -254,33 +311,32 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from 'vuex';
 export default {
     data() {
         return {
             loading_processing: false,
             sumFooter: {},
+            sumFooter2: {},
             truck_data_list: [],
+            startDate: new Date().toISOString().substr(0, 10),
+            endDate: new Date().toISOString().substr(0, 10),
+            startDateMenu: false,
+            endDateMenu: false,
+            item_id: null,
+            availableYears: this.getYearsArray(),
             report_reportStockDayWeek_item: [
                 { text: 'ຮູບພາບ', value: 'img' },
                 { text: 'ຊື່ລາຍການ', value: 'item_name' },
                 { text: 'ໜ່ວຍ', value: 'unit' },
                 { text: 'ອອກວັນທີ', value: 'dateOut' },
                 { text: 'ວັນທີໃນ', value: 'dateIn' },
-                { text: 'ຈໍານວນຍັງເສີອ', value: 'qty_stock' },
+                { text: 'ຈຳນວນຍັງເຫຼືອ', value: 'qty_stock' },
                 { text: 'ຈໍານວນອອກ', value: 'qty_out' },
                 { text: 'ຈໍານວນໃນ', value: 'qty_in' },
                 { text: 'ຍົກມາ', value: 'yordyokma' },
             ],
             report_reportStockDayWeek: [],
-            startDate: null,
-            endDate: null,
-            item_id: null,
-            startDateMenu: false,
-            endDateMenu: false,
-            licensePlateStartDateMenu: false,
-            carDetail: {
-                license_plate_start: '',
-            },
         };
     },
     computed: {
@@ -290,6 +346,13 @@ export default {
         formattedEndDate() {
             return this.formatDate(this.endDate);
         },
+        ...mapGetters({
+            truck_data_list: "truck_data_list",
+            report_reportStockDayWeek: "report_reportStockDayWeek",
+            report_reportStockDayWeek_item: "report_reportStockDayWeek_item",
+            sumFooter: "sumFooter",
+            sumFooter2: "sumFooter2",
+        }),
     },
     mounted() {
         this.reportStockDayWeek();
@@ -314,6 +377,29 @@ export default {
             const [year, month, day] = date.split('-');
             return `${day}/${month}/${year}`;
         },
+        ...mapActions({
+            reportStockDayWeek: "reportStockDayWeek",
+            clearItemList: "clearItemList",
+        }),
+        setMonth(month) {
+            const currentYear = new Date().getFullYear();
+            const start = new Date(currentYear, month - 1, 1);
+            const end = new Date(currentYear, month, 0);
+            this.startDate = start.toISOString().substr(0, 10);
+            this.endDate = end.toISOString().substr(0, 10);
+        },
+        setYear(year) {
+            this.startDate = `${year}-01-01`;
+            this.endDate = `${year}-12-31`;
+        },
+        getYearsArray() {
+            const currentYear = new Date().getFullYear();
+            const years = [];
+            for (let i = currentYear; i >= currentYear - 10; i--) {
+                years.push(i);
+            }
+            return years;
+        },
         updateStartDate(date) {
             this.startDate = date;
             this.startDateMenu = false;
@@ -333,21 +419,23 @@ export default {
                     startDate: this.startDate,
                     endDate: this.endDate,
                     item_id: this.item_id,
-                toKen: localStorage.getItem('toKen'),
-
+                    toKen: localStorage.getItem('toKen'),
                 };
                 const response = await this.$axios.$post('/reportStockDayWeek.service', data);
                 if (response?.status === "00") {
                     this.report_reportStockDayWeek = response?.data;
                     this.sumFooter = response?.sumFooter;
+                    this.sumFooter2 = response?.sumFooter2;  // Ensure sumFooter2 is set
                 } else {
                     this.report_reportStockDayWeek = [];
                     this.sumFooter = {};
+                    this.sumFooter2 = {};  // Reset sumFooter2 in case of error
                 }
             } catch (error) {
                 console.error('Error fetching report stock day week data:', error);
                 this.report_reportStockDayWeek = [];
                 this.sumFooter = {};
+                this.sumFooter2 = {};  // Reset sumFooter2 in case of error
             } finally {
                 this.loading_processing = false;
             }
@@ -358,9 +446,7 @@ export default {
                 const response = await this.$axios.$post('ListItems.service', {
                     toKen: localStorage.getItem('toKen'),
                 });
-
                 console.log('API response:', response);
-
                 if (response?.status === '00' && response?.data) {
                     this.truck_data_list = response.data;
                 } else {
@@ -376,6 +462,7 @@ export default {
     },
 };
 </script>
+
 
 <style scoped>
 .v-toolbar-title {

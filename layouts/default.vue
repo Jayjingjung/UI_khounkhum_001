@@ -1,6 +1,8 @@
 <template>
   <v-app dark>
-    <v-app-bar fixed app color="#E57373" class="mt-2">
+    <v-app-bar
+      v-if="USER_ROLE == 'USER' || USER_ROLE == 'ADMIN' || USER_ROLE === 'FINANCE' || USER_ROLE === 'ACCOUNT_POYLOD'"
+      style="width: 1850px;" fixed app color="#E57373" class="mt-2">
       <v-dialog v-model="loading_processing" persistent width="55">
         <v-card width="55" height="55" class="pt-3 pl-3">
           <v-progress-circular :width="3" color="primary" indeterminate></v-progress-circular>
@@ -101,7 +103,7 @@
       </v-menu>
 
       <!-- menu ສ້າງໃບບິນ -->
-      <v-menu offset-y>
+      <v-menu offset-y v-if="USER_ROLE !== 'FINANCE'">
         <template v-slot:activator="{ on, attrs }">
           <v-btn color="white" v-bind="attrs" v-on="on" text class="ml-2" elevation="0">
 
@@ -116,53 +118,56 @@
           </v-btn>
         </template>
         <v-list>
-          <v-btn v-if="USER_ROLE !== 'FINANCE'" block color="white" class="text-left" elevation="0"
-            style="border-radius: 0px" to="/leave-cars-list">
-            ອອກໃບປ່ອຍລົດ
-            <v-chip class="ma-2" x-small color="teal" text-color="white" v-if="TOTAL_notiDetails != '0'">
-              {{ TOTAL_notiDetails }}
-            </v-chip>
-            <v-spacer></v-spacer>
-          </v-btn>
-          <v-btn v-if="USER_ROLE !== 'FINANCE'" color="white" block elevation="0" style="border-radius: 0px"
-            to="/operation-list">
-            ອອກໃບປະຕີບັດງານ
-            <v-chip class="ma-2" x-small color="red" text-color="white" v-if="TOTAL_FORMANCE != '0'">
-              {{ TOTAL_FORMANCE }}
-            </v-chip>
-            <v-spacer></v-spacer>
-          </v-btn>
-          <v-btn v-if="USER_ROLE !== 'USER'" color="white" block elevation="0" style="border-radius: 0px"
-            to="/invoice-list">
-            ອອກໃບຮຽກເກັບເງິນ
-            <v-chip class="ma-2" x-small color="red" text-color="white" v-if="TOTAL_INVOICE != '0'">
-              {{ TOTAL_INVOICE }}
-            </v-chip>
-            <v-spacer></v-spacer>
-          </v-btn>
-          <v-btn v-if="USER_ROLE !== 'USER'" color="white" block elevation="0" style="border-radius: 0px" to="/payment">
-            ຮັບເງິນ
-            <v-chip class="ma-2" x-small color="red" text-color="white" v-if="TOTAL_payStatus != '0'">
-              {{ TOTAL_payStatus }}
-            </v-chip>
-            <v-spacer></v-spacer>
-          </v-btn>
-          <v-btn v-if="USER_ROLE !== 'USER'" color="white" block elevation="0" style="border-radius: 0px"
-            to="/payment-debt">
-            ຮັບເງິນຍ້ອນຫຼັງ
-            <v-chip class="ma-2" x-small color="red" text-color="white" v-if="TOTAL_totalOwe != '0'">
-              {{ TOTAL_totalOwe }}
-            </v-chip>
-            <v-spacer></v-spacer>
-          </v-btn>
-          <v-btn v-if="USER_ROLE !== 'USER'" color="white" block elevation="0" style="border-radius: 0px"
-            to="/allowance">
-            ເບ້ຍລ້ຽງທີ່ຄ້າງຊໍາລະ
-            <v-chip class="ma-2" x-small color="red" text-color="white" v-if="TOTAL_totalOwe != '0'">
-              {{ TOTAL_totalOwe }}
-            </v-chip>
-            <v-spacer></v-spacer>
-          </v-btn>
+          <div v-if="USER_ROLE !== 'ACCOUNT_POYLOD'">
+            <v-btn v-if="USER_ROLE !== 'FINANCE'" block color="white" class="text-left" elevation="0"
+              style="border-radius: 0px" to="/leave-cars-list">
+              ອອກໃບປ່ອຍລົດ
+              <v-chip class="ma-2" x-small color="teal" text-color="white" v-if="TOTAL_notiDetails != '0'">
+                {{ TOTAL_notiDetails }}
+              </v-chip>
+              <v-spacer></v-spacer>
+            </v-btn>
+            <v-btn v-if="USER_ROLE !== 'FINANCE'" color="white" block elevation="0" style="border-radius: 0px"
+              to="/operation-list">
+              ອອກໃບປະຕີບັດງານ
+              <v-chip class="ma-2" x-small color="red" text-color="white" v-if="TOTAL_FORMANCE != '0'">
+                {{ TOTAL_FORMANCE }}
+              </v-chip>
+              <v-spacer></v-spacer>
+            </v-btn>
+            <v-btn v-if="USER_ROLE !== 'USER'" color="white" block elevation="0" style="border-radius: 0px"
+              to="/invoice-list">
+              ອອກໃບຮຽກເກັບເງິນ
+              <v-chip class="ma-2" x-small color="red" text-color="white" v-if="TOTAL_INVOICE != '0'">
+                {{ TOTAL_INVOICE }}
+              </v-chip>
+              <v-spacer></v-spacer>
+            </v-btn>
+            <v-btn v-if="USER_ROLE !== 'USER'" color="white" block elevation="0" style="border-radius: 0px"
+              to="/payment">
+              ຮັບເງິນ
+              <v-chip class="ma-2" x-small color="red" text-color="white" v-if="TOTAL_payStatus != '0'">
+                {{ TOTAL_payStatus }}
+              </v-chip>
+              <v-spacer></v-spacer>
+            </v-btn>
+            <v-btn v-if="USER_ROLE !== 'USER'" color="white" block elevation="0" style="border-radius: 0px"
+              to="/payment-debt">
+              ຮັບເງິນຍ້ອນຫຼັງ
+              <v-chip class="ma-2" x-small color="red" text-color="white" v-if="TOTAL_totalOwe != '0'">
+                {{ TOTAL_totalOwe }}
+              </v-chip>
+              <v-spacer></v-spacer>
+            </v-btn>
+            <v-btn v-if="USER_ROLE !== 'USER'" color="white" block elevation="0" style="border-radius: 0px"
+              to="/allowance">
+              ເບ້ຍລ້ຽງທີ່ຄ້າງຊໍາລະ
+              <v-chip class="ma-2" x-small color="red" text-color="white" v-if="TOTAL_totalOwe != '0'">
+                {{ TOTAL_totalOwe }}
+              </v-chip>
+              <v-spacer></v-spacer>
+            </v-btn>
+          </div>
         </v-list>
       </v-menu>
 
@@ -184,16 +189,16 @@
             1. ລາຍງານລາຍຮັບ - ລາຍຈ່າຍຂອງລົດ
             <v-spacer></v-spacer>
           </v-btn>
-          <v-btn v-if="USER_ROLE !== 'FINANCE'" color="white" block elevation="0" style="border-radius: 0px"
-            to="/report_leave_cars">
+          <v-btn v-if="USER_ROLE !== 'FINANCE' || USER_ROLE !== 'USER'" color="white" block elevation="0"
+            style="border-radius: 0px" to="/report_leave_cars">
             2. ລາຍງານໃບປ່ອຍລົດ
             <v-chip class="ma-2" x-small color="teal" text-color="white" v-if="TOTAL_notiDetails != '0'">
               {{ TOTAL_notiDetails }}
             </v-chip>
             <v-spacer></v-spacer>
           </v-btn>
-          <v-btn v-if="USER_ROLE !== 'FINANCE'" color="white" block elevation="0" style="border-radius: 0px"
-            to="/report_operation">
+          <v-btn v-if="USER_ROLE !== 'FINANCE' || USER_ROLE !== 'USER'" color="white" block elevation="0"
+            style="border-radius: 0px" to="/report_operation">
             3. ລາຍງານໃບປະຕິບັດງານ
             <v-chip class="ma-2" x-small color="red" text-color="white" v-if="TOTAL_FORMANCE != '0'">
               {{ TOTAL_FORMANCE }}
@@ -240,7 +245,8 @@
             10. ລາຍງານລູກຄ້າຕິດໜີ້
             <v-spacer></v-spacer>
           </v-btn>
-          <v-btn v-if="USER_ROLE !== 'FINANCE'" color="white" block elevation="0" style="border-radius: 0px"
+          
+          <v-btn v-if="USER_ROLE !== 'USER' "  color="white" block elevation="0" style="border-radius: 0px"
             to="/report-expense">
             11. ລາຍງານລາຍຮັບ - ລາຍຈ່າຍອື່ນໆ
             <v-spacer></v-spacer>
@@ -250,20 +256,47 @@
 
 
       <v-spacer />
-      <v-btn rounded elevation="0" text>
+      <v-btn style="width: auto;" rounded elevation="0" text>
         <v-icon color="#fff">mdi-account</v-icon>
         <span class="white--text">{{ USER_NAME }}</span>
       </v-btn>
 
 
-      <v-chip v-if="TOTAL_branchName">{{ branchDisplayName }}</v-chip>
-    
+      <v-chip style="width: auto;" v-if="TOTAL_branchName">{{ branchDisplayName }}</v-chip>
 
-      <v-btn rounded @click="onLogOut" text elevation="0">
+      <v-btn style="background-color: #f44336;width: 100px; margin-left: 20px; " rounded @click="onLogOut" text
+        elevation="0">
         <v-icon color="white">mdi-power</v-icon>
-
       </v-btn>
+
+
+
     </v-app-bar>
+    <!-- <div v-if="USER_ROLE == 'FOR_DOCUMENT'" >
+      <v-btn style =" background-color: blueviolet;width: 100px; margin-left: 20px; margin-top: 20px; " rounded @click="
+      onLogOut" text elevation="0">
+      <v-icon color="white">mdi-power</v-icon>
+      </v-btn>
+    </div> -->
+    <div style="display: flex;">
+
+      <div
+        v-if="USER_ROLE == 'FOR_DOCUMENT_ADMIN' || USER_ROLE == 'BOR-HIN-KHUAT' || USER_ROLE == 'FOR_DOCUMENT' || USER_NAME == 'borhinkuad-konengua' || USER_ROLE == 'borhinkuad-sykhoun' || USER_ROLE == 'borhinkuad-tha' || USER_ROLE == 'borhinkuad-xiengkong' || USER_ROLE == 'INVENANSFINANCE'">
+        <v-btn style="background-color: #f44336;width: 100px; margin-left: 20px; margin-top: 20px; " rounded
+          @click="onLogOut" text elevation="0">
+          <v-icon color="white">mdi-power</v-icon>
+        </v-btn>
+      </div>
+
+
+
+      <div style="margin-top: 15px;margin-left: 15px;"
+        v-if="USER_NAME == 'borhinkuad-konengua' || USER_ROLE == 'BOR-HIN-KHUAT' || USER_ROLE == 'borhinkuad-sykhoun' || USER_ROLE == 'borhinkuad-tha' || USER_ROLE == 'borhinkuad-xiengkong'">
+        <v-chip style="width: auto;font-size: 25px;height: 50px;" v-if="TOTAL_branchName">{{ branchDisplayName
+          }}</v-chip>
+      </div>
+    </div>
+
 
 
     <div class="content mt-5">

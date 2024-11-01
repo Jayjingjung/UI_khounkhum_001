@@ -10,7 +10,7 @@
         </div>
 
         <div style="display: flex; justify-content: flex-start;">
-          <p>ລວມເງິນຄ້າງຈ່າຍນໍ້າມັນ: </p>
+          <p>ລວມເງິນນໍ້າມັນ: </p>
           <p class="text-red">{{ sumFooter.totalPriceFuel }}</p>
         </div>
       </div>
@@ -53,14 +53,14 @@
     <div class="ml-5" style="display: flex; justify-content: flex-start;">
       <div style="width:20%; display:flex; justify-content:start" class="ml-5 mt-10 mb-10">
         <div>
-          <h3>ທັງໝົດ: <span class="pp--text">{{numDataRows     }}</span></h3>
+          <h3>ທັງໝົດ: <span class="pp--text">{{ numDataRows }}</span></h3>
         </div>
-        
+
         <div class="ml-5 mr-1">
           <h3>ຄ້າງຈ່າຍ: <span class="red--text">{{ waitingList }}</span></h3>
         </div>
         <div class="ml-5 mr-1">
-          <h3>ສໍາລະເເລ້ວ: <span class="green--text">{{ successList}}</span></h3>
+          <h3>ສໍາລະເເລ້ວ: <span class="green--text">{{ successList }}</span></h3>
         </div>
       </div>
 
@@ -80,12 +80,16 @@
           <v-divider class="mx-4" inset vertical></v-divider>
           <v-spacer></v-spacer>
 
-          <v-toolbar-title  class="text-center">ເລືອກ​ທັງ​ຫມົດ
+          <v-toolbar flat color="white">
+            <v-toolbar-title style="color: darkorchid;">ຈໍານວນເງີນໃບບິນທີເລືອກ​ທັງ​ຫມົດ: {{
+              totalSelectedAmount?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g,
+              ',') }}</v-toolbar-title>
+          </v-toolbar>
+          <v-toolbar-title class="text-center">ເລືອກ​ທັງ​ຫມົດ
             <!-- Select All checkbox -->
-            <v-checkbox v-model="selectAllCheckbox" @change="selectAll"
-              :indeterminate="selectAllIndeterminate"> </v-checkbox>
+            <v-checkbox v-model="selectAllCheckbox" @change="selectAll" :indeterminate="selectAllIndeterminate">
+            </v-checkbox>
           </v-toolbar-title>
-
 
         </v-toolbar>
       </template>
@@ -104,11 +108,18 @@
         <span :style="{ color: getStatusColor(item.status_fuel) }">{{ getStatusText(item.status_fuel) }}</span>
       </template>
 
+
+      <!-- Custom Cell Content for Total Prize Fuel All -->
+      <template v-slot:item.totalPrizeFuelAll="{ item }">
+        <td>{{ formatCurrency(item.totalPrizeFuelAll) }}</td>
+      </template>
+
       <!-- Custom Cell Content -->
       <template v-slot:item.sen="{ item }">
         <td>
           <!-- Conditionally render the button based on status -->
-          <v-btn v-if="item.status_fuel !== 'P'" @click="updateStatusFuelStation(item)" color="success">Send</v-btn>
+          <v-btn v-if="item.status_fuel !== 'P'" @click="confirmUpdateStatusFuelStation(item)"
+            color="success">Send</v-btn>
         </td>
       </template>
       <!-- /Status Column -->
@@ -193,6 +204,7 @@
   </div>
 </template>
 <script>
+import Swal from 'sweetalert2';
 export default {
   data() {
     return {
@@ -207,7 +219,7 @@ export default {
       formattedEndDate: null,
       gasReports: [], // Fetched gas reports data
       sumFooter: null, // Sum footer data
-     
+
       search: '', // Initialize search variable
       status: null,
       selectedCircles: [],
@@ -262,6 +274,12 @@ export default {
 
       return this.all_statu;
     },
+    totalSelectedAmount() {
+      return this.selectedItems
+        .filter(item => item.status_fuel === 'UP')
+        .reduce((sum, item) => sum + parseFloat(item.totalPrizeFuelAll || 0), 0)
+      // .toFixed(2);
+    },
     selectAllIndeterminate() {
       return this.selectedItems.length > 0 && this.selectedItems.length < this.filteredGasReports.length;
     },
@@ -296,7 +314,7 @@ export default {
         this.loading_processing = true;
         this.successList = 0;
         this.waitingList = 0;
-     
+
 
         let data = {
           startDate: this.startDate,
@@ -318,7 +336,7 @@ export default {
           this.report_leave_car_list = response.data;
           this.sumFooter = response.sumFooter;
           this.onCheckAlert();
-     
+
         } else {
           this.gasReports = [];
           this.report_leave_car_list = [];
@@ -333,15 +351,36 @@ export default {
     // Select All method
     selectAll() {
       if (this.selectAllCheckbox) {
-        this.selectedItems = [...this.filteredGasReports];
+        // Select only items with status_fuel === 'UP'
+        this.selectedItems = this.filteredGasReports.filter(item => item.status_fuel === 'UP');
       } else {
         this.selectedItems = [];
       }
     },
 
+    confirmUpdateStatusFuelStation(item) {
+      Swal.fire({
+        title: 'ທ່ານຕ້ອງການຊຳລະຫຼືບໍ່?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'ຕົກລົງ',
+
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.updateStatusFuelStation(item);
+        }
+      });
+    },
     async updateStatusFuelStation() {
       if (this.selectedItems.length === 0) {
         console.error('No items selected for update.');
+        Swal.fire({
+          icon: 'warning',
+          title: 'No Selection',
+          text: 'Please select items to update.',
+        });
         return;
       }
 
@@ -352,6 +391,7 @@ export default {
         const requestData = {
           keyIds: this.selectedItems.map(item => item.keyIds),
           dels: this.selectedItems.map(item => item.del),
+          totalPriceOil: this.totalSelectedAmount,
           toKen: localStorage.getItem('toKen'),
         };
 
@@ -362,26 +402,40 @@ export default {
         console.log('API response:', response);
 
         if (response?.status === '00') {
-          console.log('Status updated successfully.');
+          Swal.fire({
+            icon: 'success',
+            title: 'Success',
+            text: 'Status updated successfully.',
+          });
 
           // Fetch report data again after status update
           await this.fetchReportFuel();
         } else {
-          console.error('Failed to update status:', response?.message);
-          // Handle error message display or other logic here
+          Swal.fire({
+            icon: 'error',
+            title: 'Failed to update status',
+            text: response?.message || 'Failed to update the status.',
+          });
         }
       } catch (error) {
         console.error('Error updating status:', error);
-        // Handle error message display or other logic here
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'An error occurred while updating the status.',
+        });
       } finally {
         this.loading_processing = false;
         this.selectedItems = []; // Clear selected items after update
         this.selectAllCheckbox = false; // Clear Select All checkbox after update
       }
     },
-
-
-
+    formatCurrency(value) {
+      return new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'LAK',
+      }).format(value);
+    },
     getStatusText(status) {
       if (status === 'P') {
         return 'ຈ່າຍເເລ້ວ'; // Return 'ຈ່າຍເເລ້ວ' for status 'P'

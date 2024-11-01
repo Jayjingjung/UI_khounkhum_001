@@ -10,18 +10,18 @@
                     <!-- Display unit_price above the v-select component -->
                   
                     <!-- <div v-if="selectedEquipment" class="mt-2">
-                        <p>ລາຄາຕໍ່ອັນ: {{ selectedEquipment.unit_price }} Kip</p>
+                        <p>ລາຄາຕໍ່ອັນ: {{ selectedEquipment.unit_price }} LAK</p>
                     </div> -->
 
-                    <v-select outlined dense label="ເລືອກ ອຸປະກອນ" :items="Mechanicequipment" item-text="itemName"
+                    <v-autocomplete outlined dense label="ເລືອກ ອຸປະກອນ" :items="Mechanicequipment" item-text="itemName"
                         item-value="item_id" @change="onSelectMechanicequipment">
                         <template v-slot:selection="data">
-                            <span>{{ data.item.itemName }} ({{ data.item.unit_price }} Kip)</span>
+                            <span>{{ data.item.itemName }} ({{ data.item.unit_price }} LAK)</span>
                         </template>
                         <template v-slot:item="data">
-                            <span>{{ data.item.itemName }} ({{ data.item.unit_price }} Kip)</span>
+                            <span>{{ data.item.itemName }} ({{ data.item.unit_price }} LAK)</span>
                         </template>
-                    </v-select>
+                    </v-autocomplete>
                     <div class="d-flex align-center pl-2">
                         <v-text-field label="*ຈໍານວນ" dense outlined background-color="#f5f5f5"
                             v-model="qty_Fix"></v-text-field>
@@ -73,9 +73,32 @@
                 </div>
 
                 <div style="width:95%;" class="pl-2">
-                    <v-select outlined dense label="ເລືອກ ສາຂາ" :items="branches" item-text="name" item-value="value"
+                    
+                    <div>
+                        <div class="d-flex align-center pl-2">
+                            <v-select outlined dense label="ເລືອກ ສາຂາ" :items="branches" item-text="name" item-value="value"
                         v-model="branch_inventory">
                     </v-select>
+                            <div class="tops"></div>
+                        </div>
+                        <div class="d-flex align-center pl-2">
+                            <v-menu ref="start_menu1" v-model="start_menu1" :close-on-content-click="false"
+                                :return-value.sync="dateFix" transition="scale-transition" offset-y min-width="auto">
+                                <template v-slot:activator="{ on, attrs }">
+                                    <v-text-field dense outlined v-model="dateFix" :rules="nameRules" required
+                                        label="ວັນທີ" append-icon="mdi-calendar" readonly v-bind="attrs"
+                                        v-on="on"></v-text-field>
+                                </template>
+                                <v-text-field dense outlined label="ເລກໃບບິນ" v-model="ref_NOAmount1"></v-text-field>
+
+                                <v-date-picker v-model="dateFix" no-title scrollable
+                                    @input="$refs.start_menu1.save(dateFix)">
+                                    <v-spacer></v-spacer>
+                                </v-date-picker>
+                            </v-menu>
+                            <div class="tops"></div>
+                        </div>
+                    </div>
                 </div>
 
                 <div style="width:95%;" class=" ml-2 mb-2">
@@ -224,16 +247,20 @@ export default {
             item_id: '',
             hkey_id: '',
             fkey_id: '',
+            start_menu1: false,
+            dateSave1: null,
             fix_Detail: '',
             unit_price: '',
             location_fix: '',
             img: '',
             qty_offer: '',
             totalMoney: '',
+            h_ID: '',
             description: '',
             offerManName: '',
             job: '',
             f_CARD_NO: '',
+            header_id: '',
             item_name: '',
             pocode: '',
             dateCreate: '',
@@ -326,7 +353,7 @@ export default {
         onGetCarDetails(id) {
             console.log(id);
 
-            let data = this.cars_list.filter((el) => el.key_id === id);
+            let data = this.cars_list.filter((el) => el.h_ID === id);
             console.log('head:', data);
             this.h_VICIVLE_NUMBER = data[0]?.h_VICIVLE_NUMBER;
             this.h_ID = id;
@@ -386,6 +413,7 @@ export default {
           description: this.description,
           location_fix: this.location_fix,
           fix_Detail: this.fix_Detail,
+          dateFix: this.dateFix,
           toKen: localStorage.getItem('toKen'),
         };
         console.log("send:", data);

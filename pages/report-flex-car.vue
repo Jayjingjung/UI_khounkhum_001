@@ -40,16 +40,20 @@
                     :search="search">
                     <template v-slot:item="row">
                         <tr>
-                            <!-- <td><v-avatar><img :src="row.item.img"></v-avatar></td> -->
+                            <td><v-avatar><img :src="row.item.img"></v-avatar></td>
                             <td>{{ row?.item?.h_VICIVLE_NUMBER }}</td>
                             <td>{{ row?.item?.f_BRANCH }}</td>
                             <td>{{ row?.item?.qty_Fix }}</td>
                             <td>{{ row?.item?.total_Price }}</td>
-                            <td>{{ row?.item?.description }}</td>
+                            <td>{{ row?.item?.total_ }}</td>
+
+
                             <td>{{ row?.item?.add_on }}</td>
+                            <td>{{ row?.item?.description }}</td>
                             <td>{{ row?.item?.dateFix }}</td>
                             <td>{{ row?.item?.fix_Detail }}</td>
                             <td>{{ row?.item?.location_fix }}</td>
+
                             <td>{{ getBranchName(row?.item?.branch_inventory) }}</td>
                             <td>
                                 <v-btn small color="primary" class="card-shadow" @click="onGetinbox(row.item.fixId)">
@@ -67,7 +71,7 @@
             <v-card>
                 <v-card-title style="font-size: 24px;">ປ້ອນຂໍ້ມູນ</v-card-title>
                 <v-card-actions>
-                    <v-btn style="font-size: 20px;" color="primary" @click="closeDialog">
+                    <v-btn style="font-size: 20px;" color="primary" @click="print">
                         <v-icon>mdi-printer</v-icon>ພິມບິນ</v-btn>
 
 
@@ -100,7 +104,7 @@
                             <span id="qty_offer">{{ description }}</span>
                         </div>
                         <div>
-                            <label for="qty_offer">ວັນທີເເປງ :</label>
+                            <label for="qty_offer">ວັນທີ :</label>
                             <span id="qty_offer">{{ dateFix }}</span>
                         </div>
                         <div>
@@ -108,11 +112,11 @@
                             <span id="add_on">{{ add_on }}</span>
                         </div>
                         <div>
-                            <label for="location_fix">ສະຖານທີ ເເປງ :</label>
+                            <label for="location_fix">ສະຖານທີ :</label>
                             <span id="location_fix">{{ location_fix }}</span>
                         </div>
                         <div>
-                            <label for="fix_Detail">ລາຍລະອຽດ ການເເປງ :</label>
+                            <label for="fix_Detail">ລາຍລະອຽດ :</label>
                             <span id="fix_Detail">{{ fix_Detail }}</span>
                         </div>
                     </v-card-text>
@@ -145,7 +149,148 @@
                 </v-card-actions>
             </v-card>
         </v-dialog>
+        <div style="display:none">
+            <div id="modalInvoice">
 
+                <Noti />
+
+
+                <v-row
+                    style="font-size:14px;margin-left: 50px;margin-top: 10px;display:flex;justify-content:start;flex-direction:column;align-items:start">
+
+
+                    <div>
+                        <span>ສໍານັກງານຕັ້ງຢູ່ ອາຄານ ສະໜາມຍິງປືນ 20 ມັງກອນ, ສະໜາມກີລາກອງທັບ,</span>
+                        <span> ບ້ານຈອມມະນີ, ເມືອງ ໄຊເສດຖາ, ນະຄອນຫຼວງວຽງຈັນ, ສປປ ລາວ</span>
+                        <span>ໂທລະສັບ: 020 92661111, 020 92 254 999 </span>
+                        <span> ອີເມວ: kounkham@Mining|ເວັບໄຊ: kounkham</span>
+                    </div>
+
+                </v-row>
+                <br>
+                <div class="text-center"
+                    style="display:flex;justify-content:center;font-size:19px;font-weight:bold;margin-top: 15px;">
+                    ລາຍງານ ສິນຄ້າ </div>
+
+                    <div v-for="(item, i) in showFix_data_list" :key="i" style="margin-top: 10px;font-size: 13px;">
+                 
+                    <p>ວັນທີ :
+                        {{ item?.dateFix }}
+                    </p>
+                  
+                </div>
+
+
+                <table
+                    style="padding:2px;border: 0.5px solid #999;border-collapse: collapse;width:100%; font-size: 13px;margin-top: 50px;">
+                    <tr style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;border-radius:10px">
+
+                       
+                        <td style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px"
+                            class=" font-weight-bold">ຮູບພາບ</td>
+                        <td style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px"
+                            class=" font-weight-bold">ຫົວລັດ</td>
+                        <td style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px"
+                            class=" font-weight-bold">ຫາງລົດ</td>
+                        <td style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px"
+                            class=" font-weight-bold">ຈໍານວນ</td>
+                        <td style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px"
+                            class=" font-weight-bold"> ລາ​ຄາ​</td>
+                        <td style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px"
+                            class=" font-weight-bold">ລາຍຈ່າຍເພີນ ຄ່າຊ່າງ</td>
+
+                    
+
+
+                        <td style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px"
+                            class=" font-weight-bold">ສະຖານທີ</td>
+                        <td style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px"
+                            class=" font-weight-bold">ເເຂວງ</td>
+
+
+
+                    </tr>
+                    <tr style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;border-radius:10px"
+                        v-for="(item, i) in showFix_data_list" :key="i">
+
+                        
+                        <td style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px"
+                            class="font-weight-bold">
+                            <img :src="item.img" :alt="item.item_name" style="width:50px; height:50px;">
+                        </td>
+                        <td style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px"
+                            class=" font-weight-bold">{{ item?.h_VICIVLE_NUMBER }}</td>
+                        <td style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px"
+                            class=" font-weight-bold">{{ item?.f_BRANCH }}</td>
+                        <td style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px"
+                            class=" font-weight-bold">{{ item?.qty_Fix }}</td>
+                        <td style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px"
+                            class=" font-weight-bold">{{ item?.total_Price?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g,
+                                ',') }}
+                        </td>
+                        <td style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px"
+                            class=" font-weight-bold">{{ item?.add_on?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g,
+                                ',') }}
+                        </td>
+
+                  
+
+                        <td style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px"
+                            class=" font-weight-bold">{{ item?.location_fix }}</td>
+
+                        <td style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px"
+                            class=" font-weight-bold">{{ getBranchName(item?.branch_inventory) }}</td>
+
+                    </tr>
+                </table>
+
+                <div v-for="(item, i) in showFix_data_list" :key="i" style="margin-top: 50px;font-size: 15px;">
+                    <p>
+                        ລາຍລະອຽດ :
+                        {{ item?.description?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g,
+                            ',') }}
+                    </p>
+                    <p>ລາຍລະອຽດ ເເປງ :
+                        {{ item?.fix_Detail }}
+                    </p>
+                    <p>ລາຍລະອຽດ ອາໄຫຼ່ :
+                        {{ item?.detail_A_lai }}
+                    </p>
+                    <p>ລາ​ຄາ​ລວມ :
+                        {{ item?.finalTotalPrice }}
+                    </p>
+                </div>
+
+                <div
+                    style="margin-top:100px;display:flex;justify-content:space-between;padding-left:20px; font-size: 16px">
+                    <div>
+                        <div>ຜູ້ສະເໜີ</div>
+                        <div style="height: 50px;"></div>
+                        <div style="display:flex;justify-content:space-between">
+                            ................
+                        </div>
+
+                    </div>
+                    <div>
+                        <div>ບັນຊີ-ການເງີນ</div>
+                        <div style="height: 50px;"></div>
+                        <div style="display:flex;justify-content:space-between">
+                            ................
+                        </div>
+                    </div>
+                    <div>
+                        <div>ຜູ້ຮັບ</div>
+                        <div style="height: 50px;"></div>
+                        <div style="display:flex;justify-content:space-between">
+                            ................
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+        </div>
 
     </div>
 </template>
@@ -167,19 +312,21 @@ export default {
             truck_data_list: [],
             loading_processing: false,
             data_list_showFix: [
-                // { text: 'ຮູບພາບ', value: 'img' },
+                { text: 'ຮູບພາບ', value: 'img' },
 
                 // { text: 'ID', value: 'fixId' }, 
                 { text: 'ຫົວລັດ', value: 'h_VICIVLE_NUMBER' },
                 { text: 'ຫາງລົດ', value: 'f_BRANCH' },
                 { text: 'ຈໍານວນ', value: 'qty_Fix' },
-                { text: 'ລາ​ຄາ​ລວມ', value: 'total_Price' },
+                { text: 'ລາ​ຄາ​', value: 'total_Price' },
+                { text: 'ລາ​ຄາ​ລວມ', value: 'finalTotalPrice' },
                 { text: 'ລາຍຈ່າຍເພີນເຕີມ(ຄ່າຊ່າງ)', value: 'add_on' },
                 { text: 'ລາຍລະອຽດ', value: 'description' },
-                { text: 'ວັນທີເເປງ', value: 'dateFix' },
-                { text: 'ສະຖານທີ ເເປງ', value: 'location_fix' },
-                { text: 'ລາຍລະອຽດ ການເເປງ', value: 'branch_inventory' },
+                { text: 'ວັນທີ', value: 'dateFix' },
+                { text: 'ສະຖານທີ ', value: 'location_fix' },
+                { text: 'ລາຍລະອຽດ', value: 'branch_inventory' },
                 { text: 'ເເຂວງ', value: 'branch_inventory' },
+                { text: 'ລາຍລະອຽດ', value: '' },
 
             ],
             showFix_data_list: [],
@@ -241,6 +388,19 @@ export default {
         this.onGetshowdata_table();
     },
     methods: {
+        print() {
+            const modal = document.getElementById("modalInvoice")
+            const cloned = modal.cloneNode(true)
+            let section = document.getElementById("print")
+            if (!section) {
+                section = document.createElement("div")
+                section.id = "print"
+                document.body.appendChild(section)
+            }
+            section.innerHTML = "";
+            section.appendChild(cloned);
+            window.print();
+        },
         getBranchName(branchInventory) {
             return this.branches[branchInventory] || '';
         },
@@ -391,5 +551,28 @@ export default {
 <style scoped>
 .card-shadow {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+@media print {
+    @page {
+        size: A4;
+        margin: 1in;
+    }
+
+    body * {
+        visibility: hidden;
+    }
+
+    #print,
+    #print * {
+        visibility: visible;
+    }
+
+    #print {
+        position: absolute;
+        top: 0px;
+        right: 0px;
+        left: 0px;
+    }
 }
 </style>

@@ -32,7 +32,8 @@
                     </div>
 
                     <div class="ml-5 mr-5">
-                        <h3>ໃບຮຽກເກັບເງິນທີ່ໄດ້ຮັບເງິນສໍາເລັດແລ້ວ: <span class="green--text">{{ successList }}</span></h3>
+                        <h3>ໃບຮຽກເກັບເງິນທີ່ໄດ້ຮັບເງິນສໍາເລັດແລ້ວ: <span class="green--text">{{ successList }}</span>
+                        </h3>
                         <!-- Display number of paid invoices -->
                     </div>
 
@@ -64,7 +65,8 @@
                                 <v-text-field dense outlined v-model="end_date" required label="ວັນທີສຸດທ້າຍ"
                                     append-icon="mdi-calendar" readonly v-bind="attrs" v-on="on"></v-text-field>
                             </template>
-                            <v-date-picker v-model="end_date" no-title scrollable @input="$refs.end_menu.save(end_date)">
+                            <v-date-picker v-model="end_date" no-title scrollable
+                                @input="$refs.end_menu.save(end_date)">
                                 <v-spacer></v-spacer>
                             </v-date-picker>
                         </v-menu>
@@ -98,7 +100,7 @@
                                 }} {{ row?.item?.currency }}</td> -->
                                 <td class="green--text">{{ row?.item?.inVoiceAmount?.replace(/\B(?=(\d{3})+(?!\d))/g,
                                     ',') }} {{ row?.item?.currency }}</td>
-                                <td>{{ moment(row?.item?.inVoiceDate).format('DD/MM/YYYY')}}</td>
+                                <td>{{ moment(row?.item?.inVoiceDate).format('DD/MM/YYYY') }}</td>
                                 <td v-if="row?.item?.inVoiceStatus === 'N'" class="red--text">
                                     <v-btn small color="red" class="white--text card-shadow align-center" block>
                                         <v-icon color="white" size="20">mdi-new-box</v-icon>
@@ -106,7 +108,7 @@
                                     </v-btn>
                                 </td>
                                 <td v-else style="width:220px ">
-                                    <v-btn  small color="green" class="white--text card-shadow align-center" block>
+                                    <v-btn small color="green" class="white--text card-shadow align-center" block>
                                         <v-icon color="white">mdi-check-circle</v-icon>
                                         <span>ຮັບເງິນສຳເລັດແລ້ວ</span>
                                     </v-btn>
@@ -125,24 +127,28 @@
         <div style="display:none;">
             <div id="modalInvoice">
                 <v-row>
-                    <v-col cols="3">
-                        <img class="mx-auto" src="../assets/images/logo01.png" height="70px" cover />
-                    </v-col>
+
                     <v-col cols="9">
                         <div style="display:flex;justify-content:start;flex-direction:column;align-items:start">
-                            <span style="font-size:14px"><b><Noti/> </b> </span>
+                            <span style="font-size:14px"><b>
+                                    <Noti />
+                                </b> </span>
                             <span style="font-size:12px">ສໍານັກງານຕັ້ງຢູ່ ອາຄານ ສະໜາມຍິງປືນ 20 ມັງກອນ, ສະໜາມກີລາກອງທັບ,
                                 ບ້ານຈອມມະນີ, ເມືອງ ໄຊເສດຖາ, ນະຄອນຫຼວງວຽງຈັນ, ສປປ ລາວ</span>
-                            <span style="font-size:12px">ໂທລະສັບ: 020 92661111, 020 92 254 999 | ອີເມວ: kounkham@Mining |
+                            <span style="font-size:12px">ໂທລະສັບ: 020 92661111, 020 92 254 999 | ອີເມວ: kounkham@Mining
+                                |
                                 ເວັບໄຊ: kounkham</span>
                         </div>
                     </v-col>
                 </v-row>
                 <br>
                 <div class="text-center pb-10 pt-10 font-weight-bold"
-                    style="display:flex;justify-content:center;font-size:18px"><b>ໃບບິນຂົນສົ່ງສິນຄ້າ</b></div>
+                    style="display:flex;justify-content:center;font-size:18px"><b>ໃບຮຽກເກັບເງິນ
+                        (invoice)
+                    </b></div>
                 <div style="display:flex;justify-content:end;flex-direction:column;align-items:end;padding-top:10px">
-                    <div style="border:0.5px solid #999;display:flex;flex-direction:column;padding:10px;border-radius:3px">
+                    <div
+                        style="border:0.5px solid #999;display:flex;flex-direction:column;padding:10px;border-radius:3px">
                         <span style="font-size:12pt">ເລກທີ: {{ data_header_print?.invoice_ID }}</span>
                         <span style="font-size:12pt">ວັນທີ: {{ data_header_print?.printDate }} </span>
                     </div>
@@ -166,6 +172,7 @@
                             <td style="border: 0.5px solid #999;padding:5px">ລຳດັບ</td>
                             <td style="border: 0.5px solid #999;padding:5px">ວັນທີສົ່ງ</td>
                             <td style="border: 0.5px solid #999;padding:5px">ທະບຽນລົດ</td>
+                            <td style="border: 0.5px solid #999;padding:5px">ເລກ invoice</td>
                             <td style="border: 0.5px solid #999;padding:5px">ເລກອ້າງອີງ</td>
                             <td style="border: 0.5px solid #999;padding:5px">ໃບຂົນສົ່ງ</td>
                             <td style="border: 0.5px solid #999;padding:5px">ລາຍການ</td>
@@ -174,13 +181,16 @@
                             <td style="border: 0.5px solid #999;padding:5px">ລາຄາລວມ</td>
                         </tr>
                         <tr style="padding:5px;border: 0.5px solid #999;" v-for="(d, i) in data_for_print" :key="i">
-                            <td style="padding:5px;display:flex;justify-content:center;width:100%;align-items:center">{{ i +
+                            <td style="padding:5px;display:flex;justify-content:center;width:100%;align-items:center">{{
+                                i +
                                 1
                             }}</td>
                             <td style="border: 0.5px solid #999;padding:5px">
                                 {{ d?.outDate }}
                             </td>
                             <td style="border: 0.5px solid #999;padding:5px">{{ d?.viciCleNumber }}
+                            </td>
+                            <td style="border: 0.5px solid #999;padding:5px">{{ d?.inVoiceID }}
                             </td>
                             <td style="border: 0.5px solid #999;padding:5px">{{ d?.perID }}
                             </td>
@@ -202,11 +212,22 @@
                         </tr>
                     </table>
                 </div>
+
+                <!-- <div style="display:flex;flex-direction:column;justify-content:end" class="pr-1 pt-4">
+                    <div class="d-flex align-center pt-4" style="justify-content:end">
+                        <span class="font-weight-bold" style="font-size:16pt">ລາຄາລວມທັງໝົດ:</span>
+                        <div style="height:40px;border-radius:3px;width:300px;background-color:#000;font-size:18pt"
+                            class="d-flex align-center pl-2 ml-2 red--text">
+                            {{ inVoiceAmount?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }} </div>
+                    </div>
+
+                </div> -->
                 <div>
                     ໝາຍເຫດ
                 </div>
                 <div style="display:flex;flex-direction:row;justify-content:space-between;margin-top:120px">
-                    <div style="width:100%;display:flex;flex-direction:column;justify-content:center;align-items:center">
+                    <div
+                        style="width:100%;display:flex;flex-direction:column;justify-content:center;align-items:center">
                         <div>ເຊັນຜູ້ວ່າຈ້າງ</div>
 
                         <div style="display:flex;justify-content:space-between;margin-top:20px">
@@ -218,7 +239,8 @@
                             ວັນທີ:......................
                         </div>
                     </div>
-                    <div style="width:100%;display:flex;flex-direction:column;justify-content:center;align-items:center">
+                    <div
+                        style="width:100%;display:flex;flex-direction:column;justify-content:center;align-items:center">
                         <div>ຜູ້ສະຫຼຸບ</div>
 
                         <div style="display:flex;justify-content:space-between;margin-top:20px">
@@ -256,7 +278,8 @@
                             ວັນທີ:....................
                         </div>
                     </div>
-                    <div style="width:1000px;display:flex;flex-direction:column;justify-content:center;align-items:center">
+                    <div
+                        style="width:1000px;display:flex;flex-direction:column;justify-content:center;align-items:center">
                         <div>ທ່ານປະທານບໍລິສັດຄູນຄຳ</div>
 
                         <div style="display:flex;justify-content:space-between;margin-top:20px">
@@ -280,10 +303,13 @@
                     </v-col>
                     <v-col cols="9">
                         <div style="display:flex;justify-content:start;flex-direction:column;align-items:start">
-                            <span style="font-size:14px"><b><Noti/> </b> </span>
+                            <span style="font-size:14px"><b>
+                                    <Noti />
+                                </b> </span>
                             <span style="font-size:12px">ສໍານັກງານຕັ້ງຢູ່ ອາຄານ ສະໜາມຍິງປືນ 20 ມັງກອນ, ສະໜາມກີລາກອງທັບ,
                                 ບ້ານຈອມມະນີ, ເມືອງ ໄຊເສດຖາ, ນະຄອນຫຼວງວຽງຈັນ, ສປປ ລາວ</span>
-                            <span style="font-size:12px">ໂທລະສັບ: 020 92661111, 020 92 254 999 | ອີເມວ: kounkham@Mining |
+                            <span style="font-size:12px">ໂທລະສັບ: 020 92661111, 020 92 254 999 | ອີເມວ: kounkham@Mining
+                                |
                                 ເວັບໄຊ: kounkham</span>
                         </div>
                     </v-col>
@@ -300,7 +326,8 @@
 
 
 
-                <table style="padding:2px;border: 0.5px solid #999;border-collapse: collapse;width:100%; font-size: 12px">
+                <table
+                    style="padding:2px;border: 0.5px solid #999;border-collapse: collapse;width:100%; font-size: 12px">
                     <tr style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;border-radius:10px">
                         <td style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px"
                             class=" font-weight-bold">ລຳດັບ</td>
@@ -331,7 +358,8 @@
                 </table>
                 <div style="display:flex;flex-direction:row;justify-content:space-between;margin-top:120px">
 
-                    <div style="width:100%;display:flex;flex-direction:column;justify-content:center;align-items:center">
+                    <div
+                        style="width:100%;display:flex;flex-direction:column;justify-content:center;align-items:center">
                         <div>ຜູ້ສະຫຼຸບ</div>
                         <div style="height: 50px;"></div>
                         <div style="display:flex;justify-content:space-between">
@@ -497,7 +525,7 @@ export default {
                 const response = await this.$axios.$post('/PintInvoiceByNo.service', data);
 
                 if (response?.status === '00') {
-                    console.log("dataForprint:", response); 
+                    console.log("dataForprint:", response);
                     // Check if these properties exist before accessing them
                     if (response.headerPrint && response.headerPrint.length > 0) {
                         this.data_header_print = response.headerPrint[0];

@@ -15,31 +15,31 @@
                             <div class="d-flex align-center" style="width:100%">
                                 <div class="d-flex align-center">
                                     <v-menu ref="start_menu" v-model="start_menu" :close-on-content-click="false"
-                                        :return-value.sync="start_date" transition="scale-transition" offset-y
+                                        :return-value.sync="startDate" transition="scale-transition" offset-y
                                         min-width="auto">
                                         <template v-slot:activator="{ on, attrs }">
-                                            <v-text-field dense outlined v-model="start_date" required
+                                            <v-text-field dense outlined v-model="startDate" required
                                                 label="ວັນທີເລີ່ມ" append-icon="mdi-calendar" readonly v-bind="attrs"
                                                 v-on="on"></v-text-field>
                                         </template>
-                                        <v-date-picker v-model="start_date" no-title scrollable
-                                            @input="$refs.start_menu.save(start_date)">
+                                        <v-date-picker v-model="startDate" no-title scrollable
+                                            @input="$refs.start_menu.save(startDate)">
                                             <v-spacer></v-spacer>
                                         </v-date-picker>
                                     </v-menu>
                                 </div>
                                 <div class="d-flex align-center pl-2">
                                     <v-menu ref="end_menu" v-model="end_menu" :close-on-content-click="false"
-                                        :return-value.sync="end_date" transition="scale-transition" offset-y
+                                        :return-value.sync="endDate" transition="scale-transition" offset-y
                                         min-width="auto">
 
                                         <template v-slot:activator="{ on, attrs }">
-                                            <v-text-field dense outlined v-model="end_date" required
+                                            <v-text-field dense outlined v-model="endDate" required
                                                 label="ວັນທີສຸດທ້າຍ" append-icon="mdi-calendar" readonly v-bind="attrs"
                                                 v-on="on"></v-text-field>
                                         </template>
-                                        <v-date-picker v-model="end_date" no-title scrollable
-                                            @input="$refs.end_menu.save(end_date)">
+                                        <v-date-picker v-model="endDate" no-title scrollable
+                                            @input="$refs.end_menu.save(endDate)">
                                             <v-spacer></v-spacer>
                                         </v-date-picker>
                                     </v-menu>
@@ -48,6 +48,25 @@
                                 <div style="margin-top:-25px" class="ml-2">
                                     <v-btn color="#90A4AE" class="white--text" elevation="0"
                                         @click="onSearcReport(); onSearchLeaveCarReport();"><v-icon>mdi-magnify</v-icon>ຄົ້ນຫາ</v-btn>
+                                </div>
+                            </div>
+                            <div>
+                                <div style="width:100%;display:flex;justify-content:center;margin-top: 20px;"
+                                    class="pt-4">
+
+                                    <div style="width: 400px;">
+                                        <v-row>
+                                            <v-btn v-for="month in 12" :key="month" @click="setMonth(month)">{{ month
+                                                }}</v-btn>
+                                        </v-row>
+                                    </div>
+                                    <div style="width: 400px;">
+                                        <v-row>
+                                            <v-btn v-for="year in availableYears" :key="year" @click="setYear(year)">{{
+                                                year
+                                                }}</v-btn>
+                                        </v-row>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -78,19 +97,19 @@
                                     <td>{{ row?.item?.totalRow }}</td>
                                     <td>{{ row?.item?.totalFuel }}</td>
                                     <td class="green--text">{{
-            row?.item?.carGive?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}
+                                        row?.item?.carGive?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}
                                     </td>
                                     <td>{{
-            row?.item?.totalPriceNummun?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
-        }}
+                                        row?.item?.totalPriceNummun?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+                                        }}
                                     </td>
 
                                     <td class="red--text">{{
-                row?.item?.carPay?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g,
-                    ',') }}
+                                        row?.item?.carPay?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g,
+                                        ',') }}
                                     </td>
                                     <td class="orgen--text">{{
-            row?.item?.kumLaiy?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</td>
+                                        row?.item?.kumLaiy?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</td>
                                     <td class="red--text">
                                         <v-btn small color="primary" class="white--text card-shadow"
                                             @click="edit(row?.item?.carTabienLod)"><v-icon
@@ -221,6 +240,8 @@
 
 <script>
 import swal from 'sweetalert2'
+import { mapActions, mapGetters } from 'vuex';
+
 export default {
     data() {
         return {
@@ -230,9 +251,16 @@ export default {
             countTotalAll: null,
             loading_processing: false,
             end_menu: false,
-            end_date: null,
+            endDate: null,
+            startDate: new Date().toISOString().substr(0, 10),
+            endDate: new Date().toISOString().substr(0, 10),
+            startDateMenu: false,
+            endDateMenu: false,
+            item_id: null,
+            loading_processing: false,
+            availableYears: this.getYearsArray(),
             start_menu: false,
-            start_date: null,
+            startDate: null,
             search: '',
             staft_data_list: [],
             staft_headers: [
@@ -264,20 +292,62 @@ export default {
             // console.log(this.sumFooter.laiJaiyOutTotal.split('.').join(''))
             return parseFloat(this.countTotalAll?.split(',')?.join('')) - parseFloat(this.sumFooter?.laiJaiyOutTotal?.split(',')?.join(''));
 
+        },
+        ...mapGetters({
+            truck_data_list: "truck_data_list",
+            report_reportStockDayWeek: "report_reportStockDayWeek",
+            report_reportStockDayWeek_item: "report_reportStockDayWeek_item",
+            sumFooter: "sumFooter"
+        }),
+        formattedStartDate() {
+            return this.formatDate(this.startDate);
+        },
+        formattedEndDate() {
+            return this.formatDate(this.endDate);
         }
     },
     methods: {
+        formatDate(date) {
+            if (!date) return '';
+            const [year, month, day] = date.split('-');
+            return `${day}/${month}/${year}`;
+        },
+        ...mapActions({
+            reportStockDayWeek: "reportStockDayWeek",
+            clearItemList: "clearItemList",
+        }),
+        setMonth(month) {
+            // Update the startDate and endDate based on the selected month
+            const currentYear = new Date().getFullYear();
+            const start = new Date(currentYear, month - 1, 1);
+            const end = new Date(currentYear, month, 0);
+            this.startDate = start.toISOString().substr(0, 10);
+            this.endDate = end.toISOString().substr(0, 10);
+        },
+        setYear(year) {
+            // Update the startDate and endDate based on the selected year
+            this.startDate = `${year}-01-01`;
+            this.endDate = `${year}-12-31`;
+        },
+        getYearsArray() {
+            const currentYear = new Date().getFullYear();
+            const years = [];
+            for (let i = currentYear; i >= currentYear - 10; i--) {
+                years.push(i);
+            }
+            return years;
+        },
         edit(key) {
             // this.$router.push({path: '/edit_cars_head', params: {key: 'he'}});
-            this.$router.push({ path: '/report_income_empeanses_car', query: { key: key, startDate: this.start_date, endDate: this.end_date } })
+            this.$router.push({ path: '/report_income_empeanses_car', query: { key: key, startDate: this.startDate, endDate: this.endDate } })
         },
         onSearcReport() {
 
             this.loading_processing = true;
             try {
                 let data = {
-                    startDate: this.start_date,
-                    endDate: this.end_date,
+                    startDate: this.startDate,
+                    endDate: this.endDate,
                     toKen: localStorage.getItem("toKen")
 
                 }
@@ -320,8 +390,8 @@ export default {
                 this.successList = 0
                 this.waitingList = 0
                 let data = {
-                    startDate: this.start_date,
-                    endDate: this.end_date,
+                    startDate: this.startDate,
+                    endDate: this.endDate,
                     status: this.status,
                     toKen: localStorage.getItem("toKen")
 

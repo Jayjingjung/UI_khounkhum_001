@@ -140,8 +140,8 @@
                 </v-col>
 
                 <v-col clos="6" md="3" sm="3">
-                  <v-text-field :rules="nameRules" label="* ປ້ອນເລກໄມປ່ຽນນໍ້າມັນເຄື່ອງຮອບຕໍ່ໄປ" dense outlined
-                  readonly background-color="#f5f5f5" v-model="h_LEK_NUMMUNKHG"></v-text-field>
+                  <v-text-field :rules="nameRules" label="* ປ້ອນເລກໄມປ່ຽນນໍ້າມັນເຄື່ອງຮອບຕໍ່ໄປ" dense outlined readonly
+                    background-color="#f5f5f5" v-model="h_LEK_NUMMUNKHG"></v-text-field>
                   <div class="tops"></div>
                 </v-col>
 
@@ -335,10 +335,46 @@
                 background-color="#f5f5f5" v-model="leanFuengThaiy"></v-text-field>
               <div class="tops">
               </div>
+            </v-col
+            
+            >
+            <v-col cols="12" md="4" sm="6">
+              <v-icon color="black">mdi-calendar-range</v-icon>
+
+              <span>ວັນທີ່ປ່ຽນນ້ຳມັນເຄື່ອງ</span>
+              <v-menu ref="date_change_lean" v-model="date_change_lean" :close-on-content-click="false"
+                :return-value.sync="formattedDate" transition="scale-transition" offset-y min-width="auto">
+                <template v-slot:activator="{ on, attrs }">
+                  <v-text-field dense outlined v-model="formattedDate" required label="ວັນທີ" append-icon="mdi-calendar"
+                    readonly v-bind="attrs" v-on="on"></v-text-field>
+                </template>
+                <v-date-picker v-model="formattedDate" no-title scrollable
+                  @input="$refs.date_change_lean.save(formattedDate)">
+                  <v-spacer></v-spacer>
+                </v-date-picker>
+              </v-menu>
             </v-col>
           </v-row>
           <v-row>
           </v-row>
+
+          <v-card class="card-shadow mx-auto mt-10" width="1400">
+            <v-card-title style="display:flex;background-color:#E57373;color:white">
+
+              <v-spacer></v-spacer>
+              ຕັ້ງສິດ
+              <v-spacer></v-spacer>
+            </v-card-title>
+            <v-row style="margin-top: -14px;">
+              <v-col clos="6" md="3" sm="3">
+                <span>ຕັ້ງສິດ</span><v-text-field label="ຕັ້ງສິດ" dense flat solo background-color="#f5f5f5"
+                  v-model="lektungsit"></v-text-field>
+                <div class="tops">
+                </div>
+              </v-col>
+
+            </v-row>
+          </v-card>
           <v-row>
             <v-col clos="6" md="4" sm="4">
               <v-radio-group inline v-model="h_VICIVLE_GLASS">
@@ -396,7 +432,8 @@
                     <div style="width:100%"><v-text-field style="margin-top:-10px" :rules="nameRules" rounded
                         background-color="#fff" dense label="* ເລກໄມລ່າສຸດ" v-model="h_KM1"></v-text-field></div>
                     <div style="width:100%"><v-text-field style="margin-top:-10px" :rules="nameRules" rounded
-                        background-color="#fff" dense label="* ເລກໄມປະຈຸບັນ" readonly v-model="h_KML_1"></v-text-field></div>
+                        background-color="#fff" dense label="* ເລກໄມປະຈຸບັນ" readonly v-model="h_KML_1"></v-text-field>
+                    </div>
                     <div style="width:100%"></div>
                   </div>
                 </div>
@@ -684,6 +721,7 @@ export default {
       h_VICIVLE_DATE_GALATY: null,
       end_date: false,
       END_DATE_REGISCAR: null,
+      date_change_lean: null,
       exHangMar: '',
       COLOR_CAR: '',
       h_VICIVLE_TNGLOD: '',
@@ -718,6 +756,7 @@ export default {
       galick: '',
       leanGia: '',
       leanFuengThaiy: '',
+      lektungsit: '',
       pha_But: '',
       //add new
       kim_KM: '',
@@ -1087,7 +1126,9 @@ export default {
         formdata.append('galick', this.galick)
         formdata.append('leanGia', this.leanGia)
         formdata.append('leanFuengThaiy', this.leanFuengThaiy)
+        formdata.append('lektungsit', this.lektungsit)
         formdata.append('pha_But', this.pha_But)
+        formdata.append('date_change_lean', this.formattedDate|| "0000-00-00")
         formdata.append('toKen', localStorage.getItem("toKen"))
 
         // let data = {

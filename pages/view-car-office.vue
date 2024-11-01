@@ -15,7 +15,7 @@
                             <p>{{ carDetail.owner_car }}</p>
 
                             <img :src="carDetail.img"
-                                style="position: absolute; left: 420px; height: 130px; width: 170px; border-radius: 15px;"
+                                style="position: absolute; left: 420px; height: 200px; width: 200px; border-radius: 15px;"
                                 alt="Car Image" />
                         </div>
                         <div style="display: flex;margin-left: 50px;margin-top: 5px; font-size: 20px;">
@@ -29,7 +29,7 @@
                         <div style="display: flex;margin-left: 50px;margin-top: 5px; font-size: 20px;">
                             <p style="margin-right: 10px;"> ເລກຈັກ:</p>
                             <p  style="margin-right: 70px;">{{ carDetail.lekJuk }}</p>
-                            <p style="margin-right: 10px;"> ເລກປີ:</p>
+                            <p style="margin-right: 10px;"> ລົດປີ:</p>
                             <p>{{ carDetail.car_year }}</p>
                         </div>
                         <div style="display: flex;margin-left: 50px;margin-top: 5px; font-size: 20px;">

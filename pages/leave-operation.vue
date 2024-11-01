@@ -117,11 +117,6 @@
                         </div>
 
 
-
-
-
-
-                       
                         <div style="width: 700px" class="pl-2">
                             <span style="font-size: 22px;font-weight: bold;">ນໍ້າໜັກລົດເປົ່າ<span style="color: red"> 1</span></span>
                             <v-text-field flat solo dense background-color="#E1F5FE" placeholder="ປ້ອນນ້ຳໜັກລົດເປົ່າ"
@@ -657,7 +652,7 @@ export default {
             dpay_Money: '',
             moment: moment,
             currency_items: ['LAK', 'USD', 'THB', 'CNY'],
-            currency: '',
+            currency: 'LAK',
             price: '',
             price_total: '',
             proSize: '',
@@ -1011,13 +1006,17 @@ export default {
 
         onSavePerformance() {
             if (this.performance_data?.length === 0) {
-                this.$toast.success('ກະລຸນາຄົ້ນຫາຂໍ້ມູນກ່ອນ')
+                this.$toast.error('ກະລຸນາຄົ້ນຫາຂໍ້ມູນກ່ອນ')
                 return;
             }
             if (!this.start_go_date) {
-                this.$toast.success('ກະລຸນາເລືອກວັນທີລົດກັບ')
+                this.$toast.error('ກະລຸນາເລືອກວັນທີລົດກັບ')
                 return;
             }
+            // if (!this.currency) {
+            //     this.$toast.error('ກະລຸນາເລືອກສະກຸນເງິນ')
+            //     return;
+            // }
             this.loading_processing = true
             try {
                 let data = {
@@ -1041,7 +1040,7 @@ export default {
                     last_LEKMAI: this.let_mai ? this.let_mai : 0,
                     key_id: this.perBillNoAuto,
                     check_KM: this.check_kim,
-                    currency: this.currency,
+                    currency: this.currency ?this.currency : 'LAK',
                     proAmount: this.price,
                     proTotalAmount: this.price_total,
                     proSize: this.proSize,

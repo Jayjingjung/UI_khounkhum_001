@@ -2,6 +2,7 @@
     <div>
         <!-- <div>ເພີ່ມລາຍຈ່າຍ</div> -->
         <div class="d-flex align-center mt-2 mb-2">
+
             <v-form v-model="valid" ref="form" lazy-validation>
                 <div style="height:80vh;width:350px;border-radius:5px;border:1px solid #e0e0e0" class="pa-8">
 
@@ -10,15 +11,19 @@
                         :items="statusOptions" item-text="text" item-value="value"></v-select>
 
 
-
                     <v-select dense outlined label="ເລືອກປະເພດລາຍຮັບ - ລາຍຈ່າຍ" v-model="type"
                         :items="expense_list_type" item-text="typeName" item-value="key_id"
                         :rules="nameRules"></v-select>
+
                     <v-text-field dense outlined label="ຈຳນວນ" v-model="amount"></v-text-field>
+
                     <v-text-field dense outlined label="ລາຄາ/ອັນ" v-model="perAmount"></v-text-field>
+
                     <v-text-field dense outlined label="ລາຄາທັງໝົດ" v-model="totalAmount" readonly
                         :rules="nameRules"></v-text-field>
+
                     <v-text-field dense outlined label="ເລກອ້າງອີງ" v-model="ref_NO"></v-text-field>
+
                     <v-menu ref="start_menu" v-model="start_menu" :close-on-content-click="false"
                         :return-value.sync="dateSave" transition="scale-transition" offset-y min-width="auto">
                         <template v-slot:activator="{ on, attrs }">
@@ -35,6 +40,10 @@
                     </div>
                 </div>
             </v-form>
+
+
+
+
             <!-- ອັບເດດ -->
             <v-dialog v-model="updateDia" max-width="400">
                 <v-card>
@@ -149,7 +158,6 @@ export default {
             dateSave1: null,
             updateDia: false,
             ref_NOAmount1: '',
-
             expense_list: [],
             expense_header: [
                 { text: 'ປະເພດ', value: 'exPType' },
@@ -190,58 +198,57 @@ export default {
         this.onGetExpense()
     },
     watch: {
-        amount: function (newValue) {
-            const real_total = parseInt(newValue?.split(',').join('')) * parseInt(this.perAmount ? this.perAmount?.split(',').join('') : 1);
-            this.totalAmount = (real_total)?.toString()?.replace(/\D/g, '')?.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-            const result = newValue?.replace(/\D/g, '')?.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
-            this.amount = result
+        amount(newVal) {
+            if (newVal === null) {
+                this.amount = "";
+            } else {
+                this.amount = newVal.toString().replace(/[^\d.-]/g, '');
+            }
+            this.calculateTotal();
         },
-        perAmount: function (newValue) {
-            if (typeof newValue !== 'string') {
-                newValue = String(newValue);
+        perAmount(newVal) {
+            if (newVal === null) {
+                this.perAmount = "";
+            } else {
+                const cleanValue = newVal.toString().replace(/[^\d.-]/g, '');
+                this.perAmount = this.formatNumberWithCommas(cleanValue);
             }
-
-            const real_total = parseInt(newValue.split(',').join('')) * parseInt(this.amount ? this.amount.split(',').join('') : 1);
-            this.totalAmount = real_total.toString().replace(/\D/g, '').replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-            const result = newValue.replace(/\D/g, '').replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-            this.perAmount = result;
+            this.calculateTotal();
         },
-
-
-        amount1: function (newValue) {
-            if (typeof newValue !== 'string') {
-                newValue = newValue != null ? String(newValue) : '';
+        amount1(newVal) {
+            if (newVal === null) {
+                this.amount1 = "";
+            } else {
+                this.amount1 = newVal.toString().replace(/[^\d.-]/g, '');
             }
-
-            let perAmountValue = this.perAmount1;
-            if (typeof perAmountValue !== 'string') {
-                perAmountValue = perAmountValue != null ? String(perAmountValue) : '';
-            }
-
-            const amount = parseInt(newValue.split(',').join('')) || 0;
-            const perAmount = parseInt(perAmountValue.split(',').join('')) || 0;
-            const real_total = amount * perAmount;
-            this.totalAmount1 = real_total.toString().replace(/\D/g, '').replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-            const result = newValue.replace(/\D/g, '').replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-            this.amount1 = result;
+            this.calculateTotalUpdate();
         },
-
-        perAmount1: function (newValue) {
-            if (typeof newValue !== 'string') {
-                newValue = newValue != null ? String(newValue) : '';
+        perAmount1(newVal) {
+            if (newVal === null) {
+                this.perAmount1 = "";
+            } else {
+                const cleanValue = newVal.toString().replace(/[^\d.-]/g, '');
+                this.perAmount1 = this.formatNumberWithCommas(cleanValue);
             }
-
-            const perAmount = parseInt(newValue.split(',').join('')) || 0;
-            const amount = parseInt(this.amount1 ? this.amount1.split(',').join('') : 0);
-            const real_total = amount * perAmount;
-            this.totalAmount1 = real_total.toString().replace(/\D/g, '').replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-            const result = newValue.replace(/\D/g, '').replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-            this.perAmount1 = result;
+            this.calculateTotalUpdate();
         },
     },
     methods: {
+        calculateTotal() {
+            const amount = this.amount ? parseFloat(this.amount.replace(/,/g, '')) : 0;
+            const perAmount = this.perAmount ? parseFloat(this.perAmount.replace(/,/g, '')) : 0;
+            this.totalAmount = (amount * perAmount).toFixed(2);
+        },
+        calculateTotalUpdate() {
+            const amount1 = this.amount1 ? parseFloat(this.amount1.replace(/,/g, '')) : 0;
+            const perAmount1 = this.perAmount1 ? parseFloat(this.perAmount1.replace(/,/g, '')) : 0;
+            this.totalAmount1 = (amount1 * perAmount1).toFixed(2);
+        },
+        formatNumberWithCommas(value) {
+            return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        },
         onSave() {
-            if (!this.$refs.form.validate()) return null
+            if (!this.$refs.form.validate()) return null;
             let data = {
                 exPType: this.type,
                 toTal: this.totalAmount?.split(',').join(''),
@@ -251,7 +258,7 @@ export default {
                 expDate: this.dateSave,
                 ref_NO: this.ref_NO,
                 toKen: localStorage.getItem('toKen'),
-            }
+            };
             try {
                 this.$axios.$post('/storeExpenses.service', data).then((data) => {
                     if (data?.status === '00') {
@@ -262,13 +269,15 @@ export default {
                         swal.fire({
                             icon: 'error',
                             text: data?.message
-                        })
+                        });
                     }
-                })
+                });
             } catch (error) {
-                console.log(error)
+                console.log(error);
             }
-        },
+        }
+        ,
+
         onGetExpenseTypeAll() {
             try {
                 this.$axios.$post('/getExpensesTypeAll.service', {

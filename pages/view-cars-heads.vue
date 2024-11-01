@@ -368,6 +368,23 @@
                                 </v-col>
                             </v-row>
                             <Height />
+                            <v-card class="card-shadow mx-auto mt-10" width="1400">
+                                <v-card-title style="display:flex;background-color:#E57373;color:white">
+
+                                    <v-spacer></v-spacer>
+                                    ຕັ້ງສິດ
+                                    <v-spacer></v-spacer>
+                                </v-card-title>
+                                <v-row style="margin-top: -14px;">
+                                    <v-col clos="6" md="3" sm="3">
+                                        <span>ຕັ້ງສິດ</span>
+                                        <v-text-field dense flat solo background-color="#f5f5f5" readonly
+                                            v-model="lektungsit"></v-text-field>
+
+                                    </v-col>
+
+                                </v-row>
+                            </v-card>
                             <Height />
                             <div class="margintop d-flex align-center mt-4">
 
@@ -918,6 +935,7 @@ export default {
                         this.galick = data?.data[0]?.galick,
                         this.leanGia = data?.data[0]?.leanGia,
                         this.leanFuengThaiy = data?.data[0]?.leanFuengThaiy,
+                        this.lektungsit = data?.data[0]?.lektungsit,
                         this.pha_But = data?.data[0]?.pha_But
                 })
             } catch (error) {

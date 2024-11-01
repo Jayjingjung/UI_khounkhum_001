@@ -15,6 +15,12 @@
                                 </div>
                             </v-col>
                             <v-col>
+                                <v-text-field label="* ຈໍານວນ" dense outlined background-color="#f5f5f5"
+                                    v-model="qty"></v-text-field>
+                                <div class="tops">
+                                </div>
+                            </v-col>
+                            <v-col>
                                 <v-text-field label="* ຫົວໜ່ວຍ" dense outlined background-color="#f5f5f5"
                                     v-model="unit"></v-text-field>
                                 <div class="tops">
@@ -64,9 +70,16 @@
                             <td><v-avatar>
                                     <img :src="row.item.img">
                                 </v-avatar></td>
+                                <td>{{ row?.item?.qty }}</td>
                             <td>{{ row?.item?.unit }}</td>
                             <td>{{ row?.item?.unit_price?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</td>
-                            <!-- <td>{{ row?.item?.qty }}</td> -->
+                            <td>
+                                <v-btn class="green" small @click="askBeforeupdateCusInfo(row.item.item_id)">
+                                    <v-icon color="white">mdi-update</v-icon>
+                                    <span class="white--text">ອັບເດດ</span>
+                                </v-btn>
+                            </td>
+
 
                             <td>
                                 <v-btn class="red" small @click="askBeforeDeleteCusInfo(row.item.item_id)">
@@ -125,7 +138,7 @@
                         <div class="tops">
                         </div>
                     </v-col>
-                   
+
                 </v-row>
             </div>
             <div class="center-btn">
@@ -135,11 +148,11 @@
                 </v-btn>
             </div>
             <div class="mt-2 ml-4 pt-6" style="width: 500px; ">
-                <v-text-field dense solo flat background-color="#f5f5f5" v-model="search" placeholder="ຄົ້ນຫາ..."
+                <v-text-field dense solo flat background-color="#f5f5f5" v-model="searchv2" placeholder="ຄົ້ນຫາ..."
                     prepend-inner-icon="mdi-magnify" clearable></v-text-field>
             </div>
             <v-data-table :items-per-page="5" :headers="truck_table_repairs" :items="truck_table_repairs2"
-                :search="search">
+                :searchv2="searchv2">
                 <template v-slot:item="row">
                     <tr>
                         <td>{{ row?.index + 1 }}</td>
@@ -151,12 +164,12 @@
                         <td>{{ row?.item?.country }}</td>
                         <!-- <td>{{ row?.item?.branch }}</td> -->
 
-                        <td>
+                        <!-- <td>
                             <v-btn class="red" small @click="deleteshow(row.item.shop_id)">
                                 <v-icon color="white">mdi-delete</v-icon>
                                 <span class="white--text">ລຶບ</span>
                             </v-btn>
-                        </td>
+                        </td> -->
 
 
                     </tr>
@@ -173,21 +186,20 @@ export default {
         return {
             nameRules: [(v) => !!v || 'ຕ້ອງປ້ອນ'],
             search: '',
+            searchv2: '',
             itemName: '',
             unit: '',
             img: null,
-            amount_money:'0',
             unit_price: '',
-            item_id: '', // Add item_id property
-            // qty: '',
+            item_id: '',
             files: null,
             truck_table_headers: [
-                { text: 'ລດ', value: '' }, // Updated value for image column
-                { text: 'ລາໄລ', value: 'item_id' },
-                { text: 'ຮູບພາບ', value: 'img' }, // Updated value for image column
-                { text: 'ຫົວນວຍ', value: 'unit' },
+                { text: 'ລດ', value: '' },
+                { text: 'ອາໄຫຼ່', value: 'itemName' },
+                { text: 'ຮູບພາບ', value: 'img' },
+                { text: 'ຈໍານວນ', value: 'qty' },
+                { text: 'ຫົວໜວຍ', value: 'unit' },
                 { text: 'ລາຄາ', value: 'unit_price' },
-                // { text: 'ຈໍານວນ', value: 'qty' },
                 { text: '', value: '' },
             ],
             truck_data_list: [],
@@ -198,15 +210,13 @@ export default {
                 { text: 'ໂທ', value: 'phone' },
                 { text: 'ສະກຸນເງິນ', value: 'currency' },
                 { text: 'ປະເທດ', value: 'country' },
-                // { text: 'ຈຳນວນ_ເງິນ', value: 'amount_money' },
-                // { text: 'ສາຂາ', value: 'branch' },
                 { text: '', value: '' },
-
             ],
             truck_table_repairs2: [],
             loading_processing: false,
         };
-    },
+    }
+    ,
 
 
     mounted() {
@@ -215,7 +225,7 @@ export default {
 
     },
     methods: {
-        
+
         onGetrepImage(file) {
             if (file) {
                 this.url = URL.createObjectURL(this.img)
@@ -371,13 +381,12 @@ export default {
                     console.error('Form validation failed');
                     return;
                 }
-
                 // Form is valid, proceed with form submission
                 const formdata = new FormData();
                 formdata.append('itemName', this.itemName);
                 formdata.append('unit', this.unit);
                 formdata.append('unit_price', this.unit_price);
-                // formdata.append('qty', this.qty);
+                formdata.append('qty', this.qty);
                 formdata.append('toKen', localStorage.getItem('toKen'));
                 formdata.append('files', this.files);
 
@@ -398,7 +407,7 @@ export default {
         askBeforeDeleteCusInfo(key) {
             this.item_id = key; // Set item_id property
             Swal.fire({
-                title: 'ທ່ານຕ້ອງການລຶບແທ້ບໍ ?',
+                title: 'ທ່ານຕ້ອງການອັບເເດດແທ້ບໍ ?',
                 icon: 'question',
                 showCancelButton: true,
                 allowOutsideClick: false,
@@ -407,11 +416,14 @@ export default {
                 confirmButtonText: 'Yes',
             }).then((result) => {
                 if (result.isConfirmed) {
-                    this.onDeleteEmpInfo();
+
                 }
             });
         },
 
+        askBeforeupdateCusInfo(item_id) {
+            this.$router.push({ path: '/updateitem', query: { item_id: item_id } });
+        },
         async onDeleteEmpInfo() {
             try {
                 const data = {
@@ -453,10 +465,6 @@ export default {
                 });
             }
         },
-
-        // Your remaining code...
-
-
     },
 
 };

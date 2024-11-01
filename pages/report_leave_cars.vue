@@ -11,33 +11,40 @@
                 ລາຍງານການປ່ອຍລົດ
             </v-card-title>
 
+            <!-- <div v-if="loading_processing">Loading...</div>
+            <div v-else>
+                <div>ຈ່າຍຄ່າອາໄລ: {{ sumFooterferpaper.totalMoney }}</div>
+            </div> -->
+
+            <div>ຈ່າຍສົດບໍ່ມີຊື່ຮ້ານ: {{ totalMoney }}</div>
+            <div>ຈ່າຍຮ້ານເຄຮດິດ(ຕິດໜີ້): {{ sumFooter_Credit.totalMoney_credit }}</div>
+            <div>ຈ່າຍຄ່າຕິດໜີ້ນໍ້າມັນ: {{ sumFooter_Creditpaid.sumtotalOilPaid }}</div>
             <v-card-text>
                 <div style="width:100%;display:flex;justify-content:start" class="pt-4">
 
                     <div class="d-flex align-center">
                         <v-menu ref="start_menu" v-model="start_menu" :close-on-content-click="false"
-                            :return-value.sync="start_date" transition="scale-transition" offset-y min-width="auto">
+                            :return-value.sync="startDate" transition="scale-transition" offset-y min-width="auto">
                             <template v-slot:activator="{ on, attrs }">
                                 <v-text-field dense outlined v-model="formattedStartDate" required
                                     label="ວັນທີເລີ່ມຕົ້ນ" append-icon="mdi-calendar" readonly v-bind="attrs"
                                     v-on="on"></v-text-field>
                             </template>
-                            <v-date-picker v-model="start_date" no-title scrollable
-                                @input="$refs.start_menu.save(start_date)">
+                            <v-date-picker v-model="startDate" no-title scrollable
+                                @input="$refs.start_menu.save(startDate)">
                                 <v-spacer></v-spacer>
                             </v-date-picker>
                         </v-menu>
                     </div>
                     <div class="d-flex align-center pl-2">
                         <v-menu ref="end_menu" v-model="end_menu" :close-on-content-click="false"
-                            :return-value.sync="end_date" transition="scale-transition" offset-y min-width="auto">
+                            :return-value.sync="endDate" transition="scale-transition" offset-y min-width="auto">
 
                             <template v-slot:activator="{ on, attrs }">
                                 <v-text-field dense outlined v-model="formattedEndDate" required label="ວັນທີສຸດທ້າຍ"
                                     append-icon="mdi-calendar" readonly v-bind="attrs" v-on="on"></v-text-field>
                             </template>
-                            <v-date-picker v-model="end_date" no-title scrollable
-                                @input="$refs.end_menu.save(end_date)">
+                            <v-date-picker v-model="endDate" no-title scrollable @input="$refs.end_menu.save(endDate)">
                                 <v-spacer></v-spacer>
                             </v-date-picker>
                         </v-menu>
@@ -45,8 +52,7 @@
 
 
                     <div class="ml-2 pt-1">
-                        <v-btn color="#90A4AE" class="white--text" elevation="0"
-                            @click="() => { onSearchLeaveCarReport(); }">
+                        <v-btn color="#90A4AE" class="white--text" elevation="0" @click="handleSearch">
                             <v-icon>mdi-magnify</v-icon> ຄົ້ນຫາ
                         </v-btn>
 
@@ -71,25 +77,57 @@
                 </div>
                 <!-- Radio button -->
                 <!-- <div style="width:100%; display:flex; justify-content:start" class="ml-5"> -->
-                <v-radio-group v-model="status" column>
-                    <v-radio label="ໃບປ່ອຍລົດທີ່ຍັງບໍ່ໄດ້ອອກໃບປະຕິບັດງານ" color="red darken-3" value="N"></v-radio>
-                    <v-radio label="ໃບປ່ອຍລົດທີ່ໄດ້ອອກໃບປະຕິບັດງານແລ້ວ" color="success" value="Y"></v-radio>
-                    <v-radio label="ໃບປ່ອຍລົດທັງໝົດ" color="primary" value="A"></v-radio>
-                </v-radio-group>
+                <div style="width:100%; display:flex; justify-content:start" class="ml-5">
+                    <div style="width: 20%;">
+
+                        <v-radio-group v-model="status" column>
+                            <v-radio label="ໃບປ່ອຍລົດທີ່ຍັງບໍ່ໄດ້ອອກໃບປະຕິບັດງານ" color="red darken-3"
+                                value="N"></v-radio>
+                            <v-radio label="ໃບປ່ອຍລົດທີ່ໄດ້ອອກໃບປະຕິບັດງານແລ້ວ" color="success" value="Y"></v-radio>
+                            <v-radio label="ໃບປ່ອຍລົດທັງໝົດ" color="primary" value="A"></v-radio>
+                        </v-radio-group>
+                    </div>
+                    <div>
+                        <div>
+                            <div style="width: 100%;display:flex;justify-content:center;margin-top: 20px;" class="pt-4">
+
+                                <div style="width: 500px;margin-right: 20px;">
+                                    <v-row>
+                                        <v-btn v-for="month in 12" :key="month" @click="setMonth(month)">{{ month
+                                            }}</v-btn>
+                                    </v-row>
+                                </div>
+                                <div style="width: 500px;margin-left: 20px;">
+                                    <v-row>
+                                        <v-btn v-for="year in availableYears" :key="year" @click="setYear(year)">{{ year
+                                            }}</v-btn>
+                                    </v-row>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <!-- </div> -->
                 <div style="width:100%; display:flex; justify-content:start" class="ml-5">
                     <!-- Your existing divs -->
                     <div>
-                        <h3>ທັງໝົດ: <span class="green--text">{{ report_leave_car_list?.length }}</span></h3>
 
-                    </div>
-                    <div class="ml-10 mr-5">
-                        <h3>ໃບປ່ອຍລົດທີ່ໄດ້ອອກໃບປະຕິບັດງານແລ້ວ: <span class="green--text">{{ successList }}</span></h3>
+                        <div>
+                            <h3>ທັງໝົດ: <span class="green--text">{{ report_leave_car_list?.length }}</span></h3>
 
+                        </div>
+                        <div class="ml-10 mr-5">
+                            <h3>ໃບປ່ອຍລົດທີ່ໄດ້ອອກໃບປະຕິບັດງານແລ້ວ: <span class="green--text">{{ successList }}</span>
+                            </h3>
+
+                        </div>
+                        <div class="ml-10 mr-5">
+                            <h3>ໃບປ່ອຍລົດທີ່ຍັງບໍ່ໄດ້ອອກໃບປະຕິບັດງານ: <span class="red--text">{{ waitingList }}</span>
+                            </h3>
+                        </div>
                     </div>
-                    <div class="ml-10 mr-5">
-                        <h3>ໃບປ່ອຍລົດທີ່ຍັງບໍ່ໄດ້ອອກໃບປະຕິບັດງານ: <span class="red--text">{{ waitingList }}</span></h3>
-                    </div>
+
+
                 </div>
 
                 <div class="mt-2">
@@ -316,33 +354,27 @@
         <!-- component for print -->
         <div style="display:none">
             <div id="modalInvoice">
-                <v-row>
-                    <v-col cols="3">
-                        <img class="mx-auto" src="../assets/images/logo01.png" height="70px" cover />
-                    </v-col>
-                    <v-col cols="9">
-                        <div style="display:flex;justify-content:start;flex-direction:column;align-items:start">
+                <Noti />
 
-                            <span>
 
-                                <Noti />
+                <v-row
+                    style="font-size:14px;margin-left: 50px;margin-top: 10px;display:flex;justify-content:start;flex-direction:column;align-items:start">
 
-                            </span>
 
-                            <span style="font-size:12px">ສໍານັກງານຕັ້ງຢູ່ ອາຄານ ສະໜາມຍິງປືນ 20 ມັງກອນ, ສະໜາມກີລາກອງທັບ,
-                                ບ້ານຈອມມະນີ, ເມືອງ ໄຊເສດຖາ, ນະຄອນຫຼວງວຽງຈັນ, ສປປ ລາວ</span>
-                            <span style="font-size:12px">ໂທລະສັບ: 020 92661111, 020 92 254 999 | ອີເມວ: kounkham@Mining
-                                |
-                                ເວັບໄຊ: kounkham</span>
-                        </div>
-                    </v-col>
+                    <div>
+                        <span>ສໍານັກງານຕັ້ງຢູ່ ອາຄານ ສະໜາມຍິງປືນ 20 ມັງກອນ, ສະໜາມກີລາກອງທັບ,</span>
+                        <span> ບ້ານຈອມມະນີ, ເມືອງ ໄຊເສດຖາ, ນະຄອນຫຼວງວຽງຈັນ, ສປປ ລາວ</span>
+                        <span>ໂທລະສັບ: 020 92661111, 020 92 254 999 </span>
+                        <span> ອີເມວ: kounkham@Mining|ເວັບໄຊ: kounkham</span>
+                    </div>
+
                 </v-row>
                 <br>
                 <div class="text-center" style="display:flex;justify-content:center;font-size:20px;font-weight:bold">
                     ລາຍງານໃບປ່ອຍລົດ</div>
                  <div style="padding-top:20px;padding-bottom: 10px;">
-                    ທັງໝົດ: {{ report_leave_car_list?.length }} ລາຍການ <span v-if="start_date !== null">ແຕ່ວັນທີ:
-                        {{ start_date }} ຫາ {{ end_date }}</span>
+                    ທັງໝົດ: {{ report_leave_car_list?.length }} ລາຍການ <span v-if="startDate !== null">ແຕ່ວັນທີ:
+                        {{ startDate }} ຫາ {{ endDate }}</span>
                 </div>
                 <table
                     style="padding:2px;border: 0.5px solid #999;border-collapse: collapse;width:100%; font-size: 12px">
@@ -405,56 +437,239 @@
 
 
 
-                <div
-                    style="display: flex;margin-top:10px; flex-direction: column; justify-content: flex-end; font-size: 13px;">
+                <div style="display: flex;margin-top:10px; justify-content:space-between; font-size: 13px;">
+                    <div>
 
-                    <div style="height: 35px;">
 
-                        <td>
-                            <h3> ລວມເບ້ຍລ້ຽງ: </h3>
-                        </td>
-                        <td v-if="sumFooter != null">
-                            <b>
-                                <h3 class="red--text ">{{ sumFooter.totalBiaLieng }} LAK</h3>
-                            </b>
-                        </td>
+                        <div style="height: 35px;">
+
+                            <td>
+                                <h3>1. ລວມເບ້ຍລ້ຽງຈ່າຍກ່ອນ: </h3>
+                            </td>
+                            <td v-if="sumFooter != null">
+                                <b>
+                                    <h3 class="red--text ">{{ sumFooter.totalBiaLieng }} LAK</h3>
+                                </b>
+                            </td>
+
+                        </div>
+
+                        <div style="height: 35px;">
+                            <td>
+                                <h3>2. ລາຍຈ່າຍນອກ: </h3>
+                            </td>
+                            <td v-if="sumFooter != null">
+                                <b>
+                                    <h3 class="red--text ">{{ sumFooter.laiJaiyOutFrist }} LAK</h3>
+
+                                </b>
+                            </td>
+                        </div>
+
+                        <div style="height: 35px;">
+                            <td>
+                                <h3>3. ລວມຄ່າສິ້ນເປືອງ: </h3>
+                            </td>
+                            <td v-if="sumFooter != null">
+                                <b>
+                                    <h3 class="red--text ">{{ sumFooter.runningTotal }} LAK</h3>
+                                </b>
+                            </td>
+                        </div>
+
+                        <div v-if="loading_processing">Loading...</div>
+                        <div v-else>
+
+
+                            <h3 class="red--text ">
+                                4.ຈ່າຍຄ່າອາໄລ: {{ sumFooterferpaper.totalMoney }} LAK
+                              
+
+                            </h3>
+
+
+                        </div>
+                        <!-- <div style="height: 35px;">
+                            <td>
+                                <h3> ລວມເງິນສິ້ນເປືອງ (ສິ້ນເປືອງ + ຈ່າຍນອກ + ເບ້ຍລ້ຽງ): </h3>
+                            </td>
+                            <td v-if="sumFooter != null">
+                                <b>
+                                    <h3 class="red--text "> {{ sumFooter.biaOutWasted }} LAK</h3>
+                                </b>
+                            </td>
+                        </div> -->
+                        <!-- <div style="height: 35px;margin-top: 10px;margin-bottom: 15px;">
+                            <td style="margin-right: 5px;">
+                                <h3>5. ລວມຈ່າຍຊີ້ນເປືອງທັງຫມົດປະຈຳ <span v-if="startDate !== null">ເປັນເງີນ :</span>
+                                </h3>
+
+                                <h5 style="color: crimson;">(ສິ້ນເປືອງ + ຈ່າຍນອກ + ເບ້ຍລ້ຽງ + ຈ່າຍຄ່າອາໄລ):</h5>
+                            </td>
+                            <td v-if="sumFooter_all != null">
+                                <b>
+                                    <h3 class="red--text"> {{ sumFooter_all }} LAK</h3>
+                                </b>
+                            </td>
+                        </div> -->
+                        
+                        <div style="height: 35px;">
+                            <td>
+                                <h3>7. ຈ່າຍຮ້ານເຄຮດິດ(ຕິດໜີ້): </h3>
+                            </td>
+                            <td>
+                                <b>
+                                    <h3 class="red--text "> {{ sumFooter_Credit.totalMoney_credit }} LAK</h3>
+
+                                </b>
+                            </td>
+                        </div>
+                        <div style="height: 35px;margin-top: 10px;">
+                            <td>
+                                <h3>8. ລວມລາຍຈ່າຍປະຈໍາວັນ: </h3>
+                            </td>
+                            <td>
+                                <b>
+                                    <!-- <h2 style="margin-top: -3px;" class="red--text ">{{ sumFooter_allL }} LAK</h2> -->
+                                    <h2 style="margin-top: -3px;" class="red--text"> {{ totalMoney }} LAK</h2>
+                                </b>
+                            </td>
+                        </div>
+                        <!-- <div style="height: 35px;margin-left: 30px;">
+
+                            <td>
+                                <h3 style="color: seagreen;"> ປຽນເປັນກີບເເລ້ວ: </h3>
+                            </td>
+                            <td>
+                                <b>
+                                    <h3 class="red--text "> {{ sumFooter_Credit.totalMoney_credit }} LAK</h3>
+                                </b>
+                            </td>
+                        </div> -->
+
+
+
+                        <!-- <div style="height: 35px;margin-top: 10px;">
+                            <td style="margin-right: 5px;">
+                                <h3>10. ລວມ <span v-if="startDate !== null">ເປັນເງີນ :</span></h3>
+
+                               
+                            </td>
+                            <td v-if="sumFooter_allL != null">
+                                <b>
+                                    <h2 style="margin-top: -3px;" class="red--text"> {{ sumFooter_allL }} LAK</h2>
+                                </b>
+                            </td>
+                        </div> -->
+                    </div>
+                    <div>
+                        <div style="height: 35px;">
+                            <td>
+                                <h3>5. ລວມຄ່າເບ້ຍລ້ຽງທີ່ຄ້າງຊໍາລະທັງໝົດ : </h3>
+                            </td>
+                            <td>
+                                <b>
+                                    <h3 class="red--text ">{{ totalBialiengthatPaid }} LAK</h3>
+
+                                </b>
+                            </td>
+                        </div>
+
+                        <div style="height: 35px;">
+
+                            <td>
+                                <h3>6. ລວມຈ່າຍນໍ້າມັນທີຕິດໜີ້ : </h3>
+                            </td>
+                            <td>
+                                <b>
+                                    <h3 class="red--text ">{{ sumFooter_Creditpaid.sumtotalOilPaid }} LAK</h3>
+
+                                </b>
+                            </td>
+
+                        </div>
+
+
+
+
+                        <div>
+                            <v-card>
+                                <div style="height: 35px;margin-left: 30px;">
+                                    <td>
+                                        <h3 style="color: tomato;">ເຄດິດ: </h3>
+                                    </td>
+                                    <td>
+                                        <b>
+                                            <h3 class="red--text "> {{ sfcusd }} $</h3>
+
+                                        </b>
+                                    </td>
+                                </div>
+
+                                <div style="height: 35px;margin-left: 30px;">
+
+                                    <td>
+                                        <h3 style="color: tomato;">ເຄດິດ: </h3>
+                                    </td>
+                                    <td>
+                                        <b>
+                                            <h3 class="red--text "> {{ sfcthb }} ฿</h3>
+
+                                        </b>
+                                    </td>
+                                </div>
+
+                                <div style="height: 35px;margin-left: 30px;">
+                                    <td>
+                                        <h3 style="color: tomato;">ເຄດິດ: </h3>
+                                    </td>
+                                    <td>
+                                        <b>
+                                            <h3 class="red--text "> {{ sfclak }} LAK</h3>
+
+                                        </b>
+                                    </td>
+                                </div>
+
+                                <!-- <div style="height: 35px;margin-left: 30px;">
+                                    <td>
+                                        <h3 style="color: tomato;"> ຍັງບໍ່ຈ່າຍ: </h3>
+                                    </td>
+                                    <td>
+                                        <b>
+                                            <h3 class="red--text "> {{ sumFooter_Credit.totalMoney_credit }} $</h3>
+
+                                        </b>
+                                    </td>
+                                </div> -->
+
+                            </v-card>
+                        </div>
+
+
+                        <!-- <div style="height: 35px;">
+                            <td style="margin-right: 5px;">
+                                <h3>ລວມຈ່າຍເບ້ຍລ້ຽງ ເປັນເງີນ :</h3>
+
+
+                                <b>
+                                    <h2 style="margin-top: -3px;" class="red--text">{{ sumtotalOilPaid }} LAK</h2>
+                                </b>
+                            </td>
+
+                            <td style="margin-right: 5px;">
+                                <h3>ລວມຈ່າຍເບ້ຍລ້ຽງ ເປັນເງີນ :</h3>
+
+
+                                <b>
+                                    <h2 style="margin-top: -3px;" class="red--text">{{ totalBialiengthatPaid }} LAK</h2>
+                                </b>
+                            </td>
+
+                        </div> -->
+
 
                     </div>
-
-                    <div style="height: 35px;">
-                        <td>
-                            <h3>ລາຍຈ່າຍນອກ: </h3>
-                        </td>
-                        <td v-if="sumFooter != null">
-                            <b>
-                                <h3 class="red--text ">{{ sumFooter.laiJaiyOutFrist }} LAK</h3>
-
-                            </b>
-                        </td>
-                    </div>
-
-                    <div style="height: 35px;">
-                        <td>
-                            <h3>ລວມຄ່າສິ້ນເປືອງ: </h3>
-                        </td>
-                        <td v-if="sumFooter != null">
-                            <b>
-                                <h3 class="red--text ">{{ sumFooter.runningTotal }} LAK</h3>
-                            </b>
-                        </td>
-                    </div>
-                    <div style="height: 35px;">
-                        <td>
-                            <h3> ລວມເງິນສິ້ນເປືອງ (ສິ້ນເປືອງ+ຈ່າຍນອກ+ເບ້ຍລ້ຽງ ): </h3>
-                        </td>
-                        <td v-if="sumFooter != null">
-                            <b>
-                                <h3 class="red--text "> {{ sumFooter.biaOutWasted }} LAK</h3>
-                            </b>
-                        </td>
-                    </div>
-
-
                 </div>
 
                 <div
@@ -508,24 +723,36 @@
 
 <script>
 import swal from 'sweetalert2'
+import { mapActions, mapGetters } from 'vuex';
+
 import moment from 'moment'
 export default {
     data() {
         return {
             moment: moment,
             ex7: 'red',
-            sumFooter: null,
+
             // carPayTotal: null,
             // totalRow: null,
             active: '',
             showAlert: false,
             loading_processing: false,
             end_menu: false,
-            end_date: null,
-            start_date: null,
+            endDate: null,
+            sumFooter: {},
+            sumFooterferpaper: {},
+            totalBialiengthatPaid: 0,  // Initialize with a default value
+            sumtotalOilPaid: 0,       // Initialize with a default value
+            startDate: null,
             start_menu: false,
             status: 'A',
-
+            startDate: new Date().toISOString().substr(0, 10),
+            endDate: new Date().toISOString().substr(0, 10),
+            startDateMenu: false,
+            endDateMenu: false,
+            item_id: null,
+            loading_processing: false,
+            availableYears: this.getYearsArray(),
             // totalPriceNm:priceNamMun*sainummun,
             report_leave_car_header: [
                 { text: 'ເລກບິນ', value: 'lahud_POYLOD' },
@@ -551,34 +778,294 @@ export default {
             selected: '',
             search: '',
             successList: 0,
+            sumFooter_all: 0,
             waitingList: 0,
             sumTotalPrice: '',
+            sumFooterferpaper: '',
+            sumFooter_allL: '',
+            sumFooter_Credit: '',
 
+            sumFooter_Creditpaid: 0,
+            sfclak: 0,
+            totalMoney: null,
         }
     },
+    watch: {
+        sumFooter: 'computeSumFooterAll',
+        sumFooterferpaper: 'computeSumFooterAll'
+    },
     computed: {
+        // formattedTHB() {
+        //     return this.sfcthb.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+        // }
+        // ,
+        // formattedUSD() {
+        //     return this.sfcusd.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+        // }
+        // ,
+        // formattedLAK() {
+        //     return this.sfclak.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+        // }
+        // ,
         formattedStartDate() {
-            if (!this.start_date) return ''; // Return empty string if date is not set
-            const dateObj = new Date(this.start_date);
+            if (!this.startDate) return ''; // Return empty string if date is not set
+            const dateObj = new Date(this.startDate);
             const day = dateObj.getDate();
             const month = dateObj.getMonth() + 1; // January is 0, so add 1 to get correct month
             const year = dateObj.getFullYear();
             return `${day}/${month}/${year}`;
         },
         formattedEndDate() {
-            if (!this.end_date) return ''; // Return empty string if date is not set
-            const dateObj = new Date(this.end_date);
+            if (!this.endDate) return ''; // Return empty string if date is not set
+            const dateObj = new Date(this.endDate);
             const day = dateObj.getDate();
             const month = dateObj.getMonth() + 1; // January is 0, so add 1 to get correct month
             const year = dateObj.getFullYear();
             return `${day}/${month}/${year}`;
-        }
+        },
+        formattedStartDate() {
+            return this.formatDate(this.startDate);
+        },
+        formattedEndDate() {
+            return this.formatDate(this.endDate);
+        },
+        ...mapGetters({
+            truck_data_list: "truck_data_list",
+            report_reportStockDayWeek: "report_reportStockDayWeek",
+            report_reportStockDayWeek_item: "report_reportStockDayWeek_item",
+            computedSumFooter: "sumFooter" // Renamed here
+        }),
     },
 
     mounted() {
         this.onSearchLeaveCarReport()
+        // this.fetchShowOfferPaperData()
+        // this.fetchShowTotalOilPaidData()
+        this.fetchShowAmountThatPaidStaffData()
+        this.onGetshowofferpaper()
+
+        this.rCurrencyUSD()
+        this.rCurrencyTHB()
+        this.rCurrencyLAK()
+
     },
     methods: {
+        async onGetshowofferpaper() {
+            try {
+                let data = {
+                    startDate: this.startDate,
+                    endDate: this.endDate,
+                    toKen: localStorage.getItem("toKen"),
+                };
+                this.loading_processing = true;
+                const response = await this.$axios.$post('/reportshowofferpaper.service', data
+                );
+
+                if (response.status === '00' && response.sumFooter && response.sumFooter_Credit) {
+                    // Save the totalMoney and totalMoney_credit into component's data
+                    this.totalMoney = response.sumFooter.totalMoney;
+                    this.totalMoneyCredit = response.sumFooter_Credit.totalMoney_credit;
+                } else {
+                    swal.fire({
+                        title: 'ແຈ້ງເຕືອນ',
+                        text: response.message,
+                        icon: 'info',
+                        allowOutsideClick: false,
+                        confirmButtonColor: '#3085d6',
+                        confirmButtonText: 'OK',
+                    });
+                }
+            } catch (error) {
+                swal.fire({
+                    title: 'ແຈ້ງເຕືອນ',
+                    text: error.message || 'An error occurred.',
+                    icon: 'error',
+                    allowOutsideClick: false,
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: 'OK',
+                });
+                console.error(error);
+            } finally {
+                this.loading_processing = false;
+            }
+        },
+        async rCurrencyUSD() {
+            try {
+                let data = {
+                    startDate: this.startDate,
+                    endDate: this.endDate,
+                    toKen: localStorage.getItem("toKen"),
+                };
+                this.loading_processing = true;
+                const response = await this.$axios.$post('/reportShowofferpaperCurrencyUSD.service', data
+                );
+
+
+
+                if (response.status === '00' && response.sumFooter_Currency) {
+                    // Update the sfcthb value with the sum from the API or set it to 0
+                    this.sfcusd = response.sumFooter_Currency.sumMoneycurrencyUSD || '0';
+                    console.log("Total THB:", this.sfcusd);
+
+                } else {
+                    swal.fire({
+                        title: 'ແຈ້ງເຕືອນ',
+                        text: response.message,
+                        icon: 'info',
+                        allowOutsideClick: false,
+                        confirmButtonColor: '#3085d6',
+                        confirmButtonText: 'OK',
+                    });
+                }
+            } catch (error) {
+                swal.fire({
+                    title: 'ແຈ້ງເຕືອນ',
+                    text: error.message || 'An error occurred.',
+                    icon: 'error',
+                    allowOutsideClick: false,
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: 'OK',
+                });
+                console.error(error);
+            } finally {
+                this.loading_processing = false;
+            }
+        },
+        async rCurrencyTHB() {
+            try {
+                let data = {
+                    startDate: this.startDate,
+                    endDate: this.endDate,
+                    toKen: localStorage.getItem("toKen"),
+                };
+                this.loading_processing = true;
+                const response = await this.$axios.$post('/reportShowofferpaperCurrencyTHB.service', data
+                );
+
+                if (response.status === '00' && response.sumFooter_Currency) {
+                    // Update the sfcthb value with the sum from the API or set it to 0
+                    this.sfcthb = response.sumFooter_Currency.sumMoneyCurrencyTHB || '0';
+                    console.log("Total THB:", this.sfcthb);
+
+                } else {
+                    swal.fire({
+                        title: 'ແຈ້ງເຕືອນ',
+                        text: response.message,
+                        icon: 'info',
+                        allowOutsideClick: false,
+                        confirmButtonColor: '#3085d6',
+                        confirmButtonText: 'OK',
+                    });
+                }
+            } catch (error) {
+                swal.fire({
+                    title: 'ແຈ້ງເຕືອນ',
+                    text: error.message || 'An error occurred.',
+                    icon: 'error',
+                    allowOutsideClick: false,
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: 'OK',
+                });
+                console.error(error);
+            } finally {
+                this.loading_processing = false;
+            }
+        },
+        async rCurrencyLAK() {
+            try {
+                let data = {
+                    startDate: this.startDate,
+                    endDate: this.endDate,
+                    toKen: localStorage.getItem("toKen"),
+                };
+                this.loading_processing = true;
+                const response = await this.$axios.$post('/reportShowofferpaperCurrencyLAK.service', data
+                );
+
+
+                if (response.status === '00' && response.sumFooter_Currency) {
+                    // Update the sfclak value with the sum from the API or set it to 0
+                    this.sfclak = response.sumFooter_Currency.sumMoneycurrencyLAK || '0';
+                    console.log("Total THB:", this.sfclak);
+                } else {
+                    swal.fire({
+                        title: 'ແຈ້ງເຕືອນ',
+                        text: response.message,
+                        icon: 'info',
+                        allowOutsideClick: false,
+                        confirmButtonColor: '#3085d6',
+                        confirmButtonText: 'OK',
+                    });
+                }
+            } catch (error) {
+                swal.fire({
+                    title: 'ແຈ້ງເຕືອນ',
+                    text: error.message || 'An error occurred.',
+                    icon: 'error',
+                    allowOutsideClick: false,
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: 'OK',
+                });
+                console.error(error);
+            } finally {
+                this.loading_processing = false;
+            }
+        },
+        computeSumFooterAll() {
+            // Function to format number with commas
+            const formatNumber = (number) => {
+                return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+            };
+
+            // Function to parse formatted number to integer
+            const parseFormattedNumber = (formattedNumber) => {
+                return parseInt(formattedNumber.replace(/,/g, ''), 10);
+            };
+
+            // Retrieve and parse the values
+            const biaOutWasted = this.sumFooter.biaOutWasted || 0;
+            const totalMoney = this.sumFooterferpaper.totalMoney || 0;
+            const totalMoneypop = this.sumFooter_Creditpaid.sumtotalOilPaid || 0;
+
+            // Parse the formatted numbers
+            const biaOutWastedParsed = parseFormattedNumber(formatNumber(biaOutWasted));
+            const totalMoneyParsed = parseFormattedNumber(formatNumber(totalMoney));
+            const totalMoneypopParsed = parseFormattedNumber(formatNumber(totalMoneypop));
+
+            // Compute the total and format the result
+            this.sumFooter_all = formatNumber(biaOutWastedParsed + totalMoneyParsed);
+            this.sumFooter_allL = formatNumber(biaOutWastedParsed + totalMoneyParsed + totalMoneypopParsed);
+        },
+        formatDate(date) {
+            if (!date) return '';
+            const [year, month, day] = date.split('-');
+            return `${day}/${month}/${year}`;
+        },
+        ...mapActions({
+            reportStockDayWeek: "reportStockDayWeek",
+            clearItemList: "clearItemList",
+        }),
+        setMonth(month) {
+            // Update the startDate and endDate based on the selected month
+            const currentYear = new Date().getFullYear();
+            const start = new Date(currentYear, month - 1, 1);
+            const end = new Date(currentYear, month, 0);
+            this.startDate = start.toISOString().substr(0, 10);
+            this.endDate = end.toISOString().substr(0, 10);
+        },
+        setYear(year) {
+            // Update the startDate and endDate based on the selected year
+            this.startDate = `${year}-01-01`;
+            this.endDate = `${year}-12-31`;
+        },
+        getYearsArray() {
+            const currentYear = new Date().getFullYear();
+            const years = [];
+            for (let i = currentYear; i >= currentYear - 10; i--) {
+                years.push(i);
+            }
+            return years;
+        },
         print() {
             const modal = document.getElementById("modalInvoice")
             const cloned = modal.cloneNode(true)
@@ -609,8 +1096,8 @@ export default {
             this.loading_processing = true;
             try {
                 let data = {
-                    startDate: this.start_date,
-                    endDate: this.end_date,
+                    startDate: this.startDate,
+                    endDate: this.endDate,
                     toKen: localStorage.getItem("toKen"),
 
                     status: 0
@@ -647,8 +1134,8 @@ export default {
         //     this.loading_processing = true;
         //     try {
         //         let data = {
-        //             startDate: this.start_date,
-        //             endDate: this.end_date,
+        //             startDate: this.startDate,
+        //             endDate: this.endDate,
         //             status: 0
         //         }
         //         // this.$axios.$post('/ReportStaff.service', data).then((data) => {
@@ -678,14 +1165,118 @@ export default {
         //         console.log(error)
         //     }
         // },
+
+        // async fetchShowOfferPaperData() {
+        //     this.loading_processing = true;
+        //     try {
+        //         let data = {
+        //             startDate: this.startDate,
+        //             endDate: this.endDate,
+        //             toKen: localStorage.getItem("toKen"),
+        //         };
+        //         const response = await this.$axios.$post('/showofferpaper.service', data);
+        //         console.log("showofferpaper response:", response);
+        //         if (response?.status === '00') {
+        //             this.staft_data_list = response?.data;
+        //             this.sumFooterferpaper = response?.sumFooter;
+        //             console.log("new data footer:", this.sumFooter);
+        //         } else {
+        //             swal.fire({
+        //                 icon: 'error',
+        //                 text: response?.message
+        //             });
+        //         }
+        //     } catch (error) {
+        //         swal.fire({
+        //             icon: 'error',
+        //             text: error.message
+        //         });
+        //         console.log(error);
+        //     } finally {
+        //         this.loading_processing = false;
+        //     }
+        // },
+        // async fetchShowTotalOilPaidData() {
+        //     this.loading_processing = true;
+        //     try {
+        //         let data = {
+        //             startDate: this.startDate,
+        //             endDate: this.endDate,
+        //             toKen: localStorage.getItem("toKen"),
+        //         };
+        //         const response = await this.$axios.$post('/ShowTotalOilPaid.service', data);
+        //         console.log("showofferpaper response:", response);
+
+        //         if (response?.status === '00') {
+        //             this.sumtotalOilPaid = response?.sumFooter?.sumtotalOilPaid || '0';
+        //             console.log("Total Oil Paid:", this.sumtotalOilPaid);
+        //         } else {
+        //             swal.fire({
+        //                 icon: 'error',
+        //                 text: response?.message
+        //             });
+        //         }
+        //     } catch (error) {
+        //         swal.fire({
+        //             icon: 'error',
+        //             text: error.message
+        //         });
+        //         console.log(error);
+        //     } finally {
+        //         this.loading_processing = false;
+        //     }
+        // },
+
+        async fetchShowAmountThatPaidStaffData() {
+            this.loading_processing = true;
+            try {
+                let data = {
+                    startDate: this.startDate,
+                    endDate: this.endDate,
+                    toKen: localStorage.getItem("toKen"),
+                };
+                const response = await this.$axios.$post('/AmountThatPaidStaff.service', data);
+                console.log("showofferpaper response:", response);
+                if (response?.status === '00') {
+
+                    this.totalBialiengthatPaid = response?.sumFooter?.totalBialiengthatPaid || '0';
+                    console.log("new data footer:", this.totalBialiengthatPaid);
+                } else {
+                    swal.fire({
+                        icon: 'error',
+                        text: response?.message
+                    });
+                }
+            } catch (error) {
+                swal.fire({
+                    icon: 'error',
+                    text: error.message
+                });
+                console.log(error);
+            } finally {
+                this.loading_processing = false;
+            }
+        },
+        handleSearch() {
+            this.onSearchLeaveCarReport();
+            // this.fetchShowOfferPaperData();
+            // this.fetchShowTotalOilPaidData();
+            this.fetchShowAmountThatPaidStaffData();
+            this.onGetshowofferpaper()
+            this.onGetShowTotalOilPaid()
+
+            this.rCurrencyUSD()
+            this.rCurrencyTHB()
+            this.rCurrencyLAK()
+        },
         onSearchLeaveCarReport() {
             try {
                 this.loading_processing = true;
                 this.successList = 0
                 this.waitingList = 0
                 let data = {
-                    startDate: this.start_date,
-                    endDate: this.end_date,
+                    startDate: this.startDate,
+                    endDate: this.endDate,
                     toKen: localStorage.getItem("toKen"),
 
                     status: this.status
@@ -719,6 +1310,116 @@ export default {
                     text: error
                 })
                 console.log(error)
+            }
+        },
+        // async onGetshowofferpaper() {
+        //     this.loading_processing = true;
+        //     try {
+
+        //         const response = await this.$axios.$post('/showofferpaper.service');
+        //         console.log("onGetshowofferpaper:", data)
+
+
+        //         if (response?.status === '00') {
+
+        //             this.sumFooterferpaper = response?.sumFooter || '0';
+        //             console.log("Total Oil Paid:", this.sumFooterferpaper);
+        //         } else {
+        //             swal.fire({
+        //                 icon: 'error',
+        //                 text: response?.message
+        //             });
+        //         }
+        //     } catch (error) {
+        //         swal.fire({
+        //             icon: 'error',
+        //             text: error.message
+        //         });
+        //         console.log(error);
+        //     } finally {
+        //         this.loading_processing = false;
+        //     }
+        // },
+
+        // async onGetshowofferpaper() {
+        //     try {
+        //         let data = {
+        //             startDate: this.startDate,
+        //             endDate: this.endDate,
+        //             toKen: localStorage.getItem("toKen"),
+        //         };
+        //         this.loading_processing = true;
+        //         const response = await this.$axios.$post('/showofferpaper.service', data
+        //         );
+
+        //         if (response.status == '00' && Array.isArray(response.data)) {
+        //             this.sumFooterferpaper = response?.sumFooter || '0';
+        //             console.log("Total Oil Paid:", this.sumFooterferpaper);
+        //             this.sumFooter_Credit = response?.sumFooter_Credit || '0';
+        //             console.log("Total Oil Paid:", this.sumFooter_Credit);
+
+        //         } else {
+        //             swal.fire({
+        //                 title: 'ແຈ້ງເຕືອນ',
+        //                 text: response.message,
+        //                 icon: 'info',
+        //                 allowOutsideClick: false,
+        //                 confirmButtonColor: '#3085d6',
+        //                 confirmButtonText: 'OK',
+        //             });
+        //         }
+        //     } catch (error) {
+        //         swal.fire({
+        //             title: 'ແຈ້ງເຕືອນ',
+        //             text: error.message || 'An error occurred.',
+        //             icon: 'error',
+        //             allowOutsideClick: false,
+        //             confirmButtonColor: '#3085d6',
+        //             confirmButtonText: 'OK',
+        //         });
+        //         console.error(error);
+        //     } finally {
+        //         this.loading_processing = false;
+        //     }
+        // },
+
+        async onGetShowTotalOilPaid() {
+            try {
+                let data = {
+                    startDate: this.startDate,
+                    endDate: this.endDate,
+                    toKen: localStorage.getItem("toKen"),
+                };
+                const response = await this.$axios.$post('/ShowTotalOilPaid.service', data);
+
+                if (response.status == '00' && Array.isArray(response.data)) {
+
+
+                    this.sumFooter_Creditpaid = response?.sumFooter || '0';
+                    console.log("Total Oil Paid:", this.sumFooter_Creditpaid);
+                } else {
+                    swal.fire({
+                        title: 'ແຈ້ງເຕືອນ',
+                        text: response.message,
+                        icon: 'info',
+                        allowOutsideClick: false,
+                        confirmButtonColor: '#3085d6',
+                        confirmButtonText: 'OK',
+                    });
+                }
+            } catch (error) {
+
+                swal.fire({
+                    title: 'ແຈ້ງເຕືອນ',
+                    text: error.message || 'An error occurred.',
+                    icon: 'error',
+                    allowOutsideClick: false,
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: 'OK',
+                });
+                console.error(error);
+            } finally {
+                this.loading_processing = false;
             }
         },
         onPrintAgain(lahud_POYLOD,
@@ -758,6 +1459,7 @@ export default {
             })
 
         },
+
 
     }
 

@@ -1,598 +1,610 @@
 <template>
     <div>
-        <v-card class="card-shadow" rounded="lg" style="border:0.5px solid #e0e0e0;border-radius:3px">
-            <v-card-title style="background-color:#c69eed" class="white--text">
-                ນໍາເຂົ້າອາໄລ
-            </v-card-title>
+        <v-btn ref="btn1" value="1" @click="selectedCard = '1'" @mouseover="changeColor('	#009fff', $refs.btn1)"
+            @mouseleave="changeColor('white', $refs.btn1)"
+            style="margin-left: 2px; margin-right: 2px; background-color: white; color: black; height: 65px; border: 1px solid rgb(221, 5, 245);">
+            <v-icon style="color: rgb(221, 5, 245);" size="55">mdi-filter-cog</v-icon>
+            ນໍາເຂົ້າອາໄລ
+        </v-btn>
 
-            <div style="margin-top: 10px;margin-left: 10px;margin-right: 10px;">
-                <div style="display: flex;">
-                    <div style="width:100%;" class="pl-2">
-                        <span>ເພີ້ມ ອຸປະກອນ:</span>
+        <v-btn ref="btn2" value="2" @click="selectedCard = '2'" @mouseover="changeColor('	#009fff', $refs.btn1)"
+            @mouseleave="changeColor('white', $refs.btn1)"
+            style="margin-left: 2px; margin-right: 2px; background-color: white; color: black; height: 65px; border: 1px solid rgb(221, 5, 245);">
+            <v-icon style="color: rgb(221, 5, 245);" size="55">mdi-printer</v-icon>
+            ພິມບິນ
+        </v-btn>
+        <div v-if="selectedCard === '1'">
+            <v-card class="card-shadow" rounded="lg" style="border:0.5px solid #e0e0e0;border-radius:3px">
+                <v-card-title style="background-color:#c69eed" class="white--text">
+                    ນໍາເຂົ້າອາໄລ
+                </v-card-title>
+
+                <div style="margin-top: 10px;margin-left: 10px;margin-right: 10px;">
+                    <div style="display: flex;">
+                        <div style="width:100%;" class="pl-2">
+                            <span>ເພີ້ມ ອຸປະກອນ:</span>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <v-data-table :items-per-page="5" :headers="truck_table_headers" :items="filteredItems" :search="search">
-                <template v-slot:item="row">
-                    <tr>
-                        <td>{{ row?.item?.unit_price?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</td>
-                        <td><v-avatar><img :src="row.item.img"></v-avatar></td>
-                        <td>{{ row?.item?.qty_offer?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</td>
-                        <td>{{ row?.item?.totalMoney?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</td>
-                        <td>{{ row?.item?.description?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</td>
-                        <td>{{ row?.item?.offerManName }}</td>
-                        <td>{{ row?.item?.job }}</td>
-                        <td>{{ row?.item?.f_CARD_NO }}</td>
-                        <td>{{ row?.item?.h_VICIVLE_NUMBER }}</td>
-                        <td>{{ row?.item?.item_name }}</td>
-                        <td>{{ row?.item?.dateCreate }}</td>
-                        <td>{{ row?.item?.offer_CODE }}</td>
-                        <!-- <td :class="getStatusClass(row.item.status)">
+                <v-data-table :items-per-page="5" :headers="truck_table_headers" :items="filteredItems"
+                    :search="search">
+                    <template v-slot:item="row">
+                        <tr>
+                            <td>{{ row?.item?.unit_price?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</td>
+                            <td><v-avatar><img :src="row.item.img"></v-avatar></td>
+                            <td>{{ row?.item?.qty_offer?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</td>
+                            <td>{{ row?.item?.totalMoney?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</td>
+                            <td>{{ row?.item?.description?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</td>
+                            <td>{{ row?.item?.offerManName }}</td>
+                            <td>{{ row?.item?.job }}</td>
+                            <td>{{ row?.item?.f_CARD_NO }}</td>
+                            <td>{{ row?.item?.h_VICIVLE_NUMBER }}</td>
+                            <td>{{ row?.item?.item_name }}</td>
+                            <td>{{ row?.item?.dateCreate }}</td>
+                            <td>{{ row?.item?.offer_CODE }}</td>
+                            <!-- <td :class="getStatusClass(row.item.status)">
                             {{ getStatusText(row.item.status) }}
                         </td> -->
-                        <td>{{ row?.item?.stock_status }}</td>
-                        <!-- <td>{{ row?.item?.statusPO }}</td> -->
+                            <td>{{ row?.item?.stock_status }}</td>
+                            <!-- <td>{{ row?.item?.statusPO }}</td> -->
 
 
-                        <td>
-                            <v-btn small color="primary" class="card-shadow" @click="onGetinbox(row.item.offer_CODE)">
-                                <v-icon>mdi mdi-archive-plus</v-icon>ນໍາເຂົ້າ
-                            </v-btn>
-                        </td>
-                    </tr>
-                </template>
-            </v-data-table>
+                            <td>
+                                <v-btn small color="primary" class="card-shadow"
+                                    @click="onGetinbox(row.item.offer_CODE)">
+                                    <v-icon>mdi mdi-archive-plus</v-icon>ນໍາເຂົ້າ
+                                </v-btn>
+                            </td>
+                        </tr>
+                    </template>
+                </v-data-table>
 
-            <v-btn ref="btn1" value="1" @click="selectedCard = '1'" @mouseover="changeColor('	#009fff', $refs.btn1)"
-                @mouseleave="changeColor('white', $refs.btn1)"
-                style="margin-left: 2px; margin-right: 2px; background-color: white; color: black; height: 65px; border: 1px solid rgb(221, 5, 245);">
-                <v-icon style="color: rgb(221, 5, 245);" size="55">mdi-printer</v-icon>
-                ພິມບິນທີນໍາເຂົ້າອາໄລເເລ້ວ
-            </v-btn>
-            <!-- component for print  -->
-            <v-dialog v-model="dialogVisible" max-width="400px">
-                <v-card>
-                    <v-card-title style="font-size: 24px;">ປ້ອນຂໍ້ມູນ</v-card-title>
-                    <v-card-title class="huakhr">
-                        <v-card-actions>
-                            <!-- <v-btn style="font-size: 20px;" color="primary" @click="onPrint">
+
+                <!-- component for print  -->
+                <v-dialog v-model="dialogVisible" max-width="400px">
+                    <v-card>
+                        <v-card-title style="font-size: 24px;">ປ້ອນຂໍ້ມູນ</v-card-title>
+                        <v-card-title class="huakhr">
+                            <v-card-actions>
+                                <!-- <v-btn style="font-size: 20px;" color="primary" @click="onPrint">
                                 <v-icon>mdi-printer</v-icon>ພິມບິນ
                             </v-btn> -->
+                            </v-card-actions>
+                            <div>
+
+                                <span id="shopName">{{ shopName }}</span>
+                            </div>
+                            <div>
+                                <label for="offerManName">ຜູ້ສະເໜີ:</label>
+                                <span id="offerManName">{{ offerManName }}</span>
+                            </div>
+                            <div>
+                                <label for="h_VICIVLE_NUMBER">ຫົວລັດ:</label>
+                                <span id="h_VICIVLE_NUMBER">{{ h_VICIVLE_NUMBER }}</span>
+                            </div>
+                            <div>
+                                <label for="offer_CODE">offer_CODE:</label>
+                                <span id="offer_CODE">{{ offer_CODE }}</span>
+                            </div>
+                        </v-card-title>
+                        <v-card-title>
+                            <label for="description">ລາຍລະອຽດ:</label>
+                            <span id="description">{{ description }}</span>
+                        </v-card-title>
+
+                        <div style="display: flex;margin-left: 10px;margin-right: 10px;">
+                            <v-card-text style="font-size: 18px;">
+
+                                <div>
+                                    <label for="unit_price">ລາ​ຄາ​ຕໍ່​ຫນ່ວຍ:</label>
+                                    <span id="unit_price">{{ unit_price }}</span>
+                                </div>
+
+                                <div>
+                                    <label for="qty_offer">ຂໍ້ສະເໜີ ຈໍານວນ:</label>
+                                    <span id="qty_offer">{{ qty_offer }}</span>
+                                </div>
+                                <div>
+                                    <label for="totalMoney">ເງິນທັງໝົດ:</label>
+                                    <span id="totalMoney">{{ totalMoney }}</span>
+                                </div>
+
+
+
+                                <div>
+                                    <label for="size">ຂະນາດ</label>
+                                    <span id="size">{{ size }}</span>
+                                    <v-text-field label="*size" dense outlined background-color="#f5f5f5"
+                                        v-model="size"></v-text-field>
+                                </div>
+
+                                <div>
+                                    <label for="brand">ຍີ່ຫໍ້</label>
+                                    <span id="brand">{{ brand }}</span>
+                                    <v-text-field label="*brand" dense outlined background-color="#f5f5f5"
+                                        v-model="brand"></v-text-field>
+                                </div>
+
+                                <div>
+                                    <label for="ber">ເບີ</label>
+                                    <span id="ber">{{ ber }}</span>
+                                    <v-text-field label="*ber" dense outlined background-color="#f5f5f5"
+                                        v-model="ber"></v-text-field>
+                                </div>
+
+                            </v-card-text>
+                            <v-card-text style="font-size: 18px;">
+
+
+                                <div>
+                                    <label for="item_name">ອາໄລ ຊື່:</label>
+                                    <span id="item_name">{{ item_name }}</span>
+                                </div>
+
+
+                                <label for="img">ຮູບພາບ:</label>
+                                <div>
+                                    <img :src="img" style="width: 150px; height: 160px;">
+                                </div>
+
+                            </v-card-text>
+
+                        </div>
+
+                        <div v-if="item_name1 !== 'null'" style="display: flex;margin-left: 10px;margin-right: 10px;">
+                            <v-card-text style="font-size: 18px;">
+                                <div>
+                                    <label for="unit_price1">ລາ​ຄາ​ຕໍ່​ຫນ່ວຍ1:</label>
+                                    <span id="unit_price1">{{ unit_price1 }}</span>
+                                </div>
+
+
+                                <div>
+                                    <label for="qty_offer1">ຂໍ້ສະເໜີ ຈໍານວນ:</label>
+                                    <span id="qty_offer1">{{ qty_offer1 }}</span>
+                                </div>
+                                <div>
+                                    <label for="totalMoney1">ເງິນທັງໝົດ:</label>
+                                    <span id="totalMoney1">{{ totalMoney1 }}</span>
+                                </div>
+                                <div>
+                                    <label for="size1">ຂະນາດ</label>
+                                    <span id="size1">{{ size1 }}</span>
+                                    <v-text-field label="*size1" dense outlined background-color="#f5f5f5"
+                                        v-model="size1"></v-text-field>
+                                </div>
+
+                                <div>
+                                    <label for="brand1">ຍີ່ຫໍ້</label>
+                                    <span id="brand1">{{ brand1 }}</span>
+                                    <v-text-field label="*brand1" dense outlined background-color="#f5f5f5"
+                                        v-model="brand1"></v-text-field>
+                                </div>
+
+                                <div>
+                                    <label for="ber1">ເບີ</label>
+                                    <span id="ber1">{{ ber1 }}</span>
+                                    <v-text-field label="*ber1" dense outlined background-color="#f5f5f5"
+                                        v-model="ber1"></v-text-field>
+                                </div>
+                            </v-card-text>
+
+
+                            <v-card-text style="font-size: 18px;">
+                                <div>
+                                    <label for="item_name1">ອາໄລ ຊື່:</label>
+                                    <span id="item_name1">{{ item_name1 }}</span>
+                                </div>
+                                <label for="img">ຮູບພາບ:</label>
+                                <div>
+                                    <img :src="img1" style="width: 150px; height: 160px;">
+                                </div>
+                            </v-card-text>
+                        </div>
+                        <div v-if="item_name2 !== 'null'" style="display: flex;margin-left: 10px;margin-right: 10px;">
+                            <v-card-text style="font-size: 18px;">
+                                <div>
+                                    <label for="unit_price1">ລາ​ຄາ​ຕໍ່​ຫນ່ວຍ2:</label>
+                                    <span id="unit_price1">{{ unit_price2 }}</span>
+                                </div>
+
+
+                                <div>
+                                    <label for="qty_offer2">ຂໍ້ສະເໜີ ຈໍານວນ:</label>
+                                    <span id="qty_offer2">{{ qty_offer2 }}</span>
+                                </div>
+                                <div>
+                                    <label for="totalMoney1">ເງິນທັງໝົດ:</label>
+                                    <span id="totalMoney1">{{ totalMoney2 }}</span>
+                                </div>
+
+                                <div>
+                                    <label for="size2">ຂະນາດ</label>
+                                    <span id="size2">{{ size2 }}</span>
+                                    <v-text-field label="*size2" dense outlined background-color="#f5f5f5"
+                                        v-model="size2"></v-text-field>
+                                </div>
+
+                                <div>
+                                    <label for="brand2">ຍີ່ຫໍ້</label>
+                                    <span id="brand2">{{ brand2 }}</span>
+                                    <v-text-field label="*brand2" dense outlined background-color="#f5f5f5"
+                                        v-model="brand2"></v-text-field>
+                                </div>
+
+                                <div>
+                                    <label for="ber2">ເບີ</label>
+                                    <span id="ber2">{{ ber2 }}</span>
+                                    <v-text-field label="*ber2" dense outlined background-color="#f5f5f5"
+                                        v-model="ber2"></v-text-field>
+                                </div>
+                            </v-card-text>
+                            <v-card-text style="font-size: 18px;">
+                                <div>
+                                    <label for="item_name1">ອາໄລ ຊື່:</label>
+                                    <span id="item_name1">{{ item_name2 }}</span>
+                                </div>
+                                <label for="img">ຮູບພາບ:</label>
+                                <div>
+                                    <img :src="img2" style="width: 150px; height: 160px;">
+                                </div>
+                            </v-card-text>
+                        </div>
+                        <div v-if="item_name3 !== 'null'" style="display: flex;margin-left: 10px;margin-right: 10px;">
+                            <v-card-text style="font-size: 18px;">
+                                <div>
+                                    <label for="unit_price1">ລາ​ຄາ​ຕໍ່​ຫນ່ວຍ3:</label>
+                                    <span id="unit_price1">{{ unit_price3 }}</span>
+                                </div>
+
+
+                                <div>
+                                    <label for="qty_offer3">ຂໍ້ສະເໜີ ຈໍານວນ:</label>
+                                    <span id="qty_offer3">{{ qty_offer3 }}</span>
+                                </div>
+                                <div>
+                                    <label for="totalMoney1">ເງິນທັງໝົດ:</label>
+                                    <span id="totalMoney1">{{ totalMoney3 }}</span>
+                                </div>
+                                <div>
+                                    <label for="size3">ຂະນາດ</label>
+                                    <span id="size3">{{ size3 }}</span>
+                                    <v-text-field label="*size3" dense outlined background-color="#f5f5f5"
+                                        v-model="size3"></v-text-field>
+                                </div>
+
+                                <div>
+                                    <label for="brand3">ຍີ່ຫໍ້</label>
+                                    <span id="brand3">{{ brand3 }}</span>
+                                    <v-text-field label="*brand3" dense outlined background-color="#f5f5f5"
+                                        v-model="brand3"></v-text-field>
+                                </div>
+
+                                <div>
+                                    <label for="ber3">ເບີ</label>
+                                    <span id="ber3">{{ ber3 }}</span>
+                                    <v-text-field label="*ber3" dense outlined background-color="#f5f5f5"
+                                        v-model="ber3"></v-text-field>
+                                </div>
+                            </v-card-text>
+                            <v-card-text style="font-size: 18px;">
+                                <div>
+                                    <label for="item_name1">ອາໄລ ຊື່:</label>
+                                    <span id="item_name1">{{ item_name3 }}</span>
+                                </div>
+                                <label for="img">ຮູບພາບ:</label>
+                                <div>
+                                    <img :src="img3" style="width: 150px; height: 160px;">
+                                </div>
+                            </v-card-text>
+                        </div>
+
+                        <div v-if="item_name4 !== 'null'" style="display: flex;margin-left: 10px;margin-right: 10px;">
+                            <v-card-text style="font-size: 18px;">
+                                <div>
+                                    <label for="unit_price1">ລາ​ຄາ​ຕໍ່​ຫນ່ວຍ:</label>
+                                    <span id="unit_price1">{{ unit_price4 }}</span>
+                                </div>
+
+
+                                <div>
+                                    <label for="qty_offer4">ຂໍ້ສະເໜີ ຈໍານວນ:</label>
+                                    <span id="qty_offer4">{{ qty_offer4 }}</span>
+                                </div>
+                                <div>
+                                    <label for="totalMoney1">ເງິນທັງໝົດ:</label>
+                                    <span id="totalMoney1">{{ totalMoney4 }}</span>
+                                </div>
+                                <div>
+                                    <label for="size4">ຂະນາດ</label>
+                                    <span id="size4">{{ size4 }}</span>
+                                    <v-text-field label="*size4" dense outlined background-color="#f5f5f5"
+                                        v-model="size4"></v-text-field>
+                                </div>
+
+                                <div>
+                                    <label for="brand4">ຍີ່ຫໍ້</label>
+                                    <span id="brand4">{{ brand4 }}</span>
+                                    <v-text-field label="*brand4" dense outlined background-color="#f5f5f5"
+                                        v-model="brand4"></v-text-field>
+                                </div>
+
+                                <div>
+                                    <label for="ber4">ເບີ</label>
+                                    <span id="ber4">{{ ber4 }}</span>
+                                    <v-text-field label="*ber4" dense outlined background-color="#f5f5f5"
+                                        v-model="ber4"></v-text-field>
+                                </div>
+                            </v-card-text>
+                            <v-card-text style="font-size: 18px;">
+                                <div>
+                                    <label for="item_name1">ອາໄລ ຊື່:</label>
+                                    <span id="item_name1">{{ item_name4 }}</span>
+                                </div>
+                                <label for="img">ຮູບພາບ:</label>
+                                <div>
+                                    <img :src="img4" style="width: 150px; height: 160px;">
+                                </div>
+                            </v-card-text>
+                        </div>
+                        <div v-if="item_name5 !== 'null'" style="display: flex;margin-left: 10px;margin-right: 10px;">
+                            <v-card-text style="font-size: 18px;">
+                                <div>
+                                    <label for="unit_price1">ລາ​ຄາ​ຕໍ່​ຫນ່ວຍ:</label>
+                                    <span id="unit_price1">{{ unit_price5 }}</span>
+                                </div>
+
+
+                                <div>
+                                    <label for="qty_offer5">ຂໍ້ສະເໜີ ຈໍານວນ:</label>
+                                    <span id="qty_offer5">{{ qty_offer5 }}</span>
+                                </div>
+                                <div>
+                                    <label for="totalMoney1">ເງິນທັງໝົດ:</label>
+                                    <span id="totalMoney1">{{ totalMoney5 }}</span>
+                                </div>
+                                <div>
+                                    <label for="size5">ຂະນາດ</label>
+                                    <span id="size5">{{ size5 }}</span>
+                                    <v-text-field label="*size5" dense outlined background-color="#f5f5f5"
+                                        v-model="size5"></v-text-field>
+                                </div>
+
+                                <div>
+                                    <label for="brand5">ຍີ່ຫໍ້</label>
+                                    <span id="brand5">{{ brand5 }}</span>
+                                    <v-text-field label="*brand5" dense outlined background-color="#f5f5f5"
+                                        v-model="brand5"></v-text-field>
+                                </div>
+
+                                <div>
+                                    <label for="ber5">ເບີ</label>
+                                    <span id="ber5">{{ ber5 }}</span>
+                                    <v-text-field label="*ber5" dense outlined background-color="#f5f5f5"
+                                        v-model="ber5"></v-text-field>
+                                </div>
+                            </v-card-text>
+                            <v-card-text style="font-size: 18px;">
+                                <div>
+                                    <label for="item_name1">ອາໄລ ຊື່:</label>
+                                    <span id="item_name1">{{ item_name5 }}</span>
+                                </div>
+                                <label for="img">ຮູບພາບ:</label>
+                                <div>
+                                    <img :src="img5" style="width: 150px; height: 160px;">
+                                </div>
+                            </v-card-text>
+                        </div>
+                        <div v-if="item_name6 !== 'null'" style="display: flex;margin-left: 10px;margin-right: 10px;">
+                            <v-card-text style="font-size: 18px;">
+                                <div>
+                                    <label for="unit_price1">ລາ​ຄາ​ຕໍ່​ຫນ່ວຍ:</label>
+                                    <span id="unit_price1">{{ unit_price6 }}</span>
+                                </div>
+
+
+                                <div>
+                                    <label for="qty_offer6">ຂໍ້ສະເໜີ ຈໍານວນ:</label>
+                                    <span id="qty_offer6">{{ qty_offer6 }}</span>
+                                </div>
+                                <div>
+                                    <label for="totalMoney1">ເງິນທັງໝົດ:</label>
+                                    <span id="totalMoney1">{{ totalMoney6 }}</span>
+                                </div>
+
+                                <div>
+                                    <label for="size6">ຂະນາດ</label>
+                                    <span id="size6">{{ size6 }}</span>
+                                    <v-text-field label="*size6" dense outlined background-color="#f5f5f5"
+                                        v-model="size6"></v-text-field>
+                                </div>
+
+                                <div>
+                                    <label for="brand6">ຍີ່ຫໍ້</label>
+                                    <span id="brand6">{{ brand6 }}</span>
+                                    <v-text-field label="*brand6" dense outlined background-color="#f5f5f5"
+                                        v-model="brand6"></v-text-field>
+                                </div>
+
+                                <div>
+                                    <label for="ber6">ເບີ</label>
+                                    <span id="ber6">{{ ber6 }}</span>
+                                    <v-text-field label="*ber6" dense outlined background-color="#f5f5f5"
+                                        v-model="ber6"></v-text-field>
+                                </div>
+                            </v-card-text>
+                            <v-card-text style="font-size: 18px;">
+                                <div>
+                                    <label for="item_name1">ອາໄລ ຊື່:</label>
+                                    <span id="item_name1">{{ item_name6 }}</span>
+                                </div>
+                                <label for="img">ຮູບພາບ:</label>
+                                <div>
+                                    <img :src="img6" style="width: 150px; height: 160px;">
+                                </div>
+                            </v-card-text>
+                        </div>
+                        <div v-if="item_name7 !== 'null'" style="display: flex;margin-left: 10px;margin-right: 10px;">
+                            <v-card-text style="font-size: 18px;">
+                                <div>
+                                    <label for="unit_price1">ລາ​ຄາ​ຕໍ່​ຫນ່ວຍ:</label>
+                                    <span id="unit_price1">{{ unit_price7 }}</span>
+                                </div>
+
+
+                                <div>
+                                    <label for="qty_offer7">ຂໍ້ສະເໜີ ຈໍານວນ:</label>
+                                    <span id="qty_offer7">{{ qty_offer7 }}</span>
+                                </div>
+                                <div>
+                                    <label for="totalMoney1">ເງິນທັງໝົດ:</label>
+                                    <span id="totalMoney1">{{ totalMoney7 }}</span>
+                                </div>
+                                <div>
+                                    <label for="size7">ຂະນາດ</label>
+                                    <span id="size7">{{ size7 }}</span>
+                                    <v-text-field label="*size7" dense outlined background-color="#f5f5f5"
+                                        v-model="size7"></v-text-field>
+                                </div>
+
+                                <div>
+                                    <label for="brand7">ຍີ່ຫໍ້</label>
+                                    <span id="brand7">{{ brand7 }}</span>
+                                    <v-text-field label="*brand7" dense outlined background-color="#f5f5f5"
+                                        v-model="brand7"></v-text-field>
+                                </div>
+
+                                <div>
+                                    <label for="ber7">ເບີ</label>
+                                    <span id="ber7">{{ ber7 }}</span>
+                                    <v-text-field label="*ber7" dense outlined background-color="#f5f5f5"
+                                        v-model="ber7"></v-text-field>
+                                </div>
+                            </v-card-text>
+                            <v-card-text style="font-size: 18px;">
+                                <div>
+                                    <label for="item_name1">ອາໄລ ຊື່:</label>
+                                    <span id="item_name1">{{ item_name7 }}</span>
+                                </div>
+                                <label for="img">ຮູບພາບ:</label>
+                                <div>
+                                    <img :src="img7" style="width: 150px; height: 160px;">
+                                </div>
+                            </v-card-text>
+                        </div>
+                        <div v-if="item_name8 !== 'null'" style="display: flex;margin-left: 10px;margin-right: 10px;">
+                            <v-card-text style="font-size: 18px;">
+                                <div>
+                                    <label for="unit_price1">ລາ​ຄາ​ຕໍ່​ຫນ່ວຍ:</label>
+                                    <span id="unit_price1">{{ unit_price8 }}</span>
+                                </div>
+
+
+                                <div>
+                                    <label for="qty_offer8">ຂໍ້ສະເໜີ ຈໍານວນ:</label>
+                                    <span id="qty_offer8">{{ qty_offer8 }}</span>
+                                </div>
+                                <div>
+                                    <label for="totalMoney1">ເງິນທັງໝົດ:</label>
+                                    <span id="totalMoney1">{{ totalMoney8 }}</span>
+                                </div>
+                                <div>
+                                    <label for="size8">ຂະນາດ</label>
+                                    <span id="size8">{{ size8 }}</span>
+                                    <v-text-field label="*size8" dense outlined background-color="#f5f5f5"
+                                        v-model="size8"></v-text-field>
+                                </div>
+
+                                <div>
+                                    <label for="brand8">ຍີ່ຫໍ້</label>
+                                    <span id="brand8">{{ brand8 }}</span>
+                                    <v-text-field label="*brand8" dense outlined background-color="#f5f5f5"
+                                        v-model="brand8"></v-text-field>
+                                </div>
+
+                                <div>
+                                    <label for="ber8">ເບີ</label>
+                                    <span id="ber8">{{ ber8 }}</span>
+                                    <v-text-field label="*ber8" dense outlined background-color="#f5f5f5"
+                                        v-model="ber8"></v-text-field>
+                                </div>
+                            </v-card-text>
+                            <v-card-text style="font-size: 18px;">
+                                <div>
+                                    <label for="item_name1">ອາໄລ ຊື່:</label>
+                                    <span id="item_name1">{{ item_name8 }}</span>
+                                </div>
+                                <label for="img">ຮູບພາບ:</label>
+                                <div>
+                                    <img :src="img8" style="width: 150px; height: 160px;">
+                                </div>
+                            </v-card-text>
+                        </div>
+                        <div v-if="item_name9 !== 'null'" style="display: flex;margin-left: 10px;margin-right: 10px;">
+                            <v-card-text style="font-size: 18px;">
+                                <div>
+                                    <label for="unit_price1">ລາ​ຄາ​ຕໍ່​ຫນ່ວຍ:</label>
+                                    <span id="unit_price1">{{ unit_price9 }}</span>
+                                </div>
+
+
+                                <div>
+                                    <label for="qty_offer9">ຂໍ້ສະເໜີ ຈໍານວນ:</label>
+                                    <span id="qty_offer9">{{ qty_offer9 }}</span>
+                                </div>
+                                <div>
+                                    <label for="totalMoney1">ເງິນທັງໝົດ:</label>
+                                    <span id="totalMoney1">{{ totalMoney9 }}</span>
+                                </div>
+                                <div>
+                                    <label for="size9">ຂະນາດ</label>
+                                    <span id="size9">{{ size9 }}</span>
+                                    <v-text-field label="*size9" dense outlined background-color="#f5f5f5"
+                                        v-model="size9"></v-text-field>
+                                </div>
+
+                                <div>
+                                    <label for="brand9">ຍີ່ຫໍ້</label>
+                                    <span id="brand9">{{ brand9 }}</span>
+                                    <v-text-field label="*brand9" dense outlined background-color="#f5f5f5"
+                                        v-model="brand9"></v-text-field>
+                                </div>
+
+                                <div>
+                                    <label for="ber9">ເບີ</label>
+                                    <span id="ber9">{{ ber9 }}</span>
+                                    <v-text-field label="*ber9" dense outlined background-color="#f5f5f5"
+                                        v-model="ber9"></v-text-field>
+                                </div>
+                            </v-card-text>
+                            <v-card-text style="font-size: 18px;">
+                                <div>
+                                    <label for="item_name1">ອາໄລ ຊື່:</label>
+                                    <span id="item_name1">{{ item_name9 }}</span>
+                                </div>
+                                <label for="img">ຮູບພາບ:</label>
+                                <div>
+                                    <img :src="img9" style="width: 150px; height: 160px;">
+                                </div>
+                            </v-card-text>
+                        </div>
+
+
+                        <v-card-actions>
+                            <label for="dateCreate">ວັນທີສ້າງ:</label>
+                            <span id="dateCreate">{{ dateCreate }}</span>
                         </v-card-actions>
-                        <div>
 
-                            <span id="shopName">{{ shopName }}</span>
-                        </div>
-                        <div>
-                            <label for="offerManName">ຜູ້ສະເໜີ:</label>
-                            <span id="offerManName">{{ offerManName }}</span>
-                        </div>
-                        <div>
-                            <label for="h_VICIVLE_NUMBER">ຫົວລັດ:</label>
-                            <span id="h_VICIVLE_NUMBER">{{ h_VICIVLE_NUMBER }}</span>
-                        </div>
-                        <div>
-                            <label for="offer_CODE">offer_CODE:</label>
-                            <span id="offer_CODE">{{ offer_CODE }}</span>
-                        </div>
-                    </v-card-title>
-                    <v-card-title>
-                        <label for="description">ລາຍລະອຽດ:</label>
-                        <span id="description">{{ description }}</span>
-                    </v-card-title>
+                        <v-card-actions>
+                            <v-btn color="primary" @click="onSubmit">ນໍາເຂົ້າ</v-btn>
+                            <v-btn color="red darken-1" text @click="closeDialog">ຍົກເລີກ</v-btn>
+                        </v-card-actions>
+                    </v-card>
+                </v-dialog>
 
-                    <div style="display: flex;margin-left: 10px;margin-right: 10px;">
-                        <v-card-text style="font-size: 18px;">
-
-                            <div>
-                                <label for="unit_price">ລາ​ຄາ​ຕໍ່​ຫນ່ວຍ:</label>
-                                <span id="unit_price">{{ unit_price }}</span>
-                            </div>
-
-                            <div>
-                                <label for="qty_offer">ຂໍ້ສະເໜີ ຈໍານວນ:</label>
-                                <span id="qty_offer">{{ qty_offer }}</span>
-                            </div>
-                            <div>
-                                <label for="totalMoney">ເງິນທັງໝົດ:</label>
-                                <span id="totalMoney">{{ totalMoney }}</span>
-                            </div>
-
-
-
-                            <div>
-                                <label for="size">ຂະນາດ</label>
-                                <span id="size">{{ size }}</span>
-                                <v-text-field label="*size" dense outlined background-color="#f5f5f5"
-                                    v-model="size"></v-text-field>
-                            </div>
-
-                            <div>
-                                <label for="brand">ຍີ່ຫໍ້</label>
-                                <span id="brand">{{ brand }}</span>
-                                <v-text-field label="*brand" dense outlined background-color="#f5f5f5"
-                                    v-model="brand"></v-text-field>
-                            </div>
-
-                            <div>
-                                <label for="ber">ເບີ</label>
-                                <span id="ber">{{ ber }}</span>
-                                <v-text-field label="*ber" dense outlined background-color="#f5f5f5"
-                                    v-model="ber"></v-text-field>
-                            </div>
-
-                        </v-card-text>
-                        <v-card-text style="font-size: 18px;">
-
-
-                            <div>
-                                <label for="item_name">ອາໄລ ຊື່:</label>
-                                <span id="item_name">{{ item_name }}</span>
-                            </div>
-
-
-                            <label for="img">ຮູບພາບ:</label>
-                            <div>
-                                <img :src="img" style="width: 150px; height: 160px;">
-                            </div>
-
-                        </v-card-text>
-
-                    </div>
-
-                    <div v-if="item_name1 !== 'null'" style="display: flex;margin-left: 10px;margin-right: 10px;">
-                        <v-card-text style="font-size: 18px;">
-                            <div>
-                                <label for="unit_price1">ລາ​ຄາ​ຕໍ່​ຫນ່ວຍ1:</label>
-                                <span id="unit_price1">{{ unit_price1 }}</span>
-                            </div>
-
-
-                            <div>
-                                <label for="qty_offer1">ຂໍ້ສະເໜີ ຈໍານວນ:</label>
-                                <span id="qty_offer1">{{ qty_offer1 }}</span>
-                            </div>
-                            <div>
-                                <label for="totalMoney1">ເງິນທັງໝົດ:</label>
-                                <span id="totalMoney1">{{ totalMoney1 }}</span>
-                            </div>
-                            <div>
-                                <label for="size1">ຂະນາດ</label>
-                                <span id="size1">{{ size1 }}</span>
-                                <v-text-field label="*size1" dense outlined background-color="#f5f5f5"
-                                    v-model="size1"></v-text-field>
-                            </div>
-
-                            <div>
-                                <label for="brand1">ຍີ່ຫໍ້</label>
-                                <span id="brand1">{{ brand1 }}</span>
-                                <v-text-field label="*brand1" dense outlined background-color="#f5f5f5"
-                                    v-model="brand1"></v-text-field>
-                            </div>
-
-                            <div>
-                                <label for="ber1">ເບີ</label>
-                                <span id="ber1">{{ ber1 }}</span>
-                                <v-text-field label="*ber1" dense outlined background-color="#f5f5f5"
-                                    v-model="ber1"></v-text-field>
-                            </div>
-                        </v-card-text>
-
-
-                        <v-card-text style="font-size: 18px;">
-                            <div>
-                                <label for="item_name1">ອາໄລ ຊື່:</label>
-                                <span id="item_name1">{{ item_name1 }}</span>
-                            </div>
-                            <label for="img">ຮູບພາບ:</label>
-                            <div>
-                                <img :src="img1" style="width: 150px; height: 160px;">
-                            </div>
-                        </v-card-text>
-                    </div>
-                    <div v-if="item_name2 !== 'null'" style="display: flex;margin-left: 10px;margin-right: 10px;">
-                        <v-card-text style="font-size: 18px;">
-                            <div>
-                                <label for="unit_price1">ລາ​ຄາ​ຕໍ່​ຫນ່ວຍ2:</label>
-                                <span id="unit_price1">{{ unit_price2 }}</span>
-                            </div>
-
-
-                            <div>
-                                <label for="qty_offer2">ຂໍ້ສະເໜີ ຈໍານວນ:</label>
-                                <span id="qty_offer2">{{ qty_offer2 }}</span>
-                            </div>
-                            <div>
-                                <label for="totalMoney1">ເງິນທັງໝົດ:</label>
-                                <span id="totalMoney1">{{ totalMoney2 }}</span>
-                            </div>
-
-                            <div>
-                                <label for="size2">ຂະນາດ</label>
-                                <span id="size2">{{ size2 }}</span>
-                                <v-text-field label="*size2" dense outlined background-color="#f5f5f5"
-                                    v-model="size2"></v-text-field>
-                            </div>
-
-                            <div>
-                                <label for="brand2">ຍີ່ຫໍ້</label>
-                                <span id="brand2">{{ brand2 }}</span>
-                                <v-text-field label="*brand2" dense outlined background-color="#f5f5f5"
-                                    v-model="brand2"></v-text-field>
-                            </div>
-
-                            <div>
-                                <label for="ber2">ເບີ</label>
-                                <span id="ber2">{{ ber2 }}</span>
-                                <v-text-field label="*ber2" dense outlined background-color="#f5f5f5"
-                                    v-model="ber2"></v-text-field>
-                            </div>
-                        </v-card-text>
-                        <v-card-text style="font-size: 18px;">
-                            <div>
-                                <label for="item_name1">ອາໄລ ຊື່:</label>
-                                <span id="item_name1">{{ item_name2 }}</span>
-                            </div>
-                            <label for="img">ຮູບພາບ:</label>
-                            <div>
-                                <img :src="img2" style="width: 150px; height: 160px;">
-                            </div>
-                        </v-card-text>
-                    </div>
-                    <div v-if="item_name3 !== 'null'" style="display: flex;margin-left: 10px;margin-right: 10px;">
-                        <v-card-text style="font-size: 18px;">
-                            <div>
-                                <label for="unit_price1">ລາ​ຄາ​ຕໍ່​ຫນ່ວຍ3:</label>
-                                <span id="unit_price1">{{ unit_price3 }}</span>
-                            </div>
-
-
-                            <div>
-                                <label for="qty_offer3">ຂໍ້ສະເໜີ ຈໍານວນ:</label>
-                                <span id="qty_offer3">{{ qty_offer3 }}</span>
-                            </div>
-                            <div>
-                                <label for="totalMoney1">ເງິນທັງໝົດ:</label>
-                                <span id="totalMoney1">{{ totalMoney3 }}</span>
-                            </div>
-                            <div>
-                                <label for="size3">ຂະນາດ</label>
-                                <span id="size3">{{ size3 }}</span>
-                                <v-text-field label="*size3" dense outlined background-color="#f5f5f5"
-                                    v-model="size3"></v-text-field>
-                            </div>
-
-                            <div>
-                                <label for="brand3">ຍີ່ຫໍ້</label>
-                                <span id="brand3">{{ brand3 }}</span>
-                                <v-text-field label="*brand3" dense outlined background-color="#f5f5f5"
-                                    v-model="brand3"></v-text-field>
-                            </div>
-
-                            <div>
-                                <label for="ber3">ເບີ</label>
-                                <span id="ber3">{{ ber3 }}</span>
-                                <v-text-field label="*ber3" dense outlined background-color="#f5f5f5"
-                                    v-model="ber3"></v-text-field>
-                            </div>
-                        </v-card-text>
-                        <v-card-text style="font-size: 18px;">
-                            <div>
-                                <label for="item_name1">ອາໄລ ຊື່:</label>
-                                <span id="item_name1">{{ item_name3 }}</span>
-                            </div>
-                            <label for="img">ຮູບພາບ:</label>
-                            <div>
-                                <img :src="img3" style="width: 150px; height: 160px;">
-                            </div>
-                        </v-card-text>
-                    </div>
-
-                    <div v-if="item_name4 !== 'null'" style="display: flex;margin-left: 10px;margin-right: 10px;">
-                        <v-card-text style="font-size: 18px;">
-                            <div>
-                                <label for="unit_price1">ລາ​ຄາ​ຕໍ່​ຫນ່ວຍ:</label>
-                                <span id="unit_price1">{{ unit_price4 }}</span>
-                            </div>
-
-
-                            <div>
-                                <label for="qty_offer4">ຂໍ້ສະເໜີ ຈໍານວນ:</label>
-                                <span id="qty_offer4">{{ qty_offer4 }}</span>
-                            </div>
-                            <div>
-                                <label for="totalMoney1">ເງິນທັງໝົດ:</label>
-                                <span id="totalMoney1">{{ totalMoney4 }}</span>
-                            </div>
-                            <div>
-                                <label for="size4">ຂະນາດ</label>
-                                <span id="size4">{{ size4 }}</span>
-                                <v-text-field label="*size4" dense outlined background-color="#f5f5f5"
-                                    v-model="size4"></v-text-field>
-                            </div>
-
-                            <div>
-                                <label for="brand4">ຍີ່ຫໍ້</label>
-                                <span id="brand4">{{ brand4 }}</span>
-                                <v-text-field label="*brand4" dense outlined background-color="#f5f5f5"
-                                    v-model="brand4"></v-text-field>
-                            </div>
-
-                            <div>
-                                <label for="ber4">ເບີ</label>
-                                <span id="ber4">{{ ber4 }}</span>
-                                <v-text-field label="*ber4" dense outlined background-color="#f5f5f5"
-                                    v-model="ber4"></v-text-field>
-                            </div>
-                        </v-card-text>
-                        <v-card-text style="font-size: 18px;">
-                            <div>
-                                <label for="item_name1">ອາໄລ ຊື່:</label>
-                                <span id="item_name1">{{ item_name4 }}</span>
-                            </div>
-                            <label for="img">ຮູບພາບ:</label>
-                            <div>
-                                <img :src="img4" style="width: 150px; height: 160px;">
-                            </div>
-                        </v-card-text>
-                    </div>
-                    <div v-if="item_name5 !== 'null'" style="display: flex;margin-left: 10px;margin-right: 10px;">
-                        <v-card-text style="font-size: 18px;">
-                            <div>
-                                <label for="unit_price1">ລາ​ຄາ​ຕໍ່​ຫນ່ວຍ:</label>
-                                <span id="unit_price1">{{ unit_price5 }}</span>
-                            </div>
-
-
-                            <div>
-                                <label for="qty_offer5">ຂໍ້ສະເໜີ ຈໍານວນ:</label>
-                                <span id="qty_offer5">{{ qty_offer5 }}</span>
-                            </div>
-                            <div>
-                                <label for="totalMoney1">ເງິນທັງໝົດ:</label>
-                                <span id="totalMoney1">{{ totalMoney5 }}</span>
-                            </div>
-                            <div>
-                                <label for="size5">ຂະນາດ</label>
-                                <span id="size5">{{ size5 }}</span>
-                                <v-text-field label="*size5" dense outlined background-color="#f5f5f5"
-                                    v-model="size5"></v-text-field>
-                            </div>
-
-                            <div>
-                                <label for="brand5">ຍີ່ຫໍ້</label>
-                                <span id="brand5">{{ brand5 }}</span>
-                                <v-text-field label="*brand5" dense outlined background-color="#f5f5f5"
-                                    v-model="brand5"></v-text-field>
-                            </div>
-
-                            <div>
-                                <label for="ber5">ເບີ</label>
-                                <span id="ber5">{{ ber5 }}</span>
-                                <v-text-field label="*ber5" dense outlined background-color="#f5f5f5"
-                                    v-model="ber5"></v-text-field>
-                            </div>
-                        </v-card-text>
-                        <v-card-text style="font-size: 18px;">
-                            <div>
-                                <label for="item_name1">ອາໄລ ຊື່:</label>
-                                <span id="item_name1">{{ item_name5 }}</span>
-                            </div>
-                            <label for="img">ຮູບພາບ:</label>
-                            <div>
-                                <img :src="img5" style="width: 150px; height: 160px;">
-                            </div>
-                        </v-card-text>
-                    </div>
-                    <div v-if="item_name6 !== 'null'" style="display: flex;margin-left: 10px;margin-right: 10px;">
-                        <v-card-text style="font-size: 18px;">
-                            <div>
-                                <label for="unit_price1">ລາ​ຄາ​ຕໍ່​ຫນ່ວຍ:</label>
-                                <span id="unit_price1">{{ unit_price6 }}</span>
-                            </div>
-
-
-                            <div>
-                                <label for="qty_offer6">ຂໍ້ສະເໜີ ຈໍານວນ:</label>
-                                <span id="qty_offer6">{{ qty_offer6 }}</span>
-                            </div>
-                            <div>
-                                <label for="totalMoney1">ເງິນທັງໝົດ:</label>
-                                <span id="totalMoney1">{{ totalMoney6 }}</span>
-                            </div>
-
-                            <div>
-                                <label for="size6">ຂະນາດ</label>
-                                <span id="size6">{{ size6 }}</span>
-                                <v-text-field label="*size6" dense outlined background-color="#f5f5f5"
-                                    v-model="size6"></v-text-field>
-                            </div>
-
-                            <div>
-                                <label for="brand6">ຍີ່ຫໍ້</label>
-                                <span id="brand6">{{ brand6 }}</span>
-                                <v-text-field label="*brand6" dense outlined background-color="#f5f5f5"
-                                    v-model="brand6"></v-text-field>
-                            </div>
-
-                            <div>
-                                <label for="ber6">ເບີ</label>
-                                <span id="ber6">{{ ber6 }}</span>
-                                <v-text-field label="*ber6" dense outlined background-color="#f5f5f5"
-                                    v-model="ber6"></v-text-field>
-                            </div>
-                        </v-card-text>
-                        <v-card-text style="font-size: 18px;">
-                            <div>
-                                <label for="item_name1">ອາໄລ ຊື່:</label>
-                                <span id="item_name1">{{ item_name6 }}</span>
-                            </div>
-                            <label for="img">ຮູບພາບ:</label>
-                            <div>
-                                <img :src="img6" style="width: 150px; height: 160px;">
-                            </div>
-                        </v-card-text>
-                    </div>
-                    <div v-if="item_name7 !== 'null'" style="display: flex;margin-left: 10px;margin-right: 10px;">
-                        <v-card-text style="font-size: 18px;">
-                            <div>
-                                <label for="unit_price1">ລາ​ຄາ​ຕໍ່​ຫນ່ວຍ:</label>
-                                <span id="unit_price1">{{ unit_price7 }}</span>
-                            </div>
-
-
-                            <div>
-                                <label for="qty_offer7">ຂໍ້ສະເໜີ ຈໍານວນ:</label>
-                                <span id="qty_offer7">{{ qty_offer7 }}</span>
-                            </div>
-                            <div>
-                                <label for="totalMoney1">ເງິນທັງໝົດ:</label>
-                                <span id="totalMoney1">{{ totalMoney7 }}</span>
-                            </div>
-                            <div>
-                                <label for="size7">ຂະນາດ</label>
-                                <span id="size7">{{ size7 }}</span>
-                                <v-text-field label="*size7" dense outlined background-color="#f5f5f5"
-                                    v-model="size7"></v-text-field>
-                            </div>
-
-                            <div>
-                                <label for="brand7">ຍີ່ຫໍ້</label>
-                                <span id="brand7">{{ brand7 }}</span>
-                                <v-text-field label="*brand7" dense outlined background-color="#f5f5f5"
-                                    v-model="brand7"></v-text-field>
-                            </div>
-
-                            <div>
-                                <label for="ber7">ເບີ</label>
-                                <span id="ber7">{{ ber7 }}</span>
-                                <v-text-field label="*ber7" dense outlined background-color="#f5f5f5"
-                                    v-model="ber7"></v-text-field>
-                            </div>
-                        </v-card-text>
-                        <v-card-text style="font-size: 18px;">
-                            <div>
-                                <label for="item_name1">ອາໄລ ຊື່:</label>
-                                <span id="item_name1">{{ item_name7 }}</span>
-                            </div>
-                            <label for="img">ຮູບພາບ:</label>
-                            <div>
-                                <img :src="img7" style="width: 150px; height: 160px;">
-                            </div>
-                        </v-card-text>
-                    </div>
-                    <div v-if="item_name8 !== 'null'" style="display: flex;margin-left: 10px;margin-right: 10px;">
-                        <v-card-text style="font-size: 18px;">
-                            <div>
-                                <label for="unit_price1">ລາ​ຄາ​ຕໍ່​ຫນ່ວຍ:</label>
-                                <span id="unit_price1">{{ unit_price8 }}</span>
-                            </div>
-
-
-                            <div>
-                                <label for="qty_offer8">ຂໍ້ສະເໜີ ຈໍານວນ:</label>
-                                <span id="qty_offer8">{{ qty_offer8 }}</span>
-                            </div>
-                            <div>
-                                <label for="totalMoney1">ເງິນທັງໝົດ:</label>
-                                <span id="totalMoney1">{{ totalMoney8 }}</span>
-                            </div>
-                            <div>
-                                <label for="size8">ຂະນາດ</label>
-                                <span id="size8">{{ size8 }}</span>
-                                <v-text-field label="*size8" dense outlined background-color="#f5f5f5"
-                                    v-model="size8"></v-text-field>
-                            </div>
-
-                            <div>
-                                <label for="brand8">ຍີ່ຫໍ້</label>
-                                <span id="brand8">{{ brand8 }}</span>
-                                <v-text-field label="*brand8" dense outlined background-color="#f5f5f5"
-                                    v-model="brand8"></v-text-field>
-                            </div>
-
-                            <div>
-                                <label for="ber8">ເບີ</label>
-                                <span id="ber8">{{ ber8 }}</span>
-                                <v-text-field label="*ber8" dense outlined background-color="#f5f5f5"
-                                    v-model="ber8"></v-text-field>
-                            </div>
-                        </v-card-text>
-                        <v-card-text style="font-size: 18px;">
-                            <div>
-                                <label for="item_name1">ອາໄລ ຊື່:</label>
-                                <span id="item_name1">{{ item_name8 }}</span>
-                            </div>
-                            <label for="img">ຮູບພາບ:</label>
-                            <div>
-                                <img :src="img8" style="width: 150px; height: 160px;">
-                            </div>
-                        </v-card-text>
-                    </div>
-                    <div v-if="item_name9 !== 'null'" style="display: flex;margin-left: 10px;margin-right: 10px;">
-                        <v-card-text style="font-size: 18px;">
-                            <div>
-                                <label for="unit_price1">ລາ​ຄາ​ຕໍ່​ຫນ່ວຍ:</label>
-                                <span id="unit_price1">{{ unit_price9 }}</span>
-                            </div>
-
-
-                            <div>
-                                <label for="qty_offer9">ຂໍ້ສະເໜີ ຈໍານວນ:</label>
-                                <span id="qty_offer9">{{ qty_offer9 }}</span>
-                            </div>
-                            <div>
-                                <label for="totalMoney1">ເງິນທັງໝົດ:</label>
-                                <span id="totalMoney1">{{ totalMoney9 }}</span>
-                            </div>
-                            <div>
-                                <label for="size9">ຂະນາດ</label>
-                                <span id="size9">{{ size9 }}</span>
-                                <v-text-field label="*size9" dense outlined background-color="#f5f5f5"
-                                    v-model="size9"></v-text-field>
-                            </div>
-
-                            <div>
-                                <label for="brand9">ຍີ່ຫໍ້</label>
-                                <span id="brand9">{{ brand9 }}</span>
-                                <v-text-field label="*brand9" dense outlined background-color="#f5f5f5"
-                                    v-model="brand9"></v-text-field>
-                            </div>
-
-                            <div>
-                                <label for="ber9">ເບີ</label>
-                                <span id="ber9">{{ ber9 }}</span>
-                                <v-text-field label="*ber9" dense outlined background-color="#f5f5f5"
-                                    v-model="ber9"></v-text-field>
-                            </div>
-                        </v-card-text>
-                        <v-card-text style="font-size: 18px;">
-                            <div>
-                                <label for="item_name1">ອາໄລ ຊື່:</label>
-                                <span id="item_name1">{{ item_name9 }}</span>
-                            </div>
-                            <label for="img">ຮູບພາບ:</label>
-                            <div>
-                                <img :src="img9" style="width: 150px; height: 160px;">
-                            </div>
-                        </v-card-text>
-                    </div>
-
-
-                    <v-card-actions>
-                        <label for="dateCreate">ວັນທີສ້າງ:</label>
-                        <span id="dateCreate">{{ dateCreate }}</span>
-                    </v-card-actions>
-
-                    <v-card-actions>
-                        <v-btn color="primary" @click="onSubmit">ນໍາເຂົ້າ</v-btn>
-                        <v-btn color="red darken-1" text @click="closeDialog">ຍົກເລີກ</v-btn>
-                    </v-card-actions>
-                </v-card>
-            </v-dialog>
-
-        </v-card>
-        <div v-if="selectedCard === '1'">
+            </v-card>
+        </div>
+        <div v-if="selectedCard === '2'">
             <v-card class="card-shadow" rounded="lg" style="border:0.5px solid #e0e0e0;border-radius:3px">
                 <v-card-title style="background-color:#a05de1" class="white--text">
                     ອາໄລທີນໍາເຂົ້າ ເເລ້ວ
@@ -1142,14 +1154,14 @@
             </v-card>
         </v-dialog>
 
-        <div style="margin-top: 500px;">
+        <div style="margin-top: 500px;display:none">
             <div id="modalInvoice">
                 <v-row>
                     <v-col>
                         <Notiv2 />
                         <div class="text-center"
                             style="display:flex;justify-content:center;font-size:25px;font-weight:bold;margin-top: 10px;margin-left: ">
-                            ໃບສະເໝີສັ່ງຊື້ສິນຄ້າ</div>
+                            ໃບຮັບສິນຄ້າເຂົ້າສ່າງ</div>
                         <div style="font-size: 18px;font-weight: bold;margin-top: 80px;margin-bottom: 50px;">
 
                             <div>
@@ -1705,7 +1717,7 @@ export default {
             qty_offer8: '',
             qty_offer9: '',
             qty_offer10: '',
-            selectedCard: '0', // This will hold the selected card to display
+            selectedCard: '1', // This will hold the selected card to display
             loading_processing: false,
             totalMoney: '',
             description: '',

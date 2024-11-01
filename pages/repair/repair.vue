@@ -7,7 +7,7 @@
                 </v-card-title>
                 <v-row>
                     <div>
-                        <v-col>
+                        <v-col v-if="USER_ID === 'ADMIN' && USER_ROLE === 'ADMIN'">
                             <v-btn style="border: 2px solid rgb(151,90,28);height: 70px;font-size: 25px;" to="./Create_bin">ສະເໝີ ໃຊ້ </v-btn>
                         </v-col>
                     </div>

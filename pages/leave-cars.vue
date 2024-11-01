@@ -294,12 +294,12 @@
 
 
               <div id="appDebt" style="width: 100%; margin-top: 10px; margin-bottom: 10px;">
-                <label for="out_in_debt">ຄ້າງຈ່າຍ ຫຼື ສໍາລະເເລ້ວ:</label>
-                <select id="out_in_debt" v-model="debtType"
+                <!-- <label for="out_in_debt">ຄ້າງຈ່າຍ ຫຼື ສໍາລະເເລ້ວ:</label> -->
+                <!-- <select id="out_in_debt" v-model="debtType"
                   :style="{ width: '100%', border: '2px solid ' + (debtType === 'in_debt' ? '#ff2819' : '#75CCC7'), borderRadius: '5px', padding: '5px' }">
                   <option value="out_debt">ສໍາລະເເລ້ວ</option>
                   <option value="in_debt">ຄ້າງຈ່າຍ</option>
-                </select>
+                </select> -->
               </div>
 
 
@@ -419,9 +419,7 @@
     <div style="display: none">
       <div id="modalInvoice">
         <v-row>
-          <v-col cols="3">
-            <img class="mx-auto" src="../assets/images/logo01.png" height="70px" />
-          </v-col>
+       
           <v-col cols="9">
             <div style="display:flex;justify-content:start;flex-direction:column;align-items:start">
               <span style="font-size:14px"><b>
@@ -1863,7 +1861,7 @@ import moment from 'moment'
 export default {
   data() {
     return {
-      debtType: 'out_debt',
+      debtType: 'in_debt',
       name: '', // Input field for the name
       loading_processing: false,
 
@@ -2169,6 +2167,12 @@ export default {
     }
   },
   watch: {
+    // Watch for changes in TOTAL_branchName
+    TOTAL_branchName(newVal) {
+      // If the branch name is Thakhaek, set FeeJumPo2 to 400000
+      if (newVal === 'Thakhaek') {
+        this.FeeJumPo2 = 400000;
+      }},
     product_price: function (newValue) {
       const real_total = parseInt(newValue?.split(',').join('')) * parseInt(this.product_weight ? this.product_weight?.split(',').join('') : 1);
       // const set_real_total = (real_total)?.toString().replace(/\D/g, '').replace(/\B(?=(\d{3})+(?!\d))/g, ',')

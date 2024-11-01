@@ -203,6 +203,25 @@
                                         </div>
                                     </v-col>
 
+                                    <v-col cols="12" md="4" sm="6">
+                                        <v-icon color="black">mdi-calendar-range</v-icon>
+
+                                        <span>ວັນທີ່ປ່ຽນນ້ຳມັນເຄື່ອງ</span>
+                                        <v-menu ref="date_change_lean" v-model="date_change_lean"
+                                            :close-on-content-click="false" :return-value.sync="formattedDate"
+                                            transition="scale-transition" offset-y min-width="auto">
+                                            <template v-slot:activator="{ on, attrs }">
+                                                <v-text-field dense outlined v-model="formattedDate" required
+                                                    label="ວັນທີ" append-icon="mdi-calendar" readonly v-bind="attrs"
+                                                    v-on="on"></v-text-field>
+                                            </template>
+                                            <v-date-picker v-model="formattedDate" no-title scrollable
+                                                @input="$refs.date_change_lean.save(formattedDate)">
+                                                <v-spacer></v-spacer>
+                                            </v-date-picker>
+                                        </v-menu>
+                                    </v-col>
+
                                 </v-row>
                                 <v-row style="margin-top: -14px;">
                                     <v-col clos="6" md="4" sm="4">
@@ -251,7 +270,7 @@
                                                 </v-col>
                                                 <v-col clos="6" md="10" sm="10">
                                                     <v-autocomplete outlined dense :label="idMorFai"
-                                                        :items="morfai_data_list" item-text="batNo"
+                                                        :items="morfai_data_list" :rules="nameRules" item-text="batNo"
                                                         background-color="#f5f5f5"
                                                         @change="onGetmorfaiDetails"></v-autocomplete>
                                                 </v-col>
@@ -413,6 +432,24 @@
                                 </div>
                             </v-col>
                         </v-row>
+
+                        <v-card class="card-shadow mx-auto mt-10" width="1400">
+                            <v-card-title style="display:flex;background-color:#E57373;color:white">
+
+                                <v-spacer></v-spacer>
+                                ຕັ້ງສິດ
+                                <v-spacer></v-spacer>
+                            </v-card-title>
+                            <v-row style="margin-top: -14px;">
+                                <v-col clos="6" md="3" sm="3">
+                                    <span>ຕັ້ງສິດ</span><v-text-field :rules="nameRules" label="ຕັ້ງສິດ" dense flat solo
+                                        background-color="#f5f5f5" v-model="lektungsit"></v-text-field>
+                                    <div class="tops">
+                                    </div>
+                                </v-col>
+
+                            </v-row>
+                        </v-card>
                         <Height />
 
                         <div class="margintop d-flex align-center mt-4">
@@ -464,22 +501,22 @@
                                     class="px-2">
                                     <div class="d-flex pt-1">
                                         <v-text-field :rules="nameRules" rounded background-color="#fff" dense
-                                            label="ລະຫັດຢາງລົດ"  v-model="ll_TIRE_NO_1"></v-text-field>
+                                            label="ລະຫັດຢາງລົດ" v-model="ll_TIRE_NO_1"></v-text-field>
 
                                         <v-text-field :rules="nameRules" rounded dense background-color="#fff"
-                                            label="ວັນທີປ່ຽນຢາງ"  v-model="ll_TIRE_DATE_1"></v-text-field>
+                                            label="ວັນທີປ່ຽນຢາງ" v-model="ll_TIRE_DATE_1"></v-text-field>
                                         <v-text-field :rules="nameRules" dense rounded background-color="#fff"
-                                            label="ກຳນົດແລ່ນໄດ້ km"  v-model="ll_TIRE_KM_1"></v-text-field>
+                                            label="ກຳນົດແລ່ນໄດ້ km" v-model="ll_TIRE_KM_1"></v-text-field>
                                     </div>
                                     <div class="d-flex">
                                         <v-text-field style="margin-top:-6px" :rules="nameRules" rounded
-                                            background-color="#fff" dense label="ເລກໄມລ່າສຸດ" 
+                                            background-color="#fff" dense label="ເລກໄມລ່າສຸດ"
                                             v-model="h_KM1"></v-text-field>
                                         <v-text-field style="margin-top:-6px" :rules="nameRules" rounded
-                                            background-color="#fff" dense label="ເລກໄມປະຈຸບັນ" v-model="h_KML_1"
-                                            ></v-text-field>
+                                            background-color="#fff" dense label="ເລກໄມປະຈຸບັນ"
+                                            v-model="h_KML_1"></v-text-field>
                                         <v-text-field style="margin-top:-6px" :rules="nameRules" rounded
-                                            background-color="#fff" dense label="ແລ່ນໄປແລ້ວ km" 
+                                            background-color="#fff" dense label="ແລ່ນໄປແລ້ວ km"
                                             v-model="canRun1"></v-text-field>
 
                                     </div>
@@ -488,98 +525,98 @@
                                     class="px-2 mt-1 pt-1" v-if="ll_TIRE_NO_2">
                                     <div class="d-flex">
                                         <v-text-field :rules="nameRules" rounded dense background-color="#fff"
-                                            label="ລະຫັດຢາງລົດ"  v-model="ll_TIRE_NO_2"></v-text-field>
+                                            label="ລະຫັດຢາງລົດ" v-model="ll_TIRE_NO_2"></v-text-field>
                                         <v-text-field :rules="nameRules" rounded dense background-color="#fff"
-                                            label="ວັນທີປ່ຽນຢາງ"  v-model="ll_TIRE_DATE_2"></v-text-field>
+                                            label="ວັນທີປ່ຽນຢາງ" v-model="ll_TIRE_DATE_2"></v-text-field>
                                         <v-text-field :rules="nameRules" rounded dense background-color="#fff"
-                                            label="ກຳນົດແລ່ນໄດ້ km"  v-model="ll_TIRE_KM_2"></v-text-field>
+                                            label="ກຳນົດແລ່ນໄດ້ km" v-model="ll_TIRE_KM_2"></v-text-field>
                                     </div>
                                     <div class="d-flex" style="margin-top:-10px">
                                         <v-text-field :rules="nameRules" rounded dense background-color="#fff"
-                                            label="ເລກໄມລ່າສຸດ"  v-model="h_KM2"></v-text-field>
+                                            label="ເລກໄມລ່າສຸດ" v-model="h_KM2"></v-text-field>
                                         <v-text-field :rules="nameRules" rounded dense background-color="#fff"
-                                            label="ເລກໄມປະຈຸບັນ" v-model="h_KML_2" ></v-text-field>
+                                            label="ເລກໄມປະຈຸບັນ" v-model="h_KML_2"></v-text-field>
                                         <v-text-field :rules="nameRules" rounded background-color="#fff" dense
-                                            label="ແລ່ນໄປແລ້ວ km"  v-model="canRun2"></v-text-field>
+                                            label="ແລ່ນໄປແລ້ວ km" v-model="canRun2"></v-text-field>
                                     </div>
                                 </div>
                                 <div style="background-color:#f2ebeb;height:80px;padding-top:5px;border-radius:5px"
                                     class="px-2 mt-1">
                                     <div class="d-flex pt-1">
                                         <v-text-field :rules="nameRules" rounded dense background-color="#fff"
-                                            label="ລະຫັດຢາງລົດ"  v-model="ll_TIRE_NO_3"></v-text-field>
+                                            label="ລະຫັດຢາງລົດ" v-model="ll_TIRE_NO_3"></v-text-field>
                                         <v-text-field :rules="nameRules" rounded dense background-color="#fff"
-                                            label="ວັນທີປ່ຽນຢາງ"  v-model="ll_TIRE_DATE_3"></v-text-field>
+                                            label="ວັນທີປ່ຽນຢາງ" v-model="ll_TIRE_DATE_3"></v-text-field>
                                         <v-text-field :rules="nameRules" rounded dense background-color="#fff"
-                                            label="ກຳນົດແລ່ນໄດ້ km"  v-model="ll_TIRE_KM_3"></v-text-field>
+                                            label="ກຳນົດແລ່ນໄດ້ km" v-model="ll_TIRE_KM_3"></v-text-field>
                                     </div>
                                     <div class="d-flex" style="margin-top:-10px">
                                         <v-text-field :rules="nameRules" rounded dense background-color="#fff"
-                                            label="ເລກໄມລ່າສຸດ"  v-model="h_KM3"></v-text-field>
+                                            label="ເລກໄມລ່າສຸດ" v-model="h_KM3"></v-text-field>
                                         <v-text-field :rules="nameRules" rounded dense background-color="#fff"
-                                            label="ເລກໄມປະຈຸບັນ" v-model="h_KML_3" ></v-text-field>
+                                            label="ເລກໄມປະຈຸບັນ" v-model="h_KML_3"></v-text-field>
                                         <v-text-field :rules="nameRules" rounded background-color="#fff" dense
-                                            label="ແລ່ນໄປແລ້ວ km"  v-model="canRun3"></v-text-field>
+                                            label="ແລ່ນໄປແລ້ວ km" v-model="canRun3"></v-text-field>
                                     </div>
                                 </div>
                                 <div style="background-color:#f2ebeb;height:80px;padding-top:5px;border-radius:5px"
                                     class="px-2 mt-1 pt-2">
                                     <div class="d-flex">
                                         <v-text-field :rules="nameRules" rounded dense background-color="#fff"
-                                            label="ລະຫັດຢາງລົດ"  v-model="ll_TIRE_NO_4"></v-text-field>
+                                            label="ລະຫັດຢາງລົດ" v-model="ll_TIRE_NO_4"></v-text-field>
 
                                         <v-text-field :rules="nameRules" rounded dense background-color="#fff"
-                                            label="ວັນທີປ່ຽນຢາງ"  v-model="ll_TIRE_DATE_4"></v-text-field>
+                                            label="ວັນທີປ່ຽນຢາງ" v-model="ll_TIRE_DATE_4"></v-text-field>
                                         <v-text-field :rules="nameRules" rounded dense background-color="#fff"
-                                            label="ກຳນົດແລ່ນໄດ້ km"  v-model="ll_TIRE_KM_4"></v-text-field>
+                                            label="ກຳນົດແລ່ນໄດ້ km" v-model="ll_TIRE_KM_4"></v-text-field>
                                     </div>
                                     <div class="d-flex" style="margin-top:-10px">
                                         <v-text-field :rules="nameRules" rounded dense background-color="#fff"
-                                            label="ເລກໄມລ່າສຸດ"  v-model="h_KM4"></v-text-field>
+                                            label="ເລກໄມລ່າສຸດ" v-model="h_KM4"></v-text-field>
                                         <v-text-field :rules="nameRules" rounded dense background-color="#fff"
-                                            label="ເລກໄມປະຈຸບັນ" v-model="h_KML_4" ></v-text-field>
+                                            label="ເລກໄມປະຈຸບັນ" v-model="h_KML_4"></v-text-field>
                                         <v-text-field :rules="nameRules" rounded background-color="#fff" dense
-                                            label="ແລ່ນໄປແລ້ວ km"  v-model="canRun4"></v-text-field>
+                                            label="ແລ່ນໄປແລ້ວ km" v-model="canRun4"></v-text-field>
                                     </div>
                                 </div>
                                 <div style="background-color:#f2ebeb;height:80px;padding-top:5px;border-radius:5px"
                                     class="px-2 mt-1 pt-2">
                                     <div style="padding-top: 0px" class="d-flex">
                                         <v-text-field :rules="nameRules" rounded dense background-color="#fff"
-                                            label="ລະຫັດຢາງລົດ"  v-model="ll_TIRE_NO_5"></v-text-field>
+                                            label="ລະຫັດຢາງລົດ" v-model="ll_TIRE_NO_5"></v-text-field>
 
                                         <v-text-field :rules="nameRules" rounded dense background-color="#fff"
-                                            label="ວັນທີປ່ຽນຢາງ"  v-model="ll_TIRE_DATE_5"></v-text-field>
+                                            label="ວັນທີປ່ຽນຢາງ" v-model="ll_TIRE_DATE_5"></v-text-field>
                                         <v-text-field :rules="nameRules" rounded dense background-color="#fff"
-                                            label="ກຳນົດແລ່ນໄດ້ km"  v-model="ll_TIRE_KM_5"></v-text-field>
+                                            label="ກຳນົດແລ່ນໄດ້ km" v-model="ll_TIRE_KM_5"></v-text-field>
                                     </div>
                                     <div class="d-flex" style="margin-top:-10px">
                                         <v-text-field :rules="nameRules" rounded dense background-color="#fff"
-                                            label="ເລກໄມລ່າສຸດ"  v-model="h_KM5"></v-text-field>
+                                            label="ເລກໄມລ່າສຸດ" v-model="h_KM5"></v-text-field>
                                         <v-text-field :rules="nameRules" rounded dense background-color="#fff"
-                                            label="ເລກໄມປະຈຸບັນ" v-model="h_KML_5" ></v-text-field>
+                                            label="ເລກໄມປະຈຸບັນ" v-model="h_KML_5"></v-text-field>
                                         <v-text-field :rules="nameRules" rounded background-color="#fff" dense
-                                            label="ແລ່ນໄປແລ້ວ km"  v-model="canRun5"></v-text-field>
+                                            label="ແລ່ນໄປແລ້ວ km" v-model="canRun5"></v-text-field>
                                     </div>
                                 </div>
                                 <div style="background-color:#f2ebeb;height:80px;padding-top:5px;border-radius:5px"
                                     class="px-2 mt-1 pt-2">
                                     <div class="d-flex">
                                         <v-text-field :rules="nameRules" rounded dense background-color="#fff"
-                                            label="ລະຫັດຢາງລົດ"  v-model="ll_TIRE_NO_6"></v-text-field>
+                                            label="ລະຫັດຢາງລົດ" v-model="ll_TIRE_NO_6"></v-text-field>
 
                                         <v-text-field :rules="nameRules" rounded dense background-color="#fff"
-                                            label="ວັນທີປ່ຽນຢາງ"  v-model="ll_TIRE_DATE_6"></v-text-field>
+                                            label="ວັນທີປ່ຽນຢາງ" v-model="ll_TIRE_DATE_6"></v-text-field>
                                         <v-text-field :rules="nameRules" rounded dense background-color="#fff"
-                                            label="ກຳນົດແລ່ນໄດ້ km"  v-model="ll_TIRE_KM_6"></v-text-field>
+                                            label="ກຳນົດແລ່ນໄດ້ km" v-model="ll_TIRE_KM_6"></v-text-field>
                                     </div>
                                     <div class="d-flex" style="margin-top:-10px">
                                         <v-text-field :rules="nameRules" rounded dense background-color="#fff"
-                                            label="ເລກໄມລ່າສຸດ"  v-model="h_KM6"></v-text-field>
+                                            label="ເລກໄມລ່າສຸດ" v-model="h_KM6"></v-text-field>
                                         <v-text-field :rules="nameRules" rounded dense background-color="#fff"
-                                            label="ເລກໄມປະຈຸບັນ" v-model="h_KML_6" ></v-text-field>
+                                            label="ເລກໄມປະຈຸບັນ" v-model="h_KML_6"></v-text-field>
                                         <v-text-field :rules="nameRules" rounded background-color="#fff" dense
-                                            label="ແລ່ນໄປແລ້ວ km"  v-model="canRun6"></v-text-field>
+                                            label="ແລ່ນໄປແລ້ວ km" v-model="canRun6"></v-text-field>
                                     </div>
                                 </div>
 
@@ -598,20 +635,20 @@
                                     class="px-2 pt-2">
                                     <div class="d-flex">
                                         <v-text-field :rules="nameRules" rounded dense background-color="#fff"
-                                            label="ລະຫັດຢາງລົດ"  v-model="r_TIRE_NO_1"></v-text-field>
+                                            label="ລະຫັດຢາງລົດ" v-model="r_TIRE_NO_1"></v-text-field>
 
                                         <v-text-field :rules="nameRules" rounded dense background-color="#fff"
-                                            label="ວັນທີປ່ຽນຢາງ"  v-model="r_TIRE_DATE_1"></v-text-field>
+                                            label="ວັນທີປ່ຽນຢາງ" v-model="r_TIRE_DATE_1"></v-text-field>
                                         <v-text-field :rules="nameRules" rounded dense background-color="#fff"
-                                            label="ກຳນົດແລ່ນໄດ້ km"  v-model="r_TIRE_KM_1"></v-text-field>
+                                            label="ກຳນົດແລ່ນໄດ້ km" v-model="r_TIRE_KM_1"></v-text-field>
                                     </div>
                                     <div class="d-flex" style="margin-top:-10px">
                                         <v-text-field :rules="nameRules" rounded dense background-color="#fff"
-                                            label="ເລກໄມລ່າສຸດ"  v-model="h_KM7"></v-text-field>
+                                            label="ເລກໄມລ່າສຸດ" v-model="h_KM7"></v-text-field>
                                         <v-text-field :rules="nameRules" rounded dense background-color="#fff"
-                                            label="ເລກໄມປະຈຸບັນ" v-model="h_KML_7" ></v-text-field>
+                                            label="ເລກໄມປະຈຸບັນ" v-model="h_KML_7"></v-text-field>
                                         <v-text-field :rules="nameRules" rounded background-color="#fff" dense
-                                            label="ແລ່ນໄປແລ້ວ km"  v-model="canRun7"></v-text-field>
+                                            label="ແລ່ນໄປແລ້ວ km" v-model="canRun7"></v-text-field>
                                     </div>
                                 </div>
                                 <!-- =========12 los========== -->
@@ -620,20 +657,20 @@
                                     class="px-2 mt-1">
                                     <div class="d-flex pt-2">
                                         <v-text-field :rules="nameRules" rounded dense background-color="#fff"
-                                            label="ລະຫັດຢາງລົດ"  v-model="r_TIRE_NO_2"></v-text-field>
+                                            label="ລະຫັດຢາງລົດ" v-model="r_TIRE_NO_2"></v-text-field>
 
                                         <v-text-field :rules="nameRules" rounded dense background-color="#fff"
-                                            label="ວັນທີປ່ຽນຢາງ"  v-model="r_TIRE_DATE_2"></v-text-field>
+                                            label="ວັນທີປ່ຽນຢາງ" v-model="r_TIRE_DATE_2"></v-text-field>
                                         <v-text-field :rules="nameRules" rounded dense background-color="#fff"
-                                            label="ກຳນົດແລ່ນໄດ້ km"  v-model="r_TIRE_KM_2"></v-text-field>
+                                            label="ກຳນົດແລ່ນໄດ້ km" v-model="r_TIRE_KM_2"></v-text-field>
                                     </div>
                                     <div class="d-flex" style="margin-top:-10px">
                                         <v-text-field :rules="nameRules" rounded dense background-color="#fff"
-                                            label="ເລກໄມລ່າສຸດ"  v-model="h_KM8"></v-text-field>
+                                            label="ເລກໄມລ່າສຸດ" v-model="h_KM8"></v-text-field>
                                         <v-text-field :rules="nameRules" rounded dense background-color="#fff"
-                                            label="ເລກໄມປະຈຸບັນ" v-model="h_KML_8" ></v-text-field>
+                                            label="ເລກໄມປະຈຸບັນ" v-model="h_KML_8"></v-text-field>
                                         <v-text-field :rules="nameRules" rounded background-color="#fff" dense
-                                            label="ແລ່ນໄປແລ້ວ km"  v-model="canRun8"></v-text-field>
+                                            label="ແລ່ນໄປແລ້ວ km" v-model="canRun8"></v-text-field>
                                     </div>
                                 </div>
 
@@ -642,79 +679,79 @@
                                     class="px-2 mt-1">
                                     <div class="d-flex pt-1">
                                         <v-text-field :rules="nameRules" rounded dense background-color="#fff"
-                                            label="ລະຫັດຢາງລົດ"  v-model="r_TIRE_NO_3"></v-text-field>
+                                            label="ລະຫັດຢາງລົດ" v-model="r_TIRE_NO_3"></v-text-field>
 
                                         <v-text-field :rules="nameRules" rounded dense background-color="#fff"
-                                            label="ວັນທີປ່ຽນຢາງ"  v-model="r_TIRE_DATE_3"></v-text-field>
+                                            label="ວັນທີປ່ຽນຢາງ" v-model="r_TIRE_DATE_3"></v-text-field>
                                         <v-text-field :rules="nameRules" rounded dense background-color="#fff"
-                                            label="ກຳນົດແລ່ນໄດ້ km"  v-model="r_TIRE_KM_3"></v-text-field>
+                                            label="ກຳນົດແລ່ນໄດ້ km" v-model="r_TIRE_KM_3"></v-text-field>
                                     </div>
                                     <div class="d-flex" style="margin-top:-10px">
                                         <v-text-field :rules="nameRules" rounded dense background-color="#fff"
-                                            label="ເລກໄມລ່າສຸດ"  v-model="h_KM9"></v-text-field>
+                                            label="ເລກໄມລ່າສຸດ" v-model="h_KM9"></v-text-field>
                                         <v-text-field :rules="nameRules" rounded dense background-color="#fff"
-                                            label="ເລກໄມປະຈຸບັນ" v-model="h_KML_9" ></v-text-field>
+                                            label="ເລກໄມປະຈຸບັນ" v-model="h_KML_9"></v-text-field>
                                         <v-text-field :rules="nameRules" rounded background-color="#fff" dense
-                                            label="ແລ່ນໄປແລ້ວ km"  v-model="canRun9"></v-text-field>
+                                            label="ແລ່ນໄປແລ້ວ km" v-model="canRun9"></v-text-field>
                                     </div>
                                 </div>
                                 <div style="background-color:#f2ebeb;height:80px;padding-top:5px;border-radius:5px"
                                     class="px-2 mt-1 pt-2">
                                     <div class="d-flex">
                                         <v-text-field :rules="nameRules" rounded dense background-color="#fff"
-                                            label="ລະຫັດຢາງລົດ"  v-model="r_TIRE_NO_4"></v-text-field>
+                                            label="ລະຫັດຢາງລົດ" v-model="r_TIRE_NO_4"></v-text-field>
 
                                         <v-text-field :rules="nameRules" rounded dense background-color="#fff"
-                                            label="ວັນທີປ່ຽນຢາງ"  v-model="r_TIRE_DATE_4"></v-text-field>
+                                            label="ວັນທີປ່ຽນຢາງ" v-model="r_TIRE_DATE_4"></v-text-field>
                                         <v-text-field :rules="nameRules" rounded dense background-color="#fff"
-                                            label="ກຳນົດແລ່ນໄດ້ km"  v-model="r_TIRE_KM_4"></v-text-field>
+                                            label="ກຳນົດແລ່ນໄດ້ km" v-model="r_TIRE_KM_4"></v-text-field>
                                     </div>
                                     <div class="d-flex" style="margin-top:-10px">
                                         <v-text-field :rules="nameRules" rounded dense background-color="#fff"
-                                            label="ເລກໄມລ່າສຸດ"  v-model="h_KM10"></v-text-field>
+                                            label="ເລກໄມລ່າສຸດ" v-model="h_KM10"></v-text-field>
                                         <v-text-field :rules="nameRules" rounded dense background-color="#fff"
-                                            label="ເລກໄມປະຈຸບັນ" v-model="h_KML_10" ></v-text-field>
+                                            label="ເລກໄມປະຈຸບັນ" v-model="h_KML_10"></v-text-field>
                                         <v-text-field :rules="nameRules" rounded background-color="#fff" dense
-                                            label="ແລ່ນໄປແລ້ວ km"  v-model="canRun10"></v-text-field>
+                                            label="ແລ່ນໄປແລ້ວ km" v-model="canRun10"></v-text-field>
                                     </div>
                                 </div>
                                 <div style="background-color:#f2ebeb;height:80px;padding-top:5px;border-radius:5px"
                                     class="px-2 pt-2 mt-1 ">
                                     <div class="d-flex">
                                         <v-text-field :rules="nameRules" rounded dense background-color="#fff"
-                                            label="ລະຫັດຢາງລົດ"  v-model="r_TIRE_NO_5"></v-text-field>
+                                            label="ລະຫັດຢາງລົດ" v-model="r_TIRE_NO_5"></v-text-field>
 
                                         <v-text-field :rules="nameRules" rounded dense background-color="#fff"
-                                            label="ວັນທີປ່ຽນຢາງ"  v-model="r_TIRE_DATE_5"></v-text-field>
+                                            label="ວັນທີປ່ຽນຢາງ" v-model="r_TIRE_DATE_5"></v-text-field>
                                         <v-text-field :rules="nameRules" rounded dense background-color="#fff"
-                                            label="ກຳນົດແລ່ນໄດ້ km"  v-model="r_TIRE_KM_5"></v-text-field>
+                                            label="ກຳນົດແລ່ນໄດ້ km" v-model="r_TIRE_KM_5"></v-text-field>
                                     </div>
                                     <div class="d-flex" style="margin-top:-10px">
                                         <v-text-field :rules="nameRules" rounded dense background-color="#fff"
-                                            label="ເລກໄມລ່າສຸດ"  v-model="h_KM11"></v-text-field>
+                                            label="ເລກໄມລ່າສຸດ" v-model="h_KM11"></v-text-field>
                                         <v-text-field :rules="nameRules" rounded dense background-color="#fff"
-                                            label="ເລກໄມປະຈຸບັນ" v-model="h_KML_11" ></v-text-field>
+                                            label="ເລກໄມປະຈຸບັນ" v-model="h_KML_11"></v-text-field>
                                         <v-text-field :rules="nameRules" rounded background-color="#fff" dense
-                                            label="ແລ່ນໄປແລ້ວ km"  v-model="canRun11"></v-text-field>
+                                            label="ແລ່ນໄປແລ້ວ km" v-model="canRun11"></v-text-field>
                                     </div>
                                 </div>
                                 <div style="background-color:#f2ebeb;height:80px;padding-top:5px;border-radius:5px"
                                     class="px-2 mt-1 pt-2">
                                     <div class="d-flex">
                                         <v-text-field :rules="nameRules" rounded dense background-color="#fff"
-                                            label="ລະຫັດຢາງລົດ"  v-model="r_TIRE_NO_6"></v-text-field>
+                                            label="ລະຫັດຢາງລົດ" v-model="r_TIRE_NO_6"></v-text-field>
                                         <v-text-field :rules="nameRules" rounded dense background-color="#fff"
-                                            label="ວັນທີປ່ຽນຢາງ"  v-model="r_TIRE_DATE_6"></v-text-field>
+                                            label="ວັນທີປ່ຽນຢາງ" v-model="r_TIRE_DATE_6"></v-text-field>
                                         <v-text-field :rules="nameRules" rounded dense background-color="#fff"
-                                            label="ກຳນົດແລ່ນໄດ້ km"  v-model="r_TIRE_KM_6"></v-text-field>
+                                            label="ກຳນົດແລ່ນໄດ້ km" v-model="r_TIRE_KM_6"></v-text-field>
                                     </div>
                                     <div class="d-flex" style="margin-top:-10px">
                                         <v-text-field :rules="nameRules" rounded dense background-color="#fff"
-                                            label="ເລກໄມລ່າສຸດ"  v-model="h_KM12"></v-text-field>
+                                            label="ເລກໄມລ່າສຸດ" v-model="h_KM12"></v-text-field>
                                         <v-text-field :rules="nameRules" rounded dense background-color="#fff"
-                                            label="ເລກໄມປະຈຸບັນ" v-model="h_KML_12" ></v-text-field>
+                                            label="ເລກໄມປະຈຸບັນ" v-model="h_KML_12"></v-text-field>
                                         <v-text-field :rules="nameRules" rounded background-color="#fff" dense
-                                            label="ແລ່ນໄປແລ້ວ km"  v-model="canRun12"></v-text-field>
+                                            label="ແລ່ນໄປແລ້ວ km" v-model="canRun12"></v-text-field>
                                     </div>
                                 </div>
 
@@ -724,22 +761,22 @@
                             class="px-2 mt-1 pt-2">
                             <div class="d-flex">
                                 <v-text-field :rules="nameRules" rounded dense background-color="#fff"
-                                    label="ລະຫັດຢາງລົດ"  v-model="r_TIRE_NO_7"></v-text-field>
+                                    label="ລະຫັດຢາງລົດ" v-model="r_TIRE_NO_7"></v-text-field>
 
                                 <v-text-field :rules="nameRules" rounded dense background-color="#fff"
-                                    label="ວັນທີປ່ຽນຢາງ"  v-model="r_TIRE_DATE_7"></v-text-field>
+                                    label="ວັນທີປ່ຽນຢາງ" v-model="r_TIRE_DATE_7"></v-text-field>
                                 <v-text-field :rules="nameRules" rounded dense background-color="#fff"
-                                    label="ກຳນົດແລ່ນໄດ້ km"  v-model="r_TIRE_KM_7"></v-text-field>
+                                    label="ກຳນົດແລ່ນໄດ້ km" v-model="r_TIRE_KM_7"></v-text-field>
                             </div>
                             <div class="d-flex" style="margin-top:-10px">
                                 <v-text-field :rules="nameRules" rounded dense background-color="#fff"
-                                    label="ເລກໄມລ່າສຸດ"  v-model="h_KM13"></v-text-field>
-                                    
+                                    label="ເລກໄມລ່າສຸດ" v-model="h_KM13"></v-text-field>
+
                                 <v-text-field :rules="nameRules" rounded dense background-color="#fff"
-                                    label="ເລກໄມປະຈຸບັນ" v-model="h_KML_13" ></v-text-field>
+                                    label="ເລກໄມປະຈຸບັນ" v-model="h_KML_13"></v-text-field>
 
                                 <v-text-field :rules="nameRules" rounded background-color="#fff" dense
-                                    label="ແລ່ນໄປແລ້ວ km"  v-model="canRun13"></v-text-field>
+                                    label="ແລ່ນໄປແລ້ວ km" v-model="canRun13"></v-text-field>
                             </div>
                         </div>
                     </v-card-text>
@@ -752,7 +789,8 @@
             </v-form>
             <v-card-actions>
                 <v-spacer></v-spacer>
-
+                <p style="color: deeppink;margin-right: 20px;margin-top: 20px;">ກອນອັບເດດ ຖຸກຄັງໃຫ້ ໃສ່ ໝໍ້ໄຟ
+                </p>
                 <v-btn color="#FFB74D" width="120" elevation="0" @click="onUpdate">
                     <v-icon color="white">mdi-update</v-icon>
                     <span class="white--text">ອັບເດດ</span>
@@ -826,6 +864,7 @@ export default {
             h_VICIVLE_FAITHAIY: '',
             h_VICIVLE_FAIYKHANG: '',
             h_VICIVLE_VENMONGNAR: '',
+            lektungsit: '',
             h_VICIVLE_VENMONGLHG: '',
             h_VICIVLE_VENKHANG: '',
             h_LEK_NUMMUNKHG: '',
@@ -848,6 +887,8 @@ export default {
             r_TIRE_KM_3: '',
             r_TIRE_KM_4: '',
             r_TIRE_KM_5: '',
+            formattedDate: null,
+
             r_TIRE_KM_6: '',
             ll_TIRE_NO_1: '',
             ll_TIRE_NO_2: '',
@@ -1196,6 +1237,7 @@ export default {
                         this.h_VICIVLE_NUMBER = data?.data[0]?.h_VICIVLE_NUMBER,
                         this.h_VICIVLE_GALATY = data?.data[0]?.h_VICIVLE_GALATY,
                         this.h_VICIVLE_DATE_GALATY = data?.data[0]?.h_VICIVLE_DATE_GALATY,
+                        this.formattedDate = data?.data[0]?.date_change_lean,
                         this.h_VICIVLE_TNGLOD = data?.data[0]?.h_VICIVLE_TNGLOD,
                         this.h_VICIVLE_BRANCH = data?.data[0]?.h_VICIVLE_BRANCH,
                         this.h_VICIVLE_YEARLEVEL = data?.data[0]?.h_VICIVLE_YEARLEVEL,
@@ -1217,6 +1259,7 @@ export default {
                         this.h_VICIVLE_FAITHAIY = data?.data[0]?.h_VICIVLE_FAITHAIY,
                         this.h_VICIVLE_FAIYKHANG = data?.data[0]?.h_VICIVLE_FAIYKHANG,
                         this.h_VICIVLE_VENMONGNAR = data?.data[0]?.h_VICIVLE_VENMONGNAR,
+                        this.lektungsit = data?.data[0]?.lektungsit,
                         this.h_VICIVLE_VENMONGLHG = data?.data[0]?.h_VICIVLE_VENMONGLHG,
                         this.h_VICIVLE_VENKHANG = data?.data[0]?.h_VICIVLE_VENKHANG,
                         this.h_KM13 = data?.data[0]?.h_KM13,
@@ -1315,7 +1358,8 @@ export default {
                 formdata.append('files', this.imageTruck !== null || this.imageTruck !== '' ? this.imageTruck : '')
                 formdata.append('h_VICIVLE_NUMBER', this.h_VICIVLE_NUMBER)
                 formdata.append('h_VICIVLE_GALATY', this.h_VICIVLE_GALATY)
-                formdata.append('h_VICIVLE_DATE_GALATY', this.h_VICIVLE_DATE_GALATY)
+                formdata.append('h_VICIVLE_DATE_GALATY', this.h_VICIVLE_DATE_GALATY )
+                formdata.append('date_change_lean', this.formattedDate || "0000-00-00")
                 formdata.append('h_VICIVLE_TNGLOD', this.h_VICIVLE_TNGLOD)
                 formdata.append('h_VICIVLE_BRANCH', this.h_VICIVLE_BRANCH)
                 formdata.append('h_VICIVLE_YEARLEVEL', this.h_VICIVLE_YEARLEVEL)
@@ -1332,6 +1376,7 @@ export default {
                 formdata.append('h_VICIVLE_FAITHAIY', this.h_VICIVLE_FAITHAIY)
                 formdata.append('h_VICIVLE_FAIYKHANG', this.h_VICIVLE_FAIYKHANG)
                 formdata.append('h_VICIVLE_VENMONGNAR', this.h_VICIVLE_VENMONGNAR)
+                formdata.append('lektungsit', this.lektungsit)
                 formdata.append('h_VICIVLE_VENMONGLHG', this.h_VICIVLE_VENMONGLHG)
                 formdata.append('h_VICIVLE_VENKHANG', this.h_VICIVLE_VENKHANG)
                 formdata.append('h_VICIVLE_GLASS', this.h_VICIVLE_GLASS)

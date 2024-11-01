@@ -12,29 +12,29 @@
                     <div style="width:100%;display:flex" class="pt-4">
 
                         <div class="d-flex align-center">
-                            <v-menu ref="start_menu" v-model="start_menu" :close-on-content-click="false"
-                                :return-value.sync="start_date" transition="scale-transition" offset-y min-width="auto">
-                                <template v-slot:activator="{ on, attrs }">
-                                    <v-text-field dense outlined v-model="formattedStartDate" required
-                                        label="ວັນທີເລີ່ມຕົ້ນ" append-icon="mdi-calendar" readonly v-bind="attrs"
-                                        v-on="on" :rules="nameRules"></v-text-field>
-                                </template>
-                                <v-date-picker v-model="start_date" no-title scrollable
-                                    @input="$refs.start_menu.save(start_date)">
-                                    <v-spacer></v-spacer>
-                                </v-date-picker>
-                            </v-menu>
-                        </div>
+                        <v-menu ref="start_menu" v-model="start_menu" :close-on-content-click="false"
+                            :return-value.sync="startDate" transition="scale-transition" offset-y min-width="auto">
+                            <template v-slot:activator="{ on, attrs }">
+                                <v-text-field dense outlined v-model="formattedStartDate" required
+                                    label="ວັນທີເລີ່ມຕົ້ນ" append-icon="mdi-calendar" readonly v-bind="attrs"
+                                    v-on="on"></v-text-field>
+                            </template>
+                            <v-date-picker v-model="startDate" no-title scrollable
+                                @input="$refs.start_menu.save(startDate)">
+                                <v-spacer></v-spacer>
+                            </v-date-picker>
+                        </v-menu>
+                    </div>
                         <div class="d-flex align-center pl-2">
                             <v-menu ref="end_menu" v-model="end_menu" :close-on-content-click="false"
-                                :return-value.sync="end_date" transition="scale-transition" offset-y min-width="auto">
+                                :return-value.sync="endDate" transition="scale-transition" offset-y min-width="auto">
                                 <template v-slot:activator="{ on, attrs }">
                                     <v-text-field dense outlined v-model="formattedEndDate" required
                                         label="ວັນທີສຸດທ້າຍ" append-icon="mdi-calendar" readonly v-bind="attrs"
                                         v-on="on" :rules="nameRules"></v-text-field>
                                 </template>
-                                <v-date-picker v-model="end_date" no-title scrollable
-                                    @input="$refs.end_menu.save(end_date)">
+                                <v-date-picker v-model="endDate" no-title scrollable
+                                    @input="$refs.end_menu.save(endDate)">
                                     <v-spacer></v-spacer>
                                 </v-date-picker>
                             </v-menu>
@@ -95,6 +95,35 @@
                         </div>
                     </div>
                 </v-form>
+                <div style="width:100%; display:flex; justify-content:start" class="ml-5">
+                    <div style="width: 20%;">
+                        <v-radio-group v-model="status" column>
+                            <v-radio label="ໃບປະຕິບັດງານລົດທີ່ຍັງບໍ່ໄດ້ອອກໃບຮຽກເກັບເງິນ" color="red darken-3"
+                                value="N"></v-radio>
+                            <v-radio label="ໃບປະຕິບັດງານລົດທີ່ໄດ້ອອກໃບປະຕິຮຽກເກັບເງິນ" color="success" value="Y"></v-radio>
+                            <v-radio label="ໃບປະຕິບັດງານລົດທັງໝົດ" color="primary" value=null></v-radio>
+                        </v-radio-group>
+                    </div>
+                    <div>
+                        <div>
+                            <div style="width: 100%;display:flex;justify-content:center;margin-top: 20px;" class="pt-4">
+
+                                <div style="width: 500px;margin-right: 20px;">
+                                    <v-row>
+                                        <v-btn v-for="month in 12" :key="month" @click="setMonth(month)">{{ month
+                                            }}</v-btn>
+                                    </v-row>
+                                </div>
+                                <div style="width: 500px;margin-left: 20px;">
+                                    <v-row>
+                                        <v-btn v-for="year in availableYears" :key="year" @click="setYear(year)">{{ year
+                                            }}</v-btn>
+                                    </v-row>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div style="display:flex;align-items:center">
 
                     <div v-if="showAlert === true"
@@ -203,23 +232,21 @@
         <!-- component for print  -->
         <div style="display:none;">
             <div id="modalInvoice">
-                <v-row>
-                    <v-col cols="3">
-                        <img class="mx-auto" src="../assets/images/logo01.png" height="70px" cover />
-                    </v-col>
-                    <v-col cols="9">
-                        <div style="display:flex;justify-content:start;flex-direction:column;align-items:start">
-                            <span style="font-size:14px"><b>
-                                    <Noti />
-                                </b> </span>
-                            <span style="font-size:12px">ສໍານັກງານຕັ້ງຢູ່ ອາຄານ ສະໜາມຍິງປືນ 20 ມັງກອນ, ສະໜາມກີລາກອງທັບ,
-                                ບ້ານຈອມມະນີ, ເມືອງ ໄຊເສດຖາ, ນະຄອນຫຼວງວຽງຈັນ, ສປປ ລາວ</span>
-                            <span style="font-size:12px">ໂທລະສັບ: 020 92661111, 020 92 254 999 | ອີເມວ: kounkham@Mining
-                                |
-                                ເວັບໄຊ: kounkham</span>
-                        </div>
-                    </v-col>
-                </v-row>
+                <Noti />
+
+
+<v-row
+    style="font-size:14px;margin-left: 50px;margin-top: 10px;display:flex;justify-content:start;flex-direction:column;align-items:start">
+
+
+    <div>
+        <span>ສໍານັກງານຕັ້ງຢູ່ ອາຄານ ສະໜາມຍິງປືນ 20 ມັງກອນ, ສະໜາມກີລາກອງທັບ,</span>
+        <span> ບ້ານຈອມມະນີ, ເມືອງ ໄຊເສດຖາ, ນະຄອນຫຼວງວຽງຈັນ, ສປປ ລາວ</span>
+        <span>ໂທລະສັບ: 020 92661111, 020 92 254 999 </span>
+        <span> ອີເມວ: kounkham@Mining|ເວັບໄຊ: kounkham</span>
+    </div>
+
+</v-row>
                 <br>
 
                 <div class="text-center pb-10 pt-10 font-weight-bold"
@@ -320,7 +347,7 @@
                                     performaceGroupFee?.performancefe_PAYANG }}</td>
                             </tr>
                             <tr style="padding:5px;border: 0.5px solid #999;">
-                                <td style="border: 0.5px solid #999;padding:5px">{{changnameformattedFeeTaxung4}}</td>
+                                <td style="border: 0.5px solid #999;padding:5px">{{ changnameformattedFeeTaxung4 }}</td>
                                 <td style="border: 0.5px solid #999;padding:5px">{{
                                     performaceGroupFee?.performancefeetaxung }}</td>
                             </tr>
@@ -340,7 +367,7 @@
             performaceGroupFee?.performanceboderlak20 }}</td>
                             </tr> -->
                             <tr style="padding:5px;border: 0.5px solid #999;">
-                                <td style="border: 0.5px solid #999;padding:5px">{{changnamepassport}}</td>
+                                <td style="border: 0.5px solid #999;padding:5px">{{ changnamepassport }}</td>
                                 <td style="border: 0.5px solid #999;padding:5px">{{
                                     performaceGroupFee?.performancepassport }}</td>
                             </tr>
@@ -356,12 +383,13 @@
                             </tr>
 
                             <tr style="padding:5px;border: 0.5px solid #999;">
-                                <td style="border: 0.5px solid #999;padding:5px">{{changnameformattedFeesaphan}}</td>
+                                <td style="border: 0.5px solid #999;padding:5px">{{ changnameformattedFeesaphan }}</td>
                                 <td style="border: 0.5px solid #999;padding:5px">{{
                                     performaceGroupFee?.performancefeesaphan }}</td>
                             </tr>
                             <tr style="padding:5px;border: 0.5px solid #999;">
-                                <td style="border: 0.5px solid #999;padding:5px">{{changnameformattedFeecontrainer}}</td>
+                                <td style="border: 0.5px solid #999;padding:5px">{{ changnameformattedFeecontrainer }}
+                                </td>
                                 <td style="border: 0.5px solid #999;padding:5px">{{
                                     performaceGroupFee?.performancefeeoutcontainer }}</td>
                             </tr>
@@ -465,27 +493,21 @@
         </div>
         <div style="display:none">
             <div id="Print_all">
-                <v-row>
-                    <v-col cols="3">
-                        <img class="mx-auto" src="../assets/images/logo01.png" height="70px" cover />
-                    </v-col>
-                    <v-col cols="9">
-                        <div style="display:flex;justify-content:start;flex-direction:column;align-items:start">
+                <Noti />
 
-                            <span style="font-size:14px">
 
-                                <Noti />
+<v-row
+    style="font-size:14px;margin-left: 50px;margin-top: 10px;display:flex;justify-content:start;flex-direction:column;align-items:start">
 
-                            </span>
 
-                            <span style="font-size:12px">ສໍານັກງານຕັ້ງຢູ່ ອາຄານ ສະໜາມຍິງປືນ 20 ມັງກອນ, ສະໜາມກີລາກອງທັບ,
-                                ບ້ານຈອມມະນີ, ເມືອງ ໄຊເສດຖາ, ນະຄອນຫຼວງວຽງຈັນ, ສປປ ລາວ</span>
-                            <span style="font-size:12px">ໂທລະສັບ: 020 92661111, 020 92 254 999 | ອີເມວ: kounkham@Mining
-                                |
-                                ເວັບໄຊ: kounkham</span>
-                        </div>
-                    </v-col>
-                </v-row>
+    <div>
+        <span>ສໍານັກງານຕັ້ງຢູ່ ອາຄານ ສະໜາມຍິງປືນ 20 ມັງກອນ, ສະໜາມກີລາກອງທັບ,</span>
+        <span> ບ້ານຈອມມະນີ, ເມືອງ ໄຊເສດຖາ, ນະຄອນຫຼວງວຽງຈັນ, ສປປ ລາວ</span>
+        <span>ໂທລະສັບ: 020 92661111, 020 92 254 999 </span>
+        <span> ອີເມວ: kounkham@Mining|ເວັບໄຊ: kounkham</span>
+    </div>
+
+</v-row>
                 <br>
                 <div class="text-center" style="display:flex;justify-content:center;font-size:20px;font-weight:bold">
                     ລາຍງານໃບປະຕິບັດງານ</div>
@@ -588,11 +610,20 @@
 
 <script>
 import moment from 'moment'
+import { mapActions, mapGetters } from 'vuex';
+
 export default {
     data() {
         return {
             products_data_list: [],
             moment: moment,
+            startDate: new Date().toISOString().substr(0, 10),
+            endDate: new Date().toISOString().substr(0, 10),
+            startDateMenu: false,
+            endDateMenu: false,
+            item_id: null,
+            loading_processing: false,
+            availableYears: this.getYearsArray(),
             sumAmount: null,
             sumTonProSize: null,
             showAlert: false,
@@ -604,8 +635,10 @@ export default {
             loading_processing: false,
             end_menu: false,
             product_name: '',
+            status: null,
+
             customer_data_list: [],
-            end_date: null,
+            endDate: null,
             start_menu: false,
             start_date: null,
 
@@ -640,19 +673,19 @@ export default {
 
     computed: {
         changnamejumpo2() {
-        switch (this.TOTAL_branchName) {
-            case 'Thakhaek':
-                return 'ຄ່າຊິງມະຫາໄຊ';
-            case 'XiengKhouang':
-                return 'ຄ່າຊິງມະຫາໄຊ';
-            case 'vientiane':
-                return 'ຄ່າຊິງມະຫາໄຊ';
-            case 'Savannakhet':
-                return 'ຄ່າຈ້ຳພາດສະປອດ';
-            default:
-                return this.TOTAL_branchName; // Use the branchName if no match found
-        }
-    },
+            switch (this.TOTAL_branchName) {
+                case 'Thakhaek':
+                    return 'ຄ່າຊິງມະຫາໄຊ';
+                case 'XiengKhouang':
+                    return 'ຄ່າຊິງມະຫາໄຊ';
+                case 'vientiane':
+                    return 'ຄ່າຊິງມະຫາໄຊ';
+                case 'Savannakhet':
+                    return 'ຄ່າຈ້ຳພາດສະປອດ';
+                default:
+                    return this.TOTAL_branchName; // Use the branchName if no match found
+            }
+        },
         changnamepassport() {
             switch (this.TOTAL_branchName) {
                 case 'Thakhaek':
@@ -718,13 +751,25 @@ export default {
             return `${day}/${month}/${year}`;
         },
         formattedEndDate() {
-            if (!this.end_date) return ''; // Return empty string if date is not set
-            const dateObj = new Date(this.end_date);
+            if (!this.endDate) return ''; // Return empty string if date is not set
+            const dateObj = new Date(this.endDate);
             const day = dateObj.getDate();
             const month = dateObj.getMonth() + 1; // January is 0, so add 1 to get correct month
             const year = dateObj.getFullYear();
             return `${day}/${month}/${year}`;
-        }
+        },
+        formattedStartDate() {
+            return this.formatDate(this.startDate);
+        },
+        formattedEndDate() {
+            return this.formatDate(this.endDate);
+        },
+        ...mapGetters({
+            truck_data_list: "truck_data_list",
+            report_reportStockDayWeek: "report_reportStockDayWeek",
+            report_reportStockDayWeek_item: "report_reportStockDayWeek_item",
+            sumFooter: "sumFooter"
+        }),
     },
 
     mounted() {
@@ -734,7 +779,36 @@ export default {
         this.onGetCustomerList();
     },
     methods: {
-
+        formatDate(date) {
+            if (!date) return '';
+            const [year, month, day] = date.split('-');
+            return `${day}/${month}/${year}`;
+        },
+        ...mapActions({
+            reportStockDayWeek: "reportStockDayWeek",
+            clearItemList: "clearItemList",
+        }),
+        setMonth(month) {
+            // Update the startDate and endDate based on the selected month
+            const currentYear = new Date().getFullYear();
+            const start = new Date(currentYear, month - 1, 1);
+            const end = new Date(currentYear, month, 0);
+            this.startDate = start.toISOString().substr(0, 10);
+            this.endDate = end.toISOString().substr(0, 10);
+        },
+        setYear(year) {
+            // Update the startDate and endDate based on the selected year
+            this.startDate = `${year}-01-01`;
+            this.endDate = `${year}-12-31`;
+        },
+        getYearsArray() {
+            const currentYear = new Date().getFullYear();
+            const years = [];
+            for (let i = currentYear; i >= currentYear - 10; i--) {
+                years.push(i);
+            }
+            return years;
+        },
         async onGetProductsList() {
             try {
                 this.loading_processing = true;
@@ -887,11 +961,13 @@ export default {
             try {
                 let data = {
                     performanceBillNo: key,
-                    performanceReDate: this.start_date,
+                    performanceReDate: this.startDate,
                     toKen: localStorage.getItem('toKen'),
-                    performanceDate: this.end_date,
+                    performanceDate: this.endDate,
                     productId: this.product_ID,
-                    custormerId: this.customer_id
+                    custormerId: this.customer_id,
+                    status: this.status
+
                 };
                 this.$axios.$post('/SearchBillPerformance.service', data).then((response) => {
                     if (response?.data) {

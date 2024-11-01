@@ -31,18 +31,30 @@
       </v-btn>
     </div>
 
+    <!-- <div>
+      <v-btn dark color="#685f40" to="/reloddao" class="card-shadow mb-5 mt-5" rounded>
+        <v-icon color="white">mdi-plus</v-icon>
+        <span class="white--text">ເພີ່ມຂໍ້ມູນລົດເບົາ</span>
+      </v-btn>
+    </div> -->
+
     <v-card style="width:1800px;height:800px;">
+
       <div v-if="selectedCard === '1'">
         <v-card class="card-shadow mb-4" rounded="lg">
           <v-card-title style="border-bottom:0.5px solid #e0e0e0;background-color:#685f40;color:white">
             ລາຍການລົດ ບໍລິຫານ
+            <v-row justify="center">
+              <v-btn color="#f593b3" class="white--text"
+                @click="print"><v-icon>mdi-printer</v-icon>ພິມລາຍງານທັງໝົດ</v-btn>
+            </v-row>
           </v-card-title>
           <div class="mt-2">
             <v-data-table :items="report_listCarOffice" :headers="report_leave_caroffice_header" :search="search">
               <template v-slot:item="row">
                 <tr>
                   <td>
-                    <img :src="row.item.img" style="height: 100px; width: 100px;">
+                    <img :src="row.item.img" style="height: 100px; width: 80px;">
                   </td>
                   <td>{{ row?.item?.car_brand }}</td>
                   <td>{{ row?.item?.carColor }}</td>
@@ -63,8 +75,14 @@
                       <v-icon size="30" color="white">mdi-table-edit</v-icon>
                     </v-btn>
                   </td>
+                  <!-- <td>
+                    <v-btn style="height: 40px;width: 90px;" small color="#90A4AE" class="white--text card-shadow"
+                      @click="viewdelete(row?.item?.key_ID)">
+                      <v-icon size="30" color="white">mdi-delete</v-icon>
+                    </v-btn>
+                  </td> -->
                   <td>
-                    <v-icon :style="getIconStyle(row.item)" size="40">mdi-circle</v-icon>
+                    <v-icon :style="getIconStyle(row.item)" size="40">mdi-bell-ring</v-icon>
                   </td>
                 </tr>
               </template>
@@ -99,11 +117,12 @@
                       <v-icon size="30" color="white">mdi-car</v-icon>
                     </v-btn>
                   </td>
-                  <!-- <td>
-                    <v-btn style="height: 40px;width: 90px;"  small color="#90A4AE" class="white--text card-shadow" @click="viewDAOup(row?.item?.key_ID)">
+                  <td>
+                    <v-btn style="height: 40px;width: 90px;" small color="#90A4AE" class="white--text card-shadow"
+                      @click="viewDAOup(row?.item?.key_ID)">
                       <v-icon size="30" color="white">mdi-table-edit</v-icon>
                     </v-btn>
-                  </td> -->
+                  </td>
 
                 </tr>
               </template>
@@ -155,16 +174,18 @@
                   <td>
                     <img :src="row.item.img" style="height: 100px; width: 100px;">
                   </td>
-                  <td>
-                    <!-- PDF viewer -->
-                    <v-btn @click="viewPDF(row.item.pdfFile)" small color="primary">View PDF</v-btn>
-                  </td>
+
                   <td>{{ row?.item?.license_plate }}</td>
                   <td>{{ row?.item?.pricePaid }}</td>
                   <td>{{ row?.item?.cur }}</td>
                   <td>{{ row?.item?.dateCreate }}</td>
+
+                  <td>
+                    <!-- PDF viewer button -->
+                    <v-btn @click="viewPDF(row.item.pdfFile)" small color="primary">View PDF</v-btn>
+                  </td>
                   <!-- <td>
-                    <v-btn style="height: 40px;width: 90px;" small color="#b3da64" class="white--text card-shadow"
+                    <v-btn style="height: 40px; width: 90px;" small color="#b3da64" class="white--text card-shadow"
                       @click="downloadPdf(row?.item?.key_ID)">
                       <v-icon size="30" color="white"></v-icon>
                     </v-btn>
@@ -173,34 +194,138 @@
               </template>
             </v-data-table>
 
-            <!-- Dialog for viewing PDF -->
-            <v-dialog v-model="pdfDialog" max-width="800px">
+            <v-dialog v-model="pdfDialog" max-width="90%">
               <v-card>
-                <v-card-title class="headline">PDF Viewer</v-card-title>
-                <v-card-text>
-                  <iframe :src="pdfFileUrl" width="100%" height="800px" frameborder="0"></iframe>
-                </v-card-text>
-                <v-card-actions>
+                <v-card-title>
+                  <span>PDF Viewer</span>
                   <v-spacer></v-spacer>
-                  <v-btn color="blue darken-1" text @click="pdfDialog = false">Close</v-btn>
-                </v-card-actions>
+                  <v-btn icon @click="pdfDialog = false">
+                    <v-icon>mdi-close</v-icon>
+                  </v-btn>
+                </v-card-title>
+                <v-card-text>
+                  <pdf style="width: 100%; height: 800px;" frameborder="0" :src="pdfSrc"></pdf>
+                </v-card-text>
               </v-card>
             </v-dialog>
           </div>
         </v-card>
       </div>
     </v-card>
+
+    <div style="display:none">
+      <div id="modalInvoice">
+        <Noti />
+        <v-row
+          style="font-size:14px;margin-left: 50px;margin-top: 10px;display:flex;justify-content:start;flex-direction:column;align-items:start">
+          <div>
+            <span>ສໍານັກງານຕັ້ງຢູ່ ອາຄານ ສະໜາມຍິງປືນ 20 ມັງກອນ, ສະໜາມກີລາກອງທັບ,</span>
+            <span> ບ້ານຈອມມະນີ, ເມືອງ ໄຊເສດຖາ, ນະຄອນຫຼວງວຽງຈັນ, ສປປ ລາວ</span>
+            <span>ໂທລະສັບ: 020 92661111, 020 92 254 999 </span>
+            <span> ອີເມວ: kounkham@Mining|ເວັບໄຊ: kounkham</span>
+          </div>
+        </v-row>
+        <br>
+        <div class="text-center"
+          style="display:flex;justify-content:center;font-size:19px;font-weight:bold;margin-top: 15px;">
+          ລາຍງານ ລົດທັງໝົດ </div>
+        <table
+          style="padding:2px;border: 0.5px solid #999;border-collapse: collapse;width:100%; font-size: 12px;margin-top: 10px;">
+          <tr style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;border-radius:10px">
+
+            <td
+              style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px"
+              class=" font-weight-bold">ລຳດັບ</td>
+            <td
+              style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px"
+              class=" font-weight-bold">ຮູບພາບ</td>
+
+            <td
+              style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px"
+              class=" font-weight-bold">ຍີ່ຫໍ້ລົດ</td>
+            <td
+              style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px"
+              class=" font-weight-bold">ສີລົດ</td>
+            <td
+              style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px"
+              class=" font-weight-bold">ປະເພດລົດ</td>
+            <td
+              style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px"
+              class=" font-weight-bold">ບອນນັ່ງ</td>
+            <td
+              style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px"
+              class=" font-weight-bold">ປ້າຍລົດ</td>
+            <td
+              style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px"
+              class=" font-weight-bold">ໂມເດວ</td>
+            <td
+              style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px"
+              class=" font-weight-bold"> ເຈົ້າຂອງລົດ</td>
+
+          </tr>
+          <tr style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;border-radius:10px"
+            v-for="(item, i) in report_listCarOffice" :key="i">
+
+            <td
+              style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px;text-align: center;"
+              class=" font-weight-bold">{{ i + 1 }}</td>
+            <td
+              style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px"
+              class="font-weight-bold">
+              <img :src="item.img" :alt="item.item_name" style="width:50px; height:50px;">
+            </td>
+
+            <td
+              style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px"
+              class=" font-weight-bold">{{ item?.car_brand }}</td>
+            <td
+              style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px"
+              class=" font-weight-bold">{{ item?.carColor }}</td>
+
+            <td
+              style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px"
+              class=" font-weight-bold">{{ item?.car_type }}</td>
+
+            <td
+              style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px"
+              class=" font-weight-bold">{{ item?.sitPosition_amount }}</td>
+
+            <td
+              style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px"
+              class=" font-weight-bold">{{ item?.license_plate }}</td>
+
+            <td
+              style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px"
+              class=" font-weight-bold">{{ item?.car_model }}</td>
+
+            <td
+              style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px"
+              class=" font-weight-bold">{{ item?.owner_car }}</td>
+          </tr>
+        </table>
+
+
+
+      </div>
+
+
+    </div>
   </div>
 </template>
 
 <script>
+import swal from 'sweetalert2'
+import pdf from 'vue-pdf';
 export default {
+  components: {
+    pdf,
+  },
   data() {
     return {
       selectedCard: '1', // This will hold the selected card to display
       loading_processing: false,
       formattedStartDate: null,
-    
+
       license_plate: '',
       report_leave_caroffice_header: [
         { text: 'ຮູບພາບ', value: 'img' },
@@ -209,7 +334,7 @@ export default {
         { text: 'ປະເພດລົດ', value: 'car_type' },
         { text: 'ບອນນັ່ງ', value: 'sitPosition_amount' },
         { text: 'ປ້າຍລົດ', value: 'license_plate' },
-        { text: 'ລົດປີ', value: 'car_model' },
+        { text: 'ໂມເດວ', value: 'car_model' },
         { text: 'ເຈົ້າຂອງລົດ', value: 'owner_car' },
         { text: 'ລາຍລະອຽດ', value: '' },
         { text: 'ເເກ້ໄຂ', value: '' },
@@ -248,6 +373,7 @@ export default {
       startDateMenu: null,
       endDateMenu: null,
       search: '',
+      pdfSrc: '',
       start_date: null,
     };
   },
@@ -258,6 +384,27 @@ export default {
 
   },
   methods: {
+    viewPDF(pdfFile) {
+      // this.pdfSrc = pdfFile;
+      // this.pdfDialog = true;
+      window.open(pdfFile, '_blank');
+    },
+    downloadPdf(key_ID) {
+      // Your download logic
+    },
+    print() {
+      const modal = document.getElementById("modalInvoice")
+      const cloned = modal.cloneNode(true)
+      let section = document.getElementById("print")
+      if (!section) {
+        section = document.createElement("div")
+        section.id = "print"
+        document.body.appendChild(section)
+      }
+      section.innerHTML = "";
+      section.appendChild(cloned);
+      window.print();
+    },
     updateStartDate(date) {
       // Update startDate and formattedStartDate
       this.startDate = date;
@@ -364,19 +511,52 @@ export default {
         // Handle error message display or other logic here
       }
     },
-    viewPDF(pdfUrl) {
-      this.pdfFileUrl = `https://docs.google.com/gview?url=${encodeURIComponent(pdfUrl)}&embedded=true`;
-      this.pdfDialog = true;
-    },
-    downloadPdf(key_ID) {
-      // Implement download logic
-    },
+
 
     viewup(key_ID) {
       this.$router.push({ path: '/updatecaroffice', query: { keyId: key_ID } });
     },
+    async viewdelete(key_ID) {
+      try {
+        // Show confirmation dialog
+        const result = await swal.fire({
+          title: 'Are you sure?',
+          text: 'You won\'t be able to revert this!',
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Yes, delete it!'
+        });
 
+        if (result.isConfirmed) {
+          // Call API to delete item if confirmed
+          const response = await this.$axios.$post('/DelCarOffice.service', {
+            action: 'delete',
+            keyId: key_ID
+          });
 
+          if (response && response.status === '00') {
+            swal.fire(
+              'Deleted!',
+              'Your file has been deleted.',
+              'success'
+            );
+            this.listCarOffice(); // Refresh the list
+          } else {
+            swal.fire(
+              'Failed!',
+              'There was an error deleting your file.',
+              'error'
+            );
+          }
+        }
+      } catch (error) {
+        // Handle errors
+        this.$toast.error('เกิดข้อผิดพลาดในการเชื่อมต่อกับเซิร์ฟเวอร์');
+        console.error(error);
+      }
+    },
 
     getIconStyle(item) {
       if (

@@ -4,7 +4,7 @@
     <v-row>
       <!-- ຂໍ້ມູນຫົວລົດ -->
       <v-col cols="12" md="3">
-        <div v-if="USER_ROLE === 'ADMIN' || USER_ROLE === 'USER'">
+        <div v-if="USER_ROLE === 'ADMIN' ||USER_ROLE === 'ACCOUNT_POYLOD'|| USER_ROLE === 'USER'">
           <v-card to="/cars_14" height="100" elevation="2" rounded="lg" width="310px"
             style="border: 1px solid rgb(41, 0, 245);">
             <v-card-text>
@@ -24,7 +24,7 @@
 
       <!-- ຂໍ້ມູນຫາງລົດ -->
       <v-col cols="12" md="3">
-        <div v-if="USER_ROLE === 'ADMIN' || USER_ROLE === 'USER'">
+        <div v-if="USER_ROLE === 'ADMIN' ||USER_ROLE === 'ACCOUNT_POYLOD'|| USER_ROLE === 'USER'">
           <v-card to="/cars_footer" height="100" elevation="2" rounded="lg" width="310px"
             style="border: 1px solid rgb(41, 0, 245);">
             <v-card-text>
@@ -46,7 +46,7 @@
       <!-- ຂໍ້ມູນພະນັກງານຂັບລົດ -->
 
       <v-col cols="12" md="3">
-        <div v-if="USER_ROLE === 'ADMIN' || USER_ROLE === 'USER'">
+        <div v-if="USER_ROLE === 'ADMIN' ||USER_ROLE === 'ACCOUNT_POYLOD'|| USER_ROLE === 'USER'|| USER_ROLE === 'BOR-HIN-KHUAT'">
           <v-card to="/employee" height="100" elevation="2" rounded="lg" width="310px"
             style="border: 1px solid rgb(41, 0, 245);">
             <v-card-text>
@@ -65,8 +65,8 @@
 
       
       <v-col cols="12" md="3">
-        <div v-if="USER_ROLE === 'ADMIN' || USER_ROLE === 'ADMIN'">
-          <v-card to="./HR/hrindex" height="100" elevation="2" rounded="lg" width="310px"
+        <div v-if="USER_ROLE === 'ADMIN' || USER_ID === 'ADMIN'">
+          <v-card to="/homepagehr" height="100" elevation="2" rounded="lg" width="310px"
             style="border: 1px solid rgba(191, 0, 0, 0.8);">
             <v-card-text>
               <div class="d-flex align-center">
@@ -79,7 +79,21 @@
           </v-card>
         </div>
       </v-col>
-    
+      <!-- <v-col cols="12" md="3">
+        <div v-if="USER_ROLE === 'ADMIN' ||USER_ROLE === 'ACCOUNT_POYLOD'">
+          <v-card to="/locame" height="100" elevation="2" rounded="lg" width="310px"
+            style="border: 1px solid rgba(191, 0, 0, 0.8);">
+            <v-card-text>
+              <div class="d-flex align-center">
+                <v-icon style="color: rgba(191, 0, 0, 0.8);" size="55">mdi-clipboard-text<</v-icon>
+                <div class="pl-5 pb-5 pt-5 pr-5">
+                  <span style="font-size: 17pt; font-weight: bold;">location</span><br />
+                </div>
+              </div>
+            </v-card-text>
+          </v-card>
+        </div>
+      </v-col> -->
       <!-- ລາຍຮັບ-ລາຍຈ່າຍອື່ນໆ -->
 
 
@@ -90,7 +104,7 @@
     <!-- ອອກໃບປ່ອຍລົດ -->
     <v-row>
       <v-col cols="12" md="3">
-        <div v-if="USER_ROLE === 'ADMIN' || USER_ROLE === 'USER'">
+        <div v-if="USER_ROLE === 'ADMIN' ||USER_ROLE === 'ACCOUNT_POYLOD'|| USER_ROLE === 'USER'">
           <v-badge :content="TOTAL_notiDetails" color="teal">
             <v-card to="/leave-cars-list" height="100" elevation="2" rounded="lg" width="310px"
               style="border: 1px solid rgb(93,199,0);">
@@ -107,7 +121,7 @@
         </div>
       </v-col>
       <v-col cols="12" md="3">
-        <div v-if="USER_ROLE === 'ADMIN' || USER_ROLE === 'USER'">
+        <div v-if="USER_ROLE === 'ADMIN' ||USER_ROLE === 'ACCOUNT_POYLOD'|| USER_ROLE === 'USER'">
           <v-badge color="teal" :content='TOTAL_FORMANCE'>
             <v-card to="/operation-list" height="100" width="310px" elevation="2" rounded="lg"
               style="border: 1px solid rgb(93,199,0);">
@@ -133,7 +147,7 @@
 
       <v-col cols="12" md="3">
 
-        <div v-if="USER_ROLE === 'ADMIN' || USER_ROLE === 'USER'">
+        <div v-if="USER_ROLE === 'ADMIN' ||USER_ROLE === 'ACCOUNT_POYLOD'|| USER_ROLE === 'USER'">
           <!-- <v-card to="./report/dashboard" height="100" elevation="2" rounded="lg" width="310px"
             style="border: 1px solid rgb(222, 222, 222);">
             <v-card-text>
@@ -156,8 +170,8 @@
     <!-- ຂໍ້ມູນພະນັກງານຂັບລົດ -->
     <v-row>
       <v-col cols="12" md="3">
-        <div v-if="USER_ROLE === 'ADMIN' || USER_ROLE === 'INVENTORY' || USER_ROLE === 'INVENANSFINANCE'">
-          <v-card to="./repair/repair" height="100" elevation="2" rounded="lg" width="310px"
+        <div v-if="USER_ROLE === 'ADMIN' ||USER_ROLE === 'ACCOUNT_POYLOD'|| USER_ROLE === 'INVENTORY' || USER_ROLE === 'INVENANSFINANCE' || USER_ROLE === 'BOR-HIN-KHUAT'">
+          <v-card to="./repair/repair" height="100" elevation="2" rounded="lg" width="310px" 
             style="border: 1px solid rgb(255, 153, 51);">
             <v-card-text>
               <div class="d-flex align-center">
@@ -172,7 +186,7 @@
         </div>
       </v-col>
       <v-col cols="12" md="3">
-        <div v-if="USER_ROLE === 'ADMIN' || USER_ROLE === 'INVENTORY'|| USER_ROLE === 'INVENANSFINANCE'">
+        <div v-if="USER_ROLE === 'ADMIN' ||USER_ROLE === 'ACCOUNT_POYLOD'|| USER_ROLE === 'INVENTORY'|| USER_ROLE === 'INVENANSFINANCE'|| USER_ROLE === 'BOR-HIN-KHUAT'">
           <v-card to="./wareHouse/warehouse" height="100" elevation="2" rounded="lg" width="310px"
             style="border: 1px solid rgb(255, 153, 51);">
             <v-card-text>
@@ -196,7 +210,7 @@
       <!-- ລາຍຈ່າຍ -->
 
       <v-col cols="12" md="3">
-        <div v-if="USER_ROLE === 'ADMIN' || USER_ROLE === 'FINANCE'">
+        <div v-if="USER_ROLE === 'ADMIN' ||USER_ROLE === 'ACCOUNT_POYLOD'|| USER_ROLE === 'FINANCE'">
           <v-card to="report_customers" height="100" elevation="2" rounded="lg" width="310px"
             style="border: 1px solid rgb(139, 12, 156);">
             <v-card-text>
@@ -215,7 +229,7 @@
       <!-- ປະທານ -->
 
       <v-col cols="12" md="3">
-        <div v-if="USER_ROLE === 'ADMIN' || USER_ROLE === 'FINANCE'">
+        <div v-if="USER_ROLE === 'ADMIN' ||USER_ROLE === 'ACCOUNT_POYLOD'|| USER_ROLE === 'FINANCE' || USER_ROLE === 'BOR-HIN-KHUAT'">
           <v-card to="report_staft" height="100" elevation="2" rounded="lg" width="310px"
             style="border: 1px solid rgb(139, 12, 156);">
             <v-card-text>
@@ -233,7 +247,7 @@
       <!-- ປະທານ -->
 
       <!-- <v-col cols="12" md="3">
-        <div v-if="USER_ROLE === 'ADMIN' || USER_ROLE === 'USER'">
+        <div v-if="USER_ROLE === 'ADMIN' ||USER_ROLE === 'ACCOUNT_POYLOD'|| USER_ROLE === 'USER'">
           <v-card to="report-expense" height="100" elevation="2" rounded="lg" width="310px"
             style="border: 1px solid rgb(139, 12, 156);">
             <v-card-text>
@@ -251,14 +265,14 @@
       <!-- ລາຍຈ່າຍ -->
 
       <!-- <v-col cols="12" md="3">
-        <div v-if="USER_ROLE === 'ADMIN' || USER_ROLE === 'USER'">
+        <div v-if="USER_ROLE === 'ADMIN' ||USER_ROLE === 'ACCOUNT_POYLOD'|| USER_ROLE === 'USER'">
 
         </div>
       </v-col> -->
     </v-row>
     <v-row>
       <v-col cols="12" md="3">
-        <div v-if="USER_ROLE === 'ADMIN' || USER_ROLE === 'INVENTORY'|| USER_ROLE === 'INVENANSFINANCE'">
+        <div v-if="USER_ROLE === 'ADMIN' ||USER_ROLE === 'ACCOUNT_POYLOD'|| USER_ROLE === 'INVENTORY'|| USER_ROLE === 'INVENANSFINANCE'|| USER_ROLE === 'FINANCE'|| USER_ROLE === 'BOR-HIN-KHUAT'">
           <v-card to="./accountExpense/ix-account" height="100" elevation="2" rounded="lg" width="310px"
             style="border: 1px solid rgb(221, 5, 245);">
             <v-card-text>
@@ -272,6 +286,23 @@
           </v-card>
         </div>
       </v-col>
+  
+      <v-col cols="12" md="3">
+          <div v-if="USER_ROLE === 'USER'|| USER_ID === 'ADMIN' || USER_ROLE === 'FINANCE'|| USER_ROLE === 'BOR-HIN-KHUAT'|| USER_ROLE == 'INVENANSFINANCE'">
+            <v-card to="/reportbaisner" height="100" elevation="2" rounded="lg" width="310px"
+              style="border: 1px solid  rgba(191, 0, 0, 0.8);">
+              <v-card-text>
+                <div class="d-flex align-center">
+                  <v-icon style="color: rgba(191, 0, 0, 0.8);" size="55">mdi-folder-multiple-outline</v-icon>
+                  <div class="pl-5 pb-5 pt-5 pr-5 ">
+                    <span style="font-size: 18pt;font-weight: bold;">ລາຍງານສະເໜີ</span><br />
+                    <!-- <div style="background-color: red;width: 30px;height: 30px;border-radius: 20px;display: flex;justify-content: center;align-items: center;color: white;"><span>10</span></div> -->
+                  </div>
+                </div>
+              </v-card-text>
+            </v-card>
+          </div>
+        </v-col>
     </v-row>
   </div>
 </template>

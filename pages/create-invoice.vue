@@ -262,7 +262,9 @@
                                     <v-btn elevation="0" color="#448AFF" @click="onCreateInvoice"
                                         class="white--text ml-4"><v-icon>mdi-check-circle</v-icon>ສ້າງໃບບິນ</v-btn>
                                 </div>
+
                                 <v-spacer></v-spacer>
+
                                 <div style="display:flex;flex-direction:column;justify-content:end" class="pr-1 pt-4">
                                     <div class="d-flex align-center pt-4" style="justify-content:end">
                                         <span class="font-weight-bold" style="font-size:16pt">ລາຄາລວມທັງໝົດ:</span>
@@ -273,6 +275,7 @@
                                     </div>
 
                                 </div>
+
                             </div>
                         </div>
 
@@ -310,13 +313,24 @@
                     <b>(invoice)</b>
                 </div>
                 <!-- ວັນທີໃນໃບຮຽກເກັບເງິນ -->
+
+                <div class="text-center pb-10 pt-10 font-weight-bold"
+                    style="display:flex;justify-content:center;font-size:20px">
+                    <span style="font-size:12px">ວັນທີ: {{ formattedStartDate
+                        }}
+                    </span>
+                    <span style="font-size:12px">ຫາ ວັນທີ: {{ formattedEndDate
+                        }} 
+                    </span>
+
+
+                </div>
+
                 <div style="display:flex;justify-content:end;flex-direction:column;align-items:end;padding-top:50px">
                     <div
                         style="border:0.5px solid #999;display:flex;flex-direction:column;padding:10px;border-radius:3px">
                         <span style="font-size:12px">ເລກທີ: {{ data_for_print[0]?.inVoiceID }}</span>
-                        <span style="font-size:12px">ວັນທີ: {{ moment(data_header_print?.printDate).format('DD/MM/YYYY')
-                            }}
-                        </span>
+
                     </div>
                 </div>
                 <div
@@ -365,6 +379,17 @@
                         </tr>
 
                     </table>
+                </div>
+
+                <div style="display:flex;flex-direction:column;justify-content:end" class="pr-1 pt-4">
+                    <div class="d-flex align-center pt-4" style="justify-content:end">
+                        <span class="font-weight-bold" style="font-size:16pt">ລາຄາລວມທັງໝົດ:</span>
+                        <div style="height:40px;border-radius:3px;width:300px;background-color:#000;font-size:18pt"
+                            class="d-flex align-center pl-2 ml-2 red--text">
+                            {{ sumTotalPrice?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }} {{
+                                data_for_create_invoice[0]?.currency }}</div>
+                    </div>
+
                 </div>
                 <div style="margin-top: 10px; font-size: 12px;">
                     ໝາຍເຫດ :
@@ -537,6 +562,7 @@ export default {
             } catch (error) {
                 this.loading_processing = false
                 console.log(error)
+
             }
         },
 
@@ -568,6 +594,7 @@ export default {
                     setTimeout(() => {
                         this.print(); // Call print method here
                     }, 1000);
+
                 } else {
                     console.error('Unexpected response status:', response?.status);
                 }
@@ -578,6 +605,9 @@ export default {
             }
 
 
+        },
+        to_location() {
+            window.location.href = '/invoice-list';
         },
         removeDataInvoice(index) {
             this.data_for_create_invoice.splice(index, 1)
@@ -688,6 +718,9 @@ export default {
             section.innerHTML = "";
             section.appendChild(cloned);
             window.print();
+
+            window.location.href = '/invoice-list';
+
         },
 
         onGetAllPermance() {
@@ -719,7 +752,7 @@ export default {
 
 
             try {
-                this.$axios.$post('/gernerateID.service',{ toKen: localStorage.getItem("toKen")}).then((data) => {
+                this.$axios.$post('/gernerateID.service', { toKen: localStorage.getItem("toKen") }).then((data) => {
                     console.log("bill", data)
                     this.inVoiceBillNo = data?.data[0]?.invoice_ID;
 

@@ -3,7 +3,7 @@
         <div v-if="carDetail">
             <v-card class="card-shadow mx-auto" width="1600">
                 <v-card-title style="display:flex;background-color:#E57373;color:white">
-                    <v-btn fab elevation="0" dark width="30" height="30" small color="white" to="hrindex">
+                    <v-btn fab elevation="0" dark width="30" height="30" small color="white" to="carindek_hr">
                         <v-icon color="#E57373">mdi-arrow-left</v-icon>
                     </v-btn>
                     <v-spacer></v-spacer>

@@ -33,14 +33,14 @@
                     ນໍ້າຊາວ
                 </v-btn>
 
-                <v-btn   :style="getButtonStyle('nongphounxai3kOQHMwA1Ve9lMq22X3kpSiaIDO789')"
+                <v-btn :style="getButtonStyle('nongphounxai3kOQHMwA1Ve9lMq22X3kpSiaIDO789')"
                     @click="setTokenAndFetch('nongphounxai3kOQHMwA1Ve9lMq22X3kpSiaIDO789')">
                     ໜອງພູນໄຊ32,28
                 </v-btn>
 
-                <v-btn   :style="getButtonStyle('knongphounxaiOQHMwA1Ve9lMq22X3kpSiahDO101112')"
+                <v-btn :style="getButtonStyle('knongphounxaiOQHMwA1Ve9lMq22X3kpSiahDO101112')"
                     @click="setTokenAndFetch('knongphounxaiOQHMwA1Ve9lMq22X3kpSiahDO101112')">
-                    ໜອງພູນໄຊ62,39 
+                    ໜອງພູນໄຊ62,39
                 </v-btn>
 
                 <v-btn :style="getButtonStyle('kOlardhor123QHMwA1Ve9lMq22X3GGKghDO13214415')"
@@ -52,42 +52,65 @@
         <v-card>
 
 
+            <div style="display: flex;">
+                <v-btn ref="btn1" value="1" @click="selectedCard = '1'" @mouseover="changeColor('	#FFE5FF', $refs.btn1)"
+                    @mouseleave="changeColor('white', $refs.btn1)"
+                    style="margin-left: 2px; margin-right: 2px; background-color: white; color: black; height: 65px; border: 1px solid rgb(0, 0, 0);">
+                    <v-icon style="color: rgb(	9, 44, 112);" size="55">mdi-summit</v-icon>
+
+                    {{ computedLabel }}
+                </v-btn>
+
+
+                <v-btn ref="btn2" value="2" @click="selectedCard = '2'" @mouseover="changeColor('	#FFE5FF', $refs.btn2)"
+                    @mouseleave="changeColor('white', $refs.btn2)"
+                    style="margin-left: 2px; margin-right: 2px; background-color: white; color: black; height: 65px; border: 1px solid rgb(0, 0, 0);">
+                    <v-icon style="color: rgb(43, 204, 150);" size="55">mdi-circular-saw</v-icon>
+
+                    {{ reLabel }}
+                </v-btn>
+            </div>
             <div style="display: flex; overflow-x: auto; width: 1640px; margin-left: 10px;">
+                <div v-if="selectedCard === '1'">
+                    <v-list style="display: flex; min-width: 12px;" v-model="selectedCard">
 
-                <v-list style="display: flex; min-width: 12px;" v-model="selectedCard">
+                        <v-btn ref="btn3" value="3" @click="selectedCard = '3'"
+                            @mouseover="changeColor('	#FFE5FF', $refs.btn3)"
+                            @mouseleave="changeColor('white', $refs.btn3)"
+                            style="margin-left: 2px; margin-right: 2px; background-color: white; color: black; height: 65px; border: 1px solid rgb(0, 0, 0);">
+                        show
 
-                    <v-btn ref="btn1" value="1" @click="selectedCard = '1'"
-                        @mouseover="changeColor('	#FFE5FF', $refs.btn1)" @mouseleave="changeColor('white', $refs.btn1)"
-                        style="margin-left: 2px; margin-right: 2px; background-color: white; color: black; height: 65px; border: 1px solid rgb(0, 0, 0);">
-                        <v-icon style="color: rgb(	9, 44, 112);" size="55">mdi-summit</v-icon>
+                            {{ computedLabel }}
+                        </v-btn>
+                        <v-btn style="height: 60px;background-color: green;color: aliceblue;" to="/Add_a_hole">
+                            <v-icon>
+                                mdi-plus
+                            </v-icon>
+                            ເພີ່ມ {{ computedLabel }}
+                        </v-btn>
+                    </v-list>
+                </div>
+                <div v-if="selectedCard === '2'">
+                    <v-list style="display: flex; min-width: 12px;" v-model="selectedCard">
+                        <v-btn ref="btn4" value="4" @click="selectedCard = '4'"
+                            @mouseover="changeColor('	#FFE5FF', $refs.btn4)"
+                            @mouseleave="changeColor('white', $refs.btn4)"
+                            style="margin-left: 2px; margin-right: 2px; background-color: white; color: black; height: 65px; border: 1px solid rgb(0, 0, 0);">
+                         show
 
-                        {{ computedLabel }}
-                    </v-btn>
-                    <v-btn style="height: 60px;background-color: green;color: aliceblue;" to="/Add_a_hole">
-                        <v-icon>
-                            mdi-plus
-                        </v-icon>
-                        ເພີ່ມ {{ computedLabel }}
-                    </v-btn>
-                </v-list>
-                <v-list style="display: flex; min-width: 12px;" v-model="selectedCard">
-                    <v-btn ref="btn2" value="2" @click="selectedCard = '2'"
-                        @mouseover="changeColor('	#FFE5FF', $refs.btn2)" @mouseleave="changeColor('white', $refs.btn2)"
-                        style="margin-left: 2px; margin-right: 2px; background-color: white; color: black; height: 65px; border: 1px solid rgb(0, 0, 0);">
-                        <v-icon style="color: rgb(43, 204, 150);" size="55">mdi-circular-saw</v-icon>
-
-                        {{ reLabel }}
-                    </v-btn>
-                    <v-btn style="height: 60px;background-color: green;color: aliceblue; " to="/Survey results">
-                        <v-icon>
-                            mdi-plus
-                        </v-icon>
-                        ເພີ່ມ {{ reLabel }}
-                    </v-btn>
-                </v-list>
+                            {{ reLabel }}
+                        </v-btn>
+                        <v-btn style="height: 60px;background-color: green;color: aliceblue; " to="/Survey results">
+                            <v-icon>
+                                mdi-plus
+                            </v-icon>
+                            ເພີ່ມ {{ reLabel }}
+                        </v-btn>
+                    </v-list>
+                </div>
             </div>
 
-            <div v-if="selectedCard === '1'">
+            <div v-if="selectedCard === '3'">
                 <v-card style="width:1800px;height:800px;">
                     <v-card class="card-shadow mb-4" rounded="lg">
                         <v-card-title
@@ -137,7 +160,7 @@
                     </v-card>
                 </v-card>
             </div>
-            <div v-if="selectedCard === '2'">
+            <div v-if="selectedCard === '4'">
                 <v-card style="width:1800px;height:800px;">
                     <v-card class="card-shadow mb-4" rounded="lg">
                         <v-card-title
@@ -177,13 +200,13 @@
                                             <v-icon size="30" color="white">mdi-</v-icon>
                                         </v-btn>
                                     </td> -->
-                                        <td>
+                                        <!-- <td>
                                             <v-btn style="height: 40px; width: 90px;" small color="#90A4AE"
                                                 class="white--text card-shadow"
                                                 @click="Resultdelete(row?.item?.key_id)">
                                                 <v-icon size="30" color="white">mdi-delete</v-icon>
                                             </v-btn>
-                                        </td>
+                                        </td> -->
                                     </tr>
                                 </template>
                             </v-data-table>
@@ -203,7 +226,7 @@ export default {
     data() {
         return {
             selectedToken: null, // To store the selected token
-            selectedCard: '1',
+            selectedCard: '0',
             license_plate: '',
             USER_ROLE: 'BOR-HIN-KHUAT',
             USER_NAME: localStorage.getItem('USER_NAME'),

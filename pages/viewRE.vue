@@ -298,12 +298,12 @@
                     auto-grow>
                 </v-textarea>
 
-                <div style="display: flex; justify-content: center; align-items: center; height: 10vh">
+                <!-- <div style="display: flex; justify-content: center; align-items: center; height: 10vh">
                     <v-btn @click="updat" style="background-color: green; width: 30%;color: white;">
 
                         ບັນທຶກ
                     </v-btn>
-                </div>
+                </div> -->
 
                 <div>
 

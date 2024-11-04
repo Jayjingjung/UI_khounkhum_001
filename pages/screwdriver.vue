@@ -20,21 +20,25 @@
 
         <!-- Date Pickers for Start and End Date -->
         <div style="width:100%;display:flex;justify-content:end;margin-top: 20px;" class="pt-4">
+           
+           
             <div class="mr-5 ml-10" style="width: auto;">
-                <v-menu  v-model="startDateMenu" :close-on-content-click="false" :nudge-right="40"
+                <v-menu v-model="startDateMenu" :close-on-content-click="false" :nudge-right="40"
                     transition="scale-transition" offset-y>
                     <template v-slot:activator="{ on }">
-                        <v-text-field dense outlined  v-model="formattedStartDate" label="ວັນ​ທີ່​ເລີ່ມ" readonly
+                        <v-text-field dense outlined v-model="formattedStartDate" label="ວັນ​ທີ່​ເລີ່ມ" readonly
                             v-on="on"></v-text-field>
                     </template>
                     <v-date-picker v-model="startDate" no-title scrollable @input="updateStartDate"></v-date-picker>
                 </v-menu>
             </div>
+
             <div class="mr-5 ml-5" style="width: auto;">
-                <v-menu  v-model="endDateMenu" :close-on-content-click="false" :nudge-right="40"
+                <v-menu v-model="endDateMenu" :close-on-content-click="false" :nudge-right="40"
                     transition="scale-transition" offset-y>
                     <template v-slot:activator="{ on }">
-                        <v-text-field dense outlined  v-model="formattedEndDate" label="ວັນທີສິ້ນສຸດ" readonly v-on="on"></v-text-field>
+                        <v-text-field dense outlined v-model="formattedEndDate" label="ວັນທີສິ້ນສຸດ" readonly
+                            v-on="on"></v-text-field>
                     </template>
                     <v-date-picker v-model="endDate" no-title scrollable @input="updateEndDate"></v-date-picker>
                 </v-menu>
@@ -53,8 +57,11 @@
 
 
                     <!-- Exchange moneyRate Input and Display Fields -->
-                    <v-text-field label="*ເລດ" type="number" dense outlined background-color="#f5f5f5"
-                        v-model="formattedLek" style="width: 50px; margin-top: 30px" @input="calculateKip" />
+                    <!-- <v-text-field  label="*ເລດ" type="number" dense outlined
+                        background-color="#f5f5f5" v-model="formattedtotalmoneyRate"
+                        style="width: 50px; margin-top: 30px;color: chocolate;" @input="calculateKip" /> -->
+
+                        
                     <v-spacer></v-spacer>
                     <span>ຈໍານວນເງີນໃນໃບບິນທີເລືອກ​ທັງ​ຫມົດ</span>
                     <v-text-field label="*ຈໍານວນເງີນ" readonly dense outlined background-color="#f5f5f5"
@@ -112,16 +119,18 @@
                     </div>
 
                     <v-spacer></v-spacer>
-                    <div class="mr-5 ml-10 mt-6" style="width: auto;">
-                        <v-menu v-model="createMenu" :close-on-content-click="false" :nudge-right="40"
+                    <!-- <div class="mr-5 ml-10 mt-6" style="width: auto;">
+                        <v-menu v-model="payDateMenu" :close-on-content-click="false" :nudge-right="40"
                             transition="scale-transition" offset-y>
                             <template v-slot:activator="{ on }">
-                                <v-text-field dense outlined v-model="formattedcreate" label="ວັນ​ທີ່​ຈ່າຍ" readonly
+                                <v-text-field dense outlined v-model="formattedPayDate" label="ວັນ​ທີ່​ຈ່າຍ" readonly
                                     v-on="on"></v-text-field>
                             </template>
-                            <v-date-picker v-model="create" no-title scrollable @input="updatecreate"></v-date-picker>
+                            <v-date-picker v-model="payDate" no-title scrollable
+                                @input="updatePayDate"></v-date-picker>
                         </v-menu>
-                    </div>
+                    </div> -->
+                    
                     <!-- Other buttons and content -->
                     <v-btn style="background-color: seagreen; color: aliceblue; width: 150px;" @click="onPayToShop">
                         ສັງຈ່າຍ
@@ -141,6 +150,7 @@
                             <td>{{ row?.item?.pocode }}</td>
                             <td>{{ row?.item?.item_name }}</td>
                             <td>{{ formatNumber(row?.item?.qty_offer) }}</td>
+                            <td>{{ formatNumber(row?.item?.moneyRate) }}</td>
                             <td>{{ formatNumber(row?.item?.total) }}</td>
                             <td>{{ formatNumber(row?.item?.paid) }}</td>
                             <td>{{ formatNumber(row?.item?.tid) }}</td>
@@ -148,7 +158,7 @@
                             <td>{{ row?.item?.dateCreatePO }}</td>
                             <td>{{ row?.item?.cur }}</td>
 
-                            <td>{{ row?.item?.cur }}</td>
+                            
 
                         </tr>
                     </template>
@@ -162,11 +172,26 @@
 export default {
     data() {
         return {
+            payDateMenu: '',
+            payDate: '',
+            formattedpaytDate: '',
+
+
+
+
+            
             filter: '',
+
+
+
             truck_data_listv2: [],
             selectedItems: [],
             search: '',
-            formattedLek: 1,
+            formattedtotalmoneyRate: '',
+            formattedcreate: '',
+            create: '',
+            createMenu: '',
+            updatecreate: '',
             allinve: '', // Added this property
             selectedCurrency: '', // Default currency
             truck_table_headersv2: [
@@ -175,6 +200,7 @@ export default {
                 { text: 'ລະຫັດບິນ', value: 'pocode' },
                 { text: 'ຊື່', value: 'item_name' },
                 { text: 'ຈໍານວນ', value: 'qty_offer' },
+                { text: 'ເລດ', value: 'moneyRate' },
                 { text: 'ລາຄາ', value: 'total' },
                 { text: 'ຈ່າຍ', value: 'paid' },
                 { text: 'ຕິດນີ້', value: 'tid' },
@@ -186,7 +212,7 @@ export default {
             changkip: '', // Holds the converted amount in LAK
             formattedKip: '', // Holds the converted amount in LAK
             formattedtotalTid: '', // Holds the converted amount in LAK
-            moneyRate: '0', // Holds the converted amount in LAK
+            moneyRate: '', // Holds the converted amount in LAK
 
             loading_processing: false,
             startDate: '',
@@ -207,19 +233,20 @@ export default {
         formattedEndDate() {
             return this.formatDate(this.endDate);
         },
+        formattedPayDate() {
+            return this.formatDate(this.payDate);
+        },
         availableYears() {
             return this.getYearsArray();
         },
         calculateKip() {
-            // Ensure both `totalTid` and `formattedLek` are numbers before calculating
+            // Ensure both `totalTid` and `formattedtotalmoneyRate` are numbers before calculating
             const total = parseFloat(this.totalTid) || 0;
-            const moneyRate = parseFloat(this.formattedLek) || 0;
-            // Calculate the amount in LAK by multiplying `totalTid` by the exchange moneyRate `formattedLek`
+            const moneyRate = parseFloat(this.formattedtotalmoneyRate) || 0;
+            // Calculate the amount in LAK by multiplying `totalTid` by the exchange moneyRate `formattedtotalmoneyRate`
             this.changkip = total * moneyRate;
             // Format the changkip value with commas as a string
             this.formattedKip = this.changkip.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-
-
         },
 
         filteredItems() {
@@ -271,9 +298,14 @@ export default {
             this.startDate = date;
             this.startDateMenu = false;
         },
+        
         updateEndDate(date) {
             this.endDate = date;
             this.endDateMenu = false;
+        },
+        updatePayDate(date) {
+            this.payDate = date;
+            this.payDateMenu = false;
         },
         setCurrency(currency) {
             this.selectedCurrency = currency;
@@ -302,6 +334,12 @@ export default {
                 return sum + (item.tid ? parseFloat(item.tid) : 0);
             }, 0);
             this.formattedtotalTid = this.totalTid.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+
+            // this.totalmoneyRate = this.selectedItems.reduce((sum, item) => {
+            //     return sum + (item.moneyRate ? parseFloat(item.moneyRate) : 0);
+            // }, 0);
+            // this.formattedtotalmoneyRate = this.totalmoneyRate.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, '');
+
 
         }
         ,
@@ -339,7 +377,8 @@ export default {
                 const paymentData = this.selectedItems.map((item) => ({
                     pocode: item.pocode,
                     paid: item.tid,
-                    moneyRate: this.formattedLek,
+                    moneyRate: this.formattedtotalmoneyRate,
+                    datePay: this.payDate,
                     offer_CODE: item.offer_CODE,
                 }));
 

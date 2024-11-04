@@ -286,13 +286,13 @@
                                         <v-text-field outlined dense label="ລາຄາ" v-model="item.amount_money"
                                             type="number" @input="updateTotalMoney(index)" />
 
-                                        <v-text-field
+                                        <v-text-field readonly
                                             style="font-size: 28px; font-weight: bold; width: 80px; text-align: center;"
                                             outlined dense v-model="selectedCurrency"
                                             :rules="[v => !!v || 'Required field']">
                                         </v-text-field>
 
-                                        <v-text-field
+                                        <v-text-field readonly
                                             style="font-size: 28px; font-weight: bold; width: 60px; text-align: center;"
                                             outlined dense v-model="selectedunit"
                                             :rules="[v => !!v || 'Required field']">
@@ -304,7 +304,7 @@
                                         <v-text-field outlined dense label="ລາຄາທັງໝົດ" v-model="item.totalMooney"
                                             type="number" readonly />
 
-                                        <v-text-field
+                                        <v-text-field readonly
                                             style="font-size: 28px; font-weight: bold; width: 100px; text-align: center;"
                                             outlined dense v-model="selectedCurrency"
                                             :rules="[v => !!v || 'Required field']">
@@ -316,13 +316,16 @@
 
                             <!-- Add Button to add new list item -->
                             <div style="display: flex; justify-content: center; align-items: center; flex-wrap: wrap;">
-
-                                <v-btn @click="addNewItem">ເພີ້ມ</v-btn>
+                                <v-btn style="background-color: #24ab70;color: aliceblue;"
+                                    @click="addNewItem">ເພີ້ມ</v-btn>
                             </div>
 
                         </v-card-text>
                     </v-card>
-                    <v-card class="card-shadow mb-4" rounded="lg" width="1250px">
+                    <v-card>
+
+                 
+                    <v-card-text class="card-shadow mb-4" rounded="lg" width="1250px">
                         <v-card-title class="orange--text white--text">
                             ຄໍາອະທິບາຍ
                         </v-card-title>
@@ -343,12 +346,16 @@
                         </v-textarea>
 
                         <!-- Save Button to send data to API -->
-                        <v-btn style="background-color: green;color: aliceblue;"
-                            @click="onstore_dept_Must_received">Save to
-                            API</v-btn>
+                        <div
+                            style="display: flex; justify-content: center; align-items: center; flex-wrap: wrap;margin-bottom: 10px;">
+
+                            <v-btn style="background-color: green;color: aliceblue;"
+                                @click="onstore_dept_Must_received">ບັນທຶກ</v-btn>
+                        </div>
                         <!-- Save Button to send data to API --> <!-- Save Button to send data to API -->
                         <!-- Save Button to send data to API -->
-                    </v-card>
+                    </v-card-text>
+                       </v-card>
                 </v-dialog>
                 <!-- Dialog for Invoice Form -->
                 <v-dialog v-model="dialog1" max-width="800px">

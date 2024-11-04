@@ -1,65 +1,68 @@
 <template>
-  <div>
-    <div style="display: flex; overflow-x: auto; width: 1640px; margin-left: 10px;">
-      <v-list style="display: flex; min-width: 1200px;" v-model="selectedCard">
+  <div class="container">
+    <div class="button-list">
+      <v-list v-model="selectedCard">
         <v-btn ref="btn1" value="1" @click="selectedCard = '1'" @mouseover="changeColor('#FFE5FF', $refs.btn1)"
-          @mouseleave="changeColor('white', $refs.btn1)"
-          style="margin-left: 2px; margin-right: 2px; background-color: white; color: black; height: 65px; border: 1px solid rgb(0, 0, 0);">
-          <v-icon style="color: rgb(#000000);" size="55">mdi-barcode-scan</v-icon>
+          @mouseleave="changeColor('white', $refs.btn1)" class="button-style">
+          <v-icon size="40">mdi-barcode-scan</v-icon>
           ຂໍ້ມູນເອກກະສານ
         </v-btn>
       </v-list>
     </div>
-    <div>
-      <v-btn dark color="#80BFFF" to="/akasarn_add" class="card-shadow mb-5 mt-5" rounded>
+    <div class="additional-buttons">
+      <v-btn dark color="#80BFFF" to="/akasarn_add" class="card-shadow mb-2 mt-2" rounded>
         <v-icon color="white">mdi-scan-helper</v-icon>
         <span class="white--text">ເພີ່ມຂໍ້ມູນເອກກະສານ</span>
       </v-btn>
-      <v-btn dark color="#80BFFF" to="/type" class="card-shadow mb-5 mt-5" rounded>
+      <v-btn dark color="#80BFFF" to="/type" class="card-shadow mb-2 mt-2" rounded>
         <v-icon color="white">mdi-scan-helper</v-icon>
         <span class="white--text">ເພີ່ມປະເພດ</span>
       </v-btn>
-      <v-btn dark color="#80BFFF" to="/addcompany" class="card-shadow mb-5 mt-5" rounded>
+      <v-btn dark color="#80BFFF" to="/addcompany" class="card-shadow mb-2 mt-2" rounded>
         <v-icon color="white">mdi-scan-helper</v-icon>
         <span class="white--text">ບໍລິສັດ</span>
       </v-btn>
-      <v-btn dark color="#80BFFF" to="/addbuang" class="card-shadow mb-5 mt-5" rounded>
+      <v-btn dark color="#80BFFF" to="/addbuang" class="card-shadow mb-2 mt-2" rounded>
         <v-icon color="white">mdi-scan-helper</v-icon>
         <span class="white--text">ບ້ວງ</span>
       </v-btn>
+
+      <v-btn dark color="#80BFFF" to="/forphon" class="card-shadow mb-2 mt-2" rounded>
+        <v-icon color="white">mdi-cellphone-settings</v-icon>
+        <span class="white--text">For Phon</span>
+      </v-btn>
     </div>
 
-    <v-btn style="margin-left: 10px;color: #ffffff;" color="#0f7be1" class="card-shadow" @click="print">
+
+    <v-btn class="print-button" color="#0f7be1" @click="print">
       <v-icon color="#ffffff">mdi-printer</v-icon>ພີມລາຍງານທັງໝົດ
     </v-btn>
-    <v-card style="width:1800px;height:800px;">
+
+    <v-card class="data-card">
       <div v-if="selectedCard === '1'">
         <v-card class="card-shadow mb-4" rounded="lg">
           <v-card-title
             style="display: flex; border-bottom:0.5px solid #e0e0e0; background-color:#80BFFF; color:white;">
             ລາຍການ ເອກກະສານ
-            <div style="display: flex;margin-left: 15px;">
-              <v-text-field style="width: 550px; " placeholder="ຄົ້ນຫາ..." v-model="search" rounded
-                background-color="#f5f5f5" prepend-inner-icon="mdi-magnify">
+            <div class="search-section">
+              <v-text-field class="search-field" placeholder="ຄົ້ນຫາ..." v-model="search" rounded
+                prepend-inner-icon="mdi-magnify">
               </v-text-field>
-
-              <v-btn style="margin-top: 10px;" width="50" color="#999999" @click="listCarOfficeSearch">ຄົ້ນຫາ</v-btn>
-
+              <v-btn class="search-button" color="#999999" @click="listCarOfficeSearch">ຄົ້ນຫາ</v-btn>
             </div>
-
-            <div style="width: 400px; margin-left: 50px;" class="d-flex align-center">
-              <v-btn v-if="!hideInboundNumber" style="margin-left: 10px;" color="primary" class="card-shadow"
-                @click="setBound('in')">
+            <div class="filter-section">
+              <v-btn v-if="!hideInboundNumber" color="primary" class="filter-button" @click="setBound('in')">
                 <v-icon>mdi-</v-icon>ຂາເຂົ້າ
               </v-btn>
-              <v-btn v-if="!hideInboundNumber" style="margin-left: 10px;" color="primary" class="card-shadow"
-                @click="setBound('inside')">
+              <v-btn v-if="!hideInboundNumber" color="primary" class="filter-button" @click="setBound('inside')">
                 <v-icon>mdi-</v-icon>ພາຍໃນ
               </v-btn>
-              <v-btn v-if="!hideInboundNumber" style="margin-left: 10px;" color="primary" class="card-shadow"
-                @click="setBound('out')">
+              <v-btn v-if="!hideInboundNumber" color="primary" class="filter-button" @click="setBound('out')">
                 <v-icon>mdi-</v-icon>ຂາອອກ
               </v-btn>
+            </div>
+            <div style="width: 400px; margin-left: 50px;" class="d-flex align-center">
+
               <div style="display: flex; margin-top: 28px;">
                 <div>
                   <v-autocomplete style="width: 200px; margin-left: 15px; margin-right: 15px;" outlined dense
@@ -90,37 +93,37 @@
                 <tr>
 
                   <td>
-                    <v-badge color="red" v-if="row?.item?.status === 'EXPIRE'">
-                      {{ row?.item?.lektee }}
-                    </v-badge>
-                    <span v-else>
-                      {{ row?.item?.lektee }}
-                    </span>
-                  </td>
-                  <!-- 
-                  <td>{{ row?.item?.pdf }}</td> -->
-                  <td>
                     <v-btn style="height: 100%;width: 100%;" small color="#0059c8" class="white--text card-shadow"
                       @click="viewerpdf(row?.item?.pdf)">
                       <v-icon size="30" color="white">mdi-content-paste</v-icon>
                     </v-btn>
                   </td>
-                  <!-- <td>{{ row?.item?.branchUser }}</td> -->
-                  <td>{{ row?.item?.datetakein }}</td>
-                  <td>{{ row?.item?.dateExpDoc }}</td>
                   <td>{{ row?.item?.docType }}</td>
-                  <td>{{ row?.item?.classofdocs }}</td>
-                  <td>{{ row?.item?.bouang }}</td>
-                  <td>{{ row?.item?.content_doc }}</td>
-                  <td>{{ row?.item?.whocarrydoc }}</td>
-                  <!-- Conditionally show these columns based on USER_NAME -->
-                  <td v-if="!hideInboundNumber">{{ row?.item?.inboundnumber }}</td>
-                  <td>{{ row?.item?.inside }}</td>
-                  <!-- <td v-if="!hideinsideboundNumber">{{ row?.item?.insideboundnumber }}</td> -->
-                  <td v-if="!hideOutboundNumber">{{ row?.item?.outboundnumber }}</td>
-                  <td v-if="!hideBound">{{ getBoundText(row?.item?.bound) }}</td>
-                  <td>{{ row?.item?.company }}</td>
-                  <td>{{ row?.item?.etc }}</td>
+                  <!-- 
+                    <td>{{ row?.item?.pdf }}</td> -->
+                    <!-- <td>{{ row?.item?.branchUser }}</td> -->
+                    <td>{{ row?.item?.datetakein }}</td>
+                    <td>{{ row?.item?.dateExpDoc }}</td>
+                    <td>{{ row?.item?.classofdocs }}</td>
+                    <td>{{ row?.item?.bouang }}</td>
+                    <td>{{ row?.item?.content_doc }}</td>
+                    <td>{{ row?.item?.whocarrydoc }}</td>
+                    <!-- Conditionally show these columns based on USER_NAME -->
+                    <td v-if="!hideInboundNumber">{{ row?.item?.inboundnumber }}</td>
+                    <td>{{ row?.item?.inside }}</td>
+                    <!-- <td v-if="!hideinsideboundNumber">{{ row?.item?.insideboundnumber }}</td> -->
+                    <td v-if="!hideOutboundNumber">{{ row?.item?.outboundnumber }}</td>
+                    <td v-if="!hideBound">{{ getBoundText(row?.item?.bound) }}</td>
+                    <td>{{ row?.item?.company }}</td>
+                    <td>{{ row?.item?.etc }}</td>
+                    <td>
+                      <v-badge color="red" v-if="row?.item?.status === 'EXPIRE'">
+                        {{ row?.item?.lektee }}
+                      </v-badge>
+                      <span v-else>
+                        {{ row?.item?.lektee }}
+                      </span>
+                    </td>
                   <td>
                     <!-- Dropdown Menu -->
                     <v-menu offset-y>
@@ -137,7 +140,7 @@
                           </v-list-item-icon>
                           <v-list-item-title>Show</v-list-item-title>
                         </v-list-item>
-                        
+
                         <v-list-item style="margin-bottom: 20px;" @click="viewup(row?.item?.key_id)">
                           <v-list-item-icon>
                             <v-icon size="50" color="blue">mdi-table-edit</v-icon>
@@ -194,11 +197,10 @@ export default {
 
       dropdownVisibleFor: null,
       report_leave_caroffice_header: [
-        { text: 'ເລກທີ', value: 'lektee' },
         { text: 'ເອກກະສານ', value: 'pdf' },
+        { text: 'ປະເພດ', value: 'docType' },
         { text: 'ວັນທີລົ່ງຂໍມູນ', value: 'datetakein' },
         { text: 'ວັນທີໝົດອາຍຸ', value: 'dateExpDoc' },
-        { text: 'ປະເພດ', value: 'docType' },
         { text: 'ຂັ້ນ', value: 'classofdocs' },
         { text: 'ບ້ວງ', value: 'bouang' },
         { text: 'ເນື້ອໃນເອກະສານ', value: 'content_doc' },
@@ -209,6 +211,7 @@ export default {
         { text: 'ຂາເຂົ້າ/ຂາອອກ', value: 'bound' },
         { text: 'ບໍລິສັດ', value: 'company' },
         { text: 'ອື່ນໆ', value: 'etc' },
+        { text: 'ເລກທີ', value: 'lektee' },
 
         { text: '', value: '' }, // Add an extra column header for the new button
       ],
@@ -585,5 +588,40 @@ export default {
 
 .st11 {
   fill: #ECBDD6;
+}
+.container {
+  padding: 10px;
+}
+.button-list, .additional-buttons, .print-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 10px 0;
+}
+.button-style, .filter-button {
+  width: 100%;
+  max-width: 300px;
+}
+.data-card {
+  width: 100%;
+  overflow-x: auto;
+}
+.card-title {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.search-section {
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  max-width: 100%;
+}
+.search-field {
+  width: 100%;
+  max-width: 250px;
+}
+.search-button {
+  margin-left: 5px;
 }
 </style>

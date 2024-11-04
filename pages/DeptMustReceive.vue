@@ -180,6 +180,12 @@
                                         <v-icon size="30" color="white">mdi-eye</v-icon>
                                     </v-btn>
                                 </td>
+                                <td>
+                    <v-btn v-if="item.status_wait_approve !== 'Y'" style="height: 100%; width: 100%;" small color="#0059c8">
+                        <v-icon size="30" color="white">mdi-alert-box</v-icon>
+                    </v-btn>
+                </td>
+
                                 <!-- <td v-if="item.status_wait_approve === 'N'">
                                     <v-btn style="height: 100%;width: 100%;" small color="#0059c8"
                                         class="white--text card-shadow" @click="conform(item?.key_id)">
@@ -416,7 +422,7 @@ export default {
             this.$router.push({ path: '/editRE', query: { key_id: key_id } });
         },
         viewview(key_id) {
-            this.$router.push({ path: '/viewREA', query: { key_id: key_id } });
+            this.$router.push({ path: '/viewREAadmin', query: { key_id: key_id } });
         },
         currencyStyle(currency) {
             if (currency === 'USD') {

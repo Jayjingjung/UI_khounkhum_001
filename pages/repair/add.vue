@@ -70,7 +70,7 @@
                             <td><v-avatar>
                                     <img :src="row.item.img">
                                 </v-avatar></td>
-                                <td>{{ row?.item?.qty }}</td>
+                            <td>{{ row?.item?.qty }}</td>
                             <td>{{ row?.item?.unit }}</td>
                             <td>{{ row?.item?.unit_price?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</td>
                             <td>

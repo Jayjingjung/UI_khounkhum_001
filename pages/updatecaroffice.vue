@@ -352,59 +352,115 @@
         </v-col>
       </v-card>
     </div>
-    <v-card class="card-shadow mx-auto" width="1600">
-      <v-card-title style="display:flex;background-color:#E57373;color:white">
+    <div style="display: flex;">
 
-        <v-spacer></v-spacer>
-        ລະຫັດຢາງ ລົດ
-        <v-spacer></v-spacer>
-      </v-card-title>
+      <v-card class="card-shadow mx-auto" width="1600">
+        <v-card-title style="display:flex;background-color:#E57373;color:white">
 
-      <v-col cols="12">
+          <v-spacer></v-spacer>
+          ລະຫັດຢາງ ລົດ
+          <v-spacer></v-spacer>
+        </v-card-title>
+
+        <v-col cols="12">
 
 
-        <v-row>
+          <v-row>
 
-          <v-col cols="6" md="3" sm="3">
-            <v-text-field style="width: 180px;" label="* ລະຫັດຢາງເບື້ອງຂວາຕີນຫຼັງ" dense outlined
-              background-color="#f5f5f5" v-model="serial_wheel_right_back"></v-text-field>
-          </v-col>
-          <v-col cols="6" md="3" sm="3">
-            <v-text-field style="width: 180px;" label="* ລະຫັດຢາງເບື້ອງຂວາຕີນໜ້າ" dense outlined
-              background-color="#f5f5f5" v-model="serial_wheel_right_font"></v-text-field>
-          </v-col>
-          <v-col cols="6" md="3" sm="3">
-            <v-text-field style="width: 180px;" label="* ລະຫັດຢາງເບື້ອງຊາ້ຍຕີນຫຼັງ
+            <v-col cols="6" md="3" sm="3">
+              <v-text-field style="width: 180px;" label="* ລະຫັດຢາງເບື້ອງຂວາຕີນຫຼັງ" dense outlined
+                background-color="#f5f5f5" v-model="serial_wheel_right_back"></v-text-field>
+            </v-col>
+            <v-col cols="6" md="3" sm="3">
+              <v-text-field style="width: 180px;" label="* ລະຫັດຢາງເບື້ອງຂວາຕີນໜ້າ" dense outlined
+                background-color="#f5f5f5" v-model="serial_wheel_right_font"></v-text-field>
+            </v-col>
+            <v-col cols="6" md="3" sm="3">
+              <v-text-field style="width: 180px;" label="* ລະຫັດຢາງເບື້ອງຊາ້ຍຕີນຫຼັງ
 " dense outlined background-color="#f5f5f5" v-model="serial_wheel_left_back"></v-text-field>
-          </v-col>
-          <v-col cols="6" md="3" sm="3">
-            <v-text-field style="width: 180px;" label="* ລະຫັດຢາງເບື້ອງຊາ້ຍຕີນໜ້າ" dense outlined
-              background-color="#f5f5f5" v-model="serial_wheel_left_font"></v-text-field>
-          </v-col>
+            </v-col>
+            <v-col cols="6" md="3" sm="3">
+              <v-text-field style="width: 180px;" label="* ລະຫັດຢາງເບື້ອງຊາ້ຍຕີນໜ້າ" dense outlined
+                background-color="#f5f5f5" v-model="serial_wheel_left_font"></v-text-field>
+            </v-col>
 
-          <v-col cols="6" md="3" sm="3">
-            <v-text-field style="width: 180px;" label="* ລະຫັດຢາງ ສໍາຮອງ" dense outlined background-color="#f5f5f5"
-              v-model="serial_tire_second"></v-text-field>
-          </v-col>
+            <v-col cols="6" md="3" sm="3">
+              <v-text-field style="width: 180px;" label="* ລະຫັດຢາງ ສໍາຮອງ" dense outlined background-color="#f5f5f5"
+                v-model="serial_tire_second"></v-text-field>
+            </v-col>
 
 
 
-          <v-col cols="6" md="3" sm="3">
-            <v-text-field style="width: 180px;" label="* ເລກຕັງຊິດ(ໜັງສືຜ່ານແດນ)" dense outlined
-              background-color="#f5f5f5" v-model="tungsitnumber"></v-text-field>
-          </v-col>
+            <v-col cols="6" md="3" sm="3">
+              <v-text-field style="width: 180px;" label="* ເລກຕັງຊິດ(ໜັງສືຜ່ານແດນ)" dense outlined
+                background-color="#f5f5f5" v-model="tungsitnumber"></v-text-field>
+            </v-col>
 
-        </v-row>
+          </v-row>
 
-        <v-btn class="mr-4" width="130" style="background-color: gray;color: aliceblue;" @click="updat">ບັນທຶກ</v-btn>
+          <v-btn class="mr-4" width="130" style="background-color: gray;color: aliceblue;" @click="updat">ບັນທຶກ</v-btn>
 
-        <!-- <v-row>
+          <!-- <v-row>
                 <v-col>
                   <v-textarea v-model="details" label="ລາຍລະອຽດເພີ່ມເຕີມ" background-color="#f5f5f5" outlined></v-textarea>
                 </v-col>
               </v-row> -->
-      </v-col>
-    </v-card>
+        </v-col>
+      </v-card>
+      <v-card class="card-shadow mx-auto" width="1600">
+        <v-card-title style="display:flex;background-color:#E57373;color:white">
+
+          <v-spacer></v-spacer>
+          ນໍ້າມັນ ເເລະ ເລກໄມ
+          <v-spacer></v-spacer>
+        </v-card-title>
+
+        <v-col cols="12">
+
+
+          <v-row>
+
+            <v-col cols="6" md="3" sm="3">
+              <v-text-field style="width: 180px;" label="* ລະຫັດຢາງເບື້ອງຂວາຕີນຫຼັງ" dense outlined
+                background-color="#f5f5f5" v-model="serial_wheel_right_back"></v-text-field>
+            </v-col>
+            <v-col cols="6" md="3" sm="3">
+              <v-text-field style="width: 180px;" label="* ລະຫັດຢາງເບື້ອງຂວາຕີນໜ້າ" dense outlined
+                background-color="#f5f5f5" v-model="serial_wheel_right_font"></v-text-field>
+            </v-col>
+            <v-col cols="6" md="3" sm="3">
+              <v-text-field style="width: 180px;" label="* ລະຫັດຢາງເບື້ອງຊາ້ຍຕີນຫຼັງ
+" dense outlined background-color="#f5f5f5" v-model="serial_wheel_left_back"></v-text-field>
+            </v-col>
+            <v-col cols="6" md="3" sm="3">
+              <v-text-field style="width: 180px;" label="* ລະຫັດຢາງເບື້ອງຊາ້ຍຕີນໜ້າ" dense outlined
+                background-color="#f5f5f5" v-model="serial_wheel_left_font"></v-text-field>
+            </v-col>
+
+            <v-col cols="6" md="3" sm="3">
+              <v-text-field style="width: 180px;" label="* ລະຫັດຢາງ ສໍາຮອງ" dense outlined background-color="#f5f5f5"
+                v-model="serial_tire_second"></v-text-field>
+            </v-col>
+
+
+
+            <v-col cols="6" md="3" sm="3">
+              <v-text-field style="width: 180px;" label="* ເລກຕັງຊິດ(ໜັງສືຜ່ານແດນ)" dense outlined
+                background-color="#f5f5f5" v-model="tungsitnumber"></v-text-field>
+            </v-col>
+
+          </v-row>
+
+          <v-btn class="mr-4" width="130" style="background-color: gray;color: aliceblue;" @click="updat">ບັນທຶກ</v-btn>
+
+          <!-- <v-row>
+                <v-col>
+                  <v-textarea v-model="details" label="ລາຍລະອຽດເພີ່ມເຕີມ" background-color="#f5f5f5" outlined></v-textarea>
+                </v-col>
+              </v-row> -->
+        </v-col>
+      </v-card>
+    </div>
     <!-- Add more fields for other data -->
 
 

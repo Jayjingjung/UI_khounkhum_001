@@ -23,8 +23,6 @@
                         </v-btn>
                     </div>
 
-
-
                     <div class="pl-2">
                         <!-- Currency selection buttons with dynamic inline styles -->
                         <div class="currency-selection">
@@ -48,29 +46,22 @@
                             </div>
                         </div>
                     </div>
-
-
-
-
-
-
                     <!-- Autocomplete for Credit Shop Selection, shown only when credit is selected -->
                     <div v-if="isCreditSelected" style="margin-left: 20px;display: flex;">
                         <div class="pl-2" style="display: flex;">
                             <div style="width: 250px;">
+                                <v-text-field v-if="selectedCurrency !== 'LAK'" label="*ເລດ" dense outlined
+                                    background-color="#f8c7c7" v-model="moneyRate">
+                                </v-text-field>
 
-                                <v-text-field label="*ເລດ" dense outlined background-color="#f8c7c7"
-                                    v-model="moneyRate"></v-text-field>
+                                <!-- <v-text-field label="*ເລດ" dense outlined background-color="#f8c7c7"
+                                    v-model="moneyRate"></v-text-field> -->
                             </div>
-
                             <div style="width: 250px;">
-
-
                                 <v-autocomplete outlined dense label="ຮ້ານ" :items="filteredShowList"
                                     item-text="shop_name" item-value="shop_id" @change="onGetshow" :rules="nameRules">
                                 </v-autocomplete>
                             </div>
-
                         </div>
                     </div>
                 </div>
@@ -81,7 +72,7 @@
                         <v-menu v-model="dateMenu" :close-on-content-click="false" transition="scale-transition"
                             offset-y min-width="auto">
                             <template v-slot:activator="{ on, attrs }">
-                                <v-text-field dense outlined v-model="formattedDateCreate" label="Select Date" readonly
+                                <v-text-field dense outlined v-model="formattedDateCreate" label="ວັນທີ ສະເໝີ" readonly
                                     v-bind="attrs" v-on="on">
                                 </v-text-field>
                             </template>
@@ -245,7 +236,7 @@
                     </div>
                 </div>
                 <!-- //item3// -->
-              
+
 
                 <!-- Conditionally display the form when 'showForm' is true -->
                 <div v-if="showForm">
@@ -417,21 +408,21 @@
                     </div>
                     <!-- //item9// -->
                 </div>
-                
+
             </div>
 
             <div style="text-align: center; margin-bottom: 10px;">
-                <v-btn style="width: 200px;" elevation="0" color="#00a668"  @click="onGetLeaveNumber">
+                <v-btn style="width: 200px;" elevation="0" color="#00a668" @click="onGetLeaveNumber">
                     <v-icon color="white">mdi-check</v-icon>
                     <span class="white--text">ບັນທຶກ</span>
                 </v-btn>
             </div>
             <div style="text-align: start; margin-bottom: 10px;">
-                    <v-btn color="#448AFF" @click="showForm = !showForm">
-                        <span class="white--text">+ More</span>
+                <v-btn color="#448AFF" @click="showForm = !showForm">
+                    <span class="white--text">+ More</span>
 
-                    </v-btn>
-                </div>
+                </v-btn>
+            </div>
 
             <v-data-table :items-per-page="5" :headers="truck_table_headers" :items="filteredItems" :search="search">
                 <template v-slot:item="row">
@@ -1236,7 +1227,7 @@ export default {
             // item_id: '',
             // item_id: '',
             // item_id: '',
-         
+
 
             sumFooter: '',
             unit_price1: '0',
@@ -1371,7 +1362,7 @@ export default {
             dateCreate: new Date().toISOString().slice(0, 10),  // Default date in YYYY-MM-DD format
             dateMenu: false,  // Controls the visibility of the date picker menu
             loading_processing: false,
-            moneyRate: "0",
+            moneyRate: "1",
             items: [],
 
         };
@@ -2357,6 +2348,4 @@ export default {
     display: flex;
     justify-self: end;
 }
-
-
 </style>

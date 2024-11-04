@@ -19,7 +19,8 @@
         <v-menu v-model="startDateMenu" :close-on-content-click="false" :nudge-right="40" transition="scale-transition"
           offset-y>
           <template v-slot:activator="{ on }">
-            <v-text-field v-model="formattedStartDate" label="ວັນ​ທີ່​ເລີ່ມ" readonly v-on="on"></v-text-field>
+            <v-text-field dense outlined v-model="formattedStartDate" label="ວັນ​ທີ່​ເລີ່ມ" readonly
+              v-on="on"></v-text-field>
           </template>
           <v-date-picker v-model="startDate" no-title scrollable @input="updateStartDate"></v-date-picker>
         </v-menu>
@@ -29,7 +30,8 @@
         <v-menu v-model="endDateMenu" :close-on-content-click="false" :nudge-right="40" transition="scale-transition"
           offset-y>
           <template v-slot:activator="{ on }">
-            <v-text-field v-model="formattedEndDate" label="ວັນທີສິ້ນສຸດ" readonly v-on="on"></v-text-field>
+            <v-text-field dense outlined v-model="formattedEndDate" label="ວັນທີສິ້ນສຸດ" readonly
+              v-on="on"></v-text-field>
           </template>
           <v-date-picker v-model="endDate" no-title scrollable @input="updateEndDate"></v-date-picker>
         </v-menu>
@@ -71,6 +73,21 @@
         </v-radio-group>
       </div>
     </div>
+
+    <div class="ml-5" style="display: flex; justify-content: flex-end;">
+      <!-- Payment Date Picker -->
+      <div class="mr-5 ml-10" style="width: auto;">
+        <v-menu v-model="payDateMenu" :close-on-content-click="false" :nudge-right="40" transition="scale-transition"
+          offset-y>
+          <template v-slot:activator="{ on }">
+            <v-text-field dense outlined v-model="formattedPayDate" label="ວັນ​ທີ່​ຈ່າຍ" readonly
+              v-on="on"></v-text-field>
+          </template>
+          <v-date-picker v-model="payDate" no-title scrollable @input="updatePayDate"></v-date-picker>
+        </v-menu>
+      </div>
+
+    </div>
     <!-- Data Table -->
 
     <v-data-table :headers="headers" :items="filteredGasReports" :items-per-page="10" class="elevation-1">
@@ -81,9 +98,17 @@
           <v-spacer></v-spacer>
 
           <v-toolbar flat color="white">
+
+
             <v-toolbar-title style="color: darkorchid;">ຈໍານວນເງີນໃບບິນທີເລືອກ​ທັງ​ຫມົດ: {{
-              totalSelectedAmount?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g,
-              ',') }}</v-toolbar-title>
+              formattedTotalSelectedAmount?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g,
+                ',') }}</v-toolbar-title>
+
+
+            <v-spacer></v-spacer>
+            <v-text-field label="*ຈໍານວນເງີນທີ່ຈ່າຍ" type="text" dense outlined background-color="#f5f5f5"
+               v-model="totalPriceOil" style="margin-top: 30px; color: chocolate;" />
+
           </v-toolbar>
           <v-toolbar-title class="text-center">ເລືອກ​ທັງ​ຫມົດ
             <!-- Select All checkbox -->
@@ -212,10 +237,18 @@ export default {
       successList: 0,
       waitingList: 0,
       startDateMenu: false,
+      payDateMenu: false,
       startDate: null,
       formattedStartDate: null,
       endDateMenu: false,
       endDate: null,
+      formattedPayDate: '',
+
+      payDate: '',
+      payre: '',
+      totalPriceOil: '',
+
+
       formattedEndDate: null,
       gasReports: [], // Fetched gas reports data
       sumFooter: null, // Sum footer data
@@ -237,6 +270,8 @@ export default {
   },
 
   computed: {
+
+
     headers() {
       return [
         { text: 'circle', value: 'circle' },
@@ -280,6 +315,11 @@ export default {
         .reduce((sum, item) => sum + parseFloat(item.totalPrizeFuelAll || 0), 0)
       // .toFixed(2);
     },
+    formattedTotalSelectedAmount() {
+      return this.totalSelectedAmount
+        .toString()
+        .replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    },
     selectAllIndeterminate() {
       return this.selectedItems.length > 0 && this.selectedItems.length < this.filteredGasReports.length;
     },
@@ -309,6 +349,10 @@ export default {
   },
 
   methods: {
+    updatePayDate(date) {
+      this.payDate = date;
+      this.formattedPayDate = this.formatDate(date);
+    },
     async fetchReportFuel() {
       try {
         this.loading_processing = true;
@@ -335,7 +379,7 @@ export default {
           this.gasReports = response.data;
           this.report_leave_car_list = response.data;
           this.sumFooter = response.sumFooter;
-          this.onCheckAlert();
+          // this.onCheckAlert();
 
         } else {
           this.gasReports = [];
@@ -391,7 +435,8 @@ export default {
         const requestData = {
           keyIds: this.selectedItems.map(item => item.keyIds),
           dels: this.selectedItems.map(item => item.del),
-          totalPriceOil: this.totalSelectedAmount,
+          totalPriceOil: this.totalPriceOil,
+          datecreate: this.payDate,
           toKen: localStorage.getItem('toKen'),
         };
 

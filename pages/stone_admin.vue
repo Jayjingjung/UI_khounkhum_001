@@ -1,197 +1,1346 @@
 <template>
     <div>
-
-        <div>
-            <div>
-                <v-btn :style="getButtonStyle('tZl011U2nNs9AdvQDIStduuOIc8yWmxw')"
-                    @click="setTokenAndFetch('tZl011U2nNs9AdvQDIStduuOIc8yWmxw')">
-                    ຄອນງົວ
-                </v-btn>
-
-                <v-btn :style="getButtonStyle('3iKcWacuOwaXxERfL6LNvuEKdjhvc5aF')"
-                    @click="setTokenAndFetch('3iKcWacuOwaXxERfL6LNvuEKdjhvc5aF')">
-                    ສີຄູນ
-                </v-btn>
-
-                <v-btn :style="getButtonStyle('e23QZokLhZNSVtXP1qYQHM8PVHr76VQa')"
-                    @click="setTokenAndFetch('e23QZokLhZNSVtXP1qYQHM8PVHr76VQa')">
-                    ບ້ານທ່າ
-                </v-btn>
-
-                <v-btn :style="getButtonStyle('phonkham123kOQHMwA1Ve9lMq22X3kpSiaIbDO123')"
-                    @click="setTokenAndFetch('phonkham123kOQHMwA1Ve9lMq22X3kpSiaIbDO123')">
-                    ໂພນຄໍາ
-                </v-btn>
-
-                <v-btn :style="getButtonStyle('kOQHMwA1Ve9lMq22X3kpSiaIbGGKghDO')"
-                    @click="setTokenAndFetch('kOQHMwA1Ve9lMq22X3kpSiaIbGGKghDO')">
-                    ຊຽງຄົງ
-                </v-btn>
-
-                <v-btn :style="getButtonStyle('namzao123kOQHMwA1Ve9lMq22X3kpSiaIbKghDO456')"
-                    @click="setTokenAndFetch('namzao123kOQHMwA1Ve9lMq22X3kpSiaIbKghDO456')">
-                    ນໍ້າຊາວ
-                </v-btn>
-
-                <v-btn   :style="getButtonStyle('nongphounxai3kOQHMwA1Ve9lMq22X3kpSiaIDO789')"
-                    @click="setTokenAndFetch('nongphounxai3kOQHMwA1Ve9lMq22X3kpSiaIDO789')">
-                    ໜອງພູນໄຊ32,28
-                </v-btn>
-
-                <v-btn   :style="getButtonStyle('knongphounxaiOQHMwA1Ve9lMq22X3kpSiahDO101112')"
-                    @click="setTokenAndFetch('knongphounxaiOQHMwA1Ve9lMq22X3kpSiahDO101112')">
-                    ໜອງພູນໄຊ62,39 
-                </v-btn>
-
-                <v-btn :style="getButtonStyle('kOlardhor123QHMwA1Ve9lMq22X3GGKghDO13214415')"
-                    @click="setTokenAndFetch('kOlardhor123QHMwA1Ve9lMq22X3GGKghDO13214415')">
-                    ລາດຫໍ້
-                </v-btn>
-            </div>
+        <div class="mb-8" style="font-size: 20px; font-weight: bold;">
+            ຝ່າຍສຳຫຼວດ ແລະ ຂຸດຄົ້ນບໍ່ແຮ່
+            <hr>
         </div>
-        <v-card>
+        <!-- ຂໍ້ມູນວິໃຈຕົວຢ່າງ  -->
+        <v-dialog v-model="testDoc">
+            <v-card class="mx-auto" max-width="490">
+                <div>
+                    <v-card-text>
+                        <v-card style="position: sticky; top: 0; z-index: 1;" max-width="500" flat>
+                            <v-btn @click="refresher" rounded color="primary">
+                                <v-icon>
+                                    mdi-arrow-collapse-left
+                                </v-icon>
+                                ກັບຄືນ
+                            </v-btn>
+                            <div class="text-center font-weight-bold" style="font-size: 20px">
+                                ຂໍ້ມູນວິໃຈຕົວຢ່າງ</div>
+                            <v-divider></v-divider>
+                            <v-text-field label="ຄົ້ນຫາ" v-model="searchQuery" append-icon="mdi-magnify"
+                                @input="functionvichai"></v-text-field>
+                        </v-card>
+                        <div v-for="(item, index) in vichai" :key="index">
+                            <v-card-subtitle>
+                                <v-card-actions>
+                                    <v-btn text @click="showResultpdf(item.file)">
+                                        <v-icon color="#00E676">
+                                            mdi-eye-arrow-left
+                                        </v-icon>
+                                    </v-btn>
 
-
-            <div style="display: flex; overflow-x: auto; width: 1640px; margin-left: 10px;">
-
-                <v-list style="display: flex; min-width: 12px;" v-model="selectedCard">
-
-                    <v-btn ref="btn1" value="1" @click="selectedCard = '1'"
-                        @mouseover="changeColor('	#FFE5FF', $refs.btn1)" @mouseleave="changeColor('white', $refs.btn1)"
-                        style="margin-left: 2px; margin-right: 2px; background-color: white; color: black; height: 65px; border: 1px solid rgb(0, 0, 0);">
-                        <v-icon style="color: rgb(	9, 44, 112);" size="55">mdi-summit</v-icon>
-
-                        {{ computedLabel }}
-                    </v-btn>
-                    <v-btn style="height: 60px;background-color: green;color: aliceblue;" to="/Add_a_hole">
-                        <v-icon>
-                            mdi-plus
-                        </v-icon>
-                        ເພີ່ມ {{ computedLabel }}
-                    </v-btn>
-                </v-list>
-                <v-list style="display: flex; min-width: 12px;" v-model="selectedCard">
-                    <v-btn ref="btn2" value="2" @click="selectedCard = '2'"
-                        @mouseover="changeColor('	#FFE5FF', $refs.btn2)" @mouseleave="changeColor('white', $refs.btn2)"
-                        style="margin-left: 2px; margin-right: 2px; background-color: white; color: black; height: 65px; border: 1px solid rgb(0, 0, 0);">
-                        <v-icon style="color: rgb(43, 204, 150);" size="55">mdi-circular-saw</v-icon>
-
-                        {{ reLabel }}
-                    </v-btn>
-                    <v-btn style="height: 60px;background-color: green;color: aliceblue; " to="/Survey results">
-                        <v-icon>
-                            mdi-plus
-                        </v-icon>
-                        ເພີ່ມ {{ reLabel }}
-                    </v-btn>
-                </v-list>
-            </div>
-
-            <div v-if="selectedCard === '1'">
-                <v-card style="width:1800px;height:800px;">
-                    <v-card class="card-shadow mb-4" rounded="lg">
-                        <v-card-title
-                            style="display: flex; border-bottom:0.5px solid #e0e0e0; background-color:#0a3382; color:white;">
-                            {{ computedLabel }}
-                            <v-icon color="white"></v-icon>
-
-                            <div style="width: 400px; margin-left: 50px;" class="d-flex align-center">
-                                <v-text-field style="width: 700px; " placeholder="ຄົ້ນຫາດ້ວຍລະຫັດປ່ອຍລົດ..."
-                                    v-model="search" rounded background-color="#f5f5f5"
-                                    prepend-inner-icon="mdi-magnify"></v-text-field>
-
-                                <v-btn style="margin-left: 10px;" color="ping" class="card-shadow" @click="print">
-                                    <v-icon>mdi-printer</v-icon>ພີມລາຍງານທັງໝົດ
-                                </v-btn>
+                                    {{ item.type }}
+                                    <v-spacer></v-spacer>
+                                    ({{ item.dateInsert }})
+                                </v-card-actions>
+                            </v-card-subtitle>
+                        </div>
+                    </v-card-text>
+                </div>
+            </v-card>
+        </v-dialog>
+        <!-- ເອກະສານເື້ອອຍນົກ  -->
+        <v-dialog v-model="sisternokDoc">
+            <v-card class="mx-auto" max-width="490">
+                <div>
+                    <v-card-text>
+                        <v-card style="position: sticky; top: 0; z-index: 1;" max-width="500" flat>
+                            <v-btn @click="refresher" rounded color="primary">
+                                <v-icon>mdi-arrow-collapse-left</v-icon>
+                                ກັບຄືນ
+                            </v-btn>
+                            <div class="text-center font-weight-bold" style="font-size: 20px">
+                                ຂໍ້ມູນເອກະສານ
                             </div>
-                        </v-card-title>
+                            <v-divider></v-divider>
+                            <v-text-field label="ຄົ້ນຫາ" v-model="searchQuery" append-icon="mdi-magnify"
+                                @input="nokSearch"></v-text-field>
+                        </v-card>
+                        <div v-for="(item, index) in sisternok" :key="index">
+                            <v-card-subtitle>
+                                <v-card-actions>
+                                    <v-btn text @click="showResultpdf(item.file)">
+                                        <v-icon color="#00E676">
+                                            mdi-eye-arrow-left
+                                        </v-icon>
+                                    </v-btn>
 
-                        <div class="circle-container">
+                                    {{ item.type }}
+                                    <v-spacer></v-spacer>
+                                    ({{ item.dateInsert }})
+                                </v-card-actions>
+                            </v-card-subtitle>
+                        </div>
+                    </v-card-text>
+                </div>
+            </v-card>
+        </v-dialog>
+        <!-- ເອກະສານທີ່ກ່ຽວຂ້ອງ  -->
+        <v-dialog v-model="filedocument">
+            <v-card class="mx-auto" max-width="490">
+                <div>
+                    <v-card-text>
+                        <v-card style="position: sticky; top: 0; z-index: 1;" max-width="500" flat>
+                            <v-btn @click="refresher" rounded color="primary">
+                                <v-icon>mdi-arrow-collapse-left</v-icon>
+                                ກັບຄືນ
+                            </v-btn>
+                            <div class="text-center font-weight-bold" style="font-size: 20px">
+                                ຂໍ້ມູນຜົນເອກະສານທີ່ກ້ຽວຂ້ອງ
+                            </div>
+                            <v-divider></v-divider>
+                            <v-text-field label="ຄົ້ນຫາ" v-model="searchQuery" append-icon="mdi-magnify"
+                                @input="filterResults"></v-text-field>
+                        </v-card>
+                        <div v-for="(item, index) in filteredResults" :key="index">
+                            <v-card-subtitle>
+                                <v-card-actions>
+                                    <v-btn text @click="showResultpdf(item.file)">
+                                        <v-icon color="#00E676">
+                                            mdi-eye-arrow-left
+                                        </v-icon>
+                                    </v-btn>
+
+                                    {{ item.type }}
+                                    <v-spacer></v-spacer>
+                                    ({{ item.dateInsert }})
+                                </v-card-actions>
+                            </v-card-subtitle>
+                        </div>
+                    </v-card-text>
+                </div>
+            </v-card>
+        </v-dialog>
+        <!-- ຂໍ້ມູນຜົນການສຳຫຼວດ -->
+        <v-dialog v-model="surveydocument">
+            <v-card class="mx-auto" max-width="490">
+                <div>
+                    <v-card-text>
+                        <v-card style="position: sticky; top: 0; z-index: 1;" max-width="500" flat>
+                            <v-btn @click="refresher" rounded color="primary">
+                                <v-icon>
+                                    mdi-arrow-collapse-left
+                                </v-icon>
+                                ກັບຄືນ
+                            </v-btn>
+                            <div class="text-center font-weight-bold" style="font-size: 20px">
+                                ຂໍ້ມູນຜົນການສຳຫຼວດ</div>
+                            <v-divider></v-divider>
+                            <v-text-field label="ຄົ້ນຫາ" v-model="searchQuery" append-icon="mdi-magnify"
+                                @input="filteredServey"></v-text-field>
+                        </v-card>
+                        <div v-for="(item, index) in filterServey" :key="index">
+                            <v-card-subtitle>
+                                <v-card-actions>
+                                    <v-btn text @click="showResultpdf(item.file)">
+                                        <v-icon color="#00E676">
+                                            mdi-eye-arrow-left
+                                        </v-icon>
+                                    </v-btn>
+
+                                    {{ item.type }}
+                                    <v-spacer></v-spacer>
+                                    ({{ item.dateInsert }})
+                                </v-card-actions>
+                            </v-card-subtitle>
+                        </div>
+                    </v-card-text>
+                </div>
+            </v-card>
+        </v-dialog>
+        <!-- ຂໍ້ມູນຮເຈາະ  -->
+        <v-dialog v-model="filedocuments">
+            <v-card class="mx-auto" max-width="490">
+                <div>
+                    <v-card-text>
+                        <v-card style="position: sticky; top: 0; z-index: 1;" max-width="500" flat>
+                            <v-btn @click="refresher" rounded color="primary">
+                                <v-icon>
+                                    mdi-arrow-collapse-left
+                                </v-icon>
+                                ກັບຄືນ
+                            </v-btn>
+                            <div class="text-center font-weight-bold " style="font-size: 20px"> ຂໍ້ມູນຮູເຈາະ</div>
+                            <v-divider></v-divider>
+                        </v-card>
+                        <div v-for="item in report_listitemOffice" :key="item.key_id">
+                            <div>
+                                <!-- <row>
+                                            <span>{{ item.full_Name_Hole_number }}</span>
+                                        </row> -->
+                                <v-card-subtit>
+                                    <v-btn text @click="click2fuction(item.pic, item.key_id)">
+                                        <v-icon color="#00E676">
+                                            mdi-eye-arrow-left
+                                        </v-icon></v-btn>
+                                    {{ item.full_Name_Hole_number }}
+                                </v-card-subtit>
+                            </div>
+                        </div>
+                    </v-card-text>
+                </div>
+            </v-card>
+        </v-dialog>
+
+        <!-- ຮູບພາບ -->
+        <v-dialog v-model="imagefile">
+            <v-card class="mx-auto" max-width="490">
+                <div>
+                    <v-card-text>
+                        <v-card style="position: sticky; top: 0; z-index: 1;" max-width="500" flat>
+                            <v-btn @click="imagefile = false" rounded color="primary">
+                                <v-icon>
+                                    mdi-arrow-collapse-left
+                                </v-icon>
+                                ກັບຄືນ
+                            </v-btn>
+                            <div class="text-center font-weight-bold" style="font-size: 20px"> ຮູບພາກສະໜາມ</div>
+                            <v-divider></v-divider>
+                        </v-card>
+                        <div>
                             <v-row>
                                 <v-col v-for="item in report_listitemOffice" :key="item.key_id">
-                                    <div class="circle" @click="click2fuction(item.pic, item.key_id)">
-                                        <row>
-                                            <span>{{ item.hoeNumber }}</span>
-                                        </row>
-                                    </div>
+
                                 </v-col>
                             </v-row>
                         </div>
-
-                        <!-- PDF Popup -->
-                        <v-dialog v-model="pdfDialog" max-width="800px">
-                            <v-card>
-                                <v-card-title class="headline">PDF Viewer</v-card-title>
-                                <v-card-text>
-                                    <iframe v-if="pdfUrl" :src="pdfUrl" width="100%" height="500px"
-                                        frameborder="0"></iframe>
-                                </v-card-text>
-                                <v-card-actions>
-                                    <v-spacer></v-spacer>
-                                    <v-btn color="blue darken-1" text @click="pdfDialog = false">
-                                        Close
-                                    </v-btn>
-                                </v-card-actions>
-                            </v-card>
-                        </v-dialog>
-                    </v-card>
-                </v-card>
-            </div>
-            <div v-if="selectedCard === '2'">
-                <v-card style="width:1800px;height:800px;">
-                    <v-card class="card-shadow mb-4" rounded="lg">
-                        <v-card-title
-                            style="display: flex; border-bottom:0.5px solid #2bcc96; background-color:#2bcc96; color:white;">
-                            {{ reLabel }}
-
-
-                            <div style="width: 400px; margin-left: 50px;" class="d-flex align-center">
-                                <v-text-field style="width: 700px; " placeholder="ຄົ້ນຫາດ້ວຍລະຫັດປ່ອຍລົດ..."
-                                    v-model="search" rounded background-color="#f5f5f5"
-                                    prepend-inner-icon="mdi-magnify"></v-text-field>
-
-                                <v-btn style="margin-left: 10px;" color="ping" class="card-shadow" @click="print">
-                                    <v-icon>mdi-printer</v-icon>ພີມລາຍງານທັງໝົດ
+                    </v-card-text>
+                </div>
+            </v-card>
+        </v-dialog>
+        <v-container fluid fill-height>
+            <v-row justify="center" align="center">
+                <v-col cols="auto">
+                    <v-card color="#CFD8DC">
+                        <!-- v-if="USER_ROLE !== 'BOR-HIN-KHUAT'" -->
+                        <v-list-group no-action sub-group
+                        @click="setTokenAndFetch('UnCuQ8Dql7bSVS9LcDfMWmA8asAtQLMF')">
+                            <template v-slot:activator>
+                                <v-icon color="white">mdi-file-document</v-icon>
+                                <v-list-item-content>
+                                    <v-list-item-title
+                                        style="font-size: 20px; font-weight: bold;">ເອກະສານ</v-list-item-title>
+                                </v-list-item-content>
+                            </template>
+                            <v-list-item>
+                                <v-btn rounded @click="sisternokDoc = true">
+                                    ເບີ່ງ
                                 </v-btn>
-                            </div>
-                        </v-card-title>
-                        <div class="mt-2">
-                            <v-data-table :items="report_ResultOfServey" :headers="report_ResultOfServeygeader"
-                                :items-per-page="50" :search="search">
-                                <template v-slot:item="row">
-                                    <tr>
-                                        <td>{{ row?.item?.file }}</td>
-
-                                        <td>{{ row?.item?.type }}</td>
-
-
-                                        <td>
-                                            <v-btn style="height: 40px; width: 90px;" small color="#0085e3"
-                                                class="white--text card-shadow" @click="showResultpdf(row?.item?.file)">
-                                                <v-icon size="30" color="white">mdi-printer-eye</v-icon>
-                                            </v-btn>
-                                        </td>
-                                        <!-- <td>
-                                        <v-btn style="height: 40px; width: 90px;" small color="#90A4AE"
-                                            class="white--text card-shadow" @click="viewpdf(row?.item?.key_id)">
-                                            <v-icon size="30" color="white">mdi-</v-icon>
-                                        </v-btn>
-                                    </td> -->
-                                        <td>
-                                            <v-btn style="height: 40px; width: 90px;" small color="#90A4AE"
-                                                class="white--text card-shadow"
-                                                @click="Resultdelete(row?.item?.key_id)">
-                                                <v-icon size="30" color="white">mdi-delete</v-icon>
-                                            </v-btn>
-                                        </td>
-                                    </tr>
-                                </template>
-                            </v-data-table>
-                        </div>
+                                <v-spacer></v-spacer>
+                                <v-btn color="success"
+                                    @click="nokDoc('UnCuQ8Dql7bSVS9LcDfMWmA8asAtQLMF', 'ເອກະສານເອື້ອຍນົກ', 'nok')"
+                                    rounded>
+                                    ເພີ່ມ
+                                </v-btn>
+                            </v-list-item>
+                        </v-list-group>
                     </v-card>
+                </v-col>
+            </v-row>
+        </v-container>
+
+        <!-- ຄອນງົວ  -->
+        <v-row>
+            <v-col>
+                <v-card class="mt-4" width="300">
+                    <v-list color="#CFD8DC">
+                        <v-list-group :value="false" prepend-icon="mdi-excavator"
+                            @click="setTokenAndFetch('tZl011U2nNs9AdvQDIStduuOIc8yWmxw')">
+                            <template v-slot:activator>
+                                <v-list-item-title style="font-size: 20px; font-weight: bold;">ບ້ານຄອນງົວ
+                                </v-list-item-title>
+                            </template>
+                            <!-- v-if="USER_ROLE !== 'BOR-HIN-KHUAT'" ໃຊ້ເພື່ອກຳນົດການມອງເຫັນ -->
+                            <v-list-group no-action sub-group>
+                                <template v-slot:activator>
+                                    <v-icon color="white">mdi-file-document</v-icon>
+                                    <v-list-item-content>
+                                        <v-list-item-title>ຂໍ້ມູນເອກະສານທີ່ກ່ຽວຂ້ອງ</v-list-item-title>
+                                    </v-list-item-content>
+                                </template>
+                                <v-list-item>
+                                    <v-btn @click="filedocument = true" rounded>
+                                        ເບີ່ງ
+                                    </v-btn>
+                                    <v-spacer></v-spacer>
+                                    <v-btn color="success"
+                                        @click="miningDoc('tZl011U2nNs9AdvQDIStduuOIc8yWmxw', 'ບ້ານຄອນງົວ', 'documment')"
+                                        rounded>
+                                        ເພີ່ມ
+                                    </v-btn>
+                                </v-list-item>
+                            </v-list-group>
+                            <v-list-group no-action sub-group>
+                                <template v-slot:activator>
+                                    <v-icon color="green">mdi-image-search-outline</v-icon>
+                                    <v-list-item-content>
+                                        <v-list-item-title>ຂໍ້ມູນສຳຫຼວດ</v-list-item-title>
+                                    </v-list-item-content>
+                                </template>
+                                <v-list-item>
+                                    <v-btn @click="surveydocument = true" rounded>
+                                        ເບີ່ງ
+                                    </v-btn>
+                                    <v-spacer></v-spacer>
+                                    <v-btn color="success"
+                                        @click="navigateWithToken('tZl011U2nNs9AdvQDIStduuOIc8yWmxw', 'ບ້ານຄອນງົວ', 'servey')"
+                                        rounded>
+                                        ເພີ່ມ
+                                    </v-btn>
+                                    <br>
+                                </v-list-item>
+                                <!-- <div class="scrollable-text">
+                            <v-list-item v-for="(item, index) in report_ResultOfServey" :key="index">
+                                <v-list-subtitle>
+                                    <v-icon>
+                                        mdi-eye
+                                    </v-icon>
+                                    {{ item.type }}
+                                </v-list-subtitle>
+                            </v-list-item>
+                        </div> -->
+                            </v-list-group>
+                            <v-list-group no-action sub-group>
+                                <template v-slot:activator>
+                                    <v-icon color="red">mdi-screw-machine-flat-top</v-icon>
+                                    <v-list-item-content>
+                                        <v-list-item-title>ຂໍ້ມູນຮູເຈາະ</v-list-item-title>
+                                    </v-list-item-content>
+                                </template>
+                                <v-list-item>
+                                    <v-btn @click="filedocuments = true" rounded>
+                                        ເບີ່ງ
+                                    </v-btn>
+                                    <v-spacer></v-spacer>
+                                    <v-btn color="success"
+                                        @click="navigate('tZl011U2nNs9AdvQDIStduuOIc8yWmxw', 'ຄອນງົວ')" rounded>
+                                        ເພີ່ມ
+                                    </v-btn>
+                                </v-list-item>
+                            </v-list-group>
+                            <v-list-group no-action sub-group>
+                                <template v-slot:activator>
+                                    <v-icon color="blue">mdi-test-tube-off</v-icon>
+                                    <v-list-item-content>
+                                        <v-list-item-title>ຂໍ້ມູນວິໃຈຕົວຢ່າງ</v-list-item-title>
+                                    </v-list-item-content>
+                                </template>
+                                <v-list-item>
+                                    <v-btn @click="testDoc = true" rounded>
+                                        ເບີ່ງ
+                                    </v-btn>
+                                    <v-spacer></v-spacer>
+                                    <v-btn color="success"
+                                        @click="test('tZl011U2nNs9AdvQDIStduuOIc8yWmxw', 'ບ້ານຄອນງົວ', 'testData')"
+                                        rounded>
+                                        ເພີ່ມ
+                                    </v-btn>
+                                </v-list-item>
+                            </v-list-group>
+                            <v-list-group no-action sub-group>
+                                <template v-slot:activator>
+                                    <v-icon color="yellow">mdi-cash-100</v-icon>
+                                    <v-list-item-content>
+                                        <v-list-item-title>ຂໍ້ມູນລາຍຈ່າຍ</v-list-item-title>
+                                    </v-list-item-content>
+                                </template>
+                                <v-list-item>
+                                    <v-btn rounded>
+                                        ເບີ່ງ
+                                    </v-btn>
+                                    <v-spacer></v-spacer>
+                                    <v-btn color="success" rounded>ເພີ່ມ</v-btn>
+                                </v-list-item>
+                            </v-list-group>
+                            <v-list-group no-action sub-group>
+                                <template v-slot:activator>
+                                    <v-icon color="orange">mdi-account-hard-hat</v-icon>
+                                    <v-list-item-content>
+                                        <v-list-item-title>ຮູບພາບກ່ຽວກັບພາກສະໜາມ</v-list-item-title>
+                                    </v-list-item-content>
+                                </template>
+                                <v-list-item>
+                                    <v-btn rounded @click="imagefile = true">
+                                        <!-- <v-icon>mdi-checkbook-arrow-left</v-icon> -->
+                                        ເບີ່ງ
+                                    </v-btn>
+                                    <v-spacer></v-spacer>
+                                    <v-btn color="success" rounded>ເພີ່ມ</v-btn>
+                                </v-list-item>
+                            </v-list-group>
+                        </v-list-group>
+                    </v-list>
                 </v-card>
-            </div>
-        </v-card>
+            </v-col>
+            <!-- ສີຄູນ  -->
+            <v-col>
+                <v-card class="mt-4" width="300">
+                    <v-list color="#CFD8DC">
+                        <v-list-group :value="false" prepend-icon="mdi-excavator"
+                            @click="setTokenAndFetch('3iKcWacuOwaXxERfL6LNvuEKdjhvc5aF')">
+                            <template v-slot:activator>
+                                <v-list-item-title style="font-size: 20px; font-weight: bold;">ບ້ານສີຄູນ
+                                </v-list-item-title>
+                            </template>
+                            <v-list-group no-action sub-group>
+                                <template v-slot:activator>
+                                    <v-icon color="white">mdi-file-document</v-icon>
+                                    <v-list-item-content>
+                                        <v-list-item-title>ຂໍ້ມູນເອກະສານທີ່ກ່ຽວຂ້ອງ</v-list-item-title>
+                                    </v-list-item-content>
+                                </template>
+                                <v-list-item>
+                                    <v-btn @click="filedocument = true" rounded>
+                                        ເບີ່ງ
+                                    </v-btn>
+                                    <v-spacer></v-spacer>
+                                    <v-btn color="success" rounded
+                                        @click="miningDoc('3iKcWacuOwaXxERfL6LNvuEKdjhvc5aF', 'ບ້ານສີຄູນ', 'documment')">
+                                        ເພີ່ມ
+                                    </v-btn>
+                                    <br>
+                                </v-list-item>
+                            </v-list-group>
+                            <v-list-group no-action sub-group>
+                                <template v-slot:activator>
+                                    <v-icon color="green">mdi-image-search-outline</v-icon>
+                                    <v-list-item-content>
+                                        <v-list-item-title>ຂໍ້ມູນສຳຫຼວດ</v-list-item-title>
+                                    </v-list-item-content>
+                                </template>
+                                <v-list-item>
+                                    <v-btn @click="surveydocument = true" rounded>
+                                        ເບີ່ງ
+
+                                    </v-btn>
+                                    <v-spacer></v-spacer>
+                                    <v-btn color="success" rounded
+                                        @click="navigateWithToken('3iKcWacuOwaXxERfL6LNvuEKdjhvc5aF', 'ບ້ານສີຄູນ', 'servey')">
+                                        ເພີ່ມ
+                                    </v-btn>
+                                    <br>
+                                </v-list-item>
+                            </v-list-group>
+                            <v-list-group no-action sub-group>
+                                <template v-slot:activator>
+                                    <v-icon color="red">mdi-screw-machine-flat-top</v-icon>
+                                    <v-list-item-content>
+                                        <v-list-item-title>ຂໍ້ມູນຮູເຈາະ</v-list-item-title>
+                                    </v-list-item-content>
+                                </template>
+                                <v-list-item>
+                                    <v-btn rounded @click="filedocuments = true">
+                                        ເບີ່ງ
+                                    </v-btn>
+                                    <v-spacer></v-spacer>
+                                    <v-btn color="success"
+                                        @click="navigate('3iKcWacuOwaXxERfL6LNvuEKdjhvc5aF', 'ບ້ານສີຄູນ')" rounded>
+                                        ເພີ່ມ
+                                    </v-btn>
+                                </v-list-item>
+                            </v-list-group>
+                            <v-list-group no-action sub-group>
+                                <template v-slot:activator>
+                                    <v-icon color="blue">mdi-test-tube-off</v-icon>
+                                    <v-list-item-content>
+                                        <v-list-item-title>ຂໍ້ມູນວິໃຈຕົວຢ່າງ</v-list-item-title>
+                                    </v-list-item-content>
+                                </template>
+                                <v-list-item>
+                                    <v-btn @click="testDoc = true" rounded>
+                                        ເບີ່ງ
+                                    </v-btn>
+                                    <v-spacer></v-spacer>
+                                    <v-btn color="success"
+                                        @click="test('3iKcWacuOwaXxERfL6LNvuEKdjhvc5aF', 'ບ້ານສີຄູນ', 'testData')"
+                                        rounded>
+                                        ເພີ່ມ
+                                    </v-btn>
+                                </v-list-item>
+                            </v-list-group>
+                            <v-list-group no-action sub-group>
+                                <template v-slot:activator>
+                                    <v-icon color="yellow">mdi-cash-100</v-icon>
+                                    <v-list-item-content>
+                                        <v-list-item-title>ຂໍ້ມູນລາຍຈ່າຍ</v-list-item-title>
+                                    </v-list-item-content>
+                                </template>
+                                <v-list-item>
+                                    <v-btn rounded>
+                                        ເບີ່ງ
+                                    </v-btn>
+                                    <v-spacer></v-spacer>
+                                    <v-btn color="success" rounded>ເພີ່ມ</v-btn>
+                                </v-list-item>
+                            </v-list-group>
+                            <v-list-group no-action sub-group>
+                                <template v-slot:activator>
+                                    <v-icon color="orange">mdi-account-hard-hat</v-icon>
+                                    <v-list-item-content>
+                                        <v-list-item-title>ຮູບພາບກ່ຽວກັບພາກສະໜາມ</v-list-item-title>
+                                    </v-list-item-content>
+                                </template>
+                                <v-list-item>
+                                    <v-btn rounded>
+                                        ເບີ່ງ
+                                    </v-btn>
+                                    <v-spacer></v-spacer>
+                                    <v-btn color="success" rounded>ເພີ່ມ</v-btn>
+                                </v-list-item>
+                            </v-list-group>
+                        </v-list-group>
+                    </v-list>
+                </v-card>
+            </v-col>
+            <!-- ບ້ານທ່າ  -->
+            <v-col>
+                <v-card class="mt-4" width="300">
+                    <v-list color="#CFD8DC">
+                        <v-list-group :value="false" prepend-icon="mdi-excavator"
+                            @click="setTokenAndFetch('e23QZokLhZNSVtXP1qYQHM8PVHr76VQa')">
+                            <template v-slot:activator>
+                                <v-list-item-title style="font-size: 20px; font-weight: bold;">ບ້ານທ່າ
+                                </v-list-item-title>
+                            </template>
+                            <v-list-group no-action sub-group>
+                                <template v-slot:activator>
+                                    <v-icon color="white">mdi-file-document</v-icon>
+                                    <v-list-item-content>
+                                        <v-list-item-title>ຂໍ້ມູນເອກະສານທີ່ກ່ຽວຂ້ອງ</v-list-item-title>
+                                    </v-list-item-content>
+                                </template>
+                                <v-list-item>
+                                    <v-btn @click="filedocument = true" rounded>
+                                        ເບີ່ງ
+                                    </v-btn>
+                                    <v-spacer></v-spacer>
+                                    <v-btn color="success" rounded
+                                        @click="miningDoc('e23QZokLhZNSVtXP1qYQHM8PVHr76VQa', 'ບ້ານທ່າ', 'documment')">
+                                        ເພີ່ມ
+                                    </v-btn>
+                                    <br>
+                                </v-list-item>
+                            </v-list-group>
+                            <v-list-group no-action sub-group>
+                                <template v-slot:activator>
+                                    <v-icon color="green">mdi-image-search-outline</v-icon>
+                                    <v-list-item-content>
+                                        <v-list-item-title>ຂໍ້ມູນສຳຫຼວດ</v-list-item-title>
+                                    </v-list-item-content>
+                                </template>
+                                <v-list-item>
+                                    <v-btn @click="surveydocument = true" rounded>
+                                        ເບີ່ງ
+
+                                    </v-btn>
+                                    <v-spacer></v-spacer>
+                                    <v-btn color="success" rounded
+                                        @click="navigateWithToken('e23QZokLhZNSVtXP1qYQHM8PVHr76VQa', 'ບ້ານທ່າ', 'servey')">
+                                        ເພີ່ມ
+                                    </v-btn>
+                                    <br>
+                                </v-list-item>
+                            </v-list-group>
+                            <v-list-group no-action sub-group>
+                                <template v-slot:activator>
+                                    <v-icon color="red">mdi-screw-machine-flat-top</v-icon>
+                                    <v-list-item-content>
+                                        <v-list-item-title>ຂໍ້ມູນຮູເຈາະ</v-list-item-title>
+                                    </v-list-item-content>
+                                </template>
+                                <v-list-item>
+                                    <v-btn rounded @click="filedocuments = true">
+                                        ເບີ່ງ
+                                    </v-btn>
+                                    <v-spacer></v-spacer>
+                                    <v-btn color="success"
+                                        @click="navigate('e23QZokLhZNSVtXP1qYQHM8PVHr76VQa', 'ບ້ານທ່າ')" rounded>
+                                        ເພີ່ມ
+                                    </v-btn>
+                                </v-list-item>
+                            </v-list-group>
+                            <v-list-group no-action sub-group>
+                                <template v-slot:activator>
+                                    <v-icon color="blue">mdi-test-tube-off</v-icon>
+                                    <v-list-item-content>
+                                        <v-list-item-title>ຂໍ້ມູນວິໃຈຕົວຢ່າງ</v-list-item-title>
+                                    </v-list-item-content>
+                                </template>
+                                <v-list-item>
+                                    <v-btn @click="testDoc = true" rounded>
+                                        ເບີ່ງ
+                                    </v-btn>
+                                    <v-spacer></v-spacer>
+                                    <v-btn color="success"
+                                        @click="test('23QZokLhZNSVtXP1qYQHM8PVHr76VQa', 'ບ້ານທ່າ', 'testData')"
+                                        rounded>
+                                        ເພີ່ມ
+                                    </v-btn>
+                                </v-list-item>
+                            </v-list-group>
+                            <v-list-group no-action sub-group>
+                                <template v-slot:activator>
+                                    <v-icon color="yellow">mdi-cash-100</v-icon>
+                                    <v-list-item-content>
+                                        <v-list-item-title>ຂໍ້ມູນລາຍຈ່າຍ</v-list-item-title>
+                                    </v-list-item-content>
+                                </template>
+                                <v-list-item>
+                                    <v-btn rounded>
+                                        ເບີ່ງ
+                                    </v-btn>
+                                    <v-spacer></v-spacer>
+                                    <v-btn color="success" rounded>ເພີ່ມ</v-btn>
+                                </v-list-item>
+                            </v-list-group>
+                            <v-list-group no-action sub-group>
+                                <template v-slot:activator>
+                                    <v-icon color="orange">mdi-account-hard-hat</v-icon>
+                                    <v-list-item-content>
+                                        <v-list-item-title>ຮູບພາບກ່ຽວກັບພາກສະໜາມ</v-list-item-title>
+                                    </v-list-item-content>
+                                </template>
+                                <v-list-item>
+                                    <v-btn rounded>
+                                        ເບີ່ງ
+                                    </v-btn>
+                                    <v-spacer></v-spacer>
+                                    <v-btn color="success" rounded>ເພີ່ມ</v-btn>
+                                </v-list-item>
+                            </v-list-group>
+                        </v-list-group>
+                    </v-list>
+                </v-card>
+            </v-col>
+
+            <!-- ບ້ານໂພນຄໍາ  -->
+            <v-col>
+                <v-card class="mt-4" width="300">
+                    <v-list color="#CFD8DC">
+                        <v-list-group :value="false" prepend-icon="mdi-excavator"
+                            @click="setTokenAndFetch('phonkham123kOQHMwA1Ve9lMq22X3kpSiaIbDO123')">
+                            <template v-slot:activator>
+                                <v-list-item-title style="font-size: 20px; font-weight: bold;">ບ້ານໂພນຄໍາ
+                                </v-list-item-title>
+                            </template>
+                            <v-list-group no-action sub-group>
+                                <template v-slot:activator>
+                                    <v-icon color="white">mdi-file-document</v-icon>
+                                    <v-list-item-content>
+                                        <v-list-item-title>ຂໍ້ມູນເອກະສານທີ່ກ່ຽວຂ້ອງ</v-list-item-title>
+                                    </v-list-item-content>
+                                </template>
+                                <v-list-item>
+                                    <v-btn @click="filedocument = true" rounded>
+                                        ເບີ່ງ
+                                    </v-btn>
+                                    <v-spacer></v-spacer>
+                                    <v-btn color="success" rounded
+                                        @click="miningDoc('phonkham123kOQHMwA1Ve9lMq22X3kpSiaIbDO123', 'ບ້ານໂພນຄໍາ', 'documment')">
+                                        ເພີ່ມ
+                                    </v-btn>
+                                    <br>
+                                </v-list-item>
+                            </v-list-group>
+                            <v-list-group no-action sub-group>
+                                <template v-slot:activator>
+                                    <v-icon color="green">mdi-image-search-outline</v-icon>
+                                    <v-list-item-content>
+                                        <v-list-item-title>ຂໍ້ມູນສຳຫຼວດ</v-list-item-title>
+                                    </v-list-item-content>
+                                </template>
+                                <v-list-item>
+                                    <v-btn @click="surveydocument = true" rounded>
+                                        ເບີ່ງ
+
+                                    </v-btn>
+                                    <v-spacer></v-spacer>
+                                    <v-btn color="success" rounded
+                                        @click="navigateWithToken('phonkham123kOQHMwA1Ve9lMq22X3kpSiaIbDO123', 'ບ້ານໂພນຄໍາ', 'servey')">
+                                        ເພີ່ມ
+                                    </v-btn>
+                                    <br>
+                                </v-list-item>
+                            </v-list-group>
+                            <v-list-group no-action sub-group>
+                                <template v-slot:activator>
+                                    <v-icon color="red">mdi-screw-machine-flat-top</v-icon>
+                                    <v-list-item-content>
+                                        <v-list-item-title>ຂໍ້ມູນຮູເຈາະ</v-list-item-title>
+                                    </v-list-item-content>
+                                </template>
+                                <v-list-item>
+                                    <v-btn rounded @click="filedocuments = true">
+                                        ເບີ່ງ
+                                    </v-btn>
+                                    <v-spacer></v-spacer>
+                                    <v-btn color="success"
+                                        @click="navigate('phonkham123kOQHMwA1Ve9lMq22X3kpSiaIbDO123', 'ບ້ານໂພນຄໍາ')"
+                                        rounded>
+                                        ເພີ່ມ
+                                    </v-btn>
+                                </v-list-item>
+                            </v-list-group>
+                            <v-list-group no-action sub-group>
+                                <v-icon color="blue">mdi-test-tube-off</v-icon>
+                                <template v-slot:activator>
+                                    <v-list-item-content>
+                                        <v-list-item-title>ຂໍ້ມູນວິໃຈຕົວຢ່າງ</v-list-item-title>
+                                    </v-list-item-content>
+                                </template>
+                                <v-list-item>
+                                    <v-btn @click="testDoc = true" rounded>
+                                        ເບີ່ງ
+                                    </v-btn>
+                                    <v-spacer></v-spacer>
+                                    <v-btn color="success"
+                                        @click="test('phonkham123kOQHMwA1Ve9lMq22X3kpSiaIbDO123', 'ບ້ານໂພນຄໍາ', 'testData')"
+                                        rounded>
+                                        ເພີ່ມ
+                                    </v-btn>
+                                </v-list-item>
+                            </v-list-group>
+                            <v-list-group no-action sub-group>
+                                <template v-slot:activator>
+                                    <v-icon color="yellow">mdi-cash-100</v-icon>
+                                    <v-list-item-content>
+                                        <v-list-item-title>ຂໍ້ມູນລາຍຈ່າຍ</v-list-item-title>
+                                    </v-list-item-content>
+                                </template>
+                                <v-list-item>
+                                    <v-btn rounded>
+                                        ເບີ່ງ
+                                    </v-btn>
+                                    <v-spacer></v-spacer>
+                                    <v-btn color="success" rounded>ເພີ່ມ</v-btn>
+                                </v-list-item>
+                            </v-list-group>
+                            <v-list-group no-action sub-group>
+                                <template v-slot:activator>
+                                    <v-icon color="orange">mdi-account-hard-hat</v-icon>
+                                    <v-list-item-content>
+                                        <v-list-item-title>ຮູບພາບກ່ຽວກັບພາກສະໜາມ</v-list-item-title>
+                                    </v-list-item-content>
+                                </template>
+                                <v-list-item>
+                                    <v-btn rounded>
+                                        ເບີ່ງ
+                                    </v-btn>
+                                    <v-spacer></v-spacer>
+                                    <v-btn color="success" rounded>ເພີ່ມ</v-btn>
+                                </v-list-item>
+                            </v-list-group>
+                        </v-list-group>
+                    </v-list>
+                </v-card>
+            </v-col>
+
+            <!-- ຊຽງຄົງ  -->
+            <v-col>
+                <v-card class="mt-4" width="300">
+                    <v-list color="#CFD8DC">
+                        <v-list-group :value="false" prepend-icon="mdi-excavator"
+                            @click="setTokenAndFetch('kOQHMwA1Ve9lMq22X3kpSiaIbGGKghDO')">
+                            <template v-slot:activator>
+                                <v-list-item-title style="font-size: 20px; font-weight: bold;">ບ້ານຊຽງຄົງ
+                                </v-list-item-title>
+                            </template>
+                            <v-list-group no-action sub-group>
+                                <template v-slot:activator>
+                                    <v-icon color="white">mdi-file-document</v-icon>
+                                    <v-list-item-content>
+                                        <v-list-item-title>ຂໍ້ມູນເອກະສານທີ່ກ່ຽວຂ້ອງ</v-list-item-title>
+                                    </v-list-item-content>
+                                </template>
+                                <v-list-item>
+                                    <v-btn @click="filedocument = true" rounded>
+                                        ເບີ່ງ
+                                    </v-btn>
+                                    <v-spacer></v-spacer>
+                                    <v-btn color="success" rounded
+                                        @click="miningDoc('kOQHMwA1Ve9lMq22X3kpSiaIbGGKghDO', 'ບ້ານຊຽງຄົງ', 'documment')">
+                                        ເພີ່ມ
+                                    </v-btn>
+                                    <br>
+                                </v-list-item>
+                            </v-list-group>
+                            <v-list-group no-action sub-group>
+                                <template v-slot:activator>
+                                    <v-icon color="green">mdi-image-search-outline</v-icon>
+                                    <v-list-item-content>
+                                        <v-list-item-title>ຂໍ້ມູນສຳຫຼວດ</v-list-item-title>
+                                    </v-list-item-content>
+                                </template>
+                                <v-list-item>
+                                    <v-btn @click="surveydocument = true" rounded>
+                                        ເບີ່ງ
+
+                                    </v-btn>
+                                    <v-spacer></v-spacer>
+                                    <v-btn color="success" rounded
+                                        @click="navigateWithToken('kOQHMwA1Ve9lMq22X3kpSiaIbGGKghDO', 'ບ້ານຊຽງຄົງ', 'servey')">
+                                        ເພີ່ມ
+                                    </v-btn>
+                                    <br>
+                                </v-list-item>
+                            </v-list-group>
+                            <v-list-group no-action sub-group>
+                                <template v-slot:activator>
+                                    <v-icon color="red">mdi-screw-machine-flat-top</v-icon>
+                                    <v-list-item-content>
+                                        <v-list-item-title>ຂໍ້ມູນຮູເຈາະ</v-list-item-title>
+                                    </v-list-item-content>
+                                </template>
+                                <v-list-item>
+                                    <v-btn rounded @click="filedocuments = true">
+                                        ເບີ່ງ
+                                    </v-btn>
+                                    <v-spacer></v-spacer>
+                                    <v-btn color="success"
+                                        @click="navigate('kOQHMwA1Ve9lMq22X3kpSiaIbGGKghDO', 'ບ້ານຊຽງຄົງ')" rounded>
+                                        ເພີ່ມ
+                                    </v-btn>
+                                </v-list-item>
+                            </v-list-group>
+                            <v-list-group no-action sub-group>
+                                <template v-slot:activator>
+                                    <v-icon color="blue">mdi-test-tube-off</v-icon>
+                                    <v-list-item-content>
+                                        <v-list-item-title>ຂໍ້ມູນວິໃຈຕົວຢ່າງ</v-list-item-title>
+                                    </v-list-item-content>
+                                </template>
+                                <v-list-item>
+                                    <v-btn @click="testDoc = true" rounded>
+                                        ເບີ່ງ
+                                    </v-btn>
+                                    <v-spacer></v-spacer>
+                                    <v-btn color="success"
+                                        @click="test('kOQHMwA1Ve9lMq22X3kpSiaIbGGKghDO', 'ບ້ານຊຽງຄົງ', 'testData')"
+                                        rounded>
+                                        ເພີ່ມ
+                                    </v-btn>
+                                </v-list-item>
+                            </v-list-group>
+                            <v-list-group no-action sub-group>
+                                <template v-slot:activator>
+                                    <v-icon color="yellow">mdi-cash-100</v-icon>
+                                    <v-list-item-content>
+                                        <v-list-item-title>ຂໍ້ມູນລາຍຈ່າຍ</v-list-item-title>
+                                    </v-list-item-content>
+                                </template>
+                                <v-list-item>
+                                    <v-btn rounded>
+                                    </v-btn>
+                                    <v-spacer></v-spacer>
+                                    <v-btn color="success" rounded>ເພີ່ມ</v-btn>
+                                </v-list-item>
+                            </v-list-group>
+                            <v-list-group no-action sub-group>
+                                <template v-slot:activator>
+                                    <v-icon color="orange">mdi-account-hard-hat</v-icon>
+                                    <v-list-item-content>
+                                        <v-list-item-title>ຮູບພາບກ່ຽວກັບພາກສະໜາມ</v-list-item-title>
+                                    </v-list-item-content>
+                                </template>
+                                <v-list-item>
+                                    <v-btn rounded>
+                                    </v-btn>
+                                    <v-spacer></v-spacer>
+                                    <v-btn color="success" rounded>ເພີ່ມ</v-btn>
+                                </v-list-item>
+                            </v-list-group>
+                        </v-list-group>
+                    </v-list>
+                </v-card>
+            </v-col>
+
+            <!-- ນໍ້າຊາວ  -->
+            <v-col>
+                <v-card class="mt-4" width="300">
+                    <v-list color="#CFD8DC">
+                        <v-list-group :value="false" prepend-icon="mdi-excavator"
+                            @click="setTokenAndFetch('namzao123kOQHMwA1Ve9lMq22X3kpSiaIbKghDO456')">
+                            <template v-slot:activator>
+                                <v-list-item-title style="font-size: 20px; font-weight: bold;">ບ້ານນໍ້າຊາວ
+                                </v-list-item-title>
+                            </template>
+                            <v-list-group no-action sub-group>
+                                <template v-slot:activator>
+                                    <v-icon color="white">mdi-file-document</v-icon>
+                                    <v-list-item-content>
+                                        <v-list-item-title>ຂໍ້ມູນເອກະສານທີ່ກ່ຽວຂ້ອງ</v-list-item-title>
+                                    </v-list-item-content>
+                                </template>
+                                <v-list-item>
+                                    <v-btn @click="filedocument = true" rounded>
+                                        ເບີ່ງ
+                                    </v-btn>
+                                    <v-spacer></v-spacer>
+                                    <v-btn color="success" rounded
+                                        @click="miningDoc('namzao123kOQHMwA1Ve9lMq22X3kpSiaIbKghDO456', 'ບ້ານນໍ້າຊາວ', 'documment')">
+                                        ເພີ່ມ
+                                    </v-btn>
+                                    <br>
+                                </v-list-item>
+                            </v-list-group>
+                            <v-list-group no-action sub-group>
+                                <template v-slot:activator>
+                                    <v-icon color="green">mdi-image-search-outline</v-icon>
+                                    <v-list-item-content>
+                                        <v-list-item-title>ຂໍ້ມູນສຳຫຼວດ</v-list-item-title>
+                                    </v-list-item-content>
+                                </template>
+                                <v-list-item>
+                                    <v-btn @click="surveydocument = true" rounded>
+                                        ເບີ່ງ
+
+                                    </v-btn>
+                                    <v-spacer></v-spacer>
+                                    <v-btn color="success" rounded
+                                        @click="navigateWithToken('namzao123kOQHMwA1Ve9lMq22X3kpSiaIbKghDO456', 'ບ້ານນໍ້າຊາວ', 'servey')">
+                                        ເພີ່ມ
+                                    </v-btn>
+                                    <br>
+                                </v-list-item>
+                            </v-list-group>
+                            <v-list-group no-action sub-group>
+                                <template v-slot:activator>
+                                    <v-icon color="red">mdi-screw-machine-flat-top</v-icon>
+                                    <v-list-item-content>
+                                        <v-list-item-title>ຂໍ້ມູນຮູເຈາະ</v-list-item-title>
+                                    </v-list-item-content>
+                                </template>
+                                <v-list-item>
+                                    <v-btn rounded @click="filedocuments = true">
+                                        ເບີ່ງ
+                                    </v-btn>
+                                    <v-spacer></v-spacer>
+                                    <v-btn color="success"
+                                        @click="navigate('namzao123kOQHMwA1Ve9lMq22X3kpSiaIbKghDO456', 'ບ້ານນໍ້າຊາວ')"
+                                        rounded>
+                                        ເພີ່ມ
+                                    </v-btn>
+                                </v-list-item>
+                            </v-list-group>
+                            <v-list-group no-action sub-group>
+                                <template v-slot:activator>
+                                    <v-icon color="blue">mdi-test-tube-off</v-icon>
+                                    <v-list-item-content>
+                                        <v-list-item-title>ຂໍ້ມູນວິໃຈຕົວຢ່າງ</v-list-item-title>
+                                    </v-list-item-content>
+                                </template>
+                                <v-list-item>
+                                    <v-btn @click="testDoc = true" rounded>
+                                        ເບີ່ງ
+                                    </v-btn>
+                                    <v-spacer></v-spacer>
+                                    <v-btn color="success"
+                                        @click="test('namzao123kOQHMwA1Ve9lMq22X3kpSiaIbKghDO456', 'ບ້ານນໍ້າຊາວ', 'testData')"
+                                        rounded>
+                                        ເພີ່ມ
+                                    </v-btn>
+                                </v-list-item>
+                            </v-list-group>
+                            <v-list-group no-action sub-group>
+                                <template v-slot:activator>
+                                    <v-icon color="yellow">mdi-cash-100</v-icon>
+                                    <v-list-item-content>
+                                        <v-list-item-title>ຂໍ້ມູນລາຍຈ່າຍ</v-list-item-title>
+                                    </v-list-item-content>
+                                </template>
+                                <v-list-item>
+                                    <v-btn rounded>
+                                        ເບີ່ງ
+                                    </v-btn>
+                                    <v-spacer></v-spacer>
+                                    <v-btn color="success" rounded>ເພີ່ມ</v-btn>
+                                </v-list-item>
+                            </v-list-group>
+                            <v-list-group no-action sub-group>
+                                <template v-slot:activator>
+                                    <v-icon color="orange">mdi-account-hard-hat</v-icon>
+                                    <v-list-item-content>
+                                        <v-list-item-title>ຮູບພາບກ່ຽວກັບພາກສະໜາມ</v-list-item-title>
+                                    </v-list-item-content>
+                                </template>
+                                <v-list-item>
+                                    <v-btn rounded>
+                                        ເບີ່ງ
+                                    </v-btn>
+                                    <v-spacer></v-spacer>
+                                    <v-btn color="success" rounded>ເພີ່ມ</v-btn>
+                                </v-list-item>
+                            </v-list-group>
+                        </v-list-group>
+                    </v-list>
+                </v-card>
+            </v-col>
+
+            <!-- ໜອງພູໄຊ 32,28-->
+            <v-col>
+                <v-card class="mt-4" width="300">
+                    <v-list color="#CFD8DC">
+                        <v-list-group :value="false" prepend-icon="mdi-excavator"
+                            @click="setTokenAndFetch('nongphounxai3kOQHMwA1Ve9lMq22X3kpSiaIDO789')">
+                            <template v-slot:activator>
+                                <v-list-item-title style="font-size: 20px; font-weight: bold;">ໜອງພູໄຊ 32,28
+                                </v-list-item-title>
+                            </template>
+                            <v-list-group no-action sub-group>
+                                <template v-slot:activator>
+                                    <v-icon color="white">mdi-file-document</v-icon>
+                                    <v-list-item-content>
+                                        <v-list-item-title>ຂໍ້ມູນເອກະສານທີ່ກ່ຽວຂ້ອງ</v-list-item-title>
+                                    </v-list-item-content>
+                                </template>
+                                <v-list-item>
+                                    <v-btn @click="filedocument = true" rounded>
+                                        ເບີ່ງ
+                                    </v-btn>
+                                    <v-spacer></v-spacer>
+                                    <v-btn color="success" rounded
+                                        @click="miningDoc('nongphounxai3kOQHMwA1Ve9lMq22X3kpSiaIDO789', 'ໜອງພູໄຊ 32,28', 'documment')">
+                                        ເພີ່ມ
+                                    </v-btn>
+                                    <br>
+                                </v-list-item>
+                            </v-list-group>
+                            <v-list-group no-action sub-group>
+                                <template v-slot:activator>
+                                    <v-icon color="green">mdi-image-search-outline</v-icon>
+                                    <v-list-item-content>
+                                        <v-list-item-title>ຂໍ້ມູນສຳຫຼວດ</v-list-item-title>
+                                    </v-list-item-content>
+                                </template>
+                                <v-list-item>
+                                    <v-btn @click="surveydocument = true" rounded>
+                                        ເບີ່ງ
+
+                                    </v-btn>
+                                    <v-spacer></v-spacer>
+                                    <v-btn color="success" rounded
+                                        @click="navigateWithToken('nongphounxai3kOQHMwA1Ve9lMq22X3kpSiaIDO789', 'ໜອງພູໄຊ 32,28', 'servey')">
+                                        ເພີ່ມ
+                                    </v-btn>
+                                    <br>
+                                </v-list-item>
+                            </v-list-group>
+                            <v-list-group no-action sub-group>
+                                <template v-slot:activator>
+                                    <v-icon color="red">mdi-screw-machine-flat-top</v-icon>
+                                    <v-list-item-content>
+                                        <v-list-item-title>ຂໍ້ມູນຮູເຈາະ</v-list-item-title>
+                                    </v-list-item-content>
+                                </template>
+                                <v-list-item>
+                                    <v-btn rounded @click="filedocuments = true">
+                                        ເບີ່ງ
+                                    </v-btn>
+                                    <v-spacer></v-spacer>
+                                    <v-btn color="success"
+                                        @click="navigate('nongphounxai3kOQHMwA1Ve9lMq22X3kpSiaIDO789', 'ໜອງພູໄຊ 32,28')"
+                                        rounded>
+                                        ເພີ່ມ
+                                    </v-btn>
+                                </v-list-item>
+                            </v-list-group>
+                            <v-list-group no-action sub-group>
+                                <template v-slot:activator>
+                                    <v-icon color="blue">mdi-test-tube-off</v-icon>
+                                    <v-list-item-content>
+                                        <v-list-item-title>ຂໍ້ມູນວິໃຈຕົວຢ່າງ</v-list-item-title>
+                                    </v-list-item-content>
+                                </template>
+                                <v-list-item>
+                                    <v-btn @click="testDoc = true" rounded>
+                                        ເບີ່ງ
+                                    </v-btn>
+                                    <v-spacer></v-spacer>
+                                    <v-btn color="success"
+                                        @click="test('nongphounxai3kOQHMwA1Ve9lMq22X3kpSiaIDO789', 'ໜອງພູໄຊ 32,28', 'testData')"
+                                        rounded>
+                                        ເພີ່ມ
+                                    </v-btn>
+                                </v-list-item>
+                            </v-list-group>
+                            <v-list-group no-action sub-group>
+                                <template v-slot:activator>
+                                    <v-icon color="yellow">mdi-cash-100</v-icon>
+                                    <v-list-item-content>
+                                        <v-list-item-title>ຂໍ້ມູນລາຍຈ່າຍ</v-list-item-title>
+                                    </v-list-item-content>
+                                </template>
+                                <v-list-item>
+                                    <v-btn rounded>
+                                        ເບີ່ງ
+                                    </v-btn>
+                                    <v-spacer></v-spacer>
+                                    <v-btn color="success" rounded>ເພີ່ມ</v-btn>
+                                </v-list-item>
+                            </v-list-group>
+                            <v-list-group no-action sub-group>
+                                <template v-slot:activator>
+                                    <v-icon color="orange">mdi-account-hard-hat</v-icon>
+                                    <v-list-item-content>
+                                        <v-list-item-title>ຮູບພາບກ່ຽວກັບພາກສະໜາມ</v-list-item-title>
+                                    </v-list-item-content>
+                                </template>
+                                <v-list-item>
+                                    <v-btn rounded>
+                                        ເບີ່ງ
+                                    </v-btn>
+                                    <v-spacer></v-spacer>
+                                    <v-btn color="success" rounded>ເພີ່ມ</v-btn>
+                                </v-list-item>
+                            </v-list-group>
+                        </v-list-group>
+                    </v-list>
+                </v-card>
+            </v-col>
+            <!-- ໜອງພູໄຊ 62,39-->
+            <v-col>
+                <v-card class="mt-4" width="300">
+                    <v-list color="#CFD8DC">
+                        <v-list-group :value="false" prepend-icon="mdi-excavator"
+                            @click="setTokenAndFetch('knongphounxaiOQHMwA1Ve9lMq22X3kpSiahDO101112')">
+                            <template v-slot:activator>
+                                <v-list-item-title style="font-size: 20px; font-weight: bold;">ໜອງພູໄຊ 62,39
+                                </v-list-item-title>
+                            </template>
+                            <v-list-group no-action sub-group>
+                                <template v-slot:activator>
+                                    <v-icon color="white">mdi-file-document</v-icon>
+                                    <v-list-item-content>
+                                        <v-list-item-title>ຂໍ້ມູນເອກະສານທີ່ກ່ຽວຂ້ອງ</v-list-item-title>
+                                    </v-list-item-content>
+                                </template>
+                                <v-list-item>
+                                    <v-btn @click="filedocument = true" rounded>
+                                        ເບີ່ງ
+                                    </v-btn>
+                                    <v-spacer></v-spacer>
+                                    <v-btn color="success" rounded
+                                        @click="miningDoc('knongphounxaiOQHMwA1Ve9lMq22X3kpSiahDO101112', 'ໜອງພູໄຊ 62,39', 'documment')">
+                                        ເພີ່ມ
+                                    </v-btn>
+                                    <br>
+                                </v-list-item>
+                            </v-list-group>
+                            <v-list-group no-action sub-group>
+                                <template v-slot:activator>
+                                    <v-icon color="green">mdi-image-search-outline</v-icon>
+                                    <v-list-item-content>
+                                        <v-list-item-title>ຂໍ້ມູນສຳຫຼວດ</v-list-item-title>
+                                    </v-list-item-content>
+                                </template>
+                                <v-list-item>
+                                    <v-btn @click="surveydocument = true" rounded>
+                                        ເບີ່ງ
+
+                                    </v-btn>
+                                    <v-spacer></v-spacer>
+                                    <v-btn color="success" rounded
+                                        @click="navigateWithToken('knongphounxaiOQHMwA1Ve9lMq22X3kpSiahDO101112', 'ໜອງພູໄຊ 62,39', 'servey')">
+                                        ເພີ່ມ
+                                    </v-btn>
+                                    <br>
+                                </v-list-item>
+                            </v-list-group>
+                            <v-list-group no-action sub-group>
+                                <template v-slot:activator>
+                                    <v-icon color="red">mdi-screw-machine-flat-top</v-icon>
+                                    <v-list-item-content>
+                                        <v-list-item-title>ຂໍ້ມູນຮູເຈາະ</v-list-item-title>
+                                    </v-list-item-content>
+                                </template>
+                                <v-list-item>
+                                    <v-btn rounded @click="filedocuments = true">
+                                        ເບີ່ງ
+                                    </v-btn>
+                                    <v-spacer></v-spacer>
+                                    <v-btn color="success"
+                                        @click="navigate('knongphounxaiOQHMwA1Ve9lMq22X3kpSiahDO101112', 'ໜອງພູໄຊ 62,39')"
+                                        rounded>
+                                        ເພີ່ມ
+                                    </v-btn>
+                                </v-list-item>
+                            </v-list-group>
+                            <v-list-group no-action sub-group>
+                                <template v-slot:activator>
+                                    <v-icon color="blue">mdi-test-tube-off</v-icon>
+                                    <v-list-item-content>
+                                        <v-list-item-title>ຂໍ້ມູນວິໃຈຕົວຢ່າງ</v-list-item-title>
+                                    </v-list-item-content>
+                                </template>
+                                <v-list-item>
+                                    <v-btn @click="testDoc = true" rounded>
+                                        ເບີ່ງ
+                                    </v-btn>
+                                    <v-spacer></v-spacer>
+                                    <v-btn color="success"
+                                        @click="test('knongphounxaiOQHMwA1Ve9lMq22X3kpSiahDO101112', 'ໜອງພູໄຊ 62,39', 'testData')"
+                                        rounded>
+                                        ເພີ່ມ
+                                    </v-btn>
+                                </v-list-item>
+                            </v-list-group>
+                            <v-list-group no-action sub-group>
+                                <template v-slot:activator>
+                                    <v-icon color="yellow">mdi-cash-100</v-icon>
+                                    <v-list-item-content>
+                                        <v-list-item-title>ຂໍ້ມູນລາຍຈ່າຍ</v-list-item-title>
+                                    </v-list-item-content>
+                                </template>
+                                <v-list-item>
+                                    <v-btn rounded>
+                                        ເບີ່ງ
+                                    </v-btn>
+                                    <v-spacer></v-spacer>
+                                    <v-btn color="success" rounded>ເພີ່ມ</v-btn>
+                                </v-list-item>
+                            </v-list-group>
+                            <v-list-group no-action sub-group>
+                                <template v-slot:activator>
+                                    <v-icon color="orange">mdi-account-hard-hat</v-icon>
+                                    <v-list-item-content>
+                                        <v-list-item-title>ຮູບພາບກ່ຽວກັບພາກສະໜາມ</v-list-item-title>
+                                    </v-list-item-content>
+                                </template>
+                                <v-list-item>
+                                    <v-btn rounded>
+                                        ເບີ່ງ
+                                    </v-btn>
+                                    <v-spacer></v-spacer>
+                                    <v-btn color="success" rounded>ເພີ່ມ</v-btn>
+                                </v-list-item>
+                            </v-list-group>
+                        </v-list-group>
+                    </v-list>
+                </v-card>
+            </v-col>
+            <!-- ລາດຫໍ້  -->
+            <v-col>
+                <v-card class="mt-4" width="300">
+                    <v-list color="#CFD8DC">
+                        <v-list-group :value="false" prepend-icon="mdi-excavator"
+                            @click="setTokenAndFetch('kOlardhor123QHMwA1Ve9lMq22X3GGKghDO13214415')">
+                            <template v-slot:activator>
+                                <v-list-item-title style="font-size: 20px; font-weight: bold;">ບ້ານລາດຫໍ້
+                                </v-list-item-title>
+                            </template>
+                            <v-list-group no-action sub-group>
+                                <template v-slot:activator>
+                                    <v-list-item-content c>
+                                        <v-list-item-title>ຂໍ້ມູນເອກະສານທີ່ກ່ຽວຂ້ອງ</v-list-item-title>
+                                    </v-list-item-content>
+                                </template>
+                                <v-list-item>
+                                    <v-btn @click="filedocument = true" rounded>
+                                        ເບີ່ງ
+                                    </v-btn>
+                                    <v-spacer></v-spacer>
+                                    <v-btn color="success" rounded
+                                        @click="miningDoc('kOlardhor123QHMwA1Ve9lMq22X3GGKghDO13214415', 'ບ້ານລາດຫໍ້', 'documment')">
+                                        ເພີ່ມ
+                                    </v-btn>
+                                    <br>
+                                </v-list-item>
+                            </v-list-group>
+                            <v-list-group no-action sub-group>
+                                <template v-slot:activator>
+                                    <v-icon color="green">mdi-image-search-outline</v-icon>
+                                    <v-list-item-content>
+                                        <v-list-item-title>ຂໍ້ມູນສຳຫຼວດ</v-list-item-title>
+                                    </v-list-item-content>
+                                </template>
+                                <v-list-item>
+                                    <v-btn @click="surveydocument = true" rounded>
+                                        ເບີ່ງ
+
+                                    </v-btn>
+                                    <v-spacer></v-spacer>
+                                    <v-btn color="success" rounded
+                                        @click="navigateWithToken('kOlardhor123QHMwA1Ve9lMq22X3GGKghDO13214415', 'ບ້ານລາດຫໍ້', 'servey')">
+                                        ເພີ່ມ
+                                    </v-btn>
+                                    <br>
+                                </v-list-item>
+                            </v-list-group>
+                            <v-list-group no-action sub-group>
+                                <template v-slot:activator>
+                                    <v-icon color="red">mdi-screw-machine-flat-top</v-icon>
+                                    <v-list-item-content>
+                                        <v-list-item-title>ຂໍ້ມູນຮູເຈາະ</v-list-item-title>
+                                    </v-list-item-content>
+                                </template>
+                                <v-list-item>
+                                    <v-btn rounded @click="filedocuments = true">
+                                        ເບີ່ງ
+                                    </v-btn>
+                                    <v-spacer></v-spacer>
+                                    <v-btn color="success"
+                                        @click="navigate('kOlardhor123QHMwA1Ve9lMq22X3GGKghDO13214415', 'ບ້ານລາດຫໍ້')"
+                                        rounded>
+                                        ເພີ່ມ
+                                    </v-btn>
+                                </v-list-item>
+                            </v-list-group>
+                            <v-list-group no-action sub-group>
+                                <template v-slot:activator>
+                                    <v-icon color="blue">mdi-test-tube-off</v-icon>
+                                    <v-list-item-content>
+                                        <v-list-item-title>ຂໍ້ມູນວິໃຈຕົວຢ່າງ</v-list-item-title>
+                                    </v-list-item-content>
+                                </template>
+                                <v-list-item>
+                                    <v-btn @click="testDoc = true" rounded>
+                                        ເບີ່ງ
+                                    </v-btn>
+                                    <v-spacer></v-spacer>
+                                    <v-btn color="success"
+                                        @click="test('kOlardhor123QHMwA1Ve9lMq22X3GGKghDO13214415', 'ບ້ານລາດຫໍ້', 'testData')"
+                                        rounded>
+                                        ເພີ່ມ
+                                    </v-btn>
+                                </v-list-item>
+                            </v-list-group>
+                            <v-list-group no-action sub-group>
+                                <template v-slot:activator>
+                                    <v-icon color="yellow">mdi-cash-100</v-icon>
+                                    <v-list-item-content>
+                                        <v-list-item-title>ຂໍ້ມູນລາຍຈ່າຍ</v-list-item-title>
+                                    </v-list-item-content>
+                                </template>
+                                <v-list-item>
+                                    <v-btn rounded>
+                                        ເບີ່ງ
+                                    </v-btn>
+                                    <v-spacer></v-spacer>
+                                    <v-btn color="success" rounded>ເພີ່ມ</v-btn>
+                                </v-list-item>
+                            </v-list-group>
+                            <v-list-group no-action sub-group>
+                                <template v-slot:activator>
+                                    <v-icon color="orange">mdi-account-hard-hat</v-icon>
+                                    <v-list-item-content>
+                                        <v-list-item-title>ຮູບພາບກ່ຽວກັບພາກສະໜາມ</v-list-item-title>
+                                    </v-list-item-content>
+                                </template>
+                                <v-list-item>
+                                    <v-btn rounded>
+                                        ເບີ່ງ
+                                    </v-btn>
+                                    <v-spacer></v-spacer>
+                                    <v-btn color="success" rounded>ເພີ່ມ</v-btn>
+                                </v-list-item>
+                            </v-list-group>
+                        </v-list-group>
+                    </v-list>
+                </v-card>
+            </v-col>
+        </v-row>
     </div>
 </template>
 
@@ -202,6 +1351,14 @@ import swal from 'sweetalert2'
 export default {
     data() {
         return {
+            searchQuery: '',
+            sisternokDoc: false,
+            loading_processing: false,
+            filedocument: false,
+            testDoc: false,
+            surveydocument: false,
+            filedocuments: false,
+            imagefile: false,
             selectedToken: null, // To store the selected token
             selectedCard: '1',
             license_plate: '',
@@ -222,6 +1379,9 @@ export default {
                 { text: '', value: '' },
             ],
             report_ResultOfServey: [],
+            ResultOfServey: [],
+            sisterNokAll: [],
+            vichai: [],
             search: '',
             pdfDialog: false, // Controls the visibility of the PDF dialog
             pdfUrl: '',       // Stores the URL of the PDF to display
@@ -241,9 +1401,46 @@ export default {
     },
     mounted() {
         this.ShowAllListOfHole();
-        this.ShowAllResultOfServey();
+        // this.ShowAllResultOfServey();
     },
     methods: {
+        refresher() {
+            this.filedocument = false;
+            this.filedocuments = false;
+            this.testDoc = false;
+            this.surveydocument = false
+            window.location.reload();
+        },
+        navigateWithToken(token, buttonLabel, number) {
+            this.$router.push({
+                name: 'Survey results',
+                query: { token, label: buttonLabel, number }
+            });
+        },
+        navigate(token, buttonvalue) {
+            this.$router.push({
+                name: 'Add_a_hole',
+                query: { token, label: buttonvalue }
+            });
+        },
+        miningDoc(token, buttonLabel, number) {
+            this.$router.push({
+                name: 'miningdocument',
+                query: { token, label: buttonLabel, number }
+            });
+        },
+        nokDoc(token, buttonLabel, number) {
+            this.$router.push({
+                name: 'nokdocumment',
+                query: { token, label: buttonLabel, number }
+            });
+        },
+        test(token, valueDoc, number) {
+            this.$router.push({
+                name: 'testdocument',
+                query: { token, label: valueDoc, number }
+            });
+        },
         setBound(value) {
             this.bound = value;
             this.ShowAllListOfHole();
@@ -256,6 +1453,9 @@ export default {
             this.toKen = token;
             this.ShowAllListOfHole();
             this.ShowAllResultOfServey();
+            this.DocServey();
+            this.vichaiExample();
+            this.functionSisterNok();
         },
         getButtonStyle(token) {
             // Conditionally return the button style
@@ -297,15 +1497,135 @@ export default {
                 this.loading_processing = true;
                 this.$axios.$post('/ShowAllResultOfServey.service', {
                     branchUser: this.USER_ROLE,
-                    toKen: this.toKen,  // Use the token set from the button click
-                    bound: this.bound,
+                    toKen: this.toKen,
                     bound: this.bound,
                 }).then((data) => {
+                    console.log('API Response:', data); // Log the response
                     if (data?.status === "00") {
-                        this.report_ResultOfServey = data?.data;
-                        this.loading_processing = false;
+                        // this.report_ResultOfServey = data?.data;
+                        this.report_ResultOfServey = data.data.filter(item => item.name === 'documment');
+                        this.filteredResults = this.report_ResultOfServey; // ตั้งค่าเริ่มต้นให้แสดงข้อมูลทั้งหมด
                     } else {
                         this.report_ResultOfServey = [];
+                        this.filteredResults = [];
+                    }
+                    this.loading_processing = false;
+                });
+            } catch (error) {
+                this.loading_processing = false;
+                swal.fire({
+                    icon: 'error',
+                    text: error.message,
+                });
+                console.log(error);
+            }
+        },
+        functionSisterNok() {
+            try {
+                this.loading_processing = true;
+                this.$axios.$post('/ShowAllResultOfServey.service', {
+                    branchUser: this.USER_ROLE,
+                    toKen: this.toKen,
+                    bound: this.bound,
+                }).then((data) => {
+                    console.log('API Response:', data); // Log the response
+                    if (data?.status === "00") {
+                        // this.report_ResultOfServey = data?.data;
+                        this.sisterNokAll = data.data.filter(item => item.name === 'nok');
+                        this.sisternok = this.sisterNokAll; // ตั้งค่าเริ่มต้นให้แสดงข้อมูลทั้งหมด
+                    } else {
+                        this.sisterNokAll = [];
+                        this.sisternok = [];
+                    }
+                    this.loading_processing = false;
+                });
+            } catch (error) {
+                this.loading_processing = false;
+                swal.fire({
+                    icon: 'error',
+                    text: error.message,
+                });
+                console.log(error);
+            }
+        },
+        filterResults() {
+            // ຟັງຊັ່ນກອງຂໍ້ມູນຕາມຄ່າຄົ້ນຫາ
+            this.filteredResults = this.report_ResultOfServey.filter((item) =>
+                item.type.includes(this.searchQuery)
+            );
+        },
+        filteredServey() {
+            // ຟັງຊັ່ນກອງຂໍ້ມູນຕາມຄ່າຄົ້ນຫາ
+            this.filterServey = this.ResultOfServey.filter((item) =>
+                item.type.includes(this.searchQuery)
+            );
+        },
+        functionvichai() {
+            // ຟັງຊັ່ນກອງຂໍ້ມູນຕາມຄ່າຄົ້ນຫາ
+            this.vichai = this.vichaiAll.filter((item) =>
+                item.type.includes(this.searchQuery)
+            );
+        },
+        nokSearch() {
+            // ຟັງຊັ່ນກອງຂໍ້ມູນຕາມຄ່າຄົ້ນຫາ
+            this.sisternok = this.sisterNokAll.filter((item) =>
+                item.type.includes(this.searchQuery)
+            );
+        },
+        refresh() {
+            // ຟັງຊັ່ນໂຫຼດຂໍ້ມູນໃໝ່
+            this.searchQuery = '';
+            this.filteredResults = this.report_ResultOfServey;
+        },
+        DocServey() {
+            try {
+                this.loading_processing = true;
+                this.$axios.$post('/ShowAllResultOfServey.service', {
+                    branchUser: this.USER_ROLE,
+                    toKen: this.toKen,  // Use the token set from the button click
+                    bound: this.bound,
+                    // bound: this.bound,
+                }).then((data) => {
+                    if (data?.status === "00") {
+                        // this.report_ResultOfServey = data?.data;
+                        // this.ResultOfServey = data.data.filter(item => item.name === 'kk'|| item.name==='dd');
+                        this.ResultOfServey = data.data.filter(item => item.name === 'servey');
+                        this.filterServey = this.ResultOfServey; // ตั้งค่าเริ่มต้นให้แสดงข้อมูลทั้งหมด
+
+                        this.loading_processing = false;
+                    } else {
+                        this.ResultOfServey = [];
+                        this.filterServey = [],
+                            this.loading_processing = false;
+                    }
+                });
+            } catch (error) {
+                this.loading_processing = false;
+                swal.fire({
+                    icon: 'error',
+                    text: error,
+                });
+                console.log(error);
+            }
+        },
+        vichaiExample() {
+            try {
+                this.loading_processing = true;
+                this.$axios.$post('/ShowAllResultOfServey.service', {
+                    branchUser: this.USER_ROLE,
+                    toKen: this.toKen,  // Use the token set from the button click
+                    bound: this.bound,
+                    // bound: this.bound,
+                }).then((data) => {
+                    if (data?.status === "00") {
+                        // this.report_ResultOfServey = data?.data;
+                        // this.ResultOfServey = data.data.filter(item => item.name === 'kk'|| item.name==='dd');
+                        this.vichaiAll = data.data.filter(item => item.name === 'testData');
+                        this.vichai = this.vichaiAll
+                        this.loading_processing = false;
+                    } else {
+                        this.vichaiAll = [];
+                        this.vichai = []
                         this.loading_processing = false;
                     }
                 });
@@ -397,6 +1717,12 @@ export default {
 </script>
 
 <style>
+.scrollable-text {
+    height: 300px;
+    overflow-y: auto;
+    padding: 10px;
+}
+
 .st0 {
     fill: #71d8ef;
 }

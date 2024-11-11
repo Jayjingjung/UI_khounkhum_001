@@ -5,11 +5,10 @@
                 <v-progress-circular :width="3" color="primary" indeterminate></v-progress-circular>
             </v-card>
         </v-dialog>
-
         <v-card class="card-shadow mx-auto" width="800">
-            <v-card-title style="display:flex;background-color:#0a3382;color:white">
+            <v-card-title style="display:flex;background-color:#2bcc96; font-weight: bold;">
                 <v-btn fab elevation="0" dark width="30" height="30" small color="white" to="/stone_admin">
-                    <v-icon color="#0a3382">mdi-arrow-left</v-icon>
+                    <v-icon color="#2bcc96">mdi-arrow-left</v-icon>
                 </v-btn>
 
                 <v-spacer></v-spacer>
@@ -19,9 +18,16 @@
 
             <div>
                 <div>
-
-
-                    <v-btn :style="getButtonStyle('tZl011U2nNs9AdvQDIStduuOIc8yWmxw')"
+                    <v-card-title v-if="buttonvalue">
+                        <v-chip color="#2bcc96" dense class="font-weight-bold">
+                            {{ buttonvalue }}
+                        </v-chip>
+                    </v-card-title>
+                </div>
+                <div :style="getButtonStyle()">
+                </div>
+                <div>
+                    <!-- <v-btn :style="getButtonStyle('tZl011U2nNs9AdvQDIStduuOIc8yWmxw')"
                         @click="setToKen('tZl011U2nNs9AdvQDIStduuOIc8yWmxw')">
                         ຄອນງົວ
                     </v-btn>
@@ -53,47 +59,42 @@
 
                     <v-btn :style="getButtonStyle('nongphounxai3kOQHMwA1Ve9lMq22X3kpSiaIDO789')"
                         @click="setToKen('nongphounxai3kOQHMwA1Ve9lMq22X3kpSiaIDO789')">
-                          ໜອງພູນໄຊ32,28
+                        ໜອງພູນໄຊ32,28
                     </v-btn>
 
                     <v-btn :style="getButtonStyle('knongphounxaiOQHMwA1Ve9lMq22X3kpSiahDO101112')"
                         @click="setToKen('knongphounxaiOQHMwA1Ve9lMq22X3kpSiahDO101112')">
-                        ໜອງພູນໄຊ62,39 
+                        ໜອງພູນໄຊ62,39
                     </v-btn>
 
                     <v-btn :style="getButtonStyle('kOlardhor123QHMwA1Ve9lMq22X3GGKghDO13214415')"
                         @click="setToKen('kOlardhor123QHMwA1Ve9lMq22X3GGKghDO13214415')">
                         ລາດຫໍ້
-                    </v-btn>
+                    </v-btn> -->
                 </div>
             </div>
-            <v-card-text class="pa-8 mx-auto" width="1200" style="border:0px solid #e0e0e0">
+            <v-card-text class="pa-8 mx-auto" width="300" style="border:0px solid #e0e0e0">
                 <v-form v-model="valid" lazy-validation ref="form">
                     <v-row>
                         <height />
-
-                        <v-col>
-                            <v-file-input style="width: 100%;" label="ອັບໂຫຼດເອກກະສານ" outlined dense
-                                prepend-icon="mdi-file-pdf" append-inner-icon="mdi-file-pdf" background-color="#f5f5f5"
-                                v-model="files" @change="previewImage"></v-file-input>
-                        </v-col>
-                    </v-row>
-
-                    <v-row>
-                   
-                            <!-- Conditional rendering based on USER_NAME -->
-                            <v-text-field v-if="USER_NAME !== 'Geo-Explo'" style="width: 100%;" label="ຊື່ເຕັມຮູເຈາະ"
-                                dense outlined background-color="#99dbd2" v-model="full_Name_Hole_number" />
-                     
-                        <v-text-field style="width: 50%;" :label="computedLabel" dense outlined
-                            background-color="#99dbd2" v-model="holeNumber"></v-text-field>
+                        <v-file-input style="width: 100%;" label="ອັບໂຫຼດເອກກະສານ" dense
+                            append-inner-icon="mdi-file-pdf" background-color="#f5f5f5" v-model="files"
+                            @change="previewImage"></v-file-input>
 
                         <!-- Conditional rendering based on USER_NAME -->
-                        <v-text-field v-if="USER_NAME !== 'Geo-Explo'" style="width: 50%;" label="*  ຂໍ້ມູນ Collar"
-                            dense outlined background-color="#99dbd2" v-model="dataColler"></v-text-field>
+                        <v-text-field v-if="USER_NAME !== 'Geo-Explo'" style="width: 100%;" label="ຊື່ເຕັມຮູເຈາະ" dense
+                            v-model="full_Name_Hole_number" />
+
+                        <v-text-field style="width: 100%;" :label="computedLabel" dense 
+                            v-model="holeNumber"></v-text-field>
+
+                        <!-- Conditional rendering based on USER_NAME -->
+                        <v-text-field v-if="USER_NAME !== 'Geo-Explo'" style="width: 100%;" label="*  ຂໍ້ມູນ Collar"
+                            dense v-model="dataColler"></v-text-field>
                     </v-row>
                     <v-row justify="center">
-                        <v-btn class="mr-4" width="130" color="success" @click="onInmining">ບັນທຶກ</v-btn>
+                        <v-btn class="mr-4 font-weight-bold" width="130" color="#2bcc96"
+                            @click="onInmining">ບັນທຶກ</v-btn>
                     </v-row>
                 </v-form>
             </v-card-text>
@@ -121,6 +122,15 @@ export default {
             files: null,
             USER_NAME: localStorage.getItem('USER_NAME'), // Fetch the USER_NAME from localStorage
         };
+    },
+    mounted() {
+        // รับค่า token และ label จาก query และแสดง
+        const token = this.$route.query.token;
+        const label = this.$route.query.label;
+        if (token && label) {
+            this.setToKen(token);
+            this.buttonvalue = label;
+        }
     },
     computed: {
         computedLabel() {

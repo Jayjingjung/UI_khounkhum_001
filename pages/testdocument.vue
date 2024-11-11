@@ -20,9 +20,9 @@
             </v-card-title>
             <div>
                 <div>
-                    <v-card-title v-if="buttonLabel">
+                    <v-card-title v-if="valueDoc">
                         <v-chip color="#2bcc96" dense class="font-weight-bold">
-                            {{ buttonLabel }}
+                            {{ valueDoc }}
                         </v-chip>
                     </v-card-title>
                 </div>
@@ -39,7 +39,8 @@
                     <v-file-input :label="computedLabel" v-model="files" prepend-icon="mdi-paperclip"
                         @change="previewImage">
                     </v-file-input>
-                    <v-text-field label="ພີມຊື່" dense v-model="type"
+
+                    <v-text-field label="ພີມຊື່ເອກະສານ" dense v-model="type"
                         :rules="[v => !!v || 'ຈໍາເປັນຕ້ອງເພີ່ມຊື່']" required>
                     </v-text-field>
                     <v-row justify="center">
@@ -76,7 +77,7 @@ export default {
         const number = this.$route.query.number;
         if (token && label) {
             this.setToKen(token);
-            this.buttonLabel = label;
+            this.valueDoc = label;
         }
         if (number) {
             this.number = number;
@@ -91,7 +92,7 @@ export default {
         reLabel() {
             return this.USER_NAME === 'Geo-Explo'
                 ? 'ບົດລາຍງານ'
-                : 'ເພີ່ມຂໍ້ມູນຜົນການສຳຫຼວດ'; // Customize this label based on your requirements
+                : 'ເພີ່ມຂໍ້ມູນຜົນການວິໃຈຕົວຢ່າງ'; // Customize this label based on your requirements
         },
     },
     methods: {

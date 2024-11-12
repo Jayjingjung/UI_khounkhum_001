@@ -411,54 +411,64 @@
         <v-card-title style="display:flex;background-color:#E57373;color:white">
 
           <v-spacer></v-spacer>
-          ນໍ້າມັນ ເເລະ ເລກໄມ
+
+          <v-btn style="margin-left: 20px;" @click="dialog = true" color="primary">
+            <v-icon>
+              mdi-plus
+            </v-icon>ເພື່ມປະວັດການໃຊນໍ້າມັນ
+          </v-btn>
+
           <v-spacer></v-spacer>
         </v-card-title>
 
-        <v-col cols="12">
-
-
-          <v-row>
-
-            <v-col cols="6" md="3" sm="3">
-              <v-text-field style="width: 180px;" label="* ລະຫັດຢາງເບື້ອງຂວາຕີນຫຼັງ" dense outlined
-                background-color="#f5f5f5" v-model="serial_wheel_right_back"></v-text-field>
-            </v-col>
-            <v-col cols="6" md="3" sm="3">
-              <v-text-field style="width: 180px;" label="* ລະຫັດຢາງເບື້ອງຂວາຕີນໜ້າ" dense outlined
-                background-color="#f5f5f5" v-model="serial_wheel_right_font"></v-text-field>
-            </v-col>
-            <v-col cols="6" md="3" sm="3">
-              <v-text-field style="width: 180px;" label="* ລະຫັດຢາງເບື້ອງຊາ້ຍຕີນຫຼັງ
-" dense outlined background-color="#f5f5f5" v-model="serial_wheel_left_back"></v-text-field>
-            </v-col>
-            <v-col cols="6" md="3" sm="3">
-              <v-text-field style="width: 180px;" label="* ລະຫັດຢາງເບື້ອງຊາ້ຍຕີນໜ້າ" dense outlined
-                background-color="#f5f5f5" v-model="serial_wheel_left_font"></v-text-field>
-            </v-col>
-
-            <v-col cols="6" md="3" sm="3">
-              <v-text-field style="width: 180px;" label="* ລະຫັດຢາງ ສໍາຮອງ" dense outlined background-color="#f5f5f5"
-                v-model="serial_tire_second"></v-text-field>
-            </v-col>
 
 
 
-            <v-col cols="6" md="3" sm="3">
-              <v-text-field style="width: 180px;" label="* ເລກຕັງຊິດ(ໜັງສືຜ່ານແດນ)" dense outlined
-                background-color="#f5f5f5" v-model="tungsitnumber"></v-text-field>
-            </v-col>
+          <v-dialog v-model="dialog" max-width="750px">
 
-          </v-row>
+            <v-card justify="center" align="center" class="card-shadow mb-4" rounded="lg" width="1250px">
+              <v-card-title class="orange--text white--text mb-10">
+                ນໍ້າມັນ ເເລະ ເລກໄມ
+              </v-card-title>
+              <v-card-text>
+                <v-row>
 
-          <v-btn class="mr-4" width="130" style="background-color: gray;color: aliceblue;" @click="updat">ບັນທຶກ</v-btn>
+                  <v-col cols="6" md="3" sm="3">
+                    <v-menu v-model="menu" :close-on-content-click="false" :nudge-right="40"
+                      transition="scale-transition" offset-y>
+                      <template v-slot:activator="{ on, attrs }">
+                        <v-text-field dense outlined style="width: 180px;" v-model="dateoil" label="ວັນທີໃຊ" readonly
+                          v-bind="attrs" v-on="on"></v-text-field>
+                      </template>
+                      <v-date-picker v-model="dateoil" no-title scrollable @input="menu = false"></v-date-picker>
+                    </v-menu>
+                  </v-col>
+                  <v-col cols="6" md="3" sm="3">
+                    <v-text-field style="width: 180px;" label="* ເລກໄມທີໃຊນໍ້າມັນ" dense outlined
+                      background-color="#f5f5f5" v-model="lekmaisainummun"></v-text-field>
+                  </v-col>
+                  <v-col cols="6" md="3" sm="3">
+                    <v-text-field style="width: 180px;" label="* ເປັນເງິນ" dense outlined background-color="#f5f5f5"
+                      v-model="oilformoney"></v-text-field>
+                  </v-col>
+                </v-row>
+                <div
+                  style="display: flex; justify-content: center; align-items: center;margin-top: 15px;margin-bottom: 15px;">
+                  <v-btn style="background-color: #24ab70; color: aliceblue;" @click="saveadd">ເພີ້ມ</v-btn>
+                </div>
+
+              </v-card-text>
+            </v-card>
+
+          </v-dialog>
+
 
           <!-- <v-row>
                 <v-col>
                   <v-textarea v-model="details" label="ລາຍລະອຽດເພີ່ມເຕີມ" background-color="#f5f5f5" outlined></v-textarea>
                 </v-col>
               </v-row> -->
-        </v-col>
+      
       </v-card>
     </div>
     <!-- Add more fields for other data -->
@@ -473,6 +483,7 @@ export default {
   data() {
     return {
       lean: {},
+      dialog: false,
       img: '',         // For displaying the image URL
       file: null,      // For handling the uploaded file
       license_plate: '',
@@ -492,7 +503,10 @@ export default {
       dateChangeLeeanNext: '',
       menu2: '',
       menu1: '',
-
+      menu: false,
+      dateoil: null,
+      lekmaisainummun: '',
+      oilformoney: '',
 
 
       tall: '',
@@ -744,7 +758,11 @@ export default {
   },
   methods: {
 
-
+    // saveadd() {
+    //   console.log("Date used:", this.dateoil);
+    //   console.log("Mileage:", this.lekmaisainummun);
+    //   console.log("Amount:", this.oilformoney);
+    // },
     async sendDateToAPI(keyId) {
       try {
         // Get the current date (year, month, and day)

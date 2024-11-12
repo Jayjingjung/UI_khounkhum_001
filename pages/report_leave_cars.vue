@@ -482,7 +482,7 @@
 
 
                             <h3 class="red--text ">
-                                4.ຈ່າຍຄ່າອາໄລ: {{ sumFooterferpaper.totalMoney }} LAK
+                                4.ຈ່າຍຄ່າອາໄລ: {{ totalMoney }} LAK
                               
 
                             </h3>
@@ -513,28 +513,21 @@
                             </td>
                         </div> -->
                         
-                        <div style="height: 35px;">
+                     
+                        <div style="height: 35px;margin-top: 10px;">
                             <td>
-                                <h3>7. ຈ່າຍຮ້ານເຄຮດິດ(ຕິດໜີ້): </h3>
+                                <h3>ລວມລາຍຈ່າຍປະຈໍາວັນ: </h3>
                             </td>
                             <td>
                                 <b>
-                                    <h3 class="red--text "> {{ sumFooter_Credit.totalMoney_credit }} LAK</h3>
+                                    <h2 style="margin-top: -3px;" class="red--text ">{{ sumFooter_allL }} LAK</h2>
+                                    <!-- <h2 style="margin-top: -3px;" class="red--text"> {{ totalMoney }} LAK</h2> -->
+                                    <!-- <h3   v-if="sumFooter != null" class="red--text ">{{ sumFooter.biaOutWasted }}</h3> -->
 
                                 </b>
                             </td>
                         </div>
-                        <div style="height: 35px;margin-top: 10px;">
-                            <td>
-                                <h3>8. ລວມລາຍຈ່າຍປະຈໍາວັນ: </h3>
-                            </td>
-                            <td>
-                                <b>
-                                    <!-- <h2 style="margin-top: -3px;" class="red--text ">{{ sumFooter_allL }} LAK</h2> -->
-                                    <h2 style="margin-top: -3px;" class="red--text"> {{ totalMoney }} LAK</h2>
-                                </b>
-                            </td>
-                        </div>
+                        
                         <!-- <div style="height: 35px;margin-left: 30px;">
 
                             <td>
@@ -591,7 +584,20 @@
 
 
 
+                        <div style="height: 35px;">
+                            <td>
+                                <h3>7. ຈ່າຍຮ້ານເຄຮດິດ(ຕິດໜີ້): </h3>
+                            </td>
+                            <td>
+                                <b>
+                                    <!-- <h3 class="red--text "> {{ sumFooter_Credit.totalMoney_credit }}</h3> -->
+                                    <!-- <h2  style="margin-top: -3px;" class="red--text"> {{ totalMoney }} LAK</h2> -->
+                                    <!-- <h3   v-if="sumFooter != null" class="red--text ">{{ sumFooter.biaOutWasted }}</h3> -->
 
+
+                                </b>
+                            </td>
+                        </div>
                         <div>
                             <v-card>
                                 <div style="height: 35px;margin-left: 30px;">
@@ -642,6 +648,7 @@
                                         </b>
                                     </td>
                                 </div> -->
+                                    <!-- <h2  style="margin-top: -3px;" class="red--text"> {{ totalMoney }} LAK</h2> -->
 
                             </v-card>
                         </div>

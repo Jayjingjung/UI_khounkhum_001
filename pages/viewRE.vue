@@ -283,28 +283,6 @@
                         </div>
                     </v-col>
                 </v-row>
-
-
-                <!-- Additional Fields -->
-                <v-textarea style="font-size: 18px; font-weight: normal;margin-left: 20px;margin-right: 20px;"
-                    label="ຄໍາອະທິບາຍ" v-model="comment" outlined dense :rules="[v => !!v || 'Comment is required']"
-                    rows="8" auto-grow>
-                </v-textarea>
-
-                <!-- Additional Fields -->
-                <v-textarea
-                    style="font-size: 18px; font-weight: normal;margin-left: 20px;margin-right: 20px;width: 800px;"
-                    label="ໝາຍເຫດ" v-model="note" outlined dense :rules="[v => !!v || 'Comment is required']" rows="4"
-                    auto-grow>
-                </v-textarea>
-
-                <!-- <div style="display: flex; justify-content: center; align-items: center; height: 10vh">
-                    <v-btn @click="updat" style="background-color: green; width: 30%;color: white;">
-
-                        ບັນທຶກ
-                    </v-btn>
-                </div> -->
-
                 <div>
 
                     <v-data-table :headers="headers" :items="deptList" item-key="key_id" class="elevation-1">
@@ -334,6 +312,36 @@
                     </v-data-table>
 
                 </div>
+
+                <!-- Display Total Money from sumfooter -->
+                <div class="mt-4">
+                    <strong>Total Money: </strong>
+                    <span>{{ totalMoney2 }}</span>
+                </div>
+                <div>
+
+                    <!-- Additional Fields -->
+                    <v-textarea style="font-size: 18px; font-weight: normal;margin-left: 20px;margin-right: 20px;"
+                        label="ຄໍາອະທິບາຍ" v-model="comment" outlined dense :rules="[v => !!v || 'Comment is required']"
+                        rows="8" auto-grow>
+                    </v-textarea>
+
+                    <!-- Additional Fields -->
+                    <v-textarea
+                        style="font-size: 18px; font-weight: normal;margin-left: 20px;margin-right: 20px;width: 800px;"
+                        label="ໝາຍເຫດ" v-model="note" outlined dense :rules="[v => !!v || 'Comment is required']"
+                        rows="4" auto-grow>
+                    </v-textarea>
+
+                    <!-- <div style="display: flex; justify-content: center; align-items: center; height: 10vh">
+    <v-btn @click="updat" style="background-color: green; width: 30%;color: white;">
+        
+        ບັນທຶກ
+    </v-btn>
+</div> -->
+                </div>
+
+
             </v-card>
 
 
@@ -474,7 +482,7 @@
                                 style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;">
                                 <td style="padding:10px;border: 0.5px solid #999;color:#000;text-align: center;"
                                     class="font-weight-bold">
-                                    {{ index + 1 }}
+                                    {{ index + 2 }}
                                 </td>
                                 <td style="padding:10px;border: 0.5px solid #999;color:#000;text-align: center;"
                                     class="font-weight-bold">
@@ -513,7 +521,7 @@
                         ທັງໜົດ
                         <div style="font-weight: bold; margin-left: 20px;">
 
-                            {{ sumtotomoney }}
+                            {{ totalMoney2 }}
                         </div>
 
                     </v-card-title>
@@ -589,7 +597,8 @@ export default {
             selectedCurrency: '',
 
             document_1: null,
-
+            totalMoney: 0,
+            items: [], // To hold the data items
             typeName: '',
             checkFileName1: '',
             pdfDialog: false, // Controls the visibility of the PDF dialog
@@ -602,6 +611,7 @@ export default {
             amount_money: '',
             quotation: '0',
             description: '',
+            itemss: '',
             note: '',
             num: '',
             type_id: '',
@@ -613,7 +623,8 @@ export default {
             formattedDate: null,
             formatteddue_date: '',
             buang_data_list: [],
-            totalMoney: '',
+            deptList: [],
+            totalMoney: 0,
             sumtotomoney: '',
             num: '', // Add the num data property here
             selectedCurrency: '', // Add selected currency if needed
@@ -651,6 +662,9 @@ export default {
     },
 
     computed: {
+        formattedTotalMoney() {
+            return parseFloat(this.totalMoney).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        },
         formattedAmountMoney() {
             return this.amount_money !== null && this.amount_money !== undefined
                 ? this.amount_money.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
@@ -688,7 +702,10 @@ export default {
         },
     },
     methods: {
-
+        onFileChange(event) {
+            const files = event.target.files;
+            this.document_1 = files.length ? files[0] : null; // Set to the first file or null
+        },
         // Calculate the total money
         calculateTotal() {
             // Parse the values as floats, accounting for decimal numbers
@@ -786,29 +803,29 @@ export default {
         ,
         async onGetindexData() {
             try {
-                // Ensure that `quotation_code` is available
                 if (!this.quotation_code) {
                     throw new Error("Quotation code is not available.");
                 }
 
-                // Send `quotation_code` to the API
                 const response = await this.$axios.$post('http://khounkham.com/api-prod/v1/truck/listNameOfDept.service', {
                     quotation_code: this.quotation_code
                 });
 
                 if (response?.status === "00") {
-                    // Store the fetched data in deptList to display in UI
-                    this.deptList = response?.data || [];
+                    this.deptList = response.data || [];
+                    this.items = response.data.data; // Assign data items
+                    this.totalMoney2 = response.sumfooter.totalMoney; // Assign totalMoney from sumfooter
+
                     console.log('Data fetched successfully:', this.deptList);
+                    console.log('Total Money:', this.totalMoney); // Log totalMoney for verification
                 } else {
-                    // Handle case where API response status is not "00"
                     console.error('Failed to fetch data. API response status:', response?.status);
                 }
             } catch (error) {
-                // Log any errors that occur during the process
                 console.error('Error while fetching data:', error.message);
             }
         }
+
 
 
         ,

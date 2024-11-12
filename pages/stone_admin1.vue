@@ -78,16 +78,16 @@
                             @mouseover="changeColor('	#FFE5FF', $refs.btn3)"
                             @mouseleave="changeColor('white', $refs.btn3)"
                             style="margin-left: 2px; margin-right: 2px; background-color: white; color: black; height: 65px; border: 1px solid rgb(0, 0, 0);">
-                        show
+                            show
 
                             {{ computedLabel }}
                         </v-btn>
-                        <v-btn style="height: 60px;background-color: green;color: aliceblue;" to="/Add_a_hole">
-                            <v-icon>
-                                mdi-plus
-                            </v-icon>
+                        <v-btn style="height: 60px; background-color: green; color: aliceblue;"
+                            :to="{ path: '/Add_a_hole1', query: { token: 'tZl011U2nNs9AdvQDIStduuOIc8yWmxw' } }">
+                            <v-icon>mdi-plus</v-icon>
                             ເພີ່ມ {{ computedLabel }}
                         </v-btn>
+
                     </v-list>
                 </div>
                 <div v-if="selectedCard === '2'">
@@ -96,7 +96,7 @@
                             @mouseover="changeColor('	#FFE5FF', $refs.btn4)"
                             @mouseleave="changeColor('white', $refs.btn4)"
                             style="margin-left: 2px; margin-right: 2px; background-color: white; color: black; height: 65px; border: 1px solid rgb(0, 0, 0);">
-                         show
+                            show
 
                             {{ reLabel }}
                         </v-btn>

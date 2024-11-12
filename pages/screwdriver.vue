@@ -20,8 +20,8 @@
 
         <!-- Date Pickers for Start and End Date -->
         <div style="width:100%;display:flex;justify-content:end;margin-top: 20px;" class="pt-4">
-           
-           
+
+
             <div class="mr-5 ml-10" style="width: auto;">
                 <v-menu v-model="startDateMenu" :close-on-content-click="false" :nudge-right="40"
                     transition="scale-transition" offset-y>
@@ -43,9 +43,14 @@
                     <v-date-picker v-model="endDate" no-title scrollable @input="updateEndDate"></v-date-picker>
                 </v-menu>
             </div>
+            <div>
+
+                <v-select dense outlined v-model="selectedShop" :items="uniqueShops" label="ຮ້ານ" placeholder="Choose a shop"
+                    @change="applyFilters"></v-select>
+            </div>
 
             <v-row justify="start">
-                <v-btn class="mr-4 mt-5" width="130" color="success" @click="onGetshowdata_tablev2">ຄົ້ນຫາ</v-btn>
+                <v-btn class="mr-4 mt-5 ml-5" width="130" color="success" @click="onGetshowdata_tablev2">ຄົ້ນຫາ</v-btn>
             </v-row>
 
         </div>
@@ -57,11 +62,11 @@
 
 
                     <!-- Exchange moneyRate Input and Display Fields -->
-                    <!-- <v-text-field  label="*ເລດ" type="number" dense outlined
+                    <v-text-field  label="*ເລດ" type="number" dense outlined
                         background-color="#f5f5f5" v-model="formattedtotalmoneyRate"
-                        style="width: 50px; margin-top: 30px;color: chocolate;" @input="calculateKip" /> -->
+                        style="width: 50px; margin-top: 30px;color: chocolate;" @input="calculateKip" />
 
-                        
+
                     <v-spacer></v-spacer>
                     <span>ຈໍານວນເງີນໃນໃບບິນທີເລືອກ​ທັງ​ຫມົດ</span>
                     <v-text-field label="*ຈໍານວນເງີນ" readonly dense outlined background-color="#f5f5f5"
@@ -119,7 +124,7 @@
                     </div>
 
                     <v-spacer></v-spacer>
-                    <!-- <div class="mr-5 ml-10 mt-6" style="width: auto;">
+                    <div class="mr-5 ml-10 mt-6" style="width: auto;">
                         <v-menu v-model="payDateMenu" :close-on-content-click="false" :nudge-right="40"
                             transition="scale-transition" offset-y>
                             <template v-slot:activator="{ on }">
@@ -129,8 +134,8 @@
                             <v-date-picker v-model="payDate" no-title scrollable
                                 @input="updatePayDate"></v-date-picker>
                         </v-menu>
-                    </div> -->
-                    
+                    </div>
+
                     <!-- Other buttons and content -->
                     <v-btn style="background-color: seagreen; color: aliceblue; width: 150px;" @click="onPayToShop">
                         ສັງຈ່າຍ
@@ -157,13 +162,11 @@
                             <td>{{ row?.item?.shop_name }}</td>
                             <td>{{ row?.item?.dateCreatePO }}</td>
                             <td>{{ row?.item?.cur }}</td>
-
-                            
-
                         </tr>
                     </template>
                 </v-data-table>
             </v-card>
+
         </div>
     </div>
 </template>
@@ -178,11 +181,14 @@ export default {
 
 
 
+            selectedShop: null,
+            selectedCurrency: null,
+            filter: null,
 
-            
-            filter: '',
 
 
+            show_list: [],
+            selectedShop: null, // holds selected shop_id
 
             truck_data_listv2: [],
             selectedItems: [],
@@ -225,8 +231,20 @@ export default {
     },
     mounted() {
         this.onGetshowdata_tablev2();
+        this.onGetaddshow();
     },
     computed: {
+        // Get unique shop names for the dropdown
+        uniqueShops() {
+            const shopNames = this.truck_data_listv2.map(item => item.shop_name);
+            return [...new Set(shopNames)];
+        },
+        shopOptions() {
+            return this.show_list.map((shop) => ({
+                shop_id: shop.shop_id,
+                shop_name: shop.shop_name || "Unnamed Shop", // Show default text if shop_name is null
+            }));
+        },
         formattedStartDate() {
             return this.formatDate(this.startDate);
         },
@@ -251,22 +269,33 @@ export default {
 
         filteredItems() {
             return this.truck_data_listv2.filter((item) => {
-                // Check if the item matches the status filter (if applied)
-                const matchesStatus = this.filter
-                    ? item.statusNy === this.filter
-                    : true;
-                // Check if the item matches the currency filter (if applied)
-                const matchesCurrency = this.selectedCurrency
-                    ? item.cur === this.selectedCurrency
-                    : true;
-                // Return items that match both the status and currency filters
-                return matchesStatus && matchesCurrency;
+                const matchesShop = this.selectedShop ? item.shop_name === this.selectedShop : true;
+                const matchesStatus = this.filter ? item.statusNy === this.filter : true;
+                const matchesCurrency = this.selectedCurrency ? item.cur === this.selectedCurrency : true;
+                return matchesShop && matchesStatus && matchesCurrency;
             });
-        },
+        }
+        ,
     },
 
     methods: {
 
+        async onGetaddshow() {
+            try {
+                this.loading_processing = true;
+                const data = await this.$axios.$post('ListShops.service', {
+                    toKen: localStorage.getItem('toKen'),
+                });
+                console.log('itemName:', data?.data);
+                this.show_list = data?.data || [];
+
+            } catch (error) {
+                console.log(error);
+                this.showErrorAlert('ແຈ້ງເຕືອນ', error);
+            } finally {
+                this.loading_processing = false;
+            }
+        },
         setFilter(filterValue) {
             this.filter = filterValue;
         },
@@ -298,7 +327,7 @@ export default {
             this.startDate = date;
             this.startDateMenu = false;
         },
-        
+
         updateEndDate(date) {
             this.endDate = date;
             this.endDateMenu = false;

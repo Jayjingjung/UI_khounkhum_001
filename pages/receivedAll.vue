@@ -255,6 +255,7 @@
 
                             <div v-for="(item, index) in formDataList" :key="index">
                                 <div class="main-content">
+                                    <!-- Customer Selection -->
                                     <v-col cols="12" md="4" sm="6" style="display: flex;">
                                         <v-select outlined dense label="ລູກຄ້າ" v-model="item.listName"
                                             :items="customer_data_list" item-text="customerName"
@@ -264,98 +265,109 @@
                                             <v-icon color="white">mdi-plus</v-icon>
                                         </v-btn>
                                     </v-col>
+                                    <v-col cols="12" md="4" sm="6">
+                                        <!-- Currency Selection -->
+                                        <div class="currency-selection" style="display: flex; justify-content: center;">
+                                            <v-btn :style="getButtonStyle(item.selectedCurrency, 'LAK')"
+                                                @click="setCurrency(item, 'LAK')">LAK</v-btn>
+                                            <v-btn :style="getButtonStyle(item.selectedCurrency, 'USD')"
+                                                @click="setCurrency(item, 'USD')">USD</v-btn>
+                                            <v-btn :style="getButtonStyle(item.selectedCurrency, 'THB')"
+                                                @click="setCurrency(item, 'THB')">THB</v-btn>
+                                        </div>
+                                    </v-col>
+                                    <v-col cols="12" md="4" sm="6">
 
+                                        <!-- Unit Selection -->
+                                        <div class="unit-selection" style="display: flex; justify-content: center;">
+                                            <v-btn :style="getButtonStyle(item.selectedUnit, 'ອັນ')"
+                                                @click="setUnit(item, 'ອັນ')">ອັນ</v-btn>
+                                            <v-btn :style="getButtonStyle(item.selectedUnit, 'ໂຕນ')"
+                                                @click="setUnit(item, 'ໂຕນ')">ໂຕນ</v-btn>
+                                            <v-btn :style="getButtonStyle(item.selectedUnit, 'ລິດ')"
+                                                @click="setUnit(item, 'ລິດ')">ລິດ</v-btn>
+                                            <v-btn :style="getButtonStyle(item.selectedUnit, 'ຄັ້ງ')"
+                                                @click="setUnit(item, 'ຄັ້ງ')">ຄັ້ງ</v-btn>
+                                        </div>
+                                    </v-col>
+                                    <!-- Other Fields (e.g., Quantity, Price) -->
                                     <v-col cols="12" md="4" sm="6" style="display: flex;">
                                         <v-text-field outlined dense label="ຈໍານວນ" v-model="item.num" type="number" />
-
-                                        <v-text-field style="font-size: 28px; font-weight: bold; width: 20px;" outlined
-                                            dense v-model="selectedunit" :rules="[v => !!v || 'Required field']">
-                                        </v-text-field>
+                                        <v-text-field outlined dense readonly
+                                            style="font-size: 28px; font-weight: bold; width: 80px; text-align: center;"
+                                            v-model="item.selectedUnit" />
                                     </v-col>
-                                    <!-- Remove Button -->
-                                    <v-col cols="12" md="4" sm="6">
-                                        <v-btn style="background-color: firebrick;color: aliceblue;"
-                                            @click="removeItem(index)">ລຶມ</v-btn>
-                                    </v-col>
-                                </div>
 
-                                <div
-                                    style="display: flex; justify-content: center; align-items: center; flex-wrap: wrap;">
+                                    <!-- Price Fields -->
                                     <v-col cols="12" md="4" sm="6"
                                         style="display: flex; justify-content: center; align-items: center;">
                                         <v-text-field outlined dense label="ລາຄາ" v-model="item.amount_money"
                                             type="number" @input="updateTotalMoney(index)" />
-
-                                        <v-text-field readonly
+                                        <v-text-field outlined dense readonly
                                             style="font-size: 28px; font-weight: bold; width: 80px; text-align: center;"
-                                            outlined dense v-model="selectedCurrency"
-                                            :rules="[v => !!v || 'Required field']">
-                                        </v-text-field>
-
-                                        <v-text-field readonly
-                                            style="font-size: 28px; font-weight: bold; width: 60px; text-align: center;"
-                                            outlined dense v-model="selectedunit"
-                                            :rules="[v => !!v || 'Required field']">
-                                        </v-text-field>
+                                            v-model="item.selectedCurrency" />
                                     </v-col>
 
+                                    <!-- Total Price -->
                                     <v-col cols="12" md="4" sm="6"
                                         style="display: flex; justify-content: center; align-items: center;">
                                         <v-text-field outlined dense label="ລາຄາທັງໝົດ" v-model="item.totalMooney"
                                             type="number" readonly />
+                                    </v-col>
 
-                                        <v-text-field readonly
-                                            style="font-size: 28px; font-weight: bold; width: 100px; text-align: center;"
-                                            outlined dense v-model="selectedCurrency"
-                                            :rules="[v => !!v || 'Required field']">
-                                        </v-text-field>
+                                    <!-- Remove Button -->
+                                    <v-col cols="12" md="4" sm="6">
+                                        <v-btn style="background-color: firebrick; color: aliceblue;"
+                                            @click="removeItem(index)">ລຶມ</v-btn>
                                     </v-col>
                                 </div>
 
+                                <!-- Add New Item Button -->
+                                <div
+                                    style="display: flex; justify-content: center; align-items: center;margin-top: 15px;margin-bottom: 15px;">
+                                    <v-btn style="background-color: #24ab70; color: aliceblue;"
+                                        @click="addNewItem">ເພີ້ມ</v-btn>
+                                </div>
                             </div>
 
-                            <!-- Add Button to add new list item -->
-                            <div style="display: flex; justify-content: center; align-items: center; flex-wrap: wrap;">
-                                <v-btn style="background-color: #24ab70;color: aliceblue;"
-                                    @click="addNewItem">ເພີ້ມ</v-btn>
-                            </div>
 
                         </v-card-text>
                     </v-card>
                     <v-card>
 
-                 
-                    <v-card-text class="card-shadow mb-4" rounded="lg" width="1250px">
-                        <v-card-title class="orange--text white--text">
-                            ຄໍາອະທິບາຍ
-                        </v-card-title>
 
-                        <!-- Additional Fields -->
+                        <v-card-text class="card-shadow mb-4" rounded="lg" width="1250px">
+                            <v-card-title class="orange--text white--text">
+                                ຄໍາອະທິບາຍ
+                            </v-card-title>
 
-                        <v-textarea style="font-size: 18px; font-weight: normal;margin-left: 20px;margin-right: 20px;"
-                            label="ຄໍາອະທິບາຍ" v-model="comment" outlined dense
-                            :rules="[v => !!v || 'Comment is required']" rows="8" auto-grow>
-                        </v-textarea>
+                            <!-- Additional Fields -->
+
+                            <v-textarea
+                                style="font-size: 18px; font-weight: normal;margin-left: 20px;margin-right: 20px;"
+                                label="ຄໍາອະທິບາຍ" v-model="comment" outlined dense
+                                :rules="[v => !!v || 'Comment is required']" rows="8" auto-grow>
+                            </v-textarea>
 
 
-                        <!-- Additional Fields -->
-                        <v-textarea
-                            style="font-size: 18px; font-weight: normal;margin-left: 20px;margin-right: 20px;width: 800px;"
-                            label="ໝາຍເຫດ" v-model="note" outlined dense :rules="[v => !!v || 'Comment is required']"
-                            rows="4" auto-grow>
-                        </v-textarea>
+                            <!-- Additional Fields -->
+                            <v-textarea
+                                style="font-size: 18px; font-weight: normal;margin-left: 20px;margin-right: 20px;width: 800px;"
+                                label="ໝາຍເຫດ" v-model="note" outlined dense
+                                :rules="[v => !!v || 'Comment is required']" rows="4" auto-grow>
+                            </v-textarea>
 
-                        <!-- Save Button to send data to API -->
-                        <div
-                            style="display: flex; justify-content: center; align-items: center; flex-wrap: wrap;margin-bottom: 10px;">
+                            <!-- Save Button to send data to API -->
+                            <div
+                                style="display: flex; justify-content: center; align-items: center; flex-wrap: wrap;margin-bottom: 10px;">
 
-                            <v-btn style="background-color: green;color: aliceblue;"
-                                @click="onstore_dept_Must_received">ບັນທຶກ</v-btn>
-                        </div>
-                        <!-- Save Button to send data to API --> <!-- Save Button to send data to API -->
-                        <!-- Save Button to send data to API -->
-                    </v-card-text>
-                       </v-card>
+                                <v-btn style="background-color: green;color: aliceblue;"
+                                    @click="onstore_dept_Must_received">ບັນທຶກ</v-btn>
+                            </div>
+                            <!-- Save Button to send data to API --> <!-- Save Button to send data to API -->
+                            <!-- Save Button to send data to API -->
+                        </v-card-text>
+                    </v-card>
                 </v-dialog>
                 <!-- Dialog for Invoice Form -->
                 <v-dialog v-model="dialog1" max-width="800px">
@@ -634,11 +646,12 @@ export default {
             customer_mobile: '',
             formDataList: [
                 {
-                    listName: "", // This will now store the selected customer name
-                    quotation_code: "",
+                    listName: "",
                     num: "",
                     amount_money: "",
                     totalMooney: "",
+                    selectedCurrency: "LAK", // Default currency
+                    selectedUnit: "ອັນ",    // Default unit
                 },
             ],
             customer_data_list: [], // Array to hold customer data
@@ -680,6 +693,7 @@ export default {
                 ],
             selectedCurrency: '',
             selectedunit: '',
+            selectedunit1: '',
             amount_of_money: '',
             document_1: null,
             dialog: false,
@@ -1002,25 +1016,21 @@ export default {
         // Add a new item to the list
         addNewItem() {
             this.formDataList.push({
-                listName: "", // Initialize as empty
-                quotation_code: "", // Initialize as empty
+                listName: "",
                 num: "",
                 amount_money: "",
                 totalMooney: "",
+                selectedCurrency: "LAK",
+                selectedUnit: "ອັນ",
             });
         },
-        // Remove an item from the list
         removeItem(index) {
             this.formDataList.splice(index, 1);
         },
-        // Update the total money based on num and amount_money
         updateTotalMoney(index) {
             const item = this.formDataList[index];
-            const total = Number(item.num) * Number(item.amount_money);
-            item.totalMooney = isNaN(total) ? "" : total;
+            item.totalMooney = item.num * item.amount_money || "";
         },
-        // Send the form data to the API
-        // Update the listName to only contain customerName when a customer is selected
         updateCustomerName(item, selectedCustomer) {
             if (selectedCustomer) {
                 item.listName = selectedCustomer.customerName; // Set only customerName
@@ -1028,6 +1038,21 @@ export default {
                 item.listName = ""; // Reset if no customer is selected
             }
         },
+        setCurrency(item, currency) {
+            item.selectedCurrency = currency;
+        },
+        setUnit(item, unit) {
+            item.selectedUnit = unit;
+        },
+        getButtonStyle(selectedValue, currentValue) {
+            return {
+                width: "80px",
+                fontSize: "20px",
+                backgroundColor: selectedValue === currentValue ? "green" : "",
+                color: selectedValue === currentValue ? "white" : "black",
+            };
+        },
+
         async save(quotation_code) {
             const formdata = new FormData();
 
@@ -1109,7 +1134,7 @@ export default {
                 console.error(error);
                 alert("An error occurred while saving data.");
             }
-            window.location.reload();
+            // window.location.reload();
         },
 
         onClearData() {
@@ -1246,6 +1271,13 @@ export default {
 .selected-currency {
     /* background-color: rgb(16, 38, 160); */
     color: rgb(228, 18, 18);
+}
+
+.selected-currency1 {
+    background-color: #007bff;
+    /* Change to your preferred color */
+    color: #ffffff;
+    /* Change text color if needed */
 }
 
 .header-title {

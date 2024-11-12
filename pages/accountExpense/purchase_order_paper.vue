@@ -891,10 +891,7 @@
                                     ',')
                                     }}</span>
                             </div>
-                            <!-- <div style="margin-bottom: 10px;">
-                                    <label for="h_VICIVLE_NUMBER">ຫົວລັດ:</label>
-                                    <span id="h_VICIVLE_NUMBER">{{ h_VICIVLE_NUMBER }}</span>
-                                </div> -->
+                       
                         </div>
 
                         <div v-if="item_name1 !== 'null'"
@@ -925,10 +922,7 @@
                                     ',')
                                     }}</span>
                             </div>
-                            <!-- <div style="margin-bottom: 10px;">
-                                    <label for="h_VICIVLE_NUMBER">ຫົວລັດ:</label>
-                                    <span id="h_VICIVLE_NUMBER">{{ h_VICIVLE_NUMBER }}</span>
-                                </div> -->
+                       
                         </div>
 
 
@@ -960,10 +954,7 @@
                                     ',')
                                     }}</span>
                             </div>
-                            <!-- <div style="margin-bottom: 10px;">
-                                    <label for="h_VICIVLE_NUMBER">ຫົວລັດ:</label>
-                                    <span id="h_VICIVLE_NUMBER">{{ h_VICIVLE_NUMBER }}</span>
-                                </div> -->
+                          
                         </div>
                         <div v-if="item_name3 !== 'null'"
                             style="display: flex;margin-left: 10px;margin-right: 10px;margin-top: 30px;justify-content: space-between;">
@@ -1444,30 +1435,11 @@ export default {
             ref.$el.style.backgroundColor = color;
         },
       
-        // calculateTotalMoney() {
 
-        //     const total = parseFloat(this.real_totalMoney) || 0;
-        //     const paid = parseFloat(this.paid) || 0;
-
-
-        //     this.tid = total - paid;
-
-
-
-        //     this.tid = this.formatMoney(this.tid);
-        // },
-        // formatMoney(value) {
-        //     if (typeof value === 'number' || typeof value === 'string') {
-        //         return value.toString().replace(/\D/g, '').replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-        //     }
-        //     return value;
-        // },
         closeDialog() {
             this.dialogVisible = false;
         },
-        // closeDialogv2() {
-        //     this.dialogVisible = false;
-        // },
+
         getStatusClass(status) {
             return status === 'N' ? 'red' : 'green';
         },
@@ -1495,22 +1467,6 @@ export default {
             this.item_id = item_id;
 
         },
-        // onGetMechanicequipment1(item_id) {
-        //     console.log(item_id);
-
-        //     // Use item_id1 to filter Mechanicequipment1 array
-        //     let data = this.Mechanicequipment1.filter((el) => el.item_id === item_id);
-        //     console.log('head:', data);
-
-        //     if (data.length > 0) {
-        //         this.itemName1 = data[0].itemName; // Access itemName directly from the first item in the filtered data
-        //         this.item_id1 = item_id;
-        //         this.img1 = data[0].img; // Assuming 'img' is a property in your data structure
-        //     } else {
-        //         // Handle the case when data is not found
-        //         console.error('Data not found for item_id1:', item_id);
-        //     }
-        // },
 
 
         calculateTotalMoney() {
@@ -1660,35 +1616,7 @@ export default {
                 this.item_id8 = response.data[0].item_id8;
                 this.item_id9 = response.data[0].item_id9;
                 this.real_totalMoney = response.data[0].real_totalMoney;
-                // this.item_id1 = response.data[0].item.item_id1;
-                // this.qty_offer1 = response.data[0].item.qty_offer1;
-
-                // this.itemId10 =response.data[0].response.data[0]. item.item_id10;
-                // this.qty_offer10 =response.data[0].response.data[0]. item.qty_offer10;
-
-                // this.itemId2 =response.data[0]. item.item_id2;
-                // this.qty_offer2 =response.data[0]. item.qty_offer2;
-
-                // this.itemId3 =response.data[0]. item.item_id3;
-                // this.qty_offer3 =response.data[0]. item.qty_offer3;
-
-                // this.itemId4 =response.data[0]. item.item_id4;
-                // this.qty_offer4 =response.data[0]. item.qty_offer4;
-
-                // this.itemId5 =response.data[0]. item.item_id5;
-                // this.qty_offer5 =response.data[0]. item.qty_offer5;
-
-                // this.itemId6 =response.data[0]. item.item_id6;
-                // this.qty_offer6 =response.data[0]. item.qty_offer6;
-
-                // this.itemId7 =response.data[0]. item.item_id7;
-                // this.qty_offer7 =response.data[0]. item.qty_offer7;
-
-                // this.itemId8 =response.data[0]. item.item_id8;
-                // this.qty_offer8 = response.data[0].item.qty_offer8;
-
-                // this.itemId9 =response.data[0]. item.item_id9;
-                // this.qty_offer9 =response.data[0]. item.qty_offer9;
+      
 
                 // Open the dialog after API call success
                 this.openDialogv2(this.offer_CODE);
@@ -1829,6 +1757,8 @@ export default {
 
                 // Call onSubmit with the generated po_CODE
                 this.onSubmit(po_CODE);
+
+                this.onSubmitinputitem();
                 // window.location.reload();
 
             } catch (error) {
@@ -1902,6 +1832,7 @@ export default {
                 this.closeDialog();
 
                 // window.location.reload();
+           
 
                 // You can handle the response here, such as showing a success message or updating UI
             } catch (error) {
@@ -1909,7 +1840,109 @@ export default {
                 // Handle the error, such as displaying an error message
             }
         },
+        async onSubmitinputitem() {
+            try {
+                // Prepare the data to be sent in the request body
+                const requestData = {
+                    toKen: localStorage.getItem('toKen'),
+                    offer_CODE: this.offerCode, // Using the offerCode property
+                    item_id: this.item_id, // Assuming you have an itemId property set from somewhere
 
+                    qty_offer: this.qty_offer,
+
+                    size: this.size,
+                    brand: this.brand,
+                    ber: this.ber,
+
+                    item_id1: this.item_id1,
+                    qty_offer1: this.qty_offer1,
+                    size1: this.size1,
+                    brand1: this.brand1,
+                    ber1: this.ber1,
+
+                    item_id2: this.item_id2,
+                    qty_offer2: this.qty_offer2,
+                    size2: this.size2,
+                    brand2: this.brand2,
+                    ber2: this.ber2,
+
+                    item_id3: this.item_id3,
+                    qty_offer3: this.qty_offer3,
+                    size3: this.size3,
+                    brand3: this.brand3,
+                    ber3: this.ber3,
+
+                    item_id4: this.item_id4,
+                    qty_offer4: this.qty_offer4,
+                    size4: this.size4,
+                    brand4: this.brand4,
+                    ber4: this.ber4,
+
+                    item_id5: this.item_id5,
+                    qty_offer5: this.qty_offer5,
+                    size5: this.size5,
+                    brand5: this.brand5,
+                    ber5: this.ber5,
+
+                    item_id6: this.item_id6,
+                    qty_offer6: this.qty_offer6,
+                    size6: this.size6,
+                    brand6: this.brand6,
+                    ber6: this.ber6,
+
+                    item_id7: this.item_id7,
+                    qty_offer7: this.qty_offer7,
+                    size7: this.size7,
+                    brand7: this.brand7,
+                    ber7: this.ber7,
+
+                    item_id8: this.item_id8,
+                    qty_offer8: this.qty_offer8,
+                    size8: this.size8,
+                    brand8: this.brand8,
+                    ber8: this.ber8,
+
+                    item_id9: this.item_id9,
+                    qty_offer9: this.qty_offer9,
+                    size9: this.size9,
+                    brand9: this.brand9,
+                    ber9: this.ber9,
+
+
+
+                };
+
+                // Send the POST request to the API endpoint
+                const response = await this.$axios.$post('/MoveItemToStock.service', requestData);
+
+                console.log('MoveItemToStock API response:', response);
+
+                // Close the dialog after submission
+           
+
+                if (response?.status === "00") {
+                    this.loading_processing = false;
+                    // this.print();
+                    // Other actions upon successful creation
+
+
+                    // Display success alert using SweetAlert2
+                    await Swal.fire({
+                        icon: 'success',
+                        title: 'Success',
+                        text: 'Your message here', // Customize the success message
+                        confirmButtonText: 'OK',
+                    });
+                    // window.location.reload();
+                }
+
+                // You can handle the response here, such as showing a success message or updating UI
+            } catch (error) {
+                console.error('MoveItemToStock API error:', error);
+                // Handle the error, such as displaying an error message
+
+            }
+        },
 
         async onGetshowdata_table() {
             try {
@@ -1956,49 +1989,7 @@ export default {
             // Print the content
             window.print();
         },
-        async onGetDatsForPrint(offer_CODE) {
-            this.offer_CODE = offer_CODE;
-            this.loading_processing = true;
-            const data = {
-                tid: this.tid.replace(/,/g, ''),
 
-                paid: this.paid,
-                show_list: this.shop_id,
-                cut: this.cut,
-                total: this.total,
-                pocode: pocode,
-                offer_CODE: offerCode,
-                toKen: localStorage.getItem("toKen")
-            };
-            try {
-                const response = await this.$axios.$post('/SavePurchaseOrder.service', data);
-
-                if (response?.status === '00') {
-                    console.log("dataForprint:", response);
-                    this.printData = response.data[0]; // Set printData first
-
-                    // Show the modal with updated data
-                    this.showModal = true;
-
-                    // Delay the printing to ensure data is rendered in the modal
-                    setTimeout(() => {
-                        this.print();
-                    }, 500); // You can adjust the delay as needed
-                } else {
-                    // Handle scenarios where status is not '00'
-                    console.error('Unexpected response status:', response?.status);
-                }
-            } catch (error) {
-                // More robust error handling
-                console.error('Error fetching print data:', error);
-                // Handle specific error scenarios here if needed
-            } finally {
-                // Ensure loading state is turned off in both success and error scenarios
-                this.loading_processing = false;
-            }
-        },
-
-        // Other methods...
 
     },
 

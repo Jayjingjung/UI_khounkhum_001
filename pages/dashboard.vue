@@ -44,9 +44,7 @@
 
         <!-- ປະທານ -->
         <v-row>
-
             <v-col cols="12" md="3">
-
                 <div>
                     <v-card to="/DeptMustReceive" height="100" elevation="2" rounded="lg" width="310px"
                         style="border: 1px solid rgb(222, 222, 222);">
@@ -64,6 +62,23 @@
 
             </v-col>
 
+        </v-row>
+        <v-row>
+            <v-col cols="12" md="3">
+                <div>
+                    <v-card @click="navigateToStoneAdmin" height="100" elevation="2" rounded="lg" width="310px"
+                        style="border: 1px solid rgb(222, 222, 222);">
+                        <v-card-text>
+                            <div class="d-flex align-center">
+                                <v-icon color="orange" size="55">mdi-excavator</v-icon>
+                                <div class="pl-5 pb-5 pt-5 pr-5">
+                                    <span style="font-size: 17pt; font-weight: bold;">ບໍ່ຕ່າງໆ</span><br />
+                                </div>
+                            </div>
+                        </v-card-text>
+                    </v-card>
+                </div>
+            </v-col>
         </v-row>
 
         <!-- ປະທານ -->
@@ -113,6 +128,10 @@ export default {
 
     },
     methods: {
+        navigateToStoneAdmin() {
+            // เมื่อคลิกปุ่ม, นำทางไปยัง 'stone_admin.vue' พร้อมกับส่ง query userRole
+            this.$router.push({ name: 'stone_admin', query: { userRole: 'FOR_DOCUMENT_ADMIN' } });
+        },
         total_count() {
             try {
                 this.loading_processing = true;

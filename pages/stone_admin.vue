@@ -1,6 +1,11 @@
 <template>
     <div>
-        <div class="mb-8" style="font-size: 20px; font-weight: bold;">
+        <div v-if="USER_ROLE === 'FOR_DOCUMENT_ADMIN'">
+            <v-btn elevation="0" dark width="30" height="30" color="green" @click="$router.back()">
+                <v-icon color="#0a3382">mdi-arrow-left</v-icon>
+            </v-btn>
+        </div>
+        <div class="mb-8 mt-6" style="font-size: 20px; font-weight: bold;">
             ຝ່າຍສຳຫຼວດ ແລະ ຂຸດຄົ້ນບໍ່ແຮ່
             <hr>
         </div>
@@ -52,7 +57,7 @@
                                 ກັບຄືນ
                             </v-btn>
                             <div class="text-center font-weight-bold" style="font-size: 20px">
-                                ຂໍ້ມູນເອກະສານ
+                                ຂໍ້ມູນຜົນເອກະສານ
                             </div>
                             <v-divider></v-divider>
                             <v-text-field label="ຄົ້ນຫາ" v-model="searchQuery" append-icon="mdi-magnify"
@@ -183,8 +188,44 @@
                 </div>
             </v-card>
         </v-dialog>
+        <!-- ຂໍ້ມູນລາຍຈ່າຍ -->
+        <v-dialog v-model="payfile">
+            <v-card class="mx-auto" max-width="490">
+                <div>
+                    <v-card-text>
+                        <v-card style="position: sticky; top: 0; z-index: 1;" max-width="500" flat>
+                            <v-btn @click="refresher" rounded color="primary">
+                                <v-icon>
+                                    mdi-arrow-collapse-left
+                                </v-icon>
+                                ກັບຄືນ
+                            </v-btn>
+                            <div class="text-center font-weight-bold" style="font-size: 20px">
+                                ຂໍ້ມູນລາຍຈ່າຍ</div>
+                            <v-divider></v-divider>
+                            <v-text-field label="ຄົ້ນຫາ" v-model="searchQuery" append-icon="mdi-magnify"
+                                @input="functionpay"></v-text-field>
+                        </v-card>
+                        <div v-for="(item, index) in payment" :key="index">
+                            <v-card-subtitle>
+                                <v-card-actions>
+                                    <v-btn text @click="showResultpdf(item.file)">
+                                        <v-icon color="#00E676">
+                                            mdi-eye-arrow-left
+                                        </v-icon>
+                                    </v-btn>
 
-        <!-- ຮູບພາບ -->
+                                    {{ item.type }}
+                                    <v-spacer></v-spacer>
+                                    ({{ item.dateInsert }})
+                                </v-card-actions>
+                            </v-card-subtitle>
+                        </div>
+                    </v-card-text>
+                </div>
+            </v-card>
+        </v-dialog>
+        <!-- ຂໍ້ມູນພາບ -->
         <v-dialog v-model="imagefile">
             <v-card class="mx-auto" max-width="490">
                 <div>
@@ -215,8 +256,8 @@
                 <v-col cols="auto">
                     <v-card color="#CFD8DC">
                         <!-- v-if="USER_ROLE !== 'BOR-HIN-KHUAT'" -->
-                        <v-list-group no-action sub-group
-                        @click="setTokenAndFetch('UnCuQ8Dql7bSVS9LcDfMWmA8asAtQLMF')">
+                        <v-list-group no-action sub-group v-if="USER_ROLE === 'FOR_DOCUMENT_ADMIN'"
+                            @click="setTokenAndFetch('UnCuQ8Dql7bSVS9LcDfMWmA8asAtQLMF')">
                             <template v-slot:activator>
                                 <v-icon color="white">mdi-file-document</v-icon>
                                 <v-list-item-content>
@@ -291,16 +332,6 @@
                                     </v-btn>
                                     <br>
                                 </v-list-item>
-                                <!-- <div class="scrollable-text">
-                            <v-list-item v-for="(item, index) in report_ResultOfServey" :key="index">
-                                <v-list-subtitle>
-                                    <v-icon>
-                                        mdi-eye
-                                    </v-icon>
-                                    {{ item.type }}
-                                </v-list-subtitle>
-                            </v-list-item>
-                        </div> -->
                             </v-list-group>
                             <v-list-group no-action sub-group>
                                 <template v-slot:activator>
@@ -347,11 +378,15 @@
                                     </v-list-item-content>
                                 </template>
                                 <v-list-item>
-                                    <v-btn rounded>
+                                    <v-btn rounded @click="payfile = true">
                                         ເບີ່ງ
                                     </v-btn>
                                     <v-spacer></v-spacer>
-                                    <v-btn color="success" rounded>ເພີ່ມ</v-btn>
+                                    <v-btn color="success"
+                                        @click="paymentdoc('tZl011U2nNs9AdvQDIStduuOIc8yWmxw', 'ບ້ານຄອນງົວ', 'pay')"
+                                        rounded>
+                                        ເພີ່ມ
+                                    </v-btn>
                                 </v-list-item>
                             </v-list-group>
                             <v-list-group no-action sub-group>
@@ -468,11 +503,15 @@
                                     </v-list-item-content>
                                 </template>
                                 <v-list-item>
-                                    <v-btn rounded>
+                                    <v-btn rounded @click="payfile = true">
                                         ເບີ່ງ
                                     </v-btn>
                                     <v-spacer></v-spacer>
-                                    <v-btn color="success" rounded>ເພີ່ມ</v-btn>
+                                    <v-btn color="success"
+                                        @click="paymentdoc('3iKcWacuOwaXxERfL6LNvuEKdjhvc5aF', 'ບ້ານສີຄູນ', 'pay')"
+                                        rounded>
+                                        ເພີ່ມ
+                                    </v-btn>
                                 </v-list-item>
                             </v-list-group>
                             <v-list-group no-action sub-group>
@@ -574,8 +613,7 @@
                                     </v-btn>
                                     <v-spacer></v-spacer>
                                     <v-btn color="success"
-                                        @click="test('23QZokLhZNSVtXP1qYQHM8PVHr76VQa', 'ບ້ານທ່າ', 'testData')"
-                                        rounded>
+                                        @click="test('23QZokLhZNSVtXP1qYQHM8PVHr76VQa', 'ບ້ານທ່າ', 'testData')" rounded>
                                         ເພີ່ມ
                                     </v-btn>
                                 </v-list-item>
@@ -588,11 +626,15 @@
                                     </v-list-item-content>
                                 </template>
                                 <v-list-item>
-                                    <v-btn rounded>
+                                    <v-btn rounded @click="payfile = true">
                                         ເບີ່ງ
                                     </v-btn>
                                     <v-spacer></v-spacer>
-                                    <v-btn color="success" rounded>ເພີ່ມ</v-btn>
+                                    <v-btn color="success"
+                                        @click="paymentdoc('23QZokLhZNSVtXP1qYQHM8PVHr76VQa', 'ບ້ານທ່າ', 'pay')"
+                                        rounded>
+                                        ເພີ່ມ
+                                    </v-btn>
                                 </v-list-item>
                             </v-list-group>
                             <v-list-group no-action sub-group>
@@ -710,11 +752,15 @@
                                     </v-list-item-content>
                                 </template>
                                 <v-list-item>
-                                    <v-btn rounded>
+                                    <v-btn rounded @click="payfile = true">
                                         ເບີ່ງ
                                     </v-btn>
                                     <v-spacer></v-spacer>
-                                    <v-btn color="success" rounded>ເພີ່ມ</v-btn>
+                                    <v-btn color="success"
+                                        @click="paymentdoc('phonkham123kOQHMwA1Ve9lMq22X3kpSiaIbDO123', 'ບ້ານໂພນຄໍາ', 'pay')"
+                                        rounded>
+                                        ເພີ່ມ
+                                    </v-btn>
                                 </v-list-item>
                             </v-list-group>
                             <v-list-group no-action sub-group>
@@ -831,10 +877,15 @@
                                     </v-list-item-content>
                                 </template>
                                 <v-list-item>
-                                    <v-btn rounded>
+                                    <v-btn rounded @click="payfile = true">
+                                        ເບີ່ງ
                                     </v-btn>
                                     <v-spacer></v-spacer>
-                                    <v-btn color="success" rounded>ເພີ່ມ</v-btn>
+                                    <v-btn color="success"
+                                        @click="paymentdoc('kOQHMwA1Ve9lMq22X3kpSiaIbGGKghDO', 'ບ້ານຊຽງຄົງ', 'pay')"
+                                        rounded>
+                                        ເພີ່ມ
+                                    </v-btn>
                                 </v-list-item>
                             </v-list-group>
                             <v-list-group no-action sub-group>
@@ -951,11 +1002,15 @@
                                     </v-list-item-content>
                                 </template>
                                 <v-list-item>
-                                    <v-btn rounded>
+                                    <v-btn rounded @click="payfile = true">
                                         ເບີ່ງ
                                     </v-btn>
                                     <v-spacer></v-spacer>
-                                    <v-btn color="success" rounded>ເພີ່ມ</v-btn>
+                                    <v-btn color="success"
+                                        @click="paymentdoc('namzao123kOQHMwA1Ve9lMq22X3kpSiaIbKghDO456', 'ບ້ານນໍ້າຊາວ', 'pay')"
+                                        rounded>
+                                        ເພີ່ມ
+                                    </v-btn>
                                 </v-list-item>
                             </v-list-group>
                             <v-list-group no-action sub-group>
@@ -1073,11 +1128,15 @@
                                     </v-list-item-content>
                                 </template>
                                 <v-list-item>
-                                    <v-btn rounded>
+                                    <v-btn rounded @click="payfile = true">
                                         ເບີ່ງ
                                     </v-btn>
                                     <v-spacer></v-spacer>
-                                    <v-btn color="success" rounded>ເພີ່ມ</v-btn>
+                                    <v-btn color="success"
+                                        @click="paymentdoc('nongphounxai3kOQHMwA1Ve9lMq22X3kpSiaIDO789', 'ໜອງພູໄຊ 32,28', 'pay')"
+                                        rounded>
+                                        ເພີ່ມ
+                                    </v-btn>
                                 </v-list-item>
                             </v-list-group>
                             <v-list-group no-action sub-group>
@@ -1194,11 +1253,15 @@
                                     </v-list-item-content>
                                 </template>
                                 <v-list-item>
-                                    <v-btn rounded>
+                                    <v-btn rounded @click="payfile = true">
                                         ເບີ່ງ
                                     </v-btn>
                                     <v-spacer></v-spacer>
-                                    <v-btn color="success" rounded>ເພີ່ມ</v-btn>
+                                    <v-btn color="success"
+                                        @click="paymentdoc('knongphounxaiOQHMwA1Ve9lMq22X3kpSiahDO101112', 'ໜອງພູໄຊ 62,39', 'pay')"
+                                        rounded>
+                                        ເພີ່ມ
+                                    </v-btn>
                                 </v-list-item>
                             </v-list-group>
                             <v-list-group no-action sub-group>
@@ -1314,11 +1377,15 @@
                                     </v-list-item-content>
                                 </template>
                                 <v-list-item>
-                                    <v-btn rounded>
+                                    <v-btn rounded @click="payfile = true">
                                         ເບີ່ງ
                                     </v-btn>
                                     <v-spacer></v-spacer>
-                                    <v-btn color="success" rounded>ເພີ່ມ</v-btn>
+                                    <v-btn color="success"
+                                        @click="paymentdoc('kOlardhor123QHMwA1Ve9lMq22X3GGKghDO13214415', 'ບ້ານລາດຫໍ້', 'pay')"
+                                        rounded>
+                                        ເພີ່ມ
+                                    </v-btn>
                                 </v-list-item>
                             </v-list-group>
                             <v-list-group no-action sub-group>
@@ -1340,10 +1407,6 @@
                     </v-list>
                 </v-card>
             </v-col>
-            <v-col>
-
-
-            </v-col>
         </v-row>
     </div>
 </template>
@@ -1363,10 +1426,11 @@ export default {
             surveydocument: false,
             filedocuments: false,
             imagefile: false,
+            payfile: false,
             selectedToken: null, // To store the selected token
             selectedCard: '1',
             license_plate: '',
-            USER_ROLE: 'BOR-HIN-KHUAT',
+            USER_ROLE: null,
             USER_NAME: localStorage.getItem('USER_NAME'),
             report_leave_caroffice_header: [
                 { text: 'ຄຸດເຈາະ', value: 'pic' },
@@ -1386,6 +1450,7 @@ export default {
             ResultOfServey: [],
             sisterNokAll: [],
             vichai: [],
+            payment: [],
             search: '',
             pdfDialog: false, // Controls the visibility of the PDF dialog
             pdfUrl: '',       // Stores the URL of the PDF to display
@@ -1404,15 +1469,23 @@ export default {
         },
     },
     mounted() {
-        this.ShowAllListOfHole();
-        // this.ShowAllResultOfServey();
+        this.USER_ROLE = this.$route.query.userRole || localStorage.getItem('userRole') || 'BOR-HIN-KHUAT';  // ค่า default เป็น 'BOR-HIN-KHUAT
+
+    },
+    watch: {
+        // คอยติดตามการเปลี่ยนแปลงใน URL (กรณีถ้ามีการกลับมาใน URL ที่มี query)
+        '$route.query.userRole': function (newRole) {
+            this.USER_ROLE = newRole || 'BOR-HIN-KHUAT';  // ถ้าไม่มีค่าก็ใช้ default
+            localStorage.setItem('userRole', this.USER_ROLE); // เก็บค่า USER_ROLE ใน localStorage
+        }
     },
     methods: {
         refresher() {
             this.filedocument = false;
             this.filedocuments = false;
             this.testDoc = false;
-            this.surveydocument = false
+            this.surveydocument = false;
+            this.payfile = false;
             window.location.reload();
         },
         navigateWithToken(token, buttonLabel, number) {
@@ -1445,6 +1518,12 @@ export default {
                 query: { token, label: valueDoc, number }
             });
         },
+        paymentdoc(token, valueDoc, number) {
+            this.$router.push({
+                name: 'paydocument',
+                query: { token, label: valueDoc, number }
+            });
+        },
         setBound(value) {
             this.bound = value;
             this.ShowAllListOfHole();
@@ -1460,6 +1539,7 @@ export default {
             this.DocServey();
             this.vichaiExample();
             this.functionSisterNok();
+            this.paymentAll();
         },
         getButtonStyle(token) {
             // Conditionally return the button style
@@ -1570,6 +1650,12 @@ export default {
                 item.type.includes(this.searchQuery)
             );
         },
+        functionpay() {
+            // ຟັງຊັ່ນກອງຂໍ້ມູນຕາມຄ່າຄົ້ນຫາ
+            this.payment = this.payAll.filter((item) =>
+                item.type.includes(this.searchQuery)
+            );
+        },
         nokSearch() {
             // ຟັງຊັ່ນກອງຂໍ້ມູນຕາມຄ່າຄົ້ນຫາ
             this.sisternok = this.sisterNokAll.filter((item) =>
@@ -1630,6 +1716,36 @@ export default {
                     } else {
                         this.vichaiAll = [];
                         this.vichai = []
+                        this.loading_processing = false;
+                    }
+                });
+            } catch (error) {
+                this.loading_processing = false;
+                swal.fire({
+                    icon: 'error',
+                    text: error,
+                });
+                console.log(error);
+            }
+        },
+        paymentAll() {
+            try {
+                this.loading_processing = true;
+                this.$axios.$post('/ShowAllResultOfServey.service', {
+                    branchUser: this.USER_ROLE,
+                    toKen: this.toKen,  // Use the token set from the button click
+                    bound: this.bound,
+                    // bound: this.bound,
+                }).then((data) => {
+                    if (data?.status === "00") {
+                        // this.report_ResultOfServey = data?.data;
+                        // this.ResultOfServey = data.data.filter(item => item.name === 'kk'|| item.name==='dd');
+                        this.payAll = data.data.filter(item => item.name === 'pay');
+                        this.payment = this.payAll
+                        this.loading_processing = false;
+                    } else {
+                        this.payAll = [];
+                        this.payment = []
                         this.loading_processing = false;
                     }
                 });

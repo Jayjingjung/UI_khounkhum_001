@@ -7,7 +7,7 @@
         </v-dialog>
         <v-card class="card-shadow mx-auto" width="800">
             <v-card-title style="display:flex;background-color:#2bcc96; font-weight: bold;">
-                <v-btn fab elevation="0" dark width="30" height="30" small color="white" to="/stone_admin">
+                <v-btn fab elevation="0" dark width="30" height="30" small color="white"  @click="$router.back()">
                     <v-icon color="#2bcc96">mdi-arrow-left</v-icon>
                 </v-btn>
 

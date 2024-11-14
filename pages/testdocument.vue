@@ -9,7 +9,7 @@
 
         <v-card class="card-shadow mx-auto" style="border-radius: 36px 1px 36px 2px;" width="430">
             <v-card-title style="display:flex;background-color:#2bcc96; border-radius:36px 0 36px  0;">
-                <v-btn fab elevation="0" dark width="30" height="30" small color="white" to="/stone_admin">
+                <v-btn fab elevation="0" dark width="30" height="30" small color="white"  @click="$router.back()">
                     <v-icon color="#0a3382">mdi-arrow-left</v-icon>
                 </v-btn>
                 <v-spacer></v-spacer>

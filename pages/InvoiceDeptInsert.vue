@@ -347,7 +347,6 @@ export default {
             formdata.append("toKen", localStorage.getItem("toKen"));
 
             this.loading_processing = true;
-
             try {
                 const data = await this.$axios.$post(
                     "http://khounkham.com/api-prod/v1/truck/InvoiceDeptInsert.service",

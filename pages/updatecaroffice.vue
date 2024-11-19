@@ -549,6 +549,7 @@ export default {
         { text: "ວັນທີ", value: "dateFill" },
         { text: "ເລກໄມ", value: "lekmai" },
         { text: "ເປັນເງິນ", value: "price" },
+        { text: "ເລກໄມທີຫ່າງກັນ", value: "lekmai_dif" },
         { text: "ປະຕິບັດ", value: "actions", sortable: false },
       ],
       oilHistory: [],

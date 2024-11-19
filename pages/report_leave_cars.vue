@@ -483,7 +483,7 @@
 
                             <h3 class="red--text ">
                                 4.ຈ່າຍຄ່າອາໄລ: {{ totalMoney }} LAK
-                              
+
 
                             </h3>
 
@@ -512,8 +512,8 @@
                                 </b>
                             </td>
                         </div> -->
-                        
-                     
+
+
                         <div style="height: 35px;margin-top: 10px;">
                             <td>
                                 <h3>ລວມລາຍຈ່າຍປະຈໍາວັນ: </h3>
@@ -527,7 +527,7 @@
                                 </b>
                             </td>
                         </div>
-                        
+
                         <!-- <div style="height: 35px;margin-left: 30px;">
 
                             <td>
@@ -599,45 +599,57 @@
                             </td>
                         </div>
                         <div>
-                            <v-card>
-                                <div style="height: 35px;margin-left: 30px;">
-                                    <td>
-                                        <h3 style="color: tomato;">ເຄດິດ: </h3>
-                                    </td>
-                                    <td>
-                                        <b>
-                                            <h3 class="red--text "> {{ sfcusd }} $</h3>
+                            <!-- <v-card> -->
+                            <!-- Display USD Credit -->
+                            <div style="height: 35px; margin-left: 10px;">
+                                <td>
+                                    <h3 style="color: tomato;">ເຄດິດ:</h3>
+                                </td>
+                                <td>
+                                    <b>
+                                        <h3 class="red--text">{{ usd }} $ / {{ sfcusd }} LAK</h3>
+                                    </b>
+                                </td>
+                            </div>
 
-                                        </b>
-                                    </td>
-                                </div>
+                            <!-- Display THB Credit -->
+                            <div style="height: 35px; margin-left: 10px;">
+                                <td>
+                                    <h3 style="color: tomato;">ເຄດິດ:</h3>
+                                </td>
+                                <td>
+                                    <b>
+                                        <h3 class="red--text">{{ thb }} Baht / {{ sfcthb }} LAK</h3>
+                                    </b>
+                                </td>
+                            </div>
 
-                                <div style="height: 35px;margin-left: 30px;">
+                            <!-- Display LAK Credit -->
+                            <div style="height: 35px; margin-left: 10px;">
+                                <td>
+                                    <h3 style="color: tomato;">ເຄດິດ:</h3>
+                                </td>
+                                <td>
+                                    <b>
+                                        <h3 class="red--text">{{ sfclak }} LAK</h3>
+                                    </b>
+                                </td>
+                            </div>
 
-                                    <td>
-                                        <h3 style="color: tomato;">ເຄດິດ: </h3>
-                                    </td>
-                                    <td>
-                                        <b>
-                                            <h3 class="red--text "> {{ sfcthb }} ฿</h3>
+                            <!-- Display Total Daily Credit -->
+                            <div style="height: 35px; margin-left: 10px;">
+                                <td>
+                                    <h3 style="color: tomato;">ລວມລາຍຈ່າຍເຄດິດປະຈໍາວັນ:</h3>
+                                </td>
+                                <td>
+                                    <b>
+                                        <h3 class="red--text">{{ Alltitnee }} LAK</h3>
+                                    </b>
+                                </td>
+                            </div>
 
-                                        </b>
-                                    </td>
-                                </div>
 
-                                <div style="height: 35px;margin-left: 30px;">
-                                    <td>
-                                        <h3 style="color: tomato;">ເຄດິດ: </h3>
-                                    </td>
-                                    <td>
-                                        <b>
-                                            <h3 class="red--text "> {{ sfclak }} LAK</h3>
-
-                                        </b>
-                                    </td>
-                                </div>
-
-                                <!-- <div style="height: 35px;margin-left: 30px;">
+                            <!-- <div style="height: 35px;margin-left: 30px;">
                                     <td>
                                         <h3 style="color: tomato;"> ຍັງບໍ່ຈ່າຍ: </h3>
                                     </td>
@@ -648,9 +660,9 @@
                                         </b>
                                     </td>
                                 </div> -->
-                                    <!-- <h2  style="margin-top: -3px;" class="red--text"> {{ totalMoney }} LAK</h2> -->
+                            <!-- <h2  style="margin-top: -3px;" class="red--text"> {{ totalMoney }} LAK</h2> -->
 
-                            </v-card>
+                            <!-- </v-card> -->
                         </div>
 
 
@@ -793,8 +805,15 @@ export default {
             sumFooter_Credit: '',
 
             sumFooter_Creditpaid: 0,
-            sfclak: 0,
+
             totalMoney: null,
+
+            usd: '', // Example value for USD credit
+            sfcusd: '', // Example value for USD in LAK
+            thb: '', // Example value for THB credit
+            sfcthb: '', // Example value for THB in LAK
+            sfclak: '', // Example value for LAK credit
+
         }
     },
     watch: {
@@ -802,6 +821,20 @@ export default {
         sumFooterferpaper: 'computeSumFooterAll'
     },
     computed: {
+   
+    Alltitnee() {
+  // Remove commas and convert the strings to numbers before adding them
+  const cleanSfcusd = parseFloat(this.sfcusd.replace(/,/g, ''));
+  const cleanSfcthb = parseFloat(this.sfcthb.replace(/,/g, ''));
+  const cleanSfclak = parseFloat(this.sfclak.replace(/,/g, ''));
+  
+  // Sum the cleaned values
+  const total = cleanSfclak + cleanSfcthb + cleanSfcusd;
+  
+  // Format the total with commas and return it
+  return total?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+},
+
         // formattedTHB() {
         //     return this.sfcthb.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
         // }
@@ -912,6 +945,7 @@ export default {
                 if (response.status === '00' && response.sumFooter_Currency) {
                     // Update the sfcthb value with the sum from the API or set it to 0
                     this.sfcusd = response.sumFooter_Currency.sumMoneycurrencyUSD || '0';
+                    this.usd = response.sumFooter_Currency.usd || '0';
                     console.log("Total THB:", this.sfcusd);
 
                 } else {
@@ -952,6 +986,7 @@ export default {
                 if (response.status === '00' && response.sumFooter_Currency) {
                     // Update the sfcthb value with the sum from the API or set it to 0
                     this.sfcthb = response.sumFooter_Currency.sumMoneyCurrencyTHB || '0';
+                    this.thb = response.sumFooter_Currency.thb || '0';
                     console.log("Total THB:", this.sfcthb);
 
                 } else {

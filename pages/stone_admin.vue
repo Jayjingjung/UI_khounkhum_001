@@ -304,7 +304,7 @@
                                 </v-btn>
                                 <v-spacer></v-spacer>
                                 <v-btn color="success"
-                                    @click="nokDoc('UnCuQ8Dql7bSVS9LcDfMWmA8asAtQLMF', 'ເອກະສານເອື້ອຍນົກ', 'nok')"
+                                    @click="nokDoc('UnCuQ8Dql7bSVS9LcDfMWmA8asAtQLMF', 'ເອກະສານເອື້ອຍນົກ', 'nok1')"
                                     rounded>
                                     ເພີ່ມ
                                 </v-btn>
@@ -1660,7 +1660,7 @@ export default {
                     console.log('API Response:', data); // Log the response
                     if (data?.status === "00") {
                         // this.report_ResultOfServey = data?.data;
-                        this.sisterNokAll = data.data.filter(item => item.name === 'nok');
+                        this.sisterNokAll = data.data.filter(item => item.name === 'nok1');
                         this.sisternok = this.sisterNokAll; // 
                     } else {
                         this.sisterNokAll = [];

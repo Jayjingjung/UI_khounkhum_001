@@ -45,8 +45,8 @@
             </div>
             <div>
 
-                <v-select dense outlined v-model="selectedShop" :items="uniqueShops" label="ຮ້ານ" placeholder="Choose a shop"
-                    @change="applyFilters"></v-select>
+                <v-select dense outlined v-model="selectedShop" :items="uniqueShops" label="ຮ້ານ"
+                    placeholder="Choose a shop" @change="applyFilters"></v-select>
             </div>
 
             <v-row justify="start">
@@ -62,9 +62,9 @@
 
 
                     <!-- Exchange moneyRate Input and Display Fields -->
-                    <v-text-field  label="*ເລດ" type="number" dense outlined
-                        background-color="#f5f5f5" v-model="formattedtotalmoneyRate"
-                        style="width: 50px; margin-top: 30px;color: chocolate;" @input="calculateKip" />
+                    <v-text-field label="*ເລດ" type="number" dense outlined background-color="#f5f5f5"
+                        v-model="formattedtotalmoneyRate" style="width: 50px; margin-top: 30px;color: chocolate;"
+                        @input="calculateKip" />
 
 
                     <v-spacer></v-spacer>
@@ -131,8 +131,7 @@
                                 <v-text-field dense outlined v-model="formattedPayDate" label="ວັນ​ທີ່​ຈ່າຍ" readonly
                                     v-on="on"></v-text-field>
                             </template>
-                            <v-date-picker v-model="payDate" no-title scrollable
-                                @input="updatePayDate"></v-date-picker>
+                            <v-date-picker v-model="payDate" no-title scrollable @input="updatePayDate"></v-date-picker>
                         </v-menu>
                     </div>
 
@@ -178,6 +177,7 @@ export default {
             payDateMenu: '',
             payDate: '',
             formattedpaytDate: '',
+            applyFilters: '',
 
 
 
@@ -234,6 +234,7 @@ export default {
         this.onGetaddshow();
     },
     computed: {
+
         // Get unique shop names for the dropdown
         uniqueShops() {
             const shopNames = this.truck_data_listv2.map(item => item.shop_name);
@@ -279,7 +280,10 @@ export default {
     },
 
     methods: {
-
+        handleError(title, message) {
+            console.error(`${title}: ${message}`);
+            alert(`${title}: ${message}`);
+        },
         async onGetaddshow() {
             try {
                 this.loading_processing = true;
@@ -372,14 +376,13 @@ export default {
 
         }
         ,
-
         async onGetshowdata_tablev2() {
             try {
                 this.loading_processing = true;
-                let data = {
+                const data = {
                     startDate: this.startDate,
                     endDate: this.endDate,
-                    toKen: localStorage.getItem('toKen')
+                    toKen: localStorage.getItem('toKen'),
                 };
 
                 const response = await this.$axios.$post('ListShopsMustPay.service', data);
@@ -387,18 +390,20 @@ export default {
                 if (response?.status === '00' && response?.data) {
                     this.truck_data_listv2 = response.data;
                 } else {
-                    this.handleError('Error', 'Failed to fetch data from the API');
+                    // Clear the data if no results are found
+                    this.truck_data_listv2 = [];
                 }
             } catch (error) {
-                console.error('API error:', error);
-                this.handleError('Error', 'Failed to fetch data from the API');
+                console.error('API error:', error); // Log the error
+                this.truck_data_listv2 = []; // Clear the data on error
             } finally {
                 this.loading_processing = false;
             }
         },
+
         async onPayToShop() {
             if (this.selectedItems.length === 0) {
-                this.showErrorAlert('Error', 'Please select items to pay.');
+        
                 return;
             }
 
@@ -421,19 +426,14 @@ export default {
                     this.onGetshowdata_tablev2();
                     this.selectedItems = [];
                 } else {
-                    this.showErrorAlert('Error', 'Payment failed.');
+           
                 }
             } catch (error) {
                 console.error('Payment API error:', error);
-                this.showErrorAlert('Error', 'Failed to process payment.');
+             
             }
         },
-        showErrorAlert(title, message) {
-            alert(`${title}: ${message}`);
-        },
-        showSuccessAlert(title, message) {
-            alert(`${title}: ${message}`);
-        },
+
     },
 };
 </script>

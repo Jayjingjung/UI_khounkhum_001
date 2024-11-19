@@ -419,56 +419,88 @@
           </v-btn>
 
           <v-spacer></v-spacer>
+
         </v-card-title>
 
 
+        <v-container>
+          <v-card>
+            <v-card-title>
+              <h3>ປະຫວັດການໃຊ້ນໍ້າມັນ</h3>
+            </v-card-title>
+            <!-- Display Total Price Paid -->
+            <div class="mb-4">
+              <v-alert type="info" border="left" elevation="2">
+                ລວມຄ່ານໍ້າມັນທີ່ຊຳລະແລ້ວ: {{ totalPricePaidOil?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g,
+                  ',') }} ກີບ
+              </v-alert>
+            </div>
+            <v-card-text>
+              <v-data-table :headers="headers" :items="oilHistory" :items-per-page="5" dense class="elevation-1"
+                :loading="loading">
+                <template v-slot:top>
+                  <v-toolbar flat>
+                    <v-toolbar-title>ປະຫວັດ</v-toolbar-title>
+                    <v-spacer></v-spacer>
+                    <v-btn color="primary" @click="fetchOilHistory">Refresh</v-btn>
+                  </v-toolbar>
+                </template>
+                <template v-slot:item.price="{ item }">
+                  {{ formatCurrency(item.price) }}
+                </template>
+                <template v-slot:item.actions="{ item }">
+                  <!-- <v-btn color="blue" @click="navigateTodelete(item.key_id)">delete</v-btn> -->
+                  <!-- <v-btn color="red" @click="deleteRecord(item.key_id)">Delete</v-btn> -->
+                </template>
+              </v-data-table>
+            </v-card-text>
+          </v-card>
+        </v-container>
+
+        <v-dialog v-model="dialog" max-width="750px">
+
+          <v-card justify="center" align="center" class="card-shadow mb-4" rounded="lg" width="1250px">
+            <v-card-title class="orange--text white--text mb-10">
+              ນໍ້າມັນ ເເລະ ເລກໄມ
+            </v-card-title>
+            <v-card-text>
+              <v-row>
+                <v-col cols="6" md="3" sm="3">
+                  <v-menu v-model="menu" :close-on-content-click="false" :nudge-right="40" transition="scale-transition"
+                    offset-y>
+                    <template v-slot:activator="{ on, attrs }">
+                      <v-text-field dense outlined style="width: 180px;" v-model="dateFill" label="ວັນທີໃຊ" readonly
+                        v-bind="attrs" v-on="on"></v-text-field>
+                    </template>
+                    <v-date-picker v-model="dateFill" no-title scrollable @input="menu = false"></v-date-picker>
+                  </v-menu>
+                </v-col>
+                <v-col cols="6" md="3" sm="3">
+                  <v-text-field style="width: 180px;" label="* ເລກໄມທີໃຊນໍ້າມັນ" dense outlined
+                    background-color="#f5f5f5" v-model="lekmai"></v-text-field>
+                </v-col>
+                <v-col cols="6" md="3" sm="3">
+                  <v-text-field style="width: 180px;" label="* ເປັນເງິນ" dense outlined background-color="#f5f5f5"
+                    v-model="price"></v-text-field>
+                </v-col>
+              </v-row>
+              <div
+                style="display: flex; justify-content: center; align-items: center;margin-top: 15px;margin-bottom: 15px;">
+                <v-btn style="background-color: #24ab70; color: aliceblue;" @click="saveadd">ເພີ້ມ</v-btn>
+              </div>
+            </v-card-text>
+          </v-card>
 
 
-          <v-dialog v-model="dialog" max-width="750px">
-
-            <v-card justify="center" align="center" class="card-shadow mb-4" rounded="lg" width="1250px">
-              <v-card-title class="orange--text white--text mb-10">
-                ນໍ້າມັນ ເເລະ ເລກໄມ
-              </v-card-title>
-              <v-card-text>
-                <v-row>
-
-                  <v-col cols="6" md="3" sm="3">
-                    <v-menu v-model="menu" :close-on-content-click="false" :nudge-right="40"
-                      transition="scale-transition" offset-y>
-                      <template v-slot:activator="{ on, attrs }">
-                        <v-text-field dense outlined style="width: 180px;" v-model="dateoil" label="ວັນທີໃຊ" readonly
-                          v-bind="attrs" v-on="on"></v-text-field>
-                      </template>
-                      <v-date-picker v-model="dateoil" no-title scrollable @input="menu = false"></v-date-picker>
-                    </v-menu>
-                  </v-col>
-                  <v-col cols="6" md="3" sm="3">
-                    <v-text-field style="width: 180px;" label="* ເລກໄມທີໃຊນໍ້າມັນ" dense outlined
-                      background-color="#f5f5f5" v-model="lekmaisainummun"></v-text-field>
-                  </v-col>
-                  <v-col cols="6" md="3" sm="3">
-                    <v-text-field style="width: 180px;" label="* ເປັນເງິນ" dense outlined background-color="#f5f5f5"
-                      v-model="oilformoney"></v-text-field>
-                  </v-col>
-                </v-row>
-                <div
-                  style="display: flex; justify-content: center; align-items: center;margin-top: 15px;margin-bottom: 15px;">
-                  <v-btn style="background-color: #24ab70; color: aliceblue;" @click="saveadd">ເພີ້ມ</v-btn>
-                </div>
-
-              </v-card-text>
-            </v-card>
-
-          </v-dialog>
+        </v-dialog>
 
 
-          <!-- <v-row>
+        <!-- <v-row>
                 <v-col>
                   <v-textarea v-model="details" label="ລາຍລະອຽດເພີ່ມເຕີມ" background-color="#f5f5f5" outlined></v-textarea>
                 </v-col>
               </v-row> -->
-      
+
       </v-card>
     </div>
     <!-- Add more fields for other data -->
@@ -482,6 +514,10 @@ import swal from 'sweetalert2';
 export default {
   data() {
     return {
+      menu: false,
+      dateFill: "",
+      lekmai: "",
+      price: "",
       lean: {},
       dialog: false,
       img: '',         // For displaying the image URL
@@ -504,11 +540,19 @@ export default {
       menu2: '',
       menu1: '',
       menu: false,
-      dateoil: null,
+      dateFill: null,
       lekmaisainummun: '',
       oilformoney: '',
 
-
+      headers: [
+        { text: "ລຳດັບ", value: "id" },
+        { text: "ວັນທີ", value: "dateFill" },
+        { text: "ເລກໄມ", value: "lekmai" },
+        { text: "ເປັນເງິນ", value: "price" },
+        { text: "ປະຕິບັດ", value: "actions", sortable: false },
+      ],
+      oilHistory: [],
+      loading: false,
       tall: '',
       sitPosition_amount: '',
       serial_wheel_left_font: '',
@@ -529,6 +573,7 @@ export default {
       cc: '',
       leanGia: '',
       insurance_Lao: '',
+      totalPricePaidOil: "0", // Default value
       insurance_thai: '',
       insurance_viet: '',
       insurance_viet_expireDate: '',
@@ -757,12 +802,122 @@ export default {
 
   },
   methods: {
+    formatCurrency(value) {
+      return value?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ",") || "0";
+    },
+    async fetchOilHistory() {
+      this.loading = true;
 
-    // saveadd() {
-    //   console.log("Date used:", this.dateoil);
-    //   console.log("Mileage:", this.lekmaisainummun);
-    //   console.log("Amount:", this.oilformoney);
-    // },
+      const url = "http://khounkham.com/api-prod/v1/truck/ListHisFillOill.service";
+      const payload = {
+        key_id: this.$route.query.keyId, // Replace with the actual key_id or make it dynamic
+      };
+
+      try {
+        const response = await fetch(url, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(payload),
+        });
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const result = await response.json();
+        console.log("Fetched Oil History:", result);
+        this.totalPricePaidOil = result.sumFooter?.totalPricePaidOil || "0"; // Set total price
+        this.oilHistory = result.data || []; // Adjust based on API response format
+      } catch (error) {
+        console.error("Error fetching oil history:", error);
+        this.$toast.error("ບໍ່ສາມາດໂຫຼດຂໍ້ມູນ");
+      } finally {
+        this.loading = false;
+      }
+    },
+    navigateToUpdate(keyId) {
+      const url = `http://localhost:3200/ldb-logistic/updatecaroffice?keyId=${keyId}`;
+      window.location.href = url; // Redirect to the new page
+    },
+    created() {
+      this.fetchOilHistory(); // Fetch data on component creation
+    },
+    async deleteRecord(key_id) {
+      const confirmDelete = confirm("Are you sure you want to delete this record?");
+      if (!confirmDelete) return;
+
+      const url = "http://khounkham.com/api-prod/v1/truck/DelHisOil.service";
+      const payload = { key_id };
+
+      try {
+        const response = await fetch(url, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(payload),
+        });
+
+        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+
+        const result = await response.json();
+        if (result.success) {
+          this.$toast.success("ລຶບສຳເລັດ");
+          this.fetchOilHistory(); // Refresh data after deletion
+        } else {
+          this.$toast.error("ລຶບບໍ່ສຳເລັດ");
+        }
+      } catch (error) {
+        console.error("Error deleting record:", error);
+        this.$toast.error("ມີບັນຫາໃນການລຶບຂໍ້ມູນ");
+      }
+    },
+    async saveadd() {
+      // Validate input
+      if (!this.dateFill || !this.lekmai || !this.price) {
+        this.$toast.error("ກະລຸນາຕື່ມຂໍ້ມູນທຸກຊ່ອງ!");
+        return;
+      }
+
+      const payload = {
+        key_id: this.$route.query.keyId, // Example key_id, replace with your dynamic value if needed
+        price: this.price,
+        lekmai: this.lekmai,
+        dateFill: this.dateFill,
+      };
+
+      const url = "http://khounkham.com/api-prod/v1/truck/InsertOil.service";
+
+      try {
+        const response = await fetch(url, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(payload),
+        });
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const result = await response.json();
+        console.log("Insert successful:", result);
+
+        // Reset the form
+        this.dateFill = "";
+        this.lekmai = "";
+        this.price = "";
+
+        // Notify the user
+        this.$toast.success("ຂໍ້ມູນຖືກບັນທືກສຳເລັດ!");
+      } catch (error) {
+        console.error("Insert failed:", error);
+        this.$toast.error("ມີບັນຫາໃນການບັນທືກຂໍ້ມູນ");
+      }
+    },
     async sendDateToAPI(keyId) {
       try {
         // Get the current date (year, month, and day)

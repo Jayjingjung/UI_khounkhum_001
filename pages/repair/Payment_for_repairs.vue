@@ -23,8 +23,7 @@
                         </v-btn>
                     </div>
 
-                    <div class="pl-2">
-                        <!-- Currency selection buttons with dynamic inline styles -->
+                    <div v-if="selectedType !== 'cash'" class="pl-2">
                         <div class="currency-selection">
                             <div justify="center" align="center">
                                 <v-btn :style="getButtoncurrencyStyle('USD')" style="width: 80px;font-size: 25px"
@@ -39,10 +38,17 @@
                                     @click="selectedCurrency = 'LAK'">
                                     LAK
                                 </v-btn>
-                                <!-- <v-btn :style="getButtoncurrencyStyle('DONG')" style="width: 80px;font-size: 25px"
-                                    @click="selectedCurrency = 'DONG'">
-                                    DONG
-                                </v-btn> -->
+                            </div>
+                        </div>
+                    </div>
+                    <div v-if="selectedType === 'cash'" class="pl-2">
+                        <div class="currency-selection">
+                            <div justify="center" align="center">
+                      
+                                <v-btn :style="getButtoncurrencyStyle('LAK')" style="width: 80px;font-size: 25px"
+                                    @click="selectedCurrency = 'LAK'">
+                                    LAK
+                                </v-btn>
                             </div>
                         </div>
                     </div>
@@ -1446,7 +1452,7 @@ export default {
 
     methods: {
         selectShop(type) {
-            this.selectedType = type;  // Set the selected button type
+            this.selectedType = type;  // Set the selected payment type
             if (type === 'cash') {
                 this.shop_id = 8;      // Set shop_id to 8 for cash payment
                 this.isCreditSelected = false; // Hide the autocomplete
@@ -1459,32 +1465,16 @@ export default {
             console.log('Selected shop:', selectedShop);
         },
         getButtonStyle(type) {
-            // Return different styles based on the selected button
-            if (this.selectedType === type) {
-                return {
-                    backgroundColor: 'green',
-                    color: 'white'
-                };
-            } else {
-                return {
-                    backgroundColor: '#f0f0f0',
-                    color: 'black'
-                };
-            }
+            // Return styles based on the selected button
+            return this.selectedType === type
+                ? { backgroundColor: 'green', color: 'white' }
+                : { backgroundColor: '#f0f0f0', color: 'black' };
         },
         getButtoncurrencyStyle(currency) {
-            // Return different styles for the currency buttons
-            if (this.selectedCurrency === currency) {
-                return {
-                    backgroundColor: 'blue',
-                    color: 'white',
-                };
-            } else {
-                return {
-                    backgroundColor: '#f0f0f0',
-                    color: 'black',
-                };
-            }
+            // Return styles for the currency buttons
+            return this.selectedCurrency === currency
+                ? { backgroundColor: 'blue', color: 'white' }
+                : { backgroundColor: '#f0f0f0', color: 'black' };
         },
         formatNumber(value) {
             if (typeof value === 'number' || typeof value === 'string') {

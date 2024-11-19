@@ -160,6 +160,42 @@
             <v-card class="mx-auto" max-width="490">
                 <div>
                     <v-card-text>
+                        <!-- Section Header -->
+                        <v-card style="position: sticky; top: 0; z-index: 1;" max-width="500" flat>
+                            <v-btn @click="refresher" rounded color="primary">
+                                <v-icon>mdi-arrow-collapse-left</v-icon>
+                                ກັບຄືນ
+                            </v-btn>
+                            <div class="text-center font-weight-bold" style="font-size: 20px">
+                                ຂໍ້ມູນຮູເຈາະ
+                            </div>
+                            <v-divider></v-divider>
+
+                            <!-- Search Field -->
+                            <v-text-field label="ຄົ້ນຫາ" v-model="search" append-icon="mdi-magnify"
+                                @input="filterReportList"></v-text-field>
+                        </v-card>
+
+                        <!-- Filtered List -->
+                        <div v-for="item in filteredReportList" :key="item.key_id">
+                            <div>
+                                <v-card-subtit>
+                                    <v-btn text @click="click2fuction(item.pic, item.key_id)">
+                                        <v-icon color="#00E676">mdi-eye-arrow-left</v-icon>
+                                    </v-btn>
+                                    {{ item.full_Name_Hole_number }}
+                                </v-card-subtit>
+                            </div>
+                        </div>
+                    </v-card-text>
+                </div>
+            </v-card>
+        </v-dialog>
+
+        <!-- <v-dialog v-model="filedocuments">
+            <v-card class="mx-auto" max-width="490">
+                <div>
+                    <v-card-text>
                         <v-card style="position: sticky; top: 0; z-index: 1;" max-width="500" flat>
                             <v-btn @click="refresher" rounded color="primary">
                                 <v-icon>
@@ -169,12 +205,11 @@
                             </v-btn>
                             <div class="text-center font-weight-bold " style="font-size: 20px"> ຂໍ້ມູນຮູເຈາະ</div>
                             <v-divider></v-divider>
+                            <v-text-field label="ຄົ້ນຫາ" v-model="search" append-icon="mdi-magnify"
+                                @input="functionkuad"></v-text-field>
                         </v-card>
                         <div v-for="item in report_listitemOffice" :key="item.key_id">
                             <div>
-                                <!-- <row>
-                                            <span>{{ item.full_Name_Hole_number }}</span>
-                                        </row> -->
                                 <v-card-subtit>
                                     <v-btn text @click="click2fuction(item.pic, item.key_id)">
                                         <v-icon color="#00E676">
@@ -187,7 +222,7 @@
                     </v-card-text>
                 </div>
             </v-card>
-        </v-dialog>
+        </v-dialog> -->
         <!-- ຂໍ້ມູນລາຍຈ່າຍ -->
         <v-dialog v-model="payfile">
             <v-card class="mx-auto" max-width="490">
@@ -241,11 +276,9 @@
                             <v-divider></v-divider>
                         </v-card>
                         <div>
-                            <v-row>
-                                <v-col v-for="item in report_listitemOffice" :key="item.key_id">
-
-                                </v-col>
-                            </v-row>
+                            <v-card-subtitle>
+                                No Image Yet
+                            </v-card-subtitle>
                         </div>
                     </v-card-text>
                 </div>
@@ -398,11 +431,13 @@
                                 </template>
                                 <v-list-item>
                                     <v-btn rounded @click="imagefile = true">
-                                        <!-- <v-icon>mdi-checkbook-arrow-left</v-icon> -->
                                         ເບີ່ງ
                                     </v-btn>
                                     <v-spacer></v-spacer>
-                                    <v-btn color="success" rounded>ເພີ່ມ</v-btn>
+                                    <v-btn color="success"
+                                        @click="toImage('tZl011U2nNs9AdvQDIStduuOIc8yWmxw', 'ບ້ານຄອນງົວ')" rounded>
+                                        ເພີ່ມ
+                                    </v-btn>
                                 </v-list-item>
                             </v-list-group>
                         </v-list-group>
@@ -1440,6 +1475,8 @@ export default {
                 { text: '', value: '' },
             ],
             report_listitemOffice: [],
+            filteredReportList: [], // Filtered data
+            search: '', // Search query
             report_ResultOfServeygeader: [
                 { text: 'file', value: 'file' },
                 { text: 'type', value: 'type' },
@@ -1469,7 +1506,7 @@ export default {
         },
     },
     mounted() {
-        this.USER_ROLE = this.$route.query.userRole || localStorage.getItem('userRole') || 'BOR-HIN-KHUAT';  // ค่า default เป็น 'BOR-HIN-KHUAT
+        this.USER_ROLE = this.$route.query.userRole || localStorage.getItem('userRole') || 'BOR-HIN-KHUAT';  // ຄ່າ default ເປັນ 'BOR-HIN-KHUAT
 
     },
     watch: {
@@ -1491,6 +1528,12 @@ export default {
         navigateWithToken(token, buttonLabel, number) {
             this.$router.push({
                 name: 'Survey results',
+                query: { token, label: buttonLabel, number }
+            });
+        },
+        toImage(token, buttonLabel, number) {
+            this.$router.push({
+                name: 'image',
                 query: { token, label: buttonLabel, number }
             });
         },
@@ -1561,11 +1604,13 @@ export default {
                 }).then((data) => {
                     if (data?.status === "00") {
                         this.report_listitemOffice = data?.data;
-                        this.loading_processing = false;
+                        this.filteredReportList = data?.data; // Initialize filtered list
                     } else {
                         this.report_listitemOffice = [];
-                        this.loading_processing = false;
+                        this.filteredReportList = [];
+
                     }
+                    this.loading_processing = false;
                 });
             } catch (error) {
                 this.loading_processing = false;
@@ -1588,7 +1633,7 @@ export default {
                     if (data?.status === "00") {
                         // this.report_ResultOfServey = data?.data;
                         this.report_ResultOfServey = data.data.filter(item => item.name === 'documment');
-                        this.filteredResults = this.report_ResultOfServey; // ตั้งค่าเริ่มต้นให้แสดงข้อมูลทั้งหมด
+                        this.filteredResults = this.report_ResultOfServey; //   
                     } else {
                         this.report_ResultOfServey = [];
                         this.filteredResults = [];
@@ -1616,7 +1661,7 @@ export default {
                     if (data?.status === "00") {
                         // this.report_ResultOfServey = data?.data;
                         this.sisterNokAll = data.data.filter(item => item.name === 'nok');
-                        this.sisternok = this.sisterNokAll; // ตั้งค่าเริ่มต้นให้แสดงข้อมูลทั้งหมด
+                        this.sisternok = this.sisterNokAll; // 
                     } else {
                         this.sisterNokAll = [];
                         this.sisternok = [];
@@ -1631,6 +1676,13 @@ export default {
                 });
                 console.log(error);
             }
+        },
+        // Filter report list based on search
+        filterReportList() {
+            const query = this.search.toLowerCase();
+            this.filteredReportList = this.report_listitemOffice.filter(item =>
+                item.full_Name_Hole_number.toLowerCase().includes(query)
+            );
         },
         filterResults() {
             // ຟັງຊັ່ນກອງຂໍ້ມູນຕາມຄ່າຄົ້ນຫາ

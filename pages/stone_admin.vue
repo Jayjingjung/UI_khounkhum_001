@@ -10,7 +10,7 @@
             <hr>
         </div>
         <!-- ຂໍ້ມູນວິໃຈຕົວຢ່າງ  -->
-        <v-dialog v-model="testDoc">
+        <v-dialog v-model="testDoc" max-width="490">
             <v-card class="mx-auto" max-width="490">
                 <div>
                     <v-card-text>
@@ -47,7 +47,7 @@
             </v-card>
         </v-dialog>
         <!-- ເອກະສານເື້ອອຍນົກ  -->
-        <v-dialog v-model="sisternokDoc">
+        <v-dialog v-model="sisternokDoc" max-width="490">
             <v-card class="mx-auto" max-width="490">
                 <div>
                     <v-card-text>
@@ -83,7 +83,7 @@
             </v-card>
         </v-dialog>
         <!-- ເອກະສານທີ່ກ່ຽວຂ້ອງ  -->
-        <v-dialog v-model="filedocument">
+        <v-dialog v-model="filedocument" max-width="490">
             <v-card class="mx-auto" max-width="490">
                 <div>
                     <v-card-text>
@@ -119,7 +119,7 @@
             </v-card>
         </v-dialog>
         <!-- ຂໍ້ມູນຜົນການສຳຫຼວດ -->
-        <v-dialog v-model="surveydocument">
+        <v-dialog v-model="surveydocument" max-width="490">
             <v-card class="mx-auto" max-width="490">
                 <div>
                     <v-card-text>
@@ -156,7 +156,7 @@
             </v-card>
         </v-dialog>
         <!-- ຂໍ້ມູນຮເຈາະ  -->
-        <v-dialog v-model="filedocuments">
+        <v-dialog v-model="filedocuments" max-width="490">
             <v-card class="mx-auto" max-width="490">
                 <div>
                     <v-card-text>
@@ -191,40 +191,8 @@
                 </div>
             </v-card>
         </v-dialog>
-
-        <!-- <v-dialog v-model="filedocuments">
-            <v-card class="mx-auto" max-width="490">
-                <div>
-                    <v-card-text>
-                        <v-card style="position: sticky; top: 0; z-index: 1;" max-width="500" flat>
-                            <v-btn @click="refresher" rounded color="primary">
-                                <v-icon>
-                                    mdi-arrow-collapse-left
-                                </v-icon>
-                                ກັບຄືນ
-                            </v-btn>
-                            <div class="text-center font-weight-bold " style="font-size: 20px"> ຂໍ້ມູນຮູເຈາະ</div>
-                            <v-divider></v-divider>
-                            <v-text-field label="ຄົ້ນຫາ" v-model="search" append-icon="mdi-magnify"
-                                @input="functionkuad"></v-text-field>
-                        </v-card>
-                        <div v-for="item in report_listitemOffice" :key="item.key_id">
-                            <div>
-                                <v-card-subtit>
-                                    <v-btn text @click="click2fuction(item.pic, item.key_id)">
-                                        <v-icon color="#00E676">
-                                            mdi-eye-arrow-left
-                                        </v-icon></v-btn>
-                                    {{ item.full_Name_Hole_number }}
-                                </v-card-subtit>
-                            </div>
-                        </div>
-                    </v-card-text>
-                </div>
-            </v-card>
-        </v-dialog> -->
         <!-- ຂໍ້ມູນລາຍຈ່າຍ -->
-        <v-dialog v-model="payfile">
+        <v-dialog v-model="payfile" max-width="490">
             <v-card class="mx-auto" max-width="490">
                 <div>
                     <v-card-text>
@@ -261,7 +229,7 @@
             </v-card>
         </v-dialog>
         <!-- ຂໍ້ມູນພາບ -->
-        <v-dialog v-model="imagefile">
+        <v-dialog v-model="imagefile" max-width="490">
             <v-card class="mx-auto" max-width="490">
                 <div>
                     <v-card-text>
@@ -287,7 +255,7 @@
         <v-container fluid fill-height>
             <v-row justify="center" align="center">
                 <v-col cols="auto">
-                    <v-card color="#CFD8DC">
+                    <v-card color="#E0F7FA">
                         <!-- v-if="USER_ROLE !== 'BOR-HIN-KHUAT'" -->
                         <v-list-group no-action sub-group v-if="USER_ROLE === 'FOR_DOCUMENT_ADMIN'"
                             @click="setTokenAndFetch('UnCuQ8Dql7bSVS9LcDfMWmA8asAtQLMF')">
@@ -299,12 +267,15 @@
                                 </v-list-item-content>
                             </template>
                             <v-list-item>
-                                <v-btn rounded @click="sisternokDoc = true">
+                                <v-btn rounded @click="nokDoc1('UnCuQ8Dql7bSVS9LcDfMWmA8asAtQLMF', 'ເອກະສານຕ່າງໆ')">
                                     ເບີ່ງ
                                 </v-btn>
+                                <!-- <v-btn rounded @click="sisternokDoc = true">
+                                    ເບີ່ງ
+                                </v-btn> -->
                                 <v-spacer></v-spacer>
                                 <v-btn color="success"
-                                    @click="nokDoc('UnCuQ8Dql7bSVS9LcDfMWmA8asAtQLMF', 'ເອກະສານເອື້ອຍນົກ', 'nok1')"
+                                    @click="nokDoc('UnCuQ8Dql7bSVS9LcDfMWmA8asAtQLMF', 'ເອກະສານເອື້ອຍນົກ', 'nok')"
                                     rounded>
                                     ເພີ່ມ
                                 </v-btn>
@@ -314,12 +285,11 @@
                 </v-col>
             </v-row>
         </v-container>
-
         <!-- ຄອນງົວ  -->
         <v-row>
             <v-col>
                 <v-card class="mt-4" width="300">
-                    <v-list color="#CFD8DC">
+                    <v-list color="#E0F7FA">
                         <v-list-group :value="false" prepend-icon="mdi-excavator"
                             @click="setTokenAndFetch('tZl011U2nNs9AdvQDIStduuOIc8yWmxw')">
                             <template v-slot:activator>
@@ -335,9 +305,12 @@
                                     </v-list-item-content>
                                 </template>
                                 <v-list-item>
-                                    <v-btn @click="filedocument = true" rounded>
+                                    <v-btn @click="miningDoc1('tZl011U2nNs9AdvQDIStduuOIc8yWmxw', 'ເອກະສານບ້ານຄອນງົວ')" rounded>
                                         ເບີ່ງ
                                     </v-btn>
+                                    <!-- <v-btn @click="filedocument = true" rounded>
+                                        ເບີ່ງ
+                                    </v-btn> -->
                                     <v-spacer></v-spacer>
                                     <v-btn color="success"
                                         @click="miningDoc('tZl011U2nNs9AdvQDIStduuOIc8yWmxw', 'ບ້ານຄອນງົວ', 'documment')"
@@ -359,7 +332,7 @@
                                     </v-btn>
                                     <v-spacer></v-spacer>
                                     <v-btn color="success"
-                                        @click="navigateWithToken('tZl011U2nNs9AdvQDIStduuOIc8yWmxw', 'ບ້ານຄອນງົວ', 'servey')"
+                                        @click="navigateWithToken('tZl011U2nNs9AdvQDIStduuOIc8yWmxw', 'ບ້ານຄອນງົວ', 'servey','ເອກະສານ')"
                                         rounded>
                                         ເພີ່ມ
                                     </v-btn>
@@ -397,7 +370,7 @@
                                     </v-btn>
                                     <v-spacer></v-spacer>
                                     <v-btn color="success"
-                                        @click="test('tZl011U2nNs9AdvQDIStduuOIc8yWmxw', 'ບ້ານຄອນງົວ', 'testData')"
+                                        @click="test('tZl011U2nNs9AdvQDIStduuOIc8yWmxw', 'ບ້ານຄອນງົວ', 'testData' ,'ເອກະສານ')"
                                         rounded>
                                         ເພີ່ມ
                                     </v-btn>
@@ -416,7 +389,7 @@
                                     </v-btn>
                                     <v-spacer></v-spacer>
                                     <v-btn color="success"
-                                        @click="paymentdoc('tZl011U2nNs9AdvQDIStduuOIc8yWmxw', 'ບ້ານຄອນງົວ', 'pay')"
+                                        @click="paymentdoc('tZl011U2nNs9AdvQDIStduuOIc8yWmxw', 'ບ້ານຄອນງົວ', 'pay','ເອກະສານ')"
                                         rounded>
                                         ເພີ່ມ
                                     </v-btn>
@@ -447,7 +420,7 @@
             <!-- ສີຄູນ  -->
             <v-col>
                 <v-card class="mt-4" width="300">
-                    <v-list color="#CFD8DC">
+                    <v-list color="#E0F7FA">
                         <v-list-group :value="false" prepend-icon="mdi-excavator"
                             @click="setTokenAndFetch('3iKcWacuOwaXxERfL6LNvuEKdjhvc5aF')">
                             <template v-slot:activator>
@@ -462,7 +435,10 @@
                                     </v-list-item-content>
                                 </template>
                                 <v-list-item>
-                                    <v-btn @click="filedocument = true" rounded>
+                                    <!-- <v-btn @click="filedocument = true" rounded>
+                                        ເບີ່ງ
+                                    </v-btn> -->
+                                    <v-btn @click="miningDoc1('3iKcWacuOwaXxERfL6LNvuEKdjhvc5aF', 'ເອກະສານບ້ານສີຄູນ')" rounded>
                                         ເບີ່ງ
                                     </v-btn>
                                     <v-spacer></v-spacer>
@@ -487,7 +463,7 @@
                                     </v-btn>
                                     <v-spacer></v-spacer>
                                     <v-btn color="success" rounded
-                                        @click="navigateWithToken('3iKcWacuOwaXxERfL6LNvuEKdjhvc5aF', 'ບ້ານສີຄູນ', 'servey')">
+                                        @click="navigateWithToken('3iKcWacuOwaXxERfL6LNvuEKdjhvc5aF', 'ບ້ານສີຄູນ', 'servey','ເອກະສານ')">
                                         ເພີ່ມ
                                     </v-btn>
                                     <br>
@@ -524,7 +500,7 @@
                                     </v-btn>
                                     <v-spacer></v-spacer>
                                     <v-btn color="success"
-                                        @click="test('3iKcWacuOwaXxERfL6LNvuEKdjhvc5aF', 'ບ້ານສີຄູນ', 'testData')"
+                                        @click="test('3iKcWacuOwaXxERfL6LNvuEKdjhvc5aF', 'ບ້ານສີຄູນ', 'testData' ,'ເອກະສານ')"
                                         rounded>
                                         ເພີ່ມ
                                     </v-btn>
@@ -543,7 +519,7 @@
                                     </v-btn>
                                     <v-spacer></v-spacer>
                                     <v-btn color="success"
-                                        @click="paymentdoc('3iKcWacuOwaXxERfL6LNvuEKdjhvc5aF', 'ບ້ານສີຄູນ', 'pay')"
+                                        @click="paymentdoc('3iKcWacuOwaXxERfL6LNvuEKdjhvc5aF', 'ບ້ານສີຄູນ', 'pay' ,'ເອກະສານ')"
                                         rounded>
                                         ເພີ່ມ
                                     </v-btn>
@@ -571,7 +547,7 @@
             <!-- ບ້ານທ່າ  -->
             <v-col>
                 <v-card class="mt-4" width="300">
-                    <v-list color="#CFD8DC">
+                    <v-list color="#E0F7FA">
                         <v-list-group :value="false" prepend-icon="mdi-excavator"
                             @click="setTokenAndFetch('e23QZokLhZNSVtXP1qYQHM8PVHr76VQa')">
                             <template v-slot:activator>
@@ -586,7 +562,10 @@
                                     </v-list-item-content>
                                 </template>
                                 <v-list-item>
-                                    <v-btn @click="filedocument = true" rounded>
+                                    <!-- <v-btn @click="filedocument = true" rounded>
+                                        ເບີ່ງ
+                                    </v-btn> -->
+                                    <v-btn @click="miningDoc1('e23QZokLhZNSVtXP1qYQHM8PVHr76VQa', 'ເອກະສານບ້ານທ່າ')" rounded>
                                         ເບີ່ງ
                                     </v-btn>
                                     <v-spacer></v-spacer>
@@ -611,7 +590,7 @@
                                     </v-btn>
                                     <v-spacer></v-spacer>
                                     <v-btn color="success" rounded
-                                        @click="navigateWithToken('e23QZokLhZNSVtXP1qYQHM8PVHr76VQa', 'ບ້ານທ່າ', 'servey')">
+                                        @click="navigateWithToken('e23QZokLhZNSVtXP1qYQHM8PVHr76VQa', 'ບ້ານທ່າ', 'servey','ເອກະສານ')">
                                         ເພີ່ມ
                                     </v-btn>
                                     <br>
@@ -648,7 +627,7 @@
                                     </v-btn>
                                     <v-spacer></v-spacer>
                                     <v-btn color="success"
-                                        @click="test('23QZokLhZNSVtXP1qYQHM8PVHr76VQa', 'ບ້ານທ່າ', 'testData')" rounded>
+                                        @click="test('23QZokLhZNSVtXP1qYQHM8PVHr76VQa', 'ບ້ານທ່າ', 'testData','ເອກະສານ')" rounded>
                                         ເພີ່ມ
                                     </v-btn>
                                 </v-list-item>
@@ -666,7 +645,7 @@
                                     </v-btn>
                                     <v-spacer></v-spacer>
                                     <v-btn color="success"
-                                        @click="paymentdoc('23QZokLhZNSVtXP1qYQHM8PVHr76VQa', 'ບ້ານທ່າ', 'pay')"
+                                        @click="paymentdoc('23QZokLhZNSVtXP1qYQHM8PVHr76VQa', 'ບ້ານທ່າ', 'pay','ເອກະສານ')"
                                         rounded>
                                         ເພີ່ມ
                                     </v-btn>
@@ -695,7 +674,7 @@
             <!-- ບ້ານໂພນຄໍາ  -->
             <v-col>
                 <v-card class="mt-4" width="300">
-                    <v-list color="#CFD8DC">
+                    <v-list color="#E0F7FA">
                         <v-list-group :value="false" prepend-icon="mdi-excavator"
                             @click="setTokenAndFetch('phonkham123kOQHMwA1Ve9lMq22X3kpSiaIbDO123')">
                             <template v-slot:activator>
@@ -710,7 +689,10 @@
                                     </v-list-item-content>
                                 </template>
                                 <v-list-item>
-                                    <v-btn @click="filedocument = true" rounded>
+                                    <!-- <v-btn @click="filedocument = true" rounded>
+                                        ເບີ່ງ
+                                    </v-btn> -->
+                                    <v-btn @click="miningDoc1('phonkham123kOQHMwA1Ve9lMq22X3kpSiaIbDO123', 'ເອກະສານບ້ານໂພນຄໍາ')" rounded>
                                         ເບີ່ງ
                                     </v-btn>
                                     <v-spacer></v-spacer>
@@ -735,7 +717,7 @@
                                     </v-btn>
                                     <v-spacer></v-spacer>
                                     <v-btn color="success" rounded
-                                        @click="navigateWithToken('phonkham123kOQHMwA1Ve9lMq22X3kpSiaIbDO123', 'ບ້ານໂພນຄໍາ', 'servey')">
+                                        @click="navigateWithToken('phonkham123kOQHMwA1Ve9lMq22X3kpSiaIbDO123', 'ບ້ານໂພນຄໍາ', 'servey','ເອກະສານ')">
                                         ເພີ່ມ
                                     </v-btn>
                                     <br>
@@ -773,7 +755,7 @@
                                     </v-btn>
                                     <v-spacer></v-spacer>
                                     <v-btn color="success"
-                                        @click="test('phonkham123kOQHMwA1Ve9lMq22X3kpSiaIbDO123', 'ບ້ານໂພນຄໍາ', 'testData')"
+                                        @click="test('phonkham123kOQHMwA1Ve9lMq22X3kpSiaIbDO123', 'ບ້ານໂພນຄໍາ', 'testData' ,'ເອກະສານ')"
                                         rounded>
                                         ເພີ່ມ
                                     </v-btn>
@@ -792,7 +774,7 @@
                                     </v-btn>
                                     <v-spacer></v-spacer>
                                     <v-btn color="success"
-                                        @click="paymentdoc('phonkham123kOQHMwA1Ve9lMq22X3kpSiaIbDO123', 'ບ້ານໂພນຄໍາ', 'pay')"
+                                        @click="paymentdoc('phonkham123kOQHMwA1Ve9lMq22X3kpSiaIbDO123', 'ບ້ານໂພນຄໍາ', 'pay','ເອກະສານ')"
                                         rounded>
                                         ເພີ່ມ
                                     </v-btn>
@@ -821,7 +803,7 @@
             <!-- ຊຽງຄົງ  -->
             <v-col>
                 <v-card class="mt-4" width="300">
-                    <v-list color="#CFD8DC">
+                    <v-list color="#E0F7FA">
                         <v-list-group :value="false" prepend-icon="mdi-excavator"
                             @click="setTokenAndFetch('kOQHMwA1Ve9lMq22X3kpSiaIbGGKghDO')">
                             <template v-slot:activator>
@@ -836,7 +818,10 @@
                                     </v-list-item-content>
                                 </template>
                                 <v-list-item>
-                                    <v-btn @click="filedocument = true" rounded>
+                                    <!-- <v-btn @click="filedocument = true" rounded>
+                                        ເບີ່ງ
+                                    </v-btn> -->
+                                    <v-btn @click="miningDoc1('OQHMwA1Ve9lMq22X3kpSiaIbGGKghDO', 'ເອກະສານບ້ານຊຽງຄົງ')" rounded>
                                         ເບີ່ງ
                                     </v-btn>
                                     <v-spacer></v-spacer>
@@ -861,7 +846,7 @@
                                     </v-btn>
                                     <v-spacer></v-spacer>
                                     <v-btn color="success" rounded
-                                        @click="navigateWithToken('kOQHMwA1Ve9lMq22X3kpSiaIbGGKghDO', 'ບ້ານຊຽງຄົງ', 'servey')">
+                                        @click="navigateWithToken('kOQHMwA1Ve9lMq22X3kpSiaIbGGKghDO', 'ບ້ານຊຽງຄົງ', 'servey','ເອກະສານ')">
                                         ເພີ່ມ
                                     </v-btn>
                                     <br>
@@ -898,7 +883,7 @@
                                     </v-btn>
                                     <v-spacer></v-spacer>
                                     <v-btn color="success"
-                                        @click="test('kOQHMwA1Ve9lMq22X3kpSiaIbGGKghDO', 'ບ້ານຊຽງຄົງ', 'testData')"
+                                        @click="test('kOQHMwA1Ve9lMq22X3kpSiaIbGGKghDO', 'ບ້ານຊຽງຄົງ', 'testData' ,'ເອກະສານ')"
                                         rounded>
                                         ເພີ່ມ
                                     </v-btn>
@@ -917,7 +902,7 @@
                                     </v-btn>
                                     <v-spacer></v-spacer>
                                     <v-btn color="success"
-                                        @click="paymentdoc('kOQHMwA1Ve9lMq22X3kpSiaIbGGKghDO', 'ບ້ານຊຽງຄົງ', 'pay')"
+                                        @click="paymentdoc('kOQHMwA1Ve9lMq22X3kpSiaIbGGKghDO', 'ບ້ານຊຽງຄົງ', 'pay','ເອກະສານ')"
                                         rounded>
                                         ເພີ່ມ
                                     </v-btn>
@@ -945,7 +930,7 @@
             <!-- ນໍ້າຊາວ  -->
             <v-col>
                 <v-card class="mt-4" width="300">
-                    <v-list color="#CFD8DC">
+                    <v-list color="#E0F7FA">
                         <v-list-group :value="false" prepend-icon="mdi-excavator"
                             @click="setTokenAndFetch('namzao123kOQHMwA1Ve9lMq22X3kpSiaIbKghDO456')">
                             <template v-slot:activator>
@@ -960,7 +945,10 @@
                                     </v-list-item-content>
                                 </template>
                                 <v-list-item>
-                                    <v-btn @click="filedocument = true" rounded>
+                                    <!-- <v-btn @click="filedocument = true" rounded>
+                                        ເບີ່ງ
+                                    </v-btn> -->
+                                    <v-btn @click="miningDoc1('namzao123kOQHMwA1Ve9lMq22X3kpSiaIbKghDO456', 'ເອກະສານບ້ານນໍ້າຊາວ')" rounded>
                                         ເບີ່ງ
                                     </v-btn>
                                     <v-spacer></v-spacer>
@@ -985,7 +973,7 @@
                                     </v-btn>
                                     <v-spacer></v-spacer>
                                     <v-btn color="success" rounded
-                                        @click="navigateWithToken('namzao123kOQHMwA1Ve9lMq22X3kpSiaIbKghDO456', 'ບ້ານນໍ້າຊາວ', 'servey')">
+                                        @click="navigateWithToken('namzao123kOQHMwA1Ve9lMq22X3kpSiaIbKghDO456', 'ບ້ານນໍ້າຊາວ', 'servey' ,'ເອກະສານ')">
                                         ເພີ່ມ
                                     </v-btn>
                                     <br>
@@ -1023,7 +1011,7 @@
                                     </v-btn>
                                     <v-spacer></v-spacer>
                                     <v-btn color="success"
-                                        @click="test('namzao123kOQHMwA1Ve9lMq22X3kpSiaIbKghDO456', 'ບ້ານນໍ້າຊາວ', 'testData')"
+                                        @click="test('namzao123kOQHMwA1Ve9lMq22X3kpSiaIbKghDO456', 'ບ້ານນໍ້າຊາວ', 'testData' ,'ເອກະສານ')"
                                         rounded>
                                         ເພີ່ມ
                                     </v-btn>
@@ -1042,7 +1030,7 @@
                                     </v-btn>
                                     <v-spacer></v-spacer>
                                     <v-btn color="success"
-                                        @click="paymentdoc('namzao123kOQHMwA1Ve9lMq22X3kpSiaIbKghDO456', 'ບ້ານນໍ້າຊາວ', 'pay')"
+                                        @click="paymentdoc('namzao123kOQHMwA1Ve9lMq22X3kpSiaIbKghDO456', 'ບ້ານນໍ້າຊາວ', 'pay' ,'ເອກະສານ')"
                                         rounded>
                                         ເພີ່ມ
                                     </v-btn>
@@ -1071,7 +1059,7 @@
             <!-- ໜອງພູໄຊ 32,28-->
             <v-col>
                 <v-card class="mt-4" width="300">
-                    <v-list color="#CFD8DC">
+                    <v-list color="#E0F7FA">
                         <v-list-group :value="false" prepend-icon="mdi-excavator"
                             @click="setTokenAndFetch('nongphounxai3kOQHMwA1Ve9lMq22X3kpSiaIDO789')">
                             <template v-slot:activator>
@@ -1086,7 +1074,10 @@
                                     </v-list-item-content>
                                 </template>
                                 <v-list-item>
-                                    <v-btn @click="filedocument = true" rounded>
+                                    <!-- <v-btn @click="filedocument = true" rounded>
+                                        ເບີ່ງ
+                                    </v-btn> -->
+                                    <v-btn @click="miningDoc1('nongphounxai3kOQHMwA1Ve9lMq22X3kpSiaIDO789', 'ເອກະສານບ້ານໜອງພູໄຊ 32,28')" rounded>
                                         ເບີ່ງ
                                     </v-btn>
                                     <v-spacer></v-spacer>
@@ -1111,7 +1102,7 @@
                                     </v-btn>
                                     <v-spacer></v-spacer>
                                     <v-btn color="success" rounded
-                                        @click="navigateWithToken('nongphounxai3kOQHMwA1Ve9lMq22X3kpSiaIDO789', 'ໜອງພູໄຊ 32,28', 'servey')">
+                                        @click="navigateWithToken('nongphounxai3kOQHMwA1Ve9lMq22X3kpSiaIDO789', 'ໜອງພູໄຊ 32,28', 'servey' ,'ເອກະສານ')">
                                         ເພີ່ມ
                                     </v-btn>
                                     <br>
@@ -1149,7 +1140,7 @@
                                     </v-btn>
                                     <v-spacer></v-spacer>
                                     <v-btn color="success"
-                                        @click="test('nongphounxai3kOQHMwA1Ve9lMq22X3kpSiaIDO789', 'ໜອງພູໄຊ 32,28', 'testData')"
+                                        @click="test('nongphounxai3kOQHMwA1Ve9lMq22X3kpSiaIDO789', 'ໜອງພູໄຊ 32,28', 'testData' ,'ເອກະສານ')"
                                         rounded>
                                         ເພີ່ມ
                                     </v-btn>
@@ -1168,7 +1159,7 @@
                                     </v-btn>
                                     <v-spacer></v-spacer>
                                     <v-btn color="success"
-                                        @click="paymentdoc('nongphounxai3kOQHMwA1Ve9lMq22X3kpSiaIDO789', 'ໜອງພູໄຊ 32,28', 'pay')"
+                                        @click="paymentdoc('nongphounxai3kOQHMwA1Ve9lMq22X3kpSiaIDO789', 'ໜອງພູໄຊ 32,28', 'pay' ,'ເອກະສານ')"
                                         rounded>
                                         ເພີ່ມ
                                     </v-btn>
@@ -1196,7 +1187,7 @@
             <!-- ໜອງພູໄຊ 62,39-->
             <v-col>
                 <v-card class="mt-4" width="300">
-                    <v-list color="#CFD8DC">
+                    <v-list color="#E0F7FA">
                         <v-list-group :value="false" prepend-icon="mdi-excavator"
                             @click="setTokenAndFetch('knongphounxaiOQHMwA1Ve9lMq22X3kpSiahDO101112')">
                             <template v-slot:activator>
@@ -1211,7 +1202,10 @@
                                     </v-list-item-content>
                                 </template>
                                 <v-list-item>
-                                    <v-btn @click="filedocument = true" rounded>
+                                    <!-- <v-btn @click="filedocument = true" rounded>
+                                        ເບີ່ງ
+                                    </v-btn> -->
+                                    <v-btn @click="miningDoc1('knongphounxaiOQHMwA1Ve9lMq22X3kpSiahDO101112', 'ເອກະສານບ້ານໜອງພູໄຊ  62,39')" rounded>
                                         ເບີ່ງ
                                     </v-btn>
                                     <v-spacer></v-spacer>
@@ -1236,7 +1230,7 @@
                                     </v-btn>
                                     <v-spacer></v-spacer>
                                     <v-btn color="success" rounded
-                                        @click="navigateWithToken('knongphounxaiOQHMwA1Ve9lMq22X3kpSiahDO101112', 'ໜອງພູໄຊ 62,39', 'servey')">
+                                        @click="navigateWithToken('knongphounxaiOQHMwA1Ve9lMq22X3kpSiahDO101112', 'ໜອງພູໄຊ 62,39', 'servey','ເອກະສານ')">
                                         ເພີ່ມ
                                     </v-btn>
                                     <br>
@@ -1274,7 +1268,7 @@
                                     </v-btn>
                                     <v-spacer></v-spacer>
                                     <v-btn color="success"
-                                        @click="test('knongphounxaiOQHMwA1Ve9lMq22X3kpSiahDO101112', 'ໜອງພູໄຊ 62,39', 'testData')"
+                                        @click="test('knongphounxaiOQHMwA1Ve9lMq22X3kpSiahDO101112', 'ໜອງພູໄຊ 62,39', 'testData' ,'ເອກະສານ')"
                                         rounded>
                                         ເພີ່ມ
                                     </v-btn>
@@ -1293,7 +1287,7 @@
                                     </v-btn>
                                     <v-spacer></v-spacer>
                                     <v-btn color="success"
-                                        @click="paymentdoc('knongphounxaiOQHMwA1Ve9lMq22X3kpSiahDO101112', 'ໜອງພູໄຊ 62,39', 'pay')"
+                                        @click="paymentdoc('knongphounxaiOQHMwA1Ve9lMq22X3kpSiahDO101112', 'ໜອງພູໄຊ 62,39', 'pay','ເອກະສານ')"
                                         rounded>
                                         ເພີ່ມ
                                     </v-btn>
@@ -1321,7 +1315,7 @@
             <!-- ລາດຫໍ້  -->
             <v-col>
                 <v-card class="mt-4" width="300">
-                    <v-list color="#CFD8DC">
+                    <v-list color="#E0F7FA">
                         <v-list-group :value="false" prepend-icon="mdi-excavator"
                             @click="setTokenAndFetch('kOlardhor123QHMwA1Ve9lMq22X3GGKghDO13214415')">
                             <template v-slot:activator>
@@ -1335,7 +1329,10 @@
                                     </v-list-item-content>
                                 </template>
                                 <v-list-item>
-                                    <v-btn @click="filedocument = true" rounded>
+                                    <!-- <v-btn @click="filedocument = true" rounded>
+                                        ເບີ່ງ
+                                    </v-btn> -->
+                                    <v-btn @click="miningDoc1('kOlardhor123QHMwA1Ve9lMq22X3GGKghDO13214415', 'ເອກະສານບ້ານລາດຫໍ້')" rounded>
                                         ເບີ່ງ
                                     </v-btn>
                                     <v-spacer></v-spacer>
@@ -1360,7 +1357,7 @@
                                     </v-btn>
                                     <v-spacer></v-spacer>
                                     <v-btn color="success" rounded
-                                        @click="navigateWithToken('kOlardhor123QHMwA1Ve9lMq22X3GGKghDO13214415', 'ບ້ານລາດຫໍ້', 'servey')">
+                                        @click="navigateWithToken('kOlardhor123QHMwA1Ve9lMq22X3GGKghDO13214415', 'ບ້ານລາດຫໍ້', 'servey','ເອກະສານ')">
                                         ເພີ່ມ
                                     </v-btn>
                                     <br>
@@ -1398,7 +1395,7 @@
                                     </v-btn>
                                     <v-spacer></v-spacer>
                                     <v-btn color="success"
-                                        @click="test('kOlardhor123QHMwA1Ve9lMq22X3GGKghDO13214415', 'ບ້ານລາດຫໍ້', 'testData')"
+                                        @click="test('kOlardhor123QHMwA1Ve9lMq22X3GGKghDO13214415', 'ບ້ານລາດຫໍ້', 'testData','ເອກະສານ')"
                                         rounded>
                                         ເພີ່ມ
                                     </v-btn>
@@ -1417,7 +1414,7 @@
                                     </v-btn>
                                     <v-spacer></v-spacer>
                                     <v-btn color="success"
-                                        @click="paymentdoc('kOlardhor123QHMwA1Ve9lMq22X3GGKghDO13214415', 'ບ້ານລາດຫໍ້', 'pay')"
+                                        @click="paymentdoc('kOlardhor123QHMwA1Ve9lMq22X3GGKghDO13214415', 'ບ້ານລາດຫໍ້', 'pay','ເອກະສານ')"
                                         rounded>
                                         ເພີ່ມ
                                     </v-btn>
@@ -1525,10 +1522,10 @@ export default {
             this.payfile = false;
             window.location.reload();
         },
-        navigateWithToken(token, buttonLabel, number) {
+        navigateWithToken(token, buttonLabel, number, number1) {
             this.$router.push({
                 name: 'Survey results',
-                query: { token, label: buttonLabel, number }
+                query: { token, label: buttonLabel, number, number1 }
             });
         },
         toImage(token, buttonLabel, number) {
@@ -1549,22 +1546,34 @@ export default {
                 query: { token, label: buttonLabel, number }
             });
         },
+        miningDoc1(token, buttonLabel) {
+            this.$router.push({
+                name: 'documentation1',
+                query: { token , label: buttonLabel}
+            });
+        },
         nokDoc(token, buttonLabel, number) {
             this.$router.push({
                 name: 'nokdocumment',
                 query: { token, label: buttonLabel, number }
             });
         },
-        test(token, valueDoc, number) {
+        nokDoc1(token, buttonLabel) {
             this.$router.push({
-                name: 'testdocument',
-                query: { token, label: valueDoc, number }
+                name: 'documentation',
+                query: { token, label: buttonLabel }
             });
         },
-        paymentdoc(token, valueDoc, number) {
+        test(token, valueDoc, number,number1) {
+            this.$router.push({
+                name: 'testdocument',
+                query: { token, label: valueDoc, number,number1 }
+            });
+        },
+        paymentdoc(token, valueDoc, number,number1) {
             this.$router.push({
                 name: 'paydocument',
-                query: { token, label: valueDoc, number }
+                query: { token, label: valueDoc, number, number1 }
             });
         },
         setBound(value) {
@@ -1660,7 +1669,7 @@ export default {
                     console.log('API Response:', data); // Log the response
                     if (data?.status === "00") {
                         // this.report_ResultOfServey = data?.data;
-                        this.sisterNokAll = data.data.filter(item => item.name === 'nok1');
+                        this.sisterNokAll = data.data.filter(item => item.name === 'nok');
                         this.sisternok = this.sisterNokAll; // 
                     } else {
                         this.sisterNokAll = [];

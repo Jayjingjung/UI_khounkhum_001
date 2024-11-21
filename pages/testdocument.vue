@@ -9,7 +9,7 @@
 
         <v-card class="card-shadow mx-auto" style="border-radius: 36px 1px 36px 2px;" width="430">
             <v-card-title style="display:flex;background-color:#2bcc96; border-radius:36px 0 36px  0;">
-                <v-btn fab elevation="0" dark width="30" height="30" small color="white"  @click="$router.back()">
+                <v-btn fab elevation="0" dark width="30" height="30" small color="white" @click="$router.back()">
                     <v-icon color="#0a3382">mdi-arrow-left</v-icon>
                 </v-btn>
                 <v-spacer></v-spacer>
@@ -67,6 +67,7 @@ export default {
             dropdownItems: ['ບົດວິພາກເຕັກນິກ', 'ບົດວິພາກເສດຖະກິດ'],
             selectedToken: '', // Add selectedToken to track selected button
             number: null,
+            number1:null,
             datePicker: false
         };
     },
@@ -75,12 +76,14 @@ export default {
         const token = this.$route.query.token;
         const label = this.$route.query.label;
         const number = this.$route.query.number;
+        const number1 = this.$route.query.number1;
         if (token && label) {
             this.setToKen(token);
             this.valueDoc = label;
         }
-        if (number) {
+        if (number&&number1) {
             this.number = number;
+            this.number1 = number1;
         }
     },
     computed: {
@@ -118,6 +121,7 @@ export default {
                 formdata.append('files', this.files);
                 formdata.append('type', this.type);
                 formdata.append('name', this.number);
+                formdata.append('nameDetail', this.number1);
                 formdata.append('dateInsert', new Date(this.dateInsert).toLocaleDateString('en-CA'));
                 formdata.append('toKen', this.toKen);
                 this.loading_processing = true;
@@ -182,7 +186,7 @@ export default {
 .top {
     margin-top: 5px;
     margin-left: 10px;
-}
+}   
 
 .tops {
     margin-top: -25px;

@@ -79,6 +79,9 @@ export default {
       } else if (USER_NAME === 'admin-bor-hin-khuad' && USER_ROLE === 'BOR-HIN-KHUAT') {
         this.$router.push('/stone_admin');
       } 
+      else if (USER_NAME === 'AdminProof' ) {
+        this.$router.push('/confirm');
+      }
       else if (['borhinkuad-konengua', 'borhinkuad-sykhoun', 'borhinkuad-tha', 'borhinkuad-xiengkong', 'Geo-Explo'].includes(USER_NAME)) {
         this.$router.push('/mining');
       } else {

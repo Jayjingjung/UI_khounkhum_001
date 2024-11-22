@@ -1,8 +1,8 @@
 <template>
     <div>
         <v-card class="card-shadow" rounded="lg" style="border:0.5px solid #e0e0e0;border-radius:3px;width: 100%;">
-            <v-card-title style="background-color:	#b72222" class="white--text">
-                ນໍາອາໄຫຼ່ອອກ ສາງ
+            <v-card-title style="background-color:	#b76d22" class="white--text">
+                ສະເໜີໃຊ້ອາໄຫຼ່ໃນສາງ
             </v-card-title>
             <v-card class="flex-container ">
                 <div style="width:95%;" class="pl-2">
@@ -109,128 +109,90 @@
                 </div>
             </v-card>
         </v-card>
-        <div style="display: flex; margin-top: 10px; width: 100%;">
-            <div style="width: 100%;"> <!-- Updated this div -->
-                <v-card class="card-shadow" rounded="lg" style="border: 0.5px solid #e0e0e0; border-radius: 3px;">
-                    <v-card-title style="background-color: #b76d22" class="white--text">
-                        ອາໄຫຼ່ໃນສາງ
-                    </v-card-title>
+        <div style="width: 100%;">
+    <!-- <v-card class="card-shadow" rounded="lg" style="border: 0.5px solid #e0e0e0; border-radius: 3px;">
+        <v-card-title style="background-color: #b76d22" class="white--text">
+            ຢືນຢັນເເລ້ວ
+        </v-card-title>
+        <v-data-table :items-per-page="5" :headers="truck_table_headersv2" :items="filteredTruckData" :search="search">
+            <template v-slot:item="row">
+                <tr>
+                    <td></td>
+                    <td>{{ row?.item?.item_name }}</td>
+                    <td>{{ row?.item?.branch_inventory }}</td>
+                    <td>{{ row?.item?.qty_Fix }}</td>
+                    <td>{{ row?.item?.total_Price }}</td>
+                    <td>{{ row?.item?.description }}</td>
+                    <td>{{ row?.item?.fix_Detail }}</td>
+                    <td>{{ row?.item?.location_fix }}</td>
+                    <td>{{ row?.item?.dateFix }}</td>
+                    <td>{{ row?.item?.item_id }}</td>
+                    <td>{{ row?.item?.footer_id }}</td>
+                    <td>{{ row?.item?.f_BRANCH }}</td>
+                    <td>{{ row?.item?.header_id }}</td>
+                    <td>{{ row?.item?.h_VICIVLE_NUMBER }}</td>
+                </tr>
+            </template>
+        </v-data-table>
+    </v-card> -->
+</div>
 
-                    <div style="display: flex; margin-top: 10px; margin-left: 10px;"></div>
-                    <v-data-table :items-per-page="5" :headers="truck_table_headers" :items="truck_data_list"
-                        :search="search">
-                        <template v-slot:item="row">
-                            <tr>
-                                <td><v-avatar><img :src="row.item.img"></v-avatar></td>
-                                <td>{{ row?.item?.item_name }}</td>
-                                <td>{{ row?.item?.qty }}</td>
-                                <td>{{ row?.item?.unit }}</td>
-                                <td>{{ row?.item?.unitPirce }}</td>
-                                <td>{{ row?.item?.sumUnitWithPrice }}</td>
-                            </tr>
-                        </template>
-                    </v-data-table>
-                </v-card>
-            </div>
-            <!-- <v-card style="width: 80%;">
-                <v-card class="card-shadow" rounded="lg" style="border: 0.5px solid #e0e0e0; border-radius: 3px;">
-                    <v-card-title style="background-color: #b72222" class="white--text">
-                        ອາໄຫຼ່ທີນໍາອອກຈາກສາງ
-                    </v-card-title>
+        <div style="width: 100%;"> 
+            <v-card class="card-shadow" rounded="lg" style="border: 0.5px solid #e0e0e0; border-radius: 3px;">
+                <v-card-title style="background-color: #b76d22" class="white--text">
+                    ຢືນຢັນເເລ້ວ
+                </v-card-title>
+                <v-data-table :items-per-page="5" :headers="truck_table_headersv2" :items="filteredTruckData"
+                    :search="search">
+                    <template v-slot:item="row">
+                        <tr>
+                            <td>
 
-                    <div style="display: flex; margin-top: 10px;"></div>
-                    <v-data-table :items-per-page="5" :headers="data_list_showFix" :items="showFix_data_list"
-                        :search="search">
-                        <template v-slot:item="row">
-                            <tr>
-                                <td><v-avatar><img :src="row.item.img"></v-avatar></td>
-                                <td>{{ row?.item?.fixId }}</td>
-                                <td>{{ row?.item?.h_VICIVLE_NUMBER }}</td>
-                                <td>{{ row?.item?.f_BRANCH }}</td>
-                                <td>{{ row?.item?.qty_Fix }}</td>
-                                <td>{{ row?.item?.total_Price }}</td>
-                                <td>{{ row?.item?.add_on }}</td>
-                                <td>{{ row?.item?.description }}</td>
-                                <td>{{ row?.item?.dateFix }}</td>
-                                <td>
-                                    <v-btn small color="primary" class="card-shadow"
-                                        @click="onGetinbox(row.item.fixId)">
-                                        <v-icon>mdi-clipboard-text</v-icon>ລາຍລະອຽດ
-                                    </v-btn>
-                                </td>
-                            </tr>
-                        </template>
-                    </v-data-table>
-                </v-card>
-            </v-card> -->
-        </div>
+                            </td>
+                            <td>{{ row?.item?.item_name }}</td>
+                            <td>{{ row?.item?.branch_inventory }}</td>
+                            <td>{{ row?.item?.qty_Fix }}</td>
+                            <td>{{ row?.item?.total_Price }}</td>
+                            <td>{{ row?.item?.description }}</td>
+                            <td>{{ row?.item?.fix_Detail }}</td>
+                            <td>{{ row?.item?.location_fix }}</td>
+                            <td>{{ row?.item?.dateFix }}</td>
+                            <td>{{ row?.item?.item_id }}</td>
+                            <td>{{ row?.item?.footer_id }}</td>
+                            <td>{{ row?.item?.f_BRANCH }}</td>
+                            <td>{{ row?.item?.header_id }}</td>
+                            <td>{{ row?.item?.h_VICIVLE_NUMBER }}</td>
 
-        <!-- <v-dialog v-model="dialogVisible" max-width="800px" style="max-height: 800px;">
-            <v-card>
-                <v-card-title style="font-size: 24px;">ປ້ອນຂໍ້ມູນ</v-card-title>
-                <v-card-actions>
-                    <v-btn style="font-size: 20px;" color="primary" @click="closeDialog">
-                        <v-icon>mdi-printer</v-icon>ພິມບິນ</v-btn>
+                          
 
+                        </tr>
+                    </template>
+                </v-data-table>
 
-                </v-card-actions>
-                <div style="display: flex;">
-                    <v-card-text style="font-size: 18px;">
-                        <div>
-                            <label for="fixId">fixId:</label>
-                            <span id="fixId">{{ fixId }}</span>
-                        </div>
-                        <div>
-                            <label for="h_VICIVLE_NUMBER">h_VICIVLE_NUMBER</label>
-                            <span id="h_VICIVLE_NUMBER">{{ h_VICIVLE_NUMBER }}</span>
-                        </div>
-                        <div>
-                            <label for="qty_offer">f_BRANCH</label>
-                            <span id="qty_offer">{{ f_BRANCH }}</span>
-                        </div>
-                        <div>
-                            <label for="qty_offer">qty_Fix</label>
-                            <span id="qty_offer">{{ qty_Fix }}</span>
-                        </div>
-                        <div>
-                            <label for="qty_offer">total_Price</label>
-                            <span id="qty_offer">{{ total_Price }}</span>
-                        </div>
-
-                        <div>
-                            <label for="qty_offer">description</label>
-                            <span id="qty_offer">{{ description }}</span>
-                        </div>
-                        <div>
-                            <label for="qty_offer">dateFix</label>
-                            <span id="qty_offer">{{ dateFix }}</span>
-                        </div>
-                        <div>
-                            <label for="add_on">add_on</label>
-                            <span id="add_on">{{ add_on }}</span>
-                        </div>
-                    </v-card-text>
-                    <v-card-text v-if="add_on < 1" style="display: flex;">
-                        <div>
-                            <label for="add_on">ລາຍຈາຍເພີນ(ຄ່າສ່າງ)</label>
-                            <span id="add_on">{{ add_on }}</span>
-                            <v-text-field label="*add_on" dense outlined background-color="#f5f5f5"
-                                v-model="add_on"></v-text-field>
-                        </div>
-                        <v-btn style="margin-top: -10px; margin-left: 10px;" color="primary" @click="onSubmit">
-                            <v-icon>mdi-border-color</v-icon>ເເກ່ໄຂ
-                        </v-btn>
-                    </v-card-text>
-
-                </div>
-                <v-card-actions>
-
-                    <v-btn color="red darken-1" text @click="closeDialog">ຍົກເລີກ</v-btn>
-
-
-                </v-card-actions>
             </v-card>
-        </v-dialog> -->
+        </div>
+        <div style="width: 100%;">
+            <v-card class="card-shadow" rounded="lg" style="border: 0.5px solid #e0e0e0; border-radius: 3px;">
+                <v-card-title style="background-color: #b76d22" class="white--text">
+                    ອາໄຫຼ່ໃນສາງ
+                </v-card-title>
+
+                <div style="display: flex; margin-top: 10px; margin-left: 10px;"></div>
+                <v-data-table :items-per-page="5" :headers="truck_table_headers" :items="truck_data_list"
+                    :search="search">
+                    <template v-slot:item="row">
+                        <tr>
+                            <td><v-avatar><img :src="row.item.img"></v-avatar></td>
+                            <td>{{ row?.item?.item_name }}</td>
+                            <td>{{ row?.item?.qty }}</td>
+                            <td>{{ row?.item?.unit }}</td>
+                            <td>{{ row?.item?.unitPirce }}</td>
+                            <td>{{ row?.item?.sumUnitWithPrice }}</td>
+                        </tr>
+                    </template>
+                </v-data-table>
+            </v-card>
+        </div>
     </div>
 </template>
 
@@ -240,6 +202,17 @@ import Swal from 'sweetalert2';
 export default {
     data() {
         return {
+            fixRequests: [], // Stores data from the API
+            headers: [
+                { text: "ລະຫັດ", value: "fixId" },
+                { text: "ເລກລົດ", value: "h_VICIVLE_NUMBER" },
+                { text: "ສາຂາ", value: "f_BRANCH" },
+                { text: "ຈໍານວນ", value: "qty_Fix" },
+                { text: "ລວມລາຄາ", value: "finalTotalPrice" },
+                { text: "ຄຳອະທິບາຍ", value: "description" },
+                { text: "ວັນທີ່ສ້ອມ", value: "dateFix" },
+                { text: "ຮູບພາບ", value: "img" },
+            ],
             truct_footer_data_list: [],
             nameRules: [(v) => !!v || 'ຕ້ອງປ້ອນ'],
             f_CARD_NO: '',
@@ -302,6 +275,7 @@ export default {
 
             ],
             truck_data_list: [],
+            truck_data_listv2: [],
 
             data_list_showFix: [
                 { text: 'ຮູບພາບ', value: 'img' },
@@ -316,22 +290,38 @@ export default {
                 { text: 'ວັນທີເເປງ', value: 'dateFix' },
 
             ],
+            truck_table_headersv2: [
+                { text: 'Checkbox', value: 'Checkbox' },
+                { text: 'ຊື່', value: 'item_name' },
+                { text: 'branch_inventory', value: 'branch_inventory' },
+                { text: 'ຈໍານວນ', value: 'qty_Fix' },
+                { text: 'ລາຄາ', value: 'total_Price' },
+                { text: 'ລາຍລະອຽດ', value: 'description' },
+                { text: 'ລາຍລະອຽດການເເປງ', value: 'fix_Detail' },
+                { text: 'ເເຊວງ', value: 'location_fix' },
+                { text: 'ວັນທີ', value: 'dateFix' },
+                { text: 'footer_id', value: 'footer_id' },
+                { text: 'item_id', value: 'item_id' },
+                { text: 'ຫົວລັດ', value: 'h_VICIVLE_NUMBER' },
+                // { text: 'ຫາງລົດ', value: 'header_id' },
+                { text: 'ຫາງລົດ', value: 'f_BRANCH' },
+            ],
             showFix_data_list: [],
+
+            dateFix: '',
+            ref_NOAmount1: '',
+            selectedItems: '',
+            updateTotalTid: '',
+            search: '',
 
             // Other data properties...
         };
     },
     computed: {
-        filteredItems() {
-            if (!Array.isArray(this.truck_data_list)) {
-                return [];
-            }
-            return this.truck_data_list.filter(item =>
-                item.statusPO === 'YES' &&
-                (item.stock_status === 'wait')
-            );
-        },
-
+        filteredTruckData() {
+        return this.truck_data_listv2.filter(item => item.approve_status === 'YES');
+    }
+    
     },
     watch: {
         qty_Fix(newVal) {
@@ -341,6 +331,30 @@ export default {
         }
     },
     methods: {
+        async onGetshowdata_table() {
+            try {
+                this.loading_processing = true;
+                const response = await this.$axios.$post('ReportStock.service', {
+                    toKen: localStorage.getItem('toKen'),
+                });
+
+                console.log('API response:', response);
+
+                if (response?.status === '00' && response?.data) {
+                    this.truck_data_list = response.data;
+                } else {
+                    this.showErrorAlert('Error', 'Failed to fetch data from the API');
+                }
+            } catch (error) {
+                console.error('API error:', error);
+                this.showErrorAlert('Error', 'Failed to fetch data from the API');
+            } finally {
+                this.loading_processing = false;
+                // window.location.reload();
+
+            }
+        },
+
         onSelectMechanicequipment(selectedItem) {
             this.selectedEquipment = this.Mechanicequipment.find(item => item.item_id === selectedItem);
             if (this.selectedEquipment) {
@@ -375,29 +389,6 @@ export default {
 
             // Set other data properties as needed
         },
-        async onGetshowdata_table() {
-            try {
-                this.loading_processing = true;
-                const response = await this.$axios.$post('ReportStock.service', {
-                    toKen: localStorage.getItem('toKen'),
-                });
-
-                console.log('API response:', response);
-
-                if (response?.status === '00' && response?.data) {
-                    this.truck_data_list = response.data;
-                } else {
-                    this.showErrorAlert('Error', 'Failed to fetch data from the API');
-                }
-            } catch (error) {
-                console.error('API error:', error);
-                this.showErrorAlert('Error', 'Failed to fetch data from the API');
-            } finally {
-                this.loading_processing = false;
-                // window.location.reload();
-
-            }
-        },
 
         async onGetLeaveNumber() {
             try {
@@ -418,12 +409,12 @@ export default {
                 };
                 console.log("send:", data);
 
-                const response = await this.$axios.$post('/fix.service', data);
+                const response = await this.$axios.$post('/approvefix.service', data);
                 console.log("createReport:", response);
 
                 if (response?.status === '00') {
                     this.loading_processing = false;
-                    this.onGetshowdata_table();
+
 
                     // Display success alert using SweetAlert2
                     await Swal.fire({
@@ -611,13 +602,59 @@ export default {
             }
             window.location.reload();
         },
+
+        async onGetshowlist() {
+            try {
+                const response = await this.$axios.$post("showListofFixReq.service", {
+                    toKen: localStorage.getItem("toKen"),
+                });
+                if (response?.status === "00" && response.data) {
+                    this.fixRequests = response.data;
+                } else {
+                    throw new Error("Failed to fetch data");
+                }
+            } catch (error) {
+                Swal.fire({
+                    icon: "error",
+                    title: "Error",
+                    text: "Failed to fetch data from the API",
+                });
+            }
+        },
+        async onGetshowdata_tablev2() {
+            try {
+                this.loading_processing = true;
+                const data = {
+                    startDate: this.startDate,
+                    endDate: this.endDate,
+                    toKen: localStorage.getItem('toKen'),
+                };
+
+                const response = await this.$axios.$post('showListofFixReq.service', data);
+
+                if (response?.status === '00' && response?.data) {
+                    this.truck_data_listv2 = response.data;
+                } else {
+                    // Clear the data if no results are found
+                    this.truck_data_listv2 = [];
+                }
+            } catch (error) {
+                console.error('API error:', error); // Log the error
+                this.truck_data_listv2 = []; // Clear the data on error
+            } finally {
+                this.loading_processing = false;
+            }
+        },
     },
     mounted() {
         this.onGetTruckFooter(); // Fetch truck footer data when component is mounted
         this.onGetTruckList(); // Fetch truck footer data when component is mounted
         this.onGetshowFix(); // Fetch truck footer data when component is mounted
         this.onGetadd(); // Fetch truck footer data when component is mounted
+        this.onGetshowlist(); // Fetch truck footer data when component is mounted
         this.onGetshowdata_table(); // Fetch truck footer data when component is mounted
+        this.onGetshowdata_tablev2(); // Fetch truck footer data when component is mounted
+
     },
 
 };

@@ -39,7 +39,7 @@
       </v-col>
 
       <v-col cols="12" md="3">
-        <div v-if="USER_ROLE === 'USER'|| USER_ID === 'ADMIN'">
+        <div v-if="USER_ROLE === 'USER'|| USER_ID === 'ADMIN'|| USER_NAME === 'mai_ud'">
           <v-card to="./HR/akasarn" height="100" elevation="2" rounded="lg" width="310px"
             style="border: 1px solid  rgba(191, 0, 0, 0.8);">
             <v-card-text>

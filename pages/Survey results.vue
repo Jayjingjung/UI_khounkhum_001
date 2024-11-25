@@ -74,12 +74,14 @@ export default {
         const token = this.$route.query.token;
         const label = this.$route.query.label;
         const number = this.$route.query.number;
+        const number1 = this.$route.query.number1;
         if (token && label) {
             this.setToKen(token);
             this.buttonLabel = label;
         }
-        if (number) {
+        if (number&& number1) {
             this.number = number;
+            this.number1 = number1;
         }
     },
     computed: {
@@ -117,6 +119,7 @@ export default {
                 formdata.append('files', this.files);
                 formdata.append('type', this.type);
                 formdata.append('name', this.number);
+                formdata.append('nameDetail', this.number1);
                 formdata.append('dateInsert', new Date(this.dateInsert).toLocaleDateString('en-CA'));
                 formdata.append('toKen', this.toKen);
                 this.loading_processing = true;

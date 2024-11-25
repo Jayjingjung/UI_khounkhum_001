@@ -565,6 +565,7 @@ export default {
         item.insurance_viet_STATUS === 'E' ||
         item.technic_check_STATUS === 'E' ||
         item.lean_STATUS === 'E' ||
+        item.lean_engine_date_next_status === 'NOT' ||
         item.license_STATUS === 'E'
       ) {
         return { color: 'red' };
@@ -574,6 +575,7 @@ export default {
         item.insurance_viet_STATUS === 'NOT' &&
         item.technic_check_STATUS === 'NOT' &&
         item.lean_STATUS === 'NOT' &&
+        item.lean_engine_date_next_status === 'E' &&
         item.license_STATUS === 'NOT'
       ) {
         return { color: 'green' };

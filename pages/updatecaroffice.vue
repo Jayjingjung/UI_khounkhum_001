@@ -273,7 +273,7 @@
               <v-menu v-model="menu1" :close-on-content-click="false" transition="scale-transition" offset-y
                 min-width="auto">
                 <template v-slot:activator="{ on, attrs }">
-                  <v-text-field v-model="displayDateChangeLeean" label="* ວັນທີ່ປ່ຽນນ້ຳມັນເຄື່ອງ" style="width: 180px;"
+                  <v-text-field v-model="dateChangeLeean" label="* ວັນທີ່ປ່ຽນນ້ຳມັນເຄື່ອງ" style="width: 180px;"
                     dense outlined v-bind="attrs" v-on="on" readonly></v-text-field>
                 </template>
                 <v-date-picker v-model="dateChangeLeean" @input="menu1 = false"
@@ -285,8 +285,9 @@
               <v-menu v-model="menu2" :close-on-content-click="false" transition="scale-transition" offset-y
                 min-width="auto">
                 <template v-slot:activator="{ on, attrs }">
-                  <v-text-field v-model="displayDateChangeLeeanNext" label="* ວັນທີປ່ຽນນ້ຳມັນເຄື່ອງຄັ້ງຕໍ່ໄປ"
-                    style="width: 180px;" dense outlined v-bind="attrs" v-on="on" readonly></v-text-field>
+                  <v-text-field v-model="dateChangeLeeanNext" label="* ວັນທີປ່ຽນນ້ຳມັນເຄື່ອງຄັ້ງຕໍ່ໄປ"
+                    style="width: 180px;" dense outlined v-bind="attrs" v-on="on"
+                    :style="{ backgroundColor: dateChangeppoilNext }" readonly></v-text-field>
                 </template>
                 <v-date-picker v-model="dateChangeLeeanNext" @input="menu2 = false" no-title></v-date-picker>
               </v-menu>
@@ -646,14 +647,7 @@ export default {
     }
   },
   computed: {
-    displayDateChangeLeean() {
-      // If dateChangeLeean is "2040-04-04", show "0000-00-00", otherwise show the actual date
-      return this.dateChangeLeean === "2040-04-04" ? "0000-00-00" : this.dateChangeLeean;
-    },
-    // Computed property for the second date
-    displayDateChangeLeeanNext() {
-      return this.dateChangeLeeanNext === "2040-04-04" ? "0000-00-00" : this.dateChangeLeeanNext;
-    },
+ 
     leanStyle() {
       if (this.lean_STATUS === 'NOT') {
         return 'green';
@@ -666,6 +660,21 @@ export default {
       if (!this.technic_check_dateEnd) return 'white';
       const currentDate = new Date();
       const checkDate = new Date(this.technic_check_dateEnd);
+      const oneMonthLater = new Date(currentDate);
+      oneMonthLater.setMonth(currentDate.getMonth() + 1);
+
+      if (currentDate > checkDate) {
+        return 'red';
+      } else if (oneMonthLater > checkDate) {
+        return 'red';
+      } else {
+        return 'white';
+      }
+    },
+    dateChangeppoilNext() {
+      if (!this.dateChangeLeeanNext) return 'white';
+      const currentDate = new Date();
+      const checkDate = new Date(this.dateChangeLeeanNext);
       const oneMonthLater = new Date(currentDate);
       oneMonthLater.setMonth(currentDate.getMonth() + 1);
 

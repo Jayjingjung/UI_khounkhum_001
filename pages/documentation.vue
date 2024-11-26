@@ -361,6 +361,7 @@ export default {
     background-color: #f0f0f0;
     color: #000000;
 }
+
 .hoverable:hover {
     color: #42A5F5;
     font-size: 18px;

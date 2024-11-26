@@ -4,45 +4,37 @@
         <div>
             <div>
                 <v-btn :style="getButtonStyle('tZl011U2nNs9AdvQDIStduuOIc8yWmxw')"
-                    @click="setTokenAndFetch('tZl011U2nNs9AdvQDIStduuOIc8yWmxw')">
+                    @click="setTokenAndFetch('e6ea9da1b901d1ddeevgewvewvwe941bf6244c5b6570f63a1f3eb91bba')">
                     ຄອນງົວ
                 </v-btn>
-
                 <v-btn :style="getButtonStyle('3iKcWacuOwaXxERfL6LNvuEKdjhvc5aF')"
                     @click="setTokenAndFetch('3iKcWacuOwaXxERfL6LNvuEKdjhvc5aF')">
                     ສີຄູນ
                 </v-btn>
-
                 <v-btn :style="getButtonStyle('e23QZokLhZNSVtXP1qYQHM8PVHr76VQa')"
                     @click="setTokenAndFetch('e23QZokLhZNSVtXP1qYQHM8PVHr76VQa')">
                     ບ້ານທ່າ
                 </v-btn>
-
                 <v-btn :style="getButtonStyle('phonkham123kOQHMwA1Ve9lMq22X3kpSiaIbDO123')"
                     @click="setTokenAndFetch('phonkham123kOQHMwA1Ve9lMq22X3kpSiaIbDO123')">
                     ໂພນຄໍາ
                 </v-btn>
-
                 <v-btn :style="getButtonStyle('kOQHMwA1Ve9lMq22X3kpSiaIbGGKghDO')"
                     @click="setTokenAndFetch('kOQHMwA1Ve9lMq22X3kpSiaIbGGKghDO')">
                     ຊຽງຄົງ
                 </v-btn>
-
                 <v-btn :style="getButtonStyle('namzao123kOQHMwA1Ve9lMq22X3kpSiaIbKghDO456')"
                     @click="setTokenAndFetch('namzao123kOQHMwA1Ve9lMq22X3kpSiaIbKghDO456')">
                     ນໍ້າຊາວ
                 </v-btn>
-
                 <v-btn :style="getButtonStyle('nongphounxai3kOQHMwA1Ve9lMq22X3kpSiaIDO789')"
                     @click="setTokenAndFetch('nongphounxai3kOQHMwA1Ve9lMq22X3kpSiaIDO789')">
                     ໜອງພູນໄຊ32,28
                 </v-btn>
-
                 <v-btn :style="getButtonStyle('knongphounxaiOQHMwA1Ve9lMq22X3kpSiahDO101112')"
                     @click="setTokenAndFetch('knongphounxaiOQHMwA1Ve9lMq22X3kpSiahDO101112')">
                     ໜອງພູນໄຊ62,39
                 </v-btn>
-
                 <v-btn :style="getButtonStyle('kOlardhor123QHMwA1Ve9lMq22X3GGKghDO13214415')"
                     @click="setTokenAndFetch('kOlardhor123QHMwA1Ve9lMq22X3GGKghDO13214415')">
                     ລາດຫໍ້
@@ -50,74 +42,45 @@
             </div>
         </div>
         <v-card>
-
-
-            <div style="display: flex;">
-                <v-btn ref="btn1" value="1" @click="selectedCard = '1'" @mouseover="changeColor('	#FFE5FF', $refs.btn1)"
-                    @mouseleave="changeColor('white', $refs.btn1)"
-                    style="margin-left: 2px; margin-right: 2px; background-color: white; color: black; height: 65px; border: 1px solid rgb(0, 0, 0);">
-                    <v-icon style="color: rgb(	9, 44, 112);" size="55">mdi-summit</v-icon>
-
-                    {{ computedLabel }}
-                </v-btn>
-
-
-                <v-btn ref="btn2" value="2" @click="selectedCard = '2'" @mouseover="changeColor('	#FFE5FF', $refs.btn2)"
-                    @mouseleave="changeColor('white', $refs.btn2)"
-                    style="margin-left: 2px; margin-right: 2px; background-color: white; color: black; height: 65px; border: 1px solid rgb(0, 0, 0);">
-                    <v-icon style="color: rgb(43, 204, 150);" size="55">mdi-circular-saw</v-icon>
-
-                    {{ reLabel }}
-                </v-btn>
-            </div>
             <div style="display: flex; overflow-x: auto; width: 1640px; margin-left: 10px;">
-                <div v-if="selectedCard === '1'">
-                    <v-list style="display: flex; min-width: 12px;" v-model="selectedCard">
+                <v-list style="display: flex; min-width: 12px;" v-model="selectedCard">
+                    <v-btn ref="btn1" value="1" @click="selectedCard = '1'"
+                        @mouseover="changeColor('	#FFE5FF', $refs.btn1)" @mouseleave="changeColor('white', $refs.btn1)"
+                        style="margin-left: 2px; margin-right: 2px; background-color: white; color: black; height: 65px; border: 1px solid rgb(0, 0, 0);">
+                        <v-icon style="color: rgb(	9, 44, 112);" size="55">mdi-summit</v-icon>
+                        {{ computedLabel }}
+                    </v-btn>
+                    <v-btn style="height: 60px;background-color: green;color: aliceblue;" to="/Add_a_hole">
+                        <v-icon>
+                            mdi-plus
+                        </v-icon>
+                        ເພີ່ມ {{ computedLabel }}
+                    </v-btn>
+                </v-list>
+                <v-list style="display: flex; min-width: 12px;" v-model="selectedCard">
+                    <v-btn ref="btn2" value="2" @click="selectedCard = '2'"
+                        @mouseover="changeColor('	#FFE5FF', $refs.btn2)" @mouseleave="changeColor('white', $refs.btn2)"
+                        style="margin-left: 2px; margin-right: 2px; background-color: white; color: black; height: 65px; border: 1px solid rgb(0, 0, 0);">
+                        <v-icon style="color: rgb(43, 204, 150);" size="55">mdi-circular-saw</v-icon>
 
-                        <v-btn ref="btn3" value="3" @click="selectedCard = '3'"
-                            @mouseover="changeColor('	#FFE5FF', $refs.btn3)"
-                            @mouseleave="changeColor('white', $refs.btn3)"
-                            style="margin-left: 2px; margin-right: 2px; background-color: white; color: black; height: 65px; border: 1px solid rgb(0, 0, 0);">
-                            show
-
-                            {{ computedLabel }}
-                        </v-btn>
-                        <v-btn style="height: 60px; background-color: green; color: aliceblue;"
-                            :to="{ path: '/Add_a_hole1', query: { token: 'tZl011U2nNs9AdvQDIStduuOIc8yWmxw' } }">
-                            <v-icon>mdi-plus</v-icon>
-                            ເພີ່ມ {{ computedLabel }}
-                        </v-btn>
-
-                    </v-list>
-                </div>
-                <div v-if="selectedCard === '2'">
-                    <v-list style="display: flex; min-width: 12px;" v-model="selectedCard">
-                        <v-btn ref="btn4" value="4" @click="selectedCard = '4'"
-                            @mouseover="changeColor('	#FFE5FF', $refs.btn4)"
-                            @mouseleave="changeColor('white', $refs.btn4)"
-                            style="margin-left: 2px; margin-right: 2px; background-color: white; color: black; height: 65px; border: 1px solid rgb(0, 0, 0);">
-                            show
-
-                            {{ reLabel }}
-                        </v-btn>
-                        <v-btn style="height: 60px;background-color: green;color: aliceblue; " to="/Survey results">
-                            <v-icon>
-                                mdi-plus
-                            </v-icon>
-                            ເພີ່ມ {{ reLabel }}
-                        </v-btn>
-                    </v-list>
-                </div>
+                        {{ reLabel }}
+                    </v-btn>
+                    <v-btn style="height: 60px;background-color: green;color: aliceblue; " to="/Survey results">
+                        <v-icon>
+                            mdi-plus
+                        </v-icon>
+                        ເພີ່ມ {{ reLabel }}
+                    </v-btn>
+                </v-list>
             </div>
 
-            <div v-if="selectedCard === '3'">
+            <div v-if="selectedCard === '1'">
                 <v-card style="width:1800px;height:800px;">
                     <v-card class="card-shadow mb-4" rounded="lg">
                         <v-card-title
                             style="display: flex; border-bottom:0.5px solid #e0e0e0; background-color:#0a3382; color:white;">
                             {{ computedLabel }}
                             <v-icon color="white"></v-icon>
-
                             <div style="width: 400px; margin-left: 50px;" class="d-flex align-center">
                                 <v-text-field style="width: 700px; " placeholder="ຄົ້ນຫາດ້ວຍລະຫັດປ່ອຍລົດ..."
                                     v-model="search" rounded background-color="#f5f5f5"
@@ -160,14 +123,12 @@
                     </v-card>
                 </v-card>
             </div>
-            <div v-if="selectedCard === '4'">
+            <div v-if="selectedCard === '2'">
                 <v-card style="width:1800px;height:800px;">
                     <v-card class="card-shadow mb-4" rounded="lg">
                         <v-card-title
                             style="display: flex; border-bottom:0.5px solid #2bcc96; background-color:#2bcc96; color:white;">
                             {{ reLabel }}
-
-
                             <div style="width: 400px; margin-left: 50px;" class="d-flex align-center">
                                 <v-text-field style="width: 700px; " placeholder="ຄົ້ນຫາດ້ວຍລະຫັດປ່ອຍລົດ..."
                                     v-model="search" rounded background-color="#f5f5f5"
@@ -187,7 +148,6 @@
 
                                         <td>{{ row?.item?.type }}</td>
 
-
                                         <td>
                                             <v-btn style="height: 40px; width: 90px;" small color="#0085e3"
                                                 class="white--text card-shadow" @click="showResultpdf(row?.item?.file)">
@@ -200,13 +160,13 @@
                                             <v-icon size="30" color="white">mdi-</v-icon>
                                         </v-btn>
                                     </td> -->
-                                        <!-- <td>
+                                        <td>
                                             <v-btn style="height: 40px; width: 90px;" small color="#90A4AE"
                                                 class="white--text card-shadow"
                                                 @click="Resultdelete(row?.item?.key_id)">
                                                 <v-icon size="30" color="white">mdi-delete</v-icon>
                                             </v-btn>
-                                        </td> -->
+                                        </td>
                                     </tr>
                                 </template>
                             </v-data-table>
@@ -226,7 +186,7 @@ export default {
     data() {
         return {
             selectedToken: null, // To store the selected token
-            selectedCard: '0',
+            selectedCard: '1',
             license_plate: '',
             USER_ROLE: 'BOR-HIN-KHUAT',
             USER_NAME: localStorage.getItem('USER_NAME'),
@@ -322,7 +282,7 @@ export default {
                     branchUser: this.USER_ROLE,
                     toKen: this.toKen,  // Use the token set from the button click
                     bound: this.bound,
-                    bound: this.bound,
+                    // bound: this.bound,
                 }).then((data) => {
                     if (data?.status === "00") {
                         this.report_ResultOfServey = data?.data;
@@ -403,6 +363,7 @@ export default {
                     if (response && response.status === '00') {
                         swal.fire('Deleted!', 'Your file has been deleted.', 'success');
                         this.ShowAllListOfHole(); // Refresh the list
+                        this.ShowAllResultOfServey();
                     } else {
                         swal.fire('Failed!', 'There was an error deleting your file.', 'error');
                     }

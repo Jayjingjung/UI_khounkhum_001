@@ -387,7 +387,7 @@
                                     </v-list-item-content>
                                 </template>
                                 <v-list-item>
-                                    <v-btn rounded @click="sisternokDoc = true">
+                                    <v-btn rounded @click="filterNokPay">
                                         ເບີ່ງ
                                     </v-btn>
                                     <v-spacer></v-spacer>
@@ -407,7 +407,7 @@
                                     </v-list-item-content>
                                 </template>
                                 <v-list-item>
-                                    <v-btn @click="surveydocument = true" rounded>
+                                    <v-btn @click="filterSurvey" rounded>
                                         ເບີ່ງ
                                     </v-btn>
                                     <v-spacer></v-spacer>
@@ -447,7 +447,7 @@
                                     </v-list-item-content>
                                 </template>
                                 <v-list-item>
-                                    <v-btn @click="testDoc = true" rounded>
+                                    <v-btn @click="filterTest" rounded>
                                         ເບີ່ງ
                                     </v-btn>
                                     <v-spacer></v-spacer>
@@ -467,7 +467,7 @@
                                     </v-list-item-content>
                                 </template>
                                 <v-list-item>
-                                    <v-btn rounded @click="payfile = true">
+                                    <v-btn rounded @click="filterPayment">
                                         ເບີ່ງ
                                     </v-btn>
                                     <v-spacer></v-spacer>
@@ -544,7 +544,7 @@
                                     </v-list-item-content>
                                 </template>
                                 <v-list-item>
-                                    <v-btn rounded @click="sisternokDoc = true">
+                                    <v-btn rounded @click="filterNokPay">
                                         ເບີ່ງ
                                     </v-btn>
                                     <v-spacer></v-spacer>
@@ -564,7 +564,7 @@
                                     </v-list-item-content>
                                 </template>
                                 <v-list-item>
-                                    <v-btn @click="surveydocument = true" rounded>
+                                    <v-btn @click="filterSurvey" rounded>
                                         ເບີ່ງ
 
                                     </v-btn>
@@ -604,7 +604,7 @@
                                     </v-list-item-content>
                                 </template>
                                 <v-list-item>
-                                    <v-btn @click="testDoc = true" rounded>
+                                    <v-btn @click="filterTest" rounded>
                                         ເບີ່ງ
                                     </v-btn>
                                     <v-spacer></v-spacer>
@@ -624,7 +624,7 @@
                                     </v-list-item-content>
                                 </template>
                                 <v-list-item>
-                                    <v-btn rounded @click="payfile = true">
+                                    <v-btn rounded @click="filterPayment">
                                         ເບີ່ງ
                                     </v-btn>
                                     <v-spacer></v-spacer>
@@ -698,7 +698,7 @@
                                     </v-list-item-content>
                                 </template>
                                 <v-list-item>
-                                    <v-btn rounded @click="sisternokDoc = true">
+                                    <v-btn rounded @click="filterNokPay">
                                         ເບີ່ງ
                                     </v-btn>
                                     <v-spacer></v-spacer>
@@ -718,7 +718,7 @@
                                     </v-list-item-content>
                                 </template>
                                 <v-list-item>
-                                    <v-btn @click="surveydocument = true" rounded>
+                                    <v-btn @click="filterSurvey" rounded>
                                         ເບີ່ງ
 
                                     </v-btn>
@@ -758,7 +758,7 @@
                                     </v-list-item-content>
                                 </template>
                                 <v-list-item>
-                                    <v-btn @click="testDoc = true" rounded>
+                                    <v-btn @click="filterTest" rounded>
                                         ເບີ່ງ
                                     </v-btn>
                                     <v-spacer></v-spacer>
@@ -778,7 +778,7 @@
                                     </v-list-item-content>
                                 </template>
                                 <v-list-item>
-                                    <v-btn rounded @click="payfile = true">
+                                    <v-btn rounded @click="filterPayment">
                                         ເບີ່ງ
                                     </v-btn>
                                     <v-spacer></v-spacer>
@@ -854,7 +854,7 @@
                                     </v-list-item-content>
                                 </template>
                                 <v-list-item>
-                                    <v-btn rounded @click="sisternokDoc = true">
+                                    <v-btn rounded @click="filterNokPay">
                                         ເບີ່ງ
                                     </v-btn>
                                     <v-spacer></v-spacer>
@@ -874,7 +874,7 @@
                                     </v-list-item-content>
                                 </template>
                                 <v-list-item>
-                                    <v-btn @click="surveydocument = true" rounded>
+                                    <v-btn @click="filterSurvey" rounded>
                                         ເບີ່ງ
 
                                     </v-btn>
@@ -915,7 +915,7 @@
                                     </v-list-item-content>
                                 </template>
                                 <v-list-item>
-                                    <v-btn @click="testDoc = true" rounded>
+                                    <v-btn @click="filterTest" rounded>
                                         ເບີ່ງ
                                     </v-btn>
                                     <v-spacer></v-spacer>
@@ -935,7 +935,7 @@
                                     </v-list-item-content>
                                 </template>
                                 <v-list-item>
-                                    <v-btn rounded @click="payfile = true">
+                                    <v-btn rounded @click="filterPayment">
                                         ເບີ່ງ
                                     </v-btn>
                                     <v-spacer></v-spacer>
@@ -989,7 +989,7 @@
                                     <!-- <v-btn @click="filedocument = true" rounded>
                                         ເບີ່ງ
                                     </v-btn> -->
-                                    <v-btn @click="miningDoc1('OQHMwA1Ve9lMq22X3kpSiaIbGGKghDO', 'ເອກະສານບ້ານຊຽງຄົງ')"
+                                    <v-btn @click="miningDoc1('kOQHMwA1Ve9lMq22X3kpSiaIbGGKghDO', 'ເອກະສານບ້ານຊຽງຄົງ')"
                                         rounded>
                                         ເບີ່ງ
                                     </v-btn>
@@ -1010,7 +1010,7 @@
                                     </v-list-item-content>
                                 </template>
                                 <v-list-item>
-                                    <v-btn rounded @click="sisternokDoc = true">
+                                    <v-btn rounded @click="filterNokPay">
                                         ເບີ່ງ
                                     </v-btn>
                                     <v-spacer></v-spacer>
@@ -1030,7 +1030,7 @@
                                     </v-list-item-content>
                                 </template>
                                 <v-list-item>
-                                    <v-btn @click="surveydocument = true" rounded>
+                                    <v-btn @click="filterSurvey" rounded>
                                         ເບີ່ງ
 
                                     </v-btn>
@@ -1070,7 +1070,7 @@
                                     </v-list-item-content>
                                 </template>
                                 <v-list-item>
-                                    <v-btn @click="testDoc = true" rounded>
+                                    <v-btn @click="filterTest" rounded>
                                         ເບີ່ງ
                                     </v-btn>
                                     <v-spacer></v-spacer>
@@ -1090,9 +1090,7 @@
                                     </v-list-item-content>
                                 </template>
                                 <v-list-item>
-                                    <v-btn rounded @click="payfile = true">
-                                        ເບີ່ງ
-                                    </v-btn>
+                                    <v-btn rounded @click="filterPayment">ເບີ່ງ</v-btn>
                                     <v-spacer></v-spacer>
                                     <v-btn color="success"
                                         @click="paymentdoc('kOQHMwA1Ve9lMq22X3kpSiaIbGGKghDO', 'ບ້ານຊຽງຄົງ', 'pay', 'ເອກະສານ')"
@@ -1165,7 +1163,7 @@
                                     </v-list-item-content>
                                 </template>
                                 <v-list-item>
-                                    <v-btn rounded @click="sisternokDoc = true">
+                                    <v-btn rounded @click="filterNokPay">
                                         ເບີ່ງ
                                     </v-btn>
                                     <v-spacer></v-spacer>
@@ -1185,7 +1183,7 @@
                                     </v-list-item-content>
                                 </template>
                                 <v-list-item>
-                                    <v-btn @click="surveydocument = true" rounded>
+                                    <v-btn @click="filterSurvey" rounded>
                                         ເບີ່ງ
 
                                     </v-btn>
@@ -1226,7 +1224,7 @@
                                     </v-list-item-content>
                                 </template>
                                 <v-list-item>
-                                    <v-btn @click="testDoc = true" rounded>
+                                    <v-btn @click="filterTest" rounded>
                                         ເບີ່ງ
                                     </v-btn>
                                     <v-spacer></v-spacer>
@@ -1246,7 +1244,7 @@
                                     </v-list-item-content>
                                 </template>
                                 <v-list-item>
-                                    <v-btn rounded @click="payfile = true">
+                                    <v-btn rounded @click="filterPayment">
                                         ເບີ່ງ
                                     </v-btn>
                                     <v-spacer></v-spacer>
@@ -1322,7 +1320,7 @@
                                     </v-list-item-content>
                                 </template>
                                 <v-list-item>
-                                    <v-btn rounded @click="sisternokDoc = true">
+                                    <v-btn rounded @click="filterNokPay">
                                         ເບີ່ງ
                                     </v-btn>
                                     <v-spacer></v-spacer>
@@ -1342,7 +1340,7 @@
                                     </v-list-item-content>
                                 </template>
                                 <v-list-item>
-                                    <v-btn @click="surveydocument = true" rounded>
+                                    <v-btn @click="filterSurvey" rounded>
                                         ເບີ່ງ
 
                                     </v-btn>
@@ -1383,7 +1381,7 @@
                                     </v-list-item-content>
                                 </template>
                                 <v-list-item>
-                                    <v-btn @click="testDoc = true" rounded>
+                                    <v-btn @click="filterTest" rounded>
                                         ເບີ່ງ
                                     </v-btn>
                                     <v-spacer></v-spacer>
@@ -1403,7 +1401,7 @@
                                     </v-list-item-content>
                                 </template>
                                 <v-list-item>
-                                    <v-btn rounded @click="payfile = true">
+                                    <v-btn rounded @click="filterPayment">
                                         ເບີ່ງ
                                     </v-btn>
                                     <v-spacer></v-spacer>
@@ -1478,7 +1476,7 @@
                                     </v-list-item-content>
                                 </template>
                                 <v-list-item>
-                                    <v-btn rounded @click="sisternokDoc = true">
+                                    <v-btn rounded @click="filterNokPay">
                                         ເບີ່ງ
                                     </v-btn>
                                     <v-spacer></v-spacer>
@@ -1498,7 +1496,7 @@
                                     </v-list-item-content>
                                 </template>
                                 <v-list-item>
-                                    <v-btn @click="surveydocument = true" rounded>
+                                    <v-btn @click="filterSurvey" rounded>
                                         ເບີ່ງ
 
                                     </v-btn>
@@ -1539,7 +1537,7 @@
                                     </v-list-item-content>
                                 </template>
                                 <v-list-item>
-                                    <v-btn @click="testDoc = true" rounded>
+                                    <v-btn @click="filterTest" rounded>
                                         ເບີ່ງ
                                     </v-btn>
                                     <v-spacer></v-spacer>
@@ -1559,7 +1557,7 @@
                                     </v-list-item-content>
                                 </template>
                                 <v-list-item>
-                                    <v-btn rounded @click="payfile = true">
+                                    <v-btn rounded @click="filterPayment">
                                         ເບີ່ງ
                                     </v-btn>
                                     <v-spacer></v-spacer>
@@ -1633,7 +1631,7 @@
                                     </v-list-item-content>
                                 </template>
                                 <v-list-item>
-                                    <v-btn rounded @click="sisternokDoc = true">
+                                    <v-btn rounded @click="filterNokPay">
                                         ເບີ່ງ
                                     </v-btn>
                                     <v-spacer></v-spacer>
@@ -1653,7 +1651,7 @@
                                     </v-list-item-content>
                                 </template>
                                 <v-list-item>
-                                    <v-btn @click="surveydocument = true" rounded>
+                                    <v-btn @click="filterSurvey" rounded>
                                         ເບີ່ງ
 
                                     </v-btn>
@@ -1694,7 +1692,7 @@
                                     </v-list-item-content>
                                 </template>
                                 <v-list-item>
-                                    <v-btn @click="testDoc = true" rounded>
+                                    <v-btn @click="filterTest" rounded>
                                         ເບີ່ງ
                                     </v-btn>
                                     <v-spacer></v-spacer>
@@ -1714,7 +1712,7 @@
                                     </v-list-item-content>
                                 </template>
                                 <v-list-item>
-                                    <v-btn rounded @click="payfile = true">
+                                    <v-btn rounded @click="filterPayment">
                                         ເບີ່ງ
                                     </v-btn>
                                     <v-spacer></v-spacer>
@@ -1745,8 +1743,8 @@
                     </v-list>
                 </v-card>
             </v-col>
-             <!-- ຕະເປືອ  -->
-             <v-col>
+            <!-- ຕະເປືອ  -->
+            <v-col>
                 <v-card class="mt-4" width="300">
                     <v-list color="#E0F7FA">
                         <v-list-group :value="false" prepend-icon="mdi-excavator"
@@ -1770,7 +1768,7 @@
                                         @click="miningDoc1('vewerwfe33369cee4866caf2f9941bf6244c5b6570f63a1f3eb91bba', 'ເອກະສານບ້ານຕະເປືອ')"
                                         rounded>
                                         ເບີ່ງ
-                                    </v-btn>    
+                                    </v-btn>
                                     <v-spacer></v-spacer>
                                     <v-btn color="success" rounded
                                         @click="miningDoc('vewerwfe33369cee4866caf2f9941bf6244c5b6570f63a1f3eb91bba', 'ບ້ານຕະເປືອ', 'documment')">
@@ -1788,7 +1786,7 @@
                                     </v-list-item-content>
                                 </template>
                                 <v-list-item>
-                                    <v-btn rounded @click="sisternokDoc = true">
+                                    <v-btn rounded @click="filterNokPay">
                                         ເບີ່ງ
                                     </v-btn>
                                     <v-spacer></v-spacer>
@@ -1808,7 +1806,7 @@
                                     </v-list-item-content>
                                 </template>
                                 <v-list-item>
-                                    <v-btn @click="surveydocument = true" rounded>
+                                    <v-btn @click="filterSurvey" rounded>
                                         ເບີ່ງ
 
                                     </v-btn>
@@ -1849,7 +1847,7 @@
                                     </v-list-item-content>
                                 </template>
                                 <v-list-item>
-                                    <v-btn @click="testDoc = true" rounded>
+                                    <v-btn @click="filterTest" rounded>
                                         ເບີ່ງ
                                     </v-btn>
                                     <v-spacer></v-spacer>
@@ -1869,7 +1867,7 @@
                                     </v-list-item-content>
                                 </template>
                                 <v-list-item>
-                                    <v-btn rounded @click="payfile = true">
+                                    <v-btn rounded @click="filterPayment">
                                         ເບີ່ງ
                                     </v-btn>
                                     <v-spacer></v-spacer>
@@ -1900,8 +1898,8 @@
                     </v-list>
                 </v-card>
             </v-col>
-             <!-- ຫ້ວຍຮ່ອງ  -->
-             <v-col>
+            <!-- ຫ້ວຍຮ່ອງ  -->
+            <v-col>
                 <v-card class="mt-4" width="300">
                     <v-list color="#E0F7FA">
                         <v-list-group :value="false" prepend-icon="mdi-excavator"
@@ -1943,7 +1941,7 @@
                                     </v-list-item-content>
                                 </template>
                                 <v-list-item>
-                                    <v-btn rounded @click="sisternokDoc = true">
+                                    <v-btn rounded @click="filterNokPay">
                                         ເບີ່ງ
                                     </v-btn>
                                     <v-spacer></v-spacer>
@@ -1963,7 +1961,7 @@
                                     </v-list-item-content>
                                 </template>
                                 <v-list-item>
-                                    <v-btn @click="surveydocument = true" rounded>
+                                    <v-btn @click="filterSurvey" rounded>
                                         ເບີ່ງ
 
                                     </v-btn>
@@ -2004,7 +2002,7 @@
                                     </v-list-item-content>
                                 </template>
                                 <v-list-item>
-                                    <v-btn @click="testDoc = true" rounded>
+                                    <v-btn @click="filterTest" rounded>
                                         ເບີ່ງ
                                     </v-btn>
                                     <v-spacer></v-spacer>
@@ -2024,7 +2022,7 @@
                                     </v-list-item-content>
                                 </template>
                                 <v-list-item>
-                                    <v-btn rounded @click="payfile = true">
+                                    <v-btn rounded @click="filterPayment">
                                         ເບີ່ງ
                                     </v-btn>
                                     <v-spacer></v-spacer>
@@ -2060,7 +2058,6 @@
     </div>
 </template>
 
-
 <script>
 import swal from 'sweetalert2'
 
@@ -2069,74 +2066,40 @@ export default {
         return {
             searchQuery: '',
             sisternokDoc: false,
-            loading_processing: false,
-            filedocument: false,
             testDoc: false,
             surveydocument: false,
             filedocuments: false,
             imagefile: false,
             payfile: false,
-            selectedToken: null, // To store the selected token
-            selectedCard: '1',
-            license_plate: '',
+            selectedToken: null,
             USER_ROLE: null,
             USER_NAME: localStorage.getItem('USER_NAME'),
-            report_leave_caroffice_header: [
-                { text: 'ຄຸດເຈາະ', value: 'pic' },
-                { text: 'ນໍາເບີຮູເຈາະ', value: 'hoeNumber' },
-                { text: 'ຂໍ້ມູນ coller', value: 'dataColler' },
-                { text: '', value: '' },
-                { text: '', value: '' },
-            ],
             report_listitemOffice: [],
             filteredReportList: [], // Filtered data
             search: '', // Search query
-            report_ResultOfServeygeader: [
-                { text: 'file', value: 'file' },
-                { text: 'type', value: 'type' },
-                { text: '', value: '' },
-                { text: '', value: '' },
-            ],
-            report_ResultOfServey: [],
-            ResultOfServey: [],
-            sisterNokAll: [],
             vichai: [],
+            vichai1: [],
             payment: [],
-            search: '',
+            payment1: [],
+            filterServey1: [],
+            filterServey: [],
+            sisternok1: [],
+            sisternok: [],
             pdfDialog: false, // Controls the visibility of the PDF dialog
-            pdfUrl: '',       // Stores the URL of the PDF to display
         };
-    },
-    computed: {
-        computedLabel() {
-            return this.USER_NAME === 'Geo-Explo'
-                ? 'ຂໍ້ມູນເດີນສໍາຫຼວດ'
-                : 'ຂໍ້ມູນຮູເຈາະ';
-        },
-        reLabel() {
-            return this.USER_NAME === 'Geo-Explo'
-                ? 'ບົດລາຍງານ'
-                : 'ຜົນການສໍາຫຼວດ'; // Customize this label based on your requirements
-        },
     },
     mounted() {
         this.USER_ROLE = this.$route.query.userRole || localStorage.getItem('userRole') || 'BOR-HIN-KHUAT';  // ຄ່າ default ເປັນ 'BOR-HIN-KHUAT
 
     },
     watch: {
-        // คอยติดตามการเปลี่ยนแปลงใน URL (กรณีถ้ามีการกลับมาใน URL ที่มี query)
         '$route.query.userRole': function (newRole) {
-            this.USER_ROLE = newRole || 'BOR-HIN-KHUAT';  // ถ้าไม่มีค่าก็ใช้ default
-            localStorage.setItem('userRole', this.USER_ROLE); // เก็บค่า USER_ROLE ใน localStorage
+            this.USER_ROLE = newRole || 'BOR-HIN-KHUAT';  // if no value set it to default
+            localStorage.setItem('userRole', this.USER_ROLE); // keep USER_ROLE in localStorage
         }
     },
     methods: {
         refresher() {
-            this.filedocument = false;
-            this.filedocuments = false;
-            this.testDoc = false;
-            this.surveydocument = false;
-            this.payfile = false;
             window.location.reload();
         },
         navigateWithToken(token, buttonLabel, number, number1) {
@@ -2193,36 +2156,58 @@ export default {
                 query: { token, label: valueDoc, number, number1 }
             });
         },
-        setBound(value) {
-            this.bound = value;
-            this.ShowAllListOfHole();
-        },
-        changeColor(color, ref) {
-            ref.$el.style.backgroundColor = color;
-        },
         setTokenAndFetch(token) {
             this.selectedToken = token; // Update selected token
             this.toKen = token;
+            this.fetchAllData();
             this.ShowAllListOfHole();
-            this.ShowAllResultOfServey();
-            this.DocServey();
-            this.vichaiExample();
-            this.functionSisterNok();
-            this.paymentAll();
         },
-        getButtonStyle(token) {
-            // Conditionally return the button style
-            return {
-                width: '150px',
-                height: '40px',
-                fontSize: '18px',
-                backgroundColor: this.selectedToken === token ? '#2382dc' : '', // Set background to green if selected
-                color: this.selectedToken === token ? 'white' : 'black', // Change text color to white if selected
-            };
+        // Filter Payment Data
+        filterPayment() {
+            this.payment1 = this.payAll.filter((item) => item.name === "pay");
+            this.payment = this.payment1
+            this.payfile = true;
+        },
+        // Filter Vichai Data
+        filterTest() {
+            this.vichai1 = this.payAll.filter((item) => item.name === "testData");
+            this.vichai = this.vichai1
+            this.testDoc = true;
+        },
+        // Filter Survey Data
+        filterSurvey() {
+            this.filterServey1 = this.payAll.filter((item) => item.name === "servey");
+            this.filterServey = this.filterServey1
+            this.surveydocument = true;
+        },
+        filterNokPay() {
+            this.sisternok1 = this.payAll.filter((item) => item.name === "pay1");
+            this.sisternok = this.sisternok1
+            this.sisternokDoc = true;
+        },
+        fetchAllData() {
+            try {
+                this.$axios
+                    .$post("/ShowAllResultOfServey.service", {
+                        branchUser: this.USER_ROLE,
+                        toKen: this.toKen,
+                    })
+                    .then((response) => {
+                        if (response?.status === "00") {
+                            this.payAll = response.data; // Store all data here
+                        } else {
+                            this.payAll = [];
+                        }
+                    });
+            } catch (error) {
+                swal.fire({
+                    icon: "error",
+                    text: error.message,
+                });
+            }
         },
         ShowAllListOfHole() {
             try {
-                this.loading_processing = true;
                 this.$axios.$post('/ShowAllListOfHole.service', {
                     branchUser: this.USER_ROLE,
                     toKen: this.toKen,  // Use the token set from the button click
@@ -2236,69 +2221,11 @@ export default {
                         this.filteredReportList = [];
 
                     }
-                    this.loading_processing = false;
                 });
             } catch (error) {
-                this.loading_processing = false;
                 swal.fire({
                     icon: 'error',
                     text: error,
-                });
-                console.log(error);
-            }
-        },
-        ShowAllResultOfServey() {
-            try {
-                this.loading_processing = true;
-                this.$axios.$post('/ShowAllResultOfServey.service', {
-                    branchUser: this.USER_ROLE,
-                    toKen: this.toKen,
-                    bound: this.bound,
-                }).then((data) => {
-                    console.log('API Response:', data); // Log the response
-                    if (data?.status === "00") {
-                        // this.report_ResultOfServey = data?.data;
-                        this.report_ResultOfServey = data.data.filter(item => item.name === 'documment');
-                        this.filteredResults = this.report_ResultOfServey; //   
-                    } else {
-                        this.report_ResultOfServey = [];
-                        this.filteredResults = [];
-                    }
-                    this.loading_processing = false;
-                });
-            } catch (error) {
-                this.loading_processing = false;
-                swal.fire({
-                    icon: 'error',
-                    text: error.message,
-                });
-                console.log(error);
-            }
-        },
-        functionSisterNok() {
-            try {
-                this.loading_processing = true;
-                this.$axios.$post('/ShowAllResultOfServey.service', {
-                    branchUser: this.USER_ROLE,
-                    toKen: this.toKen,
-                    bound: this.bound,
-                }).then((data) => {
-                    console.log('API Response:', data); // Log the response
-                    if (data?.status === "00") {
-                        // this.report_ResultOfServey = data?.data;
-                        this.sisterNokAll = data.data.filter(item => item.name === 'pay1');
-                        this.sisternok = this.sisterNokAll; // 
-                    } else {
-                        this.sisterNokAll = [];
-                        this.sisternok = [];
-                    }
-                    this.loading_processing = false;
-                });
-            } catch (error) {
-                this.loading_processing = false;
-                swal.fire({
-                    icon: 'error',
-                    text: error.message,
                 });
                 console.log(error);
             }
@@ -2310,208 +2237,57 @@ export default {
                 item.full_Name_Hole_number.toLowerCase().includes(query)
             );
         },
-        filterResults() {
-            // ຟັງຊັ່ນກອງຂໍ້ມູນຕາມຄ່າຄົ້ນຫາ
-            this.filteredResults = this.report_ResultOfServey.filter((item) =>
-                item.type.includes(this.searchQuery)
-            );
-        },
         filteredServey() {
             // ຟັງຊັ່ນກອງຂໍ້ມູນຕາມຄ່າຄົ້ນຫາ
-            this.filterServey = this.ResultOfServey.filter((item) =>
-                item.type.includes(this.searchQuery)
-            );
+            if (this.searchQuery.trim() === '') {
+                this.filterServey = this.filterServey1;
+            } else {
+                this.filterServey = this.filterServey1.filter((item) =>
+                    item.type.includes(this.searchQuery)
+                );
+            }
         },
+        // functionvichai() {
+        //     // ຟັງຊັ່ນກອງຂໍ້ມູນຕາມຄ່າຄົ້ນຫາ
+        //     this.vichai = this.vichai1.filter((item) =>
+        //         item.type.includes(this.searchQuery)
+        //     );
+        // },
+        // Filter data based on search query
         functionvichai() {
-            // ຟັງຊັ່ນກອງຂໍ້ມູນຕາມຄ່າຄົ້ນຫາ
-            this.vichai = this.vichaiAll.filter((item) =>
-                item.type.includes(this.searchQuery)
-            );
+            if (this.searchQuery.trim() === '') {
+                this.vichai = this.vichai1;
+            } else {
+                this.vichai = this.vichai1.filter((item) =>
+                    item.type.includes(this.searchQuery)
+                );
+            }
         },
         functionpay() {
             // ຟັງຊັ່ນກອງຂໍ້ມູນຕາມຄ່າຄົ້ນຫາ
-            this.payment = this.payAll.filter((item) =>
-                item.type.includes(this.searchQuery)
-            );
+            if (this.searchQuery.trim() === '') {
+                this.payment = this.payment1;
+            } else {
+                this.payment = this.payment1.filter((item) =>
+                    item.type.includes(this.searchQuery)
+                );
+            }
         },
         nokSearch() {
             // ຟັງຊັ່ນກອງຂໍ້ມູນຕາມຄ່າຄົ້ນຫາ
-            this.sisternok = this.sisterNokAll.filter((item) =>
-                item.type.includes(this.searchQuery)
-            );
-        },
-        refresh() {
-            // ຟັງຊັ່ນໂຫຼດຂໍ້ມູນໃໝ່
-            this.searchQuery = '';
-            this.filteredResults = this.report_ResultOfServey;
-        },
-        DocServey() {
-            try {
-                this.loading_processing = true;
-                this.$axios.$post('/ShowAllResultOfServey.service', {
-                    branchUser: this.USER_ROLE,
-                    toKen: this.toKen,  // Use the token set from the button click
-                    bound: this.bound,
-                    // bound: this.bound,
-                }).then((data) => {
-                    if (data?.status === "00") {
-                        // this.report_ResultOfServey = data?.data;
-                        // this.ResultOfServey = data.data.filter(item => item.name === 'kk'|| item.name==='dd');
-                        this.ResultOfServey = data.data.filter(item => item.name === 'servey');
-                        this.filterServey = this.ResultOfServey;
-
-                        this.loading_processing = false;
-                    } else {
-                        this.ResultOfServey = [];
-                        this.filterServey = [],
-                            this.loading_processing = false;
-                    }
-                });
-            } catch (error) {
-                this.loading_processing = false;
-                swal.fire({
-                    icon: 'error',
-                    text: error,
-                });
-                console.log(error);
+            if (this.searchQuery.trim() === '') {
+                this.sisternok = this.sisternok1;
+            } else {
+                this.sisternok = this.sisternok1.filter((item) =>
+                    item.type.includes(this.searchQuery)
+                );
             }
         },
-        vichaiExample() {
-            try {
-                this.loading_processing = true;
-                this.$axios.$post('/ShowAllResultOfServey.service', {
-                    branchUser: this.USER_ROLE,
-                    toKen: this.toKen,  // Use the token set from the button click
-                    bound: this.bound,
-                    // bound: this.bound,
-                }).then((data) => {
-                    if (data?.status === "00") {
-                        // this.report_ResultOfServey = data?.data;
-                        // this.ResultOfServey = data.data.filter(item => item.name === 'kk'|| item.name==='dd');
-                        this.vichaiAll = data.data.filter(item => item.name === 'testData');
-                        this.vichai = this.vichaiAll
-                        this.loading_processing = false;
-                    } else {
-                        this.vichaiAll = [];
-                        this.vichai = []
-                        this.loading_processing = false;
-                    }
-                });
-            } catch (error) {
-                this.loading_processing = false;
-                swal.fire({
-                    icon: 'error',
-                    text: error,
-                });
-                console.log(error);
-            }
-        },
-        paymentAll() {
-            try {
-                this.loading_processing = true;
-                this.$axios.$post('/ShowAllResultOfServey.service', {
-                    branchUser: this.USER_ROLE,
-                    toKen: this.toKen,  // Use the token set from the button click
-                    bound: this.bound,
-                    // bound: this.bound,
-                }).then((data) => {
-                    if (data?.status === "00") {
-                        // this.report_ResultOfServey = data?.data;
-                        // this.ResultOfServey = data.data.filter(item => item.name === 'kk'|| item.name==='dd');
-                        this.payAll = data.data.filter(item => item.name === 'pay');
-                        this.payment = this.payAll
-                        this.loading_processing = false;
-                    } else {
-                        this.payAll = [];
-                        this.payment = []
-                        this.loading_processing = false;
-                    }
-                });
-            } catch (error) {
-                this.loading_processing = false;
-                swal.fire({
-                    icon: 'error',
-                    text: error,
-                });
-                console.log(error);
-            }
-        },
-        // click2fuction(pic, key_id) {
-        //     //   this.showpdf(pic);
-        //     this.viewpdf(key_id);
-        // },
         click2fuction(fileUrl) {
             if (fileUrl) {
-                window.open(fileUrl, "_blank"); // เปิด URL ในแท็บใหม่
+                window.open(fileUrl, "_blank");
             } else {
                 console.error("File URL is missing or invalid.");
-            }
-        },
-        viewpdf(key_id) {
-            this.$router.push({ path: '/miningDetail_admin', query: { key_id: key_id } });
-        },
-        showpdf(pic) {
-            this.pdfUrl = pic;
-            this.pdfDialog = true; // Open the PDF dialog
-        },
-        async collerdelete(key_id) {
-            try {
-                const result = await swal.fire({
-                    title: 'Are you sure?',
-                    text: 'You won\'t be able to revert this!',
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Yes, delete it!'
-                });
-
-                if (result.isConfirmed) {
-                    const response = await this.$axios.$post('/DelHoleByID.service', {
-                        action: 'delete',
-                        key_id: key_id
-                    });
-
-                    if (response && response.status === '00') {
-                        swal.fire('Deleted!', 'Your file has been deleted.', 'success');
-                        this.ShowAllListOfHole(); // Refresh the list
-                    } else {
-                        swal.fire('Failed!', 'There was an error deleting your file.', 'error');
-                    }
-                }
-            } catch (error) {
-                this.$toast.error('เกิดข้อผิดพลาดในการเชื่อมต่อกับเซิร์ฟเวอร์');
-                console.error(error);
-            }
-        },
-        async Resultdelete(key_id) {
-            try {
-                const result = await swal.fire({
-                    title: 'Are you sure?',
-                    text: 'You won\'t be able to revert this!',
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Yes, delete it!'
-                });
-
-                if (result.isConfirmed) {
-                    const response = await this.$axios.$post('/DelResultOfSurveyByID.service', {
-                        action: 'delete',
-                        key_id: key_id
-                    });
-
-                    if (response && response.status === '00') {
-                        swal.fire('Deleted!', 'Your file has been deleted.', 'success');
-                        this.ShowAllListOfHole(); // Refresh the list
-                    } else {
-                        swal.fire('Failed!', 'There was an error deleting your file.', 'error');
-                    }
-                }
-            } catch (error) {
-                this.$toast.error('เกิดข้อผิดพลาดในการเชื่อมต่อกับเซิร์ฟเวอร์');
-                console.error(error);
             }
         },
         showResultpdf(file) {
@@ -2522,84 +2298,18 @@ export default {
 </script>
 
 <style>
-.scrollable-text {
-    height: 300px;
-    overflow-y: auto;
-    padding: 10px;
-}
-
-.st0 {
-    fill: #71d8ef;
-}
-
-.st1 {
-    fill: #fff534;
-}
-
-.st2 {
-    fill: #000000;
-}
-
 .custom-text-field {
     background-color: #f0f0f0;
     color: #000000;
 }
-
-.st10 {
-    fill: #695e5d4d;
-    stroke: black;
-    /* Add border color */
-    stroke-width: 1;
-}
-
-.st11 {
-    fill: #ECBDD6;
-}
-
-.circle-container {
-    display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
-}
-
-.circle {
-    width: 70px;
-    height: 70px;
-    border-radius: 50px;
-    background-color: #0a3382;
-    color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    margin-bottom: 15px;
-    margin-top: 15px;
-    margin-left: 15px;
-    transition: transform 0.2s;
-}
-
-.circle:hover {
-    transform: scale(1.1);
-}
-
-.circle span {
-    font-size: 20px;
-}
-
-.hoverable {
-    color: #000;
-    /* font-size: 16px;  */
-    transition: color 0.3s, font-size 0.3s;
-    cursor: pointer;
-}
-
 .hoverable:hover {
     color: #42A5F5;
     font-size: 18px;
     font-weight: bold;
 }
+
 .v-list-group__header .v-icon.mdi-excavator {
-  color: green; /* เปลี่ยนสีไอคอนเป็นสีแดง */
-  font-size: 24px; /* เพิ่มขนาดไอคอน (ถ้าต้องการ) */
+    color: green;
+    font-size: 24px;
 }
 </style>

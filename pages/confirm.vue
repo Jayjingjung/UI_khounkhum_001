@@ -95,6 +95,7 @@
                     :search="search">
                     <template v-slot:item="row">
                         <tr>
+                            <td></td>
                             <td>{{ row?.item?.item_name }}</td>
                             <td>{{ row?.item?.branch_inventory }}</td>
                             <td>{{ row?.item?.qty_Fix }}</td>
@@ -196,6 +197,7 @@ export default {
                 { text: 'ຫົວລັດ', value: 'h_VICIVLE_NUMBER' },
                 // { text: 'ຫາງລົດ', value: 'header_id' },
                 { text: 'ຫາງລົດ', value: 'f_BRANCH' },
+                { text: 'ທະບຽນ', value: '' },
             ],
             truck_table_headersv: [
                 { text: 'Checkbox', value: 'Checkbox' },

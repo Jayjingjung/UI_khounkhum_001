@@ -16,7 +16,7 @@
                 <div>ຈ່າຍຄ່າອາໄລ: {{ sumFooterferpaper.totalMoney }}</div>
             </div> -->
 
-            <div>ຈ່າຍສົດບໍ່ມີຊື່ຮ້ານ: {{ totalMoney }}</div>
+            <div>ຈ່າຍສົດບໍ່ມີຊື່ຮ້ານ: {{ totalMoney2 }}</div>
             <div>ຈ່າຍຮ້ານເຄຮດິດ(ຕິດໜີ້): {{ sumFooter_Credit.totalMoney_credit }}</div>
             <div>ຈ່າຍຄ່າຕິດໜີ້ນໍ້າມັນ: {{ sumFooter_Creditpaid.sumtotalOilPaid }}</div>
             <v-card-text>
@@ -482,7 +482,7 @@
 
 
                             <h3 class="red--text ">
-                                4.ຈ່າຍຄ່າອາໄລ: {{ totalMoney }} LAK
+                                4.ຈ່າຍຄ່າອາໄລ: {{ totalMoney2 }} LAK
 
 
                             </h3>
@@ -806,7 +806,7 @@ export default {
 
             sumFooter_Creditpaid: 0,
 
-            totalMoney: null,
+            totalMoney2: null,
 
             usd: '', // Example value for USD credit
             sfcusd: '', // Example value for USD in LAK
@@ -903,7 +903,7 @@ export default {
 
                 if (response.status === '00' && response.sumFooter && response.sumFooter_Credit) {
                     // Save the totalMoney and totalMoney_credit into component's data
-                    this.totalMoney = response.sumFooter.totalMoney;
+                    this.totalMoney2 = response.sumFooter.totalMoney;
                     this.totalMoneyCredit = response.sumFooter_Credit.totalMoney_credit;
                 } else {
                     swal.fire({
@@ -1066,17 +1066,18 @@ export default {
 
             // Retrieve and parse the values
             const biaOutWasted = this.sumFooter.biaOutWasted || 0;
-            const totalMoney = this.sumFooterferpaper.totalMoney || 0;
+            const totalMoney = this.sumFooter.totalMoney || 0;
             const totalMoneypop = this.sumFooter_Creditpaid.sumtotalOilPaid || 0;
-
+            const totalMoney2 = this.totalMoney2 || 0;
             // Parse the formatted numbers
             const biaOutWastedParsed = parseFormattedNumber(formatNumber(biaOutWasted));
             const totalMoneyParsed = parseFormattedNumber(formatNumber(totalMoney));
             const totalMoneypopParsed = parseFormattedNumber(formatNumber(totalMoneypop));
+            const totalMoney2Parsed = parseFormattedNumber(formatNumber(totalMoney2));
 
             // Compute the total and format the result
             this.sumFooter_all = formatNumber(biaOutWastedParsed + totalMoneyParsed);
-            this.sumFooter_allL = formatNumber(biaOutWastedParsed + totalMoneyParsed + totalMoneypopParsed);
+            this.sumFooter_allL = formatNumber(biaOutWastedParsed + totalMoneyParsed + totalMoney+totalMoney2Parsed);
         },
         formatDate(date) {
             if (!date) return '';

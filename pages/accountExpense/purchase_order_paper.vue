@@ -37,9 +37,9 @@
                             <td>{{ row?.item?.item_name }}</td>
                             <td>{{ row?.item?.dateCreate }}</td>
                             <td>{{ row?.item?.offer_CODE }}</td>
-                            <td :class="getStatusClass(row.item.status)">
+                            <!-- <td :class="getStatusClass(row.item.status)">
                                 {{ getStatusText(row.item.status) }}
-                            </td>
+                            </td> -->
 
 
 

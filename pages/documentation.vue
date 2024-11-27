@@ -181,3 +181,23 @@ export default {
     },
 };
 </script>
+<<<<<<< HEAD
+=======
+<style>
+.custom-text-field {
+    background-color: #f0f0f0;
+    color: #000000;
+}
+
+.hoverable:hover {
+    color: #42A5F5;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.v-list-group__header .v-icon.mdi-excavator {
+    color: green;
+    font-size: 24px;
+}
+</style>
+>>>>>>> 31c481d9a2162bfc57363eb2dd37d49488494d06

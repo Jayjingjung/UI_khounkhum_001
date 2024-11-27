@@ -110,7 +110,7 @@
             </v-card>
         </v-card>
         <div style="width: 100%;">
-    <!-- <v-card class="card-shadow" rounded="lg" style="border: 0.5px solid #e0e0e0; border-radius: 3px;">
+            <!-- <v-card class="card-shadow" rounded="lg" style="border: 0.5px solid #e0e0e0; border-radius: 3px;">
         <v-card-title style="background-color: #b76d22" class="white--text">
             ຢືນຢັນເເລ້ວ
         </v-card-title>
@@ -135,14 +135,14 @@
             </template>
         </v-data-table>
     </v-card> -->
-</div>
+        </div>
 
-        <div style="width: 100%;"> 
+        <div style="width: 100%;">
             <v-card class="card-shadow" rounded="lg" style="border: 0.5px solid #e0e0e0; border-radius: 3px;">
                 <v-card-title style="background-color: #b76d22" class="white--text">
-                    ຢືນຢັນເເລ້ວ
+                    ຖ້າຢືນຢັນ
                 </v-card-title>
-                <v-data-table :items-per-page="5" :headers="truck_table_headersv2" :items="filteredTruckData"
+                <v-data-table :items-per-page="5" :headers="truck_table_headersv2" :items="truck_data_listv2"
                     :search="search">
                     <template v-slot:item="row">
                         <tr>
@@ -156,6 +156,8 @@
                             <td>{{ row?.item?.description }}</td>
                             <td>{{ row?.item?.fix_Detail }}</td>
                             <td>{{ row?.item?.location_fix }}</td>
+
+
                             <td>{{ row?.item?.dateFix }}</td>
                             <td>{{ row?.item?.item_id }}</td>
                             <td>{{ row?.item?.footer_id }}</td>
@@ -163,7 +165,7 @@
                             <td>{{ row?.item?.header_id }}</td>
                             <td>{{ row?.item?.h_VICIVLE_NUMBER }}</td>
 
-                          
+
 
                         </tr>
                     </template>
@@ -318,10 +320,8 @@ export default {
         };
     },
     computed: {
-        filteredTruckData() {
-        return this.truck_data_listv2.filter(item => item.approve_status === 'YES');
-    }
-    
+
+
     },
     watch: {
         qty_Fix(newVal) {
@@ -633,7 +633,8 @@ export default {
                 const response = await this.$axios.$post('showListofFixReq.service', data);
 
                 if (response?.status === '00' && response?.data) {
-                    this.truck_data_listv2 = response.data;
+                    // Filter data where new_status is 'GO'
+                    this.truck_data_listv2 = response.data.filter(item => item.new_status !== 'GO');
                 } else {
                     // Clear the data if no results are found
                     this.truck_data_listv2 = [];
@@ -644,7 +645,32 @@ export default {
             } finally {
                 this.loading_processing = false;
             }
-        },
+        }
+        ,
+        // async onGetshowdata_tablev2() {
+        //     try {
+        //         this.loading_processing = true;
+        //         const data = {
+        //             startDate: this.startDate,
+        //             endDate: this.endDate,
+        //             toKen: localStorage.getItem('toKen'),
+        //         };
+
+        //         const response = await this.$axios.$post('showListofFixReq.service', data);
+
+        //         if (response?.status === '00' && response?.data) {
+        //             this.truck_data_listv2 = response.data;
+        //         } else {
+        //             // Clear the data if no results are found
+        //             this.truck_data_listv2 = [];
+        //         }
+        //     } catch (error) {
+        //         console.error('API error:', error); // Log the error
+        //         this.truck_data_listv2 = []; // Clear the data on error
+        //     } finally {
+        //         this.loading_processing = false;
+        //     }
+        // },
     },
     mounted() {
         this.onGetTruckFooter(); // Fetch truck footer data when component is mounted

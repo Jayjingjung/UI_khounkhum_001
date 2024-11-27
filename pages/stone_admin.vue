@@ -332,7 +332,7 @@
                                 </v-btn> -->
                                 <v-spacer></v-spacer>
                                 <v-btn color="success"
-                                    @click="nokDoc('UnCuQ8Dql7bSVS9LcDfMWmA8asAtQLMF', 'ເອກະສານເອື້ອຍນົກ', 'nok')"
+                                    @click="nokDoc('UnCuQ8Dql7bSVS9LcDfMWmA8asAtQLMF', 'ເອກະສານເອື້ອຍນົກ', 'nok', 'ເພີ່ມເອກະສານ')"
                                     rounded>
                                     ເພີ່ມ
                                 </v-btn>
@@ -372,7 +372,7 @@
                                     </v-btn> -->
                                     <v-spacer></v-spacer>
                                     <v-btn color="success"
-                                        @click="miningDoc('tZl011U2nNs9AdvQDIStduuOIc8yWmxw', 'ບ້ານຄອນງົວ', 'documment')"
+                                        @click="nokDoc('tZl011U2nNs9AdvQDIStduuOIc8yWmxw', 'ບ້ານຄອນງົວ', 'documment', 'ເພີ່ມເອກະສານທີ່ກ່ຽວຂ້ອງ')"
                                         rounded>
                                         ເພີ່ມ
                                     </v-btn>
@@ -529,7 +529,7 @@
                                     </v-btn>
                                     <v-spacer></v-spacer>
                                     <v-btn color="success" rounded
-                                        @click="miningDoc('3iKcWacuOwaXxERfL6LNvuEKdjhvc5aF', 'ບ້ານສີຄູນ', 'documment')">
+                                        @click="nokDoc('3iKcWacuOwaXxERfL6LNvuEKdjhvc5aF', 'ບ້ານສີຄູນ', 'documment' , 'ເພີ່ມເອກະສານທີ່ກ່ຽວຂ້ອງ')">
                                         ເພີ່ມ
                                     </v-btn>
                                     <br>
@@ -683,7 +683,7 @@
                                     </v-btn>
                                     <v-spacer></v-spacer>
                                     <v-btn color="success" rounded
-                                        @click="miningDoc('e23QZokLhZNSVtXP1qYQHM8PVHr76VQa', 'ບ້ານທ່າ', 'documment')">
+                                        @click="nokDoc('e23QZokLhZNSVtXP1qYQHM8PVHr76VQa', 'ບ້ານທ່າ', 'documment', 'ເພີ່ມເອກະສານທີ່ກ່ຽວຂ້ອງ')">
                                         ເພີ່ມ
                                     </v-btn>
                                     <br>
@@ -839,7 +839,7 @@
                                     </v-btn>
                                     <v-spacer></v-spacer>
                                     <v-btn color="success" rounded
-                                        @click="miningDoc('phonkham123kOQHMwA1Ve9lMq22X3kpSiaIbDO123', 'ບ້ານໂພນຄໍາ', 'documment')">
+                                        @click="nokDoc('phonkham123kOQHMwA1Ve9lMq22X3kpSiaIbDO123', 'ບ້ານໂພນຄໍາ', 'documment', 'ເພີ່ມເອກະສານທີ່ກ່ຽວຂ້ອງ')">
                                         ເພີ່ມ
                                     </v-btn>
                                     <br>
@@ -995,7 +995,7 @@
                                     </v-btn>
                                     <v-spacer></v-spacer>
                                     <v-btn color="success" rounded
-                                        @click="miningDoc('kOQHMwA1Ve9lMq22X3kpSiaIbGGKghDO', 'ບ້ານຊຽງຄົງ', 'documment')">
+                                        @click="nokDoc('kOQHMwA1Ve9lMq22X3kpSiaIbGGKghDO', 'ບ້ານຊຽງຄົງ', 'documment' , 'ເພີ່ມເອກະສານທີ່ກ່ຽວຂ້ອງ')">
                                         ເພີ່ມ
                                     </v-btn>
                                     <br>
@@ -1148,7 +1148,7 @@
                                     </v-btn>
                                     <v-spacer></v-spacer>
                                     <v-btn color="success" rounded
-                                        @click="miningDoc('namzao123kOQHMwA1Ve9lMq22X3kpSiaIbKghDO456', 'ບ້ານນໍ້າຊາວ', 'documment')">
+                                        @click="nokDoc('namzao123kOQHMwA1Ve9lMq22X3kpSiaIbKghDO456', 'ບ້ານນໍ້າຊາວ', 'documment', 'ເພີ່ມເອກະສານທີ່ກ່ຽວຂ້ອງ')">
                                         ເພີ່ມ
                                     </v-btn>
                                     <br>
@@ -1305,7 +1305,7 @@
                                     </v-btn>
                                     <v-spacer></v-spacer>
                                     <v-btn color="success" rounded
-                                        @click="miningDoc('nongphounxai3kOQHMwA1Ve9lMq22X3kpSiaIDO789', 'ໜອງພູໄຊ 32,28', 'documment')">
+                                        @click="nokDoc('nongphounxai3kOQHMwA1Ve9lMq22X3kpSiaIDO789', 'ໜອງພູໄຊ 32,28', 'documment', 'ເພີ່ມເອກະສານທີ່ກ່ຽວຂ້ອງ')">
                                         ເພີ່ມ
                                     </v-btn>
                                     <br>
@@ -1461,7 +1461,7 @@
                                     </v-btn>
                                     <v-spacer></v-spacer>
                                     <v-btn color="success" rounded
-                                        @click="miningDoc('knongphounxaiOQHMwA1Ve9lMq22X3kpSiahDO101112', 'ໜອງພູໄຊ 62,39', 'documment')">
+                                        @click="nokDoc('knongphounxaiOQHMwA1Ve9lMq22X3kpSiahDO101112', 'ໜອງພູໄຊ 62,39', 'documment', 'ເພີ່ມເອກະສານທີ່ກ່ຽວຂ້ອງ')">
                                         ເພີ່ມ
                                     </v-btn>
                                     <br>
@@ -1616,7 +1616,7 @@
                                     </v-btn>
                                     <v-spacer></v-spacer>
                                     <v-btn color="success" rounded
-                                        @click="miningDoc('kOlardhor123QHMwA1Ve9lMq22X3GGKghDO13214415', 'ບ້ານລາດຫໍ້', 'documment')">
+                                        @click="nokDoc('kOlardhor123QHMwA1Ve9lMq22X3GGKghDO13214415', 'ບ້ານລາດຫໍ້', 'documment', 'ເພີ່ມເອກະສານທີ່ກ່ຽວຂ້ອງ')">
                                         ເພີ່ມ
                                     </v-btn>
                                     <br>
@@ -1771,7 +1771,7 @@
                                     </v-btn>
                                     <v-spacer></v-spacer>
                                     <v-btn color="success" rounded
-                                        @click="miningDoc('vewerwfe33369cee4866caf2f9941bf6244c5b6570f63a1f3eb91bba', 'ບ້ານຕະເປືອ', 'documment')">
+                                        @click="nokDoc('vewerwfe33369cee4866caf2f9941bf6244c5b6570f63a1f3eb91bba', 'ບ້ານຕະເປືອ', 'documment' , 'ເພີ່ມເອກະສານທີ່ກ່ຽວຂ້ອງ')">
                                         ເພີ່ມ
                                     </v-btn>
                                     <br>
@@ -1926,7 +1926,7 @@
                                     </v-btn>
                                     <v-spacer></v-spacer>
                                     <v-btn color="success" rounded
-                                        @click="miningDoc('e6ea9da1b901d1ddeevgewvewvwe941bf6244c5b6570f63a1f3eb91bba', 'ບ້ານຫ້ວຍຮ່ອງ', 'documment')">
+                                        @click="nokDoc('e6ea9da1b901d1ddeevgewvewvwe941bf6244c5b6570f63a1f3eb91bba', 'ບ້ານຫ້ວຍຮ່ອງ', 'documment' , 'ເພີ່ມເອກະສານທີ່ກ່ຽວຂ້ອງ')">
                                         ເພີ່ມ
                                     </v-btn>
                                     <br>
@@ -2120,22 +2120,22 @@ export default {
                 query: { token, label: buttonvalue }
             });
         },
-        miningDoc(token, buttonLabel, number) {
-            this.$router.push({
-                name: 'miningdocument',
-                query: { token, label: buttonLabel, number }
-            });
-        },
+        // miningDoc(token, buttonLabel, number) {
+        //     this.$router.push({
+        //         name: 'miningdocument',
+        //         query: { token, label: buttonLabel, number }
+        //     });
+        // },
         miningDoc1(token, buttonLabel) {
             this.$router.push({
                 name: 'documentation1',
                 query: { token, label: buttonLabel }
             });
         },
-        nokDoc(token, buttonLabel, number) {
+        nokDoc(token, buttonLabel, number,number1) {
             this.$router.push({
                 name: 'nokdocumment',
-                query: { token, label: buttonLabel, number }
+                query: { token, label: buttonLabel, number,number1 }
             });
         },
         nokDoc1(token, buttonLabel) {

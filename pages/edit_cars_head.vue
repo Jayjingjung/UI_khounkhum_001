@@ -440,15 +440,15 @@
                                 ຕັ້ງສິດ
                                 <v-spacer></v-spacer>
                             </v-card-title>
-                            <v-row style="margin-top: -14px;">
-                                <v-col clos="6" md="3" sm="3">
-                                    <span>ຕັ້ງສິດ</span><v-text-field :rules="nameRules" label="ຕັ້ງສິດ" dense flat solo
+                            <v-row style="margin-top: -14px;" justify="center" align="center">
+                                <v-col cols="12" md="6" sm="8" class="text-center">
+                                    <span class="d-block mb-2 mt-10">ຕັ້ງສິດ</span>
+                                    <v-text-field :rules="nameRules" label="ຕັ້ງສິດ" dense flat solo
                                         background-color="#f5f5f5" v-model="lektungsit"></v-text-field>
-                                    <div class="tops">
-                                    </div>
+                                    <div class="tops"></div>
                                 </v-col>
-
                             </v-row>
+
                         </v-card>
                         <Height />
 
@@ -1358,7 +1358,7 @@ export default {
                 formdata.append('files', this.imageTruck !== null || this.imageTruck !== '' ? this.imageTruck : '')
                 formdata.append('h_VICIVLE_NUMBER', this.h_VICIVLE_NUMBER)
                 formdata.append('h_VICIVLE_GALATY', this.h_VICIVLE_GALATY)
-                formdata.append('h_VICIVLE_DATE_GALATY', this.h_VICIVLE_DATE_GALATY )
+                formdata.append('h_VICIVLE_DATE_GALATY', this.h_VICIVLE_DATE_GALATY)
                 formdata.append('date_change_lean', this.formattedDate || "0000-00-00")
                 formdata.append('h_VICIVLE_TNGLOD', this.h_VICIVLE_TNGLOD)
                 formdata.append('h_VICIVLE_BRANCH', this.h_VICIVLE_BRANCH)

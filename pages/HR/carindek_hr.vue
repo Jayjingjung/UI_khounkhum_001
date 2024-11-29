@@ -48,6 +48,10 @@
               <v-btn color="#f593b3" class="white--text"
                 @click="print"><v-icon>mdi-printer</v-icon>ພິມລາຍງານທັງໝົດ</v-btn>
             </v-row>
+            <div class="pt-8 ml-4" style="width: 500px;">
+              <v-text-field background-color="#f5f5f5" solo flat dense label="ຄົ້ນຫາ..." v-model="search"
+                prepend-inner-icon="mdi-magnify" clearable> </v-text-field>
+            </div>
           </v-card-title>
           <div class="mt-2">
             <v-data-table :items="report_listCarOffice" :headers="report_leave_caroffice_header" :search="search">

@@ -39,20 +39,25 @@
                                 </v-card-actions>
                             </div>
                         </v-card>
-                        <div v-for="(item, index) in vichai" :key="index">
-                            <v-card-actions>
-                                <v-btn text @click="showResultpdf(item.file)">
-                                    <v-icon color="#00E676">
-                                        mdi-progress-download
-                                    </v-icon>
-                                </v-btn>
-                                <div @click="showResultpdf(item.file)" class="hoverable">
-                                    {{ item.type }}
-                                    <v-divider></v-divider>
-                                </div>
-                                <v-spacer></v-spacer>
-                                ({{ item.dateInsert }})
-                            </v-card-actions>
+                        <div v-if="vichai.length">
+                            <div v-for="(item, index) in vichai" :key="index">
+                                <v-card-actions>
+                                    <v-btn text @click="showResultpdf(item.file)">
+                                        <v-icon color="#00E676">
+                                            mdi-progress-download
+                                        </v-icon>
+                                    </v-btn>
+                                    <div @click="showResultpdf(item.file)" class="hoverable">
+                                        {{ item.type }}
+                                        <v-divider></v-divider>
+                                    </div>
+                                    <v-spacer></v-spacer>
+                                    ({{ item.dateInsert }})
+                                </v-card-actions>
+                            </div>
+                        </div>
+                        <div v-else class="text-center mt-5" style="font-size: 16px; color:crimson;">
+                            <p>ບໍ່ມີຂໍ້ມູນ</p>
                         </div>
                     </v-card-text>
                 </div>
@@ -87,56 +92,25 @@
                                 </v-card-actions>
                             </div>
                         </v-card>
-                        <div v-for="(item, index) in sisternok" :key="index">
-                            <v-card-actions>
-                                <v-btn text @click="showResultpdf(item.file)">
-                                    <v-icon color="#00E676">
-                                        mdi-progress-download
-                                    </v-icon>
-                                </v-btn>
-                                <div @click="showResultpdf(item.file)" class="hoverable">
-                                    {{ item.type }}
-                                    <v-divider></v-divider>
-                                </div>
-                                <v-spacer></v-spacer>
-                                ({{ item.dateInsert }})
-                            </v-card-actions>
-                        </div>
-                    </v-card-text>
-                </div>
-            </v-card>
-        </v-dialog>
-        <!-- ເອກະສານທີ່ກ່ຽວຂ້ອງ  -->
-        <v-dialog v-model="filedocument" max-width="490">
-            <v-card class="mx-auto" max-width="490">
-                <div>
-                    <v-card-text>
-                        <v-card style="position: sticky; top: 0; z-index: 1;" max-width="500" flat>
-                            <v-btn @click="refresher" rounded color="primary">
-                                <v-icon>mdi-arrow-collapse-left</v-icon>
-                                ກັບຄືນ
-                            </v-btn>
-                            <div class="text-center font-weight-bold" style="font-size: 20px">
-                                ຂໍ້ມູນຜົນເອກະສານທີ່ກ້ຽວຂ້ອງ
+                        <div v-if="sisternok.length">
+                            <div v-for="(item, index) in sisternok" :key="index">
+                                <v-card-actions>
+                                    <v-btn text @click="showResultpdf(item.file)">
+                                        <v-icon color="#00E676">
+                                            mdi-progress-download
+                                        </v-icon>
+                                    </v-btn>
+                                    <div @click="showResultpdf(item.file)" class="hoverable">
+                                        {{ item.type }}
+                                        <v-divider></v-divider>
+                                    </div>
+                                    <v-spacer></v-spacer>
+                                    ({{ item.dateInsert }})
+                                </v-card-actions>
                             </div>
-                            <v-divider></v-divider>
-                            <v-text-field label="ຄົ້ນຫາ" v-model="searchQuery" append-icon="mdi-magnify"
-                                @input="filterResults"></v-text-field>
-                        </v-card>
-                        <div v-for="(item, index) in filteredResults" :key="index">
-                            <v-card-actions>
-                                <v-btn text @click="showResultpdf(item.file)">
-                                    <v-icon color="#00E676">
-                                        mdi-progress-download
-                                    </v-icon>
-                                </v-btn>
-                                <div @click="showResultpdf(item.file)" class="hoverable">
-                                    {{ item.type }}
-                                    <v-divider></v-divider>
-                                </div>
-                                <v-spacer></v-spacer>
-                                ({{ item.dateInsert }})
-                            </v-card-actions>
+                        </div>
+                        <div v-else class="text-center mt-5" style="font-size: 16px; color:crimson;">
+                            <p>ບໍ່ມີຂໍ້ມູນ</p>
                         </div>
                     </v-card-text>
                 </div>
@@ -172,20 +146,25 @@
                                 </v-card-actions>
                             </div>
                         </v-card>
-                        <div v-for="(item, index) in filterServey" :key="index">
-                            <v-card-actions>
-                                <v-btn text @click="showResultpdf(item.file)">
-                                    <v-icon color="#00E676">
-                                        mdi-progress-download
-                                    </v-icon>
-                                </v-btn>
-                                <div @click="showResultpdf(item.file)" class="hoverable">
-                                    {{ item.type }}
-                                    <v-divider></v-divider>
-                                </div>
-                                <v-spacer></v-spacer>
-                                ({{ item.dateInsert }})
-                            </v-card-actions>
+                        <div v-if="filterServey.length">
+                            <div v-for="(item, index) in filterServey" :key="index">
+                                <v-card-actions>
+                                    <v-btn text @click="showResultpdf(item.file)">
+                                        <v-icon color="#00E676">
+                                            mdi-progress-download
+                                        </v-icon>
+                                    </v-btn>
+                                    <div @click="showResultpdf(item.file)" class="hoverable">
+                                        {{ item.type }}
+                                        <v-divider></v-divider>
+                                    </div>
+                                    <v-spacer></v-spacer>
+                                    ({{ item.dateInsert }})
+                                </v-card-actions>
+                            </div>
+                        </div>
+                        <div v-else class="text-center mt-5" style="font-size: 16px; color:crimson;">
+                            <p>ບໍ່ມີຂໍ້ມູນ</p>
                         </div>
                     </v-card-text>
                 </div>
@@ -221,16 +200,22 @@
                         </v-card>
 
                         <!-- Filtered List -->
-                        <div v-for="item in filteredReportList" :key="item.key_id">
-                            <v-card-actions>
-                                <v-btn text @click="click2fuction(item.pic)">
-                                    <v-icon color="#00E676">mdi-progress-download</v-icon>
-                                </v-btn>
-                                <div class="hoverable" @click="click2fuction(item.pic)">
-                                    {{ item.full_Name_Hole_number }}
-                                    <v-divider></v-divider>
-                                </div>
-                            </v-card-actions>
+                        <div v-if="filteredReportList.length">
+
+                            <div v-for="item in filteredReportList" :key="item.key_id">
+                                <v-card-actions>
+                                    <v-btn text @click="click2fuction(item.pic)">
+                                        <v-icon color="#00E676">mdi-progress-download</v-icon>
+                                    </v-btn>
+                                    <div class="hoverable" @click="click2fuction(item.pic)">
+                                        {{ item.full_Name_Hole_number }}
+                                        <v-divider></v-divider>
+                                    </div>
+                                </v-card-actions>
+                            </div>
+                        </div>
+                        <div v-else class="text-center mt-5" style="font-size: 16px; color:crimson;">
+                            <p>ບໍ່ມີຂໍ້ມູນ</p>
                         </div>
                     </v-card-text>
                 </div>
@@ -266,21 +251,27 @@
                                 </v-card-actions>
                             </div>
                         </v-card>
-                        <div v-for="(item, index) in payment" :key="index">
-                            <v-card-actions>
-                                <v-btn text @click="showResultpdf(item.file)">
-                                    <v-icon color="#00E676">
-                                        mdi-progress-download
-                                    </v-icon>
-                                </v-btn>
-                                <div @click="showResultpdf(item.file)" class="hoverable">
-                                    {{ item.type }}
-                                    <v-divider></v-divider>
-                                </div>
-                                <v-spacer></v-spacer>
-                                ({{ item.dateInsert }})
-                            </v-card-actions>
+                        <div v-if="payment.length">
+
+                            <div v-for="(item, index) in payment" :key="index">
+                                <v-card-actions>
+                                    <v-btn text @click="showResultpdf(item.file)">
+                                        <v-icon color="#00E676">
+                                            mdi-progress-download
+                                        </v-icon>
+                                    </v-btn>
+                                    <div @click="showResultpdf(item.file)" class="hoverable">
+                                        {{ item.type }}
+                                        <v-divider></v-divider>
+                                    </div>
+                                    <v-spacer></v-spacer>
+                                    ({{ item.dateInsert }})
+                                </v-card-actions>
+                            </div>
                         </div>
+                        <div v-else class="text-center mt-5" style="font-size: 16px; color:crimson;">
+                        <p>ບໍ່ມີຂໍ້ມູນ</p>
+                    </div>
                     </v-card-text>
                 </div>
             </v-card>
@@ -392,7 +383,7 @@
                                     </v-btn>
                                     <v-spacer></v-spacer>
                                     <v-btn color="success"
-                                        @click="paymentdoc('tZl011U2nNs9AdvQDIStduuOIc8yWmxw', 'ບ້ານຄອນງົວ', 'pay1', 'ເອກະສານ')"
+                                        @click="paymentdoc('tZl011U2nNs9AdvQDIStduuOIc8yWmxw', 'ບ້ານຄອນງົວ', 'pay1', 'ເອກະສານ','ເພີ່ມຂໍ້ມູນລາຍຈ່າຍ')"
                                         rounded>
                                         ເພີ່ມ
                                     </v-btn>
@@ -412,7 +403,7 @@
                                     </v-btn>
                                     <v-spacer></v-spacer>
                                     <v-btn color="success"
-                                        @click="navigateWithToken('tZl011U2nNs9AdvQDIStduuOIc8yWmxw', 'ບ້ານຄອນງົວ', 'servey', 'ເອກະສານ')"
+                                        @click="paymentdoc('tZl011U2nNs9AdvQDIStduuOIc8yWmxw', 'ບ້ານຄອນງົວ', 'servey', 'ເອກະສານ','ເພີ່ມຂໍ້ມູນສຳຫຼວດ')"
                                         rounded>
                                         ເພີ່ມ
                                     </v-btn>
@@ -452,7 +443,7 @@
                                     </v-btn>
                                     <v-spacer></v-spacer>
                                     <v-btn color="success"
-                                        @click="test('tZl011U2nNs9AdvQDIStduuOIc8yWmxw', 'ບ້ານຄອນງົວ', 'testData', 'ເອກະສານ')"
+                                        @click="paymentdoc('tZl011U2nNs9AdvQDIStduuOIc8yWmxw', 'ບ້ານຄອນງົວ', 'testData', 'ເອກະສານ','ເພີ່ມຂໍ້ມູນວິໃຈຕົວຢ່າງ')"
                                         rounded>
                                         ເພີ່ມ
                                     </v-btn>
@@ -472,7 +463,7 @@
                                     </v-btn>
                                     <v-spacer></v-spacer>
                                     <v-btn color="success"
-                                        @click="paymentdoc('tZl011U2nNs9AdvQDIStduuOIc8yWmxw', 'ບ້ານຄອນງົວ', 'pay', 'ເອກະສານ')"
+                                        @click="paymentdoc('tZl011U2nNs9AdvQDIStduuOIc8yWmxw', 'ບ້ານຄອນງົວ', 'pay', 'ເອກະສານມ','ເພີ່ມຂໍ້ມູນລາຍຈ່າຍ')"
                                         rounded>
                                         ເພີ່ມ
                                     </v-btn>
@@ -529,7 +520,7 @@
                                     </v-btn>
                                     <v-spacer></v-spacer>
                                     <v-btn color="success" rounded
-                                        @click="nokDoc('3iKcWacuOwaXxERfL6LNvuEKdjhvc5aF', 'ບ້ານສີຄູນ', 'documment' , 'ເພີ່ມເອກະສານທີ່ກ່ຽວຂ້ອງ')">
+                                        @click="nokDoc('3iKcWacuOwaXxERfL6LNvuEKdjhvc5aF', 'ບ້ານສີຄູນ', 'documment', 'ເພີ່ມເອກະສານທີ່ກ່ຽວຂ້ອງ')">
                                         ເພີ່ມ
                                     </v-btn>
                                     <br>
@@ -549,7 +540,7 @@
                                     </v-btn>
                                     <v-spacer></v-spacer>
                                     <v-btn color="success"
-                                        @click="paymentdoc('3iKcWacuOwaXxERfL6LNvuEKdjhvc5aF', 'ບ້ານສີຄູນ', 'pay1', 'ເອກະສານ')"
+                                        @click="paymentdoc('3iKcWacuOwaXxERfL6LNvuEKdjhvc5aF', 'ບ້ານສີຄູນ', 'pay1', 'ເອກະສານ','ເພີ່ມຂໍ້ມູນລາຍຈ່າຍ')"
                                         rounded>
                                         ເພີ່ມ
                                     </v-btn>
@@ -570,7 +561,7 @@
                                     </v-btn>
                                     <v-spacer></v-spacer>
                                     <v-btn color="success" rounded
-                                        @click="navigateWithToken('3iKcWacuOwaXxERfL6LNvuEKdjhvc5aF', 'ບ້ານສີຄູນ', 'servey', 'ເອກະສານ')">
+                                        @click="paymentdoc('3iKcWacuOwaXxERfL6LNvuEKdjhvc5aF', 'ບ້ານສີຄູນ', 'servey', 'ເອກະສານ','ເພີ່ມຂໍ້ມູນສຳຫຼວດ')">
                                         ເພີ່ມ
                                     </v-btn>
                                     <br>
@@ -609,7 +600,7 @@
                                     </v-btn>
                                     <v-spacer></v-spacer>
                                     <v-btn color="success"
-                                        @click="test('3iKcWacuOwaXxERfL6LNvuEKdjhvc5aF', 'ບ້ານສີຄູນ', 'testData', 'ເອກະສານ')"
+                                        @click="paymentdoc('3iKcWacuOwaXxERfL6LNvuEKdjhvc5aF', 'ບ້ານສີຄູນ', 'testData', 'ເອກະສານ','ເພີ່ມຂໍ້ມູນວິໃຈຕົວຢ່າງ')"
                                         rounded>
                                         ເພີ່ມ
                                     </v-btn>
@@ -629,7 +620,7 @@
                                     </v-btn>
                                     <v-spacer></v-spacer>
                                     <v-btn color="success"
-                                        @click="paymentdoc('3iKcWacuOwaXxERfL6LNvuEKdjhvc5aF', 'ບ້ານສີຄູນ', 'pay', 'ເອກະສານ')"
+                                        @click="paymentdoc('3iKcWacuOwaXxERfL6LNvuEKdjhvc5aF', 'ບ້ານສີຄູນ', 'pay', 'ເອກະສານ','ເພີ່ມຂໍ້ມູນລາຍຈ່າຍ')"
                                         rounded>
                                         ເພີ່ມ
                                     </v-btn>
@@ -703,7 +694,7 @@
                                     </v-btn>
                                     <v-spacer></v-spacer>
                                     <v-btn color="success"
-                                        @click="paymentdoc('e23QZokLhZNSVtXP1qYQHM8PVHr76VQa', 'ບ້ານທ່າ', 'pay1', 'ເອກະສານ')"
+                                        @click="paymentdoc('e23QZokLhZNSVtXP1qYQHM8PVHr76VQa', 'ບ້ານທ່າ', 'pay1', 'ເອກະສານ','ເພີ່ມຂໍ້ມູນລາຍຈ່າຍ')"
                                         rounded>
                                         ເພີ່ມ
                                     </v-btn>
@@ -724,7 +715,7 @@
                                     </v-btn>
                                     <v-spacer></v-spacer>
                                     <v-btn color="success" rounded
-                                        @click="navigateWithToken('e23QZokLhZNSVtXP1qYQHM8PVHr76VQa', 'ບ້ານທ່າ', 'servey', 'ເອກະສານ')">
+                                        @click="paymentdoc('e23QZokLhZNSVtXP1qYQHM8PVHr76VQa', 'ບ້ານທ່າ', 'servey', 'ເອກະສານ','ເພີ່ມຂໍ້ມູນສຳຫຼວດ')">
                                         ເພີ່ມ
                                     </v-btn>
                                     <br>
@@ -763,7 +754,7 @@
                                     </v-btn>
                                     <v-spacer></v-spacer>
                                     <v-btn color="success"
-                                        @click="test('23QZokLhZNSVtXP1qYQHM8PVHr76VQa', 'ບ້ານທ່າ', 'testData', 'ເອກະສານ')"
+                                        @click="paymentdoc('e23QZokLhZNSVtXP1qYQHM8PVHr76VQa', 'ບ້ານທ່າ', 'testData', 'ເອກະສານ','ເພີ່ມຂໍ້ມູນວິໃຈຕົວຢ່າງ')"
                                         rounded>
                                         ເພີ່ມ
                                     </v-btn>
@@ -783,7 +774,7 @@
                                     </v-btn>
                                     <v-spacer></v-spacer>
                                     <v-btn color="success"
-                                        @click="paymentdoc('23QZokLhZNSVtXP1qYQHM8PVHr76VQa', 'ບ້ານທ່າ', 'pay', 'ເອກະສານ')"
+                                        @click="paymentdoc('e23QZokLhZNSVtXP1qYQHM8PVHr76VQa', 'ບ້ານທ່າ', 'pay', 'ເອກະສານ','ເພີ່ມຂໍ້ມູນລາຍຈ່າຍ')"
                                         rounded>
                                         ເພີ່ມ
                                     </v-btn>
@@ -859,7 +850,7 @@
                                     </v-btn>
                                     <v-spacer></v-spacer>
                                     <v-btn color="success"
-                                        @click="paymentdoc('phonkham123kOQHMwA1Ve9lMq22X3kpSiaIbDO123', 'ບ້ານໂພນຄໍາ', 'pay1', 'ເອກະສານ')"
+                                        @click="paymentdoc('phonkham123kOQHMwA1Ve9lMq22X3kpSiaIbDO123', 'ບ້ານໂພນຄໍາ', 'pay1', 'ເອກະສານ','ເພີ່ມຂໍ້ມູນລາຍຈ່າຍ')"
                                         rounded>
                                         ເພີ່ມ
                                     </v-btn>
@@ -880,7 +871,7 @@
                                     </v-btn>
                                     <v-spacer></v-spacer>
                                     <v-btn color="success" rounded
-                                        @click="navigateWithToken('phonkham123kOQHMwA1Ve9lMq22X3kpSiaIbDO123', 'ບ້ານໂພນຄໍາ', 'servey', 'ເອກະສານ')">
+                                        @click="paymentdoc('phonkham123kOQHMwA1Ve9lMq22X3kpSiaIbDO123', 'ບ້ານໂພນຄໍາ', 'servey', 'ເອກະສານ','ເພີ່ມຂໍ້ມູນສຳຫຼວດ')">
                                         ເພີ່ມ
                                     </v-btn>
                                     <br>
@@ -907,8 +898,8 @@
                                 </v-list-item>
                             </v-list-group>
                             <v-list-group no-action sub-group>
-                                <v-icon color="blue">mdi-test-tube-off</v-icon>
                                 <template v-slot:activator>
+                                    <v-icon color="blue">mdi-test-tube-off</v-icon>
                                     <v-list-item-content>
                                         <v-list-item-title
                                             style="height: 20px; overflow: visible;">ຂໍ້ມູນວິໃຈຕົວຢ່າງ</v-list-item-title>
@@ -920,7 +911,7 @@
                                     </v-btn>
                                     <v-spacer></v-spacer>
                                     <v-btn color="success"
-                                        @click="test('phonkham123kOQHMwA1Ve9lMq22X3kpSiaIbDO123', 'ບ້ານໂພນຄໍາ', 'testData', 'ເອກະສານ')"
+                                        @click="paymentdoc('phonkham123kOQHMwA1Ve9lMq22X3kpSiaIbDO123', 'ບ້ານໂພນຄໍາ', 'testData', 'ເອກະສານ','ເພີ່ມຂໍ້ມູນວິໃຈຕົວຢ່າງ')"
                                         rounded>
                                         ເພີ່ມ
                                     </v-btn>
@@ -940,7 +931,7 @@
                                     </v-btn>
                                     <v-spacer></v-spacer>
                                     <v-btn color="success"
-                                        @click="paymentdoc('phonkham123kOQHMwA1Ve9lMq22X3kpSiaIbDO123', 'ບ້ານໂພນຄໍາ', 'pay', 'ເອກະສານ')"
+                                        @click="paymentdoc('phonkham123kOQHMwA1Ve9lMq22X3kpSiaIbDO123', 'ບ້ານໂພນຄໍາ', 'pay', 'ເອກະສານ','ເພີ່ມຂໍ້ມູນລາຍຈ່າຍ')"
                                         rounded>
                                         ເພີ່ມ
                                     </v-btn>
@@ -995,7 +986,7 @@
                                     </v-btn>
                                     <v-spacer></v-spacer>
                                     <v-btn color="success" rounded
-                                        @click="nokDoc('kOQHMwA1Ve9lMq22X3kpSiaIbGGKghDO', 'ບ້ານຊຽງຄົງ', 'documment' , 'ເພີ່ມເອກະສານທີ່ກ່ຽວຂ້ອງ')">
+                                        @click="nokDoc('kOQHMwA1Ve9lMq22X3kpSiaIbGGKghDO', 'ບ້ານຊຽງຄົງ', 'documment', 'ເພີ່ມເອກະສານທີ່ກ່ຽວຂ້ອງ')">
                                         ເພີ່ມ
                                     </v-btn>
                                     <br>
@@ -1015,7 +1006,7 @@
                                     </v-btn>
                                     <v-spacer></v-spacer>
                                     <v-btn color="success"
-                                        @click="paymentdoc('kOQHMwA1Ve9lMq22X3kpSiaIbGGKghDO', 'ບ້ານຊຽງຄົງ', 'pay1', 'ເອກະສານ')"
+                                        @click="paymentdoc('kOQHMwA1Ve9lMq22X3kpSiaIbGGKghDO', 'ບ້ານຊຽງຄົງ', 'pay1', 'ເອກະສານ','ເພີ່ມຂໍ້ມູນລາຍຈ່າຍ')"
                                         rounded>
                                         ເພີ່ມ
                                     </v-btn>
@@ -1036,7 +1027,7 @@
                                     </v-btn>
                                     <v-spacer></v-spacer>
                                     <v-btn color="success" rounded
-                                        @click="navigateWithToken('kOQHMwA1Ve9lMq22X3kpSiaIbGGKghDO', 'ບ້ານຊຽງຄົງ', 'servey', 'ເອກະສານ')">
+                                        @click="paymentdoc('kOQHMwA1Ve9lMq22X3kpSiaIbGGKghDO', 'ບ້ານຊຽງຄົງ', 'servey', 'ເອກະສານ','ເພີ່ມຂໍ້ມູນສຳຫຼວດ')">
                                         ເພີ່ມ
                                     </v-btn>
                                     <br>
@@ -1075,7 +1066,7 @@
                                     </v-btn>
                                     <v-spacer></v-spacer>
                                     <v-btn color="success"
-                                        @click="test('kOQHMwA1Ve9lMq22X3kpSiaIbGGKghDO', 'ບ້ານຊຽງຄົງ', 'testData', 'ເອກະສານ')"
+                                        @click="paymentdoc('kOQHMwA1Ve9lMq22X3kpSiaIbGGKghDO', 'ບ້ານຊຽງຄົງ', 'testData', 'ເອກະສານ','ເພີ່ມຂໍ້ມູນວິໃຈຕົວຢ່າງ')"
                                         rounded>
                                         ເພີ່ມ
                                     </v-btn>
@@ -1093,7 +1084,7 @@
                                     <v-btn rounded @click="filterPayment">ເບີ່ງ</v-btn>
                                     <v-spacer></v-spacer>
                                     <v-btn color="success"
-                                        @click="paymentdoc('kOQHMwA1Ve9lMq22X3kpSiaIbGGKghDO', 'ບ້ານຊຽງຄົງ', 'pay', 'ເອກະສານ')"
+                                        @click="paymentdoc('kOQHMwA1Ve9lMq22X3kpSiaIbGGKghDO', 'ບ້ານຊຽງຄົງ', 'pay', 'ເອກະສານ','ເພີ່ມຂໍ້ມູນລາຍຈ່າຍ')"
                                         rounded>
                                         ເພີ່ມ
                                     </v-btn>
@@ -1168,7 +1159,7 @@
                                     </v-btn>
                                     <v-spacer></v-spacer>
                                     <v-btn color="success"
-                                        @click="paymentdoc('namzao123kOQHMwA1Ve9lMq22X3kpSiaIbKghDO456', 'ບ້ານນໍ້າຊາວ', 'pay1', 'ເອກະສານ')"
+                                        @click="paymentdoc('namzao123kOQHMwA1Ve9lMq22X3kpSiaIbKghDO456', 'ບ້ານນໍ້າຊາວ', 'pay1', 'ເອກະສານ','ເພີ່ມຂໍ້ມູນລາຍຈ່າຍ')"
                                         rounded>
                                         ເພີ່ມ
                                     </v-btn>
@@ -1189,7 +1180,7 @@
                                     </v-btn>
                                     <v-spacer></v-spacer>
                                     <v-btn color="success" rounded
-                                        @click="navigateWithToken('namzao123kOQHMwA1Ve9lMq22X3kpSiaIbKghDO456', 'ບ້ານນໍ້າຊາວ', 'servey', 'ເອກະສານ')">
+                                        @click="paymentdoc('namzao123kOQHMwA1Ve9lMq22X3kpSiaIbKghDO456', 'ບ້ານນໍ້າຊາວ', 'servey', 'ເອກະສານ','ເພີ່ມຂໍ້ມູນສຳຫຼວດ')">
                                         ເພີ່ມ
                                     </v-btn>
                                     <br>
@@ -1229,7 +1220,7 @@
                                     </v-btn>
                                     <v-spacer></v-spacer>
                                     <v-btn color="success"
-                                        @click="test('namzao123kOQHMwA1Ve9lMq22X3kpSiaIbKghDO456', 'ບ້ານນໍ້າຊາວ', 'testData', 'ເອກະສານ')"
+                                        @click="paymentdoc('namzao123kOQHMwA1Ve9lMq22X3kpSiaIbKghDO456', 'ບ້ານນໍ້າຊາວ', 'testData', 'ເອກະສານ','ເພີ່ມຂໍ້ມູນວິໃຈຕົວຢ່າງ')"
                                         rounded>
                                         ເພີ່ມ
                                     </v-btn>
@@ -1249,7 +1240,7 @@
                                     </v-btn>
                                     <v-spacer></v-spacer>
                                     <v-btn color="success"
-                                        @click="paymentdoc('namzao123kOQHMwA1Ve9lMq22X3kpSiaIbKghDO456', 'ບ້ານນໍ້າຊາວ', 'pay', 'ເອກະສານ')"
+                                        @click="paymentdoc('namzao123kOQHMwA1Ve9lMq22X3kpSiaIbKghDO456', 'ບ້ານນໍ້າຊາວ', 'pay', 'ເອກະສານ','ເພີ່ມຂໍ້ມູນລາຍຈ່າຍ')"
                                         rounded>
                                         ເພີ່ມ
                                     </v-btn>
@@ -1346,7 +1337,7 @@
                                     </v-btn>
                                     <v-spacer></v-spacer>
                                     <v-btn color="success" rounded
-                                        @click="navigateWithToken('nongphounxai3kOQHMwA1Ve9lMq22X3kpSiaIDO789', 'ໜອງພູໄຊ 32,28', 'servey', 'ເອກະສານ')">
+                                        @click="paymentdoc('nongphounxai3kOQHMwA1Ve9lMq22X3kpSiaIDO789', 'ໜອງພູໄຊ 32,28', 'servey', 'ເອກະສານ','ເພີ່ມຂໍ້ມູນສຳຫຼວດ')">
                                         ເພີ່ມ
                                     </v-btn>
                                     <br>
@@ -1386,7 +1377,7 @@
                                     </v-btn>
                                     <v-spacer></v-spacer>
                                     <v-btn color="success"
-                                        @click="test('nongphounxai3kOQHMwA1Ve9lMq22X3kpSiaIDO789', 'ໜອງພູໄຊ 32,28', 'testData', 'ເອກະສານ')"
+                                        @click="paymentdoc('nongphounxai3kOQHMwA1Ve9lMq22X3kpSiaIDO789', 'ໜອງພູໄຊ 32,28', 'testData', 'ເອກະສານ','ເພີ່ມຂໍ້ມູນວິໃຈຕົວຢ່າງ')"
                                         rounded>
                                         ເພີ່ມ
                                     </v-btn>
@@ -1406,7 +1397,7 @@
                                     </v-btn>
                                     <v-spacer></v-spacer>
                                     <v-btn color="success"
-                                        @click="paymentdoc('nongphounxai3kOQHMwA1Ve9lMq22X3kpSiaIDO789', 'ໜອງພູໄຊ 32,28', 'pay', 'ເອກະສານ')"
+                                        @click="paymentdoc('nongphounxai3kOQHMwA1Ve9lMq22X3kpSiaIDO789', 'ໜອງພູໄຊ 32,28', 'pay', 'ເອກະສານ','ເພີ່ມຂໍ້ມູນລາຍຈ່າຍ')"
                                         rounded>
                                         ເພີ່ມ
                                     </v-btn>
@@ -1481,7 +1472,7 @@
                                     </v-btn>
                                     <v-spacer></v-spacer>
                                     <v-btn color="success"
-                                        @click="paymentdoc('knongphounxaiOQHMwA1Ve9lMq22X3kpSiahDO101112', 'ໜອງພູໄຊ 62,39', 'pay1', 'ເອກະສານ')"
+                                        @click="paymentdoc('knongphounxaiOQHMwA1Ve9lMq22X3kpSiahDO101112', 'ໜອງພູໄຊ 62,39', 'pay1', 'ເອກະສານ','ເພີ່ມຂໍ້ມູນລາຍຈ່າຍ')"
                                         rounded>
                                         ເພີ່ມ
                                     </v-btn>
@@ -1502,7 +1493,7 @@
                                     </v-btn>
                                     <v-spacer></v-spacer>
                                     <v-btn color="success" rounded
-                                        @click="navigateWithToken('knongphounxaiOQHMwA1Ve9lMq22X3kpSiahDO101112', 'ໜອງພູໄຊ 62,39', 'servey', 'ເອກະສານ')">
+                                        @click="paymentdoc('knongphounxaiOQHMwA1Ve9lMq22X3kpSiahDO101112', 'ໜອງພູໄຊ 62,39', 'servey', 'ເອກະສານ','ເພີ່ມຂໍ້ມູນສຳຫຼວດ')">
                                         ເພີ່ມ
                                     </v-btn>
                                     <br>
@@ -1542,7 +1533,7 @@
                                     </v-btn>
                                     <v-spacer></v-spacer>
                                     <v-btn color="success"
-                                        @click="test('knongphounxaiOQHMwA1Ve9lMq22X3kpSiahDO101112', 'ໜອງພູໄຊ 62,39', 'testData', 'ເອກະສານ')"
+                                        @click="paymentdoc('knongphounxaiOQHMwA1Ve9lMq22X3kpSiahDO101112', 'ໜອງພູໄຊ 62,39', 'testData', 'ເອກະສານ','ເພີ່ມຂໍ້ມູນວິໃຈຕົວຢ່າງ')"
                                         rounded>
                                         ເພີ່ມ
                                     </v-btn>
@@ -1562,7 +1553,7 @@
                                     </v-btn>
                                     <v-spacer></v-spacer>
                                     <v-btn color="success"
-                                        @click="paymentdoc('knongphounxaiOQHMwA1Ve9lMq22X3kpSiahDO101112', 'ໜອງພູໄຊ 62,39', 'pay', 'ເອກະສານ')"
+                                        @click="paymentdoc('knongphounxaiOQHMwA1Ve9lMq22X3kpSiahDO101112', 'ໜອງພູໄຊ 62,39', 'pay', 'ເອກະສານ','ເພີ່ມຂໍ້ມູນລາຍຈ່າຍ')"
                                         rounded>
                                         ເພີ່ມ
                                     </v-btn>
@@ -1636,7 +1627,7 @@
                                     </v-btn>
                                     <v-spacer></v-spacer>
                                     <v-btn color="success"
-                                        @click="paymentdoc('kOlardhor123QHMwA1Ve9lMq22X3GGKghDO13214415', 'ບ້ານລາດຫໍ້', 'pay1', 'ເອກະສານ')"
+                                        @click="paymentdoc('kOlardhor123QHMwA1Ve9lMq22X3GGKghDO13214415', 'ບ້ານລາດຫໍ້', 'pay1', 'ເອກະສານ','ເພີ່ມຂໍ້ມູນລາຍຈ່າຍ')"
                                         rounded>
                                         ເພີ່ມ
                                     </v-btn>
@@ -1657,7 +1648,7 @@
                                     </v-btn>
                                     <v-spacer></v-spacer>
                                     <v-btn color="success" rounded
-                                        @click="navigateWithToken('kOlardhor123QHMwA1Ve9lMq22X3GGKghDO13214415', 'ບ້ານລາດຫໍ້', 'servey', 'ເອກະສານ')">
+                                        @click="paymentdoc('kOlardhor123QHMwA1Ve9lMq22X3GGKghDO13214415', 'ບ້ານລາດຫໍ້', 'servey', 'ເອກະສານ','ເພີ່ມຂໍ້ມູນສຳຫຼວດ')">
                                         ເພີ່ມ
                                     </v-btn>
                                     <br>
@@ -1697,7 +1688,7 @@
                                     </v-btn>
                                     <v-spacer></v-spacer>
                                     <v-btn color="success"
-                                        @click="test('kOlardhor123QHMwA1Ve9lMq22X3GGKghDO13214415', 'ບ້ານລາດຫໍ້', 'testData', 'ເອກະສານ')"
+                                        @click="paymentdoc('kOlardhor123QHMwA1Ve9lMq22X3GGKghDO13214415', 'ບ້ານລາດຫໍ້', 'testData', 'ເອກະສານ','ເພີ່ມຂໍ້ມູນວິໃຈຕົວຢ່າງ')"
                                         rounded>
                                         ເພີ່ມ
                                     </v-btn>
@@ -1717,7 +1708,7 @@
                                     </v-btn>
                                     <v-spacer></v-spacer>
                                     <v-btn color="success"
-                                        @click="paymentdoc('kOlardhor123QHMwA1Ve9lMq22X3GGKghDO13214415', 'ບ້ານລາດຫໍ້', 'pay', 'ເອກະສານ')"
+                                        @click="paymentdoc('kOlardhor123QHMwA1Ve9lMq22X3GGKghDO13214415', 'ບ້ານລາດຫໍ້', 'pay', 'ເອກະສານ','ເພີ່ມຂໍ້ມູນລາຍຈ່າຍ')"
                                         rounded>
                                         ເພີ່ມ
                                     </v-btn>
@@ -1771,7 +1762,7 @@
                                     </v-btn>
                                     <v-spacer></v-spacer>
                                     <v-btn color="success" rounded
-                                        @click="nokDoc('vewerwfe33369cee4866caf2f9941bf6244c5b6570f63a1f3eb91bba', 'ບ້ານຕະເປືອ', 'documment' , 'ເພີ່ມເອກະສານທີ່ກ່ຽວຂ້ອງ')">
+                                        @click="nokDoc('vewerwfe33369cee4866caf2f9941bf6244c5b6570f63a1f3eb91bba', 'ບ້ານຕະເປືອ', 'documment', 'ເພີ່ມເອກະສານທີ່ກ່ຽວຂ້ອງ')">
                                         ເພີ່ມ
                                     </v-btn>
                                     <br>
@@ -1791,7 +1782,7 @@
                                     </v-btn>
                                     <v-spacer></v-spacer>
                                     <v-btn color="success"
-                                        @click="paymentdoc('vewerwfe33369cee4866caf2f9941bf6244c5b6570f63a1f3eb91bba', 'ບ້ານຕະເປືອ', 'pay1', 'ເອກະສານ')"
+                                        @click="paymentdoc('vewerwfe33369cee4866caf2f9941bf6244c5b6570f63a1f3eb91bba', 'ບ້ານຕະເປືອ', 'pay1', 'ເອກະສານ','ເພີ່ມຂໍ້ມູນລາຍຈ່າຍ')"
                                         rounded>
                                         ເພີ່ມ
                                     </v-btn>
@@ -1812,7 +1803,7 @@
                                     </v-btn>
                                     <v-spacer></v-spacer>
                                     <v-btn color="success" rounded
-                                        @click="navigateWithToken('vewerwfe33369cee4866caf2f9941bf6244c5b6570f63a1f3eb91bba', 'ບ້ານຕະເປືອ', 'servey', 'ເອກະສານ')">
+                                        @click="paymentdoc('vewerwfe33369cee4866caf2f9941bf6244c5b6570f63a1f3eb91bba', 'ບ້ານຕະເປືອ', 'servey', 'ເອກະສານ','ເພີ່ມຂໍ້ມູນສຳຫຼວດ')">
                                         ເພີ່ມ
                                     </v-btn>
                                     <br>
@@ -1852,7 +1843,7 @@
                                     </v-btn>
                                     <v-spacer></v-spacer>
                                     <v-btn color="success"
-                                        @click="test('vewerwfe33369cee4866caf2f9941bf6244c5b6570f63a1f3eb91bba', 'ບ້ານຕະເປືອ', 'testData', 'ເອກະສານ')"
+                                        @click="paymentdoc('vewerwfe33369cee4866caf2f9941bf6244c5b6570f63a1f3eb91bba', 'ບ້ານຕະເປືອ', 'testData', 'ເອກະສານ','ເພີ່ມຂໍ້ມູນວິໃຈຕົວຢ່າງ')"
                                         rounded>
                                         ເພີ່ມ
                                     </v-btn>
@@ -1872,7 +1863,7 @@
                                     </v-btn>
                                     <v-spacer></v-spacer>
                                     <v-btn color="success"
-                                        @click="paymentdoc('vewerwfe33369cee4866caf2f9941bf6244c5b6570f63a1f3eb91bba', 'ບ້ານຕະເປືອ', 'pay', 'ເອກະສານ')"
+                                        @click="paymentdoc('vewerwfe33369cee4866caf2f9941bf6244c5b6570f63a1f3eb91bba', 'ບ້ານຕະເປືອ', 'pay', 'ເອກະສານ','ເພີ່ມຂໍ້ມູນລາຍຈ່າຍ')"
                                         rounded>
                                         ເພີ່ມ
                                     </v-btn>
@@ -1926,7 +1917,7 @@
                                     </v-btn>
                                     <v-spacer></v-spacer>
                                     <v-btn color="success" rounded
-                                        @click="nokDoc('e6ea9da1b901d1ddeevgewvewvwe941bf6244c5b6570f63a1f3eb91bba', 'ບ້ານຫ້ວຍຮ່ອງ', 'documment' , 'ເພີ່ມເອກະສານທີ່ກ່ຽວຂ້ອງ')">
+                                        @click="nokDoc('e6ea9da1b901d1ddeevgewvewvwe941bf6244c5b6570f63a1f3eb91bba', 'ບ້ານຫ້ວຍຮ່ອງ', 'documment', 'ເພີ່ມເອກະສານທີ່ກ່ຽວຂ້ອງ')">
                                         ເພີ່ມ
                                     </v-btn>
                                     <br>
@@ -1946,7 +1937,7 @@
                                     </v-btn>
                                     <v-spacer></v-spacer>
                                     <v-btn color="success"
-                                        @click="paymentdoc('e6ea9da1b901d1ddeevgewvewvwe941bf6244c5b6570f63a1f3eb91bba', 'ບ້ານຫ້ວຍຮ່ອງ', 'pay1', 'ເອກະສານ')"
+                                        @click="paymentdoc('e6ea9da1b901d1ddeevgewvewvwe941bf6244c5b6570f63a1f3eb91bba', 'ບ້ານຫ້ວຍຮ່ອງ', 'pay1', 'ເອກະສານ','ເພີ່ມຂໍ້ມູນລາຍຈ່າຍ')"
                                         rounded>
                                         ເພີ່ມ
                                     </v-btn>
@@ -1967,7 +1958,7 @@
                                     </v-btn>
                                     <v-spacer></v-spacer>
                                     <v-btn color="success" rounded
-                                        @click="navigateWithToken('e6ea9da1b901d1ddeevgewvewvwe941bf6244c5b6570f63a1f3eb91bba', 'ບ້ານຫ້ວຍຮ່ອງ', 'servey', 'ເອກະສານ')">
+                                        @click="paymentdoc('e6ea9da1b901d1ddeevgewvewvwe941bf6244c5b6570f63a1f3eb91bba', 'ບ້ານຫ້ວຍຮ່ອງ', 'servey', 'ເອກະສານ','ເພີ່ມຂໍ້ມູນສຳຫຼວດ')">
                                         ເພີ່ມ
                                     </v-btn>
                                     <br>
@@ -2007,7 +1998,7 @@
                                     </v-btn>
                                     <v-spacer></v-spacer>
                                     <v-btn color="success"
-                                        @click="test('e6ea9da1b901d1ddeevgewvewvwe941bf6244c5b6570f63a1f3eb91bba', 'ບ້ານຫ້ວຍຮ່ອງ', 'testData', 'ເອກະສານ')"
+                                        @click="paymentdoc('e6ea9da1b901d1ddeevgewvewvwe941bf6244c5b6570f63a1f3eb91bba', 'ບ້ານຫ້ວຍຮ່ອງ', 'testData', 'ເອກະສານ','ເພີ່ມຂໍ້ມູນວິໃຈຕົວຢ່າງ')"
                                         rounded>
                                         ເພີ່ມ
                                     </v-btn>
@@ -2027,7 +2018,7 @@
                                     </v-btn>
                                     <v-spacer></v-spacer>
                                     <v-btn color="success"
-                                        @click="paymentdoc('e6ea9da1b901d1ddeevgewvewvwe941bf6244c5b6570f63a1f3eb91bba', 'ບ້ານຫ້ວຍຮ່ອງ', 'pay', 'ເອກະສານ')"
+                                        @click="paymentdoc('e6ea9da1b901d1ddeevgewvewvwe941bf6244c5b6570f63a1f3eb91bba', 'ບ້ານຫ້ວຍຮ່ອງ', 'pay', 'ເອກະສານ','ເພີ່ມຂໍ້ມູນລາຍຈ່າຍ')"
                                         rounded>
                                         ເພີ່ມ
                                     </v-btn>
@@ -2102,12 +2093,6 @@ export default {
         refresher() {
             window.location.reload();
         },
-        navigateWithToken(token, buttonLabel, number, number1) {
-            this.$router.push({
-                name: 'Survey results',
-                query: { token, label: buttonLabel, number, number1 }
-            });
-        },
         toImage(token, buttonLabel, number) {
             this.$router.push({
                 name: 'image',
@@ -2120,22 +2105,16 @@ export default {
                 query: { token, label: buttonvalue }
             });
         },
-        // miningDoc(token, buttonLabel, number) {
-        //     this.$router.push({
-        //         name: 'miningdocument',
-        //         query: { token, label: buttonLabel, number }
-        //     });
-        // },
         miningDoc1(token, buttonLabel) {
             this.$router.push({
                 name: 'documentation1',
                 query: { token, label: buttonLabel }
             });
         },
-        nokDoc(token, buttonLabel, number,number1) {
+        nokDoc(token, buttonLabel, number, number1) {
             this.$router.push({
                 name: 'nokdocumment',
-                query: { token, label: buttonLabel, number,number1 }
+                query: { token, label: buttonLabel, number, number1 }
             });
         },
         nokDoc1(token, buttonLabel) {
@@ -2144,16 +2123,10 @@ export default {
                 query: { token, label: buttonLabel }
             });
         },
-        test(token, valueDoc, number, number1) {
-            this.$router.push({
-                name: 'testdocument',
-                query: { token, label: valueDoc, number, number1 }
-            });
-        },
-        paymentdoc(token, valueDoc, number, number1) {
+        paymentdoc(token, valueDoc, number, number1,number2) {
             this.$router.push({
                 name: 'paydocument',
-                query: { token, label: valueDoc, number, number1 }
+                query: { token, label: valueDoc, number, number1,number2 }
             });
         },
         setTokenAndFetch(token) {
@@ -2302,6 +2275,7 @@ export default {
     background-color: #f0f0f0;
     color: #000000;
 }
+
 .hoverable:hover {
     color: #42A5F5;
     font-size: 18px;

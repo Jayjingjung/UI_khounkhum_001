@@ -61,16 +61,21 @@
         <!-- Filter Buttons -->
         <v-card flat>
             <v-card-text>
-                <v-row>
-                    <v-col cols="12" sm="6" md="2" v-for="(item, index) in uniqueNameDetails" :key="index"
-                        class=" justify-center align-center" @click="onButtonClick(item)">
-                        <v-card color="#E0F7FA">
-                            <v-card-text class="text-center font-weight-bold">
-                                <div>{{ item }}</div>
-                            </v-card-text>
-                        </v-card>
-                    </v-col>
-                </v-row>
+                <div v-if="uniqueNameDetails.length">
+                    <v-row>
+                        <v-col cols="12" sm="6" md="2" v-for="(item, index) in uniqueNameDetails" :key="index"
+                            class=" justify-center align-center" @click="onButtonClick(item)">
+                            <v-card color="#E0F7FA">
+                                <v-card-text class="text-center font-weight-bold" style="font-size: 20px;">
+                                    <div>{{ item }}</div>
+                                </v-card-text>
+                            </v-card>
+                        </v-col>
+                    </v-row>
+                </div>
+                <div v-else class="text-center mt-5">
+                    <div style="font-size: 20px; font-weight: bold;color: #ff5733;">ຍັງບໍ່ມີເອກະສານ</div>
+                </div>
             </v-card-text>
         </v-card>
     </div>
@@ -181,9 +186,7 @@ export default {
     },
 };
 </script>
-<<<<<<< HEAD
-=======
-<style>
+<<<<<<< HEAD=======<style>
 .custom-text-field {
     background-color: #f0f0f0;
     color: #000000;
@@ -200,4 +203,4 @@ export default {
     font-size: 24px;
 }
 </style>
->>>>>>> 31c481d9a2162bfc57363eb2dd37d49488494d06
+    >>>>>>> 31c481d9a2162bfc57363eb2dd37d49488494d06

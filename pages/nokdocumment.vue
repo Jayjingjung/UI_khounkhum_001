@@ -91,7 +91,7 @@ export default {
     },
     computed: {
         filteredNameDetails() {
-            // กรองค่า null, ค่า "ເອກະສານ" และแสดงค่าที่ไม่ซ้ำ
+            // ກອງຄ່າ null, ຄ່າ "ເອກະສານ" ແລະສະແດງຄ່າທີ່ບໍ່ຊ້າກັນ
             const nonNullDetails = this.nameDetails.filter(item => item && item.nameDetail  !== "null" && item.nameDetail !== "ເອກະສານ");
             const uniqueDetails = [...new Set(nonNullDetails.map(item => item.nameDetail))];
             return uniqueDetails;

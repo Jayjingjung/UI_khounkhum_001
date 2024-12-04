@@ -14,7 +14,7 @@
                 </v-btn>
                 <v-spacer></v-spacer>
                 <div class="font-weight-bold">
-                    {{ reLabel }}
+                    {{ number2 }}
                 </div>
                 <v-spacer></v-spacer>
             </v-card-title>
@@ -36,7 +36,7 @@
                     <v-dialog v-model="datePicker" width="290">
                         <v-date-picker v-model="dateInsert" @input="datePicker = false"></v-date-picker>
                     </v-dialog>
-                    <v-file-input :label="computedLabel" v-model="files" prepend-icon="mdi-paperclip"
+                    <v-file-input label="ເລືອກໄຟລ໌" v-model="files" prepend-icon="mdi-paperclip"
                         @change="previewImage">
                     </v-file-input>
 
@@ -64,10 +64,12 @@ export default {
             type: '',
             toKen: '', // Add toKen property
             valid: false,
-            dropdownItems: ['ບົດວິພາກເຕັກນິກ', 'ບົດວິພາກເສດຖະກິດ'],
             selectedToken: '', // Add selectedToken to track selected button
             number: null,
             number1:null,
+            number2:null,
+            valueDoc:null,
+            dateInsert:null,
             datePicker: false
         };
     },
@@ -77,25 +79,18 @@ export default {
         const label = this.$route.query.label;
         const number = this.$route.query.number;
         const number1 = this.$route.query.number1;
+        const number2 = this.$route.query.number2;
         if (token && label) {
             this.setToKen(token);
             this.valueDoc = label;
         }
         if (number&&number1) {
             this.number = number;
+            this.number1 = number1;
         }
-    },
-    computed: {
-        computedLabel() {
-            return this.USER_NAME === 'Geo-Explo'
-                ? 'ບົດລາຍງານ'
-                : 'ເລືອກໄຟລ໌';
-        },
-        reLabel() {
-            return this.USER_NAME === 'Geo-Explo'
-                ? 'ບົດລາຍງານ'
-                : 'ເພີ່ມຂໍ້ມູນລາຍຈ່າຍ'; // Customize this label based on your requirements
-        },
+        if (number2){
+            this.number2=number2
+        }
     },
     methods: {
         setToKen(token) {

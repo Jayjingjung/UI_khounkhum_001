@@ -265,8 +265,8 @@
                                             <v-icon color="white">mdi-plus</v-icon>
                                         </v-btn>
                                     </v-col>
-                                    <v-col cols="12" md="4" sm="6">
-                                        <!-- Currency Selection -->
+                                    <!-- <v-col cols="12" md="4" sm="6">
+                                  
                                         <div class="currency-selection" style="display: flex; justify-content: center;">
                                             <v-btn :style="getButtonStyle(item.selectedCurrency, 'LAK')"
                                                 @click="setCurrency(item, 'LAK')">LAK</v-btn>
@@ -275,7 +275,7 @@
                                             <v-btn :style="getButtonStyle(item.selectedCurrency, 'THB')"
                                                 @click="setCurrency(item, 'THB')">THB</v-btn>
                                         </div>
-                                    </v-col>
+                                    </v-col> -->
                                     <v-col cols="12" md="4" sm="6">
 
                                         <!-- Unit Selection -->
@@ -370,8 +370,8 @@
                     </v-card>
                 </v-dialog>
                 <!-- Dialog for Invoice Form -->
-                <v-dialog v-model="dialog1" max-width="800px">
-                    <v-card class="card-shadow mb-4" rounded="lg" width="800px">
+                <v-dialog v-model="dialog1" max-width="700px">
+                    <v-card class="card-shadow mb-4" rounded="lg" width="700px">
                         <v-card-title class="orange--text white--text">
                             ໃບເກັບເງິນ
                         </v-card-title>
@@ -409,20 +409,26 @@
                             </v-row>
 
                             <!-- Amount of money -->
-                            <div justify="center" align="center">
+                            <v-col cols="12" md="4" sm="6">
+                                <v-icon size="55" color="black">mdi-cash-plus</v-icon>
+                                <span>ຈຳນວນຂອງເງິນ</span>
+                                <div style="display: flex; flex-direction: column;">
+                                    <!-- Display formatted amount -->
+                                    <v-text-field label="ພິມຈຳນວນຂອງເງິນ"
+                                        style="font-size: 28px; font-weight: bold; width: 210px;" outlined dense
+                                        v-model="formattedInputMoney"
+                                        :rules="[v => !!v || 'Required field']"></v-text-field>
 
-                                <v-col cols="12" md="4" sm="6">
-                                    <v-icon size="55" color="black">mdi-cash-plus</v-icon>
-                                    <span>ຈຳນວນຂອງເງິນ</span>
-                                    <div style="display: flex;">
-                                        <!-- Display formatted amount -->
-                                        <v-text-field label="ພິມຈຳນວນຂອງເງິນ"
-                                            style="font-size: 28px; font-weight: bold; width: 210px;" outlined dense
-                                            v-model="formattedMoney" :rules="[v => !!v || 'Required field']">
-                                        </v-text-field>
-                                    </div>
-                                </v-col>
-                            </div>
+                                    <!-- Display text if the input exceeds the amount_money -->
+                                    <span v-if="inputExceedsLimit" style="color: red; font-weight: bold;">
+                                        ຫຼາຍເກັດໄປ
+                                    </span>
+                                </div>
+                                <!-- Display formatted amount_money -->
+                                <strong>
+                                    {{ formattedTotalMoney }}
+                                </strong>
+                            </v-col>
 
                             <v-textarea label="ພິມລາຍລະອຽດ" outlined dense v-model="detail">
                                 <v-icon color="black">mdi-file-document-outline</v-icon>
@@ -499,11 +505,13 @@
                                     </td>
                                     <td v-if="item.status_wait_approve === 'Y'">
                                         <v-btn style="height: 100%; width: 100%;" small color="#0059c8"
-                                            class="white--text card-shadow" @click="openDialog(item?.quotation_code)">
+                                            class="white--text card-shadow"
+                                            @click="openDialog(item.quotation_code, item.totalMoney)">
                                             ອອກໃບເກັບເງິນ
                                             <v-icon size="25" color="white">mdi-file-document-plus</v-icon>
                                         </v-btn>
                                     </td>
+
                                     <!-- <tb> <v-btn style="height: 40px;width: 100%;" small color="#0059c8"
                                             class="white--text card-shadow" @click="openDialog(item?.quotation_code)">
                                             <v-icon size="30" color="white">mdi-file-document-plus</v-icon>
@@ -641,7 +649,7 @@ export default {
 
             pdfandpic: '',
             listName: '',
-
+            amount_money: null,
             detail: '',
             customer_mobile: '',
             formDataList: [
@@ -723,7 +731,7 @@ export default {
             totalMoney: '',
             unit: '', // Add the unit data property here
             selectedCurrency: '', // Add selected currency if needed
-
+            formattedInputMoney: '', // User input for money
         };
     },
     mounted() {
@@ -733,6 +741,12 @@ export default {
     },
     watch: {
         // Watch changes in unit and amount_money
+        formattedInputMoney(newValue) {
+            const numericValue = parseFloat(newValue.replace(/,/g, '') || 0);
+            this.formattedInputMoney = numericValue
+                ? numericValue.toLocaleString()
+                : '';
+        },
         num() {
             this.calculateTotal();
         },
@@ -742,16 +756,20 @@ export default {
     },
 
     computed: {
-        formattedAmountMoney() {
-            return this.amount_money !== null && this.amount_money !== undefined
-                ? this.amount_money.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
-                : '';
+        formattedTotalMoney() {
+            return this.totalMoney
+                ? this.totalMoney.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+                : 'N/A';
         },
         // Formatted displayAmountMoney with num and currency
+        inputExceedsLimit() {
+            const input = parseFloat(this.formattedInputMoney.replace(/,/g, '') || 0);
+            return input > this.totalMoney;
+        },
         displayAmountMoney: {
             get() {
-                return this.formattedAmountMoney
-                    ? `${this.formattedAmountMoney}`
+                return this.formattedTotalMoney
+                    ? `${this.formattedTotalMoney}`
                     : '';
             },
             set(value) {
@@ -780,8 +798,8 @@ export default {
         formattedMoney: {
             get() {
                 // Return the formatted amount with commas
-                return this.amount_of_money
-                    ? this.amount_of_money.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+                return this.totalMoney
+                    ? this.totalMoney.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
                     : '';
             },
             set(value) {
@@ -793,9 +811,10 @@ export default {
     },
     methods: {
 
-        openDialog(quotationCode) {
+        openDialog(quotationCode, totalMoney) {
             this.dialog1 = true;  // Open the dialog
             this.selectedQuotationCode = quotationCode;  // Store the passed quotation code
+            this.totalMoney = totalMoney; // Set the selected amount_money
         },
         async onstore_dept_Must_invoice() {
             try {
@@ -818,7 +837,7 @@ export default {
             formdata.append("date", this.formattedDate || "0000-00-00");
             formdata.append("detail", this.detail);
             formdata.append("pdfandpic", this.pdfandpic);
-            formdata.append("amount_of_money", this.amount_of_money);
+            formdata.append("amount_of_money", this.formattedInputMoney);
             formdata.append("invoice_code", invoice_code);
             formdata.append("quotation_code", this.selectedQuotationCode);  // Use the selected quotation code
             formdata.append("toKen", localStorage.getItem("toKen"));
@@ -998,6 +1017,9 @@ export default {
                     // Call save with the updated formDataList
                     this.formDataList.forEach(item => {
                         item.quotation_code = quotation_code;
+                        item.selectedCurrency = this.selectedCurrency;
+
+
                     });
                     await this.saveDataToApi(quotation_code);
 
@@ -1020,7 +1042,7 @@ export default {
                 num: "",
                 amount_money: "",
                 totalMooney: "",
-                selectedCurrency: "LAK",
+
                 selectedUnit: "ອັນ",
             });
         },
@@ -1038,9 +1060,7 @@ export default {
                 item.listName = ""; // Reset if no customer is selected
             }
         },
-        setCurrency(item, currency) {
-            item.selectedCurrency = currency;
-        },
+
         setUnit(item, unit) {
             item.selectedUnit = unit;
         },

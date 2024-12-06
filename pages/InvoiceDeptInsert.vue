@@ -4,7 +4,7 @@
         <div style="display: flex;">
 
 
-            <v-card style="width: 60%;" class="card-shadow mb-4" rounded="lg">
+            <v-card style="width: 100%;" class="card-shadow mb-4" rounded="lg">
 
 
                 <v-card-title style="display:flex;background-color:#24ab70;color:white">
@@ -17,12 +17,17 @@
 
                 </v-card-title>
                 <!-- <v-btn style="margin-top: 20px;margin-left: 20px;" @click="dialog1 = true" color="primary">
-                <v-icon>
-                    mdi-plus
-                </v-icon>ເພື່ມໃບເກັບເງິນໃໜ່
-            </v-btn> -->
+                    <v-icon>
+                        mdi-plus
+                    </v-icon>ເພື່ມໃບເກັບເງິນໃໜ່
+                </v-btn> -->
+                <v-btn style="margin-top: 20px;margin-left: 20px;" @click="dialog2 = true" color="primary">
+                    <v-icon>
+                        mdi-eye
+                    </v-icon>ປະວັດຈາຍເງິ່ນລຸກຄ້າ
+                </v-btn>
 
-                <v-card class="card-shadow mb-4" rounded="lg">
+                <!-- <v-card class="card-shadow mb-4" rounded="lg"> -->
                     <v-card-title class="header-title1">
 
                         <div class="search-print">
@@ -30,29 +35,23 @@
                                 prepend-inner-icon="mdi-magnify">
                             </v-text-field>
 
-                            <v-btn color="#e1e1e1" class="card-shadow print-btn" @click="print">
+                            <!-- <v-btn color="#e1e1e1" class="card-shadow print-btn" @click="print">
                                 <v-icon>mdi-printer</v-icon> ພີມລາຍງານທັງໝົດ
-                            </v-btn>
+                            </v-btn> -->
                         </div>
 
                         <div style="width: 100%;">
 
-                            <v-data-table :items="report_listitemOffice" :headers="filteredHeaders" :items-per-page="50"
+                            <!-- <v-data-table :items="report_listitemOffice" :headers="filteredHeaders" :items-per-page="50"
                                 :search="search">
                                 <template v-slot:item="{ item }">
                                     <tr>
-
                                         <td>{{ item.invoice_code }}</td>
                                         <td>{{ item.quotation_code }}</td>
-
-
                                         <td>{{ item.amount_of_money ?
                                             item.amount_of_money.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') : ''
                                             }}</td>
-
                                         <td>{{ item.detail }}</td>
-
-
                                         <td>{{ item.date_invoice }}</td>
                                         <td>
                                             <v-btn style="height: 100%;width: 200px;" small color="#0059c8"
@@ -61,20 +60,81 @@
                                                 <v-icon size="30" color="white">mdi-file-edit</v-icon>
                                             </v-btn>
                                         </td>
-
-
-
                                     </tr>
                                 </template>
-                            </v-data-table>
+</v-data-table> -->
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>ເລກບິນ</th>
+                                        <th>ລາຍລະອຽດ</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr v-for="item in groupedReportItems" :key="item.quotation_code">
+                                        <td>{{ item.quotation_code }}</td>
+                                        <td>
+                                            <v-btn color="primary" class="white--text"
+                                                @click="handleQuotationClick(item.quotation_code)">
+                                                ເບິ່ງລາຍລະອຽດຂອງ {{ item.quotation_code }}
+                                            </v-btn>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <!-- Modal to show filtered list -->
+                            <v-dialog v-model="dialog" max-width="800px">
+                                <v-card>
+                                    <v-card-title class="text-h6">
+                                        ລາຍລະອຽດສໍາລັບລະຫັດ : {{ selectedQuotationCode }}
+                                    </v-card-title>
+                                    <v-card-text>
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th>ລະຫັດໃບເກັບເງິນ</th>
+                                                    <th>ວັນທີ</th>
+                                                    <th>ລາຍລະອຽດ</th>
+                                                    <th>ຈໍານວນ</th>
+                                                    <th>ເບິ່ງ</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr v-for="item in filteredItems" :key="item.key_id">
+                                                    <td>{{ item.invoice_code }}</td>
+                                                    <td>{{ item.date_invoice }}</td>
+                                                    <td>{{ item.detail }}</td>
+                                                    <td>{{ item.amount_of_money }}</td>
+                                                    <td>
+                                                        <v-btn style="height: 100%;width: 200px;" small color="#0059c8"
+                                                            class="white--text card-shadow"
+                                                            @click="viewview(item?.key_id)">
+                                                            ເບິ່ງເເລະເເກ້ໄຂ
+                                                            <v-icon size="30" color="white">mdi-file-edit</v-icon>
+                                                        </v-btn>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </v-card-text>
+                                    <v-card-actions>
+                                        <v-btn text @click="dialog = false">ປິດ</v-btn>
+                                    </v-card-actions>
+                                </v-card>
+                            </v-dialog>
+
+
 
 
                         </div>
                     </v-card-title>
-                </v-card>
+                <!-- </v-card> -->
             </v-card>
+        </div>
+        <v-dialog v-model="dialog2" max-width="800px">
+            <v-card class="card-shadow mb-4" rounded="lg" width="800px">
 
-            <v-card style="width: 40%;" class="card-shadow mb-4" rounded="lg">
 
 
                 <v-card-title style="display:flex;background-color:#24ab70;color:white">
@@ -94,8 +154,8 @@
 
 
                     <!-- <v-btn color="#e1e1e1" class="card-shadow print-btn" @click="print">
-                                <v-icon>mdi-printer</v-icon> ພີມລາຍງານທັງໝົດ
-                            </v-btn> -->
+                            <v-icon>mdi-printer</v-icon> ພີມລາຍງານທັງໝົດ
+                        </v-btn> -->
                 </div>
                 <v-card class="card-shadow mb-4" rounded="lg">
                     <v-card-title class="header-title1">
@@ -146,7 +206,7 @@
                 </v-card>
 
             </v-card>
-        </div>
+        </v-dialog>
         <!-- Dialog for Invoice Form -->
         <v-dialog v-model="dialog1" max-width="800px">
             <v-card class="card-shadow mb-4" rounded="lg" width="800px">
@@ -232,11 +292,19 @@ import Swal from "sweetalert2";
 export default {
     data() {
         return {
+            report_listitemOffice: [
+                // Add your API data here
+            ],
+            dialog: false,
+            selectedQuotationCode: null,
+            filteredItems: [],
             search: '',
+            amount_money: '',
             key_id: null,
             detail: "",
             amount_of_money: "", // Raw amount of money data
             dialog1: false,
+            dialog2: false,
             formattedDate: "",
             pdfandpic: null,
             customer_data_list: [],
@@ -277,6 +345,21 @@ export default {
     },
 
     computed: {
+        groupedReportItems() {
+            const uniqueCodes = new Map();
+            this.report_listitemOffice.forEach((item) => {
+                if (!uniqueCodes.has(item.quotation_code)) {
+                    uniqueCodes.set(item.quotation_code, item);
+                }
+            });
+            return Array.from(uniqueCodes.values());
+        },
+        headers() {
+            return [
+                { text: "Quotation Code", value: "quotation_code" },
+                { text: "Actions", value: "actions", sortable: false },
+            ];
+        },
         formattedMoney: {
             get() {
                 // Return the formatted amount with commas
@@ -291,6 +374,13 @@ export default {
         },
     },
     methods: {
+        handleQuotationClick(quotationCode) {
+            this.selectedQuotationCode = quotationCode;
+            this.filteredItems = this.report_listitemOffice.filter(
+                (item) => item.quotation_code === quotationCode
+            );
+            this.dialog = true;
+        },
         async onGetCustomerList() {
             try {
                 this.loading_processing = true;
@@ -453,5 +543,17 @@ export default {
 
 .mb-4 {
     margin-bottom: 1.5rem;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table th,
+.table td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: left;
 }
 </style>

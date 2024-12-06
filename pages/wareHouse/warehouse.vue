@@ -74,6 +74,11 @@
                 </v-dialog>
 
                 <!-- Data table -->
+                <v-row justify="center">
+                    <v-btn color="#f593b3" class="white--text" @click="print">
+                        <v-icon>mdi-printer</v-icon>ພິມລາຍງານທັງໝົດ
+                    </v-btn>
+                </v-row>
                 <v-data-table :items-per-page="5" :headers="truck_table_headers" :items="truck_data_list"
                     :search="search">
                     <template v-slot:item="row">
@@ -84,10 +89,13 @@
                                 </v-avatar>
                             </td>
                             <td style="font-size: 18px;">{{ row?.item?.item_name }}</td>
-                            <td style="font-size: 18px;">{{ row?.item?.qty?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</td>
+                            <td style="font-size: 18px;">{{ row?.item?.qty?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g,
+                                ',') }}</td>
                             <td style="font-size: 18px;">{{ row?.item?.unit }}</td>
-                            <td style="font-size: 18px;">{{ row?.item?.unitPirce?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</td>
-                            <td style="font-size: 18px;">{{ row?.item?.sumUnitWithPrice?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</td>
+                            <td style="font-size: 18px;">{{
+                                row?.item?.unitPirce?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</td>
+                            <td style="font-size: 18px;">{{
+                                row?.item?.sumUnitWithPrice?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</td>
                             <td>
                                 <v-btn small color="primary" class="card-shadow"
                                     @click="openDateDialog(row.item.item_id, row.item.item_name)">
@@ -100,56 +108,50 @@
             </div>
         </v-card>
         <!-- Data Table printer -->
-        <div style="display:none">
+        <div style="display: none;">
             <div id="modalInvoice">
-                <v-row>
-                    <v-col cols="3">
-
-                    </v-col>
-                    <v-col cols="9">
-                        <div style="display:flex;justify-content:start;flex-direction:column;align-items:start">
-
-                            <span style="font-size:19px">
-
-                                <Noti />
-
-                            </span>
-
-                            <span style="font-size:18px">ສໍານັກງານຕັ້ງຢູ່ ອາຄານ ສະໜາມຍິງປືນ 20 ມັງກອນ, ສະໜາມກີລາກອງທັບ,
-                                ບ້ານຈອມມະນີ, ເມືອງ ໄຊເສດຖາ, ນະຄອນຫຼວງວຽງຈັນ, ສປປ ລາວ</span>
-                            <span style="font-size:18px">ໂທລະສັບ: 020 92661111, 020 92 254 999 | ອີເມວ: kounkham@Mining
-                                |
-                                ເວັບໄຊ: kounkham</span>
-                        </div>
-                    </v-col>
-
+                <Noti />
+                <v-row
+                    style="font-size:11px; margin-left: 50px; margin-top: 10px; display: flex; flex-direction: column;">
+                    <div>
+                        <span>ສໍານັກງານຕັ້ງຢູ່ ອາຄານ ສະໜາມຍິງປືນ 20 ມັງກອນ, ສໍານັກງານຕັ້ງຢູ່, ບ້ານຈອມມະນີ</span>
+                        <span>ໂທລະສັບ: 020 92661111, 020 92 254 999</span>
+                        <span>ອີເມວ: kounkham@Mining | ເວັບໄຊ: kounkham</span>
+                    </div>
                 </v-row>
-                <br>
-
-
-
-                <div
-                    style="width:100%;margin-top:50px;display:flex;flex-direction:column;justify-content:center;align-items:center;padding-left:20px; font-size: 18px">
-                    <div>ບັນຊີຂົນສົ່ງ</div>
-                    <div style="height: 50px;"></div>
-                    <div style="display:flex;justify-content:space-between">
-                        ...............................
-                    </div>
-                </div>
-                <div
-                    style="width:100%;margin-top:50px;display:flex;flex-direction:column;justify-content:center;align-items:center;padding-left:20px; font-size: 18px">
-                    <div>ບັນຊີຂົນສົ່ງ</div>
-                    <div style="height: 50px;"></div>
-                    <div style="display:flex;justify-content:space-between">
-                        ...............................
-                    </div>
-                </div>
-                <div
-                    style="width:100%;margin-top:50px;display:flex;flex-direction:column;justify-content:center;align-items:center;padding-left:20px; font-size: 18px">
-                    <div>ບັນຊີຂົນສົ່ງ</div>
-                    <div style="height: 50px;"></div>
-                    <div style="display:flex;justify-content:space-between">
-                        ...............................
+                <div style="margin-top: 20px;">
+                    <div class="text-center">ລາຍງານອາໄລ</div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <td>ລຳດັບ</td>
+                                <td>ຮູບພາບ</td>
+                                <td>ລາໄລ</td>
+                                <td>ຈໍານວນ</td>
+                                <td>ຫົວນວຍ</td>
+                                <td>ລາຄາ</td>
+                                <td>ລາຄາທັງໝົດ</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="(item, i) in truck_data_list" :key="i">
+                                <td>{{ i + 1 }}</td>
+                                <td>
+                                    <v-avatar style="width: 80px; height: 80px;">
+                                        <img :src="item.img" />
+                                    </v-avatar>
+                                </td>
+                                <td>{{ item.item_name }}</td>
+                                <td>{{ item.qty.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</td>
+                                <td>{{ item.unit }}</td>
+                                <td>{{ item.unitPirce.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</td>
+                                <td>{{ item.sumUnitWithPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="sum-footer" v-if="sumFooter">
+                        <span>ລາຄາທັງໝົດ:</span>
+                        <span>{{ sumFooter.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') }} ກີບ</span>
                     </div>
                 </div>
             </div>
@@ -167,7 +169,7 @@ export default {
             startDatePicker: false,
             endDatePicker: false,
             startDate: '',
-            TOTAL_total_Wait:'',
+            TOTAL_total_Wait: '',
             endDate: '',
             dateDialog: false,
             selectedItemId: null,
@@ -193,6 +195,19 @@ export default {
         this.onGetshowdata_table(); // Fetch truck footer data when component is mounted
     },
     methods: {
+        print() {
+            const modal = document.getElementById("modalInvoice")
+            const cloned = modal.cloneNode(true)
+            let section = document.getElementById("print")
+            if (!section) {
+                section = document.createElement("div")
+                section.id = "print"
+                document.body.appendChild(section)
+            }
+            section.innerHTML = "";
+            section.appendChild(cloned);
+            window.print();
+        },
         openDateDialog(item_id, item_name) {
             this.selectedItemId = item_id;
             this.selectedItemName = item_name;
@@ -216,32 +231,32 @@ export default {
             });
         },
         total_count() {
-      try {
-        this.loading_processing = true;
-        this.$axios.$post('/getNotiTab3.service'
-          , {
-            toKen: localStorage.getItem('toKen'),
+            try {
+                this.loading_processing = true;
+                this.$axios.$post('/getNotiTab3.service'
+                    , {
+                        toKen: localStorage.getItem('toKen'),
 
-          }
-        ).then((data) => {
-          this.loading_processing = false
-          this.TOTAL = data?.totalRow
-          this.TOTAL_INVOICE = data?.notiInvoice
-          this.TOTAL_FORMANCE = data?.notiPerForMance
-          this.TOTAL_payStatus = data?.payStatus
-          this.TOTAL_notiDetails = data?.notiDetails
-          this.TOTAL_totalOwe = data?.totalOwe
-          this.TOTAL_total_Wait = data?.total_Wait
-        })
-      } catch (error) {
-        this.loading_processing = false
-        swal.fire({
-          icon: 'error',
-          text: error
-        })
-        console.log(error)
-      }
-    },
+                    }
+                ).then((data) => {
+                    this.loading_processing = false
+                    this.TOTAL = data?.totalRow
+                    this.TOTAL_INVOICE = data?.notiInvoice
+                    this.TOTAL_FORMANCE = data?.notiPerForMance
+                    this.TOTAL_payStatus = data?.payStatus
+                    this.TOTAL_notiDetails = data?.notiDetails
+                    this.TOTAL_totalOwe = data?.totalOwe
+                    this.TOTAL_total_Wait = data?.total_Wait
+                })
+            } catch (error) {
+                this.loading_processing = false
+                swal.fire({
+                    icon: 'error',
+                    text: error
+                })
+                console.log(error)
+            }
+        },
         print() {
             const modal = document.getElementById("modalInvoice");
             const cloned = modal.cloneNode(true);

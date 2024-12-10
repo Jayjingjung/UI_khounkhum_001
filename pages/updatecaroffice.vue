@@ -256,8 +256,10 @@
 
             <v-col>
               <v-text-field style="width: 180px;" label="* ເລກໄມປ່ຽນນ້ຳມັນເຄື່ອງຄັ້ງຕໍ່ໄປ" dense outlined
-                background-color="#df941b" v-model="lekmai_next"></v-text-field>
+                :style="{ 'background-color': detail === 'NOT' ? 'red' : '#df941b' }"
+                v-model="lekmai_next"></v-text-field>
             </v-col>
+
             <!-- <v-col>
               <v-menu v-model="licensePlateLean" :close-on-content-click="false" :nudge-right="40"
                 transition="scale-transition" offset-y>
@@ -273,8 +275,8 @@
               <v-menu v-model="menu1" :close-on-content-click="false" transition="scale-transition" offset-y
                 min-width="auto">
                 <template v-slot:activator="{ on, attrs }">
-                  <v-text-field v-model="dateChangeLeean" label="* ວັນທີ່ປ່ຽນນ້ຳມັນເຄື່ອງ" style="width: 180px;"
-                    dense outlined v-bind="attrs" v-on="on" readonly></v-text-field>
+                  <v-text-field v-model="dateChangeLeean" label="* ວັນທີ່ປ່ຽນນ້ຳມັນເຄື່ອງ" style="width: 180px;" dense
+                    outlined v-bind="attrs" v-on="on" readonly></v-text-field>
                 </template>
                 <v-date-picker v-model="dateChangeLeean" @input="menu1 = false"
                   :max="new Date().toISOString().substr(0, 10)" no-title></v-date-picker>
@@ -346,6 +348,20 @@
                 </template>
                 <v-date-picker v-model="tungsitDateExpire" no-title scrollable
                   @input="updateLicensePlateTungsitDateExpire"></v-date-picker>
+              </v-menu>
+            </v-col>
+
+            <v-col>
+
+              <v-menu v-model="licensePlateLeanFuengThaiy" :close-on-content-click="false" :nudge-right="40"
+                transition="scale-transition" offset-y>
+                <template v-slot:activator="{ on }">
+                  <v-text-field dense outlined style="width: 180px;" v-model="leanFuengThaiy"
+                    label="leanFuengThaiy" readonly v-on="on"
+                    :style="{ backgroundColor: technicCheckDateColor_leanFuengThaiy }"></v-text-field>
+                </template>
+                <v-date-picker v-model="leanFuengThaiy" no-title scrollable
+                  @input="updateLicensePlateLeanFuengThaiy"></v-date-picker>
               </v-menu>
             </v-col>
 
@@ -521,29 +537,29 @@ export default {
       price: "",
       lean: {},
       dialog: false,
-      img: '',         // For displaying the image URL
+      img: "",         // For displaying the image URL
       file: null,      // For handling the uploaded file
-      license_plate: '',
-      battery_code_name: '',
-      license_plate_start: '',
-      license_plate_end: '',
-      car_year: '',
-      car_type: '',
-      car_brand: '',
-      carColor: '',
-      steering_wheel: '',
-      total_weigh_car: '',
-      wide: '',
-      longg: '',
+      license_plate: "",
+      battery_code_name: "",
+      license_plate_start: "",
+      license_plate_end: "",
+      car_year: "",
+      car_type: "",
+      car_brand: "",
+      carColor: "",
+      steering_wheel: "",
+      total_weigh_car: "",
+      wide: "",
+      longg: "",
 
-      dateChangeLeean: '',
-      dateChangeLeeanNext: '',
-      menu2: '',
-      menu1: '',
+      dateChangeLeean: "",
+      dateChangeLeeanNext: "",
+      menu2: "",
+      menu1: "",
       menu: false,
       dateFill: null,
-      lekmaisainummun: '',
-      oilformoney: '',
+      lekmaisainummun: "",
+      oilformoney: "",
 
       headers: [
         { text: "ລຳດັບ", value: "id" },
@@ -555,47 +571,47 @@ export default {
       ],
       oilHistory: [],
       loading: false,
-      tall: '',
-      sitPosition_amount: '',
-      serial_wheel_left_font: '',
-      serial_wheel_left_back: '',
-      serial_wheel_right_font: '',
-      serial_wheel_right_back: '',
-      key_ID: '',
-      technic_check_dateStart: '',
-      technic_check_dateEnd: '',
-      car_model: '',
-      tungsitnumber: '',
-      owner_car: '',
-      font_light: '',
-      back_light: '',
-      millor_back: '',
-      millor_side: '',
-      car_mileage_now: '',
-      cc: '',
-      leanGia: '',
-      insurance_Lao: '',
+      tall: "",
+      sitPosition_amount: "",
+      serial_wheel_left_font: "",
+      serial_wheel_left_back: "",
+      serial_wheel_right_font: "",
+      serial_wheel_right_back: "",
+      key_ID: "",
+      technic_check_dateStart: "",
+      technic_check_dateEnd: "",
+      car_model: "",
+      tungsitnumber: "",
+      owner_car: "",
+      font_light: "",
+      back_light: "",
+      millor_back: "",
+      millor_side: "",
+      car_mileage_now: "",
+      cc: "",
+      leanGia: "",
+      insurance_Lao: "",
       totalPricePaidOil: "0", // Default value
-      insurance_thai: '',
-      insurance_viet: '',
-      insurance_viet_expireDate: '',
-      insurance_thai_expireDate: '',
-      insurance_Lao_expireDate: '',
-      technic_check_dateStart: '',
-      technic_check_dateEnd: '',
-      dao: '',
-      oil: '',
-      tungsitDateExpire: '',
-      lean: '',
-      lekmai_next: '',
-      lekThung: '',
-      lekJuk: '',
+      insurance_thai: "",
+      insurance_viet: "",
+      insurance_viet_expireDate: "",
+      insurance_thai_expireDate: "",
+      insurance_Lao_expireDate: "",
+      technic_check_dateStart: "",
+      technic_check_dateEnd: "",
+      dao: "",
+      oil: "",
+      tungsitDateExpire: "",
+      lean: "",
+      lekmai_next: "",
+      lekThung: "",
+      lekJuk: "",
       serial_tire_second: '0',
       dateChangeLeeanNext: '0',
       tungsitnumber: '0',
       lean_STATUS: 'NOT',
 
-      dateChangeLeean: '',
+      dateChangeLeean: "",
       daoOptions: ["ຍັງດາວຢູ່", "ລົດທີ່ບໍ່ດາວ"],
       steering_wheelOptions: ["ພວງມະໄລຊ້າຍ", "ພວງມະໄລຂວາ"],
       oilOptions: ["ແອັດຊັງ", "ລົດໄຟຟ້າ", "ກະຊວນ"],
@@ -607,36 +623,39 @@ export default {
       dateRules: [(v) => !!v || 'Date is required'],
       // Loading state
       loading_processing: false,
-      formattedLicensePlateInsurance_Lao_expireDate: '',
-      formattedLicensePlateInsurance_viet_expireDate: '',
-      formattedLicensePlateInsurance_thai_expireDate: '',
-      formattedLTechnic_check_dateStart: '',
-      formattedLLeanGia: '',
-      formattedLTechnic_check_dateEnd: '',
-      licensePlateInsurance_Lao_expireDate: '',
-      licensePlateInsurance_viet_expireDate: '',
-      licensePlateInsurance_thai_expireDate: '',
-      licensePlateTechnic_check_dateStart: '',
-      licensePlateTechnic_check_dateEnd: '',
-      licensePlateLeanGia: '',
+      formattedLicensePlateInsurance_Lao_expireDate: "",
+      formattedLicensePlateInsurance_viet_expireDate: "",
+      formattedLicensePlateInsurance_thai_expireDate: "",
+      formattedLTechnic_check_dateStart: "",
+      formattedLLeanGia: "",
+      formattedLTechnic_check_dateEnd: "",
+      licensePlateInsurance_Lao_expireDate: "",
+      licensePlateInsurance_viet_expireDate: "",
+      licensePlateInsurance_thai_expireDate: "",
+      licensePlateTechnic_check_dateStart: "",
+      licensePlateTechnic_check_dateEnd: "",
+      licensePlateLeanGia: "",
       licensePlateTungsitDateExpire: false,
-      licensePlateEndDateMenu: '',
-      licensePlateLean: '',
-      licensePlateStartDateMenu: '',
-      formattedLicensePlateEndDate: '',
-      formattedLicensePlateStartDate: '',
-      formattedLLean: '',
-      formattedLTungsitDateExpire: '',
+      licensePlateLeanFuengThaiy: false,
+      licensePlateEndDateMenu: "",
+      licensePlateLean: "",
+      licensePlateStartDateMenu: "",
+      formattedLicensePlateEndDate: "",
+      formattedLicensePlateStartDate: "",
+      formattedLLean: "",
+      formattedLleanFuengThaiy: "",
+      formattedLTungsitDateExpire: "",
       formattedDates: {
-        insurance_Lao: '',
-        insurance_viet: '',
-        insurance_thai: '',
-        technic_check_start: '',
-        technic_check_end: '',
-        leanGia: '',
-        tungsitDateExpire: '',
-        license_plate_start: '',
-        license_plate_end: ''
+        insurance_Lao: "",
+        insurance_viet: "",
+        insurance_thai: "",
+        technic_check_start: "",
+        technic_check_end: "",
+        leanGia: "",
+        leanFuengThaiy: "",
+        tungsitDateExpire: "",
+        license_plate_start: "",
+        license_plate_end: ""
       }
     };
 
@@ -647,7 +666,7 @@ export default {
     }
   },
   computed: {
- 
+
     leanStyle() {
       if (this.lean_STATUS === 'NOT') {
         return 'green';
@@ -720,6 +739,23 @@ export default {
       if (!this.tungsitDateExpire) return 'white';
       const currentDate = new Date();
       const checkDate = new Date(this.tungsitDateExpire);
+      const oneMonthLater = new Date(currentDate);
+      oneMonthLater.setMonth(currentDate.getMonth() + 1);
+
+      if (isNaN(checkDate)) return 'white'; // Handle invalid date
+
+      if (currentDate > checkDate) {
+        return 'red';
+      } else if (oneMonthLater > checkDate) {
+        return 'red';
+      } else {
+        return 'white';
+      }
+    },
+    technicCheckDateColor_leanFuengThaiy() {
+      if (!this.leanFuengThaiy) return 'white';
+      const currentDate = new Date();
+      const checkDate = new Date(this.leanFuengThaiy);
       const oneMonthLater = new Date(currentDate);
       oneMonthLater.setMonth(currentDate.getMonth() + 1);
 
@@ -998,6 +1034,7 @@ export default {
           const detail = response.data[0];
 
           // Assigning data from API to v-models
+          this.detail = detail.lekmai_next_status || '';
           this.img = detail.img || '';
           this.license_plate = detail.license_plate || '';
           this.battery_code_name = detail.battery_code_name || '';
@@ -1042,6 +1079,7 @@ export default {
           this.serial_wheel_right_back = detail.serial_wheel_right_back || '';
           this.lean = detail.lean || '';
           this.tungsitDateExpire = detail.tungsitDateExpire || '';
+          this.leanFuengThaiy = detail.leanFuengThaiy || '';
           this.dateChangeLeean = detail.dateChangeLeean || '';
           this.dateChangeLeeanNext = detail.dateChangeLeeanNext || '';
           this.license_STATUS = detail.license_STATUS || '';
@@ -1125,6 +1163,7 @@ export default {
       formdata.append('lekmai_next', this.lekmai_next)
       formdata.append('serial_tire_second', this.serial_tire_second ? this.serial_tire_second : '2040-04-04')
       formdata.append('tungsitDateExpire', this.tungsitDateExpire)
+      formdata.append('leanFuengThaiy', this.leanFuengThaiy? this.leanFuengThaiy : '2040-04-04')
       formdata.append('tungsitnumber', this.tungsitnumber)
 
 
@@ -1206,7 +1245,10 @@ export default {
       this.tungsitDateExpire = val;
       this.licensePlateTungsitDateExpire = false;
     },
-
+    updateLicensePlateLeanFuengThaiy(val) {
+      this.leanFuengThaiy = val;
+      this.licensePlateLeanFuengThaiy = false;
+    },
     updateLicensePlateStartDate(val) {
       this.formattedLicensePlateStartDate = val
       this.licensePlateStartDateMenu = false

@@ -647,7 +647,7 @@ export default {
             customer_name: '',
             customer_mobile: '',
 
-            pdfandpic: '',
+            pdfandpic: "null",
             listName: '',
             amount_money: null,
             detail: '',
@@ -837,7 +837,8 @@ export default {
             formdata.append("date", this.formattedDate || "0000-00-00");
             formdata.append("detail", this.detail);
             formdata.append("pdfandpic", this.pdfandpic);
-            formdata.append("amount_of_money", this.formattedInputMoney);
+            formdata.append("amount_of_money", this.formattedInputMoney.replace(/,/g, ''));
+
             formdata.append("invoice_code", invoice_code);
             formdata.append("quotation_code", this.selectedQuotationCode);  // Use the selected quotation code
             formdata.append("toKen", localStorage.getItem("toKen"));
@@ -871,7 +872,7 @@ export default {
         onClearData() {
             this.formattedDate = '';
             this.detail = '';
-            this.pdfandpic = null;
+            this.pdfandpic = "null";
 
             this.amount_of_money = "";
 

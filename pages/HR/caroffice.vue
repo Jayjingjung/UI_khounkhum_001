@@ -51,8 +51,8 @@
                   <v-menu v-model="licensePlateEndDateMenu" :close-on-content-click="false" :nudge-right="40"
                     transition="scale-transition" offset-y>
                     <template v-slot:activator="{ on }">
-                      <v-text-field  dense outlined v-model="formattedLicensePlateEndDate" label="ວັນໝົດອາຍຸ ໃບທະບຽນ" readonly
-                        v-on="on"></v-text-field>
+                      <v-text-field dense outlined v-model="formattedLicensePlateEndDate" label="ວັນໝົດອາຍຸ ໃບທະບຽນ"
+                        readonly v-on="on"></v-text-field>
                     </template>
                     <v-date-picker v-model="license_plate_end" no-title scrollable
                       @input="updateLicensePlateEndDate"></v-date-picker>
@@ -62,8 +62,8 @@
                   <v-menu v-model="licensePlateStartDateMenu" :close-on-content-click="false" :nudge-right="40"
                     transition="scale-transition" offset-y>
                     <template v-slot:activator="{ on }">
-                      <v-text-field  dense outlined v-model="formattedLicensePlateStartDate" label="ວັນອອກໃບທະບຽນ" readonly
-                        v-on="on"></v-text-field>
+                      <v-text-field dense outlined v-model="formattedLicensePlateStartDate" label="ວັນອອກໃບທະບຽນ"
+                        readonly v-on="on"></v-text-field>
                     </template>
                     <v-date-picker v-model="license_plate_start" no-title scrollable
                       @input="updateLicensePlateStartDate"></v-date-picker>
@@ -86,6 +86,10 @@
                 <v-col cols="6" md="3" sm="3">
                   <v-text-field label="* ເລກຈັກ" dense outlined background-color="#f5f5f5"
                     v-model="lekJuk"></v-text-field>
+                </v-col>
+                <v-col cols="6" md="3" sm="3">
+                  <v-text-field label="* serial_tire_second" dense outlined background-color="#f5f5f5"
+                    v-model="serial_tire_second"></v-text-field>
                 </v-col>
                 <v-col cols="6" md="3" sm="3">
                   <v-text-field label="* ເລກຖັງ" dense outlined background-color="#f5f5f5"
@@ -128,12 +132,39 @@
                   <v-menu v-model="licensePlateLeanGia" :close-on-content-click="false" :nudge-right="40"
                     transition="scale-transition" offset-y>
                     <template v-slot:activator="{ on }">
-                      <v-text-field  dense outlined v-model="formattedLLeanGia" label="ລີນເກຍ" readonly v-on="on"></v-text-field>
+                      <v-text-field dense outlined v-model="formattedLLeanGia" label="ລີນເກຍ" readonly
+                        v-on="on"></v-text-field>
                     </template>
                     <v-date-picker v-model="leanGia" no-title scrollable
                       @input="updateLicensePlateLeanGia"></v-date-picker>
                   </v-menu>
                 </v-col>
+                <v-col cols="6" md="3" sm="3">
+
+                  <v-col>
+                    <v-menu v-model="licensePlateLeanFuengThaiy" :close-on-content-click="false" :nudge-right="40"
+                      transition="scale-transition" offset-y>
+                      <template v-slot:activator="{ on }">
+                        <v-text-field dense outlined v-model="leanFuengThaiy" label="leanFuengThaiy" readonly
+                          v-on="on"></v-text-field>
+                      </template>
+                      <v-date-picker v-model="leanFuengThaiy" no-title scrollable
+                        @input="updateLicensePlateLeanFuengThaiy"></v-date-picker>
+                    </v-menu>
+                  </v-col>
+
+                  <!-- <v-menu v-model="licensePlateLeanFuengThaiy" :close-on-content-click="false" :nudge-right="40"
+                    transition="scale-transition" offset-y>
+                    <template v-slot:activator="{ on }">
+                      <v-text-field dense outlined style="width: 180px;" v-model="leanFuengThaiy" label="leanFuengThaiy"
+                        readonly v-on="on"
+                        :style="{ backgroundColor: technicCheckDateColor_leanFuengThaiy }"></v-text-field>
+                    </template>
+                    <v-date-picker v-model="leanFuengThaiy" no-title scrollable
+                      @input="updateLicensePlateLeanFuengThaiy"></v-date-picker>
+                  </v-menu> -->
+                </v-col>
+
                 <v-col cols="6" md="3" sm="3">
                   <v-select label="* ນໍ້າມັນ" dense outlined background-color="#f5f5f5" v-model="oil"
                     :items="oilOptions">
@@ -163,7 +194,7 @@
                   <v-menu v-model="licensePlateInsurance_Lao_expireDate" :close-on-content-click="false"
                     :nudge-right="40" transition="scale-transition" offset-y>
                     <template v-slot:activator="{ on }">
-                      <v-text-field  dense outlined v-model="formattedLicensePlateInsurance_Lao_expireDate"
+                      <v-text-field dense outlined v-model="formattedLicensePlateInsurance_Lao_expireDate"
                         label="ວັນໝົດອາຍຸ ປະກັນໄພລາວ " readonly v-on="on"></v-text-field>
                     </template>
                     <v-date-picker v-model="insurance_Lao_expireDate" no-title scrollable
@@ -175,7 +206,7 @@
                   <v-menu v-model="licensePlateInsurance_viet_expireDate" :close-on-content-click="false"
                     :nudge-right="40" transition="scale-transition" offset-y>
                     <template v-slot:activator="{ on }">
-                      <v-text-field  dense outlined v-model="formattedLicensePlateInsurance_viet_expireDate"
+                      <v-text-field dense outlined v-model="formattedLicensePlateInsurance_viet_expireDate"
                         label="ວັນໝົດອາຍຸ ປະກັນໄພຫວຽດ" readonly v-on="on"></v-text-field>
                     </template>
                     <v-date-picker v-model="insurance_viet_expireDate" no-title scrollable
@@ -188,7 +219,7 @@
                   <v-menu v-model="licensePlateInsurance_thai_expireDate" :close-on-content-click="false"
                     :nudge-right="40" transition="scale-transition" offset-y>
                     <template v-slot:activator="{ on }">
-                      <v-text-field  dense outlined v-model="formattedLicensePlateInsurance_thai_expireDate"
+                      <v-text-field dense outlined v-model="formattedLicensePlateInsurance_thai_expireDate"
                         label=" ວັນໝົດອາຍຸ ປະກັນໄພໄທ " readonly v-on="on"></v-text-field>
                     </template>
                     <v-date-picker v-model="insurance_thai_expireDate" no-title scrollable
@@ -196,11 +227,11 @@
                   </v-menu>
                 </v-col>
                 <v-col>
-                  <v-menu  v-model="licensePlateTechnic_check_dateStart" :close-on-content-click="false"
+                  <v-menu v-model="licensePlateTechnic_check_dateStart" :close-on-content-click="false"
                     :nudge-right="40" transition="scale-transition" offset-y>
                     <template v-slot:activator="{ on }">
-                      <v-text-field  dense outlined v-model="formattedLTechnic_check_dateStart" label="ວັນທີ ໃບກວດກາເຕັກນິກລ່າສູດ "
-                        readonly v-on="on"></v-text-field>
+                      <v-text-field dense outlined v-model="formattedLTechnic_check_dateStart"
+                        label="ວັນທີ ໃບກວດກາເຕັກນິກລ່າສູດ " readonly v-on="on"></v-text-field>
                     </template>
                     <v-date-picker v-model="technic_check_dateStart" no-title scrollable
                       @input="updateLicensePlateTechnic_check_dateStart"></v-date-picker>
@@ -211,11 +242,11 @@
               <v-row>
 
                 <v-col>
-                  <v-menu  v-model="licensePlateTechnic_check_dateEnd" :close-on-content-click="false" :nudge-right="40"
+                  <v-menu v-model="licensePlateTechnic_check_dateEnd" :close-on-content-click="false" :nudge-right="40"
                     transition="scale-transition" offset-y>
                     <template v-slot:activator="{ on }">
-                      <v-text-field  dense outlined v-model="formattedLTechnic_check_dateEnd" label="ວັນທີ ໃບກວດກາເຕັກນິກ ຄັ້ງຕໍ່ໄປ"
-                        readonly v-on="on"></v-text-field>
+                      <v-text-field dense outlined v-model="formattedLTechnic_check_dateEnd"
+                        label="ວັນທີ ໃບກວດກາເຕັກນິກ ຄັ້ງຕໍ່ໄປ" readonly v-on="on"></v-text-field>
                     </template>
                     <v-date-picker v-model="technic_check_dateEnd" no-title scrollable
                       @input="updateLicensePlateTechnic_check_dateEnd"></v-date-picker>
@@ -282,7 +313,8 @@
                     <v-menu v-model="licensePlateLean" :close-on-content-click="false" :nudge-right="40"
                       transition="scale-transition" offset-y>
                       <template v-slot:activator="{ on }">
-                        <v-text-field  dense outlined v-model="formattedLLean" label="ນໍ້າມັນເຄື່ອງ" readonly v-on="on"></v-text-field>
+                        <v-text-field dense outlined v-model="formattedLLean" label="ນໍ້າມັນເຄື່ອງ" readonly
+                          v-on="on"></v-text-field>
                       </template>
                       <v-date-picker v-model="lean" no-title scrollable @input="updateLicensePlateLean"></v-date-picker>
                     </v-menu>
@@ -295,8 +327,8 @@
                     <v-menu v-model="licensePlatetungsitDateExpire" :close-on-content-click="false" :nudge-right="40"
                       transition="scale-transition" offset-y>
                       <template v-slot:activator="{ on }">
-                        <v-text-field  dense outlined v-model="formattedLtungsitDateExpire" label="ວັນໝົດອາຍຸຕັງຊິດ(ໜັງສືຜ່ານແດນ)"
-                          readonly v-on="on"></v-text-field>
+                        <v-text-field dense outlined v-model="formattedLtungsitDateExpire"
+                          label="ວັນໝົດອາຍຸຕັງຊິດ(ໜັງສືຜ່ານແດນ)" readonly v-on="on"></v-text-field>
                       </template>
                       <v-date-picker v-model="tungsitDateExpire" no-title scrollable
                         @input="updateLicensePlatetungsitDateExpire"></v-date-picker>
@@ -372,6 +404,7 @@ export default {
       car_year: null,
       car_type: null,
       car_brand: null,
+      serial_tire_second: null,
       lekJuk: null,
       lekThung: null,
       carColor: null,
@@ -381,6 +414,8 @@ export default {
       millor_side: null,
       car_mileage_now: null,
       cc: null,
+      licensePlateLeanFuengThaiy: false,
+
       LicenseLean: '',
       daoOptions: ["ຍັງດາວຢູ່", "ລົດທີ່ບໍ່ດາວ"],
       steering_wheelOptions: ["ພວງມະໄລຊ້າຍ", "ພວງມະໄລຂວາ"],
@@ -413,6 +448,7 @@ export default {
       serial_wheel_right_back: null,
       imageaddcar: null,
       leanGia: null,
+      leanFuengThaiy: null,
       url: null,
       /////////////
       em_userId: null,
@@ -505,7 +541,14 @@ export default {
       this.formattedLLeanGia = val
       this.licensePlateLeanGia = false
     },
-
+    updateLicensePlateLeanGia(val) {
+      this.leanFuengThaiy = val
+      this.licensePlateLeanGia = false
+    },
+    updateLicensePlateLeanFuengThaiy(val) {
+      this.leanFuengThaiy = val;
+      this.licensePlateLeanFuengThaiy = false;
+    },
     onGetEmpImage(file) {
       if (file) {
         this.url = URL.createObjectURL(this.imageaddcar)
@@ -522,21 +565,14 @@ export default {
       try {
         const formdata = new FormData();
         formdata.append('files', this.imageaddcar)
-        
-        formdata.append('date_change_lean_next', this.dateChangeLeeanNext ? this.dateChangeLeeanNext : "3000-03-03")
-        formdata.append('date_change_lean', this.dateChangeLeean ? this.dateChangeLeean : "3000-03-03")
+        formdata.append('date_change_lean_next', this.dateChangeLeeanNext ? this.dateChangeLeeanNext : "2030-03-03")
+        formdata.append('date_change_lean', this.dateChangeLeean ? this.dateChangeLeean : "2030-03-03")
         formdata.append('lekmai_next', this.lekmai_next)
-        
-        
-        
-        
-        
-        
         formdata.append('license_plate', this.license_plate)
+        formdata.append('serial_tire_second', this.serial_tire_second)
         formdata.append('battery_code_name', this.battery_code_name)
-        formdata.append('license_plate_end', this.license_plate_end ? this.license_plate_end : "3000-03-03")
-        formdata.append('license_plate_start', this.license_plate_start ? this.license_plate_start : "3000-03-03")
-        
+        formdata.append('license_plate_end', this.license_plate_end ? this.license_plate_end : "2030-03-03")
+        formdata.append('license_plate_start', this.license_plate_start ? this.license_plate_start : "2030-03-03")
         formdata.append('car_year', this.car_year)
         formdata.append('car_type', this.car_type)
         formdata.append('car_brand', this.car_brand)
@@ -549,16 +585,17 @@ export default {
         formdata.append('millor_side', this.millor_side)
         formdata.append('car_mileage_now', this.car_mileage_now)
         formdata.append('cc', this.cc)
-        formdata.append('leanGia', this.leanGia ? this.leanGia : "3000-03-03")
+        formdata.append('leanGia', this.leanGia ? this.leanGia : "2030-03-03")
+        formdata.append('leanFuengThaiy', this.leanFuengThaiy ? this.leanFuengThaiy : "2030-03-03")
         formdata.append('toKen', localStorage.getItem("toKen"))
         formdata.append('insurance_Lao', this.insurance_Lao)
         formdata.append('insurance_thai', this.insurance_thai)
         formdata.append('insurance_viet', this.insurance_viet)
-        formdata.append('insurance_viet_expireDate', this.insurance_viet_expireDate ? this.insurance_viet_expireDate : "3000-03-03")
-        formdata.append('insurance_thai_expireDate', this.insurance_thai_expireDate ? this.insurance_thai_expireDate : "3000-03-03")
-        formdata.append('insurance_Lao_expireDate', this.insurance_Lao_expireDate ? this.insurance_Lao_expireDate : "3000-03-03")
-        formdata.append('technic_check_dateStart', this.technic_check_dateStart ? this.technic_check_dateStart : "3000-03-03")
-        formdata.append('technic_check_dateEnd', this.technic_check_dateEnd ? this.technic_check_dateEnd : "3000-03-03")
+        formdata.append('insurance_viet_expireDate', this.insurance_viet_expireDate ? this.insurance_viet_expireDate : "2030-03-03")
+        formdata.append('insurance_thai_expireDate', this.insurance_thai_expireDate ? this.insurance_thai_expireDate : "2030-03-03")
+        formdata.append('insurance_Lao_expireDate', this.insurance_Lao_expireDate ? this.insurance_Lao_expireDate : "2030-03-03")
+        formdata.append('technic_check_dateStart', this.technic_check_dateStart ? this.technic_check_dateStart : "2030-03-03")
+        formdata.append('technic_check_dateEnd', this.technic_check_dateEnd ? this.technic_check_dateEnd : "2030-03-03")
         formdata.append('total_weigh_car', this.total_weigh_car)
         formdata.append('oil', this.oil);
         formdata.append('car_model', this.car_model)
@@ -573,15 +610,15 @@ export default {
         formdata.append('serial_wheel_left_back', this.serial_wheel_left_back)
         formdata.append('serial_wheel_right_font', this.serial_wheel_right_font)
         formdata.append('serial_wheel_right_back', this.serial_wheel_right_back)
-        
-        
-        formdata.append('lean', this.lean ? this.lean : "3000-03-03")
+
+
+        formdata.append('lean', this.lean ? this.lean : "2030-03-03")
         formdata.append('tungsitnumber', this.tungsitnumber)
-        formdata.append('tungsitDateExpire', this.tungsitDateExpire ? this.tungsitDateExpire : "3000-03-03")
+        formdata.append('tungsitDateExpire', this.tungsitDateExpire ? this.tungsitDateExpire : "2030-03-03")
 
 
 
-       
+
 
         this.loading_processing = true
         const data = await this.$axios.$post('http://khounkham.com/api-prod/v1/truck/insertCarOffice.service', formdata);

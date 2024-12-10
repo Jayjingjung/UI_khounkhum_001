@@ -2,11 +2,7 @@
     <div>
         <!-- Button to trigger dialog -->
         <div style="display: flex;">
-
-
             <v-card style="width: 100%;" class="card-shadow mb-4" rounded="lg">
-
-
                 <v-card-title style="display:flex;background-color:#24ab70;color:white">
                     <v-btn fab elevation="0" dark width="30" height="30" small color="white" to="receivedAll">
                         <v-icon color="#24ab70">mdi-arrow-left</v-icon>
@@ -14,7 +10,6 @@
                     <v-spacer></v-spacer>
                     ໃບເກັບເງິນ
                     <v-spacer></v-spacer>
-
                 </v-card-title>
                 <!-- <v-btn style="margin-top: 20px;margin-left: 20px;" @click="dialog1 = true" color="primary">
                     <v-icon>
@@ -26,23 +21,18 @@
                         mdi-eye
                     </v-icon>ປະວັດຈາຍເງິ່ນລຸກຄ້າ
                 </v-btn>
-
                 <!-- <v-card class="card-shadow mb-4" rounded="lg"> -->
-                    <v-card-title class="header-title1">
-
-                        <div class="search-print">
-                            <v-text-field placeholder="ຄົ້ນຫາ..." v-model="search" rounded background-color="#e1e1e1"
-                                prepend-inner-icon="mdi-magnify">
-                            </v-text-field>
-
-                            <!-- <v-btn color="#e1e1e1" class="card-shadow print-btn" @click="print">
+                <v-card-title class="header-title1">
+                    <div class="search-print">
+                        <v-text-field placeholder="ຄົ້ນຫາ..." v-model="search" rounded background-color="#e1e1e1"
+                            prepend-inner-icon="mdi-magnify">
+                        </v-text-field>
+                        <!-- <v-btn color="#e1e1e1" class="card-shadow print-btn" @click="print">
                                 <v-icon>mdi-printer</v-icon> ພີມລາຍງານທັງໝົດ
                             </v-btn> -->
-                        </div>
-
-                        <div style="width: 100%;">
-
-                            <!-- <v-data-table :items="report_listitemOffice" :headers="filteredHeaders" :items-per-page="50"
+                    </div>
+                    <div style="width: 100%;">
+                        <!-- <v-data-table :items="report_listitemOffice" :headers="filteredHeaders" :items-per-page="50"
                                 :search="search">
                                 <template v-slot:item="{ item }">
                                     <tr>
@@ -63,72 +53,70 @@
                                     </tr>
                                 </template>
 </v-data-table> -->
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th>ເລກບິນ</th>
-                                        <th>ລາຍລະອຽດ</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr v-for="item in groupedReportItems" :key="item.quotation_code">
-                                        <td>{{ item.quotation_code }}</td>
-                                        <td>
-                                            <v-btn color="primary" class="white--text"
-                                                @click="handleQuotationClick(item.quotation_code)">
-                                                ເບິ່ງລາຍລະອຽດຂອງ {{ item.quotation_code }}
-                                            </v-btn>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-
-                            <!-- Modal to show filtered list -->
-                            <v-dialog v-model="dialog" max-width="800px">
-                                <v-card>
-                                    <v-card-title class="text-h6">
-                                        ລາຍລະອຽດສໍາລັບລະຫັດ : {{ selectedQuotationCode }}
-                                    </v-card-title>
-                                    <v-card-text>
-                                        <table class="table">
-                                            <thead>
-                                                <tr>
-                                                    <th>ລະຫັດໃບເກັບເງິນ</th>
-                                                    <th>ວັນທີ</th>
-                                                    <th>ລາຍລະອຽດ</th>
-                                                    <th>ຈໍານວນ</th>
-                                                    <th>ເບິ່ງ</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr v-for="item in filteredItems" :key="item.key_id">
-                                                    <td>{{ item.invoice_code }}</td>
-                                                    <td>{{ item.date_invoice }}</td>
-                                                    <td>{{ item.detail }}</td>
-                                                    <td>{{ item.amount_of_money }}</td>
-                                                    <td>
-                                                        <v-btn style="height: 100%;width: 200px;" small color="#0059c8"
-                                                            class="white--text card-shadow"
-                                                            @click="viewview(item?.key_id)">
-                                                            ເບິ່ງເເລະເເກ້ໄຂ
-                                                            <v-icon size="30" color="white">mdi-file-edit</v-icon>
-                                                        </v-btn>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </v-card-text>
-                                    <v-card-actions>
-                                        <v-btn text @click="dialog = false">ປິດ</v-btn>
-                                    </v-card-actions>
-                                </v-card>
-                            </v-dialog>
-
-
-
-
-                        </div>
-                    </v-card-title>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>ເລກບິນ</th>
+                                    <th>ລາຍລະອຽດ</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr v-for="item in groupedReportItems" :key="item.quotation_code">
+                                    <td>{{ item.quotation_code }}</td>
+                                    <td>
+                                        <v-btn color="primary" class="white--text"
+                                            @click="handleQuotationClick(item.quotation_code)">
+                                            ເບິ່ງລາຍລະອຽດຂອງ {{ item.quotation_code }}
+                                        </v-btn>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <!-- Modal to show filtered list -->
+                        <v-dialog v-model="dialog" max-width="800px">
+                            <v-card>
+                                <v-card-title class="text-h6">
+                                    ລາຍລະອຽດສໍາລັບລະຫັດ : {{ selectedQuotationCode }}
+                                </v-card-title>
+                                <v-card-text>
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>ລະຫັດໃບເກັບເງິນ</th>
+                                                <th>ວັນທີ</th>
+                                                <th>ລາຍລະອຽດ</th>
+                                                <th>ຈໍາ​ນວນ​ເງິນ​</th>
+                                                <th>ເບິ່ງ</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr v-for="item in filteredItems" :key="item.key_id">
+                                                <td>{{ item.invoice_code }}</td>
+                                                <td>{{ item.date_invoice }}</td>
+                                                <td>{{ item.detail }}</td>
+                                                <td>{{ item.amount_of_money }}</td>
+                                                <td>
+                                                    <v-btn style="height: 100%;width: 200px;" small color="#0059c8"
+                                                        class="white--text card-shadow" @click="viewview(item?.key_id)">
+                                                        ເບິ່ງເເລະເເກ້ໄຂ
+                                                        <v-icon size="30" color="white">mdi-file-edit</v-icon>
+                                                    </v-btn>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <div class="text-right mt-4">
+                                        <strong>ຍອດລວມ: {{ totalAmount?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g,
+                            ',')  }}</strong>
+                                    </div>
+                                </v-card-text>
+                                <v-card-actions>
+                                    <v-btn text @click="dialog = false">ປິດ</v-btn>
+                                </v-card-actions>
+                            </v-card>
+                        </v-dialog>
+                    </div>
+                </v-card-title>
                 <!-- </v-card> -->
             </v-card>
         </div>
@@ -193,9 +181,6 @@
                                     item.money_y_luea.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') : ''
                                     }}</td>
                                 <td>{{ item.currency }}</td>
-
-
-
                                 <td>{{ item.money_T_jaiy ?
                                     item.money_T_jaiy.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') : ''
                                     }}</td>
@@ -353,6 +338,11 @@ export default {
                 }
             });
             return Array.from(uniqueCodes.values());
+        },
+        totalAmount() {
+            return this.filteredItems.reduce((sum, item) => {
+                return sum + parseFloat(item.amount_of_money || 0);
+            }, 0).toFixed(2); // Ensures the total has 2 decimal places
         },
         headers() {
             return [

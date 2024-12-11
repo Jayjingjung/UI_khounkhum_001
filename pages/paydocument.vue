@@ -6,7 +6,6 @@
                 <v-progress-circular :width="3" color="primary" indeterminate></v-progress-circular>
             </v-card>
         </v-dialog>
-
         <v-card class="card-shadow mx-auto" style="border-radius: 36px 1px 36px 2px;" width="430">
             <v-card-title style="display:flex;background-color:#2bcc96; border-radius:36px 0 36px  0;">
                 <v-btn fab elevation="0" dark width="30" height="30" small color="white" @click="$router.back()">

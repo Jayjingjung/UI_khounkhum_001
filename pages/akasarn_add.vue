@@ -202,7 +202,6 @@ export default {
 
   mounted() {
     this.onGetAll();
-
     this.onGetLocationList();
     this.onGetbuang();
     this.USER_ID = localStorage.getItem('USER_ID');

@@ -1,22 +1,12 @@
 <template>
     <div>
-
-
-
-
         <v-dialog v-model="dialog" max-width="800px">
-
             <v-card class="card-shadow " rounded="lg" width="800px">
                 <v-card-title class="orange--text white--text">
                     ລວມຍອດທີ່ຈ່າຍໄປເເລ້ວ
                 </v-card-title>
-
                 <v-card-text style="justify-content: center; align-items: center;">
-
                     <v-row>
-
-
-
                         <v-col cols="12" md="4" sm="6">
                             <v-icon color="black">mdi-account</v-icon>
                             <span>ລູກຄ້າ</span>
@@ -25,10 +15,8 @@
                                     :items="customer_data_list" item-text="customerName" item-value="id"
                                     @change="onGetCustomerDetails">
                                 </v-autocomplete>
-
                             </div>
                         </v-col>
-
                         <v-col cols="12" md="4" sm="6">
                             <v-icon color="black">mdi-currency-usd</v-icon>
                             <span>ສະກຸນເງິນ</span>
@@ -39,7 +27,6 @@
                     <v-row>
                         <v-col cols="12" md="4" sm="6">
                             <v-icon color="black">mdi-calendar-range</v-icon>
-
                             <span>ວັນທີ</span>
                             <v-menu ref="menu" v-model="menu" :close-on-content-click="false"
                                 :return-value.sync="formattedDate" transition="scale-transition" offset-y
@@ -55,11 +42,9 @@
                                 </v-date-picker>
                             </v-menu>
                         </v-col>
-
                         <v-col cols="12" md="4" sm="6">
                             <v-icon color="black">mdi-calendar-range</v-icon>
                             <span>ວັນທີ</span>
-
                             <v-menu ref="endmenu" v-model="endmenu" :close-on-content-click="false"
                                 :return-value.sync="formattedDateand" transition="scale-transition" offset-y
                                 min-width="auto">
@@ -75,72 +60,48 @@
                             </v-menu>
                         </v-col>
                     </v-row>
-
                     <div style="display: flex; justify-content: center; align-items: center; height: 10vh">
                         <v-btn @click="onGetshowdata_table" style="background-color: green; width: 30%;color: white;">
-                            <!-- <v-icon color="white">mdi-plus</v-icon> -->
-
                             ບັນທຶກ
                         </v-btn>
                     </div>
-
                     <v-col cols="12" md="4" sm="6" justify="start">
-
-
                         <div>
-                            <p>ລວຍຍອດທີ່ຈ່າຍໄປເເລ້ວ {{ amount_money_T_jaiy_pai_leo_total }}</p>
+                            <p>ລວມຍອດທີ່ຈ່າຍໄປເເລ້ວ {{ amount_money_T_jaiy_pai_leo_total }}</p>
                         </div>
-
                     </v-col>
                 </v-card-text>
             </v-card>
         </v-dialog>
-
-
-
-
-
-
-
-
-
-
-        <v-btn style="margin-top: 20px;margin-left: 20px;" @click="dialog = true" color="primary">
-            <v-icon>
-                mdi-account-search
-            </v-icon>ຄົ້ນຫາ ຍອດລວມທີ່ຈ່າຍລູກຄ້າ
-        </v-btn>
-
-
-        <v-card variant="outlined" class="card-shadow mb-4" rounded="lg">
-            <v-card-title style="display:flex;background-color:#E74848;color:white" class="header-title1">
-                <spen style="margin-left: 20px;margin-right: 20px;">
-                    ໃບສະເໝີລາຄາ
-                </spen>
+        <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn style="margin-top: 20px;margin-left: 20px; font-size: 16px;font-weight: bold " @click="dialog = true"
+                color="#00E676">
+                <v-icon color="white">
+                    mdi-account-search
+                </v-icon>
+                ຍອດລວມທີ່ຈ່າຍໃຫ້ລູກຄ້າ
+            </v-btn>
+        </v-card-actions>
+        <v-card variant="outlined" class="card-shadow mb-4" rounded="lg" color="#00E676">
+            <div style="font-size: 20px; font-weight: bold; padding: 18px 18px 0px 18px; " >
+                ໃບສະເໜີລາຄາ
+            </div>
+            <v-card-title style="display:flex;" class="header-title1">
                 <div class="search-print">
-                    <v-text-field placeholder="ຄົ້ນຫາ..." v-model="search" rounded background-color="#e1e1e1"
+                    <v-text-field label="ຄົ້ນຫາ..." v-model="search" rounded background-color="white"
                         prepend-inner-icon="mdi-magnify">
                     </v-text-field>
-
-                    <v-btn color="#e1e1e1" class="card-shadow print-btn" @click="print">
+                    <v-btn color="white" class="card-shadow print-btn" @click="print">
                         <v-icon>mdi-printer</v-icon> ພີມລາຍງານທັງໝົດ
                     </v-btn>
-
-                    <!-- <v-btn color="#1F7087" class="card-shadow print-btn" to="/testt-v-card-pdf">
-                        <v-icon></v-icon> 
-                    </v-btn> -->
                 </div>
-
                 <div style="width: 100%;">
-
                     <v-data-table :items="report_listitemOffice" :headers="filteredHeaders" :items-per-page="50"
                         :search="search">
                         <template v-slot:item="{ item }">
                             <tr>
-                                <!-- <td>{{ item.customer_id }}</td> -->
                                 <td>{{ item.quotation_code }}</td>
-                                <!-- <td>{{ item.customerName }}</td>s -->
-                                <!-- <td>{{ item.reference_number }}</td> -->
                                 <td>{{ item.typeName }}</td>
                                 <td>{{ item.topic }}</td>
                                 <td>{{ item.unit ? item.unit.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') : ''
@@ -149,85 +110,27 @@
                                     item.amount_money.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') : '' }}</td>
                                 <td>{{ item.totalMoney ? item.totalMoney.toString().replace(/\B(?=(\d{3})+(?!\d))/g,
                                     ',') : '' }}</td>
-
                                 <td>{{ item.num }}</td>
                                 <!-- Currency with Conditional Styling -->
                                 <td :style="currencyStyle(item.currency)">
                                     {{ item.currency }}
                                 </td>
-
-                                <!-- <td>
-                               
-                                    <a v-if="item.document_1" @click="viewerpdf(item.document_1)" target="_blank">
-                                        ເບິ່ງ ເອກະສານ 1
-                                    </a>
-                                </td>
-                                <td>
-                           
-                                    <a v-if="item.document_2" @click="viewerpdf(item.document_2)" target="_blank">
-                                        ເບິ່ງ ເອກະສານ 2
-                                    </a>
-                                </td> -->
-                                <!-- <td>{{ item.status_wait_approve }}</td> -->
-                                <!-- <td>{{ item.quotation }}</td> -->
-                                <!-- <td>{{ item.description }}</td> -->
                                 <td>{{ item.note }}</td>
                                 <td>{{ item.date }}</td>
                                 <td>{{ item.due_date }}</td>
                                 <td>
-                                    <v-btn style="height: 100%;width: 100%;" small color="#0059c8"
-                                        class="white--text card-shadow" @click="viewview(item?.key_id)">
-                                        <v-icon size="30" color="white">mdi-eye</v-icon>
-                                    </v-btn>
+                                    <v-chip color="#00E676" @click="viewview(item?.key_id)">
+                                        <v-icon small color="white">mdi-eye-circle</v-icon>
+                                    </v-chip>
                                 </td>
                                 <td>
-                    <v-btn v-if="item.status_wait_approve !== 'Y'" style="height: 100%; width: 100%;" small color="#0059c8">
-                        <v-icon size="30" color="white">mdi-alert-box</v-icon>
-                    </v-btn>
-                </td>
-
-                                <!-- <td v-if="item.status_wait_approve === 'N'">
-                                    <v-btn style="height: 100%;width: 100%;" small color="#0059c8"
-                                        class="white--text card-shadow" @click="conform(item?.key_id)">
-                                        <v-icon size="30" color="white">mdi-content-save-check</v-icon>
-                                    </v-btn>
-                                </td> -->
-                                <!-- <td v-if="item.status_wait_approve !== 'Y'">
-                                      
-                                        <v-menu offset-y>
-                                            <template v-slot:activator="{ on, attrs }">
-                                                <v-btn style="height: 40px; width: 50px;" small color="#0085e3"
-                                                    class="white--text card-shadow" v-bind="attrs" v-on="on">
-                                                    <v-icon size="30" color="white">mdi-arrow-down-drop-circle</v-icon>
-                                                </v-btn>
-                                            </template>
-                <v-list>
-
-
-                    <v-list-item style="margin-bottom: 20px;" @click="viewup(item?.key_id)">
-                        <v-list-item-icon>
-                            <v-icon size="50" color="blue">mdi-table-edit</v-icon>
-                        </v-list-item-icon>
-                        <v-list-item-title>Update</v-list-item-title>
-                    </v-list-item>
-                    <v-list-item @click="viewdelete(item?.key_id)">
-                        <v-list-item-icon>
-                            <v-icon>mdi-delete</v-icon>
-                        </v-list-item-icon>
-                        <v-list-item-title>Delete</v-list-item-title>
-                    </v-list-item>
-                </v-list>
-                </v-menu>
-                </td> -->
-
+                                    <div v-if="item.status_wait_approve !== 'Y'" style="height: 100%; width: 100%;">
+                                        <v-icon size="30" color="#FF1744">mdi-alert-box</v-icon>
+                                    </div>
+                                </td>
                             </tr>
                         </template>
                     </v-data-table>
-
-                    <!-- Displaying Total -->
-                    <!-- <div style="text-align: right; margin-top: 20px;">
-                        <strong>ລວຍຍອດ: {{ totalAmount }}</strong>
-                    </div> -->
                 </div>
             </v-card-title>
         </v-card>
@@ -245,9 +148,7 @@
                 </v-card-actions>
             </v-card>
         </v-dialog>
-
     </div>
-
 </template>
 
 <script>
@@ -256,6 +157,8 @@ import swal from 'sweetalert2';
 export default {
     data() {
         return {
+            amount_money_T_jaiy_pai_leo_total:'',
+            endmenu:'',
             search: '',
             customer_data_list: [],
             customer_name: '',
@@ -270,25 +173,19 @@ export default {
             report_listitemOffice: [],
             filteredHeaders:
                 [
-                    // { text: 'Customer ID', value: 'customer_id' }, 
-                    { text: 'ເລກໃບສະເໜີ', value: 'quotation_code' },
-                    // { text: 'Customer Name', value: 'customerName' },
-                    // { text: 'ເລກ ອ້າງອິງ', value: 'reference_number' },
+                    { text: 'ເລກໃບສະເໜີ', value: 'quotation_code'},
                     { text: 'ປະເພດ', value: 'typeName' },
-                    { text: 'ຫົວຂໍ', value: 'topic' },
+                    { text: 'ຫົວຂໍ້', value: 'topic' },
                     { text: 'ຈໍານວນ', value: 'unit' },
-                    { text: 'ລາຄາ', value: 'amount_money' },
-                    { text: 'ຫົວນວຍ', value: 'num' },
+                    { text: 'ລາຄາ', value: 'amount_money'},
+                    { text: 'ຫົວໜ່ວຍ', value: 'num' },
                     { text: 'ລາຄາທັງໝົດ', value: 'totalMoney' },
-                    { text: 'ສະກຸນເງິນ', value: 'currency' },
-                    // { text: 'ເອກະສານ 1', value: 'document_1' },
-                    // { text: 'ເອກະສານ 2', value: 'document_2' },
-                    // { text: 'Status', value: 'status_wait_approve' },
-                    // { text: 'Quotation', value: 'quotation' },
-                    // { text: 'Description', value: 'description' },
+                    { text: 'ສະກຸນເງີນ', value: 'currency' },
                     { text: 'ໝາຍເຫດ', value: 'note' },
-                    { text: 'ວັນ', value: 'date' },
-                    { text: 'Due ວັນ', value: 'due_date' },
+                    { text: 'ວັນທີ່ສ້າງ', value: 'date'},
+                    { text: 'ວັນທີ່ສີ້ນສຸດ', value: 'due_date' },
+                    { text: 'ເຂົ້າເບີ່ງ', value: '' },
+                    { text: 'ແຈ້ງເຕືອນ', value: '' },
                 ],
             selectedCurrency: '',
             selectedunit: '',
@@ -343,10 +240,7 @@ export default {
             this.calculateTotal();
         },
     },
-
     computed: {
-
-
         // Formatted displayAmountMoney with unit and currency
         displayAmountMoney: {
             get() {
@@ -379,17 +273,14 @@ export default {
         },
     },
     methods: {
-
         async onGetshowdata_table() {
             try {
                 this.loading_processing = true;
                 let data = {
                     startDate: this.formattedDate,
-
                     endDate: this.formattedDateand,
                     currency: this.selectedCurrency,
                     customer_id: this.customer_id,
-
                 };
                 const response = await this.$axios.$post('SearchingDeptMustReceived.service', data);
                 console.log('API response:', response);
@@ -478,12 +369,8 @@ export default {
             try {
                 this.loading_processing = true
                 await this.$axios.$post('/getBouangAll.service',
-
                     {
-
                         toKen: localStorage.getItem('toKen'),
-
-
                     }).then((data) => {
                         if (data?.status == '00') {
                             this.buang_data_list = data?.data
@@ -517,7 +404,6 @@ export default {
         print() {
             window.print(); // Simple print functionality
         },
-
         async onstore_dept_Must_received() {
             try {
                 const response = await this.$axios.$post('/GenQuotationCodeKKT.service');
@@ -543,10 +429,8 @@ export default {
             }
 
         },
-
         async save(quotation_code) {
             const formdata = new FormData();
-
             formdata.append('customer_id', this.customer_id);
             formdata.append('topic', this.topic);
             formdata.append('type_id', this.bouang);
@@ -566,16 +450,12 @@ export default {
             formdata.append('unit', this.unit);
             formdata.append('totalMoney', this.totalMoney);
             formdata.append('quotation_code', quotation_code);
-
             this.loading_processing = true;
-
             try {
                 const data = await this.$axios.$post('http://khounkham.com/api-prod/v1/truck/DeptMustReceivedInsert.service', formdata);
                 console.log("Response:", data);
-
                 // Optionally clear form data here
                 this.onClearData();
-
                 // SweetAlert2 success notification after saving
                 Swal.fire({
                     title: 'Success!',
@@ -587,7 +467,6 @@ export default {
 
             } catch (error) {
                 console.error("Error:", error);
-
                 // SweetAlert2 error notification
                 Swal.fire({
                     title: 'Error',
@@ -655,12 +534,6 @@ export default {
                 const response = await this.$axios.$post('/listDeptMustReceivedAll.service', {
 
                     toKen: localStorage.getItem('toKen'),
-                    // bound: this.bound,
-                    // bouang: this.selectedBuang,
-                    // company: this.company,
-                    // type: this.selectedProduct,
-                    // classofdocs: this.classofdocs,
-                    // userIdoffinanceial: this.userIdoffinanceial // Pass the selected userIdoffinanceial value here
                 });
 
                 console.log('API Response:', response);  // Log the API response
@@ -680,8 +553,6 @@ export default {
                 this.loading_processing = false;
             }
         },
-
-
         async conform(key_id) {
             try {
                 // Show confirmation dialog
@@ -701,8 +572,6 @@ export default {
                         // action: 'delete',
                         key_id: key_id,
                         toKen: localStorage.getItem('toKen'),
-
-
                     });
 
                     if (response && response.status === '00') {
@@ -725,9 +594,7 @@ export default {
                 this.$toast.error('เกิดข้อผิดพลาดในการเชื่อมต่อกับเซิร์ฟเวอร์');
                 console.error(error);
             }
-
         },
-
     },
 };
 </script>

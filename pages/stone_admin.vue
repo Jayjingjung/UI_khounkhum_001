@@ -478,7 +478,7 @@
                                     </v-list-item-content>
                                 </template>
                                 <v-list-item>
-                                    <v-btn rounded @click="imagefile = true">
+                                    <v-btn rounded @click="toImage1('tZl011U2nNs9AdvQDIStduuOIc8yWmxw', 'ບ້ານຄອນງົວ')">
                                         ເບີ່ງ
                                     </v-btn>
                                     <v-spacer></v-spacer>
@@ -2081,7 +2081,6 @@ export default {
     },
     mounted() {
         this.USER_ROLE = this.$route.query.userRole || localStorage.getItem('userRole') || 'BOR-HIN-KHUAT';  // ຄ່າ default ເປັນ 'BOR-HIN-KHUAT
-
     },
     watch: {
         '$route.query.userRole': function (newRole) {
@@ -2093,10 +2092,16 @@ export default {
         refresher() {
             window.location.reload();
         },
-        toImage(token, buttonLabel, number) {
+        toImage(token, number) {
             this.$router.push({
-                name: 'image',
-                query: { token, label: buttonLabel, number }
+                name: 'insertImage',
+                query: { token, number }
+            });
+        },
+        toImage1(token, number) {
+            this.$router.push({
+                name: 'showimage',
+                query: { token, number }
             });
         },
         navigate(token, buttonvalue) {
@@ -2269,7 +2274,6 @@ export default {
     },
 };
 </script>
-
 <style>
 .custom-text-field {
     background-color: #f0f0f0;

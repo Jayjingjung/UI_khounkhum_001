@@ -33,11 +33,9 @@
       </v-btn>
     </div>
 
-
     <v-btn class="print-button" color="#0f7be1" @click="print">
       <v-icon color="#ffffff">mdi-printer</v-icon>ພີມລາຍງານທັງໝົດ
     </v-btn>
-
     <v-card class="data-card">
       <div v-if="selectedCard === '1'">
         <v-card class="card-shadow mb-4" rounded="lg">
@@ -68,7 +66,6 @@
                   <v-autocomplete style="width: 200px; margin-left: 15px; margin-right: 15px;" outlined dense
                     label="ປະເພດ ທີເພີ່ມເອງ" :items="products_data_list" item-text="typeName" item-value="id"
                     background-color="#13d95a" v-model="selectedProduct" @change="onGetProductDetails"></v-autocomplete>
-
                   <v-autocomplete style="width: 200px; margin-left: 15px; margin-right: 15px;" outlined dense
                     label="ບໍລິສັດ" :items="loca_data_list" item-text="province" item-value="id"
                     background-color="#c6a50b" v-model="selectedLoca" @change="onGetLocaDetails"></v-autocomplete>
@@ -77,7 +74,6 @@
                   <v-select background-color="#ffa5f1" dense outlined
                     style="width: 200px; margin-left: 15px; margin-right: 15px;" :items="conditionalItems1"
                     v-model="classofdocs" label="ໃບອະນຸຍາດ"></v-select>
-
                   <v-autocomplete style="width: 100px; margin-left: 15px; margin-right: 15px;" outlined dense
                     label="ບ້ວງ" :items="buang_data_list" item-text="nameOfBouang" item-value="nameOfBouang"
                     background-color="#c6a50b" v-model="selectedBuang" @change="onGetbuangDetails"></v-autocomplete>
@@ -89,9 +85,7 @@
             <v-data-table :items="report_listitemOffice" :headers="filteredHeaders" :items-per-page="50"
               :search="search">
               <template v-slot:item="row">
-
                 <tr>
-
                   <td>
                     <v-btn style="height: 100%;width: 100%;" small color="#0059c8" class="white--text card-shadow"
                       @click="viewerpdf(row?.item?.pdf)">
@@ -180,7 +174,6 @@
     </v-dialog>
   </div>
 </template>
-
 <script>
 import swal from 'sweetalert2'
 
@@ -194,7 +187,6 @@ export default {
       selectedLoca: '',
       classofdocs: '',
       selectedBuang: null,
-
       dropdownVisibleFor: null,
       report_leave_caroffice_header: [
         { text: 'ເອກກະສານ', value: 'pdf' },
@@ -212,17 +204,14 @@ export default {
         { text: 'ບໍລິສັດ', value: 'company' },
         { text: 'ອື່ນໆ', value: 'etc' },
         { text: 'ເລກທີ', value: 'lektee' },
-
         { text: '', value: '' }, // Add an extra column header for the new button
       ],
       report_listitemOffice: [],
       search: '', // Add the search property here
-      dropdownItems: ['ໃບສະເໜີ', 'ໃບມອບສິດ', 'ໃບເເຈ້ງການ', 'ໃບອະນຸຍາດ', 'ຂໍ້ຕົກລົງ', 'ບໍລິສັດ'],
       selectedDropdown: null,
       conditionalItems: ['MOU', 'ໃບອານຸຍາດສໍາປະທານ', 'ໃບອານຸຍາດຂຸດຄົນ'],
       selectedConditional: null,
       conditionalItems1: ['ຂັ້ນເມືອງ', 'ຂັ້ນເເຂວງ', 'ຂັ້ນສໍານັກງານນາຍົກ'],
-
       conditionalItems2: ['ບໍລິສັດ ຄູນຄໍາ ອຸດສະຫະກໍາ ສໍາ ນັກງານໃຫຍ່', 'ບໍລິສັດ ຄູນຄໍາ ກໍ່ສ້າງຂົວ-ທາງ,ຊົນລະປະທານ ເເລະ ເຄຫະສະຖານ ', 'ບໍລິສັດ ຄູນຄໍາ ໂລຈິດສຕິກສ', 'ບໍລິສັດ ຄູນຄໍາ ສະຕິຮອິນດັສທຮີ', 'ບໍລິສັດ ຄູນຄໍາ ອູດສະຫະກໍາ ບໍ່ເເຮ່', 'ບໍລິສັດ ຫ້ວຍເປາະພາວເວີ', 'ບໍລິສັດ ຖະນະພອນ ອຸດສະຫະກໍາເເຮ່ທາດ', 'ບໍລິສັດ ຄໍາໃສ ການຄ້າ ຂາເຂົ້າ-ຂາອອກ'],
       bouang: null,
       buang_data_list: null,
@@ -275,7 +264,6 @@ export default {
       }
     },
   },
-
   computed: {
     filteredItems() {
       return this.report_listitemOffice ? this.report_listitemOffice.slice() : []; // Default to an empty array if null
@@ -337,8 +325,6 @@ export default {
           branchUser: localStorage.getItem('USER_ROLE'),
           toKen: localStorage.getItem('toKen'),
           bound: this.bound,
-
-
           bouang: this.selectedBuang,
           userIdoffinanceial: this.userIdoffinanceial // Pass the selected userIdoffinanceial value here
         });
@@ -370,8 +356,6 @@ export default {
           bouang: this.selectedBuang,
           company: this.company,
           type: this.selectedProduct,
-          // classofdocs: this.classofdocs,
-          // userIdoffinanceial: this.userIdoffinanceial // Pass the selected userIdoffinanceial value here
         });
 
         console.log('API Response:', response);  // Log the API response

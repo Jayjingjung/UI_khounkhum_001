@@ -7,63 +7,7 @@
           <v-icon left>mdi-folder</v-icon>
           <v-text-field label="ຊື່ໂຟນເດີ" style="font-size: 28px; font-weight: bold; width: 210px;margin-top: 15px;" outlined dense
             v-model="folderName" :rules="[v => !!v || 'Required field']"></v-text-field>
-
         </v-card-title>
-        <!-- <v-card-text>
-          <v-row>
-            <v-col cols="12" sm="6">
-              <v-menu
-                ref="menuStart"
-                v-model="menuStart"
-                :close-on-content-click="false"
-                transition="scale-transition"
-                offset-y
-                min-width="auto"
-              >
-                <template v-slot:activator="{ on, attrs }">
-                  <v-text-field
-                    v-model="startDate"
-                    label="ວັນທີເລີ່ມຕົ້ນ"
-                    prepend-icon="mdi-calendar"
-                    readonly
-                    v-bind="attrs"
-                    v-on="on"
-                  ></v-text-field>
-                </template>
-                <v-date-picker
-                  v-model="startDate"
-                  @input="menuStart = false"
-                ></v-date-picker>
-              </v-menu>
-            </v-col>
-
-            <v-col cols="12" sm="6">
-              <v-menu
-                ref="menuEnd"
-                v-model="menuEnd"
-                :close-on-content-click="false"
-                transition="scale-transition"
-                offset-y
-                min-width="auto"
-              >
-                <template v-slot:activator="{ on, attrs }">
-                  <v-text-field
-                    v-model="endDate"
-                    label="ວັນທີສິ້ນສຸດ"
-                    prepend-icon="mdi-calendar"
-                    readonly
-                    v-bind="attrs"
-                    v-on="on"
-                  ></v-text-field>
-                </template>
-                <v-date-picker
-                  v-model="endDate"
-                  @input="menuEnd = false"
-                ></v-date-picker>
-              </v-menu>
-            </v-col>
-          </v-row>
-        </v-card-text> -->
         <v-card-title>
           <v-icon left>mdi-upload</v-icon>
           ອັບໂຫລດໄຟລ໌
@@ -72,7 +16,6 @@
           <!-- File Input -->
           <v-file-input label="ເລືອກໄຟລ໌ (ຮອງຮັບຫຼາຍ​ໄຟລ​໌)" v-model="imageaddcar" outlined dense multiple show-size
             truncate-length="15" prepend-icon="mdi-file"></v-file-input>
-
           <!-- Preview Uploaded Files -->
           <v-row v-if="imageaddcar && imageaddcar.length" class="mt-4">
             <v-col cols="12">
@@ -160,17 +103,12 @@ export default {
         alert("กรุณาเลือกไฟล์และระบุชื่อโฟลเดอร์!");
         return;
       }
-
       const formData = new FormData();
       this.imageaddcar.forEach((file) => {
         formData.append("files", file);
       });
       formData.append("folderName", this.folderName);
-      // formData.append("startDate", this.startDate);
-      // formData.append("endDate", this.endDate);
-
       formData.append("toKen", localStorage.getItem("toKen"));
-
       try {
         const response = await axios.post(
           "http://khounkham.com/api-prod/v1/truck/StorePicOfBorHin.service",
@@ -199,7 +137,6 @@ export default {
             toKen: localStorage.getItem("toKen"),
           }
         );
-
         if (response.data.status === "00") {
           this.picList = response.data.data; // Adjusted to store the full object
         } else {

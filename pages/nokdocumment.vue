@@ -11,13 +11,11 @@
                 </div>
                 <v-spacer></v-spacer>
             </v-card-title>
-
             <v-card-title v-if="buttonname">
                 <v-chip color="#2bcc96" dense class="font-weight-bold">
                     {{ buttonname }}
                 </v-chip>
             </v-card-title>
-
             <v-card-text class="pa-8 mx-auto" style="border:0px solid #e0e0e0">
                 <v-form v-model="valid" lazy-validation ref="form">
                     <v-text-field label="ເລືອກວັນທີ່" v-model="dateInsert" prepend-icon="mdi-calendar" readonly
@@ -38,17 +36,14 @@
                             <div class="font-weight-bold">
                                 ປະເພດເອກະສານ
                             </div>
-
                             <v-radio-group v-model="inputMethod" row>
                                 <v-radio label="ພີມເອງ" value="textField"></v-radio>
                                 <v-radio label="ເລືອກຈາກລາຍການ" value="select"></v-radio>
                             </v-radio-group>
-
                             <div v-if="inputMethod === 'textField'">
                                 <v-text-field label="ພີມຊື່ປະເພດ" dense v-model="nameDetail"
                                     :rules="[v => !!v || 'ຈໍາເປັນຕ້ອງປ້ອນ']" required></v-text-field>
                             </div>
-
                             <div v-if="inputMethod === 'select'">
                                 <v-select v-model="nameDetail" :items="filteredNameDetails" label="ເລືອກປະເພດເອກະສານ"
                                     dense outlined :rules="[v => !!v || 'ຈໍາເປັນຕ້ອງເລືອກປະເພດ']" required />

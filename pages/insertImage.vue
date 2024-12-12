@@ -6,7 +6,7 @@
       </v-btn>
       <v-spacer></v-spacer>
       <div class="font-weight-bold">
-        ອັບໂຫລດໄຟລ໌
+        ອັບໂຫລດໄຟລ໌ພາບ
       </div>
       <v-spacer></v-spacer>
     </v-card-title>
@@ -18,9 +18,10 @@
           </v-chip>
         </v-card-title>
       </div>
+      <div class="ml-8 red--text" style="font-size: 14px;" >ໝາຍເຫດ: ຂະໜາດໄຟລ໌ລວມແມ່ນບໍ່ໃຫ້ເກີນ20MB(ຕໍ່ຄັ້ງ)</div>
     </div>
     <v-card-title>
-      <v-file-input label="ເລືອກໄຟລ໌ພາບ" v-model="imageaddcar" dense multiple show-size truncate-length="15"
+      <v-file-input label="ເລືອກໄຟລ໌ພາບ" v-model="imageaddcar" dense multiple show-size truncate-length="30"
         prepend-icon="mdi-file"></v-file-input>
       <v-card-title>
       </v-card-title>
@@ -49,7 +50,6 @@
         </v-col>
       </v-row>
     </v-card-text>
-
     <!-- Upload Button -->
     <v-card-actions class="center-actions">
       <v-btn color="#00E676" style="font-size: 14px; font-weight: bold;" @click="uploadFiles"

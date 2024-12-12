@@ -6,11 +6,7 @@
             <v-card style="width: 1200px;" class="card-shadow mb-4" rounded="lg">
 
 
-                <v-card-title style="display:flex;background-color:#E74848;color:white">
-
-
-
-
+                <v-card-title style="display:flex;background-color:#00E676;color:white">
                     <v-btn fab elevation="0" dark width="30" height="30" small color="white" to="DeptMustReceive">
                         <v-icon color="#E74848">mdi-arrow-left</v-icon>
                     </v-btn>

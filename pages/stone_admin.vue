@@ -635,11 +635,14 @@
                                     </v-list-item-content>
                                 </template>
                                 <v-list-item>
-                                    <v-btn rounded>
+                                    <v-btn rounded @click="toImage1('3iKcWacuOwaXxERfL6LNvuEKdjhvc5aF', 'ບ້ານສີຄູນ')">
                                         ເບີ່ງ
                                     </v-btn>
                                     <v-spacer></v-spacer>
-                                    <v-btn color="success" rounded>ເພີ່ມ</v-btn>
+                                    <v-btn color="success"
+                                        @click="toImage('3iKcWacuOwaXxERfL6LNvuEKdjhvc5aF', 'ບ້ານສີຄູນ')" rounded>
+                                        ເພີ່ມ
+                                    </v-btn>
                                 </v-list-item>
                             </v-list-group>
                         </v-list-group>
@@ -789,11 +792,14 @@
                                     </v-list-item-content>
                                 </template>
                                 <v-list-item>
-                                    <v-btn rounded>
+                                    <v-btn rounded @click="toImage1('e23QZokLhZNSVtXP1qYQHM8PVHr76VQa', 'ບ້ານທ່າ')">
                                         ເບີ່ງ
                                     </v-btn>
                                     <v-spacer></v-spacer>
-                                    <v-btn color="success" rounded>ເພີ່ມ</v-btn>
+                                    <v-btn color="success"
+                                        @click="toImage('e23QZokLhZNSVtXP1qYQHM8PVHr76VQa', 'ບ້ານທ່າ')" rounded>
+                                        ເພີ່ມ
+                                    </v-btn>
                                 </v-list-item>
                             </v-list-group>
                         </v-list-group>
@@ -946,11 +952,14 @@
                                     </v-list-item-content>
                                 </template>
                                 <v-list-item>
-                                    <v-btn rounded>
+                                    <v-btn rounded @click="toImage1('phonkham123kOQHMwA1Ve9lMq22X3kpSiaIbDO123', 'ບ້ານໂພນຄໍາ')">
                                         ເບີ່ງ
                                     </v-btn>
                                     <v-spacer></v-spacer>
-                                    <v-btn color="success" rounded>ເພີ່ມ</v-btn>
+                                    <v-btn color="success"
+                                        @click="toImage('phonkham123kOQHMwA1Ve9lMq22X3kpSiaIbDO123', 'ບ້ານໂພນຄໍາ')" rounded>
+                                        ເພີ່ມ
+                                    </v-btn>
                                 </v-list-item>
                             </v-list-group>
                         </v-list-group>
@@ -1099,10 +1108,14 @@
                                     </v-list-item-content>
                                 </template>
                                 <v-list-item>
-                                    <v-btn rounded>
+                                    <v-btn rounded @click="toImage1('kOQHMwA1Ve9lMq22X3kpSiaIbGGKghDO', 'ບ້ານຊຽງຄົງ')">
+                                        ເບີ່ງ
                                     </v-btn>
                                     <v-spacer></v-spacer>
-                                    <v-btn color="success" rounded>ເພີ່ມ</v-btn>
+                                    <v-btn color="success"
+                                        @click="toImage('kOQHMwA1Ve9lMq22X3kpSiaIbGGKghDO', 'ບ້ານຊຽງຄົງ')" rounded>
+                                        ເພີ່ມ
+                                    </v-btn>
                                 </v-list-item>
                             </v-list-group>
                         </v-list-group>
@@ -1255,11 +1268,14 @@
                                     </v-list-item-content>
                                 </template>
                                 <v-list-item>
-                                    <v-btn rounded>
+                                    <v-btn rounded @click="toImage1('namzao123kOQHMwA1Ve9lMq22X3kpSiaIbKghDO456', 'ບ້ານນໍ້າຊາວ')">
                                         ເບີ່ງ
                                     </v-btn>
                                     <v-spacer></v-spacer>
-                                    <v-btn color="success" rounded>ເພີ່ມ</v-btn>
+                                    <v-btn color="success"
+                                        @click="toImage('namzao123kOQHMwA1Ve9lMq22X3kpSiaIbKghDO456', 'ບ້ານນໍ້າຊາວ')" rounded>
+                                        ເພີ່ມ
+                                    </v-btn>
                                 </v-list-item>
                             </v-list-group>
                         </v-list-group>
@@ -1412,11 +1428,14 @@
                                     </v-list-item-content>
                                 </template>
                                 <v-list-item>
-                                    <v-btn rounded>
+                                    <v-btn rounded @click="toImage1('nongphounxai3kOQHMwA1Ve9lMq22X3kpSiaIDO789', 'ໜອງພູໄຊ 32,28')">
                                         ເບີ່ງ
                                     </v-btn>
                                     <v-spacer></v-spacer>
-                                    <v-btn color="success" rounded>ເພີ່ມ</v-btn>
+                                    <v-btn color="success"
+                                        @click="toImage('nongphounxai3kOQHMwA1Ve9lMq22X3kpSiaIDO789', 'ໜອງພູໄຊ 32,28')" rounded>
+                                        ເພີ່ມ
+                                    </v-btn>
                                 </v-list-item>
                             </v-list-group>
                         </v-list-group>
@@ -1568,11 +1587,14 @@
                                     </v-list-item-content>
                                 </template>
                                 <v-list-item>
-                                    <v-btn rounded>
+                                    <v-btn rounded @click="toImage1('knongphounxaiOQHMwA1Ve9lMq22X3kpSiahDO101112', 'ໜອງພູໄຊ 62,39')">
                                         ເບີ່ງ
                                     </v-btn>
                                     <v-spacer></v-spacer>
-                                    <v-btn color="success" rounded>ເພີ່ມ</v-btn>
+                                    <v-btn color="success"
+                                        @click="toImage('knongphounxaiOQHMwA1Ve9lMq22X3kpSiahDO101112', 'ໜອງພູໄຊ 62,39')" rounded>
+                                        ເພີ່ມ
+                                    </v-btn>
                                 </v-list-item>
                             </v-list-group>
                         </v-list-group>
@@ -1723,11 +1745,14 @@
                                     </v-list-item-content>
                                 </template>
                                 <v-list-item>
-                                    <v-btn rounded>
+                                    <v-btn rounded @click="toImage1('kOlardhor123QHMwA1Ve9lMq22X3GGKghDO13214415', 'ບ້ານລາດຫໍ້')">
                                         ເບີ່ງ
                                     </v-btn>
                                     <v-spacer></v-spacer>
-                                    <v-btn color="success" rounded>ເພີ່ມ</v-btn>
+                                    <v-btn color="success"
+                                        @click="toImage('kOlardhor123QHMwA1Ve9lMq22X3GGKghDO13214415', 'ບ້ານລາດຫໍ້')" rounded>
+                                        ເພີ່ມ
+                                    </v-btn>
                                 </v-list-item>
                             </v-list-group>
                         </v-list-group>
@@ -1878,11 +1903,14 @@
                                     </v-list-item-content>
                                 </template>
                                 <v-list-item>
-                                    <v-btn rounded>
+                                    <v-btn rounded @click="toImage1('vewerwfe33369cee4866caf2f9941bf6244c5b6570f63a1f3eb91bba', 'ບ້ານຕະເປືອ')">
                                         ເບີ່ງ
                                     </v-btn>
                                     <v-spacer></v-spacer>
-                                    <v-btn color="success" rounded>ເພີ່ມ</v-btn>
+                                    <v-btn color="success"
+                                        @click="toImage('vewerwfe33369cee4866caf2f9941bf6244c5b6570f63a1f3eb91bba', 'ບ້ານຕະເປືອ')" rounded>
+                                        ເພີ່ມ
+                                    </v-btn>
                                 </v-list-item>
                             </v-list-group>
                         </v-list-group>
@@ -2033,11 +2061,14 @@
                                     </v-list-item-content>
                                 </template>
                                 <v-list-item>
-                                    <v-btn rounded>
+                                    <v-btn rounded @click="toImage1('e6ea9da1b901d1ddeevgewvewvwe941bf6244c5b6570f63a1f3eb91bba', 'ບ້ານຫ້ວຍຮ່ອງ')">
                                         ເບີ່ງ
                                     </v-btn>
                                     <v-spacer></v-spacer>
-                                    <v-btn color="success" rounded>ເພີ່ມ</v-btn>
+                                    <v-btn color="success"
+                                        @click="toImage('e6ea9da1b901d1ddeevgewvewvwe941bf6244c5b6570f63a1f3eb91bba', 'ບ້ານຫ້ວຍຮ່ອງ')" rounded>
+                                        ເພີ່ມ
+                                    </v-btn>
                                 </v-list-item>
                             </v-list-group>
                         </v-list-group>

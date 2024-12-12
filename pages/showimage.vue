@@ -1,60 +1,54 @@
 <template>
     <v-row justify="center">
         <v-container>
-            <!-- List of Picture Groups -->
-            <!-- <v-row v-if="picList.length" class="mt-4">
-                <v-col v-for="(picGroup, index) in picList" :key="index" cols="12" sm="6" md="4">
-                    <v-btn block color="secondary" @click="showImages(picGroup)">
-                        {{ picGroup.folderName }}
-                        {{ picGroup.dateCreate }}
-                    </v-btn>
-                </v-col>
-            </v-row> -->
             <v-card class="mx-auto" max-width="790">
                 <div class="mt-4">
                     <v-card-text>
                         <v-card style="position: sticky; top: 0; z-index: 1;" flat>
-                            <v-btn fab elevation="0" dark width="30" height="30" small color="#2bcc96"
-                                @click="$router.back()">
-                                <v-icon color="#0a3382">mdi-arrow-left</v-icon>
-                            </v-btn>
-                            <div class="text-center font-weight-bold" style="font-size: 20px">
-                                ຂໍ້ມູນຮູບພາກສະໜາມ
-                            </div>
+                            <v-card-text style="background-color: #00E676; border-radius:36px 0 36px  0;">
+                                <v-btn fab elevation="0" dark width="50" height="50" color="white"
+                                    @click="$router.back()">
+                                    <v-icon color="#0a3382">mdi-arrow-left</v-icon>
+                                </v-btn>
+                                <div class="text-center font-weight-bold" style="font-size: 20px">
+                                    ຮູບພາບກ່ຽວກັບພາກສະໜາມ
+                                </div>
+                            </v-card-text>
                             <v-divider></v-divider>
                             <div>
                                 <div>
                                     <v-card-title v-if="number">
-                                        <v-chip color="#2bcc96" dense class="font-weight-bold">
+                                        <v-chip color="#00E676" dense class="font-weight-bold">
                                             {{ number }}
                                         </v-chip>
                                     </v-card-title>
                                 </div>
                             </div>
+                            <!-- <v-text-field label="ຄົ້ນຫາ" v-model="searchQuery" append-icon="mdi-magnify"
+                                @input="functionSearch" :style="{ width: '300px' }"></v-text-field> -->
+                            <!-- Search Field -->
                             <v-text-field label="ຄົ້ນຫາ" v-model="searchQuery" append-icon="mdi-magnify"
-                                @input="functionpay" :style="{ width: '300px' }"></v-text-field>
+                                :style="{ width: '300px' }">
+                            </v-text-field>
                             <div>
                                 <v-card-actions>
                                     <div class="ml-10" style="font-weight:bold">
-                                        ຊື່ເອກະສານ
+                                        ຊື່
                                         <v-divider></v-divider>
                                     </div>
                                     <v-spacer></v-spacer>
                                     <div style="font-weight:bold">
-                                        ວັນທີ່,ເດືອນ,ປີ
+                                        ວັນທີ່ນໍາຂົ້າ
                                         <v-divider></v-divider>
                                     </div>
                                 </v-card-actions>
                             </div>
                         </v-card>
-                        <div v-if="picList.length">
-
-                            <div v-for="(picGroup, index) in picList" :key="index">
+                        <div v-if="filteredPicList.length">
+                            <div v-for="(picGroup, index) in filteredPicList" :key="index">
                                 <v-card-actions>
                                     <v-btn text @click="showImages(picGroup)">
-                                        <v-icon color="#00E676">
-                                            mdi-progress-download
-                                        </v-icon>
+                                        <v-icon color="#00E676">mdi-progress-download</v-icon>
                                     </v-btn>
                                     <div class="hoverable" @click="showImages(picGroup)">
                                         {{ picGroup.folderName }}
@@ -65,26 +59,68 @@
                                 </v-card-actions>
                             </div>
                         </div>
-                        <div v-else class="text-center mt-5" style="font-size: 16px; color:crimson;">
+                        <!-- No Results Found Message -->
+                        <div v-else class="text-center mt-5" style="font-size: 16px; color: crimson;">
                             <p>ບໍ່ມີຂໍ້ມູນ</p>
                         </div>
                     </v-card-text>
                 </div>
             </v-card>
             <!-- Full Picture Dialog with Scrollable Content -->
-            <v-dialog v-model="dialog" max-width="35%">
+            <v-dialog v-model="dialog" max-width="55%" persistent disable-esc>
                 <v-card>
-                    <div class="pt-4 pl-4">
-                        <v-btn text @click="dialog = false" rounded>
-                            <v-icon>mdi-close</v-icon>
-                        </v-btn>
-                    </div>
-                    <!-- Dialog Title with Folder and Date -->
-                    <v-card-title class="justify-space-between">
-                        <span>{{ selectedFolderName }}</span>
-                        <span>{{ selectedDateCreate }}</span>
-                    </v-card-title>
-                    <!-- Image Carousel -->
+                    <v-card class="pt-2 pl-2" style="position: sticky; top: 0; z-index: 1;" flat color="#69F0AE">
+                        <v-card-actions>
+                            <v-btn fab elevation="0" dark width="50" height="50" color="white" @click="dialog = false">
+                                <v-icon color="#0a3382">mdi-close</v-icon>
+                            </v-btn>
+                            <div class="ml-10" style="font-size: 16px; font-weight: bold;">
+                                {{ selectedFolderName }}
+                            </div>
+                            <v-spacer></v-spacer>
+                            <div>
+                                ({{ selectedDateCreate }})
+                            </div>
+                        </v-card-actions>
+                        <v-card-actions>
+                            <v-spacer></v-spacer>
+                            <v-btn @click="changeStyle()" color="#B3E5FC" rounded>
+                                ຮູບແບບທີ່2
+                            </v-btn>
+                        </v-card-actions>
+                    </v-card>
+                    <v-card-text>
+                        <v-row class="mt-2">
+                            <v-col v-for="(pic, index) in carouselPics" :key="index" cols="12" sm="6" md="2">
+                                <v-img :src="pic" alt="Picture" max-width="100%" class="mb-2" @click="openInNewTab(pic)"
+                                    style="cursor: pointer;"></v-img>
+                            </v-col>
+                        </v-row>
+                    </v-card-text>
+                </v-card>
+            </v-dialog>
+            <v-dialog v-model="dialog1" max-width="55%" persistent disable-esc>
+                <v-card>
+                    <v-card class="pt-2 pl-2" style="position: sticky; top: 0; z-index: 1;" flat color="#69F0AE">
+                        <v-card-actions>
+                            <v-btn fab elevation="0" dark width="50" height="50" color="white" @click="dialog1 = false">
+                                <v-icon color="#0a3382">mdi-close</v-icon>
+                            </v-btn>
+                            <div class="ml-10 " style="font-size: 16px; font-weight: bold;">
+                                {{ selectedFolderName }}
+                            </div>
+                            <v-spacer></v-spacer>
+                            <div>
+                                ({{ selectedDateCreate }})
+                            </div>
+                        </v-card-actions>
+                        <v-card-actions>
+                            <v-spacer></v-spacer>
+                            <v-btn @click="changeStyle1()" color="#B3E5FC" rounded>
+                                ຮູບແບບທີ່1
+                            </v-btn>
+                        </v-card-actions>
+                    </v-card>
                     <v-carousel hide-delimiters height="100%">
                         <v-carousel-item v-for="(pic, index) in carouselPics" :key="index" :src="pic"
                             reverse-transition="fade-transition" transition="fade-transition">
@@ -93,7 +129,6 @@
                     </v-carousel>
                 </v-card>
             </v-dialog>
-
         </v-container>
     </v-row>
 </template>
@@ -103,15 +138,27 @@ import axios from "axios";
 export default {
     data() {
         return {
-            picList: [], // List of picture groups
+            searchQuery: "", // Input value from search field
+            picList: [],// List of picture groups
             selectedPicGroup: null, // Currently selected picture group
-            dialog: false, // State for the dialog
+            dialog: false,
+            dialog1: false, // State for the dialog
             toKen: "", // Token to be sent with the API request
             carouselPics: [], // List of images for the carousel
             carouselIndex: 0, // Current index for the carousel
             selectedFolderName: "", // Folder name for the selected picture group
             selectedDateCreate: "", // Date of creation for the selected picture group
+            number:"",
         };
+    },
+    computed: {
+        // Filtered list based on searchQuery
+        filteredPicList() {
+            const query = this.searchQuery.toLowerCase();
+            return this.picList.filter((picGroup) =>
+                picGroup.folderName.toLowerCase().includes(query)
+            );
+        },
     },
     mounted() {
         const token = this.$route.query.token;
@@ -152,6 +199,14 @@ export default {
             // Get the list of pictures for the carousel
             this.carouselPics = this.parsedPics(picGroup.pic);
             this.carouselIndex = 0; // Reset the carousel to the first image
+        },
+        changeStyle() {
+            this.dialog = false;
+            this.dialog1 = true;
+        },
+        changeStyle1() {
+            this.dialog1 = false;
+            this.dialog = true;
         },
         parsedPics(picGroup) {
             const baseUrl = "http://khounkham.com/images/car/";

@@ -478,12 +478,12 @@
                                     </v-list-item-content>
                                 </template>
                                 <v-list-item>
-                                    <v-btn rounded @click="toImage1('tZl011U2nNs9AdvQDIStduuOIc8yWmxw', 'ບ້ານຄອນງົວ')">
+                                    <v-btn rounded @click="toImage1('UnCuQ8Dql7bSVS9LcDfMWmA8asAtQLMF', 'ບ້ານຄອນງົວ')">
                                         ເບີ່ງ
                                     </v-btn>
                                     <v-spacer></v-spacer>
                                     <v-btn color="success"
-                                        @click="toImage('tZl011U2nNs9AdvQDIStduuOIc8yWmxw', 'ບ້ານຄອນງົວ')" rounded>
+                                        @click="toImage('UnCuQ8Dql7bSVS9LcDfMWmA8asAtQLMF', 'ບ້ານຄອນງົວ')" rounded>
                                         ເພີ່ມ
                                     </v-btn>
                                 </v-list-item>

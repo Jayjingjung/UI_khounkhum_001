@@ -33,12 +33,12 @@
                             <div>
                                 <v-card-actions>
                                     <div class="ml-10" style="font-weight:bold">
-                                        ຊື່
+                                        ຊື່ໄຟລ໌
                                         <v-divider></v-divider>
                                     </div>
                                     <v-spacer></v-spacer>
                                     <div style="font-weight:bold">
-                                        ວັນທີ່ນໍາຂົ້າ
+                                        ວັນທີ່,ເດືອນ, ປີ
                                         <v-divider></v-divider>
                                     </div>
                                 </v-card-actions>

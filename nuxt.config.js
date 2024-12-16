@@ -2,7 +2,7 @@ import colors from 'vuetify/es5/util/colors'
 
 export default {
   router: {
-    base: '/ldb-logistic'
+    base: '/ldb-logistic',
   },
   target: 'static',
   ssr: false,

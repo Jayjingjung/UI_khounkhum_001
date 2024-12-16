@@ -18,18 +18,36 @@
           </v-chip>
         </v-card-title>
       </div>
-      <div class="ml-8 red--text" style="font-size: 14px;" >ໝາຍເຫດ: ຂະໜາດໄຟລ໌ລວມແມ່ນບໍ່ໃຫ້ເກີນ20MB(ຕໍ່ຄັ້ງ)</div>
+      <div class="ml-8 red--text" style="font-size: 14px;">ໝາຍເຫດ: ຂະໜາດໄຟລ໌ລວມແມ່ນບໍ່ໃຫ້ເກີນ20MB(ຕໍ່ຄັ້ງ)</div>
+    </div>
+    <div class="ml-4">
+      <!-- <v-text-field label="ເລືອກວັນທີ່" v-model="dateCreate" prepend-icon="mdi-calendar" readonly
+      @click="datePicker = true" :style="{ width: '230px' }"></v-text-field> -->
+      <v-text-field label="ເລືອກວັນທີ່" v-model="dateCreate" readonly @click="datePicker = true"
+        :style="{ width: '230px' }">
+        <template v-slot:prepend-inner>
+          <v-icon style="color: #2bcc96;">mdi-calendar</v-icon>
+        </template>
+      </v-text-field>
+
+      <v-dialog v-model="datePicker" width="290">
+        <v-date-picker v-model="dateCreate" @input="datePicker = false"></v-date-picker>
+      </v-dialog>
     </div>
     <v-card-title>
-      <v-file-input label="ເລືອກໄຟລ໌ພາບ" v-model="imageaddcar" dense multiple show-size truncate-length="30"
-        prepend-icon="mdi-file"></v-file-input>
+      <!-- <v-file-input label="ເລືອກໄຟລ໌ພາບ" v-model="imageaddcar" dense multiple show-size truncate-length="30"
+        prepend-icon="mdi-file"></v-file-input> -->
+      <v-file-input label="ເລືອກໄຟລ໌ພາບ" v-model="imageaddcar" dense multiple show-size truncate-length="30">
+        <template v-slot:prepend-inner>
+          <v-icon style="color: blue;">mdi-file</v-icon>
+        </template>
+      </v-file-input>
       <v-card-title>
       </v-card-title>
-      <v-icon left>mdi-folder</v-icon>
+      <v-icon left color="yellow">mdi-folder</v-icon>
       <v-text-field label="ຊື່ໂຟນເດີ່" style="font-size:18px;" dense v-model="folderName"
         :rules="[v => !!v || 'ຕ້ອງປ້ອນ']"></v-text-field>
     </v-card-title>
-
     <v-card-text>
       <!-- Preview Uploaded Files -->
       <v-row v-if="imageaddcar && imageaddcar.length" class="mt-4">
@@ -76,6 +94,8 @@ export default {
       endDate: "",
       number: "",
       selectedToken: '',
+      dateCreate: null,
+      datePicker: false
     };
   },
   mounted() {
@@ -105,6 +125,7 @@ export default {
         formData.append("files", file);
       });
       formData.append("folderName", this.folderName);
+      formData.append('dateCreate', new Date(this.dateCreate).toLocaleDateString('en-CA'));
       formData.append('toKen', this.toKen);
       try {
         const response = await axios.post(
@@ -139,9 +160,11 @@ export default {
 
 <style>
 .custom-toast {
-  font-size: 16px; /* Adjust the font size as needed */
+  font-size: 16px;
+  /* Adjust the font size as needed */
   font-weight: bold;
 }
+
 .center-actions {
   display: flex;
   justify-content: center;

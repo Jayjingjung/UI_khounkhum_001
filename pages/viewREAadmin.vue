@@ -324,12 +324,6 @@
                     </v-btn>
                 </div>
             </v-card>
-
-
-
-
-
-
         </div>
     </div>
 </template>

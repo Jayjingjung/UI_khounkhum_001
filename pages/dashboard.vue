@@ -105,6 +105,7 @@
 <script>
 
 export default {
+    // middleware: 'auth',  // ใช้ middleware นี้ในหน้า dashboard,hk
     data() {
         return {
             USER_ID: '',

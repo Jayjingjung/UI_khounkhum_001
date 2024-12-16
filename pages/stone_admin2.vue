@@ -160,13 +160,13 @@
                                             <v-icon size="30" color="white">mdi-</v-icon>
                                         </v-btn>
                                     </td> -->
-                                        <td>
+                                        <!-- <td>
                                             <v-btn style="height: 40px; width: 90px;" small color="#90A4AE"
                                                 class="white--text card-shadow"
                                                 @click="Resultdelete(row?.item?.key_id)">
                                                 <v-icon size="30" color="white">mdi-delete</v-icon>
                                             </v-btn>
-                                        </td>
+                                        </td> -->
                                     </tr>
                                 </template>
                             </v-data-table>

@@ -773,37 +773,17 @@
                     </v-card>
                     <v-card-text>
                         <div v-if="shopName !== 'ບໍ່ມີຊື່ຮ້ານ (ຈ່າຍສົດ)'">
-    <!-- Total Money Field -->
-    <v-text-field
-      label="*ທັງໝົດ"
-      readonly
-      dense
-      outlined
-      background-color="#f5f5f5"
-      v-model="real_totalMoney"
-      @input="calculateTotalMoney"
-    ></v-text-field>
+                            <!-- Total Money Field -->
+                            <v-text-field label="*ທັງໝົດ" readonly dense outlined background-color="#f5f5f5"
+                                v-model="real_totalMoney" @input="calculateTotalMoney"></v-text-field>
 
-    <!-- Paid Field -->
-    <v-text-field
-      label="*ຈ່າຍ"
-      dense
-      outlined
-      background-color="#f5f5f5"
-      :rules="nameRules"
-      v-model="paid"
-      @input="calculateTotalMoney"
-    ></v-text-field>
+                            <!-- Paid Field -->
+                            <v-text-field label="*ຈ່າຍ" dense outlined background-color="#f5f5f5" :rules="nameRules"
+                                v-model="paid" @input="calculateTotalMoney"></v-text-field>
 
-    <!-- Remaining Debt (ຕິດໜີ້) Field -->
-    <v-text-field
-      label="*ຕິດໜີ້"
-      dense
-      outlined
-      background-color="#f5f5f5"
-      v-model="tid"
-      readonly
-    ></v-text-field>
+                            <!-- Remaining Debt (ຕິດໜີ້) Field -->
+                            <v-text-field label="*ຕິດໜີ້" dense outlined background-color="#f5f5f5" v-model="tid"
+                                readonly></v-text-field>
 
                             <v-text-field label="*ສະກູນເງິນ" readonly dense outlined background-color="#f5f5f5"
                                 v-model="currency"></v-text-field>
@@ -891,7 +871,7 @@
                                     ',')
                                     }}</span>
                             </div>
-                       
+
                         </div>
 
                         <div v-if="item_name1 !== 'null'"
@@ -922,7 +902,7 @@
                                     ',')
                                     }}</span>
                             </div>
-                       
+
                         </div>
 
 
@@ -954,7 +934,7 @@
                                     ',')
                                     }}</span>
                             </div>
-                          
+
                         </div>
                         <div v-if="item_name3 !== 'null'"
                             style="display: flex;margin-left: 10px;margin-right: 10px;margin-top: 30px;justify-content: space-between;">
@@ -1193,7 +1173,7 @@
                             <label for="real_totalMoney">ລາຂາ ທັງໝົດ:</label>
                             <span id="real_totalMoney">{{
                                 real_totalMoney?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
-                                }}</span>
+                            }}</span>
                         </div>
 
                         <div style="width: 100%; margin: 0 auto;">
@@ -1259,7 +1239,7 @@ export default {
             unit_price: '',
             img: '',
             qty_offer: '',
-            real_totalMoney: 0, 
+            real_totalMoney: 0,
             sumFooter: null, // Sum footer data
             truck_table_headers: [
                 { text: 'ຮູບພາບ', value: 'img' },
@@ -1311,7 +1291,7 @@ export default {
             pocode: '',
             dateCreate: '',
             paid: 0,            // The amount paid by the user
-            tid: 0,   
+            tid: 0,
             cur: '',
             shopName: '',
             offer_CODE: '',
@@ -1434,7 +1414,7 @@ export default {
         changeColor(color, ref) {
             ref.$el.style.backgroundColor = color;
         },
-      
+
 
         closeDialog() {
             this.dialogVisible = false;
@@ -1616,7 +1596,7 @@ export default {
                 this.item_id8 = response.data[0].item_id8;
                 this.item_id9 = response.data[0].item_id9;
                 this.real_totalMoney = response.data[0].real_totalMoney;
-      
+
 
                 // Open the dialog after API call success
                 this.openDialogv2(this.offer_CODE);
@@ -1832,7 +1812,7 @@ export default {
                 this.closeDialog();
 
                 // window.location.reload();
-           
+
 
                 // You can handle the response here, such as showing a success message or updating UI
             } catch (error) {
@@ -1918,7 +1898,7 @@ export default {
                 console.log('MoveItemToStock API response:', response);
 
                 // Close the dialog after submission
-           
+
 
                 if (response?.status === "00") {
                     this.loading_processing = false;
@@ -1933,7 +1913,7 @@ export default {
                         text: 'Your message here', // Customize the success message
                         confirmButtonText: 'OK',
                     });
-                    // window.location.reload();
+                    window.location.reload();
                 }
 
                 // You can handle the response here, such as showing a success message or updating UI

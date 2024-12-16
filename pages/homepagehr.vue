@@ -113,7 +113,7 @@
               <div class="d-flex align-center">
                 <v-icon style="color: rgba(191, 0, 0, 0.8);" size="55">mdi-receipt-send-outline</v-icon>
                 <div class="pl-5 pb-5 pt-5 pr-5 ">
-                  <span style="font-size: 18pt;font-weight: bold;">receivedAll</span><br />
+                  <span style="font-size: 18pt;font-weight: bold;">ໃບສະເໜີລາຄາ</span><br />
                   <!-- <div style="background-color: red;width: 30px;height: 30px;border-radius: 20px;display: flex;justify-content: center;align-items: center;color: white;"><span>10</span></div> -->
                 </div>
               </div>

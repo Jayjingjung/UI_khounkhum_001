@@ -10,12 +10,9 @@
                             <v-text-field style="width: 700px; " placeholder="ຄົ້ນຫາ..." v-model="search" rounded
                                 background-color="#f5f5f5" prepend-inner-icon="mdi-magnify">
                             </v-text-field>
-
-
                             <v-btn style="margin-left: 10px;" color="ping" class="card-shadow" @click="print">
                                 <v-icon>mdi-printer</v-icon>ພີມລາຍງານທັງໝົດ
                             </v-btn>
-
                         </div>
                         <v-btn v-if="!hideInboundNumber" style="margin-left: 10px;" color="primary" class="card-shadow"
                             @click="setBound('in')">
@@ -30,7 +27,6 @@
                         </v-btn>
                     </v-card-title>
                     <div style="margin-top: 20px;margin-left: 20px;">
-
                         <!-- Add buttons with names 'may' and 'tae' -->
                         <v-btn style="margin-left: 10px;"
                             @click="setUserId('132')"><v-icon>mdi-account</v-icon>nok37</v-btn>
@@ -331,8 +327,6 @@ export default {
                     branchUser: localStorage.getItem('USER_ROLE'),
                     toKen: localStorage.getItem('toKen'),
                     bound: this.bound,
-
-
                     bouang: this.selectedBuang,
                     userIdoffinanceial: this.userIdoffinanceial // Pass the selected userIdoffinanceial value here
                 });
@@ -354,7 +348,6 @@ export default {
                 this.loading_processing = false;
             }
         },
-
         async listCarOfficeSearch() {
             try {
                 this.loading_processing = true;

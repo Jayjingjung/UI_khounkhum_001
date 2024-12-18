@@ -9,6 +9,9 @@
             ຝ່າຍສຳຫຼວດ ແລະ ຂຸດຄົ້ນບໍ່ແຮ່
             <hr>
         </div>
+        <v-btn to="./HR/akasarn" style="background-color: #00E676">
+                                <v-icon color="white">mdi-plus</v-icon>
+                            </v-btn>
         <!-- ຂໍ້ມູນວິໃຈຕົວຢ່າງ  -->
         <v-dialog v-model="testDoc" max-width="790" persistent disable-esc>
             <v-card class="mx-auto" max-width="790">
@@ -303,7 +306,7 @@
         <v-container fluid fill-height>
             <v-row justify="center" align="center">
                 <v-col cols="auto">
-                    <v-card color="#E0F7FA">
+                    <v-card color="#E0F7FA" max-width="300">
                         <!-- v-if="USER_ROLE !== 'BOR-HIN-KHUAT'" -->
                         <v-list-group no-action sub-group v-if="USER_ROLE === 'FOR_DOCUMENT_ADMIN'"
                             @click="setTokenAndFetch('UnCuQ8Dql7bSVS9LcDfMWmA8asAtQLMF')">
@@ -311,20 +314,41 @@
                                 <v-icon color="white">mdi-file-document</v-icon>
                                 <v-list-item-content>
                                     <v-list-item-title
-                                        style="font-size: 20px; font-weight: bold;">ເອກະສານ</v-list-item-title>
+                                        style="font-size: 20px; font-weight: bold;">ເອກະສານສ່ວນຕົວ</v-list-item-title>
                                 </v-list-item-content>
                             </template>
                             <v-list-item>
                                 <v-btn rounded @click="nokDoc1('UnCuQ8Dql7bSVS9LcDfMWmA8asAtQLMF', 'ເອກະສານຕ່າງໆ')">
                                     ເບີ່ງ
                                 </v-btn>
-                                <!-- <v-btn rounded @click="sisternokDoc = true">
-                                    ເບີ່ງ
-                                </v-btn> -->
                                 <v-spacer></v-spacer>
                                 <v-btn color="success"
                                     @click="nokDoc('UnCuQ8Dql7bSVS9LcDfMWmA8asAtQLMF', 'ເອກະສານເອື້ອຍນົກ', 'nok', 'ເພີ່ມເອກະສານ')"
                                     rounded>
+                                    ເພີ່ມ
+                                </v-btn>
+                            </v-list-item>
+                        </v-list-group>
+                    </v-card>
+                </v-col>
+                <v-col cols="auto">
+                    <v-card color="#E0F7FA" max-width="300">
+                        <!-- v-if="USER_ROLE !== 'BOR-HIN-KHUAT'" -->
+                        <v-list-group no-action sub-group v-if="USER_ROLE === 'FOR_DOCUMENT_ADMIN'"
+                            @click="setTokenAndFetch('UnCuQ8Dql7bSVS9LcDfMWmA8asAtQLMF')">
+                            <template v-slot:activator>
+                                <v-icon color="white">mdi-file-document</v-icon>
+                                <v-list-item-content>
+                                    <v-list-item-title
+                                        style="font-size: 20px; font-weight: bold;">ເອກະສານລວມຝ່າຍບັຍຊີ</v-list-item-title>
+                                </v-list-item-content>
+                            </template>
+                            <v-list-item>
+                                <v-btn rounded to="re01akasarn">
+                                    ເບີ່ງ
+                                </v-btn>
+                                <v-spacer></v-spacer>
+                                <v-btn color="success" rounded>
                                     ເພີ່ມ
                                 </v-btn>
                             </v-list-item>
@@ -336,7 +360,7 @@
         <!-- ຄອນງົວ  -->
         <v-row>
             <v-col>
-                <v-card class="mt-4" width="300">
+                <v-card class="mt-4" width="300" >
                     <v-list color="#E0F7FA">
                         <v-list-group :value="false" prepend-icon="mdi-excavator"
                             @click="setTokenAndFetch('tZl011U2nNs9AdvQDIStduuOIc8yWmxw')">
@@ -345,7 +369,7 @@
                                 </v-list-item-title>
                             </template>
                             <!-- v-if="USER_ROLE !== 'BOR-HIN-KHUAT'" ໃຊ້ເພື່ອກຳນົດການມອງເຫັນ -->
-                            <v-list-group no-action sub-group>
+                            <v-list-group no-action sub-group v-if="USER_ROLE === 'FOR_DOCUMENT_ADMIN'">
                                 <template v-slot:activator>
                                     <v-icon color="white">mdi-file-document</v-icon>
                                     <v-list-item-content>
@@ -354,19 +378,11 @@
                                     </v-list-item-content>
                                 </template>
                                 <v-list-item>
-                                    <v-btn @click="miningDoc1('tZl011U2nNs9AdvQDIStduuOIc8yWmxw', 'ເອກະສານບ້ານຄອນງົວ')"
+                                    <v-btn @click="miningDoc1('ຫີນຄວັສ ບ້ານຄອນງົວ ເມືອງຮ້ຽມ ແຂວງຫົວພັນ','ບ້ານຄອນງົວ')"
                                         rounded>
                                         ເບີ່ງ
                                     </v-btn>
-                                    <!-- <v-btn @click="filedocument = true" rounded>
-                                        ເບີ່ງ
-                                    </v-btn> -->
                                     <v-spacer></v-spacer>
-                                    <v-btn color="success"
-                                        @click="nokDoc('tZl011U2nNs9AdvQDIStduuOIc8yWmxw', 'ບ້ານຄອນງົວ', 'documment', 'ເພີ່ມເອກະສານທີ່ກ່ຽວຂ້ອງ')"
-                                        rounded>
-                                        ເພີ່ມ
-                                    </v-btn>
                                 </v-list-item>
                             </v-list-group>
                             <v-list-group no-action sub-group v-if="USER_ROLE === 'FOR_DOCUMENT_ADMIN'">
@@ -384,6 +400,27 @@
                                     <v-spacer></v-spacer>
                                     <v-btn color="success"
                                         @click="paymentdoc('tZl011U2nNs9AdvQDIStduuOIc8yWmxw', 'ບ້ານຄອນງົວ', 'pay1', 'ເອກະສານ','ເພີ່ມຂໍ້ມູນລາຍຈ່າຍ')"
+                                        rounded>
+                                        ເພີ່ມ
+                                    </v-btn>
+                                </v-list-item>
+                            </v-list-group>
+                            <v-list-group no-action sub-group>
+                                <template v-slot:activator>
+                                    <v-icon color="white">mdi-file-document</v-icon>
+                                    <v-list-item-content>
+                                        <v-list-item-title
+                                            style="height: 20px; overflow: visible;">ເອກະສານທີ່ກ່ຽວຂ້ອງ</v-list-item-title>
+                                    </v-list-item-content>
+                                </template>
+                                <v-list-item>
+                                    <v-btn @click="miningDoc2('tZl011U2nNs9AdvQDIStduuOIc8yWmxw','ເອກະສານບ້ານຄອນງົວ')"
+                                        rounded>
+                                        ເບີ່ງ
+                                    </v-btn>
+                                    <v-spacer></v-spacer>
+                                    <v-btn color="success"
+                                        @click="nokDoc('tZl011U2nNs9AdvQDIStduuOIc8yWmxw', 'ບ້ານຄອນງົວ', 'documment', 'ເພີ່ມເອກະສານທີ່ກ່ຽວຂ້ອງ')"
                                         rounded>
                                         ເພີ່ມ
                                     </v-btn>
@@ -502,7 +539,7 @@
                                 <v-list-item-title style="font-size: 20px; font-weight: bold;">ບ້ານສີຄູນ
                                 </v-list-item-title>
                             </template>
-                            <v-list-group no-action sub-group>
+                            <v-list-group no-action sub-group v-if="USER_ROLE === 'FOR_DOCUMENT_ADMIN'">
                                 <template v-slot:activator>
                                     <v-icon color="white">mdi-file-document</v-icon>
                                     <v-list-item-content>
@@ -514,15 +551,11 @@
                                     <!-- <v-btn @click="filedocument = true" rounded>
                                         ເບີ່ງ
                                     </v-btn> -->
-                                    <v-btn @click="miningDoc1('3iKcWacuOwaXxERfL6LNvuEKdjhvc5aF', 'ເອກະສານບ້ານສີຄູນ')"
+                                    <v-btn @click="miningDoc1('ບໍ່ຫີນກັວດ ບ້ານສີຄູນ ເມືອງແປກ ແຂວງຊຽງຂວາງ', 'ບ້ານສີຄູນ')"
                                         rounded>
                                         ເບີ່ງ
                                     </v-btn>
                                     <v-spacer></v-spacer>
-                                    <v-btn color="success" rounded
-                                        @click="nokDoc('3iKcWacuOwaXxERfL6LNvuEKdjhvc5aF', 'ບ້ານສີຄູນ', 'documment', 'ເພີ່ມເອກະສານທີ່ກ່ຽວຂ້ອງ')">
-                                        ເພີ່ມ
-                                    </v-btn>
                                     <br>
                                 </v-list-item>
                             </v-list-group>
@@ -544,6 +577,27 @@
                                         rounded>
                                         ເພີ່ມ
                                     </v-btn>
+                                </v-list-item>
+                            </v-list-group>
+                            <v-list-group no-action sub-group>
+                                <template v-slot:activator>
+                                    <v-icon color="white">mdi-file-document</v-icon>
+                                    <v-list-item-content>
+                                        <v-list-item-title
+                                            style="height: 20px; overflow: visible;">ເອກະສານທີ່ກ່ຽວຂ້ອງ</v-list-item-title>
+                                    </v-list-item-content>
+                                </template>
+                                <v-list-item>
+                                    <v-btn @click="miningDoc2('3iKcWacuOwaXxERfL6LNvuEKdjhvc5aF', 'ເອກະສານບ້ານສີຄູນ')"
+                                        rounded>
+                                        ເບີ່ງ
+                                    </v-btn>
+                                    <v-spacer></v-spacer>
+                                    <v-btn color="success" rounded
+                                        @click="nokDoc('3iKcWacuOwaXxERfL6LNvuEKdjhvc5aF', 'ບ້ານສີຄູນ', 'documment', 'ເພີ່ມເອກະສານທີ່ກ່ຽວຂ້ອງ')">
+                                        ເພີ່ມ
+                                    </v-btn>
+                                    <br>
                                 </v-list-item>
                             </v-list-group>
                             <v-list-group no-action sub-group>
@@ -659,7 +713,7 @@
                                 <v-list-item-title style="font-size: 20px; font-weight: bold;">ບ້ານທ່າ
                                 </v-list-item-title>
                             </template>
-                            <v-list-group no-action sub-group>
+                            <v-list-group no-action sub-group v-if="USER_ROLE === 'FOR_DOCUMENT_ADMIN'">
                                 <template v-slot:activator>
                                     <v-icon color="white">mdi-file-document</v-icon>
                                     <v-list-item-content>
@@ -668,19 +722,11 @@
                                     </v-list-item-content>
                                 </template>
                                 <v-list-item>
-                                    <!-- <v-btn @click="filedocument = true" rounded>
-                                        ເບີ່ງ
-                                    </v-btn> -->
-                                    <v-btn @click="miningDoc1('e23QZokLhZNSVtXP1qYQHM8PVHr76VQa', 'ເອກະສານບ້ານທ່າ')"
+                                    <v-btn @click="miningDoc1( 'ບໍ່ຫີນກັວດ ບ້ານທ່າ ເມືອງຄໍາ ແຂວງຊຽງຂວາງ', 'ບ້ານທ່າ')"
                                         rounded>
                                         ເບີ່ງ
                                     </v-btn>
                                     <v-spacer></v-spacer>
-                                    <v-btn color="success" rounded
-                                        @click="nokDoc('e23QZokLhZNSVtXP1qYQHM8PVHr76VQa', 'ບ້ານທ່າ', 'documment', 'ເພີ່ມເອກະສານທີ່ກ່ຽວຂ້ອງ')">
-                                        ເພີ່ມ
-                                    </v-btn>
-                                    <br>
                                 </v-list-item>
                             </v-list-group>
                             <v-list-group no-action sub-group v-if="USER_ROLE === 'FOR_DOCUMENT_ADMIN'">
@@ -701,6 +747,30 @@
                                         rounded>
                                         ເພີ່ມ
                                     </v-btn>
+                                </v-list-item>
+                            </v-list-group>
+                            <v-list-group no-action sub-group>
+                                <template v-slot:activator>
+                                    <v-icon color="white">mdi-file-document</v-icon>
+                                    <v-list-item-content>
+                                        <v-list-item-title
+                                            style="height: 20px; overflow: visible;">ເອກະສານທີ່ກ່ຽວຂ້ອງ</v-list-item-title>
+                                    </v-list-item-content>
+                                </template>
+                                <v-list-item>
+                                    <!-- <v-btn @click="filedocument = true" rounded>
+                                        ເບີ່ງ
+                                    </v-btn> -->
+                                    <v-btn @click="miningDoc2( 'e23QZokLhZNSVtXP1qYQHM8PVHr76VQa', 'ເອກະສານບ້ານທ່າ')"
+                                        rounded>
+                                        ເບີ່ງ
+                                    </v-btn>
+                                    <v-spacer></v-spacer>
+                                    <v-btn color="success" rounded
+                                        @click="nokDoc('e23QZokLhZNSVtXP1qYQHM8PVHr76VQa', 'ບ້ານທ່າ', 'documment', 'ເພີ່ມເອກະສານທີ່ກ່ຽວຂ້ອງ')">
+                                        ເພີ່ມ
+                                    </v-btn>
+                                    <br>
                                 </v-list-item>
                             </v-list-group>
                             <v-list-group no-action sub-group>
@@ -817,7 +887,7 @@
                                 <v-list-item-title style="font-size: 20px; font-weight: bold;">ບ້ານໂພນຄໍາ
                                 </v-list-item-title>
                             </template>
-                            <v-list-group no-action sub-group>
+                            <v-list-group no-action sub-group v-if="USER_ROLE === 'FOR_DOCUMENT_ADMIN'">
                                 <template v-slot:activator>
                                     <v-icon color="white">mdi-file-document</v-icon>
                                     <v-list-item-content>
@@ -826,20 +896,12 @@
                                     </v-list-item-content>
                                 </template>
                                 <v-list-item>
-                                    <!-- <v-btn @click="filedocument = true" rounded>
-                                        ເບີ່ງ
-                                    </v-btn> -->
                                     <v-btn
-                                        @click="miningDoc1('phonkham123kOQHMwA1Ve9lMq22X3kpSiaIbDO123', 'ເອກະສານບ້ານໂພນຄໍາ')"
+                                        @click="miningDoc1('ໂພນຄໍາ', 'ບ້ານໂພນຄໍາ')"
                                         rounded>
                                         ເບີ່ງ
                                     </v-btn>
                                     <v-spacer></v-spacer>
-                                    <v-btn color="success" rounded
-                                        @click="nokDoc('phonkham123kOQHMwA1Ve9lMq22X3kpSiaIbDO123', 'ບ້ານໂພນຄໍາ', 'documment', 'ເພີ່ມເອກະສານທີ່ກ່ຽວຂ້ອງ')">
-                                        ເພີ່ມ
-                                    </v-btn>
-                                    <br>
                                 </v-list-item>
                             </v-list-group>
                             <v-list-group no-action sub-group v-if="USER_ROLE === 'FOR_DOCUMENT_ADMIN'">
@@ -860,6 +922,31 @@
                                         rounded>
                                         ເພີ່ມ
                                     </v-btn>
+                                </v-list-item>
+                            </v-list-group>
+                            <v-list-group no-action sub-group>
+                                <template v-slot:activator>
+                                    <v-icon color="white">mdi-file-document</v-icon>
+                                    <v-list-item-content>
+                                        <v-list-item-title
+                                            style="height: 20px; overflow: visible;">ເອກະສານທີ່ກ່ຽວຂ້ອງ</v-list-item-title>
+                                    </v-list-item-content>
+                                </template>
+                                <v-list-item>
+                                    <!-- <v-btn @click="filedocument = true" rounded>
+                                        ເບີ່ງ
+                                    </v-btn> -->
+                                    <v-btn
+                                        @click="miningDoc2('phonkham123kOQHMwA1Ve9lMq22X3kpSiaIbDO123', 'ບ້ານໂພນຄໍາ')"
+                                        rounded>
+                                        ເບີ່ງ
+                                    </v-btn>
+                                    <v-spacer></v-spacer>
+                                    <v-btn color="success" rounded
+                                        @click="nokDoc('phonkham123kOQHMwA1Ve9lMq22X3kpSiaIbDO123', 'ບ້ານໂພນຄໍາ', 'documment', 'ເພີ່ມເອກະສານທີ່ກ່ຽວຂ້ອງ')">
+                                        ເພີ່ມ
+                                    </v-btn>
+                                    <br>
                                 </v-list-item>
                             </v-list-group>
                             <v-list-group no-action sub-group>
@@ -977,7 +1064,7 @@
                                 <v-list-item-title style="font-size: 20px; font-weight: bold;">ບ້ານຊຽງຄົງ
                                 </v-list-item-title>
                             </template>
-                            <v-list-group no-action sub-group>
+                            <v-list-group no-action sub-group v-if="USER_ROLE === 'FOR_DOCUMENT_ADMIN'">
                                 <template v-slot:activator>
                                     <v-icon color="white">mdi-file-document</v-icon>
                                     <v-list-item-content>
@@ -986,19 +1073,11 @@
                                     </v-list-item-content>
                                 </template>
                                 <v-list-item>
-                                    <!-- <v-btn @click="filedocument = true" rounded>
-                                        ເບີ່ງ
-                                    </v-btn> -->
-                                    <v-btn @click="miningDoc1('kOQHMwA1Ve9lMq22X3kpSiaIbGGKghDO', 'ເອກະສານບ້ານຊຽງຄົງ')"
+                                    <v-btn @click="miningDoc1('ບໍ່ແຮ່ເຫຼັກ ບ້ານຊຽງຄົງ ເມືອງທ່າໂທມ ແຂວງໄຊສົມບູນເຂດ15,84km2', 'ບ້ານຊຽງຄົງ')"
                                         rounded>
                                         ເບີ່ງ
                                     </v-btn>
                                     <v-spacer></v-spacer>
-                                    <v-btn color="success" rounded
-                                        @click="nokDoc('kOQHMwA1Ve9lMq22X3kpSiaIbGGKghDO', 'ບ້ານຊຽງຄົງ', 'documment', 'ເພີ່ມເອກະສານທີ່ກ່ຽວຂ້ອງ')">
-                                        ເພີ່ມ
-                                    </v-btn>
-                                    <br>
                                 </v-list-item>
                             </v-list-group>
                             <v-list-group no-action sub-group v-if="USER_ROLE === 'FOR_DOCUMENT_ADMIN'">
@@ -1019,6 +1098,27 @@
                                         rounded>
                                         ເພີ່ມ
                                     </v-btn>
+                                </v-list-item>
+                            </v-list-group>
+                            <v-list-group no-action sub-group >
+                                <template v-slot:activator>
+                                    <v-icon color="white">mdi-file-document</v-icon>
+                                    <v-list-item-content>
+                                        <v-list-item-title
+                                            style="height: 20px; overflow: visible;">ເອກະສານທີ່ກ່ຽວຂ້ອງ</v-list-item-title>
+                                    </v-list-item-content>
+                                </template>
+                                <v-list-item>
+                                    <v-btn @click="miningDoc2('kOQHMwA1Ve9lMq22X3kpSiaIbGGKghDO', 'ເອກະສານບ້ານຊຽງຄົງ')"
+                                        rounded>
+                                        ເບີ່ງ
+                                    </v-btn>
+                                    <v-spacer></v-spacer>
+                                    <v-btn color="success" rounded
+                                        @click="nokDoc('kOQHMwA1Ve9lMq22X3kpSiaIbGGKghDO', 'ບ້ານຊຽງຄົງ', 'documment', 'ເພີ່ມເອກະສານທີ່ກ່ຽວຂ້ອງ')">
+                                        ເພີ່ມ
+                                    </v-btn>
+                                    <br>
                                 </v-list-item>
                             </v-list-group>
                             <v-list-group no-action sub-group>
@@ -1133,7 +1233,7 @@
                                 <v-list-item-title style="font-size: 20px; font-weight: bold;">ບ້ານນໍ້າຊາວ
                                 </v-list-item-title>
                             </template>
-                            <v-list-group no-action sub-group>
+                            <v-list-group no-action sub-group v-if="USER_ROLE === 'FOR_DOCUMENT_ADMIN'">
                                 <template v-slot:activator>
                                     <v-icon color="white">mdi-file-document</v-icon>
                                     <v-list-item-content>
@@ -1142,20 +1242,12 @@
                                     </v-list-item-content>
                                 </template>
                                 <v-list-item>
-                                    <!-- <v-btn @click="filedocument = true" rounded>
-                                        ເບີ່ງ
-                                    </v-btn> -->
                                     <v-btn
-                                        @click="miningDoc1('namzao123kOQHMwA1Ve9lMq22X3kpSiaIbKghDO456', 'ເອກະສານບ້ານນໍ້າຊາວ')"
+                                        @click="miningDoc1('namzao123kOQHMwA1Ve9lMq22X3kpSiaIbKghDO456', 'ບ້ານນໍ້າຊາວ')"
                                         rounded>
                                         ເບີ່ງ
                                     </v-btn>
                                     <v-spacer></v-spacer>
-                                    <v-btn color="success" rounded
-                                        @click="nokDoc('namzao123kOQHMwA1Ve9lMq22X3kpSiaIbKghDO456', 'ບ້ານນໍ້າຊາວ', 'documment', 'ເພີ່ມເອກະສານທີ່ກ່ຽວຂ້ອງ')">
-                                        ເພີ່ມ
-                                    </v-btn>
-                                    <br>
                                 </v-list-item>
                             </v-list-group>
                             <v-list-group no-action sub-group v-if="USER_ROLE === 'FOR_DOCUMENT_ADMIN'">
@@ -1176,6 +1268,28 @@
                                         rounded>
                                         ເພີ່ມ
                                     </v-btn>
+                                </v-list-item>
+                            </v-list-group>
+                            <v-list-group no-action sub-group>
+                                <template v-slot:activator>
+                                    <v-icon color="white">mdi-file-document</v-icon>
+                                    <v-list-item-content>
+                                        <v-list-item-title
+                                            style="height: 20px; overflow: visible;">ເອກະສານທີ່ກ່ຽວຂ້ອງ</v-list-item-title>
+                                    </v-list-item-content>
+                                </template>
+                                <v-list-item>
+                                    <v-btn
+                                        @click="miningDoc2('namzao123kOQHMwA1Ve9lMq22X3kpSiaIbKghDO456', 'ເອກະສານບ້ານນໍ້າຊາວ')"
+                                        rounded>
+                                        ເບີ່ງ
+                                    </v-btn>
+                                    <v-spacer></v-spacer>
+                                    <v-btn color="success" rounded
+                                        @click="nokDoc('namzao123kOQHMwA1Ve9lMq22X3kpSiaIbKghDO456', 'ບ້ານນໍ້າຊາວ', 'documment', 'ເພີ່ມເອກະສານທີ່ກ່ຽວຂ້ອງ')">
+                                        ເພີ່ມ
+                                    </v-btn>
+                                    <br>
                                 </v-list-item>
                             </v-list-group>
                             <v-list-group no-action sub-group>
@@ -2141,10 +2255,16 @@ export default {
                 query: { token, label: buttonvalue }
             });
         },
-        miningDoc1(token, buttonLabel) {
+        miningDoc1( bouang, village ) {
+            this.$router.push({
+                name: 'documentation2',
+                query: {bouang, village }
+            });
+        },
+        miningDoc2( token, number ) {
             this.$router.push({
                 name: 'documentation1',
-                query: { token, label: buttonLabel }
+                query: {token, label:number }
             });
         },
         nokDoc(token, buttonLabel, number, number1) {

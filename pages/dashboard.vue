@@ -6,7 +6,7 @@
             <v-col cols="12" md="3">
 
                 <div>
-                    <v-card to="/re01akasarn" height="100" elevation="2" rounded="lg" width="310px"
+                    <v-card to="/re01akasarn1" height="100" elevation="2" rounded="lg" width="310px"
                         style="border: 1px solid rgb(222, 222, 222);">
                         <v-card-text>
                             <div class="d-flex align-center">
@@ -101,7 +101,6 @@
         </v-row>  -->
     </div>
 </template>
-
 <script>
 
 export default {

@@ -26,13 +26,11 @@
         <v-icon color="white">mdi-scan-helper</v-icon>
         <span class="white--text">ບ້ວງ</span>
       </v-btn>
-
       <v-btn dark color="#80BFFF" to="/forphon" class="card-shadow mb-2 mt-2" rounded>
         <v-icon color="white">mdi-cellphone-settings</v-icon>
         <span class="white--text">For Phon</span>
       </v-btn>
     </div>
-
     <v-btn class="print-button" color="#0f7be1" @click="print">
       <v-icon color="#ffffff">mdi-printer</v-icon>ພີມລາຍງານທັງໝົດ
     </v-btn>
@@ -93,9 +91,6 @@
                     </v-btn>
                   </td>
                   <td>{{ row?.item?.docType }}</td>
-                  <!-- 
-                    <td>{{ row?.item?.pdf }}</td> -->
-                    <!-- <td>{{ row?.item?.branchUser }}</td> -->
                     <td>{{ row?.item?.datetakein }}</td>
                     <td>{{ row?.item?.dateExpDoc }}</td>
                     <td>{{ row?.item?.classofdocs }}</td>
@@ -328,9 +323,7 @@ export default {
           bouang: this.selectedBuang,
           userIdoffinanceial: this.userIdoffinanceial // Pass the selected userIdoffinanceial value here
         });
-
         console.log('API Response:', response);  // Log the API response
-
         if (response?.status === "00") {
           this.report_listitemOffice = response?.data || []; // Ensure it's always an array
         } else {
@@ -357,9 +350,7 @@ export default {
           company: this.company,
           type: this.selectedProduct,
         });
-
         console.log('API Response:', response);  // Log the API response
-
         if (response?.status === "00") {
           this.report_listitemOffice = response?.data || []; // Ensure it's always an array
         } else {

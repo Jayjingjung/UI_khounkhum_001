@@ -110,7 +110,6 @@ export default {
         // Filtered items based on search and selected nameDetail
         filteredItems() {
             let items = this.payAll;
-
             if (this.selectedNameDetail) {
                 items = items.filter((item) => item.nameDetail === this.selectedNameDetail);
             }
@@ -123,7 +122,6 @@ export default {
                         item.dateInsert.includes(searchTerm)
                 );
             }
-
             return items;
         },
     },

@@ -3,8 +3,8 @@
         <v-card style="width:1800px;height:800px;">
             <div v-if="selectedCard === '1'">
                 <v-card class="card-shadow mb-4" rounded="lg">
-                    <v-card-actions style="background-color: #E0F7FA;">
-                        <v-btn class="ml-4" fab elevation="0" small color="#00E676" @click="$router.back()">
+                    <v-card-actions style="background-color: #00E676;">
+                        <v-btn class="ml-4" fab elevation="0" small color="#E0F7FA" @click="$router.back()">
                             <v-icon color="#0a3382">mdi-arrow-left</v-icon>
                         </v-btn>
                         <div style="font-weight: bold; font-size: 22px;" class="ml-8 mt-2">
@@ -16,14 +16,14 @@
                         </v-chip>
                         <v-spacer></v-spacer>
                         <div>
-                            <v-btn style="margin-left: 10px;" color="primary" class="card-shadow"
+                            <!-- <v-btn style="margin-left: 10px;" color="primary" class="card-shadow"
                                 @click="setBound('in')">
                                 <v-icon>mdi-</v-icon>ຂາເຂົ້າ
                             </v-btn>
                             <v-btn style="margin-left: 10px;" color="primary" class="card-shadow"
                                 @click="setBound('out')">
                                 <v-icon>mdi-</v-icon>ຂາອອກ
-                            </v-btn>
+                            </v-btn> -->
                             <!-- <v-btn to="./HR/akasarn" style="background-color: #00E676">
                                 <v-icon color="white">mdi-plus</v-icon>
                             </v-btn> -->

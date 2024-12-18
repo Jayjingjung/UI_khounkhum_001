@@ -2,9 +2,7 @@
     <div>
         <!-- ປະທານ -->
         <v-row>
-
-            <v-col cols="12" md="3">
-
+            <!-- <v-col cols="12" md="3">
                 <div>
                     <v-card to="/re01akasarn1" height="100" elevation="2" rounded="lg" width="310px"
                         style="border: 1px solid rgb(222, 222, 222);">
@@ -19,11 +17,8 @@
                         </v-card-text>
                     </v-card>
                 </div>
-
-            </v-col>
-
+            </v-col> -->
             <v-col cols="12" md="3">
-
                 <div>
                     <v-card to="/dashbord_new" height="100" elevation="2" rounded="lg" width="310px"
                         style="border: 1px solid rgb(222, 222, 222);">
@@ -102,7 +97,6 @@
     </div>
 </template>
 <script>
-
 export default {
     // middleware: 'auth',  // ใช้ middleware นี้ในหน้า dashboard,hk
     data() {
@@ -124,8 +118,6 @@ export default {
         this.USER_ID = localStorage.getItem('USER_ID')
         this.USER_NAME = localStorage.getItem('USER_NAME')
         this.USER_ROLE = localStorage.getItem('USER_ROLE')
-
-
     },
     methods: {
         navigateToStoneAdmin() {
@@ -158,13 +150,6 @@ export default {
                 console.log(error)
             }
         },
-
-        onCleck() {
-
-
-        }
-
-
     }
 }
 

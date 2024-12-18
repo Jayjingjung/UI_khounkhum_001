@@ -3,8 +3,8 @@
         <v-card style="width:1800px;height:800px;">
             <div v-if="selectedCard === '1'">
                 <v-card class="card-shadow mb-4" rounded="lg">
-                    <v-card-actions style="background-color: #E0F7FA;">
-                        <v-btn class="ml-4" fab elevation="0" small color="#00E676" @click="$router.back()">
+                    <v-card-actions style="background-color: #00E676;">
+                        <v-btn class="ml-4" fab elevation="0" small color="#E0F7FA" @click="$router.back()">
                             <v-icon color="#0a3382">mdi-arrow-left</v-icon>
                         </v-btn>
                         <div style="font-weight: bold; font-size: 22px;" class="ml-8 mt-2">
@@ -26,19 +26,35 @@
                             </v-btn> -->
                         </div>
                     </v-card-actions>
-                    <div class="mt-6 d-flex">
-                        <v-card-actions>
+                    <v-card-actions>
+                        <div class="mt-6 d-flex">
                             <v-autocomplete style="width: 450px; margin-left: 15px; margin-right: 15px;" outlined dense
-                                label="ເລືອກບ້ວງ" :items="buang_data_list" item-text="nameOfBouang" item-value="nameOfBouang"
-                                background-color="#c6a50b" v-model="selectedBuang"></v-autocomplete>
-                            <v-btn class="mb-6"  style="color: antiquewhite;" color="#007ee5"
+                                label="ເລືອກບ້ວງ" :items="buang_data_list" item-text="nameOfBouang"
+                                item-value="nameOfBouang" background-color="#84FFFF"
+                                v-model="selectedBuang"></v-autocomplete>
+                            <v-btn class="mb-5" style="color: black;" color="#84FFFF"
                                 @click="listCarOfficeSearch">
                                 ຄົ້ນຫາຕາມບ້ວງ
                             </v-btn>
-                            <v-spacer></v-spacer>
-                        </v-card-actions>
-                    </div>
-                    <v-card-title style="display: flex; border-bottom:0.5px solid #e0e0e0;">
+                        </div>
+                        <v-spacer></v-spacer>
+                        <div class="mb-4 mr-8">
+                            <v-autocomplete v-model="selectedItem" :items="uniqueNameDetails" label="ເລືອກປະເພດ"
+                                @change="onItemSelect" :return-object="true">
+                                <template v-slot:item="{ item }">
+                                    <v-list-item :class="{ 'hovered-card': isItemHovered === item }"
+                                        :style="{ backgroundColor: isItemHovered === item ? '#64FFDA' : '#E0F7FA' }"
+                                        @click="onButtonClick(item)" @mouseenter="isItemHovered = item"
+                                        @mouseleave="isItemHovered = null">
+                                        <v-list-item-content>
+                                            <v-list-item-title>{{ item }}</v-list-item-title>
+                                        </v-list-item-content>
+                                    </v-list-item>
+                                </template>
+                            </v-autocomplete>
+                        </div>
+                    </v-card-actions>
+                    <!-- <v-card-title style="display: flex; border-bottom:0.5px solid #e0e0e0;">
                         <div>
                             <div class="mb-4">
                                     <v-row>
@@ -56,9 +72,11 @@
                                     </v-row>
                             </div>
                         </div>
-                    </v-card-title>
+                    </v-card-title> -->
                     <div class="mt-2">
-                        <v-data-table  :items="filteredItems" :headers="filteredHeaders" :items-per-page="50"
+                        <v-text-field class="ma-6" v-model="search" label="ຄົ້ນຫາ" clearable append-icon="mdi-magnify"
+                            :style="{ width: '300px' }"></v-text-field>
+                        <v-data-table :items="filteredItems" :headers="filteredHeaders" :items-per-page="50"
                             :search="search">
                             <template v-slot:item="row">
                                 <tr>
@@ -120,7 +138,7 @@ export default {
             classofdocs: '',
             pdfDialog: false, // Controls the visibility of the PDF dialog
             header: [
-            { text: 'ເອກະສານເລກທີ', value: 'lektee', class: 'header-font-size' },
+                { text: 'ເອກະສານເລກທີ', value: 'lektee', class: 'header-font-size' },
                 { text: 'ຊື່ເອກະສານ', value: 'content_doc', class: 'header-font-size' },
                 { text: 'ປະເພດເອກະສານ', value: 'docType', class: 'header-font-size' },
                 { text: 'ນຳເອກະສານມາໂດຍ', value: 'whocarrydoc', class: 'header-font-size' },
@@ -130,7 +148,7 @@ export default {
                 { text: 'ວັນທີ່ນໍາເຂົ້າ', value: 'dateCreate', class: 'header-font-size' },
                 { text: 'ປະເພດຂາ', value: 'bound', class: 'header-font-size' },
                 { text: 'ບ້ວງ', value: 'bouang', class: 'header-font-size' },
-                { text: 'ຂັ້ນ', value: 'classofdocs' , class: 'header-font-size' },
+                { text: 'ຂັ້ນ', value: 'classofdocs', class: 'header-font-size' },
                 // { text: 'id', value: 'userIdoffinanceial' , class: 'header-font-size' },
                 { text: 'ເບີ່ງ', value: '', class: 'header-font-size' },
                 { text: 'ແກ້ໄຂ', value: '', class: 'header-font-size' }, // Add an extra column header for the new button

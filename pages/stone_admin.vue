@@ -375,11 +375,10 @@
                                     </v-list-item-content>
                                 </template>
                                 <v-list-item>
-                                    <v-btn @click="miningDoc1('ຫີນຄວັສ ບ້ານຄອນງົວ ເມືອງຮ້ຽມ ແຂວງຫົວພັນ','ບ້ານຄອນງົວ')"
+                                    <v-btn @click="miningDoc1('ບໍ່ຄອນງົວ','ບ້ານຄອນງົວ')"
                                         rounded>
                                         ເບີ່ງ
                                     </v-btn>
-                                    <v-spacer></v-spacer>
                                 </v-list-item>
                             </v-list-group>
                             <v-list-group no-action sub-group v-if="USER_ROLE === 'FOR_DOCUMENT_ADMIN'">
@@ -545,14 +544,10 @@
                                     </v-list-item-content>
                                 </template>
                                 <v-list-item>
-                                    <!-- <v-btn @click="filedocument = true" rounded>
-                                        ເບີ່ງ
-                                    </v-btn> -->
-                                    <v-btn @click="miningDoc1('ບໍ່ຫີນກັວດ ບ້ານສີຄູນ ເມືອງແປກ ແຂວງຊຽງຂວາງ', 'ບ້ານສີຄູນ')"
+                                    <v-btn @click="miningDoc1('ບໍ່ສີຄູນ', 'ບ້ານສີຄູນ')"
                                         rounded>
                                         ເບີ່ງ
                                     </v-btn>
-                                    <v-spacer></v-spacer>
                                     <br>
                                 </v-list-item>
                             </v-list-group>
@@ -719,11 +714,10 @@
                                     </v-list-item-content>
                                 </template>
                                 <v-list-item>
-                                    <v-btn @click="miningDoc1( 'ບໍ່ຫີນກັວດ ບ້ານທ່າ ເມືອງຄໍາ ແຂວງຊຽງຂວາງ', 'ບ້ານທ່າ')"
+                                    <v-btn @click="miningDoc1( 'ບໍ່ບ້ານທ່າ', 'ບ້ານທ່າ')"
                                         rounded>
                                         ເບີ່ງ
                                     </v-btn>
-                                    <v-spacer></v-spacer>
                                 </v-list-item>
                             </v-list-group>
                             <v-list-group no-action sub-group v-if="USER_ROLE === 'FOR_DOCUMENT_ADMIN'">
@@ -755,9 +749,6 @@
                                     </v-list-item-content>
                                 </template>
                                 <v-list-item>
-                                    <!-- <v-btn @click="filedocument = true" rounded>
-                                        ເບີ່ງ
-                                    </v-btn> -->
                                     <v-btn @click="miningDoc2( 'e23QZokLhZNSVtXP1qYQHM8PVHr76VQa', 'ເອກະສານບ້ານທ່າ')"
                                         rounded>
                                         ເບີ່ງ
@@ -894,11 +885,10 @@
                                 </template>
                                 <v-list-item>
                                     <v-btn
-                                        @click="miningDoc1('ໂພນຄໍາ', 'ບ້ານໂພນຄໍາ')"
+                                        @click="miningDoc1('ບໍ່ໂພນຄໍາ', 'ບ້ານໂພນຄໍາ')"
                                         rounded>
                                         ເບີ່ງ
                                     </v-btn>
-                                    <v-spacer></v-spacer>
                                 </v-list-item>
                             </v-list-group>
                             <v-list-group no-action sub-group v-if="USER_ROLE === 'FOR_DOCUMENT_ADMIN'">
@@ -930,9 +920,6 @@
                                     </v-list-item-content>
                                 </template>
                                 <v-list-item>
-                                    <!-- <v-btn @click="filedocument = true" rounded>
-                                        ເບີ່ງ
-                                    </v-btn> -->
                                     <v-btn
                                         @click="miningDoc2('phonkham123kOQHMwA1Ve9lMq22X3kpSiaIbDO123', 'ບ້ານໂພນຄໍາ')"
                                         rounded>
@@ -1070,11 +1057,10 @@
                                     </v-list-item-content>
                                 </template>
                                 <v-list-item>
-                                    <v-btn @click="miningDoc1('ບໍ່ແຮ່ເຫຼັກ ບ້ານຊຽງຄົງ ເມືອງທ່າໂທມ ແຂວງໄຊສົມບູນເຂດ15,84km2', 'ບ້ານຊຽງຄົງ')"
+                                    <v-btn @click="miningDoc1('ບໍ່ຊຽງຄົງ', 'ບ້ານຊຽງຄົງ')"
                                         rounded>
                                         ເບີ່ງ
                                     </v-btn>
-                                    <v-spacer></v-spacer>
                                 </v-list-item>
                             </v-list-group>
                             <v-list-group no-action sub-group v-if="USER_ROLE === 'FOR_DOCUMENT_ADMIN'">
@@ -1240,11 +1226,10 @@
                                 </template>
                                 <v-list-item>
                                     <v-btn
-                                        @click="miningDoc1('namzao123kOQHMwA1Ve9lMq22X3kpSiaIbKghDO456', 'ບ້ານນໍ້າຊາວ')"
+                                        @click="miningDoc1('ບໍ່ນໍ້າຊາວ', 'ບ້ານນໍ້າຊາວ')"
                                         rounded>
                                         ເບີ່ງ
                                     </v-btn>
-                                    <v-spacer></v-spacer>
                                 </v-list-item>
                             </v-list-group>
                             <v-list-group no-action sub-group v-if="USER_ROLE === 'FOR_DOCUMENT_ADMIN'">
@@ -1414,14 +1399,9 @@
                                 </template>
                                 <v-list-item>
                                     <v-btn
-                                        @click="miningDoc1('nongphounxai3kOQHMwA1Ve9lMq22X3kpSiaIDO789', 'ເອກະສານບ້ານໜອງພູໄຊ 32,28')"
+                                        @click="miningDoc1('ບໍ່ໜອງພູໄຊ32,28', 'ບ້ານໜອງພູໄຊ 32,28')"
                                         rounded>
                                         ເບີ່ງ
-                                    </v-btn>
-                                    <v-spacer></v-spacer>
-                                    <v-btn color="success" rounded
-                                        @click="nokDoc('nongphounxai3kOQHMwA1Ve9lMq22X3kpSiaIDO789', 'ໜອງພູໄຊ 32,28', 'documment', 'ເພີ່ມເອກະສານທີ່ກ່ຽວຂ້ອງ')">
-                                        ເພີ່ມ
                                     </v-btn>
                                     <br>
                                 </v-list-item>
@@ -1456,7 +1436,7 @@
                                 </template>
                                 <v-list-item>
                                     <v-btn
-                                        @click="miningDoc1('nongphounxai3kOQHMwA1Ve9lMq22X3kpSiaIDO789', 'ເອກະສານບ້ານໜອງພູໄຊ 32,28')"
+                                        @click="miningDoc2('nongphounxai3kOQHMwA1Ve9lMq22X3kpSiaIDO789', 'ເອກະສານບ້ານໜອງພູໄຊ 32,28')"
                                         rounded>
                                         ເບີ່ງ
                                     </v-btn>
@@ -1592,14 +1572,9 @@
                                 </template>
                                 <v-list-item>
                                     <v-btn
-                                        @click="miningDoc1('knongphounxaiOQHMwA1Ve9lMq22X3kpSiahDO101112', 'ເອກະສານບ້ານໜອງພູໄຊ  62,39')"
+                                        @click="miningDoc1('ບໍ່ໜອງພູໄຊ62,39', 'ບ້ານໜອງພູໄຊ62,39')"
                                         rounded>
                                         ເບີ່ງ
-                                    </v-btn>
-                                    <v-spacer></v-spacer>
-                                    <v-btn color="success" rounded
-                                        @click="nokDoc('knongphounxaiOQHMwA1Ve9lMq22X3kpSiahDO101112', 'ໜອງພູໄຊ 62,39', 'documment', 'ເພີ່ມເອກະສານທີ່ກ່ຽວຂ້ອງ')">
-                                        ເພີ່ມ
                                     </v-btn>
                                     <br>
                                 </v-list-item>
@@ -1634,7 +1609,7 @@
                                 </template>
                                 <v-list-item>
                                     <v-btn
-                                        @click="miningDoc1('knongphounxaiOQHMwA1Ve9lMq22X3kpSiahDO101112', 'ເອກະສານບ້ານໜອງພູໄຊ  62,39')"
+                                        @click="miningDoc2('knongphounxaiOQHMwA1Ve9lMq22X3kpSiahDO101112', 'ເອກະສານບ້ານໜອງພູໄຊ  62,39')"
                                         rounded>
                                         ເບີ່ງ
                                     </v-btn>
@@ -1770,12 +1745,10 @@
                                 </template>
                                 <v-list-item>
                                     <v-btn
-                                        @click="miningDoc1('kOlardhor123QHMwA1Ve9lMq22X3GGKghDO13214415', 'ເອກະສານບ້ານລາດຫໍ້')"
+                                        @click="miningDoc1('ບໍ່ລາດຫໍ້', 'ບ້ານລາດຫໍ້')"
                                         rounded>
                                         ເບີ່ງ
                                     </v-btn>
-                                    <v-spacer></v-spacer>
-                                    <br>
                                 </v-list-item>
                             </v-list-group>
                             <v-list-group no-action sub-group v-if="USER_ROLE === 'FOR_DOCUMENT_ADMIN'">
@@ -1808,7 +1781,7 @@
                                 </template>
                                 <v-list-item>
                                     <v-btn
-                                        @click="miningDoc1('kOlardhor123QHMwA1Ve9lMq22X3GGKghDO13214415', 'ເອກະສານບ້ານລາດຫໍ້')"
+                                        @click="miningDoc2('kOlardhor123QHMwA1Ve9lMq22X3GGKghDO13214415', 'ເອກະສານບ້ານລາດຫໍ້')"
                                         rounded>
                                         ເບີ່ງ
                                     </v-btn>
@@ -1944,16 +1917,10 @@
                                 </template>
                                 <v-list-item>
                                     <v-btn
-                                        @click="miningDoc1('vewerwfe33369cee4866caf2f9941bf6244c5b6570f63a1f3eb91bba', 'ເອກະສານບ້ານຕະເປືອ')"
+                                        @click="miningDoc1('ບໍ່ຕະເປືອ', 'ບ້ານຕະເປືອ')"
                                         rounded>
                                         ເບີ່ງ
                                     </v-btn>
-                                    <v-spacer></v-spacer>
-                                    <v-btn color="success" rounded
-                                        @click="nokDoc('vewerwfe33369cee4866caf2f9941bf6244c5b6570f63a1f3eb91bba', 'ບ້ານຕະເປືອ', 'documment', 'ເພີ່ມເອກະສານທີ່ກ່ຽວຂ້ອງ')">
-                                        ເພີ່ມ
-                                    </v-btn>
-                                    <br>
                                 </v-list-item>
                             </v-list-group>
                             <v-list-group no-action sub-group v-if="USER_ROLE === 'FOR_DOCUMENT_ADMIN'">
@@ -1986,7 +1953,7 @@
                                 </template>
                                 <v-list-item>
                                     <v-btn
-                                        @click="miningDoc1('vewerwfe33369cee4866caf2f9941bf6244c5b6570f63a1f3eb91bba', 'ເອກະສານບ້ານຕະເປືອ')"
+                                        @click="miningDoc2('vewerwfe33369cee4866caf2f9941bf6244c5b6570f63a1f3eb91bba', 'ເອກະສານບ້ານຕະເປືອ')"
                                         rounded>
                                         ເບີ່ງ
                                     </v-btn>
@@ -2122,12 +2089,10 @@
                                 </template>
                                 <v-list-item>
                                     <v-btn
-                                        @click="miningDoc1('e6ea9da1b901d1ddeevgewvewvwe941bf6244c5b6570f63a1f3eb91bba', 'ເອກະສານບ້ານຫ້ວຍຮ່ອງ')"
+                                        @click="miningDoc1('ບໍ່ຫ້ວຍຮ່ອງ', 'ບ້ານຫ້ວຍຮ່ອງ')"
                                         rounded>
                                         ເບີ່ງ
                                     </v-btn>
-                                    <v-spacer></v-spacer>
-                                    <br>
                                 </v-list-item>
                             </v-list-group>
                             <v-list-group no-action sub-group v-if="USER_ROLE === 'FOR_DOCUMENT_ADMIN'">
@@ -2160,7 +2125,7 @@
                                 </template>
                                 <v-list-item>
                                     <v-btn
-                                        @click="miningDoc1('e6ea9da1b901d1ddeevgewvewvwe941bf6244c5b6570f63a1f3eb91bba', 'ເອກະສານບ້ານຫ້ວຍຮ່ອງ')"
+                                        @click="miningDoc2('e6ea9da1b901d1ddeevgewvewvwe941bf6244c5b6570f63a1f3eb91bba', 'ເອກະສານບ້ານຫ້ວຍຮ່ອງ')"
                                         rounded>
                                         ເບີ່ງ
                                     </v-btn>

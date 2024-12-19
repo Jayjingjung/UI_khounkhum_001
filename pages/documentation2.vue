@@ -29,11 +29,6 @@
                             </v-btn> -->
                         </div>
                     </v-card-actions>
-                    <div v-if="number" class="font-weight-bold ma-4">
-                        <v-chip color="#00E676">
-                            {{ number }}
-                        </v-chip>
-                    </div>
                     <v-card-title style="display: flex; border-bottom:0.5px solid #e0e0e0;">
                         <div>
                             <div class="mb-4">
@@ -81,7 +76,7 @@
                                     <td>{{ row?.item?.dateExpDoc }}</td>
                                     <!-- <td>{{ row?.item?.etc }}</td> -->
                                     <td>{{ row?.item?.dateCreate }}</td>
-                                    <td v-if="!hideBound">{{ getBoundText(row?.item?.bound) }}</td>
+                                    <!-- <td v-if="!hideBound">{{ getBoundText(row?.item?.bound) }}</td> -->
                                     <td>{{ row?.item?.bouang }}</td>
                                     <td>{{ row?.item?.classofdocs }}</td>
                                     <!-- <td>{{ row?.item?.userIdoffinanceial }}</td> -->
@@ -124,7 +119,7 @@ export default {
                 { text: 'ວັນທີໝົດອາຍຸ', value: 'dateExpDoc', class: 'header-font-size' },
                 // { text: 'ອື່ນໆ', value: 'etc' },
                 { text: 'ວັນທີ່ນໍາເຂົ້າ', value: 'dateCreate', class: 'header-font-size' },
-                { text: 'ປະເພດຂາ', value: 'bound', class: 'header-font-size' },
+                // { text: 'ປະເພດຂາ', value: 'bound', class: 'header-font-size' },
                 { text: 'ບ້ວງ', value: 'bouang', class: 'header-font-size' },
                 { text: 'ຂັ້ນ', value: 'classofdocs' , class: 'header-font-size' },
                 // { text: 'id', value: 'userIdoffinanceial' , class: 'header-font-size' },
@@ -145,7 +140,7 @@ export default {
             USER_NAME: localStorage.getItem('USER_NAME'), // Retrieve the USER_NAME from local storage
             isItemHovered: null, //  hover
             bouang: null,
-            number: ''
+            village: ''
         };
     },
     computed: {

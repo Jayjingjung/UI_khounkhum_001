@@ -39,8 +39,8 @@
                         </div>
                         <v-spacer></v-spacer>
                         <div class="mb-4 mr-8">
-                            <v-autocomplete v-model="selectedItem" :items="uniqueNameDetails" label="ເລືອກປະເພດ"
-                                @change="onItemSelect" :return-object="true">
+                            <v-autocomplete :items="uniqueNameDetails" label="ເລືອກປະເພດ"
+                                :return-object="true">
                                 <template v-slot:item="{ item }">
                                     <v-list-item :class="{ 'hovered-card': isItemHovered === item }"
                                         :style="{ backgroundColor: isItemHovered === item ? '#64FFDA' : '#E0F7FA' }"

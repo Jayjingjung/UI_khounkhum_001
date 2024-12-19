@@ -56,13 +56,13 @@
                         <table class="table">
                             <thead>
                                 <tr>
-                                    <th>ເລກບິນ</th>
+                                    <!-- <th>ເລກບິນ</th> -->
                                     <th>ລາຍລະອຽດ</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr v-for="item in groupedReportItems" :key="item.quotation_code">
-                                    <td>{{ item.quotation_code }}</td>
+                                    <!-- <td>{{ item.quotation_code }}</td> -->
                                     <td>
                                         <v-btn color="primary" class="white--text"
                                             @click="handleQuotationClick(item.quotation_code)">
@@ -75,7 +75,7 @@
                         <!-- Modal to show filtered list -->
                         <v-dialog v-model="dialog" max-width="800px">
                             <v-card>
-                                <v-card-title class="text-h6">
+                                <v-card-title style="display:flex;background-color:#24ab70;color:white" class="text-h6">
                                     ລາຍລະອຽດສໍາລັບລະຫັດ : {{ selectedQuotationCode }}
                                 </v-card-title>
                                 <v-card-text>

@@ -358,6 +358,7 @@ export default {
     mounted() {
         this.onGetshowdata_tablev2();
         this.onGetaddshow();
+        this.onGetshow_item_data_table();
     },
     computed: {
 
@@ -573,6 +574,30 @@ export default {
             section.innerHTML = "";
             section.appendChild(cloned);
             window.print();
+        },
+        async onGetshow_item_data_table() {
+            try {
+                this.loading_processing = true;
+                const response = await this.$axios.$post('showofferpaper.service', {
+                    toKen: localStorage.getItem('toKen'),
+                });
+
+                console.log('API response:', response);
+
+                if (response?.status === '00' && response?.data) {
+                    this.item_data_list = response.data;
+                   
+                } else {
+                    this.showErrorAlert('Error', 'Failed to fetch data from the API');
+                }
+            } catch (error) {
+                console.error('API error:', error);
+                this.showErrorAlert('Error', 'Failed to fetch data from the API');
+            } finally {
+                this.loading_processing = false;
+                // window.location.reload();
+
+            }
         },
 
     },

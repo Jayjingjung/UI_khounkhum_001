@@ -1239,7 +1239,7 @@
                         </div>
 
                         <div style="margin-bottom: 15px;margin-top: 20px;">
-                            <label for="real_totalMoney">ລາຂາ ທັງໝົດ:</label>
+                            <label for="real_totalMoney">ລາຄາ ທັງໝົດ:</label>
                             <span id="real_totalMoney" style="text-decoration: underline;">{{
                                 real_totalMoney?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</span>
                         </div>
@@ -2259,20 +2259,20 @@ export default {
 
                 if (response?.status === '00') {
                     this.loading_processing = false;
-                  
+
                     this.onGetshowdata_table();
-                    
-                    
+
+
                 }
             } catch (error) {
                 console.log(error);
-                
+
                 this.loading_processing = false;
             }
             window.location.reload();
         },
-      
-      async onGetshowdata_table() {
+
+        async onGetshowdata_table() {
             try {
                 this.loading_processing = true;
                 const response = await this.$axios.$post('showofferpaper.service', {
@@ -2365,6 +2365,7 @@ export default {
 </script>
 
 <style>
+
 @media screen {
     #print {
         display: none;

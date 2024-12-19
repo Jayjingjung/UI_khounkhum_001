@@ -295,11 +295,8 @@ export default {
       try {
         this.loading_processing = true
         await this.$axios.$post('/getBouangAll.service',
-
           {
-
             toKen: localStorage.getItem('toKen'),
-
 
           }).then((data) => {
             if (data?.status == '00') {

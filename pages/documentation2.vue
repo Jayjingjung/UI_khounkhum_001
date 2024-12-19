@@ -3,24 +3,27 @@
         <v-card style="width:1800px;height:800px;">
             <div v-if="selectedCard === '1'">
                 <v-card class="card-shadow mb-4" rounded="lg">
-                    <v-card-actions style="background-color: #E0F7FA;">
-                        <v-btn class="ml-4" fab elevation="0" small color="#00E676" @click="$router.back()">
+                    <v-card-actions style="background-color: #00E676;">
+                        <v-btn class="ml-4" fab elevation="0" small color="#E0F7FA" @click="$router.back()">
                             <v-icon color="#0a3382">mdi-arrow-left</v-icon>
                         </v-btn>
                         <div style="font-weight: bold; font-size: 22px;" class="ml-8 mt-2">
-                            ເອກະສານປະເພດຕ່າງໆ
+                            ເອກະສານຕ່າງໆ
                             <v-divider></v-divider>
                         </div>
+                        <v-chip v-if="village" style="font-weight: bold; font-size: 18px;" class="ml-8 mt-2">
+                            {{ village }}
+                        </v-chip>
                         <v-spacer></v-spacer>
                         <div>
-                            <v-btn style="margin-left: 10px;" color="primary" class="card-shadow"
+                            <!-- <v-btn style="margin-left: 10px;" color="primary" class="card-shadow"
                                 @click="setBound('in')">
                                 <v-icon>mdi-</v-icon>ຂາເຂົ້າ
                             </v-btn>
                             <v-btn style="margin-left: 10px;" color="primary" class="card-shadow"
                                 @click="setBound('out')">
                                 <v-icon>mdi-</v-icon>ຂາອອກ
-                            </v-btn>
+                            </v-btn> -->
                             <!-- <v-btn to="./HR/akasarn" style="background-color: #00E676">
                                 <v-icon color="white">mdi-plus</v-icon>
                             </v-btn> -->
@@ -38,7 +41,7 @@
                                     <v-row>
                                         <v-col cols="12" sm="6" md="3" v-for="(item, index) in uniqueNameDetails"
                                             :key="index" class=" justify-center align-center "
-                                            @click="onButtonClick(item)" >
+                                            @click="onButtonClick(item)">
                                             <v-card :class="{ 'hovered-card': isItemHovered === item }"
                                                 :color="isItemHovered === item ? '#64FFDA' : '#E0F7FA'">
                                                 <v-card-text class="text-center font-weight-bold"
@@ -79,7 +82,9 @@
                                     <!-- <td>{{ row?.item?.etc }}</td> -->
                                     <td>{{ row?.item?.dateCreate }}</td>
                                     <td v-if="!hideBound">{{ getBoundText(row?.item?.bound) }}</td>
+                                    <td>{{ row?.item?.bouang }}</td>
                                     <td>{{ row?.item?.classofdocs }}</td>
+                                    <!-- <td>{{ row?.item?.userIdoffinanceial }}</td> -->
                                     <td>
                                         <v-chip @click="showpdf(row?.item?.pdf)" size="30"
                                             color="#00E676">ເບີ່ງ</v-chip>
@@ -120,7 +125,9 @@ export default {
                 // { text: 'ອື່ນໆ', value: 'etc' },
                 { text: 'ວັນທີ່ນໍາເຂົ້າ', value: 'dateCreate', class: 'header-font-size' },
                 { text: 'ປະເພດຂາ', value: 'bound', class: 'header-font-size' },
-                { text: 'ຂັ້ນ', value: 'classofdocs', class: 'header-font-size' },
+                { text: 'ບ້ວງ', value: 'bouang', class: 'header-font-size' },
+                { text: 'ຂັ້ນ', value: 'classofdocs' , class: 'header-font-size' },
+                // { text: 'id', value: 'userIdoffinanceial' , class: 'header-font-size' },
                 { text: 'ເບີ່ງ', value: '', class: 'header-font-size' },
                 { text: 'ແກ້ໄຂ', value: '', class: 'header-font-size' }, // Add an extra column header for the new button
             ],
@@ -137,6 +144,7 @@ export default {
             content_doc: '',
             USER_NAME: localStorage.getItem('USER_NAME'), // Retrieve the USER_NAME from local storage
             isItemHovered: null, //  hover
+            bouang: null,
             number: ''
         };
     },
@@ -170,31 +178,25 @@ export default {
         }
     },
     mounted() {
-        const id = this.$route.query.id;
-        const number = this.$route.query.number;
-        if (id && number) {
-            this.number = number;
-            this.setUserId(id);
+        // this.onGetbuang();
+        const bouang = this.$route.query.bouang;
+        const village = this.$route.query.village;
+        if (bouang && village ) {
+            this.bouang = bouang;
+            this.village = village;
+            this.listCarOfficeSearch();
         }
     },
     methods: {
-        setBound(value) {
-            this.bound = value;
-            this.listCarOffice();
-        },
-        setUserId(id) {
-            this.userIdoffinanceial = id;
-            this.listCarOffice(); // Refresh the list with the new userIdoffinanceial
-        },
-        async listCarOffice() {
+        async listCarOfficeSearch() {
             try {
                 this.loading_processing = true;
-                const response = await this.$axios.$post('/listDocumentAll.service', {
+                const response = await this.$axios.$post('/listDocumentAllBySearch.service', {
                     branchUser: localStorage.getItem('USER_ROLE'),
                     toKen: localStorage.getItem('toKen'),
-                    bound: this.bound,
-                    bouang: this.selectedBuang,
-                    userIdoffinanceial: this.userIdoffinanceial // Pass the selected userIdoffinanceial value here
+                    bouang: this.bouang,
+                    company: this.company,
+                    type: this.selectedProduct,
                 });
                 console.log('API Response:', response);  // Log the API response
                 if (response?.status === "00") {

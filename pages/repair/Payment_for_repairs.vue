@@ -1,7 +1,6 @@
 <template>
     <div>
-        <v-card class="card-shadow" rounded="lg"
-            style="border:0.5px solid #e0e0e0;border-radius:3px;margin-bottom: 400px;">
+        <v-card class="card-shadow" rounded="lg" style="border:0.5px solid #e0e0e0;border-radius:3px;">
             <v-card-title style="background-color:#edc69e" class="white--text">
                 ສະເໜີຊື້
             </v-card-title>
@@ -44,7 +43,7 @@
                     <div v-if="selectedType === 'cash'" class="pl-2">
                         <div class="currency-selection">
                             <div justify="center" align="center">
-                      
+
                                 <v-btn :style="getButtoncurrencyStyle('LAK')" style="width: 80px;font-size: 25px"
                                     @click="selectedCurrency = 'LAK'">
                                     LAK
@@ -462,8 +461,46 @@
 
             <!-- component for print  -->
         </v-card>
+        <v-card class="card-shadow" rounded="lg"
+            style="border:0.5px solid #e0e0e0;border-radius:3px;margin-bottom: 400px;">
+            <v-card-title style="background-color:#f97964" class="white--text">
+                ປະຫວັດສະເໜີຊື້
+            </v-card-title>
+            <v-card>
+                <v-data-table :items-per-page="5" :headers="truck_table_headers" :items="truck_data_list"
+                    :search="search">
+                    <template v-slot:item="row">
+                        <tr>
+                            <td><v-avatar>
+                                    <img :src="row.item.img">
+                                </v-avatar></td>
+                            <td>{{ formatNumber(row?.item?.qty_offer) }}</td>
+                            <td>{{ formatNumber(row?.item?.unit_price) }}</td>
+                            <td>{{ formatNumber(row?.item?.totalMoney) }}</td>
+                            <td>{{ row?.item?.description }}</td>
+                            <td>{{ row?.item?.offerManName }}</td>
+                            <td>{{ row?.item?.job }}</td>
+                            <td>{{ row?.item?.f_CARD_NO }}</td>
+                            <td>{{ row?.item?.h_VICIVLE_NUMBER }}</td>
+                            <td>{{ row?.item?.item_name }}</td>
+                            <td>{{ row?.item?.offer_CODE }}</td>
+                            <!-- <td>{{ row?.item?.statusPO }}</td> -->
+                            <td>{{ row?.item?.dateCreate }}</td>
+                            <!-- <td :class="getStatusClass(row.item.status)">
+                                {{ getStatusText(row.item.status) }}
+                            </td> -->
+                            <td>
+                                <v-btn small color="primary" class="card-shadow"
+                                    @click="onGetinbox(row.item.offer_CODE)"><v-icon>mdi-printer</v-icon>ລາຍລະອຽດ</v-btn>
+                            </td>
+                        </tr>
+                    </template>
+                </v-data-table>
+            </v-card>
 
 
+            <!-- component for print  -->
+        </v-card>
 
         <v-dialog v-model="dialogVisible" max-width="800px" style="max-height: 800px;">
             <v-card>
@@ -812,7 +849,8 @@
 
                             <div>
                                 <label for="dateCreate">ວັນທີສ້າງ:</label>
-                                <span id="dateCreate">{{ dateCreate?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+                                <span id="dateCreate">{{ dateCreate?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g,
+                                    ',')
                                     }}</span>
                             </div>
 
@@ -826,14 +864,16 @@
                         <div style="display: flex;justify-content: space-between;margin-bottom: 20px;">
                             <div style="margin-bottom: 15px;">
                                 <label for="offer_CODE">ເລກທີໃບສ:</label>
-                                <span id="offer_CODE">{{ offer_CODE?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+                                <span id="offer_CODE">{{ offer_CODE?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g,
+                                    ',')
                                     }}</span>
                             </div>
                             <div style="margin-bottom: 15px;">
                                 <label for="offerManName">ຜູ້ສະເໜີ:</label>
-                                <span id="offerManName">{{ offerManName?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g,
-                                    ',')
-                                    }}</span>
+                                <span id="offerManName">{{
+                                    offerManName?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g,
+                                        ',')
+                                }}</span>
                             </div>
                             <div style="margin-bottom: 15px;">
                                 <label for="job">ໜ້າທີ່ຮັບຜິດຊອບ:</label>
@@ -864,12 +904,14 @@
                             </div>
                             <div style="margin-bottom: 15px;">
                                 <label for="unit_price">ລາ​ຄາ​ຕໍ່​ຫນ່ວຍ:</label>
-                                <span id="unit_price">{{ unit_price?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+                                <span id="unit_price">{{ unit_price?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g,
+                                    ',')
                                     }}</span>
                             </div>
                             <div style="margin-bottom: 15px;">
                                 <label for="totalMoney">ເງິນທັງໝົດ:</label>
-                                <span id="totalMoney">{{ totalMoney?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+                                <span id="totalMoney">{{ totalMoney?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g,
+                                    ',')
                                     }}</span>
                             </div>
                             <!-- <div style="margin-bottom: 10px;">
@@ -886,22 +928,26 @@
                             </div>
                             <div style="margin-bottom: 15px;">
                                 <label for="qty_offer">ຂໍ້ສະເໜີ ຈໍານວນ:</label>
-                                <span id="qty_offer">{{ qty_offer1?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+                                <span id="qty_offer">{{ qty_offer1?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g,
+                                    ',')
                                     }}</span>
                             </div>
                             <div style="margin-bottom: 15px;">
                                 <label for="unit_price">ລາ​ຄາ​ຕໍ່​ຫນ່ວຍ:</label>
-                                <span id="unit_price">{{ unit_price1?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+                                <span id="unit_price">{{ unit_price1?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g,
+                                    ',')
                                     }}</span>
                             </div>
                             <div style="margin-bottom: 15px;">
                                 <label for="totalMoney">ເງິນທັງໝົດ:</label>
-                                <span id="totalMoney">{{ totalMoney1?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+                                <span id="totalMoney">{{ totalMoney1?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g,
+                                    ',')
                                     }}</span>
                             </div>
                             <div style="margin-bottom: 15px;">
                                 <label for="item_name">ອາໄລ ຊື່:</label>
-                                <span id="item_name">{{ item_name1?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+                                <span id="item_name">{{ item_name1?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g,
+                                    ',')
                                     }}</span>
                             </div>
                             <!-- <div style="margin-bottom: 10px;">
@@ -919,22 +965,26 @@
                             </div>
                             <div style="margin-bottom: 15px;">
                                 <label for="item_name">ອາໄລ ຊື່:</label>
-                                <span id="item_name">{{ item_name2?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+                                <span id="item_name">{{ item_name2?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g,
+                                    ',')
                                     }}</span>
                             </div>
                             <div style="margin-bottom: 15px;">
                                 <label for="qty_offer">ຂໍ້ສະເໜີ ຈໍານວນ:</label>
-                                <span id="qty_offer">{{ qty_offer2?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+                                <span id="qty_offer">{{ qty_offer2?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g,
+                                    ',')
                                     }}</span>
                             </div>
                             <div style="margin-bottom: 15px;">
                                 <label for="unit_price">ລາ​ຄາ​ຕໍ່​ຫນ່ວຍ:</label>
-                                <span id="unit_price">{{ unit_price2?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+                                <span id="unit_price">{{ unit_price2?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g,
+                                    ',')
                                     }}</span>
                             </div>
                             <div style="margin-bottom: 15px;">
                                 <label for="totalMoney">ເງິນທັງໝົດ:</label>
-                                <span id="totalMoney">{{ totalMoney2?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+                                <span id="totalMoney">{{ totalMoney2?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g,
+                                    ',')
                                     }}</span>
                             </div>
                             <!-- <div style="margin-bottom: 10px;">
@@ -950,22 +1000,26 @@
                             </div>
                             <div style="margin-bottom: 15px;">
                                 <label for="item_name">ອາໄລ ຊື່:</label>
-                                <span id="item_name">{{ item_name3?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+                                <span id="item_name">{{ item_name3?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g,
+                                    ',')
                                     }}</span>
                             </div>
                             <div style="margin-bottom: 15px;">
                                 <label for="qty_offer">ຂໍ້ສະເໜີ ຈໍານວນ:</label>
-                                <span id="qty_offer">{{ qty_offer3?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+                                <span id="qty_offer">{{ qty_offer3?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g,
+                                    ',')
                                     }}</span>
                             </div>
                             <div style="margin-bottom: 15px;">
                                 <label for="unit_price">ລາ​ຄາ​ຕໍ່​ຫນ່ວຍ:</label>
-                                <span id="unit_price">{{ unit_price3?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+                                <span id="unit_price">{{ unit_price3?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g,
+                                    ',')
                                     }}</span>
                             </div>
                             <div style="margin-bottom: 15px;">
                                 <label for="totalMoney">ເງິນທັງໝົດ:</label>
-                                <span id="totalMoney">{{ totalMoney3?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+                                <span id="totalMoney">{{ totalMoney3?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g,
+                                    ',')
                                     }}</span>
                             </div>
                             <!-- <div style="margin-bottom: 10px;">
@@ -982,22 +1036,26 @@
                             </div>
                             <div style="margin-bottom: 15px;">
                                 <label for="item_name">ອາໄລ ຊື່:</label>
-                                <span id="item_name">{{ item_name4?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+                                <span id="item_name">{{ item_name4?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g,
+                                    ',')
                                     }}</span>
                             </div>
                             <div style="margin-bottom: 15px;">
                                 <label for="qty_offer">ຂໍ້ສະເໜີ ຈໍານວນ:</label>
-                                <span id="qty_offer">{{ qty_offer4?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+                                <span id="qty_offer">{{ qty_offer4?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g,
+                                    ',')
                                     }}</span>
                             </div>
                             <div style="margin-bottom: 15px;">
                                 <label for="unit_price">ລາ​ຄາ​ຕໍ່​ຫນ່ວຍ:</label>
-                                <span id="unit_price">{{ unit_price4?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+                                <span id="unit_price">{{ unit_price4?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g,
+                                    ',')
                                     }}</span>
                             </div>
                             <div style="margin-bottom: 15px;">
                                 <label for="totalMoney">ເງິນທັງໝົດ:</label>
-                                <span id="totalMoney">{{ totalMoney4?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+                                <span id="totalMoney">{{ totalMoney4?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g,
+                                    ',')
                                     }}</span>
                             </div>
                             <!-- <div style="margin-bottom: 10px;">
@@ -1013,22 +1071,26 @@
                             </div>
                             <div style="margin-bottom: 15px;">
                                 <label for="item_name">ອາໄລ ຊື່:</label>
-                                <span id="item_name">{{ item_name5?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+                                <span id="item_name">{{ item_name5?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g,
+                                    ',')
                                     }}</span>
                             </div>
                             <div style="margin-bottom: 15px;">
                                 <label for="qty_offer">ຂໍ້ສະເໜີ ຈໍານວນ:</label>
-                                <span id="qty_offer">{{ qty_offer5?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+                                <span id="qty_offer">{{ qty_offer5?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g,
+                                    ',')
                                     }}</span>
                             </div>
                             <div style="margin-bottom: 15px;">
                                 <label for="unit_price">ລາ​ຄາ​ຕໍ່​ຫນ່ວຍ:</label>
-                                <span id="unit_price">{{ unit_price5?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+                                <span id="unit_price">{{ unit_price5?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g,
+                                    ',')
                                     }}</span>
                             </div>
                             <div style="margin-bottom: 15px;">
                                 <label for="totalMoney">ເງິນທັງໝົດ:</label>
-                                <span id="totalMoney">{{ totalMoney5?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+                                <span id="totalMoney">{{ totalMoney5?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g,
+                                    ',')
                                     }}</span>
                             </div>
                             <!-- <div style="margin-bottom: 10px;">
@@ -1044,22 +1106,26 @@
                             </div>
                             <div style="margin-bottom: 15px;">
                                 <label for="item_name">ອາໄລ ຊື່:</label>
-                                <span id="item_name">{{ item_name6?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+                                <span id="item_name">{{ item_name6?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g,
+                                    ',')
                                     }}</span>
                             </div>
                             <div style="margin-bottom: 15px;">
                                 <label for="qty_offer">ຂໍ້ສະເໜີ ຈໍານວນ:</label>
-                                <span id="qty_offer">{{ qty_offer6?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+                                <span id="qty_offer">{{ qty_offer6?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g,
+                                    ',')
                                     }}</span>
                             </div>
                             <div style="margin-bottom: 15px;">
                                 <label for="unit_price">ລາ​ຄາ​ຕໍ່​ຫນ່ວຍ:</label>
-                                <span id="unit_price">{{ unit_price6?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+                                <span id="unit_price">{{ unit_price6?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g,
+                                    ',')
                                     }}</span>
                             </div>
                             <div style="margin-bottom: 15px;">
                                 <label for="totalMoney">ເງິນທັງໝົດ:</label>
-                                <span id="totalMoney">{{ totalMoney6?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+                                <span id="totalMoney">{{ totalMoney6?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g,
+                                    ',')
                                     }}</span>
                             </div>
                             <!-- <div style="margin-bottom: 10px;">
@@ -1080,17 +1146,20 @@
                             </div>
                             <div style="margin-bottom: 15px;">
                                 <label for="qty_offer">ຂໍ້ສະເໜີ ຈໍານວນ:</label>
-                                <span id="qty_offer">{{ qty_offer7?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+                                <span id="qty_offer">{{ qty_offer7?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g,
+                                    ',')
                                     }}</span>
                             </div>
                             <div style="margin-bottom: 15px;">
                                 <label for="unit_price">ລາ​ຄາ​ຕໍ່​ຫນ່ວຍ:</label>
-                                <span id="unit_price">{{ unit_price7?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+                                <span id="unit_price">{{ unit_price7?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g,
+                                    ',')
                                     }}</span>
                             </div>
                             <div style="margin-bottom: 15px;">
                                 <label for="totalMoney">ເງິນທັງໝົດ:</label>
-                                <span id="totalMoney">{{ totalMoney7?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+                                <span id="totalMoney">{{ totalMoney7?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g,
+                                    ',')
                                     }}</span>
                             </div>
                             <!-- <div style="margin-bottom: 10px;">
@@ -1106,22 +1175,26 @@
                             </div>
                             <div style="margin-bottom: 15px;">
                                 <label for="item_name">ອາໄລ ຊື່:</label>
-                                <span id="item_name">{{ item_name8?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+                                <span id="item_name">{{ item_name8?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g,
+                                    ',')
                                     }}</span>
                             </div>
                             <div style="margin-bottom: 15px;">
                                 <label for="qty_offer">ຂໍ້ສະເໜີ ຈໍານວນ:</label>
-                                <span id="qty_offer">{{ qty_offer8?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+                                <span id="qty_offer">{{ qty_offer8?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g,
+                                    ',')
                                     }}</span>
                             </div>
                             <div style="margin-bottom: 15px;">
                                 <label for="unit_price">ລາ​ຄາ​ຕໍ່​ຫນ່ວຍ:</label>
-                                <span id="unit_price">{{ unit_price8?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+                                <span id="unit_price">{{ unit_price8?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g,
+                                    ',')
                                     }}</span>
                             </div>
                             <div style="margin-bottom: 15px;">
                                 <label for="totalMoney">ເງິນທັງໝົດ:</label>
-                                <span id="totalMoney">{{ totalMoney8?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+                                <span id="totalMoney">{{ totalMoney8?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g,
+                                    ',')
                                     }}</span>
                             </div>
                             <!-- <div style="margin-bottom: 10px;">
@@ -1137,22 +1210,26 @@
                             </div>
                             <div style="margin-bottom: 15px;">
                                 <label for="item_name">ອາໄລ ຊື່:</label>
-                                <span id="item_name">{{ item_name9?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+                                <span id="item_name">{{ item_name9?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g,
+                                    ',')
                                     }}</span>
                             </div>
                             <div style="margin-bottom: 15px;">
                                 <label for="qty_offer">ຂໍ້ສະເໜີ ຈໍານວນ:</label>
-                                <span id="qty_offer">{{ qty_offer9?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+                                <span id="qty_offer">{{ qty_offer9?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g,
+                                    ',')
                                     }}</span>
                             </div>
                             <div style="margin-bottom: 15px;">
                                 <label for="unit_price">ລາ​ຄາ​ຕໍ່​ຫນ່ວຍ:</label>
-                                <span id="unit_price">{{ unit_price9?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+                                <span id="unit_price">{{ unit_price9?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g,
+                                    ',')
                                     }}</span>
                             </div>
                             <div style="margin-bottom: 15px;">
                                 <label for="totalMoney">ເງິນທັງໝົດ:</label>
-                                <span id="totalMoney">{{ totalMoney9?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+                                <span id="totalMoney">{{ totalMoney9?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g,
+                                    ',')
                                     }}</span>
                             </div>
                             <!-- <div style="margin-bottom: 10px;">
@@ -1162,7 +1239,7 @@
                         </div>
 
                         <div style="margin-bottom: 15px;margin-top: 20px;">
-                            <label for="real_totalMoney">ລາຂາ ທັງໝົດ:</label>
+                            <label for="real_totalMoney">ລາຄາ ທັງໝົດ:</label>
                             <span id="real_totalMoney" style="text-decoration: underline;">{{
                                 real_totalMoney?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</span>
                         </div>
@@ -2182,9 +2259,9 @@ export default {
 
                 if (response?.status === '00') {
                     this.loading_processing = false;
-                    // this.print();
-                    // Other actions upon successful creation
+
                     this.onGetshowdata_table();
+
 
                 }
             } catch (error) {
@@ -2192,7 +2269,9 @@ export default {
 
                 this.loading_processing = false;
             }
+            window.location.reload();
         },
+
         async onGetshowdata_table() {
             try {
                 this.loading_processing = true;
@@ -2286,6 +2365,7 @@ export default {
 </script>
 
 <style>
+
 @media screen {
     #print {
         display: none;

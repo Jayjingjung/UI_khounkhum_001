@@ -21,12 +21,12 @@
                         </spen>
                     </v-btn>
                     <v-spacer></v-spacer>
-                    ສ້າງໃບສະເໝີລາຄາ
+                    ສ້າງໃບຮຽກເກັບເງິນ
                     <v-spacer></v-spacer>
                     <v-btn elevation="0" dark width="120" height="30" small color="white" to="InvoiceDeptInsert">
                         <spen style="color: #24ab70;">
 
-                            ໃບເກັບເງິນ
+                            ໃບຮັບເງິນ
                         </spen>
                         <v-icon color="#24ab70">mdi-arrow-right</v-icon>
                     </v-btn>
@@ -36,13 +36,13 @@
                 <v-btn style="margin-top: 20px;margin-left: 20px;" @click="dialog = true" color="primary">
                     <v-icon>
                         mdi-plus
-                    </v-icon>ເພື່ມໃບສະເໝີລາຄາໃໜ່
+                    </v-icon>ເພື່ມໃບຮຽກເກັບເງິນໃໜ່
                 </v-btn>
                 <v-dialog v-model="dialog" max-width="1250px">
 
                     <v-card class="card-shadow mb-4" rounded="lg" width="1250px">
                         <v-card-title class="orange--text white--text">
-                            ໃບສະເໝີລາຄາ
+                            ໃບຮຽກເກັບເງິນ
                         </v-card-title>
                         <v-card-text>
                             <div class="main-content">
@@ -373,7 +373,7 @@
                 <v-dialog v-model="dialog1" max-width="700px">
                     <v-card class="card-shadow mb-4" rounded="lg" width="700px">
                         <v-card-title class="orange--text white--text">
-                            ໃບເກັບເງິນ
+                            ໃບຮັບເງິນ
                         </v-card-title>
 
                         <v-card-text>
@@ -421,7 +421,7 @@
 
                                     <!-- Display text if the input exceeds the amount_money -->
                                     <span v-if="inputExceedsLimit" style="color: red; font-weight: bold;">
-                                        ຫຼາຍເກັດໄປ
+                                        ຫຼາຍເກັບໄປ
                                     </span>
                                 </div>
                                 <!-- Display formatted amount_money -->
@@ -507,7 +507,7 @@
                                         <v-btn style="height: 100%; width: 100%;" small color="#0059c8"
                                             class="white--text card-shadow"
                                             @click="openDialog(item.quotation_code, item.totalMoney)">
-                                            ອອກໃບເກັບເງິນ
+                                            ອອກໃບຮັບເງິນ
                                             <v-icon size="25" color="white">mdi-file-document-plus</v-icon>
                                         </v-btn>
                                     </td>
@@ -683,7 +683,7 @@ export default {
                     { text: 'ປະເພດ', value: 'typeName' },
                     { text: 'ຫົວຂໍ', value: 'topic' },
                     { text: 'ຈໍານວນ', value: 'num' },
-                    { text: 'ຫົວນວຍ', value: 'num' },
+                    { text: 'ຫົວໜ່ວຍ', value: 'num' },
                     { text: 'ລາຄາ', value: 'amount_money' },
                     { text: 'ລາຄາທັງໝົດ', value: 'totalMoney' },
                     { text: 'ສະກຸນເງິນ', value: 'currency' },
@@ -693,11 +693,11 @@ export default {
                     // { text: 'Quotation', value: 'quotation' },
                     // { text: 'Description', value: 'description' },
                     { text: 'ໝາຍເຫດ', value: 'note' },
-                    { text: 'ວັນ', value: 'date' },
-                    { text: 'Due ວັນ', value: 'due_date' },
+                    { text: 'ວັນທີສ້າງໃບບິນ', value: 'date' },
+                    { text: 'ວັນຄົບກໍານົດ', value: 'due_date' },
                     { text: 'ເບິ່ງເເລະເເກ້ໄຂ', value: '' },
-                    { text: 'ເຮັດໃບເກັບເງິນ', value: '' },
-                    // { text: 'ບິ່ງເເລະເເກ້ໄຂໃບເກັບເງິນ', value: '' }, 
+                    { text: 'ເຮັດໃບຮັບເງິນ', value: '' },
+                    // { text: 'ບິ່ງເເລະເເກ້ໄຂໃບຮັບເງິນ', value: '' }, 
                 ],
             selectedCurrency: '',
             selectedunit: '',

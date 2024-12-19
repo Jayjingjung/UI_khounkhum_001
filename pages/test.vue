@@ -1,5 +1,5 @@
 <template>
-<<<<<<< HEAD
+
     <v-card>
       <!-- Header Section -->
       <v-card-title class="header-title1">
@@ -222,155 +222,7 @@
     gap: 10px;
   }
   </style>
-  ../assets/pdf/ເອກະສານບໍ່ມີຊື່.pdf
-=======
-    <div>
-        <v-card style="width:1800px;height:800px;">
-            <div v-if="selectedCard === '1'">
-                <v-card class="card-shadow mb-4" rounded="lg">
-                    <v-card-title
-                        style="display: flex; border-bottom:0.5px solid #e0e0e0; background-color:#80BFFF; color:white;">
-                        ລາຍການ ເອກກະສານ
-                        <div style="width: 400px; margin-left: 50px;" class="d-flex align-center">
-                            <v-text-field style="width: 700px; " placeholder="ຄົ້ນຫາ..." v-model="search" rounded
-                                background-color="#f5f5f5" prepend-inner-icon="mdi-magnify">
-                            </v-text-field>
-                            <v-btn style="margin-left: 10px;" color="ping" class="card-shadow" @click="print">
-                                <v-icon>mdi-printer</v-icon>ພີມລາຍງານທັງໝົດ
-                            </v-btn>
-                        </div>
-                        <v-btn v-if="!hideInboundNumber" style="margin-left: 10px;" color="primary" class="card-shadow"
-                            @click="setBound('in')">
-                            <v-icon>mdi-</v-icon>ຂາເຂົ້າ
-                        </v-btn>
-                        <v-btn v-if="!hideInboundNumber" style="margin-left: 10px;" color="primary" class="card-shadow"
-                            @click="setBound('out')">
-                            <v-icon>mdi-</v-icon>ຂາອອກ
-                        </v-btn>
-                        <v-btn to="./HR/akasarn" style="background-color: orange;">
-                            <v-icon color="white">mdi-plus</v-icon>
-                        </v-btn>
-                    </v-card-title>
-                    <div style="margin-top: 20px;margin-left: 20px;">
-                        <!-- Add buttons with names 'may' and 'tae' -->
-                        <v-btn style="margin-left: 10px;"
-                            @click="setUserId('132')"><v-icon>mdi-account</v-icon>nok37</v-btn>
-                        <v-btn style="margin-left: 10px;"
-                            @click="setUserId('133')"><v-icon>mdi-account</v-icon>junly65</v-btn>
-                        <v-btn style="margin-left: 10px;"
-                            @click="setUserId('134')"><v-icon>mdi-account</v-icon>kkin-out</v-btn>
-                        <v-btn style="margin-left: 10px;"
-                            @click="setUserId('135')"><v-icon>mdi-account</v-icon>puna37</v-btn>
-                        <v-btn style="margin-left: 10px;"
-                            @click="setUserId('136')"><v-icon>mdi-account</v-icon>may34</v-btn>
-                        <v-btn style="margin-left: 10px;"
-                            @click="setUserId('137')"><v-icon>mdi-account</v-icon>tae49</v-btn>
-                        <v-btn style="margin-left: 10px;"
-                            @click="setUserId('138')"><v-icon>mdi-account</v-icon>minly37</v-btn>
-                        <v-btn style="margin-left: 10px;"
-                            @click="setUserId('139')"><v-icon>mdi-account</v-icon>air88</v-btn>
-                        <div style="margin-top: 10px;">
-                            <v-autocomplete style="width: 450px; margin-left: 15px; margin-right: 15px;" outlined dense
-                                label="ບ້ວງ" :items="buang_data_list" item-text="nameOfBouang" item-value="nameOfBouang"
-                                background-color="#c6a50b" v-model="selectedBuang"></v-autocomplete>
-
-                            <v-autocomplete style="width: 490px; margin-left: 15px; margin-right: 15px;" outlined dense
-                                label="ບໍລິສັດ" :items="loca_data_list" item-text="province" item-value="id"
-                                background-color="#c6a50b" v-model="selectedLoca"
-                                @change="onGetLocaDetails"></v-autocomplete>
-
-                            <v-autocomplete style="width: 350px; margin-left: 15px; margin-right: 15px;" outlined dense
-                                label="ປະເພດ ທີເພີ່ມເອງ" :items="products_data_list" item-text="typeName"
-                                item-value="id" background-color="#13d95a" v-model="selectedProduct"
-                                @change="onGetProductDetails"></v-autocomplete>
-                            <!-- 
-                            <v-select background-color="#ffa5f1" dense outlined
-                                style="width: 200px; margin-left: 15px; margin-right: 15px;" :items="conditionalItems1"
-                                v-model="classofdocs" label="ໃບອະນຸຍາດ"></v-select> -->
-
-                        </div>
-
-                        <div style="margin-left: 13px;">
-                            <v-btn style="margin-top: -10px; color: antiquewhite;" width="150" color="#007ee5"
-                                @click="listCarOfficeSearch">ຄົ້ນຫາ</v-btn>
-                        </div>
-                    </div>
-
-
-                    <div class="mt-2">
-                        <v-data-table :items="report_listitemOffice" :headers="filteredHeaders" :items-per-page="50"
-                            :search="search">
-                            <template v-slot:item="row">
-                                <tr>
-                                    <td>
-                                        <v-badge color="red" v-if="row?.item?.status === 'EXPIRE'">
-                                            {{ row?.item?.lektee }}
-                                        </v-badge>
-                                        <span v-else>
-                                            {{ row?.item?.lektee }}
-                                        </span>
-                                    </td>
-
-                                    <td>
-                                        <v-btn style="height: 100%;width: 100%;" small color="#0059c8"
-                                            class="white--text card-shadow" @click="viewerpdf(row?.item?.pdf)">
-                                            <v-icon size="30" color="white">mdi-content-paste</v-icon>
-                                        </v-btn>
-                                    </td>
-                                    <td>{{ row?.item?.datetakein }}</td>
-                                    <td>{{ row?.item?.dateExpDoc }}</td>
-                                    <!-- <td>{{ row?.item?.pdf }}</td> -->
-                                    <!-- <td>{{ row?.item?.branchUser }}</td> -->
-                                    <td>{{ row?.item?.docType }}</td>
-                                    <td>{{ row?.item?.content_doc }}</td>
-                                    <td>{{ row?.item?.whocarrydoc }}</td>
-                                    <td>{{ row?.item?.etc }}</td>
-                                    <td>{{ row?.item?.dateCreate }}</td>
-
-
-                                    <!-- Conditionally show these columns based on USER_NAME -->
-                                    <td v-if="!hideInboundNumber">{{ row?.item?.inboundnumber }}</td>
-                                    <td v-if="!hideOutboundNumber">{{ row?.item?.outboundnumber }}</td>
-                                    <td v-if="!hideBound">{{ getBoundText(row?.item?.bound) }}</td>
-                                    <!-- <td v-if="!hidebunc">{{ row?.item?.lektee }}</td> -->
-                                    <td>{{ row?.item?.classofdocs }}</td>
-
-
-                                    <td>
-                                        <v-btn style="height: 40px; width: 90px;" small color="#0085e3"
-                                            class="white--text card-shadow" @click="showpdf(row?.item?.pdf)">
-                                            <v-icon size="30" color="white">mdi-printer-eye</v-icon>
-                                        </v-btn>
-                                    </td>
-                                    <td>
-                                        <v-btn style="height: 40px; width: 90px;" small color="#90A4AE"
-                                            class="white--text card-shadow" @click="viewdelete(row?.item?.key_id)">
-                                            <v-icon size="30" color="white">mdi-delete</v-icon>
-                                        </v-btn>
-                                    </td>
-                                </tr>
-                            </template>
-                        </v-data-table>
-                    </div>
-                </v-card>
-            </div>
-        </v-card>
-        <!-- PDF Popup -->
-        <v-dialog v-model="pdfDialog">
-            <v-card>
-                <v-card-title class="headline">PDF Viewer</v-card-title>
-                <v-card-text>
-                    <iframe v-if="pdfUrl" :src="pdfUrl" width="100%" height="1800px" frameborder="0"></iframe>
-                </v-card-text>
-                <v-card-actions>
-                    <v-spacer></v-spacer>
-                    <v-btn color="blue darken-1" text @click="pdfDialog = false">
-                        Close
-                    </v-btn>
-                </v-card-actions>
-            </v-card>
-        </v-dialog>
-    </div>
+  
 
 </template>
 
@@ -732,4 +584,4 @@ export default {
     fill: #ECBDD6;
 }
 </style>
->>>>>>> a7a6ccf394ce071b5df6deb74f5e765e9e2282bd
+

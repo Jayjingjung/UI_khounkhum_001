@@ -2241,6 +2241,350 @@
                     </v-list>
                 </v-card>
             </v-col>
+            <!--ນາຢົມ  -->
+            <v-col>
+                <v-card class="mt-4" width="300">
+                    <v-list color="#E0F7FA">
+                        <v-list-group :value="false" prepend-icon="mdi-excavator"
+                            @click="setTokenAndFetch('eb168d8130dc6f4601dd97dd3f38bdbbc2ef846572823da64dd75bf7dfc05ee9')">
+                            <template v-slot:activator>
+                                <v-list-item-title style="font-size: 20px; font-weight: bold;">ບ້ານນາຢົມ
+                                </v-list-item-title>
+                            </template>
+                            <v-list-group no-action sub-group v-if="USER_ROLE === 'FOR_DOCUMENT_ADMIN'">
+                                <template v-slot:activator>
+                                    <v-icon color="white">mdi-file-document</v-icon>
+                                    <v-list-item-content >
+                                        <v-list-item-title
+                                            style="height: 20px; overflow: visible;">ເອກະສານຫ້ອງການ</v-list-item-title>
+                                    </v-list-item-content>
+                                </template>
+                                <v-list-item>
+                                    <v-btn
+                                        @click="miningDoc1('ບໍ່ນາຢົມ', 'ບ້ານນາຢົມ')"
+                                        rounded>
+                                        ເບີ່ງ
+                                    </v-btn>
+                                </v-list-item>
+                            </v-list-group>
+                            <v-list-group no-action sub-group v-if="USER_ROLE === 'FOR_DOCUMENT_ADMIN'">
+                                <template v-slot:activator>
+                                    <v-icon color="red">mdi-cash-100</v-icon>
+                                    <v-list-item-content>
+                                        <v-list-item-title
+                                            style="height: 20px; overflow: visible;">ລາຍຈ່າຍ</v-list-item-title>
+                                    </v-list-item-content>
+                                </template>
+                                <v-list-item>
+                                    <v-btn rounded @click="filterNokPay">
+                                        ເບີ່ງ
+                                    </v-btn>
+                                    <v-spacer></v-spacer>
+                                    <v-btn color="success"
+                                        @click="paymentdoc('eb168d8130dc6f4601dd97dd3f38bdbbc2ef846572823da64dd75bf7dfc05ee9', 'ບ້ານນາຢົມ', 'pay1', 'ເອກະສານ','ເພີ່ມຂໍ້ມູນລາຍຈ່າຍ')"
+                                        rounded>
+                                        ເພີ່ມ
+                                    </v-btn>
+                                </v-list-item>
+                            </v-list-group>
+                            <v-list-group no-action sub-group >
+                                <template v-slot:activator>
+                                    <v-icon color="white">mdi-file-document</v-icon>
+                                    <v-list-item-content >
+                                        <v-list-item-title
+                                            style="height: 20px; overflow: visible;">ເອກະສານທີ່ກ່ຽວຂ້ອງ</v-list-item-title>
+                                    </v-list-item-content>
+                                </template>
+                                <v-list-item>
+                                    <v-btn
+                                        @click="miningDoc2('eb168d8130dc6f4601dd97dd3f38bdbbc2ef846572823da64dd75bf7dfc05ee9', 'ເອກະສານບ້ານນາຢົມ')"
+                                        rounded>
+                                        ເບີ່ງ
+                                    </v-btn>
+                                    <v-spacer></v-spacer>
+                                    <v-btn color="success" rounded
+                                        @click="nokDoc('eb168d8130dc6f4601dd97dd3f38bdbbc2ef846572823da64dd75bf7dfc05ee9', 'ບ້ານນາຢົມ', 'documment', 'ເພີ່ມເອກະສານທີ່ກ່ຽວຂ້ອງ')">
+                                        ເພີ່ມ
+                                    </v-btn>
+                                    <br>
+                                </v-list-item>
+                            </v-list-group>
+                            <v-list-group no-action sub-group>
+                                <template v-slot:activator>
+                                    <v-icon color="green">mdi-account-hard-hat</v-icon>
+                                    <v-list-item-content>
+                                        <v-list-item-title
+                                            style="height: 20px; overflow: visible;">ຂໍ້ມູນສຳຫຼວດ</v-list-item-title>
+                                    </v-list-item-content>
+                                </template>
+                                <v-list-item>
+                                    <v-btn @click="filterSurvey" rounded>
+                                        ເບີ່ງ
+
+                                    </v-btn>
+                                    <v-spacer></v-spacer>
+                                    <v-btn color="success" rounded
+                                        @click="paymentdoc('eb168d8130dc6f4601dd97dd3f38bdbbc2ef846572823da64dd75bf7dfc05ee9', 'ບ້ານນາຢົມ', 'servey', 'ເອກະສານ','ເພີ່ມຂໍ້ມູນສຳຫຼວດ')">
+                                        ເພີ່ມ
+                                    </v-btn>
+                                    <br>
+                                </v-list-item>
+                            </v-list-group>
+                            <v-list-group no-action sub-group>
+                                <template v-slot:activator>
+                                    <v-icon color="red">mdi-screw-machine-flat-top</v-icon>
+                                    <v-list-item-content>
+                                        <v-list-item-title
+                                            style="height: 20px; overflow: visible;">ຂໍ້ມູນຮູເຈາະ</v-list-item-title>
+                                    </v-list-item-content>
+                                </template>
+                                <v-list-item>
+                                    <v-btn rounded @click="filedocuments = true">
+                                        ເບີ່ງ
+                                    </v-btn>
+                                    <v-spacer></v-spacer>
+                                    <v-btn color="success"
+                                        @click="navigate('eb168d8130dc6f4601dd97dd3f38bdbbc2ef846572823da64dd75bf7dfc05ee9', 'ບ້ານນາຢົມ')"
+                                        rounded>
+                                        ເພີ່ມ
+                                    </v-btn>
+                                </v-list-item>
+                            </v-list-group>
+                            <v-list-group no-action sub-group>
+                                <template v-slot:activator>
+                                    <v-icon color="blue">mdi-test-tube-off</v-icon>
+                                    <v-list-item-content>
+                                        <v-list-item-title
+                                            style="height: 20px; overflow: visible;">ຂໍ້ມູນວິໃຈຕົວຢ່າງ</v-list-item-title>
+                                    </v-list-item-content>
+                                </template>
+                                <v-list-item>
+                                    <v-btn @click="filterTest" rounded>
+                                        ເບີ່ງ
+                                    </v-btn>
+                                    <v-spacer></v-spacer>
+                                    <v-btn color="success"
+                                        @click="paymentdoc('eb168d8130dc6f4601dd97dd3f38bdbbc2ef846572823da64dd75bf7dfc05ee9', 'ບ້ານນາຢົມ', 'testData', 'ເອກະສານ','ເພີ່ມຂໍ້ມູນວິໃຈຕົວຢ່າງ')"
+                                        rounded>
+                                        ເພີ່ມ
+                                    </v-btn>
+                                </v-list-item>
+                            </v-list-group>
+                            <v-list-group no-action sub-group>
+                                <template v-slot:activator>
+                                    <v-icon color="yellow">mdi-cash-100</v-icon>
+                                    <v-list-item-content>
+                                        <v-list-item-title
+                                            style="height: 20px; overflow: visible;">ຂໍ້ມູນລາຍຈ່າຍ</v-list-item-title>
+                                    </v-list-item-content>
+                                </template>
+                                <v-list-item>
+                                    <v-btn rounded @click="filterPayment">
+                                        ເບີ່ງ
+                                    </v-btn>
+                                    <v-spacer></v-spacer>
+                                    <v-btn color="success"
+                                        @click="paymentdoc('eb168d8130dc6f4601dd97dd3f38bdbbc2ef846572823da64dd75bf7dfc05ee9', 'ບ້ານນາຢົມ', 'pay', 'ເອກະສານ','ເພີ່ມຂໍ້ມູນລາຍຈ່າຍ')"
+                                        rounded>
+                                        ເພີ່ມ
+                                    </v-btn>
+                                </v-list-item>
+                            </v-list-group>
+                            <v-list-group no-action sub-group>
+                                <template v-slot:activator>
+                                    <v-icon color="green">mdi-message-image-outline</v-icon>
+                                    <v-list-item-content>
+                                        <v-list-item-title
+                                            style="height: 20px; overflow: visible;">ຮູບພາບກ່ຽວກັບພາກສະໜາມ</v-list-item-title>
+                                    </v-list-item-content>
+                                </template>
+                                <v-list-item>
+                                    <v-btn rounded @click="toImage1('eb168d8130dc6f4601dd97dd3f38bdbbc2ef846572823da64dd75bf7dfc05ee9', 'ບ້ານນາຢົມ')">
+                                        ເບີ່ງ
+                                    </v-btn>
+                                    <v-spacer></v-spacer>
+                                    <v-btn color="success"
+                                        @click="toImage('eb168d8130dc6f4601dd97dd3f38bdbbc2ef846572823da64dd75bf7dfc05ee9', 'ບ້ານນາຢົມ')" rounded>
+                                        ເພີ່ມ
+                                    </v-btn>
+                                </v-list-item>
+                            </v-list-group>
+                        </v-list-group>
+                    </v-list>
+                </v-card>
+            </v-col>
+            <!--DMC  -->
+            <v-col>
+                <v-card class="mt-4" width="300">
+                    <v-list color="#E0F7FA">
+                        <v-list-group :value="false" prepend-icon="mdi-excavator"
+                            @click="setTokenAndFetch('0cb514c085014db6b69f22e2f228b1e15ed7ff4c7f51f698b0af98759f4de0ce')">
+                            <template v-slot:activator>
+                                <v-list-item-title style="font-size: 20px; font-weight: bold;">DMC
+                                </v-list-item-title>
+                            </template>
+                            <v-list-group no-action sub-group v-if="USER_ROLE === 'FOR_DOCUMENT_ADMIN'">
+                                <template v-slot:activator>
+                                    <v-icon color="white">mdi-file-document</v-icon>
+                                    <v-list-item-content >
+                                        <v-list-item-title
+                                            style="height: 20px; overflow: visible;">ເອກະສານຫ້ອງການ</v-list-item-title>
+                                    </v-list-item-content>
+                                </template>
+                                <v-list-item>
+                                    <v-btn
+                                        @click="miningDoc1('ບໍ່DMC', 'DMC')"
+                                        rounded>
+                                        ເບີ່ງ
+                                    </v-btn>
+                                </v-list-item>
+                            </v-list-group>
+                            <v-list-group no-action sub-group v-if="USER_ROLE === 'FOR_DOCUMENT_ADMIN'">
+                                <template v-slot:activator>
+                                    <v-icon color="red">mdi-cash-100</v-icon>
+                                    <v-list-item-content>
+                                        <v-list-item-title
+                                            style="height: 20px; overflow: visible;">ລາຍຈ່າຍ</v-list-item-title>
+                                    </v-list-item-content>
+                                </template>
+                                <v-list-item>
+                                    <v-btn rounded @click="filterNokPay">
+                                        ເບີ່ງ
+                                    </v-btn>
+                                    <v-spacer></v-spacer>
+                                    <v-btn color="success"
+                                        @click="paymentdoc('0cb514c085014db6b69f22e2f228b1e15ed7ff4c7f51f698b0af98759f4de0ce', 'DMC', 'pay1', 'ເອກະສານ','ເພີ່ມຂໍ້ມູນລາຍຈ່າຍ')"
+                                        rounded>
+                                        ເພີ່ມ
+                                    </v-btn>
+                                </v-list-item>
+                            </v-list-group>
+                            <v-list-group no-action sub-group >
+                                <template v-slot:activator>
+                                    <v-icon color="white">mdi-file-document</v-icon>
+                                    <v-list-item-content >
+                                        <v-list-item-title
+                                            style="height: 20px; overflow: visible;">ເອກະສານທີ່ກ່ຽວຂ້ອງ</v-list-item-title>
+                                    </v-list-item-content>
+                                </template>
+                                <v-list-item>
+                                    <v-btn
+                                        @click="miningDoc2('0cb514c085014db6b69f22e2f228b1e15ed7ff4c7f51f698b0af98759f4de0ce', 'ເອກະສານຂອງDMC')"
+                                        rounded>
+                                        ເບີ່ງ
+                                    </v-btn>
+                                    <v-spacer></v-spacer>
+                                    <v-btn color="success" rounded
+                                        @click="nokDoc('0cb514c085014db6b69f22e2f228b1e15ed7ff4c7f51f698b0af98759f4de0ce', 'DMC', 'documment', 'ເພີ່ມເອກະສານທີ່ກ່ຽວຂ້ອງ')">
+                                        ເພີ່ມ
+                                    </v-btn>
+                                    <br>
+                                </v-list-item>
+                            </v-list-group>
+                            <v-list-group no-action sub-group>
+                                <template v-slot:activator>
+                                    <v-icon color="green">mdi-account-hard-hat</v-icon>
+                                    <v-list-item-content>
+                                        <v-list-item-title
+                                            style="height: 20px; overflow: visible;">ຂໍ້ມູນສຳຫຼວດ</v-list-item-title>
+                                    </v-list-item-content>
+                                </template>
+                                <v-list-item>
+                                    <v-btn @click="filterSurvey" rounded>
+                                        ເບີ່ງ
+
+                                    </v-btn>
+                                    <v-spacer></v-spacer>
+                                    <v-btn color="success" rounded
+                                        @click="paymentdoc('0cb514c085014db6b69f22e2f228b1e15ed7ff4c7f51f698b0af98759f4de0ce', 'DMC', 'servey', 'ເອກະສານ','ເພີ່ມຂໍ້ມູນສຳຫຼວດ')">
+                                        ເພີ່ມ
+                                    </v-btn>
+                                    <br>
+                                </v-list-item>
+                            </v-list-group>
+                            <v-list-group no-action sub-group>
+                                <template v-slot:activator>
+                                    <v-icon color="red">mdi-screw-machine-flat-top</v-icon>
+                                    <v-list-item-content>
+                                        <v-list-item-title
+                                            style="height: 20px; overflow: visible;">ຂໍ້ມູນຮູເຈາະ</v-list-item-title>
+                                    </v-list-item-content>
+                                </template>
+                                <v-list-item>
+                                    <v-btn rounded @click="filedocuments = true">
+                                        ເບີ່ງ
+                                    </v-btn>
+                                    <v-spacer></v-spacer>
+                                    <v-btn color="success"
+                                        @click="navigate('0cb514c085014db6b69f22e2f228b1e15ed7ff4c7f51f698b0af98759f4de0ce', 'DMC')"
+                                        rounded>
+                                        ເພີ່ມ
+                                    </v-btn>
+                                </v-list-item>
+                            </v-list-group>
+                            <v-list-group no-action sub-group>
+                                <template v-slot:activator>
+                                    <v-icon color="blue">mdi-test-tube-off</v-icon>
+                                    <v-list-item-content>
+                                        <v-list-item-title
+                                            style="height: 20px; overflow: visible;">ຂໍ້ມູນວິໃຈຕົວຢ່າງ</v-list-item-title>
+                                    </v-list-item-content>
+                                </template>
+                                <v-list-item>
+                                    <v-btn @click="filterTest" rounded>
+                                        ເບີ່ງ
+                                    </v-btn>
+                                    <v-spacer></v-spacer>
+                                    <v-btn color="success"
+                                        @click="paymentdoc('0cb514c085014db6b69f22e2f228b1e15ed7ff4c7f51f698b0af98759f4de0ce', 'DMC', 'testData', 'ເອກະສານ','ເພີ່ມຂໍ້ມູນວິໃຈຕົວຢ່າງ')"
+                                        rounded>
+                                        ເພີ່ມ
+                                    </v-btn>
+                                </v-list-item>
+                            </v-list-group>
+                            <v-list-group no-action sub-group>
+                                <template v-slot:activator>
+                                    <v-icon color="yellow">mdi-cash-100</v-icon>
+                                    <v-list-item-content>
+                                        <v-list-item-title
+                                            style="height: 20px; overflow: visible;">ຂໍ້ມູນລາຍຈ່າຍ</v-list-item-title>
+                                    </v-list-item-content>
+                                </template>
+                                <v-list-item>
+                                    <v-btn rounded @click="filterPayment">
+                                        ເບີ່ງ
+                                    </v-btn>
+                                    <v-spacer></v-spacer>
+                                    <v-btn color="success"
+                                        @click="paymentdoc('0cb514c085014db6b69f22e2f228b1e15ed7ff4c7f51f698b0af98759f4de0ce', 'DMC', 'pay', 'ເອກະສານ','ເພີ່ມຂໍ້ມູນລາຍຈ່າຍ')"
+                                        rounded>
+                                        ເພີ່ມ
+                                    </v-btn>
+                                </v-list-item>
+                            </v-list-group>
+                            <v-list-group no-action sub-group>
+                                <template v-slot:activator>
+                                    <v-icon color="green">mdi-message-image-outline</v-icon>
+                                    <v-list-item-content>
+                                        <v-list-item-title
+                                            style="height: 20px; overflow: visible;">ຮູບພາບກ່ຽວກັບພາກສະໜາມ</v-list-item-title>
+                                    </v-list-item-content>
+                                </template>
+                                <v-list-item>
+                                    <v-btn rounded @click="toImage1('0cb514c085014db6b69f22e2f228b1e15ed7ff4c7f51f698b0af98759f4de0ce', 'DMC')">
+                                        ເບີ່ງ
+                                    </v-btn>
+                                    <v-spacer></v-spacer>
+                                    <v-btn color="success"
+                                        @click="toImage('0cb514c085014db6b69f22e2f228b1e15ed7ff4c7f51f698b0af98759f4de0ce', 'DMC')" rounded>
+                                        ເພີ່ມ
+                                    </v-btn>
+                                </v-list-item>
+                            </v-list-group>
+                        </v-list-group>
+                    </v-list>
+                </v-card>
+            </v-col>
             <v-col></v-col>
         </v-row>
     </div>
@@ -2416,7 +2760,7 @@ export default {
             const query = this.search.toLowerCase();
             this.filteredReportList = this.report_listitemOffice.filter(item =>
                 item.full_Name_Hole_number.toLowerCase().includes(query)
-            );
+            ); 
         },
         filteredServey() {
             // ຟັງຊັ່ນກອງຂໍ້ມູນຕາມຄ່າຄົ້ນຫາ

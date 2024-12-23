@@ -110,8 +110,6 @@ export default {
         // uniqueNameDetails() {
         //     return [...new Set(this.payAll.map((item) => item.nameDetail).filter(Boolean))];
         // },
-
-
         // Filtered items based on search and selected nameDetail
         filteredItems() {
             let items = this.payAll;

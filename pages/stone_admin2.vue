@@ -4,7 +4,7 @@
         <div>
             <div>
                 <v-btn :style="getButtonStyle('tZl011U2nNs9AdvQDIStduuOIc8yWmxw')"
-                    @click="setTokenAndFetch('UnCuQ8Dql7bSVS9LcDfMWmA8asAtQLMF')">
+                    @click="setTokenAndFetch('tZl011U2nNs9AdvQDIStduuOIc8yWmxw')">
                     ຄອນງົວ
                 </v-btn>
                 <v-btn :style="getButtonStyle('3iKcWacuOwaXxERfL6LNvuEKdjhvc5aF')"

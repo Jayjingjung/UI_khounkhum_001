@@ -484,7 +484,7 @@
             type="date"
             style="width: 180px;"
             v-model="leanFuengThaiy"
-            label="leanFuengThaiy"
+            label="ນໍ້າມັນລີນເກຍຫລັງ"
             :style="{ backgroundColor: technicCheckDateColor_leanFuengThaiy }"
           ></v-text-field>
         </v-col>

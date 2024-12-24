@@ -40,21 +40,21 @@
 
 
             <v-col cols="6" md="3" sm="3">
-              <div v-if="USER_NAME === 'kkin-out' || USER_NAME === 'minly37'">
+              <div v-if="USER_NAME === 'JT' ">
 
                 <v-text-field style="width: 400px;" label="* ເລກທີເອກະສານຂາເຂົ້າ" dense outlined
                   background-color="#13d95a" v-model="inboundnumber"></v-text-field>
               </div>
             </v-col>
             <v-col cols="6" md="3" sm="3">
-              <div v-if="USER_NAME === 'kkin-out' || USER_NAME === 'minly37'">
+              <div v-if="USER_NAME === 'JT' ">
 
                 <v-text-field style="width: 400px;" label="* ເລກທີເອກະສາພາຍໃນ" dense outlined background-color="#13d95a"
                   v-model="inside"></v-text-field>
               </div>
             </v-col>
             <v-col cols="6" md="3" sm="3">
-              <div v-if="USER_NAME === 'kkin-out' || USER_NAME === 'minly37'">
+              <div v-if="USER_NAME === 'JT' ">
 
                 <v-text-field style="width: 400px;" label="* ເລກທີເອກະສານຂາອອກ" dense outlined
                   background-color="#13d9bf" v-model="outboundnumber"></v-text-field>

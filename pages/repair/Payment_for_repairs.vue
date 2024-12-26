@@ -854,8 +854,7 @@
 
                             <div>
                                 <label for="dateCreate">ວັນທີສ້າງ:</label>
-                                <span id="dateCreate">{{ dateCreate?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g,
-                                    ',')
+                                <span id="dateCreate">{{ dateCreate
                                     }}</span>
                             </div>
 

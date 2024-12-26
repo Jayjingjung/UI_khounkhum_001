@@ -2,33 +2,18 @@
     <div>
         <div justify="center" align="center">
             <!-- <v-img src="path-to-image.jpg" alt="Header Image" height="200px"></v-img> Add an image if needed -->
-
             <v-card style="width: 1200px;" class="card-shadow mb-4" rounded="lg">
-
-
                 <v-card-title style="display:flex;background-color:#E74848;color:white">
-
-
-
-
                     <v-btn fab elevation="0" dark width="30" height="30" small color="white" to="DeptMustReceive">
                         <v-icon color="#E74848">mdi-arrow-left</v-icon>
                     </v-btn>
-
                     <v-spacer></v-spacer>
                     ໃບສະເໝີລາຄາ
                     <v-spacer></v-spacer>
-
                 </v-card-title>
-
-
-
                 <div class="main-content">
                     <!-- Customer Selection -->
                     <!-- <v-card> -->
-
-
-
                     <v-col cols="12" md="4" sm="6">
                         <v-icon color="black">mdi-account</v-icon>
                         <span>ລູກຄ້າ</span>
@@ -37,16 +22,11 @@
                             <v-autocomplete outlined dense label="-ເລືອກລູກຄ້າ-" :items="customer_data_list"
                                 item-text="customerName" item-value="id" @change="onGetCustomerDetails">
                             </v-autocomplete>
-
                         </div>
                     </v-col>
-
-
                     <v-col cols="12" md="4" sm="6">
                         <v-icon color="black">mdi-cash</v-icon>
-
                         <span>ສະກຸນເງິນ</span>
-
                         <div class="currency-selection">
                             <div justify="center" align="center">
                                 <v-btn style="width: 80px;font-size: 25px "
@@ -132,38 +112,25 @@
                         <v-text-field label="ພີມການອ້າງອີງ" outlined dense v-model="reference_number"></v-text-field>
                     </v-col> -->
                     <!-- Customer Selection -->
-
                     <v-col cols="12" md="4" sm="6">
                         <div style="margin-right: 10px;">
                             <v-icon color="black">mdi-file-document-outline</v-icon>
-
                             <span>ຫົວຂໍ</span>
-
                             <v-text-field label="ພິມຫົວຂໍ" outlined dense v-model="topic"></v-text-field>
                         </div>
                     </v-col>
-
-
-
                     <v-col cols="12" md="4" sm="6">
                         <v-icon color="black">mdi-account</v-icon>
                         <span>ປະເພດ</span>
                         <span>: {{ typeName }}</span> <!-- Display selected customer name -->
-
                         <div class="selection">
                             <v-autocomplete outlined dense label="-ປະເພດ-" :items="buang_data_list"
                                 item-text="nameOfBouang" item-value="key_id" @change="onGetbuangDetails">
                             </v-autocomplete>
-
                         </div>
                     </v-col>
-
-
                 </div>
-
                 <div justify="center" align="center">
-
-
                     <v-col cols="12" md="4" sm="6">
                         <v-icon color="black">mdi-file-pdf-box</v-icon>
                         <span>ອັບໂຫຼດເອກກະສານ1</span>
@@ -172,30 +139,20 @@
                             background-color="#f5f5f5" v-model="document_1" @change="checkFileName1">
                         </v-file-input>
                     </v-col>
-
-
                     <v-col cols="12" md="4" sm="6">
                         <v-icon color="black">mdi-file-pdf-box</v-icon>
                         <span>ອັບໂຫຼດເອກກະສານ1</span>
-
-
                         <v-card-text>
                             <iframe v-if="document_1" :src="document_1" width="100%" height="500px"
                                 frameborder="0"></iframe>
                         </v-card-text>
                     </v-col>
                 </div>
-
                 <div class="footer-content">
-
-
-
                     <v-col cols="12" md="4" sm="6">
                         <div style="margin-right: 10px;">
                             <v-icon size="55" color="black">mdi-tape-measure</v-icon>
-
                             <span>ຫົວໜ່ວຍ</span>
-
                             <div class="currency-selection">
                                 <div justify="center" align="center">
                                     <v-btn style="width: 70px;font-size: 20px "
@@ -220,7 +177,6 @@
                                     </v-btn>
                                 </div>
                             </div>
-
                         </div>
                     </v-col>
                     <v-col cols="12" md="4" sm="6">
@@ -235,15 +191,7 @@
                             </v-text-field>
                         </div>
                     </v-col>
-
                     <!-- Customer Selection -->
-
-
-
-
-
-
-
                 </div>
                 <v-row justify="center" align="center">
                     <v-col cols="12" md="4" sm="6">
@@ -276,23 +224,18 @@
                         </div>
                     </v-col>
                 </v-row>
-
-
                 <!-- Additional Fields -->
                 <v-textarea style="font-size: 18px; font-weight: normal;margin-left: 20px;margin-right: 20px;"
                     label="ຄໍາອະທິບາຍ" v-model="comment" outlined dense :rules="[v => !!v || 'Comment is required']"
                     rows="8" auto-grow>
                 </v-textarea>
-
                 <!-- Additional Fields -->
                 <v-textarea
                     style="font-size: 18px; font-weight: normal;margin-left: 20px;margin-right: 20px;width: 800px;"
                     label="ໝາຍເຫດ" v-model="note" outlined dense :rules="[v => !!v || 'Comment is required']" rows="4"
                     auto-grow>
                 </v-textarea>
-
                 <div>
-
                     <v-data-table :headers="headers" :items="deptList" item-key="key_id" class="elevation-1">
                         <template v-slot:top>
                             <v-toolbar flat>
@@ -318,22 +261,14 @@
                             <span>{{ item.totalPrice }}</span>
                         </template>
                     </v-data-table>
-
                 </div>
                 <!-- <div
                     style="display: flex; justify-content: center; align-items: center; height: 10vh">
                     <v-btn @click="confarm" style="background-color: green; width: 30%;color: white;">
-
                         ບັນທຶກ
                     </v-btn>
                 </div> -->
             </v-card>
-
-
-
-
-
-
         </div>
     </div>
 </template>

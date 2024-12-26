@@ -343,9 +343,6 @@
 
 
             </v-card>
-
-
-
             <div style="display:none">
                 <div id="modalInvoice">
                     <Noti />
@@ -437,6 +434,10 @@
                                     class="font-weight-bold">
                                     ລາຄາ
                                 </th>
+                                <th style="padding:10px;background-color:#aae0ec;border: 0.5px solid #999;color:#000;text-align: center;"
+                                    class="font-weight-bold">
+                                    unit
+                                </th>
 
                                 <th style="padding:10px;background-color:#aae0ec;border: 0.5px solid #999;color:#000;text-align: center;"
                                     class="font-weight-bold">
@@ -467,7 +468,11 @@
                                     class="font-weight-bold">
                                     {{ displayAmountMoney?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}
                                 </td>
+                                <td style="padding:10px;border: 0.5px solid #999;color:#000;text-align: center;"
+                                    class="font-weight-bold">
+                                    {{ selectedunit }}
 
+                                </td>
                                 <td style="padding:10px;border: 0.5px solid #999;color:#000;text-align: center;"
                                     class="font-weight-bold">
                                     {{ totalMoney?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}
@@ -495,8 +500,12 @@
                                 <td style="padding:10px;border: 0.5px solid #999;color:#000;text-align: center;"
                                     class="font-weight-bold">
                                     {{ item.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}
-                                </td>
+                                </td> 
+                                <td style="padding:10px;border: 0.5px solid #999;color:#000;text-align: center;"
+                                    class="font-weight-bold">
+                                    {{ unit }}
 
+                                </td>
                                 <td style="padding:10px;border: 0.5px solid #999;color:#000;text-align: center;"
                                     class="font-weight-bold">
                                     {{ item.totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}
@@ -780,8 +789,9 @@ export default {
                     this.typeName = details.typeName || "";
                     this.bouang = details.type_id || "";
                     this.customer_id = details.customer_id || "";
-                    this.selectedunit = details.unit || "";
+            
                     this.selectedCurrency = details.currency || "";
+                    this.selectedunit = details.unit || "";
                     this.displaynum = details.num || "";
                     this.displayAmountMoney = details.amount_money || "";
                     this.totalMoney = details.totalMoney || "";
@@ -814,6 +824,7 @@ export default {
                 if (response?.status === "00") {
                     this.deptList = response.data || [];
                     this.items = response.data.data; // Assign data items
+                    this.unit = response.data.data; // Assign data items
                     this.totalMoney2 = response.sumfooter.totalMoney; // Assign totalMoney from sumfooter
 
                     console.log('Data fetched successfully:', this.deptList);

@@ -432,9 +432,7 @@
             <v-data-table :items-per-page="5" :headers="truck_table_headers" :items="filteredItems" :search="search">
                 <template v-slot:item="row">
                     <tr>
-                        <td><v-avatar>
-                                <img :src="row.item.img">
-                            </v-avatar></td>
+                        <td><v-avatar><img :src="row.item.img"></v-avatar></td>
                         <td>{{ formatNumber(row?.item?.qty_offer) }}</td>
                         <td>{{ formatNumber(row?.item?.unit_price) }}</td>
                         <td>{{ formatNumber(row?.item?.totalMoney) }}</td>
@@ -451,8 +449,15 @@
                             {{ getStatusText(row.item.status) }}
                         </td>
                         <td>
-                            <v-btn small color="primary" class="card-shadow"
-                                @click="onGetinbox(row.item.offer_CODE)"><v-icon>mdi-printer</v-icon>ລາຍລະອຽດ</v-btn>
+                            <v-btn small color="primary" class="card-shadow" @click="onGetinbox(row.item.offer_CODE)">
+                                <v-icon>mdi-printer</v-icon>ລາຍລະອຽດ
+                            </v-btn>
+                        </td>
+                        <td>
+                            <v-btn small color="error" class="card-shadow"
+                                @click="ondelete(row.item.offer_CODE, row.item.key_id)">
+                                <v-icon>mdi-delete</v-icon>Delete
+                            </v-btn>
                         </td>
                     </tr>
                 </template>
@@ -849,8 +854,7 @@
 
                             <div>
                                 <label for="dateCreate">ວັນທີສ້າງ:</label>
-                                <span id="dateCreate">{{ dateCreate?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g,
-                                    ',')
+                                <span id="dateCreate">{{ dateCreate
                                     }}</span>
                             </div>
 
@@ -2161,6 +2165,7 @@ export default {
                     description: this.description,
                     offerManName: this.offerManName,
                     job: this.job,
+                    key_id: this.key_id,
                     offer_CODE: offerCode,
                     toKen: localStorage.getItem('toKen'),
 
@@ -2338,9 +2343,26 @@ export default {
                 // Ensure loading state is turned off in both success and error scenarios
                 this.loading_processing = false;
             }
-        }
+        },
+
+        async ondelete(offerCode,key_id) {
+            try {
+                const response = await this.$axios.$post('/deletefferpaper.service', {
+                    toKen: localStorage.getItem('toKen'),
+                    offer_CODE: offerCode,
+                    realKey_id: key_id,
+                });
+
+                console.log('Print API response:', response);
 
 
+            } catch (error) {
+                console.error('Print API error:', error);
+                // Handle the error, such as displaying an error message
+            }
+            window.location.reload();
+
+        },
 
         // Other methods...
 
@@ -2361,11 +2383,11 @@ export default {
             ];
         }
     },
+
 };
 </script>
 
 <style>
-
 @media screen {
     #print {
         display: none;

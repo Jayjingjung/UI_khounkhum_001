@@ -33,7 +33,7 @@
                 </v-card-title>
 
 
-                <v-btn style="margin-top: 20px;margin-left: 20px;" @click="dialog = true" color="primary">
+                <v-btn style="margin-top: 20px;width: 100%;" @click="dialog = true" color="primary">
                     <v-icon>
                         mdi-plus
                     </v-icon>ເພື່ມໃບຮຽກເກັບເງິນໃໜ່
@@ -52,8 +52,8 @@
                                 <v-col cols="12" md="4" sm="6">
                                     <v-icon color="black">mdi-file-pdf-box</v-icon>
                                     <span>ອັບໂຫຼດເອກກະສານ1</span>
-                                    <v-file-input style="margin-right: 30px;" ref="fileInput1" label="ອັບໂຫຼດເອກກະສານ1"
-                                        outlined dense prepend-icon="mdi-file-pdf" append-inner-icon="mdi-file-pdf"
+                                    <v-file-input style="" ref="fileInput1" label="ອັບໂຫຼດເອກກະສານ1" outlined dense
+                                        prepend-icon="mdi-file-pdf" append-inner-icon="mdi-file-pdf"
                                         background-color="#f5f5f5" v-model="document_1" @change="checkFileName1">
                                     </v-file-input>
                                 </v-col>
@@ -404,8 +404,6 @@
                                     <v-file-input label="ອັບໂຫຼດເອກກະສານ" outlined dense prepend-icon="mdi-file-pdf"
                                         v-model="pdfandpic"></v-file-input>
                                 </v-col>
-
-
                             </v-row>
 
                             <!-- Amount of money -->
@@ -424,7 +422,7 @@
                                         ຫຼາຍເກັບໄປ
                                     </span>
                                 </div>
-                                <!-- Display formatted amount_money -->
+                                <!-- Display formatted totalMoney -->
                                 <strong>
                                     {{ formattedTotalMoney }}
                                 </strong>
@@ -438,12 +436,13 @@
                         </v-card-text>
 
                         <v-card-actions>
-                            <v-btn @click="onstore_dept_Must_invoice" color="green" dark>
+                            <v-btn :disabled="inputExceedsLimit" @click="onstore_dept_Must_invoice" color="green" dark>
                                 ບັນທຶກ
                             </v-btn>
                         </v-card-actions>
                     </v-card>
                 </v-dialog>
+
                 <!-- table -->
                 <v-card-title class="header-title1">
                     ລາຍງານ
@@ -511,6 +510,15 @@
                                             <v-icon size="25" color="white">mdi-file-document-plus</v-icon>
                                         </v-btn>
                                     </td>
+                                    <!-- <td v-if="item.status_wait_approve === 'Y'">
+                                        <v-btn style="height: 100%; width: 100%;" small color="#0059c8"
+                                            class="white--text card-shadow"
+                                            @click="navigateToInvoice(item.quotation_code, item.totalMoney)">
+                                            ໄປເຮັດໃບເກີດເງິນ
+                                            <v-icon size="25" color="white">mdi-next</v-icon>
+                                        </v-btn>
+                                    </td> -->
+
 
                                     <!-- <tb> <v-btn style="height: 40px;width: 100%;" small color="#0059c8"
                                             class="white--text card-shadow" @click="openDialog(item?.quotation_code)">
@@ -756,15 +764,11 @@ export default {
     },
 
     computed: {
-        formattedTotalMoney() {
-            return this.totalMoney
-                ? this.totalMoney.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
-                : 'N/A';
-        },
-        // Formatted displayAmountMoney with num and currency
         inputExceedsLimit() {
-            const input = parseFloat(this.formattedInputMoney.replace(/,/g, '') || 0);
-            return input > this.totalMoney;
+            return this.formattedInputMoney && parseFloat(this.formattedInputMoney) > this.totalMoney;
+        },
+        formattedTotalMoney() {
+            return this.totalMoney.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
         },
         displayAmountMoney: {
             get() {
@@ -810,7 +814,15 @@ export default {
 
     },
     methods: {
-
+        // navigateToInvoice(quotationCode, totalMoney) {
+        //     this.$router.push({
+        //         path: '/tve',
+        //         query: {
+        //             quotation_code: quotationCode,
+        //             total_money: totalMoney,
+        //         },
+        //     });
+        // },
         openDialog(quotationCode, totalMoney) {
             this.dialog1 = true;  // Open the dialog
             this.selectedQuotationCode = quotationCode;  // Store the passed quotation code
@@ -913,9 +925,7 @@ export default {
         viewview(key_id) {
             this.$router.push({ path: '/viewRE', query: { key_id: key_id } });
         },
-        addinvoice(quotation_code) {
-            this.$router.push({ path: '/InvoiceDeptInsert', query: { quotation_code: quotation_code } });
-        },
+
         currencyStyle(currency) {
             if (currency === 'USD') {
                 return 'color: red;';

@@ -18,9 +18,9 @@
 
             <div>
                 <div>
-                    <v-card-title v-if="buttonvalue">
+                    <v-card-title v-if="village">
                         <v-chip color="#2bcc96" dense class="font-weight-bold">
-                            {{ buttonvalue }}
+                            {{ village}}
                         </v-chip>
                     </v-card-title>
                 </div>
@@ -78,8 +78,7 @@
                     <v-row>
                         <height />
                         <v-file-input style="width: 100%;" label="ອັບໂຫຼດເອກກະສານ" dense
-                            append-inner-icon="mdi-file-pdf" background-color="#f5f5f5" v-model="files"
-                            @change="previewImage"></v-file-input>
+                            append-inner-icon="mdi-file-pdf" background-color="#f5f5f5" v-model="files"></v-file-input>
 
                         <!-- Conditional rendering based on USER_NAME -->
                         <v-text-field v-if="USER_NAME !== 'Geo-Explo'" style="width: 100%;" label="ຊື່ເຕັມຮູເຈາະ" dense
@@ -112,24 +111,27 @@ export default {
     },
     data() {
         return {
+            valid: false,
             type: '',
-            toKen: '', // Add toKen property
+            toKen: "tZl011U2nNs9AdvQDIStduuOIc8yWmxw",
+            key_id:'',
             selectedToken: '', // Add selectedToken to track selected button
             loading_processing: false,
             full_Name_Hole_number: "",
             dataColler: "",
             holeNumber: "",
             files: null,
+            village:null,
             USER_NAME: localStorage.getItem('USER_NAME'), // Fetch the USER_NAME from localStorage
         };
     },
     mounted() {
         // รับค่า token และ label จาก query และแสดง
-        const token = this.$route.query.token;
-        const label = this.$route.query.label;
-        if (token && label) {
-            this.setToKen(token);
-            this.buttonvalue = label;
+        const key_id = this.$route.query.key_id;
+        const village = this.$route.query.village;
+        if (key_id && village) {
+            this.key_id=key_id;
+            this.village = village;
         }
     },
     computed: {
@@ -145,10 +147,6 @@ export default {
         },
     },
     methods: {
-        setToKen(token) {
-            this.toKen = token; // Assign clicked token to the toKen property
-            this.selectedToken = token; // Update selectedToken when a button is clicked
-        },
         getButtonStyle(token) {
             // Conditionally return the button style
             return {
@@ -169,6 +167,7 @@ export default {
                 formdata.append('holeNumber', this.holeNumber);
                 formdata.append('dataColler', this.dataColler);
                 formdata.append('toKen', this.toKen);
+                formdata.append('key_id', this.key_id);
 
                 this.loading_processing = true;
                 const data = await this.$axios.$post('http://khounkham.com/api-prod/v1/truck/StoreDataHole.service', formdata);

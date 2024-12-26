@@ -93,25 +93,22 @@ export default {
       startDate: "",
       endDate: "",
       number: "",
-      selectedToken: '',
       dateCreate: null,
-      datePicker: false
+      datePicker: false,
+      toKen: "tZl011U2nNs9AdvQDIStduuOIc8yWmxw",
+      key_id:'',
     };
   },
   mounted() {
     // รับค่า token และ label จาก query และแสดง
-    const token = this.$route.query.token;
+    const key_id = this.$route.query.key_id;
     const number = this.$route.query.number;
-    if (token && number) {
-      this.setToKen(token);
+    if (key_id && number) {
+      this.key_id=key_id;
       this.number = number;
     }
   },
   methods: {
-    setToKen(token) {
-      this.toKen = token; // Assign clicked token to the toKen property
-      this.selectedToken = token; // Update selectedToken when a button is clicked
-    },
     removeFile(index) {
       this.imageaddcar.splice(index, 1); // Remove file from the list
     },
@@ -127,6 +124,7 @@ export default {
       formData.append("folderName", this.folderName);
       formData.append('dateCreate', new Date(this.dateCreate).toLocaleDateString('en-CA'));
       formData.append('toKen', this.toKen);
+      formData.append('key_id', this.key_id);
       try {
         const response = await axios.post(
           "http://khounkham.com/api-prod/v1/truck/StorePicOfBorHin.service",

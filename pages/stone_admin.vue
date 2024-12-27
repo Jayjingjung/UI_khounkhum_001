@@ -7,9 +7,9 @@
                 </v-btn>
             </div>
             <v-spacer></v-spacer>
-            <v-btn color="#00E676" style="font-size: 20px; font-weight: bold;" @click="insert('tZl011U2nNs9AdvQDIStduuOIc8yWmxw')">
-            ເພີ່ມບໍ່ໃໝ່
-        </v-btn>
+            <v-btn color="#00E676" style="font-size: 20px; font-weight: bold;" to="borhinsetting">
+                ຈັດການບໍ່ຕ່າງໆ
+            </v-btn>
         </v-card-actions>
         <div class="mb-8 mt-6" style="font-size: 20px; font-weight: bold;">
             ຝ່າຍສຳຫຼວດ ແລະ ຂຸດຄົ້ນບໍ່ແຮ່
@@ -70,230 +70,260 @@
         </v-dialog>
         <v-row>
             <!-- ຂໍ້ມູນຜົນການສຳຫຼວດ -->
-        <v-dialog v-model="surveydocument" max-width="790" persistent disable-esc>
-            <v-card class="mx-auto" max-width="790">
-                <div class="mt-4">
-                    <v-card-text>
-                        <v-card style="position: sticky; top: 0; z-index: 1;" flat>
-                            <v-btn @click="refresher" rounded color="#00E676">
-                                <v-icon>
-                                    mdi-arrow-collapse-left
-                                </v-icon>
-                            </v-btn>
-                            <div class="text-center font-weight-bold" style="font-size: 20px">
-                                ຂໍ້ມູນຜົນການສຳຫຼວດ</div>
-                            <v-divider></v-divider>
-                            <v-text-field label="ຄົ້ນຫາ" v-model="searchQuery" append-icon="mdi-magnify"
-                                @input="filteredServey" :style="{ width: '300px' }"></v-text-field>
-                            <div>
-                                <v-card-actions>
-                                    <div class="ml-10" style="font-weight:bold">
-                                        ຊື່ເອກະສານ
-                                        <v-divider></v-divider>
-                                    </div>
-                                    <v-spacer></v-spacer>
-                                    <div style="font-weight:bold">
-                                        ວັນທີ່,ເດືອນ,ປີ
-                                        <v-divider></v-divider>
-                                    </div>
-                                </v-card-actions>
+            <v-dialog v-model="surveydocument" max-width="790" persistent disable-esc>
+                <v-card class="mx-auto" max-width="790">
+                    <div class="mt-4">
+                        <v-card-text>
+                            <v-card style="position: sticky; top: 0; z-index: 1;" flat>
+                                <v-btn @click="refresher" rounded color="#00E676">
+                                    <v-icon>
+                                        mdi-arrow-collapse-left
+                                    </v-icon>
+                                </v-btn>
+                                <div class="text-center font-weight-bold" style="font-size: 20px">
+                                    ຂໍ້ມູນຜົນການສຳຫຼວດ</div>
+                                <v-divider></v-divider>
+                                <v-text-field label="ຄົ້ນຫາ" v-model="searchQuery" append-icon="mdi-magnify"
+                                    @input="filteredServey" :style="{ width: '300px' }"></v-text-field>
+                                <div>
+                                    <v-card-actions>
+                                        <div class="ml-10" style="font-weight:bold">
+                                            ຊື່ເອກະສານ
+                                            <v-divider></v-divider>
+                                        </div>
+                                        <v-spacer></v-spacer>
+                                        <div style="font-weight:bold">
+                                            ວັນທີ່,ເດືອນ,ປີ
+                                            <v-divider></v-divider>
+                                        </div>
+                                    </v-card-actions>
+                                </div>
+                            </v-card>
+                            <div v-if="filterServey.length">
+                                <div v-for="(item, index) in filterServey" :key="index">
+                                    <v-card-actions>
+                                        <v-btn text @click="showResultpdf(item.file)">
+                                            <v-icon color="#00E676">
+                                                mdi-progress-download
+                                            </v-icon>
+                                        </v-btn>
+                                        <div @click="showResultpdf(item.file)" class="hoverable">
+                                            {{ item.type }}
+                                            <v-divider></v-divider>
+                                        </div>
+                                        <v-spacer></v-spacer>
+                                        ({{ item.dateInsert }})
+                                    </v-card-actions>
+                                </div>
                             </div>
-                        </v-card>
-                        <div v-if="filterServey.length">
-                            <div v-for="(item, index) in filterServey" :key="index">
-                                <v-card-actions>
-                                    <v-btn text @click="showResultpdf(item.file)">
-                                        <v-icon color="#00E676">
-                                            mdi-progress-download
-                                        </v-icon>
-                                    </v-btn>
-                                    <div @click="showResultpdf(item.file)" class="hoverable">
-                                        {{ item.type }}
-                                        <v-divider></v-divider>
-                                    </div>
-                                    <v-spacer></v-spacer>
-                                    ({{ item.dateInsert }})
-                                </v-card-actions>
+                            <div v-else class="text-center mt-5" style="font-size: 16px; color:crimson;">
+                                <p>ບໍ່ມີຂໍ້ມູນ</p>
                             </div>
-                        </div>
-                        <div v-else class="text-center mt-5" style="font-size: 16px; color:crimson;">
-                            <p>ບໍ່ມີຂໍ້ມູນ</p>
-                        </div>
-                    </v-card-text>
-                </div>
-            </v-card>
-        </v-dialog>
-        <!-- ຂໍ້ມູນຮເຈາະ  -->
-        <v-dialog v-model="filedocuments" max-width="790" persistent disable-esc>
-            <v-card class="mx-auto" max-width="790">
-                <div class="mt4">
-                    <v-card-text>
-                        <!-- Section Header -->
-                        <v-card style="position: sticky; top: 0; z-index: 1;" flat>
-                            <v-btn @click="refresher" rounded color="#00E676">
-                                <v-icon>mdi-arrow-collapse-left</v-icon>
-                            </v-btn>
-                            <div class="text-center font-weight-bold" style="font-size: 20px">
-                                ຂໍ້ມູນຮູເຈາະ
-                            </div>
-                            <v-divider></v-divider>
-
-                            <!-- Search Field -->
-                            <v-text-field label="ຄົ້ນຫາ" v-model="search" append-icon="mdi-magnify"
-                                @input="filterReportList" :style="{ width: '300px' }"></v-text-field>
-                            <div>
-                                <v-card-actions>
-                                    <div class="ml-10" style="font-weight:bold">
-                                        ຊື່ຮູເຈາະ
-                                        <v-divider></v-divider>
-                                    </div>
-                                    <v-spacer></v-spacer>
-                                </v-card-actions>
-                            </div>
-                        </v-card>
-
-                        <!-- Filtered List -->
-                        <div v-if="filteredReportList.length">
-
-                            <div v-for="item in filteredReportList" :key="item.key_id">
-                                <v-card-actions>
-                                    <v-btn text @click="click2fuction(item.pic)">
-                                        <v-icon color="#00E676">mdi-progress-download</v-icon>
-                                    </v-btn>
-                                    <div class="hoverable" @click="click2fuction(item.pic)">
-                                        {{ item.full_Name_Hole_number }}
-                                        <v-divider></v-divider>
-                                    </div>
-                                </v-card-actions>
-                            </div>
-                        </div>
-                        <div v-else class="text-center mt-5" style="font-size: 16px; color:crimson;">
-                            <p>ບໍ່ມີຂໍ້ມູນ</p>
-                        </div>
-                    </v-card-text>
-                </div>
-            </v-card>
-        </v-dialog>
-        <!-- ຂໍ້ມູນວິໃຈຕົວຢ່າງ  -->
-        <v-dialog v-model="testDoc" max-width="790" persistent disable-esc>
-            <v-card class="mx-auto" max-width="790">
-                <div>
-                    <v-card-text>
-                        <v-card style="position: sticky; top: 0; z-index: 1;" flat>
-                            <v-btn @click="refresher" rounded color="#00E676">
-                                <v-icon>
-                                    mdi-arrow-collapse-left
-                                </v-icon>
-                            </v-btn>
-                            <div class="text-center font-weight-bold" style="font-size: 20px">
-                                ຂໍ້ມູນວິໃຈຕົວຢ່າງ</div>
-                            <v-divider></v-divider>
-                            <v-text-field label="ຄົ້ນຫາ" v-model="searchQuery" append-icon="mdi-magnify"
-                                @input="functionvichai" :style="{ width: '300px' }"></v-text-field>
-                            <div>
-                                <v-card-actions>
-                                    <div class="ml-10" style="font-weight:bold">
-                                        ຊື່ເອກະສານ
-                                        <v-divider></v-divider>
-                                    </div>
-                                    <v-spacer></v-spacer>
-                                    <div style="font-weight:bold">
-                                        ວັນທີ່,ເດືອນ,ປີ
-                                        <v-divider></v-divider>
-                                    </div>
-                                </v-card-actions>
-                            </div>
-                        </v-card>
-                        <div v-if="vichai.length">
-                            <div v-for="(item, index) in vichai" :key="index">
-                                <v-card-actions>
-                                    <v-btn text @click="showResultpdf(item.file)">
-                                        <v-icon color="#00E676">
-                                            mdi-progress-download
-                                        </v-icon>
-                                    </v-btn>
-                                    <div @click="showResultpdf(item.file)" class="hoverable">
-                                        {{ item.type }}
-                                        <v-divider></v-divider>
-                                    </div>
-                                    <v-spacer></v-spacer>
-                                    ({{ item.dateInsert }})
-                                </v-card-actions>
-                            </div>
-                        </div>
-                        <div v-else class="text-center mt-5" style="font-size: 16px; color:crimson;">
-                            <p>ບໍ່ມີຂໍ້ມູນ</p>
-                        </div>
-                    </v-card-text>
-                </div>
-            </v-card>
-        </v-dialog>
-        <!-- ຂໍ້ມູນລາຍຈ່າຍ -->
-        <v-dialog v-model="payfile" max-width="790" persistent disable-esc>
-            <v-card class="mx-auto" max-width="790">
-                <div class="mt-4">
-                    <v-card-text>
-                        <v-card style="position: sticky; top: 0; z-index: 1;" flat>
-                            <v-btn @click="refresher" rounded color="#00E676">
-                                <v-icon>
-                                    mdi-arrow-collapse-left
-                                </v-icon>
-                            </v-btn>
-                            <div class="text-center font-weight-bold" style="font-size: 20px">
-                                ຂໍ້ມູນລາຍຈ່າຍ</div>
-                            <v-divider></v-divider>
-                            <v-text-field label="ຄົ້ນຫາ" v-model="searchQuery" append-icon="mdi-magnify"
-                                @input="functionpay" :style="{ width: '300px' }"></v-text-field>
-                            <div>
-                                <v-card-actions>
-                                    <div class="ml-10" style="font-weight:bold">
-                                        ຊື່ເອກະສານ
-                                        <v-divider></v-divider>
-                                    </div>
-                                    <v-spacer></v-spacer>
-                                    <div style="font-weight:bold">
-                                        ວັນທີ່,ເດືອນ,ປີ
-                                        <v-divider></v-divider>
-                                    </div>
-                                </v-card-actions>
-                            </div>
-                        </v-card>
-                        <div v-if="payment.length">
-
-                            <div v-for="(item, index) in payment" :key="index">
-                                <v-card-actions>
-                                    <v-btn text @click="showResultpdf(item.file)">
-                                        <v-icon color="#00E676">
-                                            mdi-progress-download
-                                        </v-icon>
-                                    </v-btn>
-                                    <div @click="showResultpdf(item.file)" class="hoverable">
-                                        {{ item.type }}
-                                        <v-divider></v-divider>
-                                    </div>
-                                    <v-spacer></v-spacer>
-                                    ({{ item.dateInsert }})
-                                </v-card-actions>
-                            </div>
-                        </div>
-                        <div v-else class="text-center mt-5" style="font-size: 16px; color:crimson;">
-                        <p>ບໍ່ມີຂໍ້ມູນ</p>
+                        </v-card-text>
                     </div>
-                    </v-card-text>
-                </div>
-            </v-card>
-        </v-dialog>
+                </v-card>
+            </v-dialog>
+            <!-- ຂໍ້ມູນຮເຈາະ  -->
+            <v-dialog v-model="filedocuments" max-width="790" persistent disable-esc>
+                <v-card class="mx-auto" max-width="790">
+                    <div class="mt4">
+                        <v-card-text>
+                            <!-- Section Header -->
+                            <v-card style="position: sticky; top: 0; z-index: 1;" flat>
+                                <v-btn @click="refresher" rounded color="#00E676">
+                                    <v-icon>mdi-arrow-collapse-left</v-icon>
+                                </v-btn>
+                                <div class="text-center font-weight-bold" style="font-size: 20px">
+                                    ຂໍ້ມູນຮູເຈາະ
+                                </div>
+                                <v-divider></v-divider>
+
+                                <!-- Search Field -->
+                                <v-text-field label="ຄົ້ນຫາ" v-model="search" append-icon="mdi-magnify"
+                                    @input="filterReportList" :style="{ width: '300px' }"></v-text-field>
+                                <div>
+                                    <v-card-actions>
+                                        <div class="ml-10" style="font-weight:bold">
+                                            ຊື່ຮູເຈາະ
+                                            <v-divider></v-divider>
+                                        </div>
+                                        <v-spacer></v-spacer>
+                                    </v-card-actions>
+                                </div>
+                            </v-card>
+
+                            <!-- Filtered List -->
+                            <div v-if="filteredReportList.length">
+
+                                <div v-for="item in filteredReportList" :key="item.key_id">
+                                    <v-card-actions>
+                                        <v-btn text @click="click2fuction(item.pic)">
+                                            <v-icon color="#00E676">mdi-progress-download</v-icon>
+                                        </v-btn>
+                                        <div class="hoverable" @click="click2fuction(item.pic)">
+                                            {{ item.full_Name_Hole_number }}
+                                            <v-divider></v-divider>
+                                        </div>
+                                    </v-card-actions>
+                                </div>
+                            </div>
+                            <div v-else class="text-center mt-5" style="font-size: 16px; color:crimson;">
+                                <p>ບໍ່ມີຂໍ້ມູນ</p>
+                            </div>
+                        </v-card-text>
+                    </div>
+                </v-card>
+            </v-dialog>
+            <!-- ຂໍ້ມູນວິໃຈຕົວຢ່າງ  -->
+            <v-dialog v-model="testDoc" max-width="790" persistent disable-esc>
+                <v-card class="mx-auto" max-width="790">
+                    <div>
+                        <v-card-text>
+                            <v-card style="position: sticky; top: 0; z-index: 1;" flat>
+                                <v-btn @click="refresher" rounded color="#00E676">
+                                    <v-icon>
+                                        mdi-arrow-collapse-left
+                                    </v-icon>
+                                </v-btn>
+                                <div class="text-center font-weight-bold" style="font-size: 20px">
+                                    ຂໍ້ມູນວິໃຈຕົວຢ່າງ</div>
+                                <v-divider></v-divider>
+                                <v-text-field label="ຄົ້ນຫາ" v-model="searchQuery" append-icon="mdi-magnify"
+                                    @input="functionvichai" :style="{ width: '300px' }"></v-text-field>
+                                <div>
+                                    <v-card-actions>
+                                        <div class="ml-10" style="font-weight:bold">
+                                            ຊື່ເອກະສານ
+                                            <v-divider></v-divider>
+                                        </div>
+                                        <v-spacer></v-spacer>
+                                        <div style="font-weight:bold">
+                                            ວັນທີ່,ເດືອນ,ປີ
+                                            <v-divider></v-divider>
+                                        </div>
+                                    </v-card-actions>
+                                </div>
+                            </v-card>
+                            <div v-if="vichai.length">
+                                <div v-for="(item, index) in vichai" :key="index">
+                                    <v-card-actions>
+                                        <v-btn text @click="showResultpdf(item.file)">
+                                            <v-icon color="#00E676">
+                                                mdi-progress-download
+                                            </v-icon>
+                                        </v-btn>
+                                        <div @click="showResultpdf(item.file)" class="hoverable">
+                                            {{ item.type }}
+                                            <v-divider></v-divider>
+                                        </div>
+                                        <v-spacer></v-spacer>
+                                        ({{ item.dateInsert }})
+                                    </v-card-actions>
+                                </div>
+                            </div>
+                            <div v-else class="text-center mt-5" style="font-size: 16px; color:crimson;">
+                                <p>ບໍ່ມີຂໍ້ມູນ</p>
+                            </div>
+                        </v-card-text>
+                    </div>
+                </v-card>
+            </v-dialog>
+            <!-- ຂໍ້ມູນລາຍຈ່າຍ -->
+            <v-dialog v-model="payfile" max-width="790" persistent disable-esc>
+                <v-card class="mx-auto" max-width="790">
+                    <div class="mt-4">
+                        <v-card-text>
+                            <v-card style="position: sticky; top: 0; z-index: 1;" flat>
+                                <v-btn @click="refresher" rounded color="#00E676">
+                                    <v-icon>
+                                        mdi-arrow-collapse-left
+                                    </v-icon>
+                                </v-btn>
+                                <div class="text-center font-weight-bold" style="font-size: 20px">
+                                    ຂໍ້ມູນລາຍຈ່າຍ</div>
+                                <v-divider></v-divider>
+                                <v-text-field label="ຄົ້ນຫາ" v-model="searchQuery" append-icon="mdi-magnify"
+                                    @input="functionpay" :style="{ width: '300px' }"></v-text-field>
+                                <div>
+                                    <v-card-actions>
+                                        <div class="ml-10" style="font-weight:bold">
+                                            ຊື່ເອກະສານ
+                                            <v-divider></v-divider>
+                                        </div>
+                                        <v-spacer></v-spacer>
+                                        <div style="font-weight:bold">
+                                            ວັນທີ່,ເດືອນ,ປີ
+                                            <v-divider></v-divider>
+                                        </div>
+                                    </v-card-actions>
+                                </div>
+                            </v-card>
+                            <div v-if="payment.length">
+
+                                <div v-for="(item, index) in payment" :key="index">
+                                    <v-card-actions>
+                                        <v-btn text @click="showResultpdf(item.file)">
+                                            <v-icon color="#00E676">
+                                                mdi-progress-download
+                                            </v-icon>
+                                        </v-btn>
+                                        <div @click="showResultpdf(item.file)" class="hoverable">
+                                            {{ item.type }}
+                                            <v-divider></v-divider>
+                                        </div>
+                                        <v-spacer></v-spacer>
+                                        ({{ item.dateInsert }})
+                                    </v-card-actions>
+                                </div>
+                            </div>
+                            <div v-else class="text-center mt-5" style="font-size: 16px; color:crimson;">
+                                <p>ບໍ່ມີຂໍ້ມູນ</p>
+                            </div>
+                        </v-card-text>
+                    </div>
+                </v-card>
+            </v-dialog>
+            <v-container fluid fill-height>
+                <v-row justify="center" align="center">
+                    <v-col cols="auto">
+                        <v-card color="#E0F7FA" max-width="300">
+                            <!-- v-if="USER_ROLE !== 'BOR-HIN-KHUAT'" -->
+                            <v-list-group no-action sub-group v-if="USER_ROLE === 'FOR_DOCUMENT_ADMIN'">
+                                <template v-slot:activator>
+                                    <v-icon color="white">mdi-file-document</v-icon>
+                                    <v-list-item-content>
+                                        <v-list-item-title
+                                            style="font-size: 20px; font-weight: bold;">ເອກະສານລວມຝ່າຍບັນຊີ</v-list-item-title>
+                                    </v-list-item-content>
+                                </template>
+                                <v-list-item>
+                                    <v-btn rounded to="re01akasarn">
+                                        ເບີ່ງ
+                                    </v-btn>
+                                    <v-spacer></v-spacer>
+                                    <v-btn to="./HR/akasarn" color="success" rounded>
+                                        ເພີ່ມ
+                                    </v-btn>
+                                </v-list-item>
+                            </v-list-group>
+                        </v-card>
+                    </v-col>
+                </v-row>
+            </v-container>
             <!-- Loop through the branches and display each in v-col -->
             <v-col v-for="(branch, index) in branches" :key="index" cols="12" sm="6" md="3">
                 <v-card class="mt-4" width="300">
                     <v-list color="#E0F7FA">
                         <v-list-group :value="false" prepend-icon="mdi-excavator"
-                        @click="setTokenAndFetch(branch.key_id)">
+                            @click="setTokenAndFetch(branch.key_id)">
                             <template v-slot:activator>
                                 <v-list-item-title style="font-size: 20px; font-weight: bold;">
                                     {{ branch.b_name }}
                                 </v-list-item-title>
                             </template>
+                            <v-card-text>
+                                {{ branch.location }}
+                            </v-card-text>
                             <v-list-group no-action sub-group v-if="USER_ROLE === 'FOR_DOCUMENT_ADMIN'">
                                 <template v-slot:activator>
                                     <v-icon color="white">mdi-file-document</v-icon>
@@ -324,7 +354,7 @@
                                     </v-btn>
                                     <v-spacer></v-spacer>
                                     <v-btn color="success"
-                                        @click="paymentdoc( branch.key_id, `ບ້ານ${branch.b_name}`, 'pay1', 'ເອກະສານ', 'ເພີ່ມຂໍ້ມູນລາຍຈ່າຍ')"
+                                        @click="paymentdoc(branch.key_id, `ບ້ານ${branch.b_name}`, 'pay1', 'ເອກະສານ', 'ເພີ່ມຂໍ້ມູນລາຍຈ່າຍ')"
                                         rounded>
                                         ເພີ່ມ
                                     </v-btn>
@@ -340,8 +370,7 @@
                                     </v-list-item-content>
                                 </template>
                                 <v-list-item>
-                                    <v-btn @click="seeDocument(branch.key_id,'ເອກະສານບ້ານຄອນງົວ')"
-                                        rounded>
+                                    <v-btn @click="seeDocument(branch.key_id, 'ເອກະສານບ້ານຄອນງົວ')" rounded>
                                         ເບີ່ງ
                                     </v-btn>
                                     <v-spacer></v-spacer>
@@ -366,7 +395,7 @@
                                     </v-btn>
                                     <v-spacer></v-spacer>
                                     <v-btn color="success"
-                                        @click="paymentdoc(branch.key_id, `ບ້ານ${branch.b_name}`, 'servey', 'ເອກະສານ','ເພີ່ມຂໍ້ມູນສຳຫຼວດ')"
+                                        @click="paymentdoc(branch.key_id, `ບ້ານ${branch.b_name}`, 'servey', 'ເອກະສານ', 'ເພີ່ມຂໍ້ມູນສຳຫຼວດ')"
                                         rounded>
                                         ເພີ່ມ
                                     </v-btn>
@@ -387,8 +416,7 @@
                                         ເບີ່ງ
                                     </v-btn>
                                     <v-spacer></v-spacer>
-                                    <v-btn color="success"
-                                        @click="navigate(branch.key_id, `ບ້ານ${branch.b_name}`)"
+                                    <v-btn color="success" @click="navigate(branch.key_id, `ບ້ານ${branch.b_name}`)"
                                         rounded>
                                         ເພີ່ມ
                                     </v-btn>
@@ -408,7 +436,7 @@
                                     </v-btn>
                                     <v-spacer></v-spacer>
                                     <v-btn color="success"
-                                        @click="paymentdoc(branch.key_id, `ບ້ານ${branch.b_name}`, 'testData', 'ເອກະສານ','ເພີ່ມຂໍ້ມູນວິໃຈຕົວຢ່າງ')"
+                                        @click="paymentdoc(branch.key_id, `ບ້ານ${branch.b_name}`, 'testData', 'ເອກະສານ', 'ເພີ່ມຂໍ້ມູນວິໃຈຕົວຢ່າງ')"
                                         rounded>
                                         ເພີ່ມ
                                     </v-btn>
@@ -428,7 +456,7 @@
                                     </v-btn>
                                     <v-spacer></v-spacer>
                                     <v-btn color="success"
-                                        @click="paymentdoc(branch.key_id, `ບ້ານ${branch.b_name}`,  'pay', 'ເອກະສານ','ເພີ່ມຂໍ້ມູນລາຍຈ່າຍ')"
+                                        @click="paymentdoc(branch.key_id, `ບ້ານ${branch.b_name}`, 'pay', 'ເອກະສານ', 'ເພີ່ມຂໍ້ມູນລາຍຈ່າຍ')"
                                         rounded>
                                         ເພີ່ມ
                                     </v-btn>
@@ -447,8 +475,8 @@
                                         ເບີ່ງ
                                     </v-btn>
                                     <v-spacer></v-spacer>
-                                    <v-btn color="success"
-                                        @click="toImage(branch.key_id, `ບ້ານ${branch.b_name}`,)" rounded>
+                                    <v-btn color="success" @click="toImage(branch.key_id, `ບ້ານ${branch.b_name}`,)"
+                                        rounded>
                                         ເພີ່ມ
                                     </v-btn>
                                 </v-list-item>
@@ -485,7 +513,7 @@ export default {
             payment: [],
             payment1: [],
             selectedToken: null,
-            key_id:null,
+            key_id: null,
         };
     },
     mounted() {
@@ -499,7 +527,7 @@ export default {
         }
     },
     methods: {
-        setTokenAndFetch(key_id ) {
+        setTokenAndFetch(key_id) {
             console.log("Clicked key_id:", key_id);
             this.key_id = key_id;
             this.fetchAllData();
@@ -599,13 +627,13 @@ export default {
         navigate(key_id, village) {
             this.$router.push({
                 name: 'Add_a_hole',
-                query: { key_id, village}
+                query: { key_id, village }
             });
         },
-        seeDocument( key_id, number ) {
+        seeDocument(key_id, number) {
             this.$router.push({
                 name: 'documentation1',
-                query: {key_id, label:number }
+                query: { key_id, label: number }
             });
         },
         insertDocument(key_id, buttonLabel, number, number1) {
@@ -623,13 +651,7 @@ export default {
         paymentdoc(key_id, valueDoc, number, number1, number2) {
             this.$router.push({
                 name: 'paydocument',
-                query: {key_id, label: valueDoc, number, number1, number2 }
-            });
-        },
-        insert(token) {
-            this.$router.push({
-                name: 'insertBranch',
-                query: { token }
+                query: { key_id, label: valueDoc, number, number1, number2 }
             });
         },
         toImage(key_id, number) {
@@ -672,7 +694,7 @@ export default {
             const query = this.search.toLowerCase();
             this.filteredReportList = this.report_listitemOffice.filter(item =>
                 item.full_Name_Hole_number.toLowerCase().includes(query)
-            ); 
+            );
         },
         functionvichai() {
             if (this.searchQuery.trim() === '') {

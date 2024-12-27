@@ -35,7 +35,7 @@ import swal from "sweetalert2";
 export default {
     data() {
         return {
-            toKen: '',
+            toKen: 'tZl011U2nNs9AdvQDIStduuOIc8yWmxw',
             valid: false,
             loading_processing: false, // For loading spinner
             branch: {
@@ -51,12 +51,6 @@ export default {
                     /.+@.+\..+/.test(value) || "ອີເມວບໍ່ຖືກຕ້ອງ",
             },
         };
-    },
-    mounted() {
-        const token = this.$route.query.token;
-        if (token) {
-            this.toKen = token;
-        }
     },
     methods: {
         submitForm() {

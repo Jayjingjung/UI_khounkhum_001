@@ -1,146 +1,103 @@
 <template>
-    <div>
-      <v-card>
-        <v-card-title>Branch Management</v-card-title>
-        <v-card-text>
-          <v-form ref="branchForm" v-model="formValid">
-            <v-text-field
-              v-model="branchData.b_name"
-              label="Branch Name"
-              required
-            ></v-text-field>
-            <v-text-field
-              v-model="branchData.b_tel"
-              label="Telephone"
-              required
-            ></v-text-field>
-            <v-text-field
-              v-model="branchData.location"
-              label="Location"
-              required
-            ></v-text-field>
-            <v-text-field
-              v-model="branchData.email"
-              label="Email"
-              required
-            ></v-text-field>
-          </v-form>
-          <v-btn color="primary" @click="addBranch">Add Branch</v-btn>
-          <v-btn color="secondary" @click="updateBranch">Update Branch</v-btn>
-        </v-card-text>
-      </v-card>
+    <v-container>
+      <!-- Title -->
+      <v-row justify="center" class="mb-4">
+        <v-col cols="12" md="8">
+          <h1 class="text-center">รายชื่อร้านค้า</h1>
+        </v-col>
+      </v-row>
   
-      <v-card class="mt-5">
-        <v-card-title>Branches</v-card-title>
-        <v-data-table :headers="headers" :items="branches" item-value="key_id">
-          <template v-slot:item.actions="{ item }">
-            <v-btn color="error" @click="deleteBranch(item.key_id)">Delete</v-btn>
-          </template>
-        </v-data-table>
-      </v-card>
-    </div>
+      <!-- Search Bar -->
+      <v-row justify="center" class="mb-4">
+        <v-col cols="12" md="8">
+          <v-text-field
+            v-model="search"
+            label="ค้นหาร้านค้า"
+            append-icon="mdi-magnify"
+            outlined
+            dense
+          ></v-text-field>
+        </v-col>
+      </v-row>
+  
+      <!-- Data Table -->
+      <v-row justify="center">
+        <v-col cols="12" md="8">
+          <v-data-table
+            :headers="headers"
+            :items="filteredShops"
+            :items-per-page="5"
+            dense
+            outlined
+          >
+            <template v-slot:top>
+              <v-btn color="primary" @click="addShop">
+                เพิ่มร้านค้า
+              </v-btn>
+            </template>
+  
+            <template v-slot:item.actions="{ item }">
+              <v-btn icon @click="editShop(item)">
+                <v-icon color="blue">mdi-pencil</v-icon>
+              </v-btn>
+              <v-btn icon @click="deleteShop(item)">
+                <v-icon color="red">mdi-delete</v-icon>
+              </v-btn>
+            </template>
+          </v-data-table>
+        </v-col>
+      </v-row>
+    </v-container>
   </template>
   
   <script>
   export default {
     data() {
       return {
-        formValid: false,
-        branchData: {
-          key_id: null,
-          b_name: "",
-          b_tel: "",
-          location: "",
-          email: "",
-        },
-        branches: [],
+        search: "",
         headers: [
-          { text: "Branch Name", value: "b_name" },
-          { text: "Telephone", value: "b_tel" },
-          { text: "Location", value: "location" },
-          { text: "Email", value: "email" },
-          { text: "Actions", value: "actions", sortable: false },
+          { text: "ชื่อร้านค้า", value: "name" },
+          { text: "เจ้าของร้าน", value: "owner" },
+          { text: "เบอร์ติดต่อ", value: "phone" },
+          { text: "ที่อยู่", value: "address" },
+          { text: "จัดการ", value: "actions", sortable: false },
+        ],
+        shops: [
+          { name: "ร้านค้า A", owner: "คุณสมชาย", phone: "020-12345678", address: "เวียงจันทน์" },
+          { name: "ร้านค้า B", owner: "คุณสมหญิง", phone: "020-87654321", address: "หลวงพระบาง" },
+          { name: "ร้านค้า C", owner: "คุณวิชัย", phone: "020-11223344", address: "ปากเซ" },
         ],
       };
     },
-    methods: {
-      async fetchBranches() {
-        try {
-          const response = await this.$axios.$post("/getShowBranchNew2024.service", {
-            toKen: localStorage.getItem("toKen"),
-          });
-          if (response?.status === "00") {
-            this.branches = response.data;
-          }
-        } catch (error) {
-          console.error("Error fetching branches:", error);
-        }
-      },
-      async addBranch() {
-        try {
-          const response = await this.$axios.$post("/storeBranch.service", {
-            toKen: localStorage.getItem("toKen"),
-            b_name: this.branchData.b_name,
-            b_tel: this.branchData.b_tel,
-            location: this.branchData.location,
-            email: this.branchData.email,
-          });
-          if (response?.status === "00") {
-            this.fetchBranches();
-            this.resetForm();
-          }
-        } catch (error) {
-          console.error("Error adding branch:", error);
-        }
-      },
-      async deleteBranch(key_id) {
-        try {
-          const response = await this.$axios.$post("/DelBranchs.service", {
-            key_id,
-          });
-          if (response?.status === "00") {
-            this.fetchBranches();
-          }
-        } catch (error) {
-          console.error("Error deleting branch:", error);
-        }
-      },
-      async updateBranch() {
-        try {
-          const response = await this.$axios.$post("/storeBranch.service", {
-            key_id: this.branchData.key_id,
-            toKen: localStorage.getItem("toKen"),
-            b_name: this.branchData.b_name,
-            b_tel: this.branchData.b_tel,
-            location: this.branchData.location,
-            email: this.branchData.email,
-          });
-          if (response?.status === "00") {
-            this.fetchBranches();
-            this.resetForm();
-          }
-        } catch (error) {
-          console.error("Error updating branch:", error);
-        }
-      },
-      resetForm() {
-        this.branchData = {
-          key_id: null,
-          b_name: "",
-          b_tel: "",
-          location: "",
-          email: "",
-        };
+    computed: {
+      filteredShops() {
+        return this.shops.filter((shop) =>
+          shop.name.toLowerCase().includes(this.search.toLowerCase())
+        );
       },
     },
-    mounted() {
-      this.fetchBranches();
+    methods: {
+      addShop() {
+        alert("เพิ่มร้านค้าใหม่");
+        // เขียนฟังก์ชันเพิ่มร้านค้าได้ตามต้องการ
+      },
+      editShop(shop) {
+        alert(`แก้ไขร้านค้า: ${shop.name}`);
+        // เขียนฟังก์ชันแก้ไขร้านค้าได้ตามต้องการ
+      },
+      deleteShop(shop) {
+        const confirmDelete = confirm(`คุณต้องการลบร้านค้า ${shop.name} หรือไม่?`);
+        if (confirmDelete) {
+          this.shops = this.shops.filter((item) => item !== shop);
+        }
+      },
     },
   };
   </script>
   
   <style scoped>
-  .mt-5 {
-    margin-top: 20px;
+  .text-center {
+    text-align: center;
   }
   </style>
+  

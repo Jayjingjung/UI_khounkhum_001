@@ -1,13 +1,13 @@
 <template>
     <div>
-      <v-container>
+   
         <v-card class="pa-5">
           <v-card-title>Project Gantt Chart</v-card-title>
           <v-card-text>
             <div id="gantt-chart" style="width: 100%; height: 500px;"></div>
           </v-card-text>
         </v-card>
-      </v-container>
+
     </div>
   </template>
   
@@ -27,6 +27,9 @@
           { id: 2, text: "Identify Site location", start_date: "06-Apr-20", duration: 4, progress: 0.6, parent: 1 },
           { id: 3, text: "Perform Soil test", start_date: "10-Apr-20", duration: 4, progress: 0.8, parent: 1 },
           { id: 4, text: "Soil test approval", start_date: "13-Apr-20", duration: 4, progress: 0.2, parent: 1 },
+
+
+
           { id: 5, text: "Project Estimation", start_date: "03-Apr-20", duration: 6, progress: 0.5 },
           { id: 6, text: "Develop floor plan", start_date: "03-Apr-20", duration: 3, progress: 0.7, parent: 5 },
           { id: 7, text: "List materials", start_date: "06-Apr-20", duration: 3, progress: 0.4, parent: 5 },

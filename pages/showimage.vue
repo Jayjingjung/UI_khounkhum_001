@@ -143,7 +143,8 @@ export default {
             selectedPicGroup: null, // Currently selected picture group
             dialog: false,
             dialog1: false, // State for the dialog
-            toKen: "", // Token to be sent with the API request
+            toKen: "tZl011U2nNs9AdvQDIStduuOIc8yWmxw",
+            key_id:'',
             carouselPics: [], // List of images for the carousel
             carouselIndex: 0, // Current index for the carousel
             selectedFolderName: "", // Folder name for the selected picture group
@@ -161,24 +162,22 @@ export default {
         },
     },
     mounted() {
-        const token = this.$route.query.token;
+        const key_id = this.$route.query.key_id;
         const number = this.$route.query.number;
-        if (token && number) {
-            this.setToKen(token);
+        if (key_id && number) {
+            this.key_id=key_id;
             this.number = number;
         }
         this.onGetPicList();
     },
     methods: {
-        setToKen(token) {
-            this.toKen = token; // Set the token
-        },
         async onGetPicList() {
             try {
                 const response = await axios.post(
                     "http://khounkham.com/api-prod/v1/truck/ShowPicOfBor.service",
                     {
                         toKen: this.toKen, // Use the token
+                        key_id: this.key_id,
                     }
                 );
                 if (response.data.status === "00") {

@@ -80,7 +80,6 @@
         </v-card>
     </div>
 </template>
-
 <script>
 import swal from "sweetalert2";
 
@@ -92,7 +91,8 @@ export default {
             payAll: [],
             selectedNameDetail: null,
             buttonname: null,
-            toKen: null,
+            toKen: "tZl011U2nNs9AdvQDIStduuOIc8yWmxw",
+            key_id:'',
             USER_ROLE: localStorage.getItem("USER_ROLE") || null,
         };
     },
@@ -126,20 +126,16 @@ export default {
         },
     },
     mounted() {
-        const token = this.$route.query.token;
+        const key_id = this.$route.query.key_id;
         const label = this.$route.query.label;
 
-        if (token && label) {
+        if (key_id && label) {
             this.buttonname = label;
-            this.setToken(token);
+            this.key_id=key_id;
         }
         this.fetchAllData();
     },
     methods: {
-        setToken(token) {
-            console.log("Set Token:", token);
-            this.toKen = token;
-        },
         refresher() {
             window.location.reload();
         },
@@ -148,6 +144,7 @@ export default {
                 .$post("/ShowAllResultOfServey.service", {
                     branchUser: this.USER_ROLE,
                     toKen: this.toKen,
+                    key_id: this.key_id,
                 })
                 .then((response) => {
                     if (response?.status === "00") {

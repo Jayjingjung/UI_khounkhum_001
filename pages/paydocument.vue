@@ -61,9 +61,9 @@ export default {
             USER_NAME: localStorage.getItem('USER_NAME'),
             files: null,
             type: '',
-            toKen: '', // Add toKen property
+            toKen: "tZl011U2nNs9AdvQDIStduuOIc8yWmxw",
+            key_id:'',
             valid: false,
-            selectedToken: '', // Add selectedToken to track selected button
             number: null,
             number1:null,
             number2:null,
@@ -74,28 +74,25 @@ export default {
     },
     mounted() {
         // รับค่า token และ label จาก query และแสดง
-        const token = this.$route.query.token;
+        const key_id = this.$route.query.key_id;
         const label = this.$route.query.label;
         const number = this.$route.query.number;
         const number1 = this.$route.query.number1;
         const number2 = this.$route.query.number2;
-        if (token && label) {
-            this.setToKen(token);
+        if (key_id && label) {
             this.valueDoc = label;
+            this.key_id=key_id;
         }
         if (number&&number1) {
             this.number = number;
             this.number1 = number1;
         }
         if (number2){
-            this.number2=number2
+            this.number2=number2;
+            
         }
     },
     methods: {
-        setToKen(token) {
-            this.toKen = token; // Assign clicked token to the toKen property
-            this.selectedToken = token; // Update selectedToken when a button is clicked
-        },
         getButtonStyle(token) {
             // Conditionally return the button style
             return {
@@ -117,11 +114,10 @@ export default {
                 formdata.append('nameDetail', this.number1);
                 formdata.append('dateInsert', new Date(this.dateInsert).toLocaleDateString('en-CA'));
                 formdata.append('toKen', this.toKen);
+                formdata.append('key_id', this.key_id);
                 this.loading_processing = true;
-
                 const data = await this.$axios.$post('http://khounkham.com/api-prod/v1/truck/InsertResultOfSurvey.service', formdata);
                 console.log("Response:", data);
-
                 if (data?.status === "00") {
                     this.loading_processing = false;
                     swal.fire({

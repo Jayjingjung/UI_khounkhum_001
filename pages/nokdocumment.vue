@@ -72,10 +72,10 @@ export default {
             files: null,
             dateInsert: null,
             type: '',
-            toKen: '',
+            toKen: "tZl011U2nNs9AdvQDIStduuOIc8yWmxw",
+            key_id:'',
             buttonname: '',
             valid: false,
-            selectedToken: '',
             number: null,
             number1:'',
             datePicker: false,
@@ -93,12 +93,12 @@ export default {
         }
     },
     mounted() {
-        const token = this.$route.query.token;
+        const key_id = this.$route.query.key_id;
         const label = this.$route.query.label;
         const number = this.$route.query.number;
         const number1 = this.$route.query.number1;
-        if (token && label) {
-            this.setToKen(token);
+        if (key_id && label) {
+            this.key_id=key_id;
             this.buttonname = label;
             this.fetchNameDetails();
         }
@@ -126,10 +126,6 @@ export default {
                 });
             }
         },
-        setToKen(token) {
-            this.toKen = token;
-            this.selectedToken = token;
-        },
         async onInmining() {
             if (!this.$refs.form.validate()) return;
             try {
@@ -140,6 +136,7 @@ export default {
                 formdata.append('nameDetail', this.nameDetail);
                 formdata.append('dateInsert', new Date(this.dateInsert).toLocaleDateString('en-CA'));
                 formdata.append('toKen', this.toKen);
+                formdata.append('key_id', this.key_id);
                 this.loading_processing = true;
 
                 const data = await this.$axios.$post('http://khounkham.com/api-prod/v1/truck/InsertResultOfSurvey.service', formdata);

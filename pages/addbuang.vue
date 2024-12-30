@@ -6,17 +6,27 @@
             </v-card>
         </v-dialog>
         <v-card width="900" class="mx-auto card-shadow mb-6" rounded="lg">
-            <v-card-title style="background-color:#E57373;color:white">nameOfBouang</v-card-title>
+            <v-card-title style="background-color:#00E676; font-size: 20px; font-weight: bold;">ຊື່ບ້ວງ</v-card-title>
             <v-card-text class="pt-4">
-
+                <div class="mb-6">
+                    <div style="font-size: 18px; font-weight: bold; color: red;">
+                        *ຫາກເອກະສານຂອງທ່ານກ່ຽວຂ້ອງກັບບໍ່ຫີນຂຸດ ແມ່ນໃຫ້ທ່ານເລືອກຄັດລ໋ອກບໍ່ທີ່ກ່ຽວຂ້ອງລຸ່ມນີ້ໄປເປັນບ້ວງ
+                    </div>
+                    <v-row class="mt-4">
+                        <v-col v-for="branch in branches" :key="branch.id" cols="12" sm="6" md="2">
+                            <div style="font-size: 18px; font-weight: bold;"  @click="copyToClipboard(branch.b_name)">
+                                {{ branch.b_name }}
+                                <v-icon color="#00E676" small @click="copyToClipboard(branch.b_name)" >
+                                    mdi-content-copy
+                                </v-icon>
+                            </div>
+                        </v-col>
+                    </v-row>
+                </div>
                 <v-form ref="form" v-model="valid" lazy-validation>
                     <div style="display:flex;justify-content:space-between;flex-direction:row">
-                        <v-text-field :rules="nameRules" label="nameOfBouang" outlined dense
+                        <v-text-field :rules="nameRules" label="ປ້ອນຊື່ບ້ວງ" outlined dense
                             v-model="in_nameOfBouang"></v-text-field>
-
-                        <!-- <v-text-field :rules="nameRules" label="ລາຍລະອຽດ" outlined dense v-model=""
-                            class="mx-2"></v-text-field> -->
-
                         <v-btn color="#448AFF" @click="onInsertLocation" height="40">
                             <span class="white--text">ບັນທຶກ</span>
                         </v-btn>
@@ -56,8 +66,6 @@
                 <v-card-title>ແກ້ໄຂຂໍ້ມູນ</v-card-title>
                 <v-card-text>
                     <v-text-field label="nameOfBouang" outlined dense v-model="in_nameOfBouang"></v-text-field>
-
-
                     <div class="d-flex">
                         <v-spacer></v-spacer>
                         <v-btn class="mr-4" color="red" @click="onCloseModalUpdateLoca"><span
@@ -74,11 +82,13 @@ import swal from 'sweetalert2'
 export default {
     data() {
         return {
+            toKen1: "tZl011U2nNs9AdvQDIStduuOIc8yWmxw",
+            branches: [],
             loading_processing: false,
             modalUpdateLoca: false,
             location_data_list: [],
             location_header: [
-                { text: 'nameOfBouang', value: 'nameOfBouang' },
+                { text: 'ຊື່ບ້ວງ', value: 'nameOfBouang' },
                 { text: '', value: '' },
                 { text: '', value: '' },
             ],
@@ -96,19 +106,46 @@ export default {
         };
     },
     mounted() {
-        this.onGetbuang()
+        this.onGetbuang();
+        this.fetchBranches()
     },
     methods: {
+        copyToClipboard(text) {
+            navigator.clipboard
+                .writeText(text)
+                .then(() => {
+                    this.$toast.success("ຄັດລ໋ອກສໍາເລັດ!"); // Show success message
+                })
+                .catch((err) => {
+                    this.$toast.error(" ຄັດລ໋ອກລົ້ມເຫຼວ: " + err.message); // Show error message
+                });
+        },
+        async fetchBranches() {
+            try {
+                const response = await this.$axios.$post(
+                    "/getShowBranchNew2024.service",
+                    {
+                        toKen: this.toKen1,
+                    }
+                );
+                if (response?.status === "00") {
+                    this.branches = response.data || [];
+                } else {
+                    this.branches = [];
+                }
+            } catch (error) {
+                swal.fire({
+                    icon: "error",
+                    text: "Failed to fetch data: " + error.message,
+                });
+            }
+        },
         async onGetbuang() {
             try {
                 this.loading_processing = true
                 await this.$axios.$post('/getBouangAll.service',
-
                     {
-
                         toKen: localStorage.getItem('toKen'),
-
-
                     }).then((data) => {
                         if (data?.status == '00') {
                             this.loading_processing = false
@@ -142,10 +179,8 @@ export default {
             try {
                 let data = {
                     nameOfBouang: this.in_nameOfBouang,
-
                     key_id: this.key_update_loca,
                     toKen: localStorage.getItem("toKen")
-
                 }
                 this.loading_processing = true
                 await this.$axios.$post('BouangUpdate.service', data).then((data) => {
@@ -155,7 +190,6 @@ export default {
                         this.onGetbuang()
                         this.modalUpdateLoca = false
                         this.in_nameOfBouang = ''
-
                         swal.fire({
                             title: 'ສຳເລັດ',
                             icon: 'success',

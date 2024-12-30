@@ -1,8 +1,8 @@
 <template>
   <div>
-    <div>
+      <div>
       <canvas ref="fireworksCanvas" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%;"></canvas>
-      <div v-show="showMessage" class="message" :style="messageStyle">Happy 2025!</div>
+      <div v-show="showMessage" class="message" :style="messageStyle">Countdown {{ currentDate }}</div>
       <button @click="launchFireworks">Launch Fireworks</button>
     </div>
     <v-row>
@@ -183,6 +183,7 @@ export default {
       loading_processing: false,
       showMessage: true, // Controls the visibility of the message
         messageOpacity: 1, // Controls the opacity of the message
+        currentDate: this.getCurrentDate(), // Holds the current date
     }
   },
   computed: {
@@ -234,7 +235,12 @@ export default {
 
     },
 
-    launchFireworks() {
+  getCurrentDate() {
+        const date = new Date();
+        const options = { year: "numeric", month: "long", day: "numeric" };
+        return date.toLocaleDateString(undefined, options);
+      },
+      launchFireworks() {
         const canvas = this.$refs.fireworksCanvas;
         const myConfetti = confetti.create(canvas, { resize: true });
   
@@ -280,7 +286,7 @@ canvas {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  font-size: 4rem;
+  font-size: 3rem;
   color: #FFD700;
   text-shadow: 3px 3px 5px #FF0000;
   z-index: 10000;

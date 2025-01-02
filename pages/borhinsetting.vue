@@ -94,7 +94,7 @@ import Swal from "sweetalert2";
 export default {
     data() {
         return {
-            toKen: "tZl011U2nNs9AdvQDIStduuOIc8yWmxw",
+            toKen: "c27bcc229bf00e6c1deb14b93d6fe80655f35371e4907d0431a23aa4f68b3d41",
             branches: [],
             searchQuery: "",
             editDialog: false,
@@ -170,7 +170,7 @@ export default {
         },
         async updateBranch() {
             try {
-                const response = await this.$axios.$post("/storeBranch.service", {
+                const response = await this.$axios.$post("/UpdateBranch.service", {
                     toKen: this.toKen,
                     key_id: this.editedBranch.key_id,
                     b_name: this.editedBranch.b_name,
@@ -181,20 +181,20 @@ export default {
                 if (response?.status === "00") {
                     Swal.fire({
                         icon: "success",
-                        text: "อัปเดตสาขาสำเร็จ!",
+                        text: "ອັບເດັບສຳເລັດ!",
                     });
                     this.fetchBranches();
                     this.closeEditDialog();
                 } else {
                     Swal.fire({
                         icon: "error",
-                        text: response?.message || "ไม่สามารถอัปเดตข้อมูลได้",
+                        text: response?.message || "ບໍ່ສາມາດອັບເດັບຂໍ້ມູນໄດ້",
                     });
                 }
             } catch (error) {
                 Swal.fire({
                     icon: "error",
-                    text: "ไม่สามารถอัปเดตข้อมูลได้: " + error.message,
+                    text: "ບໍ່ສາມາດອັບເດັບຂໍ້ມູນໄດ້: " + error.message,
                 });
             }
         },
@@ -230,7 +230,7 @@ export default {
                     if (response?.status === "00") {
                         Swal.fire({
                             icon: "success",
-                            text: "Branch deleted successfully!",
+                            text: "ລຶບຂໍ້ມູນສຳເລັບ!",
                         });
                         this.fetchBranches();
                     } else {

@@ -143,7 +143,7 @@ export default {
             selectedPicGroup: null, // Currently selected picture group
             dialog: false,
             dialog1: false, // State for the dialog
-            toKen: "tZl011U2nNs9AdvQDIStduuOIc8yWmxw",
+            toKen: "c27bcc229bf00e6c1deb14b93d6fe80655f35371e4907d0431a23aa4f68b3d41",
             key_id:'',
             carouselPics: [], // List of images for the carousel
             carouselIndex: 0, // Current index for the carousel
@@ -177,7 +177,7 @@ export default {
                     "http://khounkham.com/api-prod/v1/truck/ShowPicOfBor.service",
                     {
                         toKen: this.toKen, // Use the token
-                        key_id: this.key_id,
+                        branch_id: this.key_id,
                     }
                 );
                 if (response.data.status === "00") {

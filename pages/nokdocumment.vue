@@ -136,7 +136,7 @@ export default {
                 formdata.append('nameDetail', this.nameDetail);
                 formdata.append('dateInsert', new Date(this.dateInsert).toLocaleDateString('en-CA'));
                 formdata.append('toKen', this.toKen);
-                formdata.append('key_id', this.key_id);
+                formdata.append('branch_id', this.key_id);
                 this.loading_processing = true;
 
                 const data = await this.$axios.$post('http://khounkham.com/api-prod/v1/truck/InsertResultOfSurvey.service', formdata);

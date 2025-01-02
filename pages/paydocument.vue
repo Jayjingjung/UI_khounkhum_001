@@ -73,7 +73,7 @@ export default {
         };
     },
     mounted() {
-        // รับค่า token และ label จาก query และแสดง
+        // รับค่า key_id และ label จาก query และแสดง
         const key_id = this.$route.query.key_id;
         const label = this.$route.query.label;
         const number = this.$route.query.number;
@@ -114,7 +114,7 @@ export default {
                 formdata.append('nameDetail', this.number1);
                 formdata.append('dateInsert', new Date(this.dateInsert).toLocaleDateString('en-CA'));
                 formdata.append('toKen', this.toKen);
-                formdata.append('key_id', this.key_id);
+                formdata.append('branch_id', this.key_id);
                 this.loading_processing = true;
                 const data = await this.$axios.$post('http://khounkham.com/api-prod/v1/truck/InsertResultOfSurvey.service', formdata);
                 console.log("Response:", data);

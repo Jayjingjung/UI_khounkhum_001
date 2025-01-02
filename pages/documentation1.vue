@@ -144,7 +144,7 @@ export default {
                 .$post("/ShowAllResultOfServey.service", {
                     branchUser: this.USER_ROLE,
                     toKen: this.toKen,
-                    key_id: this.key_id,
+                    branch_id: this.key_id,
                 })
                 .then((response) => {
                     if (response?.status === "00") {

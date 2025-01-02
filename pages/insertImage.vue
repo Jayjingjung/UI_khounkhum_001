@@ -95,7 +95,7 @@ export default {
       number: "",
       dateCreate: null,
       datePicker: false,
-      toKen: "tZl011U2nNs9AdvQDIStduuOIc8yWmxw",
+      toKen: "c27bcc229bf00e6c1deb14b93d6fe80655f35371e4907d0431a23aa4f68b3d41",
       key_id:'',
     };
   },
@@ -124,7 +124,7 @@ export default {
       formData.append("folderName", this.folderName);
       formData.append('dateCreate', new Date(this.dateCreate).toLocaleDateString('en-CA'));
       formData.append('toKen', this.toKen);
-      formData.append('key_id', this.key_id);
+      formData.append('branch_id', this.key_id);
       try {
         const response = await axios.post(
           "http://khounkham.com/api-prod/v1/truck/StorePicOfBorHin.service",

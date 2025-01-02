@@ -334,7 +334,7 @@
                                     </v-list-item-content>
                                 </template>
                                 <v-list-item>
-                                    <v-btn @click="showDocument(branch.b_name, `ບ້ານ${branch.b_name}`)" rounded>
+                                    <v-btn @click="showDocument(branch.b_name, branch.b_name)" rounded>
                                         ເບີ່ງ
                                     </v-btn>
                                 </v-list-item>
@@ -354,7 +354,7 @@
                                     </v-btn>
                                     <v-spacer></v-spacer>
                                     <v-btn color="success"
-                                        @click="paymentdoc(branch.key_id, `ບ້ານ${branch.b_name}`, 'pay1', 'ເອກະສານ', 'ເພີ່ມຂໍ້ມູນລາຍຈ່າຍ')"
+                                        @click="paymentdoc(branch.key_id, branch.b_name, 'pay1', 'ເອກະສານ', 'ເພີ່ມຂໍ້ມູນລາຍຈ່າຍ')"
                                         rounded>
                                         ເພີ່ມ
                                     </v-btn>
@@ -375,7 +375,7 @@
                                     </v-btn>
                                     <v-spacer></v-spacer>
                                     <v-btn color="success"
-                                        @click="insertDocument(branch.key_id, `ບ້ານ${branch.b_name}`, 'documment', 'ເພີ່ມເອກະສານທີ່ກ່ຽວຂ້ອງ')"
+                                        @click="insertDocument(branch.key_id, branch.b_name, 'documment', 'ເພີ່ມເອກະສານທີ່ກ່ຽວຂ້ອງ')"
                                         rounded>
                                         ເພີ່ມ
                                     </v-btn>
@@ -395,7 +395,7 @@
                                     </v-btn>
                                     <v-spacer></v-spacer>
                                     <v-btn color="success"
-                                        @click="paymentdoc(branch.key_id, `ບ້ານ${branch.b_name}`, 'servey', 'ເອກະສານ', 'ເພີ່ມຂໍ້ມູນສຳຫຼວດ')"
+                                        @click="paymentdoc(branch.key_id, branch.b_name, 'servey', 'ເອກະສານ', 'ເພີ່ມຂໍ້ມູນສຳຫຼວດ')"
                                         rounded>
                                         ເພີ່ມ
                                     </v-btn>
@@ -416,7 +416,7 @@
                                         ເບີ່ງ
                                     </v-btn>
                                     <v-spacer></v-spacer>
-                                    <v-btn color="success" @click="navigate(branch.key_id, `ບ້ານ${branch.b_name}`)"
+                                    <v-btn color="success" @click="navigate(branch.key_id, branch.b_name)"
                                         rounded>
                                         ເພີ່ມ
                                     </v-btn>
@@ -436,7 +436,7 @@
                                     </v-btn>
                                     <v-spacer></v-spacer>
                                     <v-btn color="success"
-                                        @click="paymentdoc(branch.key_id, `ບ້ານ${branch.b_name}`, 'testData', 'ເອກະສານ', 'ເພີ່ມຂໍ້ມູນວິໃຈຕົວຢ່າງ')"
+                                        @click="paymentdoc(branch.key_id, branch.b_name, 'testData', 'ເອກະສານ', 'ເພີ່ມຂໍ້ມູນວິໃຈຕົວຢ່າງ')"
                                         rounded>
                                         ເພີ່ມ
                                     </v-btn>
@@ -456,7 +456,7 @@
                                     </v-btn>
                                     <v-spacer></v-spacer>
                                     <v-btn color="success"
-                                        @click="paymentdoc(branch.key_id, `ບ້ານ${branch.b_name}`, 'pay', 'ເອກະສານ', 'ເພີ່ມຂໍ້ມູນລາຍຈ່າຍ')"
+                                        @click="paymentdoc(branch.key_id, branch.b_name, 'pay', 'ເອກະສານ', 'ເພີ່ມຂໍ້ມູນລາຍຈ່າຍ')"
                                         rounded>
                                         ເພີ່ມ
                                     </v-btn>
@@ -471,11 +471,11 @@
                                     </v-list-item-content>
                                 </template>
                                 <v-list-item>
-                                    <v-btn rounded @click="toImage1(branch.key_id, `ບ້ານ${branch.b_name}`,)">
+                                    <v-btn rounded @click="toImage1(branch.key_id, branch.b_name,)">
                                         ເບີ່ງ
                                     </v-btn>
                                     <v-spacer></v-spacer>
-                                    <v-btn color="success" @click="toImage(branch.key_id, `ບ້ານ${branch.b_name}`,)"
+                                    <v-btn color="success" @click="toImage(branch.key_id, branch.b_name,)"
                                         rounded>
                                         ເພີ່ມ
                                     </v-btn>
@@ -502,8 +502,8 @@ export default {
             payfile: false,
             branches: [], // To store branch data from API
             filteredReportList: [],
-            // USER_ROLE: "exampleRole", // Replace with actual role if needed
-            toKen: "tZl011U2nNs9AdvQDIStduuOIc8yWmxw",
+            USER_ROLE: null, 
+            toKen: "c27bcc229bf00e6c1deb14b93d6fe80655f35371e4907d0431a23aa4f68b3d41",
             sisternok1: [],
             sisternok: [],
             filterServey1: [],
@@ -562,7 +562,7 @@ export default {
                     .$post("/ShowAllResultOfServey.service", {
                         branchUser: this.USER_ROLE,
                         toKen: this.toKen,
-                        key_id: this.key_id,
+                        branch_id: this.key_id,
                     })
                     .then((response) => {
                         if (response?.status === "00") {
@@ -603,9 +603,9 @@ export default {
             try {
                 this.$axios.$post('/ShowAllListOfHole.service', {
                     branchUser: this.USER_ROLE,
-                    toKen: this.toKen,  // Use the token set from the button click
-                    bound: this.bound,
-                    key_id: this.key_id,
+                    toKen: this.toKen,  
+                    // bound: this.bound,
+                    branch_id: this.key_id,
                 }).then((data) => {
                     if (data?.status === "00") {
                         this.report_listitemOffice = data?.data;
@@ -624,10 +624,10 @@ export default {
                 console.log(error);
             }
         },
-        navigate(key_id, village) {
+        navigate(branch_id, village) {
             this.$router.push({
                 name: 'Add_a_hole',
-                query: { key_id, village }
+                query: { branch_id, village }
             });
         },
         seeDocument(key_id, number) {

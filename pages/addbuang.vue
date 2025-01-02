@@ -82,7 +82,7 @@ import swal from 'sweetalert2'
 export default {
     data() {
         return {
-            toKen1: "tZl011U2nNs9AdvQDIStduuOIc8yWmxw",
+            toKen1: "c27bcc229bf00e6c1deb14b93d6fe80655f35371e4907d0431a23aa4f68b3d41",
             branches: [],
             loading_processing: false,
             modalUpdateLoca: false,
@@ -114,7 +114,7 @@ export default {
             navigator.clipboard
                 .writeText(text)
                 .then(() => {
-                    this.$toast.success("ຄັດລ໋ອກສໍາເລັດ!"); // Show success message
+                    this.$toast.success("ຄັດລ໋ອກແລ້ວ!"); // Show success message
                 })
                 .catch((err) => {
                     this.$toast.error(" ຄັດລ໋ອກລົ້ມເຫຼວ: " + err.message); // Show error message

@@ -113,8 +113,8 @@ export default {
         return {
             valid: false,
             type: '',
-            toKen: "tZl011U2nNs9AdvQDIStduuOIc8yWmxw",
-            key_id:'',
+            toKen: "c27bcc229bf00e6c1deb14b93d6fe80655f35371e4907d0431a23aa4f68b3d41",
+            branch_id:'',
             selectedToken: '', // Add selectedToken to track selected button
             loading_processing: false,
             full_Name_Hole_number: "",
@@ -127,10 +127,10 @@ export default {
     },
     mounted() {
         // รับค่า token และ label จาก query และแสดง
-        const key_id = this.$route.query.key_id;
+        const branch_id= this.$route.query.branch_id;
         const village = this.$route.query.village;
-        if (key_id && village) {
-            this.key_id=key_id;
+        if (branch_id && village) {
+            this.branch_id=branch_id;
             this.village = village;
         }
     },
@@ -167,8 +167,7 @@ export default {
                 formdata.append('holeNumber', this.holeNumber);
                 formdata.append('dataColler', this.dataColler);
                 formdata.append('toKen', this.toKen);
-                formdata.append('key_id', this.key_id);
-
+                formdata.append('branch_id', this.branch_id);
                 this.loading_processing = true;
                 const data = await this.$axios.$post('http://khounkham.com/api-prod/v1/truck/StoreDataHole.service', formdata);
 

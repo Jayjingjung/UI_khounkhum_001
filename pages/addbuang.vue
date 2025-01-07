@@ -14,11 +14,11 @@
                     </div>
                     <v-row class="mt-4">
                         <v-col v-for="branch in branches" :key="branch.id" cols="12" sm="6" md="2">
-                            <div style="font-size: 18px; font-weight: bold;"  @click="copyToClipboard(branch.b_name)">
-                                {{ branch.b_name }}
-                                <v-icon color="#00E676" small @click="copyToClipboard(branch.b_name)" >
+                            <div style="font-size: 18px; font-weight: bold;" @click="copyToClipboard(branch.b_name)">
+                                <v-icon color="#00E676" small @click="copyToClipboard(branch.b_name)">
                                     mdi-content-copy
                                 </v-icon>
+                                {{ branch.b_name }}
                             </div>
                         </v-col>
                     </v-row>
@@ -114,10 +114,11 @@ export default {
             navigator.clipboard
                 .writeText(text)
                 .then(() => {
-                    this.$toast.success("ຄັດລ໋ອກແລ້ວ!"); // Show success message
+                    this.in_nameOfBouang = text; 
+                    this.$toast.success("ຄັດລ໋ອກແລ້ວ!"); 
                 })
                 .catch((err) => {
-                    this.$toast.error(" ຄັດລ໋ອກລົ້ມເຫຼວ: " + err.message); // Show error message
+                    this.$toast.error("ຄັດລ໋ອກລົ້ມເຫຼວ: " + err.message); 
                 });
         },
         async fetchBranches() {

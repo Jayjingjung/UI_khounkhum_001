@@ -1,14 +1,14 @@
 <template>
   <div>
-      <div>
+    <!-- <div>
       <canvas ref="fireworksCanvas" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%;"></canvas>
       <div v-show="showMessage" class="message" :style="messageStyle">Countdown {{ currentDate }}</div>
       <button @click="launchFireworks">Launch Fireworks</button>
-    </div>
+    </div> -->
     <v-row>
       <!-- ລົດບໍລິຫານ -->
       <v-col cols="12" md="3">
-        <div v-if="USER_ROLE === 'USER'|| USER_ID === 'ADMIN'">
+        <div v-if="USER_ROLE === 'USER' || USER_ID === 'ADMIN'">
           <v-card to="./HR/carindek_hr" height="100" elevation="2" rounded="lg" width="310px"
             style="border: 1px solid  rgba(191, 0, 0, 0.8);">
             <v-card-text>
@@ -16,7 +16,7 @@
                 <v-icon style="color: rgba(191, 0, 0, 0.8);" size="55">mdi-car</v-icon>
                 <div class="pl-5 pb-5 pt-5 pr-5 ">
                   <span style="font-size: 18pt;font-weight: bold;">ລົດບໍລິຫານ</span><br />
-                
+
                 </div>
               </div>
             </v-card-text>
@@ -26,7 +26,7 @@
       <!-- ລາຍຮັບ-ລາຍຈ່າຍອື່ນໆ -->
 
       <v-col cols="12" md="3">
-        <div v-if="USER_ROLE === 'USER'|| USER_ID === 'ADMIN'">
+        <div v-if="USER_ROLE === 'USER' || USER_ID === 'ADMIN'">
           <v-card to="./HR/itemhr" height="100" elevation="2" rounded="lg" width="310px"
             style="border: 1px solid  rgba(191, 0, 0, 0.8);">
             <v-card-text>
@@ -43,7 +43,7 @@
       </v-col>
 
       <v-col cols="12" md="3">
-        <div v-if="USER_ROLE === 'USER'|| USER_ID === 'ADMIN'|| USER_NAME === 'mai_ud'">
+        <div v-if="USER_ROLE === 'USER' || USER_ID === 'ADMIN' || USER_NAME === 'mai_ud'">
           <v-card to="./HR/akasarn" height="100" elevation="2" rounded="lg" width="310px"
             style="border: 1px solid  rgba(191, 0, 0, 0.8);">
             <v-card-text>
@@ -60,7 +60,7 @@
       </v-col>
 
       <v-col cols="12" md="3">
-        <div v-if="USER_ROLE === 'USER'|| USER_ID === 'ADMIN'">
+        <div v-if="USER_ROLE === 'USER' || USER_ID === 'ADMIN'">
           <v-card to="/reportbaisner" height="100" elevation="2" rounded="lg" width="310px"
             style="border: 1px solid  rgba(191, 0, 0, 0.8);">
             <v-card-text>
@@ -77,7 +77,7 @@
       </v-col>
 
       <v-col cols="12" md="3">
-        <div v-if="USER_ROLE === 'USER'|| USER_ID === 'ADMIN'">
+        <div v-if="USER_ROLE === 'USER' || USER_ID === 'ADMIN'">
           <v-card to="/mining" height="100" elevation="2" rounded="lg" width="310px"
             style="border: 1px solid  rgba(191, 0, 0, 0.8);">
             <v-card-text>
@@ -110,7 +110,7 @@
       </v-col> -->
 
       <v-col cols="12" md="3">
-        <div v-if="USER_ROLE === 'USER'|| USER_ID === 'ADMIN'">
+        <div v-if="USER_ROLE === 'USER' || USER_ID === 'ADMIN'">
           <v-card to="/receivedAll" height="100" elevation="2" rounded="lg" width="310px"
             style="border: 1px solid  rgba(191, 0, 0, 0.8);">
             <v-card-text>
@@ -165,7 +165,7 @@
 </template>
 
 <script>
-  import confetti from "canvas-confetti";
+import confetti from "canvas-confetti";
 
 export default {
   name: "Fireworks",
@@ -182,25 +182,25 @@ export default {
       TOTAL_notiDetails: '',
       loading_processing: false,
       showMessage: true, // Controls the visibility of the message
-        messageOpacity: 1, // Controls the opacity of the message
-        currentDate: this.getCurrentDate(), // Holds the current date
+      messageOpacity: 1, // Controls the opacity of the message
+      currentDate: this.getCurrentDate(), // Holds the current date
     }
   },
   computed: {
-      messageStyle() {
-        return {
-          opacity: this.messageOpacity,
-          transition: "opacity 2s ease-in-out",
-        };
-      },
+    messageStyle() {
+      return {
+        opacity: this.messageOpacity,
+        transition: "opacity 2s ease-in-out",
+      };
     },
+  },
   mounted() {
     this.total_count()
     this.USER_ID = localStorage.getItem('USER_ID')
     this.USER_NAME = localStorage.getItem('USER_NAME')
     this.USER_ROLE = localStorage.getItem('USER_ROLE')
 
-    this.launchFireworks(); // Automatically launch fireworks on load
+    // this.launchFireworks(); // Automatically launch fireworks on load
   },
   methods: {
     total_count() {
@@ -235,40 +235,40 @@ export default {
 
     },
 
-  getCurrentDate() {
-        const date = new Date();
-        const options = { year: "numeric", month: "long", day: "numeric" };
-        return date.toLocaleDateString(undefined, options);
-      },
-      launchFireworks() {
-        const canvas = this.$refs.fireworksCanvas;
-        const myConfetti = confetti.create(canvas, { resize: true });
-  
-        const colors = ["#FFD700", "#FF0000", "#FFFFFF"];
-  
-        const fireworkBurst = () => {
-          myConfetti({
-            particleCount: 100,
-            angle: Math.random() * 360,
-            spread: 60,
-            origin: { x: Math.random(), y: Math.random() },
-            colors: colors,
-          });
-        };
-  
-        // Launch multiple fireworks with intervals
-        for (let i = 0; i < 10; i++) {
-          setTimeout(fireworkBurst, i * 500);
-        }
-  
-        // Gradually fade out the message after the fireworks finish
+    getCurrentDate() {
+      const date = new Date();
+      const options = { year: "numeric", month: "long", day: "numeric" };
+      return date.toLocaleDateString(undefined, options);
+    },
+    launchFireworks() {
+      const canvas = this.$refs.fireworksCanvas;
+      const myConfetti = confetti.create(canvas, { resize: true });
+
+      const colors = ["#FFD700", "#FF0000", "#FFFFFF"];
+
+      const fireworkBurst = () => {
+        myConfetti({
+          particleCount: 100,
+          angle: Math.random() * 360,
+          spread: 60,
+          origin: { x: Math.random(), y: Math.random() },
+          colors: colors,
+        });
+      };
+
+      // Launch multiple fireworks with intervals
+      for (let i = 0; i < 10; i++) {
+        setTimeout(fireworkBurst, i * 500);
+      }
+
+      // Gradually fade out the message after the fireworks finish
+      setTimeout(() => {
+        this.messageOpacity = 0;
         setTimeout(() => {
-          this.messageOpacity = 0;
-          setTimeout(() => {
-            this.showMessage = false;
-          }, 2000); // Wait for the fade-out transition to complete
-        }, 6000); // 6 seconds for 10 bursts
-      },
+          this.showMessage = false;
+        }, 2000); // Wait for the fade-out transition to complete
+      }, 6000); // 6 seconds for 10 bursts
+    },
 
 
   }
@@ -281,6 +281,7 @@ canvas {
   pointer-events: none;
   z-index: 9999;
 }
+
 .message {
   position: fixed;
   top: 50%;
@@ -292,6 +293,7 @@ canvas {
   z-index: 10000;
   font-family: "Arial", sans-serif;
 }
+
 button {
   position: fixed;
   bottom: 20px;
@@ -306,6 +308,7 @@ button {
   border-radius: 5px;
   z-index: 10001;
 }
+
 button:hover {
   background-color: #FF0000;
 }

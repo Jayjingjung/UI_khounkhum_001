@@ -7,7 +7,7 @@
                 </v-btn>
             </div>
             <v-spacer></v-spacer>
-            <v-btn color="#00E676" style="font-size: 20px; font-weight: bold;" to="borhinsetting">
+            <v-btn color="#00E676" style="font-size: 20px; font-weight: bold;" :to="{ path: '/borhinsetting' }">
                 ຈັດການບໍ່ຕ່າງໆ
             </v-btn>
         </v-card-actions>
@@ -416,8 +416,7 @@
                                         ເບີ່ງ
                                     </v-btn>
                                     <v-spacer></v-spacer>
-                                    <v-btn color="success" @click="navigate(branch.key_id, branch.b_name)"
-                                        rounded>
+                                    <v-btn color="success" @click="navigate(branch.key_id, branch.b_name)" rounded>
                                         ເພີ່ມ
                                     </v-btn>
                                 </v-list-item>
@@ -475,8 +474,7 @@
                                         ເບີ່ງ
                                     </v-btn>
                                     <v-spacer></v-spacer>
-                                    <v-btn color="success" @click="toImage(branch.key_id, branch.b_name,)"
-                                        rounded>
+                                    <v-btn color="success" @click="toImage(branch.key_id, branch.b_name,)" rounded>
                                         ເພີ່ມ
                                     </v-btn>
                                 </v-list-item>
@@ -502,7 +500,7 @@ export default {
             payfile: false,
             branches: [], // To store branch data from API
             filteredReportList: [],
-            USER_ROLE: null, 
+            USER_ROLE: null,
             toKen: "c27bcc229bf00e6c1deb14b93d6fe80655f35371e4907d0431a23aa4f68b3d41",
             sisternok1: [],
             sisternok: [],
@@ -603,7 +601,7 @@ export default {
             try {
                 this.$axios.$post('/ShowAllListOfHole.service', {
                     branchUser: this.USER_ROLE,
-                    toKen: this.toKen,  
+                    toKen: this.toKen,
                     // bound: this.bound,
                     branch_id: this.key_id,
                 }).then((data) => {

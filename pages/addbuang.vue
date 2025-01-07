@@ -110,16 +110,38 @@ export default {
         this.fetchBranches()
     },
     methods: {
+        // copyToClipboard(text) {
+        //     navigator.clipboard
+        //         .writeText(text)
+        //         .then(() => {
+        //             this.in_nameOfBouang = text; 
+        //             this.$toast.success("ຄັດລ໋ອກແລ້ວ!"); 
+        //         })
+        //         .catch((err) => {
+        //             this.$toast.error("ຄັດລ໋ອກລົ້ມເຫຼວ: " + err.message); 
+        //         });
+        // },
         copyToClipboard(text) {
-            navigator.clipboard
-                .writeText(text)
-                .then(() => {
-                    this.in_nameOfBouang = text; 
-                    this.$toast.success("ຄັດລ໋ອກແລ້ວ!"); 
-                })
-                .catch((err) => {
-                    this.$toast.error("ຄັດລ໋ອກລົ້ມເຫຼວ: " + err.message); 
-                });
+            // create element for copying
+            const textArea = document.createElement('textarea');
+            textArea.value = text;
+            document.body.appendChild(textArea);
+
+            // select text in  textArea
+            textArea.select();
+            textArea.setSelectionRange(0, 99999); // for phone
+
+            try {
+                // use execCommand for copying
+                document.execCommand('copy');
+                this.in_nameOfBouang = text;
+                this.$toast.success("ຄັດລ໋ອກແລ້ວ!");
+            } catch (err) {
+                this.$toast.error("ຄັດລ໋ອກລົ້ມເຫຼວ: " + err.message);
+            } finally {
+                // remove textArea from DOM
+                document.body.removeChild(textArea);
+            }
         },
         async fetchBranches() {
             try {

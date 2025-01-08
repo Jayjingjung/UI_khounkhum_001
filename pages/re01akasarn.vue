@@ -301,8 +301,8 @@ export default {
                     text: 'ເພາະຖ້າລຶບແລ້ວ ຈະບໍ່ສາມາດກູ້ຄືນໄດ້!',
                     icon: 'warning',
                     showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
+                    confirmButtonColor: '#FF1744',
+                    cancelButtonColor: '#EEFF41',
                     confirmButtonText: 'ບັນທືກການລຶບ',
                     cancelButtonText: 'ຍົກເລີກ'
                 });

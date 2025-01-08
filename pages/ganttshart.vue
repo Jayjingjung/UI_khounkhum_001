@@ -52,7 +52,6 @@ export default {
         if (!response || response.status !== "00" || !Array.isArray(response.data)) {
           throw new Error("Invalid API response structure");
         }
-
         const tasks = {
           data: response.data.map((task) => ({
             id: task.key_id,

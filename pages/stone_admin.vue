@@ -7,7 +7,7 @@
                 </v-btn>
             </div>
             <v-spacer></v-spacer>
-            <v-btn color="#00E676" style="font-size: 20px; font-weight: bold;" :to="{ path: '/borhinsetting' }">
+            <v-btn v-if="USER_ROLE === 'FOR_DOCUMENT_ADMIN'" color="#00E676" style="font-size: 20px; font-weight: bold;" :to="{ path: '/borhinsetting' }">
                 ຈັດການບໍ່ຕ່າງໆ
             </v-btn>
         </v-card-actions>

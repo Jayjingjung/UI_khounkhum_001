@@ -110,17 +110,6 @@ export default {
         this.fetchBranches()
     },
     methods: {
-        // copyToClipboard(text) {
-        //     navigator.clipboard
-        //         .writeText(text)
-        //         .then(() => {
-        //             this.in_nameOfBouang = text; 
-        //             this.$toast.success("ຄັດລ໋ອກແລ້ວ!"); 
-        //         })
-        //         .catch((err) => {
-        //             this.$toast.error("ຄັດລ໋ອກລົ້ມເຫຼວ: " + err.message); 
-        //         });
-        // },
         copyToClipboard(text) {
             // create element for copying
             const textArea = document.createElement('textarea');

@@ -44,15 +44,15 @@
                                 <v-col cols="12">
                                     <v-text-field v-model="editedBranch.b_name" label="ຊໍ່ບໍ່"></v-text-field>
                                 </v-col>
-                                <v-col cols="12">
+                                <!-- <v-col cols="12">
                                     <v-text-field v-model="editedBranch.b_tel" label="ເບີໂທ"></v-text-field>
-                                </v-col>
+                                </v-col> -->
                                 <v-col cols="12">
                                     <v-text-field v-model="editedBranch.location" label="ສະຖານທີ່ຕັ້ງ"></v-text-field>
                                 </v-col>
-                                <v-col cols="12">
+                                <!-- <v-col cols="12">
                                     <v-text-field v-model="editedBranch.email" label="ອີເມວ"></v-text-field>
-                                </v-col>
+                                </v-col> -->
                             </v-row>
                         </v-container>
                     </v-card-text>
@@ -72,12 +72,12 @@
                     <v-form ref="form" v-model="valid">
                         <v-text-field v-model="branch.b_name" label="ຊື່ບໍ່" :rules="[rules.required]"
                             required></v-text-field>
-                        <v-text-field v-model="branch.b_tel" label="ເບີໂທ" :rules="[rules.required]"
-                            required></v-text-field>
+                        <!-- <v-text-field v-model="branch.b_tel" label="ເບີໂທ" :rules="[rules.required]"
+                            required></v-text-field> -->
                         <v-textarea v-model="branch.location" label="ທີ່ຕັ້ງ" :rules="[rules.required]" rows="3"
                             required></v-textarea>
-                        <v-text-field v-model="branch.email" label="ອີເມວ" :rules="[rules.required, rules.email]"
-                            required></v-text-field>
+                        <!-- <v-text-field v-model="branch.email" label="ອີເມວ" :rules="[rules.required, rules.email]"
+                            required></v-text-field> -->
                     </v-form>
                     <v-card-actions>
                         <v-btn color="red" @click="resetForm">ຍົກເລີກ</v-btn>
@@ -95,6 +95,8 @@ export default {
     data() {
         return {
             toKen: "c27bcc229bf00e6c1deb14b93d6fe80655f35371e4907d0431a23aa4f68b3d41",
+            b_tel:"02072467194",
+            email:"borhin@gmail.com",
             branches: [],
             searchQuery: "",
             editDialog: false,
@@ -123,8 +125,8 @@ export default {
                 // { text: "Key ID", value: "key_id" },
                 { text: "ຊື່ບໍ່", value: "b_name" },
                 { text: "ສະຖານທີ່ຕັ້ງ", value: "location" },
-                { text: "ເບີໂທ", value: "b_tel" },
-                { text: "ອິເມວ", value: "email" },
+                // { text: "ເບີໂທ", value: "b_tel" },
+                // { text: "ອິເມວ", value: "email" },
                 { text: "ຕັ້ງຄ່າ", value: "actions", sortable: false },
             ],
         };
@@ -213,11 +215,14 @@ export default {
         async deleteBranch(branch) {
             try {
                 const confirm = await Swal.fire({
-                    title: "Are you sure?",
-                    text: "This action cannot be undone.",
+                    title: "ທ່ານຕ້ອງການລົບຂໍ້ມູນແທ້ບໍ່?",
+                    text: "ເພາະຖ້າລົບແລ້ວຈະບໍ່ສາມາດກູ້ຂໍ້ມູນຄືນໄດ້.",
                     icon: "warning",
                     showCancelButton: true,
-                    confirmButtonText: "Yes, delete it!",
+                    confirmButtonColor: '#FF1744',
+                    cancelButtonColor: '#EEFF41',
+                    confirmButtonText: "ລົບອອກ!",
+                    cancelButtonText: 'ຍົກເລີກ'
                 });
 
                 if (confirm.isConfirmed) {
@@ -261,9 +266,9 @@ export default {
                 const rawData = {
                     toKen: this.toKen,
                     b_name: this.branch.b_name,
-                    b_tel: this.branch.b_tel,
+                    b_tel: this.b_tel,
                     location: this.branch.location,
-                    email: this.branch.email,
+                    email: this.email,
                 };
                 this.$axios
                     .post("/storeBranch.service", rawData, {

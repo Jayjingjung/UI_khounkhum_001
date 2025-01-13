@@ -12,7 +12,7 @@
                     <v-icon color="#E57373">mdi-arrow-left</v-icon>
                 </v-btn>
                 <v-spacer></v-spacer>
-                ອັບເດດຂໍ້ມູນຫົວລົດ
+                ອັບເດດຂໍ້ມູນຫົວລົດ 
                 <v-spacer></v-spacer>
             </v-card-title>
             <v-form v-model="valid" ref="form" lazy-validation>
@@ -1158,7 +1158,7 @@ export default {
             this.sizeMorFai = data[0]?.sizeMorfai
             this.serviceLIFE = data[0]?.serviceLife
             this.imageMorFai = data[0]?.imageBatery
-            this.keyIdf = data[0]?.keyId
+            this.keyId = data[0]?.keyId
         },
         async onGetmorfaiList() {
             try {
@@ -1179,7 +1179,7 @@ export default {
                         this.sizeMorFai = datas[0]?.sizeMorfai
                         this.serviceLIFE = datas[0]?.serviceLife
                         this.imageMorFai = datas[0]?.imageBatery
-                        this.keyIdf = this.$route?.query?.KeyID
+                        this.keyId = this.$route?.query?.KeyID
                         // formdata.append(' toKen', localStorage.getItem("toKen"))
 
                     }
@@ -1442,7 +1442,7 @@ export default {
                 formdata.append('exCarDate', this.exCarDate)
                 formdata.append('exCarColor', this.exCarColor)
                 formdata.append('exHangMar', this.exHangMar)
-                formdata.append('batNo', this.keyIdf)
+                formdata.append('batNo', this.keyId)
                 formdata.append('imageTruck', this.imageTruckold)
                 formdata.append('his_REASON', this.his_REASON)
                 formdata.append('h_STATUS', this.h_STATUS)
@@ -1455,6 +1455,101 @@ export default {
                 formdata.append('pha_But', this.pha_But),
                     formdata.append('toKen', localStorage.getItem("toKen"))
 
+                // let data = {
+
+                //     key_id: this.$route.query.key,
+                //     h_VICIVLE_NUMBER: this.h_VICIVLE_NUMBER,
+                //     h_VICIVLE_GALATY: this.h_VICIVLE_GALATY,
+                //     h_VICIVLE_DATE_GALATY: this.h_VICIVLE_DATE_GALATY,
+                //     h_VICIVLE_TNGLOD: this.h_VICIVLE_TNGLOD,
+                //     h_VICIVLE_BRANCH: this.h_VICIVLE_BRANCH,
+                //     h_VICIVLE_YEARLEVEL: this.h_VICIVLE_YEARLEVEL,
+                //     h_VICIVLE_BRANCHTYPE: this.h_VICIVLE_BRANCHTYPE,
+                //     h_VICIVLE_DATEEXPRIRE: this.h_VICIVLE_DATEEXPRIRE,
+                //     h_VICIVLE_LEKJUK: this.h_VICIVLE_LEKJUK,
+                //     h_VICIVLE_LEKTHUNG: this.h_VICIVLE_LEKTHUNG,
+                //     h_VICIVLE_GPS: this.h_VICIVLE_GPS,
+                //     h_VICIVLE_POYPUDNUMFON: this.h_VICIVLE_POYPUDNUMFON,
+                //     h_VICIVLE_MORFAI: this.h_VICIVLE_MORFAI,
+                //     h_VICIVLE_BGTOM: this.h_VICIVLE_BGTOM,
+                //     h_VICIVLE_JANLARK: this.h_VICIVLE_JANLARK,
+                //     h_VICIVLE_FAINAR: this.h_VICIVLE_FAINAR,
+                //     h_VICIVLE_FAITHAIY: this.h_VICIVLE_FAITHAIY,
+                //     h_VICIVLE_FAIYKHANG: this.h_VICIVLE_FAIYKHANG,
+                //     h_VICIVLE_VENMONGNAR: this.h_VICIVLE_VENMONGNAR,
+                //     h_VICIVLE_VENMONGLHG: this.h_VICIVLE_VENMONGLHG,
+                //     h_VICIVLE_VENKHANG: this.h_VICIVLE_VENKHANG,
+                //     h_VICIVLE_GLASS: this.h_VICIVLE_GLASS,
+                //     h_LEK_NUMMUNKHG: this.h_LEK_NUMMUNKHG,
+                //     h_STATUS: this.h_STATUS,
+                //     his_REASON: this.his_REASON,
+                //     kim_KM: this.kim_KM,
+                //     r_TIRE_NO_1: this.r_TIRE_NO_1,
+                //     r_TIRE_NO_2: this.r_TIRE_NO_2,
+                //     r_TIRE_NO_3: this.r_TIRE_NO_3,
+                //     r_TIRE_NO_4: this.r_TIRE_NO_4,
+                //     r_TIRE_NO_5: this.r_TIRE_NO_5,
+                //     r_TIRE_NO_6: this.r_TIRE_NO_6,
+                //     r_TIRE_DATE_1: this.r_TIRE_DATE_1,
+                //     r_TIRE_DATE_2: this.r_TIRE_DATE_2,
+                //     r_TIRE_DATE_3: this.r_TIRE_DATE_3,
+                //     r_TIRE_DATE_4: this.r_TIRE_DATE_4,
+                //     r_TIRE_DATE_5: this.r_TIRE_DATE_5,
+                //     r_TIRE_DATE_6: this.r_TIRE_DATE_6,
+                //     r_TIRE_KM_1: this.r_TIRE_KM_1,
+                //     r_TIRE_KM_2: this.r_TIRE_KM_2,
+                //     r_TIRE_KM_3: this.r_TIRE_KM_3,
+                //     r_TIRE_KM_4: this.r_TIRE_KM_4,
+                //     r_TIRE_KM_5: this.r_TIRE_KM_5,
+                //     r_TIRE_KM_6: this.r_TIRE_KM_6,
+                //     ll_TIRE_NO_1: this.ll_TIRE_NO_1,
+                //     ll_TIRE_NO_2: this.ll_TIRE_NO_2,
+                //     ll_TIRE_NO_5: this.ll_TIRE_NO_5,
+                //     ll_TIRE_KM_1: this.ll_TIRE_KM_1,
+                //     ll_TIRE_NO_4: this.ll_TIRE_NO_4,
+                //     ll_TIRE_DATE_1: this.ll_TIRE_DATE_1,
+                //     ll_TIRE_DATE_3: this.ll_TIRE_DATE_3,
+                //     ll_TIRE_DATE_5: this.ll_TIRE_DATE_5,
+                //     ll_TIRE_KM_2: this.ll_TIRE_KM_2,
+                //     ll_TIRE_NO_3: this.ll_TIRE_NO_3,
+                //     ll_TIRE_NO_6: this.ll_TIRE_NO_6,
+                //     ll_TIRE_DATE_2: this.ll_TIRE_DATE_2,
+                //     ll_TIRE_KM_3: this.ll_TIRE_KM_3,
+                //     ll_TIRE_DATE_6: this.ll_TIRE_DATE_6,
+                //     ll_TIRE_DATE_4: this.ll_TIRE_DATE_4,
+                //     ll_TIRE_KM_6: this.ll_TIRE_KM_6,
+                //     ll_TIRE_KM_4: this.ll_TIRE_KM_4,
+                //     ll_TIRE_KM_5: this.ll_TIRE_KM_5,
+                //     h_KM1: this.h_KM1,
+                //     h_KM2: this.h_KM2,
+                //     h_KM3: this.h_KM3,
+                //     h_KM4: this.h_KM4,
+                //     h_KM5: this.h_KM5,
+                //     h_KM6: this.h_KM6,
+                //     h_KM7: this.h_KM7,
+                //     h_KM8: this.h_KM8,
+                //     h_KM9: this.h_KM9,
+                //     h_KM10: this.h_KM10,
+                //     h_KM11: this.h_KM11,
+                //     h_KM12: this.h_KM12,
+                //     //right last and now
+                //     h_KML_1: this.h_KML_1,
+                //     h_KML_2: this.h_KML_2,
+                //     h_KML_3: this.h_KML_3,
+                //     h_KML_4: this.h_KML_4,
+                //     h_KML_5: this.h_KML_5,
+                //     h_KML_6: this.h_KML_6,
+                //     h_KML_7: this.h_KML_7,
+                //     h_KML_8: this.h_KML_8,
+                //     h_KML_9: this.h_KML_9,
+                //     h_KML_10: this.h_KML_10,
+                //     h_KML_11: this.h_KML_11,
+                //     h_KML_12: this.h_KML_12
+
+                // }
+
+                // console.log('Data Send:', data)
+                // return;
                 await this.$axios.$post('/updateVicicleHeaderByID.service', formdata).then((data) => {
                     console.log("saveStatus:", data)
                     if (data?.status == '00') {

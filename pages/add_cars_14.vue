@@ -7,8 +7,6 @@
     </v-dialog>
     <!-- General car info -->
     <Height />
-
-
     <v-card class="card-shadow mx-auto" width="1400">
       <v-card-title style="display:flex;background-color:#E57373;color:white">
         <v-btn fab elevation="0" dark width="30" height="30" small color="white" to="cars_14">
@@ -57,7 +55,6 @@
                       <v-spacer></v-spacer>
                     </v-date-picker>
                   </v-menu>
-
                   <!-- <v-text-field :rules="nameRules" label="* ວັນໝົດອາຍຸທະບຽນລົດ" dense outlined background-color="#f5f5f5"
                     v-model="numberlad"></v-text-field> -->
                   <div class="tops">
@@ -71,11 +68,9 @@
                   <div class="tops">
                   </div>
                 </v-col>
-
                 <v-col clos="6" md="3" sm="3">
                   <v-menu ref="start_galaty" v-model="start_galaty" :close-on-content-click="false"
                     :return-value.sync="h_VICIVLE_DATE_GALATY" transition="scale-transition" offset-y min-width="auto">
-
                     <template v-slot:activator="{ on, attrs }">
                       <v-text-field dense outlined v-model="h_VICIVLE_DATE_GALATY" background-color="#f5f5f5" required
                         label="* ປ້ອນວັນທີປະກັນໄພໝົດ" append-icon="mdi-calendar" readonly v-bind="attrs" v-on="on"
@@ -89,7 +84,6 @@
                   <div class="tops">
                   </div>
                 </v-col>
-
                 <v-col clos="6" md="3" sm="3">
                   <v-text-field :rules="nameRules" label="* ປ້ອນຍີ່ຫໍ້ລົດ" dense outlined background-color="#f5f5f5"
                     v-model="h_VICIVLE_BRANCH"></v-text-field>
@@ -172,51 +166,22 @@
                     <div v-else>
                       <img :src="imageBatery" cover height="40px" width="40px">
                     </div>
-                    <!-- <img :src="imageBatery" cover height="40px" width="40px"> -->
                   </v-col>
                   <v-col clos="6" md="10" sm="10">
                     <v-autocomplete outlined dense label="* ເລືອກໝໍ້ໄຟ" :items="morfai_data_list" item-text="batNo"
                       item-value="keyId" background-color="#f5f5f5" @change="onGetmorfaiDetails"
                       :rules="nameRules"></v-autocomplete>
                   </v-col>
-
                 </v-row>
-                <!-- <v-row>
-                  <v-col clos="6" md="2" sm="2">
-                    <div v-if="keyId == ''">
-                      <img src="../assets/images/morfai.jpg" cover height="40px" width="40px">
-                    </div>
-                    <div v-else>
-                      <img :src="imageBatery" cover height="40px" width="40px">
-                    </div>
-                  
-                  </v-col>
-                  <v-col clos="6" md="10" sm="10">
-                    <v-autocomplete
-                     outlined dense label="ເລືອກໝໍ້ໄຟ 2" 
-                     :items="morfai_data_list_2" 
-                     item-text="batNo"
-                      item-value="keyId"
-                       background-color="#f5f5f5" 
-                       @change="onGetmorfaiDetails"></v-autocomplete>
-                  </v-col>
-
-                </v-row> -->
-
               </div>
               <div class="tops" style="display:flex;align-items:center">
                 <span> ຂະໜາດ: {{ sizeMorfai }} || ອາຍຸການໃຊ້ງານ: {{ serviceLife }} ປີ </span>
                 <span class="ml-4"></span>
               </div>
-              <!-- <v-text-field :rules="nameRules" label="* ປ້ອນໝໍ້ໄຟ" dense outlined background-color="#f5f5f5"
-                v-model="h_VICIVLE_MORFAI"></v-text-field>
-              <div class="tops">
-              </div> -->
             </v-col>
             <v-col clos="6" md="3" sm="3">
               <v-menu ref="start_bat" v-model="start_bat" :close-on-content-click="false"
                 :return-value.sync="start_bat_date" transition="scale-transition" offset-y min-width="auto">
-
                 <template v-slot:activator="{ on, attrs }">
                   <v-text-field dense outlined v-model="start_bat_date" background-color="#f5f5f5" required
                     label="* ວັນທີໃສ່ໝໍ້ໄຟ" append-icon="mdi-calendar" readonly v-bind="attrs" v-on="on"
@@ -233,7 +198,6 @@
             <v-col clos="6" md="3" sm="3">
               <v-menu ref="end_bat" v-model="end_bat" :close-on-content-click="false" :return-value.sync="end_bat_date"
                 transition="scale-transition" offset-y min-width="auto">
-
                 <template v-slot:activator="{ on, attrs }">
                   <v-text-field dense outlined background-color="#f5f5f5" v-model="end_bat_date" required
                     label="* ວັນທີໝົດອາຍຸໝໍ້ໄຟ" append-icon="mdi-calendar" readonly v-bind="attrs" v-on="on"
@@ -335,12 +299,9 @@
                 background-color="#f5f5f5" v-model="leanFuengThaiy"></v-text-field>
               <div class="tops">
               </div>
-            </v-col
-            
-            >
+            </v-col>
             <v-col cols="12" md="4" sm="6">
               <v-icon color="black">mdi-calendar-range</v-icon>
-
               <span>ວັນທີ່ປ່ຽນນ້ຳມັນເຄື່ອງ</span>
               <v-menu ref="date_change_lean" v-model="date_change_lean" :close-on-content-click="false"
                 :return-value.sync="formattedDate" transition="scale-transition" offset-y min-width="auto">
@@ -357,22 +318,36 @@
           </v-row>
           <v-row>
           </v-row>
-
           <v-card class="card-shadow mx-auto mt-10" width="1400">
             <v-card-title style="display:flex;background-color:#E57373;color:white">
-
               <v-spacer></v-spacer>
               ຕັ້ງສິດ
               <v-spacer></v-spacer>
             </v-card-title>
             <v-row style="margin-top: -14px;">
-              <v-col clos="6" md="3" sm="3">
-                <span>ຕັ້ງສິດ</span><v-text-field label="ຕັ້ງສິດ" dense flat solo background-color="#f5f5f5"
-                  v-model="lektungsit"></v-text-field>
-                <div class="tops">
+              <v-col clos="12" md="6" sm="4">
+                <span >ຕັ້ງສິດ</span>
+                <v-card-actions>
+                  <div>
+                    <v-text-field label="ຕັ້ງສິດ" dense flat solo background-color="#f5f5f5" v-model="lektungsit">
+                    </v-text-field>
+                  </div>
+                  <v-spacer></v-spacer>
+                  <div>
+                    <v-menu ref="end_tungsit" v-model="end_tungsit" :close-on-content-click="false"
+                    :return-value.sync="dateExTungsit" transition="scale-transition" offset-y min-width="auto">
+                    <template v-slot:activator="{ on, attrs }">
+                      <v-text-field dense outlined background-color="#f5f5f5" v-model="dateExTungsit" required
+                      label="* ວັນທີໝົດອາຍຸຕັ້ງສິດ" append-icon="mdi-calendar" readonly v-bind="attrs" v-on="on"
+                      :rules="nameRules"></v-text-field>
+                    </template>
+                    <v-date-picker v-model="dateExTungsit" no-title scrollable @input="$refs.end_tungsit.save(dateExTungsit)">
+                      <v-spacer></v-spacer>
+                    </v-date-picker>
+                  </v-menu>
                 </div>
+              </v-card-actions>
               </v-col>
-
             </v-row>
           </v-card>
           <v-row>
@@ -737,8 +712,10 @@ export default {
       //start and end bat
       start_bat: false,
       end_bat: false,
+      end_tungsit: false,
       start_bat_date: null,
       end_bat_date: null,
+      dateExTungsit:'',
       exCarDate: null,
       end_cardate: null,
       h_VICIVLE_BGTOM: '',
@@ -1117,6 +1094,7 @@ export default {
         formdata.append('h_KML_13', this.h_KML_13)
         formdata.append('bat_StartDate', this.start_bat_date)
         formdata.append('bat_EndDate', this.end_bat_date)
+        formdata.append('dateExTungsit', this.dateExTungsit)
         formdata.append('exCarDate', this.exCarDate)
         formdata.append('exCarColor', this.exCarColor)
         formdata.append('exHangMar', this.exHangMar)
@@ -1128,7 +1106,7 @@ export default {
         formdata.append('leanFuengThaiy', this.leanFuengThaiy)
         formdata.append('lektungsit', this.lektungsit)
         formdata.append('pha_But', this.pha_But)
-        formdata.append('date_change_lean', this.formattedDate|| "0000-00-00")
+        formdata.append('date_change_lean', this.formattedDate || "0000-00-00")
         formdata.append('toKen', localStorage.getItem("toKen"))
 
         // let data = {

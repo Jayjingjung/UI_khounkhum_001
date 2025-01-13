@@ -370,7 +370,6 @@
                             <Height />
                             <v-card class="card-shadow mx-auto mt-10" width="1400">
                                 <v-card-title style="display:flex;background-color:#E57373;color:white">
-
                                     <v-spacer></v-spacer>
                                     ຕັ້ງສິດ
                                     <v-spacer></v-spacer>
@@ -380,14 +379,37 @@
                                         <span>ຕັ້ງສິດ</span>
                                         <v-text-field dense flat solo background-color="#f5f5f5" readonly
                                             v-model="lektungsit"></v-text-field>
-
                                     </v-col>
-
+                                    <v-col clos="6" md="3" sm="3">
+                                    <span>ວັນທີໝົດອາຍຸຕັ້ງສິດ</span>
+                                    <v-menu ref="end_tangsit" v-model="end_tangsit" :close-on-content-click="false"
+                                        :return-value.sync="dateExTungsit" transition="scale-transition" offset-y
+                                        min-width="auto">
+                                        <template v-slot:activator="{ on, attrs }">
+                                            <v-text-field v-if="dateExTungsit_status === 'W'" dense outlined
+                                                background-color="#FFF176" v-model="dateExTungsit" required
+                                                append-icon="mdi-calendar" readonly v-bind="attrs" v-on="on"
+                                                :rules="nameRules"></v-text-field>
+                                            <v-text-field v-else-if="dateExTungsit_status === 'E'" dense outlined
+                                                background-color="red" v-model="dateExTungsit" required
+                                                append-icon="mdi-calendar" readonly v-bind="attrs" v-on="on"
+                                                :rules="nameRules"></v-text-field>
+                                            <v-text-field v-else dense outlined background-color="#f5f5f5"
+                                                v-model="dateExTungsit" required append-icon="mdi-calendar" readonly
+                                                v-bind="attrs" v-on="on" :rules="nameRules"></v-text-field>
+                                        </template>
+                                        <v-date-picker v-model="dateExTungsit" no-title scrollable
+                                            @input="$refs.end_tangsit.save(dateExTungsit)">
+                                            <v-spacer></v-spacer>
+                                        </v-date-picker>
+                                    </v-menu>
+                                    <div class="tops">
+                                    </div>
+                                </v-col>
                                 </v-row>
                             </v-card>
                             <Height />
                             <div class="margintop d-flex align-center mt-4">
-
                                 <div class="d-flex align-center pt-2 pr-2"
                                     style="background-color:#f7f7f7;border-radius:5px;height:40px">
                                     <v-radio-group inline v-model="h_VICIVLE_GLASS">
@@ -711,8 +733,10 @@ export default {
             //start and end bat
             start_bat: false,
             end_bat: false,
+            end_tangsit:false,
             start_bat_date: null,
             end_bat_date: null,
+            dateExTungsit:'',
             h_VICIVLE_BGTOM: '',
             h_VICIVLE_JANLARK: '',
             h_VICIVLE_FAINAR: '',
@@ -855,8 +879,10 @@ export default {
                         this.h_VICIVLE_POYPUDNUMFON = data?.data[0]?.h_VICIVLE_POYPUDNUMFON,
                         this.h_VICIVLE_MORFAI = data?.data[0]?.h_VICIVLE_MORFAI,
                         this.toBatRowStatus = data?.data[0]?.toBatRowStatus,
+                        this.dateExTungsit_status = data?.data[0]?.dateExTungsit_status,
                         this.start_bat_date = data?.data[0]?.bat_StartDate,
                         this.end_bat_date = data?.data[0]?.bat_EndDate,
+                        this.dateExTungsit = data?.data[0]?.dateExTungsit,
                         this.h_VICIVLE_BGTOM = data?.data[0]?.h_VICIVLE_BGTOM,
                         this.h_VICIVLE_JANLARK = data?.data[0]?.h_VICIVLE_JANLARK,
                         this.h_VICIVLE_FAINAR = data?.data[0]?.h_VICIVLE_FAINAR,

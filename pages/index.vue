@@ -25,7 +25,6 @@
     </v-row>
   </div>
 </template>
-
 <script>
 import swal from 'sweetalert2';
 

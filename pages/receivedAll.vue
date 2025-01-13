@@ -2,7 +2,7 @@
     <div>
 
 
-        <div>
+        <v-card class="x">
 
 
             <!-- <v-img src="path-to-image.jpg" alt="Header Image" height="200px"></v-img> Add an image if needed -->
@@ -641,7 +641,7 @@
                 </div>
             </div>
 
-        </div>
+        </v-card>
     </div>
 </template>
 
@@ -1354,7 +1354,15 @@ export default {
     margin-right: 10px;
 
 }
+.x {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
 
+  z-index: 5;
+  background-color: rgb(255, 255, 255);
+}
 @media (max-width: 768px) {
     .search-print {
         flex-direction: column;

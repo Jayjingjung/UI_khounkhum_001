@@ -272,6 +272,7 @@
                                                         :items="morfai_data_list" :rules="nameRules" item-text="batNo"
                                                         background-color="#f5f5f5"
                                                         @change="onGetmorfaiDetails"></v-autocomplete>
+                                                        
                                                 </v-col>
                                             </v-row>
                                         </div>
@@ -1157,7 +1158,7 @@ export default {
             this.sizeMorFai = data[0]?.sizeMorfai
             this.serviceLIFE = data[0]?.serviceLife
             this.imageMorFai = data[0]?.imageBatery
-            this.keyId = data[0]?.keyId
+            this.keyIdf = data[0]?.keyId
         },
         async onGetmorfaiList() {
             try {
@@ -1178,7 +1179,9 @@ export default {
                         this.sizeMorFai = datas[0]?.sizeMorfai
                         this.serviceLIFE = datas[0]?.serviceLife
                         this.imageMorFai = datas[0]?.imageBatery
-                        this.keyId = this.$route?.query?.KeyID
+                        this.keyIdf = this.$route?.query?.KeyID
+                        // formdata.append(' toKen', localStorage.getItem("toKen"))
+
                     }
                 })
             } catch (error) {
@@ -1439,7 +1442,7 @@ export default {
                 formdata.append('exCarDate', this.exCarDate)
                 formdata.append('exCarColor', this.exCarColor)
                 formdata.append('exHangMar', this.exHangMar)
-                formdata.append('batNo', this.keyId)
+                formdata.append('batNo', this.keyIdf)
                 formdata.append('imageTruck', this.imageTruckold)
                 formdata.append('his_REASON', this.his_REASON)
                 formdata.append('h_STATUS', this.h_STATUS)
@@ -1450,7 +1453,8 @@ export default {
                 formdata.append('leanGia', this.leanGia)
                 formdata.append('leanFuengThaiy', this.leanFuengThaiy)
                 formdata.append('pha_But', this.pha_But),
-                formdata.append('toKen', localStorage.getItem("toKen"))
+                    formdata.append('toKen', localStorage.getItem("toKen"))
+
                 await this.$axios.$post('/updateVicicleHeaderByID.service', formdata).then((data) => {
                     console.log("saveStatus:", data)
                     if (data?.status == '00') {

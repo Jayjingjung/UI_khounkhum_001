@@ -32,11 +32,13 @@
             <v-date-picker v-model="endDate" no-title scrollable @input="updateEndDate" />
           </v-menu>
         </div>
-        <div id="gantt-container">
-          <div id="gantt-chart" style="width: 100%; height: 100%;"></div>
-        </div>
+    
+          <div id="gantt-container">
+            <div id="gantt-chart" style="width: 100%; height: 700px;"></div>
+          </div>
+    
       </v-card-text>
-      <v-card-text style="width: 400px;">
+      <v-card-text style="width: 400px; height: 950px;overflow-x: auto;">
         <v-simple-table>
           <thead>
             <tr>
@@ -123,7 +125,7 @@ export default {
     gantt.attachEvent("onAfterTaskDelete", (id) => this.deleteTask(id));
     gantt.attachEvent("onAfterLinkDelete", (id) => this.deleteLink(id)); // Link deletion event
   },
-  
+
   methods: {
     formatDate(date) {
       if (typeof date === "string") {
@@ -150,7 +152,7 @@ export default {
           }
         );
 
-      
+
         this.tasks.data = response.data.map((task) => ({
           id: task.key_id,
           text: task.topic_task,
@@ -174,7 +176,7 @@ export default {
           }
         );
 
-       
+
 
         this.tasks.links = response.data.map((link) => ({
           id: link.id,
@@ -341,7 +343,4 @@ export default {
   background-color: rgba(0, 0, 0, 0.8);
   display: flex;
 }
-
-
-
 </style>

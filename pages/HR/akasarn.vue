@@ -1,96 +1,89 @@
 <template>
-  <div class="container">
-    <div class="button-list">
-      <v-list v-model="selectedCard">
-        <v-btn ref="btn1" value="1" @click="selectedCard = '1'" @mouseover="changeColor('#FFE5FF', $refs.btn1)"
-          @mouseleave="changeColor('white', $refs.btn1)" class="button-style">
-          <v-icon size="40">mdi-barcode-scan</v-icon>
-          ຂໍ້ມູນເອກກະສານ
+  <div>
+    <v-card class="x">
+      <div class="button-list">
+        <v-list v-model="selectedCard">
+          <v-btn ref="btn1" value="1" @click="selectedCard = '1'" @mouseover="changeColor('#FFE5FF', $refs.btn1)"
+            @mouseleave="changeColor('white', $refs.btn1)" class="button-style">
+            <v-icon size="40">mdi-barcode-scan</v-icon>
+            ຂໍ້ມູນເອກກະສານ
+          </v-btn>
+        </v-list>
+      </div>
+      <div class="additional-buttons">
+        <v-row>
+          <v-btn dark color="#80BFFF" to="/akasarn_add" class="card-shadow mb-2 mt-2" rounded>
+            <v-icon color="white">mdi-scan-helper</v-icon>
+            <span class="white--text">ເພີ່ມຂໍ້ມູນເອກກະສານ</span>
+          </v-btn>
+          <v-btn dark color="#80BFFF" to="/type" class="card-shadow mb-2 mt-2" rounded>
+            <v-icon color="white">mdi-scan-helper</v-icon>
+            <span class="white--text">ເພີ່ມປະເພດ</span>
+          </v-btn>
+          <v-btn dark color="#80BFFF" to="/addcompany" class="card-shadow mb-2 mt-2" rounded>
+            <v-icon color="white">mdi-scan-helper</v-icon>
+            <span class="white--text">ບໍລິສັດ</span>
+          </v-btn>
+          <v-btn dark color="#80BFFF" to="/addbuang" class="card-shadow mb-2 mt-2" rounded>
+            <v-icon color="white">mdi-scan-helper</v-icon>
+            <span class="white--text">ບ້ວງ</span>
+          </v-btn>
+          <v-btn dark color="#80BFFF" to="/forphon" class="card-shadow mb-2 mt-2" rounded>
+            <v-icon color="white">mdi-cellphone-settings</v-icon>
+            <span class="white--text">For Phon</span>
+          </v-btn>
+        </v-row>
+      </div>
+      <v-row class="mt-5">
+        <v-autocomplete style="width: 200px; margin-left: 15px; margin-right: 15px;" outlined dense
+          label="ປະເພດ ທີເພີ່ມເອງ" :items="products_data_list" item-text="typeName" item-value="id"
+          background-color="#13d95a" v-model="selectedProduct" @change="onGetProductDetails"></v-autocomplete>
+        <v-autocomplete style="width: 200px; margin-left: 15px; margin-right: 15px;" outlined dense label="ບໍລິສັດ"
+          :items="loca_data_list" item-text="province" item-value="id" background-color="#c6a50b" v-model="selectedLoca"
+          @change="onGetLocaDetails"></v-autocomplete>
+        <v-select background-color="#ffa5f1" dense outlined style="width: 200px; margin-left: 15px; margin-right: 15px;"
+          :items="conditionalItems1" v-model="classofdocs" label="ໃບອະນຸຍາດ"></v-select>
+        <v-autocomplete style="width: 100px; margin-left: 15px; margin-right: 15px;" outlined dense label="ບ້ວງ"
+          :items="buang_data_list" item-text="nameOfBouang" item-value="nameOfBouang" background-color="#c6a50b"
+          v-model="selectedBuang" @change="onGetbuangDetails"></v-autocomplete>
+        <v-btn v-if="!hideInboundNumber" color="primary" class="filter-button mr-5 mb-5" @click="setBound('in')">
+          <v-icon>mdi-</v-icon>ຂາເຂົ້າ
         </v-btn>
-      </v-list>
-    </div>
-    <div class="additional-buttons">
-      <v-btn dark color="#80BFFF" to="/akasarn_add" class="card-shadow mb-2 mt-2" rounded>
-        <v-icon color="white">mdi-scan-helper</v-icon>
-        <span class="white--text">ເພີ່ມຂໍ້ມູນເອກກະສານ</span>
-      </v-btn>
-      <v-btn dark color="#80BFFF" to="/type" class="card-shadow mb-2 mt-2" rounded>
-        <v-icon color="white">mdi-scan-helper</v-icon>
-        <span class="white--text">ເພີ່ມປະເພດ</span>
-      </v-btn>
-      <v-btn dark color="#80BFFF" to="/addcompany" class="card-shadow mb-2 mt-2" rounded>
-        <v-icon color="white">mdi-scan-helper</v-icon>
-        <span class="white--text">ບໍລິສັດ</span>
-      </v-btn>
-      <v-btn dark color="#80BFFF" to="/addbuang" class="card-shadow mb-2 mt-2" rounded>
-        <v-icon color="white">mdi-scan-helper</v-icon>
-        <span class="white--text">ບ້ວງ</span>
-      </v-btn>
-      <v-btn dark color="#80BFFF" to="/forphon" class="card-shadow mb-2 mt-2" rounded>
-        <v-icon color="white">mdi-cellphone-settings</v-icon>
-        <span class="white--text">For Phon</span>
-      </v-btn>
-    </div>
-    <v-btn class="print-button" color="#0f7be1" @click="print">
-      <v-icon color="#ffffff">mdi-printer</v-icon>ພີມລາຍງານທັງໝົດ
-    </v-btn>
-    <v-card class="data-card">
-      <div v-if="selectedCard === '1'">
-        <v-card class="card-shadow mb-4" rounded="lg">
-          <v-card-title
-            style="display: flex; border-bottom:0.5px solid #e0e0e0; background-color:#80BFFF; color:white;">
-            ລາຍການ ເອກກະສານ
-            <div class="search-section">
-              <v-text-field class="search-field" placeholder="ຄົ້ນຫາ..." v-model="search" rounded
-                prepend-inner-icon="mdi-magnify">
-              </v-text-field>
-              <v-btn class="search-button" color="#999999" @click="listCarOfficeSearch">ຄົ້ນຫາ</v-btn>
-            </div>
-            <div class="filter-section">
-              <v-btn v-if="!hideInboundNumber" color="primary" class="filter-button" @click="setBound('in')">
-                <v-icon>mdi-</v-icon>ຂາເຂົ້າ
-              </v-btn>
-              <v-btn v-if="!hideInboundNumber" color="primary" class="filter-button" @click="setBound('inside')">
-                <v-icon>mdi-</v-icon>ພາຍໃນ
-              </v-btn>
-              <v-btn v-if="!hideInboundNumber" color="primary" class="filter-button" @click="setBound('out')">
-                <v-icon>mdi-</v-icon>ຂາອອກ
-              </v-btn>
-            </div>
-            <div style="width: 400px; margin-left: 50px;" class="d-flex align-center">
-
-              <div style="display: flex; margin-top: 28px;">
-                <div>
-                  <v-autocomplete style="width: 200px; margin-left: 15px; margin-right: 15px;" outlined dense
-                    label="ປະເພດ ທີເພີ່ມເອງ" :items="products_data_list" item-text="typeName" item-value="id"
-                    background-color="#13d95a" v-model="selectedProduct" @change="onGetProductDetails"></v-autocomplete>
-                  <v-autocomplete style="width: 200px; margin-left: 15px; margin-right: 15px;" outlined dense
-                    label="ບໍລິສັດ" :items="loca_data_list" item-text="province" item-value="id"
-                    background-color="#c6a50b" v-model="selectedLoca" @change="onGetLocaDetails"></v-autocomplete>
-                </div>
-                <div>
-                  <v-select background-color="#ffa5f1" dense outlined
-                    style="width: 200px; margin-left: 15px; margin-right: 15px;" :items="conditionalItems1"
-                    v-model="classofdocs" label="ໃບອະນຸຍາດ"></v-select>
-                  <v-autocomplete style="width: 100px; margin-left: 15px; margin-right: 15px;" outlined dense
-                    label="ບ້ວງ" :items="buang_data_list" item-text="nameOfBouang" item-value="nameOfBouang"
-                    background-color="#c6a50b" v-model="selectedBuang" @change="onGetbuangDetails"></v-autocomplete>
-                </div>
+        <v-btn v-if="!hideInboundNumber" color="primary" class="filter-button mr-5 mb-5" @click="setBound('inside')">
+          <v-icon>mdi-</v-icon>ພາຍໃນ
+        </v-btn>
+        <v-btn v-if="!hideInboundNumber" color="primary" class="filter-button mr-5 mb-5" @click="setBound('out')">
+          <v-icon>mdi-</v-icon>ຂາອອກ
+        </v-btn>
+      </v-row>
+      <v-card class="data-card">
+        <div v-if="selectedCard === '1'">
+          <v-card class="card-shadow mb-4" rounded="lg" style="height: 100%;">
+            <v-card-title
+              style="display: flex; border-bottom:0.5px solid #e0e0e0; background-color:#80BFFF; color:white;">
+              ລາຍການ ເອກກະສານ
+              <div class="search-section">
+                <v-text-field class="search-field" placeholder="ຄົ້ນຫາ..." v-model="search" rounded
+                  background-color="#e1e1e1" prepend-inner-icon="mdi-magnify">
+                </v-text-field>
+                <v-btn class="search-button" @click="listCarOfficeSearch">ຄົ້ນຫາ</v-btn>
               </div>
-            </div>
-          </v-card-title>
-          <div class="mt-2">
-            <v-data-table :items="report_listitemOffice" :headers="filteredHeaders" :items-per-page="50"
-              :search="search">
-              <template v-slot:item="row">
-                <tr>
-                  <td>
-                    <v-btn style="height: 100%;width: 100%;" small color="#0059c8" class="white--text card-shadow"
-                      @click="viewerpdf(row?.item?.pdf)">
-                      <v-icon size="30" color="white">mdi-content-paste</v-icon>
-                    </v-btn>
-                  </td>
-                  <td>{{ row?.item?.docType }}</td>
+              <v-btn class="print-button" color="#ffffff" @click="print">
+                <v-icon color="#00000">mdi-printer</v-icon>ພີມລາຍງານທັງໝົດ
+              </v-btn>
+            </v-card-title>
+            <div class="mt-2">
+              <v-data-table :items="report_listitemOffice" :headers="filteredHeaders" :items-per-page="50"
+                :search="search">
+                <template v-slot:item="row">
+                  <tr>
+                    <td>
+                      <v-btn style="height: 100%;width: 100%;" small color="#0059c8" class="white--text card-shadow"
+                        @click="viewerpdf(row?.item?.pdf)">
+                        <v-icon size="30" color="white">mdi-content-paste</v-icon>
+                      </v-btn>
+                    </td>
+                    <td>{{ row?.item?.docType }}</td>
                     <td>{{ row?.item?.datetakein }}</td>
                     <td>{{ row?.item?.dateExpDoc }}</td>
                     <td>{{ row?.item?.classofdocs }}</td>
@@ -113,60 +106,61 @@
                         {{ row?.item?.lektee }}
                       </span>
                     </td>
-                  <td>
-                    <!-- Dropdown Menu -->
-                    <v-menu offset-y>
-                      <template v-slot:activator="{ on, attrs }">
-                        <v-btn style="height: 40px; width: 50px;" small color="#0085e3" class="white--text card-shadow"
-                          v-bind="attrs" v-on="on">
-                          <v-icon size="30" color="white">mdi-arrow-down-drop-circle</v-icon>
-                        </v-btn>
-                      </template>
-                      <v-list>
-                        <v-list-item style="margin-bottom: 20px;" @click="showpdf(row?.item?.pdf)">
-                          <v-list-item-icon>
-                            <v-icon size="50" color="blue">mdi-printer-eye</v-icon>
-                          </v-list-item-icon>
-                          <v-list-item-title>Show</v-list-item-title>
-                        </v-list-item>
+                    <td>
+                      <!-- Dropdown Menu -->
+                      <v-menu offset-y>
+                        <template v-slot:activator="{ on, attrs }">
+                          <v-btn style="height: 40px; width: 50px;" small color="#0085e3"
+                            class="white--text card-shadow" v-bind="attrs" v-on="on">
+                            <v-icon size="30" color="white">mdi-arrow-down-drop-circle</v-icon>
+                          </v-btn>
+                        </template>
+                        <v-list>
+                          <v-list-item style="margin-bottom: 20px;" @click="showpdf(row?.item?.pdf)">
+                            <v-list-item-icon>
+                              <v-icon size="50" color="blue">mdi-printer-eye</v-icon>
+                            </v-list-item-icon>
+                            <v-list-item-title>Show</v-list-item-title>
+                          </v-list-item>
 
-                        <v-list-item style="margin-bottom: 20px;" @click="viewup(row?.item?.key_id)">
-                          <v-list-item-icon>
-                            <v-icon size="50" color="blue">mdi-table-edit</v-icon>
-                          </v-list-item-icon>
-                          <v-list-item-title>Update</v-list-item-title>
-                        </v-list-item>
-                        <v-list-item @click="viewdelete(row?.item?.key_id)">
-                          <v-list-item-icon>
-                            <v-icon>mdi-delete</v-icon>
-                          </v-list-item-icon>
-                          <v-list-item-title>Delete</v-list-item-title>
-                        </v-list-item>
-                      </v-list>
-                    </v-menu>
-                  </td>
-                </tr>
-              </template>
-            </v-data-table>
-          </div>
-        </v-card>
-      </div>
-    </v-card>
-    <!-- PDF Popup -->
-    <v-dialog v-model="pdfDialog">
-      <v-card>
-        <v-card-title class="headline">PDF Viewer</v-card-title>
-        <v-card-text>
-          <iframe v-if="pdfUrl" :src="pdfUrl" width="100%" height="1800px" frameborder="0"></iframe>
-        </v-card-text>
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn color="blue darken-1" text @click="pdfDialog = false">
-            Close
-          </v-btn>
-        </v-card-actions>
+                          <v-list-item style="margin-bottom: 20px;" @click="viewup(row?.item?.key_id)">
+                            <v-list-item-icon>
+                              <v-icon size="50" color="blue">mdi-table-edit</v-icon>
+                            </v-list-item-icon>
+                            <v-list-item-title>Update</v-list-item-title>
+                          </v-list-item>
+                          <v-list-item @click="viewdelete(row?.item?.key_id)">
+                            <v-list-item-icon>
+                              <v-icon>mdi-delete</v-icon>
+                            </v-list-item-icon>
+                            <v-list-item-title>Delete</v-list-item-title>
+                          </v-list-item>
+                        </v-list>
+                      </v-menu>
+                    </td>
+                  </tr>
+                </template>
+              </v-data-table>
+            </div>
+          </v-card>
+        </div>
       </v-card>
-    </v-dialog>
+      <!-- PDF Popup -->
+      <v-dialog v-model="pdfDialog">
+        <v-card>
+          <v-card-title class="headline">PDF Viewer</v-card-title>
+          <v-card-text>
+            <iframe v-if="pdfUrl" :src="pdfUrl" width="100%" height="1800px" frameborder="0"></iframe>
+          </v-card-text>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn color="blue darken-1" text @click="pdfDialog = false">
+              Close
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
+    </v-card>
   </div>
 </template>
 <script>
@@ -564,39 +558,61 @@ export default {
 .st11 {
   fill: #ECBDD6;
 }
+
 .container {
   padding: 10px;
 }
-.button-list, .additional-buttons, .print-button {
+
+.button-list,
+.additional-buttons,
+.print-button {
   display: flex;
   flex-direction: column;
   align-items: center;
   margin: 10px 0;
 }
-.button-style, .filter-button {
-  width: 100%;
-  max-width: 300px;
+
+.button-style,
+.filter-button {
+  width: 250px;
+
 }
+
 .data-card {
   width: 100%;
+  height: 800px;
   overflow-x: auto;
 }
+
 .card-title {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
 }
+
 .search-section {
   display: flex;
   flex: 1;
   justify-content: center;
   max-width: 100%;
 }
+
 .search-field {
   width: 100%;
   max-width: 250px;
 }
+
 .search-button {
   margin-left: 5px;
+}
+
+.x {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+
+  z-index: 5;
+  background-color: rgb(255, 255, 255);
 }
 </style>

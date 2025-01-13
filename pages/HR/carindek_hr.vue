@@ -1,5 +1,6 @@
 <template>
   <div>
+    <v-card  class="x">
     <div style="display: flex; overflow-x: auto; width: 1640px; margin-left: 10px;">
       <v-list style="display: flex; min-width: 1200px;" v-model="selectedCard">
         <v-btn ref="btn1" value="1" @click="selectedCard = '1'" @mouseover="changeColor('#FFE5FF', $refs.btn1)"
@@ -38,7 +39,8 @@
       </v-btn>
     </div> -->
 
-    <v-card style="width:1800px;height:800px;">
+  
+    <v-card style="width:100%;height:800px;overflow-x: auto;">
 
       <div v-if="selectedCard === '1'">
         <v-card class="card-shadow mb-4" rounded="lg">
@@ -314,6 +316,7 @@
 
 
     </div>
+    </v-card>
   </div>
 </template>
 
@@ -620,5 +623,17 @@ export default {
 
 .st11 {
   fill: #ECBDD6;
+}
+.x {
+
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+z-index: 5;
+background-color: rgb(255, 255, 255);
+
+
 }
 </style>

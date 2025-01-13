@@ -62,7 +62,7 @@
         </div>
       </v-col>
 
-      <v-col cols="12" md="3">
+      <!-- <v-col cols="12" md="3">
         <div v-if="USER_ROLE === 'USER' || USER_ID === 'ADMIN'">
           <v-card to="/reportbaisner" height="100" elevation="2" rounded="lg" width="310px"
             style="border: 1px solid  rgba(191, 0, 0, 0.8);">
@@ -71,15 +71,14 @@
                 <v-icon style="color: rgba(191, 0, 0, 0.8);" size="55">mdi-folder-multiple-outline</v-icon>
                 <div class="pl-5 pb-5 pt-5 pr-5 ">
                   <span style="font-size: 18pt;font-weight: bold;">ລາຍງານສະເໜີ</span><br />
-                  <!-- <div style="background-color: red;width: 30px;height: 30px;border-radius: 20px;display: flex;justify-content: center;align-items: center;color: white;"><span>10</span></div> -->
                 </div>
               </div>
             </v-card-text>
           </v-card>
         </div>
-      </v-col>
+      </v-col> -->
 
-      <v-col cols="12" md="3">
+      <!-- <v-col cols="12" md="3">
         <div v-if="USER_ROLE === 'USER' || USER_ID === 'ADMIN'">
           <v-card to="/mining" height="100" elevation="2" rounded="lg" width="310px"
             style="border: 1px solid  rgba(191, 0, 0, 0.8);">
@@ -88,13 +87,12 @@
                 <v-icon style="color: rgba(191, 0, 0, 0.8);" size="55">mdi-image-filter-hdr</v-icon>
                 <div class="pl-5 pb-5 pt-5 pr-5 ">
                   <span style="font-size: 18pt;font-weight: bold;">ລາຍງານການຄຸດເຈາະ</span><br />
-                  <!-- <div style="background-color: red;width: 30px;height: 30px;border-radius: 20px;display: flex;justify-content: center;align-items: center;color: white;"><span>10</span></div> -->
                 </div>
               </div>
             </v-card-text>
           </v-card>
         </div>
-      </v-col>
+      </v-col> -->
 
       <!-- <v-col cols="12" md="3">
         <div v-if="USER_ROLE === 'USER'|| USER_ID === 'ADMIN'">

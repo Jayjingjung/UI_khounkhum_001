@@ -150,10 +150,7 @@ export default {
           }
         );
 
-        if (!response || response.status !== "00" || !Array.isArray(response.data)) {
-          throw new Error("Invalid API response structure");
-        }
-
+      
         this.tasks.data = response.data.map((task) => ({
           id: task.key_id,
           text: task.topic_task,
@@ -177,10 +174,7 @@ export default {
           }
         );
 
-        if (!response || response.status !== "00" || !Array.isArray(response.data)) {
-          throw new Error("Invalid API response structure");
-        }
-
+       
 
         this.tasks.links = response.data.map((link) => ({
           id: link.id,
@@ -224,6 +218,8 @@ export default {
         console.error("Error creating task:", error.message);
         gantt.message({ type: "error", text: "Failed to create task" });
       }
+      this.fetchTasks();
+
     },
     async updateTask(id, task) {
       try {

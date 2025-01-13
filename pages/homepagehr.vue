@@ -5,6 +5,9 @@
       <div v-show="showMessage" class="message" :style="messageStyle">Countdown {{ currentDate }}</div>
       <button @click="launchFireworks">Launch Fireworks</button>
     </div> -->
+    <v-card  class="x">
+
+   
     <v-row>
       <!-- ລົດບໍລິຫານ -->
       <v-col cols="12" md="3">
@@ -157,8 +160,25 @@
           </v-card>
         </div>
       </v-col> -->
-    </v-row>
 
+      <v-col cols="12" md="3">
+        <div v-if="USER_ROLE === 'USER' || USER_ID === 'ADMIN'">
+          <v-card to="/ganttshart" height="100" elevation="2" rounded="lg" width="310px"
+            style="border: 1px solid  rgba(191, 0, 0, 0.8);">
+            <v-card-text>
+              <div class="d-flex align-center">
+                <v-icon style="color: rgba(191, 0, 0, 0.8);" size="55">mdi-chart-gantt</v-icon>
+                <div class="pl-5 pb-5 pt-5 pr-5 ">
+                  <span style="font-size: 18pt;font-weight: bold;">ແຜນວຽກ</span><br />
+                  <!-- <div style="background-color: red;width: 30px;height: 30px;border-radius: 20px;display: flex;justify-content: center;align-items: center;color: white;"><span>10</span></div> -->
+                </div>
+              </div>
+            </v-card-text>
+          </v-card>
+        </div>
+      </v-col>
+    </v-row>
+ </v-card>
 
 
   </div>
@@ -311,5 +331,17 @@ button {
 
 button:hover {
   background-color: #FF0000;
+}
+.x {
+
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 5;
+  background-color: rgb(255, 255, 255);
+ 
+
 }
 </style>

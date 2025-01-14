@@ -958,19 +958,12 @@ export default {
 
     async onGetmorfaiList() {
       try {
-        // this.loading_processing = true
-
         await this.$axios.$post('getBateryAll', {
-
-          // Autorization: localStorage.getItem('toKen')
           toKen: localStorage.getItem('toKen'),
           keyId: ""
-
-
         }).then((data) => {
           if (data?.status == '00') {
             this.morfai_data_list = data?.data
-            // this.loading_processing = false
             console.log('morfai_data_list:', data)
           }
         })

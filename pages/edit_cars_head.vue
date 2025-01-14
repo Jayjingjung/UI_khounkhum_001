@@ -202,10 +202,8 @@
                                         <div class="tops">
                                         </div>
                                     </v-col>
-
                                     <v-col cols="12" md="4" sm="6">
                                         <v-icon color="black">mdi-calendar-range</v-icon>
-
                                         <span>ວັນທີ່ປ່ຽນນ້ຳມັນເຄື່ອງ</span>
                                         <v-menu ref="date_change_lean" v-model="date_change_lean"
                                             :close-on-content-click="false" :return-value.sync="formattedDate"
@@ -221,7 +219,6 @@
                                             </v-date-picker>
                                         </v-menu>
                                     </v-col>
-
                                 </v-row>
                                 <v-row style="margin-top: -14px;">
                                     <v-col clos="6" md="4" sm="4">
@@ -265,12 +262,13 @@
                                         <div>
                                             <v-row>
                                                 <v-col cols="6" md="2" sm="2">
-                                                    <img :src="imageMorFai" cover height="40px" width="40px">
+                                                    <img :src="imageMorFai" alt="Battery Image" cover height="40px"
+                                                        width="40px">
                                                 </v-col>
                                                 <v-col cols="6" md="10" sm="10">
-                                                    <v-autocomplete outlined dense v-model="idMorFai1" :label="idMorFai"
+                                                    <v-autocomplete v-model="keyId" outlined dense :label="idMorFai"
                                                         :items="morfai_data_list" :rules="nameRules" item-text="batNo"
-                                                        background-color="#f5f5f5"
+                                                        item-value="keyId" background-color="#f5f5f5"
                                                         @change="onGetmorfaiDetails"></v-autocomplete>
                                                 </v-col>
                                             </v-row>
@@ -279,7 +277,6 @@
                                             <span>ຂະໜາດ: {{ sizeMorFai }} || ອາຍຸການໃຊ້ງານ: {{ serviceLIFE }} ປີ</span>
                                         </div>
                                     </v-col>
-
                                 </v-row>
                             </v-col>
                         </v-row>
@@ -289,7 +286,6 @@
                                 <v-menu ref="start_bat" v-model="start_bat" :close-on-content-click="false"
                                     :return-value.sync="start_bat_date" transition="scale-transition" offset-y
                                     min-width="auto">
-
                                     <template v-slot:activator="{ on, attrs }">
                                         <v-text-field v-if="toBatRowStatus === 'W'" dense outlined
                                             v-model="start_bat_date" background-color="#FFF176" required
@@ -508,7 +504,6 @@
                     <v-divider></v-divider>
                     <Height />
                 </v-card>
-
                 <!-- ຂໍ້ມູນຢາງລົດ -->
                 <v-card flat>
                     <v-card-text>
@@ -585,7 +580,6 @@
                                     <div class="d-flex">
                                         <v-text-field :rules="nameRules" rounded dense background-color="#fff"
                                             label="ລະຫັດຢາງລົດ" v-model="ll_TIRE_NO_4"></v-text-field>
-
                                         <v-text-field :rules="nameRules" rounded dense background-color="#fff"
                                             label="ວັນທີປ່ຽນຢາງ" v-model="ll_TIRE_DATE_4"></v-text-field>
                                         <v-text-field :rules="nameRules" rounded dense background-color="#fff"
@@ -625,7 +619,6 @@
                                     <div class="d-flex">
                                         <v-text-field :rules="nameRules" rounded dense background-color="#fff"
                                             label="ລະຫັດຢາງລົດ" v-model="ll_TIRE_NO_6"></v-text-field>
-
                                         <v-text-field :rules="nameRules" rounded dense background-color="#fff"
                                             label="ວັນທີປ່ຽນຢາງ" v-model="ll_TIRE_DATE_6"></v-text-field>
                                         <v-text-field :rules="nameRules" rounded dense background-color="#fff"
@@ -640,16 +633,13 @@
                                             label="ແລ່ນໄປແລ້ວ km" v-model="canRun6"></v-text-field>
                                     </div>
                                 </div>
-
                             </div>
-
                             <div class="text-center">
                                 <img v-if="r_TIRE_NO_2" class="mx-auto" src="../assets/images/head12.png" width="150"
                                     height="450" />
                                 <img v-else class="mx-auto" src="../assets/images/head10.png" width="150"
                                     height="390" />
                             </div>
-
                             <!-- Right -->
                             <div style="width:100%">
                                 <div style="background-color:#f2ebeb;height:80px;padding-top:5px;border-radius:5px"
@@ -657,7 +647,6 @@
                                     <div class="d-flex">
                                         <v-text-field :rules="nameRules" rounded dense background-color="#fff"
                                             label="ລະຫັດຢາງລົດ" v-model="r_TIRE_NO_1"></v-text-field>
-
                                         <v-text-field :rules="nameRules" rounded dense background-color="#fff"
                                             label="ວັນທີປ່ຽນຢາງ" v-model="r_TIRE_DATE_1"></v-text-field>
                                         <v-text-field :rules="nameRules" rounded dense background-color="#fff"
@@ -679,7 +668,6 @@
                                     <div class="d-flex pt-2">
                                         <v-text-field :rules="nameRules" rounded dense background-color="#fff"
                                             label="ລະຫັດຢາງລົດ" v-model="r_TIRE_NO_2"></v-text-field>
-
                                         <v-text-field :rules="nameRules" rounded dense background-color="#fff"
                                             label="ວັນທີປ່ຽນຢາງ" v-model="r_TIRE_DATE_2"></v-text-field>
                                         <v-text-field :rules="nameRules" rounded dense background-color="#fff"
@@ -694,14 +682,12 @@
                                             label="ແລ່ນໄປແລ້ວ km" v-model="canRun8"></v-text-field>
                                     </div>
                                 </div>
-
                                 <!-- /////////////////////////////// -->
                                 <div style="background-color:#f2ebeb;height:80px;padding-top:5px;border-radius:5px"
                                     class="px-2 mt-1">
                                     <div class="d-flex pt-1">
                                         <v-text-field :rules="nameRules" rounded dense background-color="#fff"
                                             label="ລະຫັດຢາງລົດ" v-model="r_TIRE_NO_3"></v-text-field>
-
                                         <v-text-field :rules="nameRules" rounded dense background-color="#fff"
                                             label="ວັນທີປ່ຽນຢາງ" v-model="r_TIRE_DATE_3"></v-text-field>
                                         <v-text-field :rules="nameRules" rounded dense background-color="#fff"
@@ -721,7 +707,6 @@
                                     <div class="d-flex">
                                         <v-text-field :rules="nameRules" rounded dense background-color="#fff"
                                             label="ລະຫັດຢາງລົດ" v-model="r_TIRE_NO_4"></v-text-field>
-
                                         <v-text-field :rules="nameRules" rounded dense background-color="#fff"
                                             label="ວັນທີປ່ຽນຢາງ" v-model="r_TIRE_DATE_4"></v-text-field>
                                         <v-text-field :rules="nameRules" rounded dense background-color="#fff"
@@ -775,7 +760,6 @@
                                             label="ແລ່ນໄປແລ້ວ km" v-model="canRun12"></v-text-field>
                                     </div>
                                 </div>
-
                             </div>
                         </div>
                         <div style="background-color:#f2ebeb;height:80px;padding-top:5px;border-radius:5px"
@@ -965,7 +949,7 @@ export default {
             leanFuengThaiy: '',
             pha_But: '',
             morfai_data_list: [],
-            keyId: '',
+            keyId:"",
             batNo: '',
             idMorFai: '',
             idMorFai1: '',
@@ -1152,48 +1136,78 @@ export default {
             reader.readAsDataURL(files[0])
         },
         onGetmorfaiDetails(id) {
-            let data = this.morfai_data_list.filter((el => el.keyId === id));
-            this.modalMorFai = data[0]?.modalMorfai
-            this.sizeMorFai = data[0]?.sizeMorfai
-            this.serviceLIFE = data[0]?.serviceLife
-            this.imageMorFai = data[0]?.imageBatery
-            this.keyId = data[0]?.keyId
+            console.log('Selected keyId:', id);
+            const selected = this.morfai_data_list.find((el) => el.keyId === id);
+            if (selected) {
+                this.modalMorFai = selected.modalMorfai;
+                this.sizeMorFai = selected.sizeMorfai;
+                this.serviceLIFE = selected.serviceLife;
+                this.imageMorFai = selected.imageBatery;
+                this.keyId = selected.keyId;
+                console.log('Updated data:', selected);
+            } else {
+                console.warn('No matching data found for keyId:', id);
+            }
         },
         async onGetmorfaiList() {
             try {
-                await this.$axios.$post('getBateryAll'
-                    , {
-                        toKen: localStorage.getItem('toKen'),
-                        keyId: ""
-                    }
-                ).then((data) => {
-                    if (data?.status == '00') {
-                        this.morfai_data_list = data?.data
-                        this.loading_processing = false
-                        console.log('morfai_data_list:', data);
-                        console.log("cusInfo:", this.morfai_data_list)
-                        let datas = this.morfai_data_list?.filter((el => parseInt(el.id) === parseInt(this.$route?.query?.KeyID)));
-                        console.log("new:", datas)
-                        this.modalMorFai = datas[0]?.modalMorfai
-                        this.sizeMorFai = datas[0]?.sizeMorfai
-                        this.serviceLIFE = datas[0]?.serviceLife
-                        this.imageMorFai = datas[0]?.imageBatery
-                        this.keyId = this.$route?.query?.KeyID
-                    }
-                })
+                const response = await this.$axios.$post('getBateryAll', {
+                    toKen: localStorage.getItem('toKen'),
+                    keyId: "",
+                });
+                if (response?.status === '00') {
+                    this.morfai_data_list = response.data;
+                    console.log('morfai_data_list:', response.data);
+                } else {
+                    console.error('Error fetching data:', response?.message || 'Unknown error');
+                }
             } catch (error) {
-                this.loading_processing = false
-                console.log(error)
+                console.error(error);
                 swal.fire({
                     title: 'ແຈ້ງເຕືອນ',
-                    text: error,
+                    text: 'Error fetching data',
                     icon: 'error',
                     allowOutsideClick: false,
                     confirmButtonColor: '#3085d6',
                     confirmButtonText: 'OK',
-                })
+                });
             }
         },
+        // async onGetmorfaiList() {
+        //     try {
+        //         await this.$axios.$post('getBateryAll'
+        //             , {
+        //                 toKen: localStorage.getItem('toKen'),
+        //                 keyId: ""
+        //             }
+        //         ).then((data) => {
+        //             if (data?.status == '00') {
+        //                 this.morfai_data_list = data?.data
+        //                 this.loading_processing = false
+        //                 console.log('morfai_data_list:', data);
+        //                 console.log("cusInfo:", this.morfai_data_list)
+        //                 let datas = this.morfai_data_list?.filter((el => parseInt(el.id) === parseInt(this.$route?.query?.KeyID)));
+        //                 console.log("new:", datas)
+        //                 this.modalMorFai = datas[0]?.modalMorfai
+        //                 this.sizeMorFai = datas[0]?.sizeMorfai
+        //                 this.serviceLIFE = datas[0]?.serviceLife
+        //                 this.imageMorFai = datas[0]?.imageBatery
+        //                 this.keyId = this.$route?.query?.KeyID
+        //             }
+        //         })
+        //     } catch (error) {
+        //         this.loading_processing = false
+        //         console.log(error)
+        //         swal.fire({
+        //             title: 'ແຈ້ງເຕືອນ',
+        //             text: error,
+        //             icon: 'error',
+        //             allowOutsideClick: false,
+        //             confirmButtonColor: '#3085d6',
+        //             confirmButtonText: 'OK',
+        //         })
+        //     }
+        // },
         async ongetData() {
             try {
                 await this.$axios.$post('/listVicicleHeaderByID.service', {
@@ -1311,7 +1325,6 @@ export default {
                         this.h_KML_10 = data?.data[0]?.h_KML_10,
                         this.h_KML_11 = data?.data[0]?.h_KML_11,
                         this.h_KML_12 = data?.data[0]?.h_KML_12,
-
                         this.saiystay = data?.data[0]?.saiystay,
                         this.galick = data?.data[0]?.galick,
                         this.leanGia = data?.data[0]?.leanGia,
@@ -1331,8 +1344,15 @@ export default {
             if (!this.$refs.form.validate()) {
                 swal.fire({
                     icon: 'info',
-                    text: 'ກະລຸນາປ້ອນຂໍ້ມູນໃຫ້ຄົບ'
-                })
+                    text: 'ກະລຸນາປ້ອນຂໍ້ມູນໃຫ້ຄົບ',
+                });
+                return null;
+            }
+            if (!this.keyId) {
+                swal.fire({
+                    icon: 'error',
+                    text: 'ກະລຸນາເລືອກໝໍ້ໄຟ',
+                });
                 return null;
             }
             this.loading_processing = true
@@ -1450,7 +1470,7 @@ export default {
                 formdata.append('leanGia', this.leanGia)
                 formdata.append('leanFuengThaiy', this.leanFuengThaiy)
                 formdata.append('pha_But', this.pha_But),
-                formdata.append('toKen', localStorage.getItem("toKen"))
+                    formdata.append('toKen', localStorage.getItem("toKen"))
                 await this.$axios.$post('/updateVicicleHeaderByID.service', formdata).then((data) => {
                     console.log("saveStatus:", data)
                     if (data?.status == '00') {
@@ -1493,7 +1513,6 @@ export default {
     },
 }
 </script>
-
 <style lang="scss">
 .margintop {
     margin-top: -30px;

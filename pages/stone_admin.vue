@@ -311,8 +311,8 @@
                 </v-row>
             </v-container>
             <!-- Loop through the branches and display each in v-col -->
-            <v-col v-for="(branch, index) in branches" :key="index" cols="12" sm="6" md="3">
-                <v-card class="mt-4" width="300">
+            <v-col v-for="(branch, index) in branches" :key="index" >
+                <v-card class="mt-4" >
                     <v-list color="#E0F7FA">
                         <v-list-group :value="false" prepend-icon="mdi-excavator"
                             @click="setTokenAndFetch(branch.key_id)">

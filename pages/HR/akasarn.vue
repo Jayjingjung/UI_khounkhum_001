@@ -56,7 +56,7 @@
           <v-icon>mdi-</v-icon>ຂາອອກ
         </v-btn>
       </v-row>
-      <v-card class="data-card">
+      <v-card style="height: 800px;" class="data-card">
         <div v-if="selectedCard === '1'">
           <v-card class="card-shadow mb-4" rounded="lg" style="height: 100%;">
             <v-card-title
@@ -580,7 +580,7 @@ export default {
 
 .data-card {
   width: 100%;
-  height: 800px;
+  /* height: 200px; */
   overflow-x: auto;
 }
 

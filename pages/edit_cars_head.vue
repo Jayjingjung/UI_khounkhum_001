@@ -949,7 +949,7 @@ export default {
             leanFuengThaiy: '',
             pha_But: '',
             morfai_data_list: [],
-            keyId:"",
+            keyId: null,
             batNo: '',
             idMorFai: '',
             idMorFai1: '',

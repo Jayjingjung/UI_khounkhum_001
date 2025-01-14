@@ -41,16 +41,16 @@
       <v-card-text style="width: 400px; height: 950px;overflow-x: auto;">
         <v-simple-table>
           <thead>
-            <tr>
-              <th>Task Name</th>
-              <th>Progress</th>
+            <tr  >
+              <th style="font-size: 18px;">Task Name</th>
+              <th style="font-size: 18px;">Progress</th>
             </tr>
           </thead>
           <tbody>
             <tr v-for="task in tasks.data" :key="task.id">
-              <td>{{ task.text }}</td>
+              <td style="font-size: 16px;">{{ task.text }}</td>
               <td>
-                <v-progress-linear :value="task.progress * 100" color="green" height="20" striped>
+                <v-progress-linear :value="task.progress * 100" color="green" height="40" striped>
                   {{ Math.round(task.progress * 100) }}%
                 </v-progress-linear>
               </td>

@@ -1,5 +1,7 @@
 <template>
   <div class="pt-5">
+    <v-card class="x">
+
     <v-dialog v-model="loading_processing" persistent width="55">
       <v-card width="55" height="55" class="pt-3 pl-3">
         <v-progress-circular :width="3" color="primary" indeterminate></v-progress-circular>
@@ -40,21 +42,21 @@
 
 
             <v-col cols="6" md="3" sm="3">
-              <div v-if="USER_NAME === 'JT' ">
+              <div v-if="USER_NAME === 'JT'|| USER_NAME === 'NN' ">
 
                 <v-text-field style="width: 400px;" label="* ເລກທີເອກະສານຂາເຂົ້າ" dense outlined
                   background-color="#13d95a" v-model="inboundnumber"></v-text-field>
               </div>
             </v-col>
             <v-col cols="6" md="3" sm="3">
-              <div v-if="USER_NAME === 'JT' ">
+              <div v-if="USER_NAME === 'JT'|| USER_NAME === 'NN' ">
 
                 <v-text-field style="width: 400px;" label="* ເລກທີເອກະສາພາຍໃນ" dense outlined background-color="#13d95a"
                   v-model="inside"></v-text-field>
               </div>
             </v-col>
             <v-col cols="6" md="3" sm="3">
-              <div v-if="USER_NAME === 'JT' ">
+              <div v-if="USER_NAME === 'JT'|| USER_NAME === 'NN' ">
 
                 <v-text-field style="width: 400px;" label="* ເລກທີເອກະສານຂາອອກ" dense outlined
                   background-color="#13d9bf" v-model="outboundnumber"></v-text-field>
@@ -141,6 +143,7 @@
           </v-row>
         </v-form>
       </v-card-text>
+    </v-card>
     </v-card>
   </div>
 </template>
@@ -435,7 +438,15 @@ export default {
 .margintops {
   margin-top: -25px;
 }
-
+.x {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+height: 100%;
+  z-index: 5;
+  background-color: rgb(255, 255, 255);
+}
 .top {
   margin-top: 5px;
   margin-left: 10px;

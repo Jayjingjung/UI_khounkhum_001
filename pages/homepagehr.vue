@@ -5,64 +5,68 @@
       <div v-show="showMessage" class="message" :style="messageStyle">Countdown {{ currentDate }}</div>
       <button @click="launchFireworks">Launch Fireworks</button>
     </div> -->
-    <v-card  class="x">
+    <v-card class="x">
 
-   
-    <v-row>
-      <!-- ລົດບໍລິຫານ -->
-      <v-col cols="12" md="3">
-        <div v-if="USER_ROLE === 'USER' || USER_ID === 'ADMIN'">
-          <v-card to="./HR/carindek_hr" height="100" elevation="2" rounded="lg" width="310px"
-            style="border: 1px solid  rgba(191, 0, 0, 0.8);">
-            <v-card-text>
-              <div class="d-flex align-center">
-                <v-icon style="color: rgba(191, 0, 0, 0.8);" size="55">mdi-car</v-icon>
-                <div class="pl-5 pb-5 pt-5 pr-5 ">
-                  <span style="font-size: 18pt;font-weight: bold;">ລົດບໍລິຫານ</span><br />
+      <v-btn style="background-color: #f44336;width: 100px;display: flex; " rounded to="/" text>
+        <v-icon color="white">mdi-power</v-icon>
+      </v-btn>
 
+
+      <v-row>
+        <!-- ລົດບໍລິຫານ -->
+        <v-col cols="12" md="3">
+          <div v-if="USER_ROLE === 'USER' || USER_ID === 'ADMIN'">
+            <v-card to="./HR/carindek_hr" height="100" elevation="2" rounded="lg" width="310px"
+              style="border: 1px solid  rgba(191, 0, 0, 0.8);">
+              <v-card-text>
+                <div class="d-flex align-center">
+                  <v-icon style="color: rgba(191, 0, 0, 0.8);" size="55">mdi-car</v-icon>
+                  <div class="pl-5 pb-5 pt-5 pr-5 ">
+                    <span style="font-size: 18pt;font-weight: bold;">ລົດບໍລິຫານ</span><br />
+
+                  </div>
                 </div>
-              </div>
-            </v-card-text>
-          </v-card>
-        </div>
-      </v-col>
-      <!-- ລາຍຮັບ-ລາຍຈ່າຍອື່ນໆ -->
+              </v-card-text>
+            </v-card>
+          </div>
+        </v-col>
+        <!-- ລາຍຮັບ-ລາຍຈ່າຍອື່ນໆ -->
 
-      <v-col cols="12" md="3">
-        <div v-if="USER_ROLE === 'USER' || USER_ID === 'ADMIN'">
-          <v-card to="./HR/itemhr" height="100" elevation="2" rounded="lg" width="310px"
-            style="border: 1px solid  rgba(191, 0, 0, 0.8);">
-            <v-card-text>
-              <div class="d-flex align-center">
-                <v-icon style="color: rgba(191, 0, 0, 0.8);" size="55">mdi-package-variant-closed</v-icon>
-                <div class="pl-5 pb-5 pt-5 pr-5 ">
-                  <span style="font-size: 18pt;font-weight: bold;">ອຸປະກອນຫ້ອງການ</span><br />
-                  <!-- <div style="background-color: red;width: 30px;height: 30px;border-radius: 20px;display: flex;justify-content: center;align-items: center;color: white;"><span>10</span></div> -->
+        <v-col cols="12" md="3">
+          <div v-if="USER_ROLE === 'USER' || USER_ID === 'ADMIN'">
+            <v-card to="./HR/itemhr" height="100" elevation="2" rounded="lg" width="310px"
+              style="border: 1px solid  rgba(191, 0, 0, 0.8);">
+              <v-card-text>
+                <div class="d-flex align-center">
+                  <v-icon style="color: rgba(191, 0, 0, 0.8);" size="55">mdi-package-variant-closed</v-icon>
+                  <div class="pl-5 pb-5 pt-5 pr-5 ">
+                    <span style="font-size: 18pt;font-weight: bold;">ອຸປະກອນຫ້ອງການ</span><br />
+                    <!-- <div style="background-color: red;width: 30px;height: 30px;border-radius: 20px;display: flex;justify-content: center;align-items: center;color: white;"><span>10</span></div> -->
+                  </div>
                 </div>
-              </div>
-            </v-card-text>
-          </v-card>
-        </div>
-      </v-col>
+              </v-card-text>
+            </v-card>
+          </div>
+        </v-col>
 
-      <v-col cols="12" md="3">
-        <div v-if="USER_ROLE === 'USER' || USER_ID === 'ADMIN' || USER_NAME === 'mai_ud'">
-          <v-card to="./HR/akasarn" height="100" elevation="2" rounded="lg" width="310px"
-            style="border: 1px solid  rgba(191, 0, 0, 0.8);">
-            <v-card-text>
-              <div class="d-flex align-center">
-                <v-icon style="color: rgba(191, 0, 0, 0.8);" size="55">mdi-application-import</v-icon>
-                <div class="pl-5 pb-5 pt-5 pr-5 ">
-                  <span style="font-size: 18pt;font-weight: bold;">ເອກກະສານ</span><br />
-                  <!-- <div style="background-color: red;width: 30px;height: 30px;border-radius: 20px;display: flex;justify-content: center;align-items: center;color: white;"><span>10</span></div> -->
+        <v-col cols="12" md="3">
+          <div v-if="USER_ROLE === 'USER' || USER_ID === 'ADMIN' || USER_NAME === 'mai_ud'">
+            <v-card to="./HR/akasarn" height="100" elevation="2" rounded="lg" width="310px"
+              style="border: 1px solid  rgba(191, 0, 0, 0.8);">
+              <v-card-text>
+                <div class="d-flex align-center">
+                  <v-icon style="color: rgba(191, 0, 0, 0.8);" size="55">mdi-application-import</v-icon>
+                  <div class="pl-5 pb-5 pt-5 pr-5 ">
+                    <span style="font-size: 18pt;font-weight: bold;">ເອກກະສານ</span><br />
+                    <!-- <div style="background-color: red;width: 30px;height: 30px;border-radius: 20px;display: flex;justify-content: center;align-items: center;color: white;"><span>10</span></div> -->
+                  </div>
                 </div>
-              </div>
-            </v-card-text>
-          </v-card>
-        </div>
-      </v-col>
+              </v-card-text>
+            </v-card>
+          </div>
+        </v-col>
 
-      <!-- <v-col cols="12" md="3">
+        <!-- <v-col cols="12" md="3">
         <div v-if="USER_ROLE === 'USER' || USER_ID === 'ADMIN'">
           <v-card to="/reportbaisner" height="100" elevation="2" rounded="lg" width="310px"
             style="border: 1px solid  rgba(191, 0, 0, 0.8);">
@@ -78,7 +82,7 @@
         </div>
       </v-col> -->
 
-      <!-- <v-col cols="12" md="3">
+        <!-- <v-col cols="12" md="3">
         <div v-if="USER_ROLE === 'USER' || USER_ID === 'ADMIN'">
           <v-card to="/mining" height="100" elevation="2" rounded="lg" width="310px"
             style="border: 1px solid  rgba(191, 0, 0, 0.8);">
@@ -94,7 +98,7 @@
         </div>
       </v-col> -->
 
-      <!-- <v-col cols="12" md="3">
+        <!-- <v-col cols="12" md="3">
         <div v-if="USER_ROLE === 'USER'|| USER_ID === 'ADMIN'">
           <v-card to="/signature" height="100" elevation="2" rounded="lg" width="310px"
             style="border: 1px solid  rgba(191, 0, 0, 0.8);">
@@ -110,24 +114,24 @@
         </div>
       </v-col> -->
 
-      <v-col cols="12" md="3">
-        <div v-if="USER_ROLE === 'USER' || USER_ID === 'ADMIN'">
-          <v-card to="/receivedAll" height="100" elevation="2" rounded="lg" width="310px"
-            style="border: 1px solid  rgba(191, 0, 0, 0.8);">
-            <v-card-text>
-              <div class="d-flex align-center">
-                <v-icon style="color: rgba(191, 0, 0, 0.8);" size="55">mdi-receipt-send-outline</v-icon>
-                <div class="pl-5 pb-5 pt-5 pr-5 ">
-                  <span style="font-size: 18pt;font-weight: bold;">ໃບສະເໜີລາຄາ</span><br />
-                  <!-- <div style="background-color: red;width: 30px;height: 30px;border-radius: 20px;display: flex;justify-content: center;align-items: center;color: white;"><span>10</span></div> -->
+        <v-col cols="12" md="3">
+          <div v-if="USER_ROLE === 'USER' || USER_ID === 'ADMIN'">
+            <v-card to="/receivedAll" height="100" elevation="2" rounded="lg" width="310px"
+              style="border: 1px solid  rgba(191, 0, 0, 0.8);">
+              <v-card-text>
+                <div class="d-flex align-center">
+                  <v-icon style="color: rgba(191, 0, 0, 0.8);" size="55">mdi-receipt-send-outline</v-icon>
+                  <div class="pl-5 pb-5 pt-5 pr-5 ">
+                    <span style="font-size: 18pt;font-weight: bold;">ໃບສະເໜີລາຄາ</span><br />
+                    <!-- <div style="background-color: red;width: 30px;height: 30px;border-radius: 20px;display: flex;justify-content: center;align-items: center;color: white;"><span>10</span></div> -->
+                  </div>
                 </div>
-              </div>
-            </v-card-text>
-          </v-card>
-        </div>
-      </v-col>
+              </v-card-text>
+            </v-card>
+          </div>
+        </v-col>
 
-      <!-- <v-col cols="12" md="3">
+        <!-- <v-col cols="12" md="3">
         <div v-if="USER_ROLE === 'USER'|| USER_ID === 'ADMIN'">
           <v-card to="/ExchangeRate" height="100" elevation="2" rounded="lg" width="310px"
             style="border: 1px solid  rgba(191, 0, 0, 0.8);">
@@ -143,7 +147,7 @@
         </div>
       </v-col> -->
 
-      <!-- <v-col cols="12" md="3">
+        <!-- <v-col cols="12" md="3">
         <div v-if="USER_ROLE === 'USER'|| USER_ID === 'ADMIN'">
           <v-card to="/testt-v-card-pdf" height="100" elevation="2" rounded="lg" width="310px"
             style="border: 1px solid  rgba(191, 0, 0, 0.8);">
@@ -159,24 +163,24 @@
         </div>
       </v-col> -->
 
-      <v-col cols="12" md="3">
-        <div v-if="USER_ROLE === 'USER' || USER_ID === 'ADMIN'">
-          <v-card to="/ganttshart" height="100" elevation="2" rounded="lg" width="310px"
-            style="border: 1px solid  rgba(191, 0, 0, 0.8);">
-            <v-card-text>
-              <div class="d-flex align-center">
-                <v-icon style="color: rgba(191, 0, 0, 0.8);" size="55">mdi-chart-gantt</v-icon>
-                <div class="pl-5 pb-5 pt-5 pr-5 ">
-                  <span style="font-size: 18pt;font-weight: bold;">ແຜນວຽກ</span><br />
-                  <!-- <div style="background-color: red;width: 30px;height: 30px;border-radius: 20px;display: flex;justify-content: center;align-items: center;color: white;"><span>10</span></div> -->
+        <v-col cols="12" md="3">
+          <div v-if="USER_ROLE === 'USER' || USER_ID === 'ADMIN'">
+            <v-card to="/ganttshart" height="100" elevation="2" rounded="lg" width="310px"
+              style="border: 1px solid  rgba(191, 0, 0, 0.8);">
+              <v-card-text>
+                <div class="d-flex align-center">
+                  <v-icon style="color: rgba(191, 0, 0, 0.8);" size="55">mdi-chart-gantt</v-icon>
+                  <div class="pl-5 pb-5 pt-5 pr-5 ">
+                    <span style="font-size: 18pt;font-weight: bold;">ແຜນວຽກ</span><br />
+                    <!-- <div style="background-color: red;width: 30px;height: 30px;border-radius: 20px;display: flex;justify-content: center;align-items: center;color: white;"><span>10</span></div> -->
+                  </div>
                 </div>
-              </div>
-            </v-card-text>
-          </v-card>
-        </div>
-      </v-col>
-    </v-row>
- </v-card>
+              </v-card-text>
+            </v-card>
+          </div>
+        </v-col>
+      </v-row>
+    </v-card>
 
 
   </div>
@@ -330,6 +334,7 @@ button {
 button:hover {
   background-color: #FF0000;
 }
+
 .x {
 
   position: fixed;
@@ -339,7 +344,7 @@ button:hover {
   height: 100%;
   z-index: 5;
   background-color: rgb(255, 255, 255);
- 
+
 
 }
 </style>

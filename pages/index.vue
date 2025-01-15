@@ -78,6 +78,9 @@ export default {
       } else if (USER_NAME === 'admin-bor-hin-khuad' && USER_ROLE === 'BOR-HIN-KHUAT') {
         this.$router.push('/stone_admin');
       } 
+      else if (USER_NAME === 'NN' ) {
+        this.$router.push('./HR/akasarn');
+      }
       else if (USER_NAME === 'AdminProof' ) {
         this.$router.push('/confirm');
       }

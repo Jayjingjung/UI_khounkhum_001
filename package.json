@@ -12,16 +12,15 @@
     "lintfix": "prettier --write --list-different ."
   },
   "dependencies": {
-    "@babel/core": "^7.14.6",
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
-    "@babel/preset-env": "^7.24.8",
     "@mdi/font": "^7.1.96",
     "@nuxtjs/axios": "^5.13.6",
     "@nuxtjs/dayjs": "^1.4.1",
     "@nuxtjs/toast": "^3.3.1",
     "@syncfusion/ej2-vue-gantt": "^28.1.38",
-    "babel-loader": "^8.2.3",
+    "apexcharts": "^4.3.0",
     "canvas-confetti": "^1.9.3",
+    "chart.js": "^4.4.7",
     "core-js": "^3.25.3",
     "dhtmlx-gantt": "^9.0.3",
     "gantt-elastic": "^1.0.12",
@@ -36,7 +35,11 @@
     "sweetalert2": "^11.14.0",
     "v-viewer": "^1.6.4",
     "vue": "2.7.15",
+    "vue-apexcharts": "^1.7.0",
+    "vue-chart-3": "^3.1.8",
+    "vue-chartjs": "^1.2.0",
     "vue-click-outside": "^1.1.0",
+    "vue-css-donut-chart": "^2.1.0",
     "vue-excel-xlsx": "^1.2.2",
     "vue-gantt-chart": "^1.0.11",
     "vue-ganttastic": "^0.9.34",
@@ -50,8 +53,11 @@
     "vuetify": "^2.6.10"
   },
   "devDependencies": {
+    "@babel/core": "^7.26.0",
+    "@babel/preset-env": "^7.26.0",
     "@nuxtjs/moment": "^1.6.1",
     "@nuxtjs/vuetify": "^1.12.3",
+    "babel-loader": "^8.4.1",
     "eslint-config-prettier": "^8.5.0",
     "prettier": "^2.7.1"
   }

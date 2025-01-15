@@ -262,14 +262,14 @@
                                         <div>
                                             <v-row>
                                                 <v-col cols="6" md="2" sm="2">
-                                                    <img :src="imageMorFai" alt="Battery Image" cover height="40px"
-                                                        width="40px">
+                                                    <img :src="imageMorFai" cover height="40px" width="40px">
                                                 </v-col>
                                                 <v-col cols="6" md="10" sm="10">
-                                                    <v-autocomplete v-model="keyId" outlined dense :label="idMorFai"
+                                                    <v-autocomplete outlined dense v-model="idMorFai1" :label="idMorFai"
                                                         :items="morfai_data_list" :rules="nameRules" item-text="batNo"
-                                                        item-value="keyId" background-color="#f5f5f5"
+                                                        background-color="#f5f5f5"
                                                         @change="onGetmorfaiDetails"></v-autocomplete>
+                                                        
                                                 </v-col>
                                             </v-row>
                                         </div>
@@ -277,6 +277,7 @@
                                             <span>ຂະໜາດ: {{ sizeMorFai }} || ອາຍຸການໃຊ້ງານ: {{ serviceLIFE }} ປີ</span>
                                         </div>
                                     </v-col>
+
                                 </v-row>
                             </v-col>
                         </v-row>
@@ -1136,78 +1137,50 @@ export default {
             reader.readAsDataURL(files[0])
         },
         onGetmorfaiDetails(id) {
-            console.log('Selected keyId:', id);
-            const selected = this.morfai_data_list.find((el) => el.keyId === id);
-            if (selected) {
-                this.modalMorFai = selected.modalMorfai;
-                this.sizeMorFai = selected.sizeMorfai;
-                this.serviceLIFE = selected.serviceLife;
-                this.imageMorFai = selected.imageBatery;
-                this.keyId = selected.keyId;
-                console.log('Updated data:', selected);
-            } else {
-                console.warn('No matching data found for keyId:', id);
-            }
+            let data = this.morfai_data_list.filter((el => el.keyId === id));
+            this.modalMorFai = data[0]?.modalMorfai
+            this.sizeMorFai = data[0]?.sizeMorfai
+            this.serviceLIFE = data[0]?.serviceLife
+            this.imageMorFai = data[0]?.imageBatery
+            this.keyId = data[0]?.keyId
         },
         async onGetmorfaiList() {
             try {
-                const response = await this.$axios.$post('getBateryAll', {
-                    toKen: localStorage.getItem('toKen'),
-                    keyId: "",
-                });
-                if (response?.status === '00') {
-                    this.morfai_data_list = response.data;
-                    console.log('morfai_data_list:', response.data);
-                } else {
-                    console.error('Error fetching data:', response?.message || 'Unknown error');
-                }
+                await this.$axios.$post('getBateryAll'
+                    , {
+                        toKen: localStorage.getItem('toKen'),
+                        keyId: ""
+                    }
+                ).then((data) => {
+                    if (data?.status == '00') {
+                        this.morfai_data_list = data?.data
+                        this.loading_processing = false
+                        console.log('morfai_data_list:', data);
+                        console.log("cusInfo:", this.morfai_data_list)
+                        let datas = this.morfai_data_list?.filter((el => parseInt(el.id) === parseInt(this.$route?.query?.KeyID)));
+                        console.log("new:", datas)
+                        this.modalMorFai = datas[0]?.modalMorfai
+                        this.sizeMorFai = datas[0]?.sizeMorfai
+                        this.serviceLIFE = datas[0]?.serviceLife
+                        this.imageMorFai = datas[0]?.imageBatery
+                        this.keyIdmorfay = this.$route?.query?.KeyID
+                        // formdata.append(' toKen', localStorage.getItem("toKen"))
+
+                    }
+                })
             } catch (error) {
-                console.error(error);
+                this.loading_processing = false
+                console.log(error)
                 swal.fire({
                     title: 'ແຈ້ງເຕືອນ',
-                    text: 'Error fetching data',
+                    text: error,
                     icon: 'error',
                     allowOutsideClick: false,
                     confirmButtonColor: '#3085d6',
                     confirmButtonText: 'OK',
-                });
+                })
             }
         },
-        // async onGetmorfaiList() {
-        //     try {
-        //         await this.$axios.$post('getBateryAll'
-        //             , {
-        //                 toKen: localStorage.getItem('toKen'),
-        //                 keyId: ""
-        //             }
-        //         ).then((data) => {
-        //             if (data?.status == '00') {
-        //                 this.morfai_data_list = data?.data
-        //                 this.loading_processing = false
-        //                 console.log('morfai_data_list:', data);
-        //                 console.log("cusInfo:", this.morfai_data_list)
-        //                 let datas = this.morfai_data_list?.filter((el => parseInt(el.id) === parseInt(this.$route?.query?.KeyID)));
-        //                 console.log("new:", datas)
-        //                 this.modalMorFai = datas[0]?.modalMorfai
-        //                 this.sizeMorFai = datas[0]?.sizeMorfai
-        //                 this.serviceLIFE = datas[0]?.serviceLife
-        //                 this.imageMorFai = datas[0]?.imageBatery
-        //                 this.keyId = this.$route?.query?.KeyID
-        //             }
-        //         })
-        //     } catch (error) {
-        //         this.loading_processing = false
-        //         console.log(error)
-        //         swal.fire({
-        //             title: 'ແຈ້ງເຕືອນ',
-        //             text: error,
-        //             icon: 'error',
-        //             allowOutsideClick: false,
-        //             confirmButtonColor: '#3085d6',
-        //             confirmButtonText: 'OK',
-        //         })
-        //     }
-        // },
         async ongetData() {
             try {
                 await this.$axios.$post('/listVicicleHeaderByID.service', {
@@ -1372,7 +1345,7 @@ export default {
                 formdata.append('h_VICIVLE_LEKTHUNG', this.h_VICIVLE_LEKTHUNG)
                 formdata.append('h_VICIVLE_GPS', this.h_VICIVLE_GPS)
                 formdata.append('h_VICIVLE_POYPUDNUMFON', this.h_VICIVLE_POYPUDNUMFON)
-                formdata.append('h_VICIVLE_MORFAI', this.keyId)
+          
                 formdata.append('h_VICIVLE_BGTOM', this.h_VICIVLE_BGTOM)
                 formdata.append('h_VICIVLE_JANLARK', this.h_VICIVLE_JANLARK)
                 formdata.append('h_VICIVLE_FAINAR', this.h_VICIVLE_FAINAR)
@@ -1459,6 +1432,7 @@ export default {
                 formdata.append('exCarDate', this.exCarDate)
                 formdata.append('exCarColor', this.exCarColor)
                 formdata.append('exHangMar', this.exHangMar)
+                formdata.append('h_VICIVLE_MORFAI', this.keyId)
                 formdata.append('batNo', this.keyId)
                 formdata.append('imageTruck', this.imageTruckold)
                 formdata.append('his_REASON', this.his_REASON)
@@ -1480,7 +1454,7 @@ export default {
                             icon: 'success',
                             allowOutsideClick: false,
                         })
-                        this.$router.push('/cars_14')
+                        // this.$router.push('/cars_14')
                     } else {
                         this.loading_processing = false
                         swal.fire({

@@ -61,10 +61,10 @@ export default {
     // baseURL: '/api-prod/v1/truck/',
 
     // for up to production 
-    baseURL: 'http://khounkham.com/api-prod/v1/truck'
+    // baseURL: 'http://khounkham.com/api-prod/v1/truck'
 
     // connect by wifi
-    //  baseURL: 'http://192.168.137.1:9988/api-prod/v1/truck'
+     baseURL: 'http://192.168.137.1:9988/api-prod/v1/truck'
 
     //my intelliJ api back-end
     //  baseURL: 'http://localhost:9988/api-prod/v1/truck'

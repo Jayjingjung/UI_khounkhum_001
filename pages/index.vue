@@ -71,13 +71,16 @@ export default {
       const USER_ROLE = localStorage.getItem('USER_ROLE');
       const USER_NAME = localStorage.getItem('USER_NAME');
 
-      if (USER_ROLE === 'FOR_DOCUMENT') {
+      if (USER_ROLE === 'FOR_DOCUMENT'||USER_ROLE === 'HR') {
         this.$router.push('/homepagehr');
       } else if (USER_NAME === 'sisnok' && USER_ROLE === 'FOR_DOCUMENT_ADMIN') {
         this.$router.push('/dashboard');
       } else if (USER_NAME === 'admin-bor-hin-khuad' && USER_ROLE === 'BOR-HIN-KHUAT') {
         this.$router.push('/stone_admin');
       } 
+      else if (USER_NAME === 'NN'||USER_NAME === 'MayleeDtv' ) {
+        this.$router.push('./HR/akasarn');
+      }
       else if (USER_NAME === 'AdminProof' ) {
         this.$router.push('/confirm');
       }

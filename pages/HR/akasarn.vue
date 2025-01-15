@@ -2,6 +2,9 @@
   <div>
     <v-card class="x">
       <div class="button-list">
+       
+
+     
         <v-list v-model="selectedCard">
           <v-btn ref="btn1" value="1" @click="selectedCard = '1'" @mouseover="changeColor('#FFE5FF', $refs.btn1)"
             @mouseleave="changeColor('white', $refs.btn1)" class="button-style">
@@ -28,10 +31,10 @@
             <v-icon color="white">mdi-scan-helper</v-icon>
             <span class="white--text">ບ້ວງ</span>
           </v-btn>
-          <v-btn dark color="#80BFFF" to="/forphon" class="card-shadow mb-2 mt-2" rounded>
+          <!-- <v-btn dark color="#80BFFF" to="/forphon" class="card-shadow mb-2 mt-2" rounded>
             <v-icon color="white">mdi-cellphone-settings</v-icon>
             <span class="white--text">For Phon</span>
-          </v-btn>
+          </v-btn> -->
         </v-row>
       </div>
       <v-row class="mt-5">
@@ -56,7 +59,7 @@
           <v-icon>mdi-</v-icon>ຂາອອກ
         </v-btn>
       </v-row>
-      <v-card style="height: 800px;" class="data-card">
+      <v-card style="height: 750px;" class="data-card">
         <div v-if="selectedCard === '1'">
           <v-card class="card-shadow mb-4" rounded="lg" style="height: 100%;">
             <v-card-title

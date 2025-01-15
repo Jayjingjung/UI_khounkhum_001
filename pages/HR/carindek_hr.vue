@@ -40,7 +40,7 @@
     </div> -->
 
   
-    <v-card style="width:100%;height:800px;overflow-x: auto;">
+    <v-card style="width:100%;height:750px;overflow-x: auto;">
 
       <div v-if="selectedCard === '1'">
         <v-card class="card-shadow mb-4" rounded="lg">

@@ -15,7 +15,7 @@
       <v-row>
         <!-- ລົດບໍລິຫານ -->
         <v-col cols="12" md="3">
-          <div v-if="USER_ROLE === 'USER' || USER_ID === 'ADMIN'">
+          <div v-if="USER_ROLE === 'USER' || USER_ROLE === 'HR' ||USER_ID === 'ADMIN'">
             <v-card to="./HR/carindek_hr" height="100" elevation="2" rounded="lg" width="310px"
               style="border: 1px solid  rgba(191, 0, 0, 0.8);">
               <v-card-text>
@@ -33,7 +33,7 @@
         <!-- ລາຍຮັບ-ລາຍຈ່າຍອື່ນໆ -->
 
         <v-col cols="12" md="3">
-          <div v-if="USER_ROLE === 'USER' || USER_ID === 'ADMIN'">
+          <div v-if="USER_ROLE === 'USER' || USER_ROLE === 'HR' ||USER_ID === 'ADMIN'">
             <v-card to="./HR/itemhr" height="100" elevation="2" rounded="lg" width="310px"
               style="border: 1px solid  rgba(191, 0, 0, 0.8);">
               <v-card-text>
@@ -50,7 +50,7 @@
         </v-col>
 
         <v-col cols="12" md="3">
-          <div v-if="USER_ROLE === 'USER' || USER_ID === 'ADMIN' || USER_NAME === 'mai_ud'">
+          <div v-if="USER_ROLE === 'USER' || USER_ROLE === 'HR' ||USER_ID === 'ADMIN' || USER_NAME === 'mai_ud'">
             <v-card to="./HR/akasarn" height="100" elevation="2" rounded="lg" width="310px"
               style="border: 1px solid  rgba(191, 0, 0, 0.8);">
               <v-card-text>
@@ -67,7 +67,7 @@
         </v-col>
 
         <!-- <v-col cols="12" md="3">
-        <div v-if="USER_ROLE === 'USER' || USER_ID === 'ADMIN'">
+        <div v-if="USER_ROLE === 'USER' || USER_ROLE === 'HR' ||USER_ID === 'ADMIN'">
           <v-card to="/reportbaisner" height="100" elevation="2" rounded="lg" width="310px"
             style="border: 1px solid  rgba(191, 0, 0, 0.8);">
             <v-card-text>
@@ -83,7 +83,7 @@
       </v-col> -->
 
         <!-- <v-col cols="12" md="3">
-        <div v-if="USER_ROLE === 'USER' || USER_ID === 'ADMIN'">
+        <div v-if="USER_ROLE === 'USER' || USER_ROLE === 'HR' ||USER_ID === 'ADMIN'">
           <v-card to="/mining" height="100" elevation="2" rounded="lg" width="310px"
             style="border: 1px solid  rgba(191, 0, 0, 0.8);">
             <v-card-text>
@@ -115,7 +115,7 @@
       </v-col> -->
 
         <v-col cols="12" md="3">
-          <div v-if="USER_ROLE === 'USER' || USER_ID === 'ADMIN'">
+          <div v-if="USER_ROLE === 'USER' || USER_ROLE === 'HR' ||USER_ID === 'ADMIN'">
             <v-card to="/receivedAll" height="100" elevation="2" rounded="lg" width="310px"
               style="border: 1px solid  rgba(191, 0, 0, 0.8);">
               <v-card-text>
@@ -164,7 +164,7 @@
       </v-col> -->
 
         <v-col cols="12" md="3">
-          <div v-if="USER_ROLE === 'USER' || USER_ID === 'ADMIN'">
+          <div v-if="USER_ROLE === 'USER' || USER_ROLE === 'HR' ||USER_ID === 'ADMIN'">
             <v-card to="/ganttshart" height="100" elevation="2" rounded="lg" width="310px"
               style="border: 1px solid  rgba(191, 0, 0, 0.8);">
               <v-card-text>

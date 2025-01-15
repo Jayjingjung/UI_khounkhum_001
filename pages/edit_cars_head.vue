@@ -815,6 +815,11 @@ import swal from 'sweetalert2'
 export default {
     data() {
         return {
+            toBatRowStatus:'',
+            toBatRowGalanty:'',
+            toBatRowtabienLod:'',
+            dateExTungsit_status:'',
+            date_change_lean:'',
             imagePreview: '',
             canRun1: '',
             canRun2: '',
@@ -894,6 +899,7 @@ export default {
             r_TIRE_KM_5: '',
             formattedDate: null,
             r_TIRE_KM_6: '',
+            r_TIRE_KM_7:'',
             ll_TIRE_NO_1: '',
             ll_TIRE_NO_2: '',
             ll_TIRE_NO_5: '',
@@ -928,6 +934,7 @@ export default {
             h_KM10: '',
             h_KM11: '',
             h_KM12: '',
+            h_KM13:'',
             //right last and now
             h_KML_1: '',
             h_KML_2: '',
@@ -941,6 +948,7 @@ export default {
             h_KML_10: '',
             h_KML_11: '',
             h_KML_12: '',
+            h_KML_13: '',
             exHangMar: '',
             //add new
             saiystay: '',
@@ -1480,7 +1488,9 @@ export default {
                             icon: 'success',
                             allowOutsideClick: false,
                         })
-                        this.$router.push('/cars_14')
+                        this.onGetmorfaiList()
+                        this.ongetData()
+                        // this.$router.push('/cars_14')
                     } else {
                         this.loading_processing = false
                         swal.fire({

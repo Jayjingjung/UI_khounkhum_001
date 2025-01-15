@@ -176,7 +176,7 @@ export default {
         // this.onGetbuang();
         const bouang = this.$route.query.bouang;
         const village = this.$route.query.village;
-        if (bouang && village ) {
+        if (bouang && village ) {;
             this.bouang = bouang;
             this.village = village;
             this.listCarOfficeSearch();

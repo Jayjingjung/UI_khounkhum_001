@@ -628,7 +628,7 @@
             </div>
             <div style="background-color:#f2ebeb;height:80px;padding-top:5px;border-radius:5px" class="mt-1 px-2">
               <div style="margin-top: 0px" class="d-flex">
-                <v-text-field :rules="nameRules" rounded dense background-color="#fff" label="* ລະຫັດຢາງລົດ"
+                <v-text-field :rules="nameRules" rounded dense background-color="#fff" label="* 11ລະຫັດຢາງລົດ"
                   v-model="r_TIRE_NO_7"></v-text-field>
 
                 <v-text-field :rules="nameRules" rounded dense background-color="#fff" label="* ວັນທີປ່ຽນຢາງ"

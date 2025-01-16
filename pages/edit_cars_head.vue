@@ -2402,8 +2402,7 @@ export default {
 
     #print {
         position: absolute;
-        top: 0px;
-        right: 0px;
+        top: 0px;   right: 0px;
         left: 0px;
     }
 }

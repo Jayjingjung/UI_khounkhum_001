@@ -1,13 +1,11 @@
 <template>
   <div class="pt-5">
-    <v-card class="x">
-
+    <v-card class="x" color="transparent">
       <v-dialog v-model="loading_processing" persistent width="55">
         <v-card width="55" height="55" class="pt-3 pl-3">
           <v-progress-circular :width="3" color="primary" indeterminate></v-progress-circular>
         </v-card>
       </v-dialog>
-
       <v-card class="card-shadow mx-auto" style="height:100%;overflow-x: auto;">
         <v-card-title style="display:flex;background-color:#E57373;color:white">
           <v-btn fab elevation="0" dark width="30" height="30" small color="white" to="carindek_hr">
@@ -17,19 +15,15 @@
           ແບບຟອມເພີ່ມ ຂໍ້ມູນ ລົດບໍລິຫານ
           <v-spacer></v-spacer>
         </v-card-title>
-
-
         <v-card-text class="pa-8 mx-auto" width="1200" style="border:0px solid #e0e0e0">
           <v-form v-model="valid" lazy-validation ref="form">
             <v-row>
               <height />
-
               <v-col cols="3" align="center" class="mt-4">
                 <v-card class="text-center" max-width="300px">
                   <img :src="imagePreview" height="220px" cover>
                 </v-card>
               </v-col>
-
               <v-col cols="12">
                 <v-row>
                   <v-col cols="3" md="2" sm="2">
@@ -53,38 +47,34 @@
                     <v-text-field label="* ຄວາມຍາວຂອງລົດ" dense outlined background-color="#f5f5f5"
                       v-model="longg"></v-text-field>
                   </v-col>
-
-
                   <v-col cols="3" md="2" sm="2">
-                    <v-text-field label="* ຄວາມສູງ ຂອງລົດ" dense outlined background-color="#f5f5f5"
+                    <v-text-field label="* ຄວາມສູງຂອງລົດ" dense outlined background-color="#f5f5f5"
                       v-model="tall"></v-text-field>
                   </v-col>
                   <v-col cols="3" md="2" sm="2">
-                    <v-text-field label="* ນໍ້າໜັກລົດລວມ" dense outlined background-color="#f5f5f5"
+                    <v-text-field label="* ນໍ້າໜັກລວມ(ລົດ)" dense outlined background-color="#f5f5f5"
                       v-model="total_weigh_car"></v-text-field>
-                  </v-col>
-
-
-                  <v-col cols="3" md="2" sm="2">
-                    <v-menu v-model="licensePlateEndDateMenu" :close-on-content-click="false" :nudge-right="40"
-                      transition="scale-transition" offset-y>
-                      <template v-slot:activator="{ on }">
-                        <v-text-field dense outlined v-model="formattedLicensePlateEndDate" label="ວັນໝົດອາຍຸ ໃບທະບຽນ"
-                          readonly v-on="on"></v-text-field>
-                      </template>
-                      <v-date-picker v-model="license_plate_end" no-title scrollable
-                        @input="updateLicensePlateEndDate"></v-date-picker>
-                    </v-menu>
                   </v-col>
                   <v-col cols="3" md="2" sm="2">
                     <v-menu v-model="licensePlateStartDateMenu" :close-on-content-click="false" :nudge-right="40"
                       transition="scale-transition" offset-y>
                       <template v-slot:activator="{ on }">
-                        <v-text-field dense outlined v-model="formattedLicensePlateStartDate" label="ວັນອອກໃບທະບຽນ"
+                        <v-text-field dense outlined v-model="formattedLicensePlateStartDate" label="ວັນທີ່ອອກໃບທະບຽນ"
                           readonly v-on="on"></v-text-field>
                       </template>
                       <v-date-picker v-model="license_plate_start" no-title scrollable
                         @input="updateLicensePlateStartDate"></v-date-picker>
+                    </v-menu>
+                  </v-col>
+                  <v-col cols="3" md="2" sm="2">
+                    <v-menu v-model="licensePlateEndDateMenu" :close-on-content-click="false" :nudge-right="40"
+                      transition="scale-transition" offset-y>
+                      <template v-slot:activator="{ on }">
+                        <v-text-field dense outlined v-model="formattedLicensePlateEndDate" label="ວັນໝົດອາຍຸໃບທະບຽນ"
+                          readonly v-on="on"></v-text-field>
+                      </template>
+                      <v-date-picker v-model="license_plate_end" no-title scrollable
+                        @input="updateLicensePlateEndDate"></v-date-picker>
                     </v-menu>
                   </v-col>
                   <v-col cols="3" md="2" sm="2">
@@ -100,18 +90,16 @@
                       :items="oilOptions">
                     </v-select>
                   </v-col>
-
-
                   <v-col cols="3" md="2" sm="2">
                     <v-text-field label="* ປ້ອນຍີ່ຫໍ້ລົດ" dense outlined background-color="#f5f5f5"
                       v-model="car_brand"></v-text-field>
                   </v-col>
                   <v-col cols="3" md="2" sm="2">
-                    <v-text-field label="* ເລກຈັກ" dense outlined background-color="#f5f5f5"
+                    <v-text-field label="*ເລກຈັກ" dense outlined background-color="#f5f5f5"
                       v-model="lekJuk"></v-text-field>
                   </v-col>
                   <v-col cols="3" md="2" sm="2">
-                    <v-text-field label="* serial_tire_second" dense outlined background-color="#f5f5f5"
+                    <v-text-field label="* ລະຫັດຢາງລົດສຳຮອງ" dense outlined background-color="#f5f5f5"
                       v-model="serial_tire_second"></v-text-field>
                   </v-col>
                   <v-col cols="3" md="2" sm="2">
@@ -122,8 +110,6 @@
                     <v-text-field label="* ສີລົດ" dense outlined background-color="#f5f5f5"
                       v-model="carColor"></v-text-field>
                   </v-col>
-
-
                   <v-col cols="3" md="2" sm="2">
                     <v-text-field label="* ໄຟໜ້າ" dense outlined background-color="#f5f5f5"
                       v-model="font_light"></v-text-field>
@@ -133,15 +119,15 @@
                       v-model="back_light"></v-text-field>
                   </v-col>
                   <v-col cols="3" md="2" sm="2">
-                    <v-text-field label="* ແວ່ນ ເບີ່ງທາງຫລັງ" dense outlined background-color="#f5f5f5"
+                    <v-text-field label="* ແວ່ນເບີ່ງທາງຫລັງ" dense outlined background-color="#f5f5f5"
                       v-model="millor_back"></v-text-field>
                   </v-col>
                   <v-col cols="3" md="2" sm="2">
-                    <v-text-field label="* ແວ່ນ ເບີ່ງທາງຂ້າງ" dense outlined background-color="#f5f5f5"
+                    <v-text-field label="* ແວ່ນເບີ່ງທາງຂ້າງ" dense outlined background-color="#f5f5f5"
                       v-model="millor_side"></v-text-field>
                   </v-col>
                   <v-col cols="3" md="2" sm="2">
-                    <v-text-field label="* cc ຄວາມແຮງລົດຫົວໜ່ວຍ ເປັນ
+                    <v-text-field label="*CCຄວາມແຮງລົດຫົວໜ່ວຍ
                       " dense outlined background-color="#f5f5f5" v-model="cc"></v-text-field>
                   </v-col>
 
@@ -167,228 +153,205 @@
                       v-model="wide"></v-text-field>
                   </v-col>
                 </v-row>
-
-
               </v-col>
             </v-row>
-            <v-card class="card-shadow mx-auto">
-              <v-card-title style="display:flex;background-color:#E57373;color:white">
-
+            <v-card class="card-shadow mx-auto" color="transparent">
+              <v-card-title class="mb-10" style="display:flex;background-color:#E57373;color:white">
                 <v-spacer></v-spacer>
                 ນໍ້າມັນ ເເລະ ຢາງລົດ
                 <v-spacer></v-spacer>
-
               </v-card-title>
-              <v-row>
-                <v-col cols="3" md="2" sm="2">
-                  <v-text-field label="* ເລກໄມລ໌ປັດຈຸບັນ" dense outlined background-color="#f5f5f5"
-                    v-model="car_mileage_now"></v-text-field>
-                </v-col>
-
-
-                <v-col cols="3" md="2" sm="2">
-                  <v-menu v-model="licensePlateLeanGia" :close-on-content-click="false" :nudge-right="40"
-                    transition="scale-transition" offset-y>
-                    <template v-slot:activator="{ on }">
-                      <v-text-field dense outlined v-model="formattedLLeanGia" label="ລີນເກຍ" readonly
-                        v-on="on"></v-text-field>
-                    </template>
-                    <v-date-picker v-model="leanGia" no-title scrollable
-                      @input="updateLicensePlateLeanGia"></v-date-picker>
-                  </v-menu>
-                </v-col>
-
-
-                <v-col cols="3" md="2" sm="2">
-                  <v-menu v-model="licensePlateLeanFuengThaiy" :close-on-content-click="false" :nudge-right="40"
-                    transition="scale-transition" offset-y>
-                    <template v-slot:activator="{ on }">
-                      <v-text-field dense outlined v-model="leanFuengThaiy" label="ລີນເຟືອງທ້າຍ" readonly
-                        v-on="on"></v-text-field>
-                    </template>
-                    <v-date-picker v-model="leanFuengThaiy" no-title scrollable
-                      @input="updateLicensePlateLeanFuengThaiy"></v-date-picker>
-                  </v-menu>
-                </v-col>
-
-
-                <v-col cols="3" md="2" sm="2">
-                  <v-menu v-model="licensePlateTechnic_check_dateStart" :close-on-content-click="false"
-                    :nudge-right="40" transition="scale-transition" offset-y>
-                    <template v-slot:activator="{ on }">
-                      <v-text-field dense outlined v-model="formattedLTechnic_check_dateStart"
-                        label="ວັນທີ ໃບກວດກາເຕັກນິກລ່າສູດ " readonly v-on="on"></v-text-field>
-                    </template>
-                    <v-date-picker v-model="technic_check_dateStart" no-title scrollable
-                      @input="updateLicensePlateTechnic_check_dateStart"></v-date-picker>
-                  </v-menu>
-                </v-col>
-
-                <v-col cols="3" md="2" sm="2">
-                  <v-menu v-model="licensePlateTechnic_check_dateEnd" :close-on-content-click="false" :nudge-right="40"
-                    transition="scale-transition" offset-y>
-                    <template v-slot:activator="{ on }">
-                      <v-text-field dense outlined v-model="formattedLTechnic_check_dateEnd"
-                        label="ວັນທີ ໃບກວດກາເຕັກນິກ ຄັ້ງຕໍ່ໄປ" readonly v-on="on"></v-text-field>
-                    </template>
-                    <v-date-picker v-model="technic_check_dateEnd" no-title scrollable
-                      @input="updateLicensePlateTechnic_check_dateEnd"></v-date-picker>
-                  </v-menu>
-                </v-col>
-                <v-col cols="3" md="2" sm="2">
-                  <v-text-field label="* ລະຫັດຢາງເບື້ອງຂວາຕີນຫຼັງ" dense outlined background-color="#f5f5f5"
-                    v-model="serial_wheel_right_back"></v-text-field>
-                </v-col>
-
-
-                <v-col cols="3" md="2" sm="2">
-                  <v-text-field label="* ລະຫັດຢາງເບື້ອງຂວາຕີນໜ້າ" dense outlined background-color="#f5f5f5"
-                    v-model="serial_wheel_right_font"></v-text-field>
-                </v-col>
-                <v-col cols="3" md="2" sm="2">
-                  <v-text-field label="* ລະຫັດຢາງເບື້ອງຊາ້ຍຕີນຫຼັງ
-                      " dense outlined background-color="#f5f5f5" v-model="serial_wheel_left_back"></v-text-field>
-                </v-col>
-                <v-col cols="3" md="2" sm="2">
-                  <v-text-field label="* ລະຫັດຢາງເບື້ອງຊາ້ຍຕີນໜ້າ" dense outlined background-color="#f5f5f5"
-                    v-model="serial_wheel_left_font"></v-text-field>
-                </v-col>
-
-                <v-col cols="3" md="2" sm="2">
-                  <v-menu v-model="licensePlateLean" :close-on-content-click="false" :nudge-right="40"
-                    transition="scale-transition" offset-y>
-                    <template v-slot:activator="{ on }">
-                      <v-text-field dense outlined v-model="formattedLLean" label="ນໍ້າມັນເຄື່ອງ" readonly
-                        v-on="on"></v-text-field>
-                    </template>
-                    <v-date-picker v-model="lean" no-title scrollable @input="updateLicensePlateLean"></v-date-picker>
-                  </v-menu>
-                </v-col>
-                <v-col cols="3" md="2" sm="2">
-                  <v-text-field label="* ເລກຕັງຊິດ(ໜັງສືຜ່ານແດນ)" dense outlined background-color="#f5f5f5"
-                    v-model="tungsitnumber"></v-text-field>
-                </v-col>
-                <v-col cols="3" md="2" sm="2">
-                  <v-menu v-model="licensePlatetungsitDateExpire" :close-on-content-click="false" :nudge-right="40"
-                    transition="scale-transition" offset-y>
-                    <template v-slot:activator="{ on }">
-                      <v-text-field dense outlined v-model="formattedLtungsitDateExpire"
-                        label="ວັນໝົດອາຍຸຕັງຊິດ(ໜັງສືຜ່ານແດນ)" readonly v-on="on"></v-text-field>
-                    </template>
-                    <v-date-picker v-model="tungsitDateExpire" no-title scrollable
-                      @input="updateLicensePlatetungsitDateExpire"></v-date-picker>
-                  </v-menu>
-                </v-col>
-                <v-col cols="3" md="2" sm="2">
-                  <v-menu v-model="leanGiaNextdaymodel" :close-on-content-click="false" :nudge-right="40"
-                    transition="scale-transition" offset-y>
-                    <template v-slot:activator="{ on }">
-                      <v-text-field dense outlined v-model="formattedLtungsitDateExpire1"
-                        label="ວັນທີປ່ຽນລີນເກຍຄັ້ງຕໍ່ໄປ" readonly v-on="on"></v-text-field>
-                    </template>
-                    <v-date-picker v-model="leanGiaNextday" no-title scrollable @input="updatelean"></v-date-picker>
-                  </v-menu>
-                </v-col>
-
-                <v-col cols="3" md="2" sm="2">
-                  <v-text-field label="* ວັນທີປຽນເລກໄມລ໌ປັດ ລາສຸດ" dense outlined background-color="#df941b"
-                    v-model="lekmai_next"></v-text-field>
-                </v-col>
-
-                <!-- Date for "ວັນທີ່ປ່ຽນນ້ຳມັນເຄື່ອງ" -->
-                <v-col cols="3" md="2" sm="2">
-                  <v-menu ref="menu" v-model="dateChangeLeeanMenu" :close-on-content-click="false" :nudge-right="40"
-                    transition="scale-transition" offset-y min-width="auto">
-                    <template v-slot:activator="{ on, attrs }">
-                      <v-text-field v-model="dateChangeLeean" label="* ວັນທີ່ປ່ຽນນ້ຳມັນເຄື່ອງ" dense outlined
-                        background-color="#df941b" readonly v-bind="attrs" v-on="on"></v-text-field>
-                    </template>
-                    <v-date-picker v-model="dateChangeLeean" @input="dateChangeLeeanMenu = false"
-                      scrollable></v-date-picker>
-                  </v-menu>
-                </v-col>
-
-                <!-- Date for "ວັນທີປ່ຽນນ້ຳມັນເຄື່ອງຄັ້ງຕໍ່ໄປ" -->
-                <v-col cols="3" md="2" sm="2">
-                  <v-menu ref="menuNext" v-model="dateChangeLeeanNextMenu" :close-on-content-click="false"
-                    :nudge-right="40" transition="scale-transition" offset-y min-width="auto">
-                    <template v-slot:activator="{ on, attrs }">
-                      <v-text-field v-model="dateChangeLeeanNext" label="* ວັນທີປ່ຽນນ້ຳມັນເຄື່ອງຄັ້ງຕໍ່ໄປ" dense
-                        outlined background-color="#df941b" readonly v-bind="attrs" v-on="on"></v-text-field>
-                    </template>
-                    <v-date-picker v-model="dateChangeLeeanNext" @input="dateChangeLeeanNextMenu = false"
-                      scrollable></v-date-picker>
-                  </v-menu>
-                </v-col>
-              </v-row>
-
-
+              <v-card-text>
+                <v-row>
+                  <v-col cols="3" md="2" sm="2">
+                    <v-text-field label="* ເລກໄມລ໌ປັດຈຸບັນ" dense outlined background-color="#f5f5f5"
+                      v-model="car_mileage_now"></v-text-field>
+                  </v-col>
+                  <v-col cols="3" md="2" sm="2">
+                    <v-menu v-model="licensePlateLeanGia" :close-on-content-click="false" :nudge-right="40"
+                      transition="scale-transition" offset-y>
+                      <template v-slot:activator="{ on }">
+                        <v-text-field dense outlined v-model="formattedLLeanGia" label="ລີນເກຍ" readonly
+                          v-on="on"></v-text-field>
+                      </template>
+                      <v-date-picker v-model="leanGia" no-title scrollable
+                        @input="updateLicensePlateLeanGia"></v-date-picker>
+                    </v-menu>
+                  </v-col>
+                  <v-col cols="3" md="2" sm="2">
+                    <v-menu v-model="licensePlateLeanFuengThaiy" :close-on-content-click="false" :nudge-right="40"
+                      transition="scale-transition" offset-y>
+                      <template v-slot:activator="{ on }">
+                        <v-text-field dense outlined v-model="leanFuengThaiy" label="ລີນເຟືອງທ້າຍ" readonly
+                          v-on="on"></v-text-field>
+                      </template>
+                      <v-date-picker v-model="leanFuengThaiy" no-title scrollable
+                        @input="updateLicensePlateLeanFuengThaiy"></v-date-picker>
+                    </v-menu>
+                  </v-col>
+                  <v-col cols="3" md="2" sm="2">
+                    <v-menu v-model="licensePlateTechnic_check_dateStart" :close-on-content-click="false"
+                      :nudge-right="40" transition="scale-transition" offset-y>
+                      <template v-slot:activator="{ on }">
+                        <v-text-field dense outlined v-model="formattedLTechnic_check_dateStart"
+                          label="ວັນທີກວດກາເຕັກນິກລ່າສູດ " readonly v-on="on"></v-text-field>
+                      </template>
+                      <v-date-picker v-model="technic_check_dateStart" no-title scrollable
+                        @input="updateLicensePlateTechnic_check_dateStart"></v-date-picker>
+                    </v-menu>
+                  </v-col>
+                  <v-col cols="3" md="2" sm="2">
+                    <v-menu v-model="licensePlateTechnic_check_dateEnd" :close-on-content-click="false"
+                      :nudge-right="40" transition="scale-transition" offset-y>
+                      <template v-slot:activator="{ on }">
+                        <v-text-field dense outlined v-model="formattedLTechnic_check_dateEnd"
+                          label="ວັນທີກວດກາເຕັກນິກຄັ້ງຕໍ່ໄປ" readonly v-on="on"></v-text-field>
+                      </template>
+                      <v-date-picker v-model="technic_check_dateEnd" no-title scrollable
+                        @input="updateLicensePlateTechnic_check_dateEnd"></v-date-picker>
+                    </v-menu>
+                  </v-col>
+                  <v-col cols="3" md="2" sm="2">
+                    <v-text-field label="* ລະຫັດຢາງເບື້ອງຂວາຕີນຫຼັງ" dense outlined background-color="#f5f5f5"
+                      v-model="serial_wheel_right_back"></v-text-field>
+                  </v-col>
+                  <v-col cols="3" md="2" sm="2">
+                    <v-text-field label="* ລະຫັດຢາງເບື້ອງຂວາຕີນໜ້າ" dense outlined background-color="#f5f5f5"
+                      v-model="serial_wheel_right_font"></v-text-field>
+                  </v-col>
+                  <v-col cols="3" md="2" sm="2">
+                    <v-text-field label="* ລະຫັດຢາງເບື້ອງຊ້າຍຕີນຫຼັງ
+                  " dense outlined background-color="#f5f5f5" v-model="serial_wheel_left_back"></v-text-field>
+                  </v-col>
+                  <v-col cols="3" md="2" sm="2">
+                    <v-text-field label="* ລະຫັດຢາງເບື້ອງຊ້າຍຕີນໜ້າ" dense outlined background-color="#f5f5f5"
+                      v-model="serial_wheel_left_font"></v-text-field>
+                  </v-col>
+                  <v-col cols="3" md="2" sm="2">
+                    <v-menu v-model="licensePlateLean" :close-on-content-click="false" :nudge-right="40"
+                      transition="scale-transition" offset-y>
+                      <template v-slot:activator="{ on }">
+                        <v-text-field dense outlined v-model="formattedLLean" label="ນໍ້າມັນເຄື່ອງ" readonly
+                          v-on="on"></v-text-field>
+                      </template>
+                      <v-date-picker v-model="lean" no-title scrollable @input="updateLicensePlateLean"></v-date-picker>
+                    </v-menu>
+                  </v-col>
+                  <v-col cols="3" md="2" sm="2">
+                    <v-text-field label="* ເລກຕັ້ງສິດ(ໜັງສືຜ່ານແດນ)" dense outlined background-color="#f5f5f5"
+                      v-model="tungsitnumber"></v-text-field>
+                  </v-col>
+                  <v-col cols="3" md="2" sm="2">
+                    <v-menu v-model="licensePlatetungsitDateExpire" :close-on-content-click="false" :nudge-right="40"
+                      transition="scale-transition" offset-y>
+                      <template v-slot:activator="{ on }">
+                        <v-text-field dense outlined v-model="formattedLtungsitDateExpire"
+                          label="ວັນໝົດອາຍຸຕັ້ງສິດ(ໜັງສືຜ່ານແດນ)" readonly v-on="on"></v-text-field>
+                      </template>
+                      <v-date-picker v-model="tungsitDateExpire" no-title scrollable
+                        @input="updateLicensePlatetungsitDateExpire"></v-date-picker>
+                    </v-menu>
+                  </v-col>
+                  <v-col cols="3" md="2" sm="2">
+                    <v-menu v-model="leanGiaNextdaymodel" :close-on-content-click="false" :nudge-right="40"
+                      transition="scale-transition" offset-y>
+                      <template v-slot:activator="{ on }">
+                        <v-text-field dense outlined v-model="formattedLtungsitDateExpire1"
+                          label="ວັນທີປ່ຽນລີນເກຍຄັ້ງຕໍ່ໄປ" readonly v-on="on"></v-text-field>
+                      </template>
+                      <v-date-picker v-model="leanGiaNextday" no-title scrollable @input="updatelean"></v-date-picker>
+                    </v-menu>
+                  </v-col>
+                  <v-col cols="3" md="2" sm="2">
+                    <v-text-field label="* ວັນທີປຽນເລກໄມລ໌ລ່າສຸດ" dense outlined background-color="#df941b"
+                      v-model="lekmai_next"></v-text-field>
+                  </v-col>
+                  <!-- Date for "ວັນທີ່ປ່ຽນນ້ຳມັນເຄື່ອງ" -->
+                  <v-col cols="3" md="2" sm="2">
+                    <v-menu ref="menu" v-model="dateChangeLeeanMenu" :close-on-content-click="false" :nudge-right="40"
+                      transition="scale-transition" offset-y min-width="auto">
+                      <template v-slot:activator="{ on, attrs }">
+                        <v-text-field v-model="dateChangeLeean" label="*ວັນທີ່ປ່ຽນນ້ຳມັນເຄື່ອງ" dense outlined
+                          background-color="#df941b" readonly v-bind="attrs" v-on="on"></v-text-field>
+                      </template>
+                      <v-date-picker v-model="dateChangeLeean" @input="dateChangeLeeanMenu = false"
+                        scrollable></v-date-picker>
+                    </v-menu>
+                  </v-col>
+                  <!-- Date for "ວັນທີປ່ຽນນ້ຳມັນເຄື່ອງຄັ້ງຕໍ່ໄປ" -->
+                  <v-col cols="3" md="2" sm="2">
+                    <v-menu ref="menuNext" v-model="dateChangeLeeanNextMenu" :close-on-content-click="false"
+                      :nudge-right="40" transition="scale-transition" offset-y min-width="auto">
+                      <template v-slot:activator="{ on, attrs }">
+                        <v-text-field v-model="dateChangeLeeanNext" label="*ວັນທີປ່ຽນນ້ຳມັນເຄື່ອງຄັ້ງຕໍ່ໄປ" dense
+                          outlined background-color="#df941b" readonly v-bind="attrs" v-on="on"></v-text-field>
+                      </template>
+                      <v-date-picker v-model="dateChangeLeeanNext" @input="dateChangeLeeanNextMenu = false"
+                        scrollable></v-date-picker>
+                    </v-menu>
+                  </v-col>
+                </v-row>
+              </v-card-text>
             </v-card>
-            <v-card class="card-shadow mx-auto">
-              <v-card-title style="display:flex;background-color:#E57373;color:white">
-
+            <v-card class="card-shadow mx-auto" color="transparent">
+              <v-card-title class="mb-10" style="display:flex;background-color:#E57373;color:white">
                 <v-spacer></v-spacer>
                 ປະກັນໄພ
                 <v-spacer></v-spacer>
-
               </v-card-title>
-              <v-row>
-                <v-col cols="3" md="2" sm="2">
-                  <v-text-field label="* ເລກປະກັນໄພລາວ" dense outlined background-color="#f5f5f5"
-                    v-model="insurance_Lao"></v-text-field>
-                </v-col>
-                <v-col cols="3" md="2" sm="2">
-                  <v-text-field label="* ເລກປະກັນໄພຫວຽດ" dense outlined background-color="#f5f5f5"
-                    v-model="insurance_viet"></v-text-field>
-                </v-col>
-                <v-col cols="3" md="2" sm="2">
-                  <v-text-field label="* ເລກປະກັນໄພໄທ" dense outlined background-color="#f5f5f5"
-                    v-model="insurance_thai"></v-text-field>
-                </v-col>
-
-
-                <v-col cols="3" md="2" sm="2">
-                  <v-menu v-model="licensePlateInsurance_Lao_expireDate" :close-on-content-click="false"
-                    :nudge-right="40" transition="scale-transition" offset-y>
-                    <template v-slot:activator="{ on }">
-                      <v-text-field dense outlined v-model="formattedLicensePlateInsurance_Lao_expireDate"
-                        label="ວັນໝົດອາຍຸ ປະກັນໄພລາວ " readonly v-on="on"></v-text-field>
-                    </template>
-                    <v-date-picker v-model="insurance_Lao_expireDate" no-title scrollable
-                      @input="updateLicensePlateInsurance_Lao_expireDate"></v-date-picker>
-                  </v-menu>
-                </v-col>
-
-                <v-col cols="3" md="2" sm="2">
-                  <v-menu v-model="licensePlateInsurance_viet_expireDate" :close-on-content-click="false"
-                    :nudge-right="40" transition="scale-transition" offset-y>
-                    <template v-slot:activator="{ on }">
-                      <v-text-field dense outlined v-model="formattedLicensePlateInsurance_viet_expireDate"
-                        label="ວັນໝົດອາຍຸ ປະກັນໄພຫວຽດ" readonly v-on="on"></v-text-field>
-                    </template>
-                    <v-date-picker v-model="insurance_viet_expireDate" no-title scrollable
-                      @input="updateLicensePlateInsurance_viet_expireDate"></v-date-picker>
-                  </v-menu>
-                </v-col>
-
-
-                <v-col cols="3" md="2" sm="2">
-                  <v-menu v-model="licensePlateInsurance_thai_expireDate" :close-on-content-click="false"
-                    :nudge-right="40" transition="scale-transition" offset-y>
-                    <template v-slot:activator="{ on }">
-                      <v-text-field dense outlined v-model="formattedLicensePlateInsurance_thai_expireDate"
-                        label=" ວັນໝົດອາຍຸ ປະກັນໄພໄທ " readonly v-on="on"></v-text-field>
-                    </template>
-                    <v-date-picker v-model="insurance_thai_expireDate" no-title scrollable
-                      @input="updateLicensePlateInsurance_thai_expireDate"></v-date-picker>
-                  </v-menu>
-                </v-col>
-
-              </v-row>
-              <v-row justify="end">
-                <v-btn class="mr-4" width="130" color="success" @click="onInserEmpInfo">ບັນທຶກ</v-btn>
-              </v-row>
-
+              <v-card-text>
+                <v-row>
+                  <v-col cols="3" md="2" sm="2">
+                    <v-text-field label="* ເລກປະກັນໄພລາວ" dense outlined background-color="#f5f5f5"
+                      v-model="insurance_Lao"></v-text-field>
+                  </v-col>
+                  <v-col cols="3" md="2" sm="2">
+                    <v-text-field label="* ເລກປະກັນໄພຫວຽດ" dense outlined background-color="#f5f5f5"
+                      v-model="insurance_viet"></v-text-field>
+                  </v-col>
+                  <v-col cols="3" md="2" sm="2">
+                    <v-text-field label="* ເລກປະກັນໄພໄທ" dense outlined background-color="#f5f5f5"
+                      v-model="insurance_thai"></v-text-field>
+                  </v-col>
+                  <v-col cols="3" md="2" sm="2">
+                    <v-menu v-model="licensePlateInsurance_Lao_expireDate" :close-on-content-click="false"
+                      :nudge-right="40" transition="scale-transition" offset-y>
+                      <template v-slot:activator="{ on }">
+                        <v-text-field dense outlined v-model="formattedLicensePlateInsurance_Lao_expireDate"
+                          label="ວັນໝົດອາຍຸປະກັນໄພ(ລາວ) " readonly v-on="on"></v-text-field>
+                      </template>
+                      <v-date-picker v-model="insurance_Lao_expireDate" no-title scrollable
+                        @input="updateLicensePlateInsurance_Lao_expireDate"></v-date-picker>
+                    </v-menu>
+                  </v-col>
+                  <v-col cols="3" md="2" sm="2">
+                    <v-menu v-model="licensePlateInsurance_viet_expireDate" :close-on-content-click="false"
+                      :nudge-right="40" transition="scale-transition" offset-y>
+                      <template v-slot:activator="{ on }">
+                        <v-text-field dense outlined v-model="formattedLicensePlateInsurance_viet_expireDate"
+                          label="ວັນໝົດອາຍຸປະກັນໄພ(ຫວຽດ)" readonly v-on="on"></v-text-field>
+                      </template>
+                      <v-date-picker v-model="insurance_viet_expireDate" no-title scrollable
+                        @input="updateLicensePlateInsurance_viet_expireDate"></v-date-picker>
+                    </v-menu>
+                  </v-col>
+                  <v-col cols="3" md="2" sm="2">
+                    <v-menu v-model="licensePlateInsurance_thai_expireDate" :close-on-content-click="false"
+                      :nudge-right="40" transition="scale-transition" offset-y>
+                      <template v-slot:activator="{ on }">
+                        <v-text-field dense outlined v-model="formattedLicensePlateInsurance_thai_expireDate"
+                          label=" ວັນໝົດອາຍຸປະກັນໄພ(ໄທ) " readonly v-on="on"></v-text-field>
+                      </template>
+                      <v-date-picker v-model="insurance_thai_expireDate" no-title scrollable
+                        @input="updateLicensePlateInsurance_thai_expireDate"></v-date-picker>
+                    </v-menu>
+                  </v-col>
+                </v-row>
+                <v-row justify="end" class="ma-6">
+                  <v-btn style="font-size: 18px; font-weight: bold;" class="mr-4" width="130" color="success"
+                    @click="onInserEmpInfo">ບັນທຶກ</v-btn>
+                </v-row>
+              </v-card-text>
             </v-card>
           </v-form>
         </v-card-text>
@@ -427,7 +390,6 @@ export default {
       car_mileage_now: null,
       cc: null,
       licensePlateLeanFuengThaiy: false,
-
       LicenseLean: '',
       daoOptions: ["ຍັງດາວຢູ່", "ລົດທີ່ບໍ່ດາວ"],
       steering_wheelOptions: ["ພວງມະໄລຊ້າຍ", "ພວງມະໄລຂວາ"],
@@ -436,7 +398,6 @@ export default {
       insurance_thai: '0',
       insurance_viet: '0',
       insurance_viet_expireDate: null,
-
       insurance_thai_expireDate: null,
       insurance_Lao_expireDate: null,
       technic_check_dateStart: null,
@@ -449,8 +410,6 @@ export default {
       steering_wheel: null,
       dao: null,
       wide: null,
-
-
       longg: null,
       tall: null,
       sitPosition_amount: null,
@@ -466,10 +425,8 @@ export default {
       em_userId: null,
       loading_processing: false,
       //message empty
-
       valid: true,
       nameRules: [(v) => !!v || 'ຕ້ອງປ້ອນຂໍ້ມູນ'],
-
       formattedLicensePlateInsurance_Lao_expireDate: '',
       formattedLicensePlateInsurance_viet_expireDate: '',
       formattedLicensePlateInsurance_thai_expireDate: '',
@@ -488,8 +445,6 @@ export default {
       formattedLicensePlateEndDate: '',
       formattedLicensePlateStartDate: '',
       formattedLLean: '',
-
-
       tungsitDateExpire: '',
       leanGiaNextday: '',
       tungsitnumber: '',
@@ -497,7 +452,6 @@ export default {
       dateChangeLeeanNext: '',          // v-model for dateChangeLeeanNext
       dateChangeLeeanMenu: false,       // Menu toggle for dateChangeLeean
       dateChangeLeeanNextMenu: false,   // Menu toggle for dateChangeLeeanNext
-
     }
   },
   methods: {
@@ -533,7 +487,6 @@ export default {
       this.formattedLicensePlateStartDate = val
       this.licensePlateStartDateMenu = false
     },
-
     updateLicensePlateInsurance_Lao_expireDate(val) {
       this.formattedLicensePlateInsurance_Lao_expireDate = val
       this.licensePlateInsurance_Lao_expireDate = false
@@ -636,11 +589,6 @@ export default {
           }).then(() => {
             this.$router.push({ path: '/HR/carindek_hr' });
           });
-          // if (typeof this.onClearData === 'function') {
-          //   this.onClearData();
-          // } else {
-          //   console.error("onClearData is not a function");
-          // }
         } else {
           this.loading_processing = false;
           swal.fire({
@@ -665,10 +613,6 @@ export default {
       }
       // window.location.reload();
 
-    },
-    onClearData() {
-      console.log("Clearing data...");
-      // Define your method to clear data here
     },
   },
 }

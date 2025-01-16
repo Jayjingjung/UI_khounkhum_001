@@ -558,6 +558,5 @@ export default {
     right: 0px;
     left: 0px;
   }
-
 }
 </style>

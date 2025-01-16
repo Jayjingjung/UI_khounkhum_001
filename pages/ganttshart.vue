@@ -1,11 +1,14 @@
 <template>
   <div>
     <v-card class="fullscreen-map">
+      <v-btn  style="background-color: #f44336;width: 100px;display: flex;margin-left: 10px;margin-top: 10px;" rounded to="/" text>
+        <v-icon color="white">mdi-power</v-icon>
+      </v-btn>
       <v-card-text>
         <div>
           <div style="display: flex; justify-self: center; margin-bottom: 40px;">
             <h3>
-              ແຜນວຽກປະຈຳ ຂອງຝ່າຍ ໄອທີ IT
+              ແຜນວຽກປະຈຳ ຂອງຝ່າຍ {{department}}
               (ວັນທີ {{ formattedStartDate }} - {{ formattedEndDate }})
             </h3>
           </div>
@@ -32,18 +35,19 @@
             <v-date-picker v-model="endDate" no-title scrollable @input="updateEndDate" />
           </v-menu>
         </div>
-    
-          <div id="gantt-container">
-            <div id="gantt-chart" style="width: 100%; height: 700px;"></div>
-          </div>
-    
+
+        <div id="gantt-container">
+          <div id="gantt-chart" style="width: 100%; height: 700px;"></div>
+        </div>
+
       </v-card-text>
       <v-card-text style="width: 400px; height: 950px;overflow-x: auto;">
         <v-simple-table>
           <thead>
-            <tr  >
-              <th style="font-size: 18px;">Task Name</th>
-              <th style="font-size: 18px;">Progress</th>
+            <tr>
+              <th style="font-size: 14px;">Task Name</th>
+              <th style="font-size: 14px;">Progress</th>
+              <th style="font-size: 14px;">Datal</th>
             </tr>
           </thead>
           <tbody>
@@ -54,6 +58,13 @@
                   {{ Math.round(task.progress * 100) }}%
                 </v-progress-linear>
               </td>
+              <td>
+                <v-btn 
+                  @click="deleteTask(task.id)">
+                  <v-icon >mdi-delete</v-icon>
+                </v-btn>
+              </td>
+
             </tr>
           </tbody>
         </v-simple-table>
@@ -65,7 +76,7 @@
 <script>
 import "dhtmlx-gantt/codebase/dhtmlxgantt.css";
 import gantt from "dhtmlx-gantt";
-
+import swal from 'sweetalert2'
 export default {
   name: "GanttChart",
   data() {
@@ -95,8 +106,8 @@ export default {
       { unit: "month", step: 1, format: "%F %Y" },
       { unit: "day", step: 1, format: "%j %D" },
     ];
-    gantt.config.row_height = 55;
-    gantt.config.bar_height = 50;
+    gantt.config.row_height = 30;
+    gantt.config.bar_height = 25;
 
     gantt.attachEvent("onTemplatesReady", () => {
       const css = `
@@ -175,9 +186,6 @@ export default {
             toKen: localStorage.getItem("toKen"),
           }
         );
-
-
-
         this.tasks.links = response.data.map((link) => ({
           id: link.id,
           source: link.source,
@@ -269,6 +277,8 @@ export default {
         console.error("Error deleting task:", error.message);
         gantt.message({ type: "error", text: "Failed to delete task" });
       }
+      this.fetchTasks();
+
     },
     async deleteLink(id) {
       try {

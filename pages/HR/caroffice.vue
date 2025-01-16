@@ -144,7 +144,7 @@
                     <v-text-field label="* cc ຄວາມແຮງລົດຫົວໜ່ວຍ ເປັນ
                       " dense outlined background-color="#f5f5f5" v-model="cc"></v-text-field>
                   </v-col>
-              
+
                   <v-col cols="3" md="2" sm="2">
                     <v-text-field label="* ລຸ້ນ ຫຼີ ໂມເດວ" dense outlined background-color="#f5f5f5"
                       v-model="car_model"></v-text-field>
@@ -203,7 +203,7 @@
                   <v-menu v-model="licensePlateLeanFuengThaiy" :close-on-content-click="false" :nudge-right="40"
                     transition="scale-transition" offset-y>
                     <template v-slot:activator="{ on }">
-                      <v-text-field dense outlined v-model="leanFuengThaiy" label="leanFuengThaiy" readonly
+                      <v-text-field dense outlined v-model="leanFuengThaiy" label="ລີນເຟືອງທ້າຍ" readonly
                         v-on="on"></v-text-field>
                     </template>
                     <v-date-picker v-model="leanFuengThaiy" no-title scrollable
@@ -239,7 +239,7 @@
                   <v-text-field label="* ລະຫັດຢາງເບື້ອງຂວາຕີນຫຼັງ" dense outlined background-color="#f5f5f5"
                     v-model="serial_wheel_right_back"></v-text-field>
                 </v-col>
-           
+
 
                 <v-col cols="3" md="2" sm="2">
                   <v-text-field label="* ລະຫັດຢາງເບື້ອງຂວາຕີນໜ້າ" dense outlined background-color="#f5f5f5"
@@ -279,10 +279,20 @@
                       @input="updateLicensePlatetungsitDateExpire"></v-date-picker>
                   </v-menu>
                 </v-col>
+                <v-col cols="3" md="2" sm="2">
+                  <v-menu v-model="leanGiaNextdaymodel" :close-on-content-click="false" :nudge-right="40"
+                    transition="scale-transition" offset-y>
+                    <template v-slot:activator="{ on }">
+                      <v-text-field dense outlined v-model="formattedLtungsitDateExpire1"
+                        label="ວັນທີປ່ຽນລີນເກຍຄັ້ງຕໍ່ໄປ" readonly v-on="on"></v-text-field>
+                    </template>
+                    <v-date-picker v-model="leanGiaNextday" no-title scrollable @input="updatelean"></v-date-picker>
+                  </v-menu>
+                </v-col>
 
                 <v-col cols="3" md="2" sm="2">
-                  <v-text-field label="* ວັນທີປຽນເລກໄມລ໌ປັດ ລາສຸດ" dense outlined
-                    background-color="#df941b" v-model="lekmai_next"></v-text-field>
+                  <v-text-field label="* ວັນທີປຽນເລກໄມລ໌ປັດ ລາສຸດ" dense outlined background-color="#df941b"
+                    v-model="lekmai_next"></v-text-field>
                 </v-col>
 
                 <!-- Date for "ວັນທີ່ປ່ຽນນ້ຳມັນເຄື່ອງ" -->
@@ -312,7 +322,7 @@
                 </v-col>
               </v-row>
 
-          
+
             </v-card>
             <v-card class="card-shadow mx-auto">
               <v-card-title style="display:flex;background-color:#E57373;color:white">
@@ -376,8 +386,8 @@
 
               </v-row>
               <v-row justify="end">
-              <v-btn class="mr-4" width="130" color="success" @click="onInserEmpInfo">ບັນທຶກ</v-btn>
-            </v-row>
+                <v-btn class="mr-4" width="130" color="success" @click="onInserEmpInfo">ບັນທຶກ</v-btn>
+              </v-row>
 
             </v-card>
           </v-form>
@@ -395,7 +405,9 @@ export default {
       image: null,
       imagePreview: '',
       licensePlatetungsitDateExpire: '',
+      leanGiaNextdaymodel: '',
       formattedLtungsitDateExpire: '',
+      formattedLtungsitDateExpire1: '',
       lekmai_next: '',
       license_plate: null,
       battery_code_name: null,
@@ -479,6 +491,7 @@ export default {
 
 
       tungsitDateExpire: '',
+      leanGiaNextday: '',
       tungsitnumber: '',
       dateChangeLeean: '',              // v-model for dateChangeLeean
       dateChangeLeeanNext: '',          // v-model for dateChangeLeeanNext
@@ -512,6 +525,10 @@ export default {
       this.formattedLtungsitDateExpire = val
       this.licensePlatetungsitDateExpire = false
     },
+    updatelean(val) {
+      this.formattedLtungsitDateExpire1 = val
+      this.leanGiaNextdaymodel = false
+    },
     updateLicensePlateStartDate(val) {
       this.formattedLicensePlateStartDate = val
       this.licensePlateStartDateMenu = false
@@ -541,10 +558,6 @@ export default {
       this.formattedLLeanGia = val
       this.licensePlateLeanGia = false
     },
-    updateLicensePlateLeanGia(val) {
-      this.leanFuengThaiy = val
-      this.licensePlateLeanGia = false
-    },
     updateLicensePlateLeanFuengThaiy(val) {
       this.leanFuengThaiy = val;
       this.licensePlateLeanFuengThaiy = false;
@@ -556,10 +569,7 @@ export default {
       } else {
         this.url = null
       }
-
     },
-
-
     async onInserEmpInfo() {
       if (!this.$refs.form.validate()) return null
       try {
@@ -610,22 +620,10 @@ export default {
         formdata.append('serial_wheel_left_back', this.serial_wheel_left_back)
         formdata.append('serial_wheel_right_font', this.serial_wheel_right_font)
         formdata.append('serial_wheel_right_back', this.serial_wheel_right_back)
-
-
         formdata.append('lean', this.lean ? this.lean : "2030-03-03")
         formdata.append('tungsitnumber', this.tungsitnumber)
         formdata.append('tungsitDateExpire', this.tungsitDateExpire ? this.tungsitDateExpire : "2030-03-03")
-
-
-        formdata.append('serial_tire_second', this.serial_tire_second)
-        formdata.append('lekmai_next', this.lekmai_next)
-        formdata.append('date_change_lean', this.date_change_lean)
-        formdata.append('date_change_lean_next', this.date_change_lean_next)
-        formdata.append('leanGiaNextday', this.leanGiaNextday)
-
-
-
-
+        formdata.append('leanGiaNextday', this.leanGiaNextday ? this.leanGiaNextday : "2030-03-03")
         this.loading_processing = true
         const data = await this.$axios.$post('http://khounkham.com/api-prod/v1/truck/insertCarOffice.service', formdata);
         console.log("Response:", data);
@@ -635,12 +633,14 @@ export default {
             title: 'ສຳເລັດ',
             icon: 'success',
             allowOutsideClick: false,
+          }).then(() => {
+            this.$router.push({ path: '/HR/carindek_hr' });
           });
-          if (typeof this.onClearData === 'function') {
-            this.onClearData();
-          } else {
-            console.error("onClearData is not a function");
-          }
+          // if (typeof this.onClearData === 'function') {
+          //   this.onClearData();
+          // } else {
+          //   console.error("onClearData is not a function");
+          // }
         } else {
           this.loading_processing = false;
           swal.fire({

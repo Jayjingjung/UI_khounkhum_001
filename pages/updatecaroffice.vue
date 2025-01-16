@@ -1,10 +1,5 @@
 <template>
   <div>
-
-    <!-- File Input for Image -->
-
-
-
     <v-col align="center" class="mt-4">
       <v-card class="text-center" max-width="500px">
         <!-- Display img only if available -->
@@ -18,15 +13,9 @@
           mdi-bell-alert
         </v-icon>
       </v-col>
-
     </v-col>
-
-
-
     <!-- License Plate -->
     <div style="display: flex;">
-
-
       <v-card class="card-shadow mx-auto" width="50%">
         <v-card-title style="display:flex;background-color:#E57373;color:white">
 
@@ -45,7 +34,6 @@
               <v-text-field style="width: 180px;" label="* ປ້າຍທະບຽນລົດ" dense outlined background-color="#f5f5f5"
                 v-model="license_plate"></v-text-field>
             </v-col>
-
             <v-col cols="6" md="3" sm="3">
               <v-text-field style="width: 180px;" label="* ປ້ອນລົດປີ" dense outlined background-color="#f5f5f5"
                 v-model="car_year"></v-text-field>
@@ -257,16 +245,10 @@
               </v-menu>
             </v-col> -->
             <v-col>
-          <v-text-field
-            dense
-            outlined
-            type="date"
-            style="width: 180px;"
-            v-model="insurance_thai_expireDate"
-            label="ວັນໝົດອາຍຸ ປະກັນໄພໄທ"
-            :style="{ backgroundColor: technicCheckDateColor_insurance_thai_expireDate }"
-          ></v-text-field>
-        </v-col>
+              <v-text-field dense outlined type="date" style="width: 180px;" v-model="insurance_thai_expireDate"
+                label="ວັນໝົດອາຍຸ ປະກັນໄພໄທ"
+                :style="{ backgroundColor: technicCheckDateColor_insurance_thai_expireDate }"></v-text-field>
+            </v-col>
             <v-col>
               <v-text-field style="width: 180px;" label="* ເລກປະກັນໄພໄທ" dense outlined background-color="#f5f5f5"
                 v-model="insurance_thai"></v-text-field>
@@ -313,15 +295,9 @@
             </v-col> -->
 
             <v-col>
-          <v-text-field
-            dense
-            outlined
-            type="date"
-            style="width: 180px;"
-            v-model="dateChangeLeean"
-            label="* ວັນທີ່ປ່ຽນນ້ຳມັນເຄື່ອງ"
-          ></v-text-field>
-        </v-col>
+              <v-text-field dense outlined type="date" style="width: 180px;" v-model="dateChangeLeean"
+                label="* ວັນທີ່ປ່ຽນນ້ຳມັນເຄື່ອງ"></v-text-field>
+            </v-col>
 
             <!-- <v-col>
               <v-menu v-model="menu2" :close-on-content-click="false" transition="scale-transition" offset-y
@@ -336,20 +312,10 @@
             </v-col> -->
 
             <v-col>
-          <v-text-field
-            dense
-            outlined
-            type="date"
-            style="width: 180px;"
-            v-model="dateChangeLeeanNext"
-            label="* ວັນທີປ່ຽນນ້ຳມັນເຄື່ອງຄັ້ງຕໍ່ໄປ"
-            :style="{ backgroundColor: dateChangeppoilNext }"
-          ></v-text-field>
-        </v-col>
-
-
-
-
+              <v-text-field dense outlined type="date" style="width: 180px;" v-model="dateChangeLeeanNext"
+                label="* ວັນທີປ່ຽນນ້ຳມັນເຄື່ອງຄັ້ງຕໍ່ໄປ"
+                :style="{ backgroundColor: dateChangeppoilNext }"></v-text-field>
+            </v-col>
             <!-- <v-col>
               <v-menu v-model="licensePlateLeanGia" :close-on-content-click="false" :nudge-right="40"
                 transition="scale-transition" offset-y>
@@ -360,32 +326,14 @@
                 <v-date-picker v-model="leanGia" no-title scrollable @input="updateLicensePlateLeanGia"></v-date-picker>
               </v-menu>
             </v-col> -->
-
             <v-col>
-          <v-text-field
-            dense
-            outlined
-            type="date"
-            style="width: 180px;"
-            v-model="leanGia"
-            label="ລີນເກຍ"
-            :style="{ backgroundColor: technicCheckDateColor_leanGia }"
-          ></v-text-field>
-        </v-col>
-
-
-        <v-col>
-          <v-text-field
-            dense
-            outlined
-            type="date"
-            style="width: 180px;"
-            v-model="leanGiaNextday"
-            label="ວັນທີປ່ຽນລີນເກຍຄັ້ງຕໍ່ໄປ"
-         
-          ></v-text-field>
-        </v-col>
-        
+              <v-text-field dense outlined type="date" style="width: 180px;" v-model="leanGia" label="ລີນເກຍ"
+                :style="{ backgroundColor: technicCheckDateColor_leanGia }"></v-text-field>
+            </v-col>
+            <v-col>
+              <v-text-field dense outlined type="date" style="width: 180px;" v-model="leanGiaNextday"
+                label="ວັນທີປ່ຽນລີນເກຍຄັ້ງຕໍ່ໄປ" :style="{ backgroundColor: technicCheckDateColor_leanGiaNextday }"></v-text-field>
+            </v-col>
             <!-- <v-col>
               <v-menu v-model="licensePlateTechnic_check_dateStart" :close-on-content-click="false" :nudge-right="40"
                 transition="scale-transition" offset-y>
@@ -399,15 +347,9 @@
             </v-col> -->
 
             <v-col>
-          <v-text-field
-            dense
-            outlined
-            type="date"
-            style="width: 180px;"
-            v-model="technic_check_dateStart"
-            label="ວັນທີ ໃບກວດກາເຕັກນິກລ່າສູດ"
-          ></v-text-field>
-        </v-col>
+              <v-text-field dense outlined type="date" style="width: 180px;" v-model="technic_check_dateStart"
+                label="ວັນທີ ໃບກວດກາເຕັກນິກລ່າສູດ"></v-text-field>
+            </v-col>
 
             <!-- <v-col>
               <v-menu v-model="licensePlateTechnic_check_dateEnd" :close-on-content-click="false" :nudge-right="40"
@@ -425,16 +367,10 @@
             </v-col> -->
 
             <v-col>
-          <v-text-field
-            dense
-            outlined
-            type="date"
-            style="width: 180px;"
-            v-model="technic_check_dateEnd"
-            label="ວັນທີ ໃບກວດກາເຕັກນິກ ຄັ້ງຕໍ່ໄປ"
-            :style="{ backgroundColor: technicCheckDateColor }"
-          ></v-text-field>
-        </v-col>
+              <v-text-field dense outlined type="date" style="width: 180px;" v-model="technic_check_dateEnd"
+                label="ວັນທີ ໃບກວດກາເຕັກນິກ ຄັ້ງຕໍ່ໄປ"
+                :style="{ backgroundColor: technicCheckDateColor }"></v-text-field>
+            </v-col>
 
 
             <!-- <v-col>
@@ -452,16 +388,10 @@
             </v-col> -->
 
             <v-col>
-          <v-text-field
-            dense
-            outlined
-            type="date"
-            style="width: 180px;"
-            v-model="tungsitDateExpire"
-            label="ວັນໝົດອາຍຸຕັງຊິດ(ໜັງສືຜ່ານແດນ)"
-            :style="{ backgroundColor: technicCheckDateColor_tungsitDateExpire }"
-          ></v-text-field>
-        </v-col>
+              <v-text-field dense outlined type="date" style="width: 180px;" v-model="tungsitDateExpire"
+                label="ວັນໝົດອາຍຸຕັງຊິດ(ໜັງສືຜ່ານແດນ)"
+                :style="{ backgroundColor: technicCheckDateColor_tungsitDateExpire }"></v-text-field>
+            </v-col>
 
             <!-- <v-col>
 
@@ -478,16 +408,10 @@
             </v-col> -->
 
             <v-col>
-          <v-text-field
-            dense
-            outlined
-            type="date"
-            style="width: 180px;"
-            v-model="leanFuengThaiy"
-            label="ນໍ້າມັນລີນເກຍຫລັງ"
-            :style="{ backgroundColor: technicCheckDateColor_leanFuengThaiy }"
-          ></v-text-field>
-        </v-col>
+              <v-text-field dense outlined type="date" style="width: 180px;" v-model="leanFuengThaiy"
+                label="ນໍ້າມັນລີນເກຍຫລັງ"
+                :style="{ backgroundColor: technicCheckDateColor_leanFuengThaiy }"></v-text-field>
+            </v-col>
 
           </v-row>
         </v-col>
@@ -539,7 +463,8 @@
 
           </v-row>
 
-          <v-btn class="mr-4" width="130" style="background-color: gray;color: aliceblue;" @click="update">ບັນທຶກ</v-btn>
+          <v-btn class="mr-4" width="130" style="background-color: gray;color: aliceblue;"
+            @click="update">ບັນທຶກ</v-btn>
 
           <!-- <v-row>
                 <v-col>
@@ -852,6 +777,20 @@ export default {
       const oneMonthLater = new Date(currentDate);
       oneMonthLater.setMonth(currentDate.getMonth() + 1);
 
+      if (currentDate > checkDate) {
+        return 'red';
+      } else if (oneMonthLater > checkDate) {
+        return 'red';
+      } else {
+        return 'white';
+      }
+    },
+    technicCheckDateColor_leanGiaNextday() {
+      if (!this.leanGiaNextday) return 'white';
+      const currentDate = new Date();
+      const checkDate = new Date(this.leanGiaNextday);
+      const oneMonthLater = new Date(currentDate);
+      oneMonthLater.setMonth(currentDate.getMonth() + 1);
       if (currentDate > checkDate) {
         return 'red';
       } else if (oneMonthLater > checkDate) {
@@ -1335,7 +1274,7 @@ export default {
         // Reset loading state
         this.loading_processing = false;
       }
-                    window.location.reload();
+      window.location.reload();
 
     }
     ,

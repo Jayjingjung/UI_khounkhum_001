@@ -14,10 +14,12 @@
                 <v-spacer></v-spacer>
                 ອັບເດດຂໍ້ມູນຫົວລົດ
                 <v-spacer></v-spacer>
-                <v-row justify="center">
+                <<<<<<< HEAD <v-row justify="center">
                     <v-btn color="#f593b3" class="white--text"
                         @click="print"><v-icon>mdi-printer</v-icon>ພິມລາຍງານທັງໝົດ</v-btn>
-                </v-row>
+                    </v-row>
+                    =======
+                    >>>>>>> 0eb480ddb689263ca6d5c69a6d8de1ffd90fb714
             </v-card-title>
             <v-form v-model="valid" ref="form" lazy-validation>
                 <!-- ຂໍ້ມູນຫົວລົດ================== -->
@@ -1615,6 +1617,9 @@
         <Height />
 
 
+
+        <Height />
+
     </div>
 </template>
 
@@ -1623,6 +1628,11 @@ import swal from 'sweetalert2'
 export default {
     data() {
         return {
+            toBatRowStatus: '',
+            toBatRowGalanty: '',
+            toBatRowtabienLod: '',
+            dateExTungsit_status: '',
+            date_change_lean: '',
             toBatRowStatus: '',
             toBatRowGalanty: '',
             toBatRowtabienLod: '',
@@ -1708,6 +1718,7 @@ export default {
             formattedDate: null,
             r_TIRE_KM_6: '',
             r_TIRE_KM_7: '',
+            r_TIRE_KM_7: '',
             ll_TIRE_NO_1: '',
             ll_TIRE_NO_2: '',
             ll_TIRE_NO_5: '',
@@ -1742,7 +1753,11 @@ export default {
             h_KM10: '',
             h_KM11: '',
             h_KM12: '',
+
             h_KM13: '',
+
+            h_KM13: '',
+
             //right last and now
             h_KML_1: '',
             h_KML_2: '',
@@ -2327,6 +2342,7 @@ export default {
             this.$refs.form.reset();
             setTimeout(() => this.ins_glass = 'ກະຊວນ', 1000)
             setTimeout(() => this.chooseCarType = '10', 1000)
+
         },
         print() {
             const modal = document.getElementById("modalInvoice")
@@ -2341,7 +2357,9 @@ export default {
             section.appendChild(cloned);
             window.print();
         },
-    },
+
+    }
+
 }
 </script>
 <style lang="scss">
@@ -2364,6 +2382,7 @@ export default {
     margin-top: -30px;
     font-size: 14px;
 }
+
 
 
 @media print {

@@ -14,12 +14,11 @@
                 <v-spacer></v-spacer>
                 ອັບເດດຂໍ້ມູນຫົວລົດ
                 <v-spacer></v-spacer>
-                <<<<<<< HEAD <v-row justify="center">
+          <v-row justify="center">
                     <v-btn color="#f593b3" class="white--text"
                         @click="print"><v-icon>mdi-printer</v-icon>ພິມລາຍງານທັງໝົດ</v-btn>
                     </v-row>
-                    =======
-                    >>>>>>> 0eb480ddb689263ca6d5c69a6d8de1ffd90fb714
+                
             </v-card-title>
             <v-form v-model="valid" ref="form" lazy-validation>
                 <!-- ຂໍ້ມູນຫົວລົດ================== -->
@@ -2402,7 +2401,8 @@ export default {
 
     #print {
         position: absolute;
-        top: 0px;   right: 0px;
+        top: 0px;
+        right: 0px;
         left: 0px;
     }
 }

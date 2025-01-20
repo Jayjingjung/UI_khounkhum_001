@@ -379,7 +379,7 @@
                                     </v-col>
                                     <v-col clos="6" md="3" sm="3">
                                         <span>ວັນທີໝົດອາຍຸຕັ້ງສິດ</span>
-                                        <v-menu ref="end_tangsit" v-model="end_tangsit" :close-on-content-click="false"
+                                        <v-menu  :close-on-content-click="false"
                                             :return-value.sync="dateExTungsit" transition="scale-transition" offset-y
                                             min-width="auto">
                                             <template v-slot:activator="{ on, attrs }">
@@ -395,10 +395,6 @@
                                                     v-model="dateExTungsit" required append-icon="mdi-calendar" readonly
                                                     v-bind="attrs" v-on="on" :rules="nameRules"></v-text-field>
                                             </template>
-                                            <v-date-picker v-model="dateExTungsit" no-title scrollable
-                                                @input="$refs.end_tangsit.save(dateExTungsit)">
-                                                <v-spacer></v-spacer>
-                                            </v-date-picker>
                                         </v-menu>
                                         <div class="tops">
                                         </div>
@@ -1427,6 +1423,7 @@ export default {
             start_bat_date: null,
             end_bat_date: null,
             dateExTungsit: '',
+            dateExTungsit_status:'',
             h_VICIVLE_BGTOM: '',
             h_VICIVLE_JANLARK: '',
             h_VICIVLE_FAINAR: '',

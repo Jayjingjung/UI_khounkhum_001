@@ -17,31 +17,17 @@
             </v-card-title>
             <v-form v-model="valid" ref="form" lazy-validation>
                 <v-card-text>
-                     
                     <div class="d-flex align-center">
                         <v-col cols="3" align="center" class="mt-4">
-                                <v-card class="text-center" max-width="344">
-                                    <img :src="imgFootTruckOld" height="220px" cover>
-                                </v-card>
-                                <div class="mt-4">
-                                    <v-file-input label="ອັບໂຫຼດຮູູບ" outlined dense prepend-icon="mdi-camera"
-                                        background-color="#f5f5f5" v-model="imgFootTruck"></v-file-input>
-                                    <div class="tops"></div>
-                                </div>
-
-                            </v-col>
-                        <!-- <v-col cols="3" align="center" class="mt-4">
-                                <v-card class="text-center" max-width="344">
-                                    <img :src="imgFootTruckOld" height="220px" cover>
-                                </v-card>
-                                <div class="mt-4">
-                                    <v-file-input label="ອັບໂຫຼດຮູູບ" outlined dense prepend-icon="mdi-camera"
-                                        background-color="#f5f5f5" v-model="imgFootTruck"></v-file-input>
-                                    <div class="tops"></div>
-                                </div>
-
-                        </v-col> -->
-                        
+                            <v-card class="text-center" max-width="344">
+                                <img :src="imgFootTruckOld" height="220px" cover>
+                            </v-card>
+                            <div class="mt-4">
+                                <v-file-input label="ອັບໂຫຼດຮູູບ" outlined dense prepend-icon="mdi-camera"
+                                    background-color="#f5f5f5" v-model="imgFootTruck"></v-file-input>
+                                <div class="tops"></div>
+                            </div>
+                        </v-col>
                         <div style="width:100%" class="pr-2">
                             <v-text-field :rules="nameRules" label="ຍີ່ຫໍ້ລົດ" dense v-model="f_BRANCH"></v-text-field>
                         </div>
@@ -52,8 +38,6 @@
                             <v-text-field :rules="nameRules" label="ປະເພດລົດ" dense v-model="f_CAR_TYPE"></v-text-field>
                         </div>
                         <div style="width:100%" class="px-2">
-                            <!-- <v-text-field :rules="nameRules" label="ວັນທີເຕັກນິກໝົດ"  dense
-                            v-model="f_DATEEXPRIED"></v-text-field> -->
                         </div>
                     </div>
                     <div class="" style="display:flex;flex-direction:row;justify-content:space-between">
@@ -86,14 +70,42 @@
                             <v-text-field :rules="nameRules" label="ບັງຕົມ" dense v-model="f_BGTHOM"></v-text-field>
                         </div>
                         <div class="px-2" style="width:100%">
-                            <v-text-field :rules="nameRules" label="ເລກປະກັນໄພ" dense v-model="f_GALATY_NO"></v-text-field>
+                            <v-text-field :rules="nameRules" label="ເລກປະກັນໄພ" dense
+                                v-model="f_GALATY_NO"></v-text-field>
                         </div>
                         <div class="px-2" style="width:100%">
                             <v-text-field :rules="nameRules" label="ວັນທີປະກັນໄພໝົດ" dense
                                 v-model="f_GALATY_DEP"></v-text-field>
                         </div>
+                        <div class="px-2" style="width:100%">
+                            <v-text-field :rules="nameRules" label="ເລກຕັ້ງສິດ" dense
+                                v-model="lektungsit"></v-text-field>
+                        </div>
                     </div>
-                
+                    <div style="width:20%">
+                            <div>ວັນທີໝົດອາຍຸຕັ້ງສິດ</div>
+                            <v-menu ref="end_tangsit" v-model="end_tangsit" :close-on-content-click="false"
+                                :return-value.sync="dateExTungsit" transition="scale-transition" offset-y
+                                min-width="auto">
+                                <template v-slot:activator="{ on, attrs }">
+                                    <v-text-field v-if="dateExTungsit_status === 'W'" dense outlined
+                                        background-color="#FFF176" v-model="dateExTungsit" required
+                                        append-icon="mdi-calendar" readonly v-bind="attrs" v-on="on"
+                                        :rules="nameRules"></v-text-field>
+                                    <v-text-field v-else-if="dateExTungsit_status === 'E'" dense outlined
+                                        background-color="red" v-model="dateExTungsit" required
+                                        append-icon="mdi-calendar" readonly v-bind="attrs" v-on="on"
+                                        :rules="nameRules"></v-text-field>
+                                    <v-text-field v-else dense outlined background-color="#f5f5f5"
+                                        v-model="dateExTungsit" required append-icon="mdi-calendar" readonly
+                                        v-bind="attrs" v-on="on" :rules="nameRules"></v-text-field>
+                                </template>
+                                <v-date-picker v-model="dateExTungsit" no-title scrollable
+                                    @input="$refs.end_tangsit.save(dateExTungsit)">
+                                    <v-spacer></v-spacer>
+                                </v-date-picker>
+                            </v-menu>
+                        </div>
                     <div class="d-flex align-center pt-2 pr-2"
                         style="background-color:#f7f7f7;border-radius:5px;height:50px">
                         <v-radio-group inline v-model="f_STATUS">
@@ -275,10 +287,12 @@
                                 </div>
                                 <div style="display:flex;flex-direction:row;justify-content:center;align-items:center">
                                     <div v-if="r_TRIES_7" class="text-center">
-                                        <img class="mx-auto" src="../assets/images/back16.png" width="150" height="420" />
+                                        <img class="mx-auto" src="../assets/images/back16.png" width="150"
+                                            height="420" />
                                     </div>
                                     <div v-else class="text-center">
-                                        <img class="mx-auto" src="../assets/images/backs12.png" width="150" height="310" />
+                                        <img class="mx-auto" src="../assets/images/backs12.png" width="150"
+                                            height="310" />
                                     </div>
                                 </div>
                                 <!-- Right -->
@@ -489,11 +503,15 @@ export default {
             f_FAITHAIY: '',
             f_BGTHOM: '',
             f_GALATY_NO: '',
+            lektungsit: '',
+            end_tangsit: false,
+            dateExTungsit:'',
+            dateExTungsit_status:'',
             f_GALATY_DEP: '',
             f_CAR_TYPE: '',
             //img
-            imgFootTruck:null,
-            imgFootTruckOld:null,
+            imgFootTruck: '',
+            imgFootTruckOld: null,
 
             l_TRIES_1: '',
             l_TRIES_2: '',
@@ -631,6 +649,7 @@ export default {
                 formdata.append('f_FAITHAIY', this.f_FAITHAIY)
                 formdata.append('f_BGTHOM', this.f_BGTHOM)
                 formdata.append('f_GALATY_NO', this.f_GALATY_NO)
+                formdata.append('lektungsit', this.lektungsit)
                 formdata.append('f_GALATY_DEP', this.f_GALATY_DEP)
                 formdata.append('f_CAR_TYPE', this.f_CAR_TYPE)
                 formdata.append('l_TRIES_1', this.l_TRIES_1)
@@ -717,11 +736,12 @@ export default {
                 formdata.append('f_KM_LL15', this.f_KM_LL15)
                 formdata.append('f_KM_LL16', this.f_KM_LL16)
                 formdata.append('imgFootTruck', this.imgFootTruckOld),
-                formdata.append('toKen', localStorage.getItem("toKen"))
-                
-               
+                formdata.append('dateExTungsit', this.dateExTungsit)
+                    formdata.append('toKen', localStorage.getItem("toKen"))
 
-                
+
+
+
                 await this.$axios.$post('updateVicicleFooter.service', formdata).then((data) => {
                     console.log(data)
                     if (data?.status == '00') {
@@ -766,14 +786,15 @@ export default {
         },
         async ongetData() {
             try {
-                await this.$axios.$post('/listViciclefooterByID.service', { key_id: this.$route.query?.key ,
+                await this.$axios.$post('/listViciclefooterByID.service', {
+                    key_id: this.$route.query?.key,
                     toKen: localStorage.getItem('toKen')
                 }
-                
+
                 ).then((data) => {
 
                     console.log("dataUpd", data)
-                        this.imgFootTruckOld=data?.data[0]?.imgFootTruck,
+                    this.imgFootTruckOld = data?.data[0]?.imgFootTruck,
                         this.f_STATUS = data?.data[0]?.f_STATUS,
                         this.f_BRANCH = data?.data[0]?.f_BRANCH,
                         this.f_YEAR = data?.data[0]?.f_YEAR,
@@ -789,9 +810,11 @@ export default {
                         this.f_FAITHAIY = data?.data[0]?.f_FAITHAIY,
                         this.f_BGTHOM = data?.data[0]?.f_BGTHOM,
                         this.f_GALATY_NO = data?.data[0]?.f_GALATY_NO,
+                        this.lektungsit = data?.data[0]?.lektungsit,
                         this.f_GALATY_DEP = data?.data[0]?.f_GALATY_DEP,
                         this.f_CAR_TYPE = data?.data[0]?.f_CAR_TYPE,
-
+                        this.dateExTungsit_status = data?.data[0]?.dateExTungsit_status,
+                        this.dateExTungsit = data?.data[0]?.dateExTungsit,
                         this.l_TRIES_1 = data?.data[0]?.l_TRIES_1,
                         this.l_TRIES_2 = data?.data[0]?.l_TRIES_2,
                         this.l_TRIES_3 = data?.data[0]?.l_TRIES_3,
@@ -871,11 +894,11 @@ export default {
                         this.f_KM_LL13 = data?.data[0]?.f_KM_LL13,
                         this.f_KM_LL14 = data?.data[0]?.f_KM_LL14,
                         this.f_KM_LL15 = data?.data[0]?.f_KM_LL15,
-                
+
                         this.f_KM_LL16 = data?.data[0]?.f_KM_LL16
 
                 },)
-            }catch (error) {
+            } catch (error) {
                 swal.fire({
                     icon: 'error',
                     text: error
@@ -911,4 +934,3 @@ export default {
     justify-items: center;
 }
 </style>
-  

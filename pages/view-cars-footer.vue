@@ -90,6 +90,27 @@
                         <v-text-field :rules="nameRules" label="ວັນທີປະກັນໄພໝົດ" dense readonly flat solo
                             background-color="#f5f5f5" v-model="f_GALATY_DEP"></v-text-field>
                     </div>
+                    <div class="px-2" style="width:100%"><span>ເລກຕັ້ງສິດ</span>
+                        <v-text-field :rules="nameRules" label="ເລກຕັ້ງສິດ" dense readonly flat solo
+                            background-color="#f5f5f5" v-model="lektungsit"></v-text-field>
+                    </div>
+                </div>
+                <div style="width: 20%;">
+                    <span>ວັນທີໝົດອາຍຸຕັ້ງສິດ</span>
+                    <v-menu  :close-on-content-click="false"
+                        :return-value.sync="dateExTungsit" transition="scale-transition" offset-y min-width="auto">
+                        <template v-slot:activator="{ on, attrs }">
+                            <v-text-field v-if="dateExTungsit_status === 'W'" dense outlined background-color="#FFF176"
+                                v-model="dateExTungsit" required append-icon="mdi-calendar" readonly v-bind="attrs"
+                                v-on="on" :rules="nameRules"></v-text-field>
+                            <v-text-field v-else-if="dateExTungsit_status === 'E'" dense outlined background-color="red"
+                                v-model="dateExTungsit" required append-icon="mdi-calendar" readonly v-bind="attrs"
+                                v-on="on" :rules="nameRules"></v-text-field>
+                            <v-text-field v-else dense outlined background-color="#f5f5f5" v-model="dateExTungsit"
+                                required append-icon="mdi-calendar" readonly v-bind="attrs" v-on="on"
+                                :rules="nameRules"></v-text-field>
+                        </template>>
+                    </v-menu>
                 </div>
                 <div class="d-flex align-center pt-2 pr-2"
                     style="background-color:#f7f7f7;border-radius:5px;height:50px">
@@ -479,6 +500,7 @@ export default {
             f_FAITHAIY: '',
             f_BGTHOM: '',
             f_GALATY_NO: '',
+            lektungsit: '',
             f_GALATY_DEP: '',
             f_CAR_TYPE: '',
 
@@ -562,7 +584,9 @@ export default {
             f_KM_LL13: '',
             f_KM_LL14: '',
             f_KM_LL15: '',
-            f_KM_LL16: ''
+            f_KM_LL16: '',
+            dateExTungsit: '',
+            dateExTungsit_status:''
         }
     },
     mounted() {
@@ -598,6 +622,7 @@ export default {
                     f_FAITHAIY: this.f_FAITHAIY,
                     f_BGTHOM: this.f_BGTHOM,
                     f_GALATY_NO: this.f_GALATY_NO,
+                    lektungsit: this.lektungsit,
                     f_GALATY_DEP: this.f_GALATY_DEP,
                     f_CAR_TYPE: this.f_CAR_TYPE,
                     f_STATUS: this.f_STATUS,
@@ -752,9 +777,11 @@ export default {
                         this.f_FAITHAIY = data?.data[0]?.f_FAITHAIY,
                         this.f_BGTHOM = data?.data[0]?.f_BGTHOM,
                         this.f_GALATY_NO = data?.data[0]?.f_GALATY_NO,
+                        this.lektungsit = data?.data[0]?.lektungsit,
                         this.f_GALATY_DEP = data?.data[0]?.f_GALATY_DEP,
                         this.f_CAR_TYPE = data?.data[0]?.f_CAR_TYPE,
-
+                        this.dateExTungsit_status = data?.data[0]?.dateExTungsit_status,
+                        this.dateExTungsit = data?.data[0]?.dateExTungsit,
                         this.l_TRIES_1 = data?.data[0]?.l_TRIES_1,
                         this.l_TRIES_2 = data?.data[0]?.l_TRIES_2,
                         this.l_TRIES_3 = data?.data[0]?.l_TRIES_3,

@@ -1,41 +1,50 @@
 <template>
   <div>
     <v-card class="fullscreen-map">
-      <v-btn  style="background-color: #f44336;width: 100px;display: flex;margin-left: 10px;margin-top: 10px;" rounded to="/" text>
+      <v-btn style="background-color: #f44336;width: 100px;display: flex;margin-left: 10px;margin-top: 10px;" rounded
+        to="/" text>
         <v-icon color="white">mdi-power</v-icon>
       </v-btn>
       <v-card-text>
         <div>
           <div style="display: flex; justify-self: center; margin-bottom: 40px;">
             <h3>
-              ແຜນວຽກປະຈຳ ຂອງຝ່າຍ {{department}}
+              ແຜນວຽກປະຈຳ ຂອງຝ່າຍ {{ DEPARTMENT }}
               (ວັນທີ {{ formattedStartDate }} - {{ formattedEndDate }})
             </h3>
           </div>
-          <div style="display: flex; justify-content: space-around; color: dodgerblue; margin-bottom: 50px;">
+          <!-- <div style="display: flex; justify-content: space-around; color: dodgerblue; margin-bottom: 50px;">
             <div>Project Name:</div>
             <div>ຄືບໜ້າ ແລະ ສໍາເລັດ:</div>
             <div>ແຜນລິເລີ່ມ:</div>
+          </div> -->
+        </div>
+
+
+        <v-row>
+          <div style="width: 350px; display: flex;">
+            <v-menu v-model="startDateMenu" :close-on-content-click="false" :nudge-right="40"
+              transition="scale-transition" offset-y>
+              <template v-slot:activator="{ on }">
+                <v-text-field dense outlined v-model="formattedStartDate" label="Project Start" readonly v-on="on" />
+              </template>
+              <v-date-picker v-model="startDate" no-title scrollable @input="updateStartDate" />
+            </v-menu>
+            <v-menu v-model="endDateMenu" :close-on-content-click="false" :nudge-right="40"
+              transition="scale-transition" offset-y>
+              <template v-slot:activator="{ on }">
+                <v-text-field dense outlined v-model="formattedEndDate" label="Current Date:" readonly v-on="on" />
+              </template>
+              <v-date-picker v-model="endDate" no-title scrollable @input="updateEndDate" />
+            </v-menu>
           </div>
-        </div>
-
-        <div style="width: 350px; display: flex;">
-          <v-menu v-model="startDateMenu" :close-on-content-click="false" :nudge-right="40"
-            transition="scale-transition" offset-y>
-            <template v-slot:activator="{ on }">
-              <v-text-field dense outlined v-model="formattedStartDate" label="Project Start" readonly v-on="on" />
-            </template>
-            <v-date-picker v-model="startDate" no-title scrollable @input="updateStartDate" />
-          </v-menu>
-          <v-menu v-model="endDateMenu" :close-on-content-click="false" :nudge-right="40" transition="scale-transition"
-            offset-y>
-            <template v-slot:activator="{ on }">
-              <v-text-field dense outlined v-model="formattedEndDate" label="Current Date:" readonly v-on="on" />
-            </template>
-            <v-date-picker v-model="endDate" no-title scrollable @input="updateEndDate" />
-          </v-menu>
-        </div>
-
+          <div>
+            <!-- Progress Button -->
+            <v-btn style="background-color: teal;color:aliceblue;" @click="updateProgress(1)">
+              100%
+            </v-btn>
+          </div>
+        </v-row>
         <div id="gantt-container">
           <div id="gantt-chart" style="width: 100%; height: 700px;"></div>
         </div>
@@ -53,15 +62,20 @@
           <tbody>
             <tr v-for="task in tasks.data" :key="task.id">
               <td style="font-size: 16px;">{{ task.text }}</td>
-              <td>
-                <v-progress-linear :value="task.progress * 100" color="green" height="40" striped>
+              <!-- <td>
+                <v-progress-circular :value="task.progress * 100" color="green"  :rotate="360" :size="60" :width="8"striped>
                   {{ Math.round(task.progress * 100) }}%
-                </v-progress-linear>
-              </td>
+                </v-progress-circular>
+              </td> -->
               <td>
-                <v-btn 
-                  @click="deleteTask(task.id)">
-                  <v-icon >mdi-delete</v-icon>
+                <v-progress-circular :value="task.progress * 100" color="teal"  :rotate="360" :size="60" :width="8"striped>
+                  {{ Math.round(task.progress * 100) }}%
+                </v-progress-circular>
+              </td>
+
+              <td>
+                <v-btn @click="deleteTask(task.id)">
+                  <v-icon>mdi-delete</v-icon>
                 </v-btn>
               </td>
 
@@ -86,6 +100,9 @@ export default {
       tasks: { data: [], links: [] },
       startDateMenu: false,
       endDateMenu: false,
+      DEPARTMENT: localStorage.getItem("DEPARTMENT"),
+      status: "not_all",
+
     };
   },
   computed: {
@@ -95,10 +112,13 @@ export default {
     formattedEndDate() {
       return this.endDate ? this.formatDate(this.endDate) : null;
     },
+
   },
   mounted() {
     gantt.config.date_format = "%Y-%m-%d";
     gantt.config.xml_date = "%Y-%m-%d %H:%i:%s";
+
+
 
     // New Scale Configuration
     gantt.templates.timeline_cell_class = () => "gantt_cell";
@@ -113,7 +133,8 @@ export default {
       const css = `
         .gantt_task_line {
           height: ${gantt.config.bar_height}px !important;
-        }
+        background-color: teal !important;
+          }
         .gantt_grid_head_cell {
           height: ${gantt.config.row_height}px !important;
         }
@@ -138,6 +159,10 @@ export default {
   },
 
   methods: {
+    updateProgress(progressValue) {
+      this.progress = progressValue; // Update progress value
+      this.fetchTasks(); // Fetch tasks with updated progress
+    },
     formatDate(date) {
       if (typeof date === "string") {
         return date;
@@ -160,6 +185,8 @@ export default {
             toKen: localStorage.getItem("toKen"),
             startDate: this.formattedStartDate,
             endDate: this.formattedEndDate,
+            status: this.status,
+            progress: this.progress,
           }
         );
 
@@ -352,5 +379,8 @@ export default {
   z-index: 5;
   background-color: rgba(0, 0, 0, 0.8);
   display: flex;
+}
+.v-timeline-item {
+  border-left: 2px solid red;
 }
 </style>

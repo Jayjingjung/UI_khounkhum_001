@@ -147,21 +147,21 @@
         </div>
       </v-col> -->
 
-        <!-- <v-col cols="12" md="3">
+        <v-col cols="12" md="3">
         <div v-if="USER_ROLE === 'USER'|| USER_ID === 'ADMIN'">
-          <v-card to="/testt-v-card-pdf" height="100" elevation="2" rounded="lg" width="310px"
+          <v-card to="/OrganizationChart" height="100" elevation="2" rounded="lg" width="310px"
             style="border: 1px solid  rgba(191, 0, 0, 0.8);">
             <v-card-text>
               <div class="d-flex align-center">
-                <v-icon style="color: rgba(191, 0, 0, 0.8);" size="55"></v-icon>
+                <v-icon style="color: rgba(191, 0, 0, 0.8);" size="55">mdi-chart-timeline</v-icon>
                 <div class="pl-5 pb-5 pt-5 pr-5 ">
-                  <span style="font-size: 18pt;font-weight: bold;">test</span><br />
+                  <span style="font-size: 18pt;font-weight: bold;"></span><br />
                 </div>
               </div>
             </v-card-text>
           </v-card>
         </div>
-      </v-col> -->
+      </v-col>
 
         <v-col cols="12" md="3">
           <div v-if="USER_ROLE === 'USER' || USER_ROLE === 'HR' ||USER_ID === 'ADMIN'">

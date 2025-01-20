@@ -81,12 +81,12 @@
                       <v-icon size="30" color="white">mdi-table-edit</v-icon>
                     </v-btn>
                   </td>
-                  <!-- <td>
+                  <td>
                     <v-btn style="height: 40px;width: 90px;" small color="#90A4AE" class="white--text card-shadow"
                       @click="viewdelete(row?.item?.key_ID)">
                       <v-icon size="30" color="white">mdi-delete</v-icon>
                     </v-btn>
-                  </td> -->
+                  </td>
                   <td>
                     <v-icon :style="getIconStyle(row.item)" size="40">mdi-bell-ring</v-icon>
                   </td>

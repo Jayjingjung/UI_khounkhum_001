@@ -65,6 +65,7 @@ export default {
       localStorage.setItem('USER_ID', data?.staftId);
       localStorage.setItem('USER_NAME', data?.staftName);
       localStorage.setItem('USER_ROLE', data?.role);
+      localStorage.setItem('DEPARTMENT', data?.department); // Added this line
       localStorage.setItem('toKen', data?.toKen);
       this.loadingLogin = false;
 

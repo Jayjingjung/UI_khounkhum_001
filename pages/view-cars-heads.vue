@@ -701,7 +701,7 @@
         <div style="display:none">
             <div id="modalInvoice">
                 <Noti />
-                <v-row
+                <!-- <v-row
                     style="font-size:14px;margin-left: 50px;margin-top: 10px;display:flex;justify-content:start;flex-direction:column;align-items:start">
                     <div>
                         <span>ສໍານັກງານຕັ້ງຢູ່ ອາຄານ ສະໜາມຍິງປືນ 20 ມັງກອນ, ສະໜາມກີລາກອງທັບ,</span>
@@ -709,14 +709,14 @@
                         <span>ໂທລະສັບ: 020 92661111, 020 92 254 999 </span>
                         <span> ອີເມວ: kounkham@Mining|ເວັບໄຊ: kounkham</span>
                     </div>
-                </v-row>
-                <br>
+                </v-row> -->
+              
                 <div class="text-center"
                     style="display:flex;justify-content:center;font-size:19px;font-weight:bold;margin-top: 15px;margin-bottom: 15px;">
                     ລາຍງານ </div>
 
                 <v-card-text>
-                    <v-form v-model="valid" ref="form" lazy-validation>
+                 
                         <!-- ຂໍ້ມູນຫົວລົດ================== -->
                         <v-card outlined>
                             <div class="pa-2 pl-6 pt-4 d-flex">
@@ -777,15 +777,13 @@
                                                     </v-date-picker>
                                                 </v-menu>
 
-                                                <div class="tops">
-                                                </div>
+                                           
                                             </v-col>
                                             <v-col clos="6" md="4" sm="4">
                                                 <span>ປະກັນໄພ</span>
                                                 <v-text-field dense outlined background-color="#f5f5f5" readonly
                                                     v-model="h_VICIVLE_GALATY"></v-text-field>
-                                                <div class="tops">
-                                                </div>
+                                             
                                             </v-col>
                                         </v-row>
                                         <v-row style="margin-top: -14px;">
@@ -806,8 +804,7 @@
                                                         <v-spacer></v-spacer>
                                                     </v-date-picker>
                                                 </v-menu>
-                                                <div class="tops">
-                                                </div>
+                                            
                                             </v-col>
                                             <v-col clos="6" md="4" sm="4">
                                                 <span>ຍີ່ຫໍ້ລົດ</span>
@@ -1096,7 +1093,7 @@
                                         </div>
                                     </v-col>
                                     <v-col clos="6" md="3" sm="3">
-    
+
                                         <v-radio-group style="display: flex;" inline v-model="h_VICIVLE_GLASS">
                                             <div>
                                                 <span>ນໍ້າມັນລົດໃຊ້</span>
@@ -1106,7 +1103,7 @@
                                                 <v-radio label="ກະຊວນ" value="ກະຊວນ"></v-radio>
                                             </div>
                                         </v-radio-group>
-                                   </v-col>
+                                    </v-col>
                                 </v-row>
                                 <Height />
 
@@ -1379,7 +1376,7 @@
                             </v-card-text>
                         </v-card>
 
-                    </v-form>
+           
                 </v-card-text>
             </div>
         </div>
@@ -1530,6 +1527,7 @@ export default {
         }
     },
     methods: {
+ 
         print() {
             const modal = document.getElementById("modalInvoice")
             const cloned = modal.cloneNode(true)

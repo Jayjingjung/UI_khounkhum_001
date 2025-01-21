@@ -510,8 +510,9 @@ export default {
             f_GALATY_DEP: '',
             f_CAR_TYPE: '',
             //img
-            imgFootTruck: '',
+            imgFootTruck: null,
             imgFootTruckOld: null,
+            imgFootTruckOld1: null,
 
             l_TRIES_1: '',
             l_TRIES_2: '',
@@ -735,7 +736,7 @@ export default {
                 formdata.append('f_KM_LL14', this.f_KM_LL14)
                 formdata.append('f_KM_LL15', this.f_KM_LL15)
                 formdata.append('f_KM_LL16', this.f_KM_LL16)
-                formdata.append('imgFootTruck', this.imgFootTruckOld),
+                formdata.append('imgFootTruck', this.imgFootTruckOld1),
                 formdata.append('dateExTungsit', this.dateExTungsit)
                     formdata.append('toKen', localStorage.getItem("toKen"))
 

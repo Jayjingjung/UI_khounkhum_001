@@ -1,7 +1,8 @@
 <template>
   <div>
+
     <v-card class="fullscreen-map">
-      <v-btn style="background-color: #f44336;width: 100px;display: flex;margin-left: 10px;margin-top: 10px;" rounded
+      <v-btn style="background-color: #f44336;width: 40px;display: flex;margin-left: 10px;margin-top: 10px;" rounded
         to="/" text>
         <v-icon color="white">mdi-power</v-icon>
       </v-btn>
@@ -9,80 +10,90 @@
         <div>
           <div style="display: flex; justify-self: center; margin-bottom: 40px;">
             <h3>
-              ແຜນວຽກປະຈຳ ຂອງຝ່າຍ {{ DEPARTMENT }}
+              ແຜນວຽກປະຈຳ ຂອງຝ່າຍ {{ DEPARTMENT }}  {{ USER_NAME }}
               (ວັນທີ {{ formattedStartDate }} - {{ formattedEndDate }})
             </h3>
           </div>
-          <!-- <div style="display: flex; justify-content: space-around; color: dodgerblue; margin-bottom: 50px;">
-            <div>Project Name:</div>
-            <div>ຄືບໜ້າ ແລະ ສໍາເລັດ:</div>
-            <div>ແຜນລິເລີ່ມ:</div>
-          </div> -->
         </div>
 
-
-        <v-row>
-          <div style="width: 350px; display: flex;">
+        <div style="display: flex;">
+          <div style="width: 35%; display: flex;">
+            <v-btn dense outlined style="color:aliceblue;background-color: teal;" @click="changeMonth('previous')">
+              <v-icon>mdi-chevron-left</v-icon>
+              ເດືອນກ່ອນໜ້າ
+            </v-btn>
             <v-menu v-model="startDateMenu" :close-on-content-click="false" :nudge-right="40"
               transition="scale-transition" offset-y>
-              <template v-slot:activator="{ on }">
-                <v-text-field dense outlined v-model="formattedStartDate" label="Project Start" readonly v-on="on" />
+              <template  v-slot:activator="{ on }">
+                <v-text-field  style="width: 100px;" dense outlined v-model="formattedStartDate" label="ເລີ່ມໂຄງການ" readonly v-on="on" />
               </template>
               <v-date-picker v-model="startDate" no-title scrollable @input="updateStartDate" />
             </v-menu>
             <v-menu v-model="endDateMenu" :close-on-content-click="false" :nudge-right="40"
               transition="scale-transition" offset-y>
               <template v-slot:activator="{ on }">
-                <v-text-field dense outlined v-model="formattedEndDate" label="Current Date:" readonly v-on="on" />
+                <v-text-field  style="width: 100px;" dense outlined v-model="formattedEndDate" label="ວັນທີຮອດກໍານົດ" readonly v-on="on" />
               </template>
               <v-date-picker v-model="endDate" no-title scrollable @input="updateEndDate" />
             </v-menu>
-          </div>
-          <div>
-            <!-- Progress Button -->
-            <v-btn style="background-color: teal;color:aliceblue;" @click="updateProgress(1)">
-              100%
+            <v-btn dense outlined style="color:aliceblue;background-color: teal;" @click="changeMonth('next')">
+              <v-icon>mdi-chevron-right</v-icon>
+              ເດືອນຕໍ່ໄປ
             </v-btn>
           </div>
-        </v-row>
+          <div style="display: flex;width: 65%;justify-content: space-around;">
+
+
+            <div>
+              <!-- Progress Button -->
+              <v-btn style="color:aliceblue;background-color: teal;" @click="updateProgress(1)">
+                ສໍາເລັດ
+              </v-btn>
+            </div>
+            <div>
+              <v-btn color="teal" @click="toggleDrawer">
+                <v-icon color="white">{{ drawerOpen ? 'mdi mdi-chevron-left-box' : 'mdi mdi-chevron-left-box' }}</v-icon>
+              </v-btn>
+            </div>
+          </div>
+        </div>
         <div id="gantt-container">
           <div id="gantt-chart" style="width: 100%; height: 700px;"></div>
         </div>
 
       </v-card-text>
-      <v-card-text style="width: 400px; height: 950px;overflow-x: auto;">
-        <v-simple-table>
-          <thead>
-            <tr>
-              <th style="font-size: 14px;">Task Name</th>
-              <th style="font-size: 14px;">Progress</th>
-              <th style="font-size: 14px;">Datal</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="task in tasks.data" :key="task.id">
-              <td style="font-size: 16px;">{{ task.text }}</td>
-              <!-- <td>
-                <v-progress-circular :value="task.progress * 100" color="green"  :rotate="360" :size="60" :width="8"striped>
-                  {{ Math.round(task.progress * 100) }}%
-                </v-progress-circular>
-              </td> -->
-              <td>
-                <v-progress-circular :value="task.progress * 100" color="teal"  :rotate="360" :size="60" :width="8"striped>
-                  {{ Math.round(task.progress * 100) }}%
-                </v-progress-circular>
-              </td>
 
-              <td>
-                <v-btn @click="deleteTask(task.id)">
-                  <v-icon>mdi-delete</v-icon>
-                </v-btn>
-              </td>
+      <!-- Drawer -->
+      <v-navigation-drawer style="width: 50%;" class="X" v-model="drawer" right app temporary>
+        <v-card style="width: 100%; height: 950px; overflow-x: auto;">
+          <v-simple-table>
+            <thead>
+              <tr>
+                <th style="font-size: 14px;">Task Name</th>
+                <th style="font-size: 14px;">Progress</th>
+                <th style="font-size: 14px;width: 150px;">Datal</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="task in tasks.data" :key="task.id">
+                <td style="font-size: 16px;">{{ task.text }}</td>
+                <td>
+                  <v-progress-circular :value="task.progress * 100" color="teal" :rotate="360" :size="60" :width="8"
+                    striped>
+                    {{ Math.round(task.progress * 100) }}%
+                  </v-progress-circular>
+                </td>
+                <td style="width: 150px;">
+                  <v-btn @click="deleteTask(task.id)">
+                    <v-icon>mdi-delete</v-icon>
+                  </v-btn>
+                </td>
+              </tr>
+            </tbody>
+          </v-simple-table>
+        </v-card>
+      </v-navigation-drawer>
 
-            </tr>
-          </tbody>
-        </v-simple-table>
-      </v-card-text>
     </v-card>
   </div>
 </template>
@@ -101,8 +112,9 @@ export default {
       startDateMenu: false,
       endDateMenu: false,
       DEPARTMENT: localStorage.getItem("DEPARTMENT"),
+      USER_NAME: localStorage.getItem("USER_NAME"),
       status: "not_all",
-
+      drawer: false, // Controls the visibility of the drawer
     };
   },
   computed: {
@@ -126,8 +138,8 @@ export default {
       { unit: "month", step: 1, format: "%F %Y" },
       { unit: "day", step: 1, format: "%j %D" },
     ];
-    gantt.config.row_height = 30;
-    gantt.config.bar_height = 25;
+    gantt.config.row_height = 40;
+    gantt.config.bar_height = 35;
 
     gantt.attachEvent("onTemplatesReady", () => {
       const css = `
@@ -159,6 +171,13 @@ export default {
   },
 
   methods: {
+    toggleDrawer() {
+      this.drawer = !this.drawer; // Ensure consistency with v-model
+      console.log("Drawer state:", this.drawer); // Debugging log
+    },
+    deleteTask(id) {
+      this.tasks.data = this.tasks.data.filter((task) => task.id !== id);
+    },
     updateProgress(progressValue) {
       this.progress = progressValue; // Update progress value
       this.fetchTasks(); // Fetch tasks with updated progress
@@ -176,6 +195,28 @@ export default {
     updateEndDate() {
       this.endDateMenu = false;
       this.fetchTasks();
+    },
+    changeMonth(direction) {
+      if (direction === "previous") {
+        // Go to the last month
+        const startDate = new Date(this.startDate);
+        startDate.setMonth(startDate.getMonth() - 1);
+        this.startDate = this.formatDate(startDate);
+
+        const endDate = new Date(this.endDate);
+        endDate.setMonth(endDate.getMonth() - 1);
+        this.endDate = this.formatDate(endDate);
+      } else if (direction === "next") {
+        // Go to the next month
+        const startDate = new Date(this.startDate);
+        startDate.setMonth(startDate.getMonth() + 1);
+        this.startDate = this.formatDate(startDate);
+
+        const endDate = new Date(this.endDate);
+        endDate.setMonth(endDate.getMonth() + 1);
+        this.endDate = this.formatDate(endDate);
+      }
+      this.fetchTasks(); // Refresh tasks for the new date range
     },
     async fetchTasks() {
       try {
@@ -380,7 +421,13 @@ export default {
   background-color: rgba(0, 0, 0, 0.8);
   display: flex;
 }
+
 .v-timeline-item {
   border-left: 2px solid red;
+}
+
+.v-navigation-drawer {
+  z-index: 1;
+  width: 100%;
 }
 </style>

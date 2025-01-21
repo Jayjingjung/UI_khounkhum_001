@@ -50,7 +50,7 @@
         </v-col>
 
         <v-col cols="12" md="3">
-          <div v-if="USER_ROLE === 'USER' || USER_ROLE === 'HR' ||USER_ID === 'ADMIN' || USER_NAME === 'mai_ud'">
+          <div >
             <v-card to="./HR/akasarn" height="100" elevation="2" rounded="lg" width="310px"
               style="border: 1px solid  rgba(191, 0, 0, 0.8);">
               <v-card-text>
@@ -147,7 +147,7 @@
         </div>
       </v-col> -->
 
-        <v-col cols="12" md="3">
+        <!-- <v-col cols="12" md="3">
         <div v-if="USER_ROLE === 'USER'|| USER_ID === 'ADMIN'">
           <v-card to="/OrganizationChart" height="100" elevation="2" rounded="lg" width="310px"
             style="border: 1px solid  rgba(191, 0, 0, 0.8);">
@@ -161,10 +161,10 @@
             </v-card-text>
           </v-card>
         </div>
-      </v-col>
+      </v-col> -->
 
         <v-col cols="12" md="3">
-          <div v-if="USER_ROLE === 'USER' || USER_ROLE === 'HR' ||USER_ID === 'ADMIN'">
+          <div >
             <v-card to="/ganttshart" height="100" elevation="2" rounded="lg" width="310px"
               style="border: 1px solid  rgba(191, 0, 0, 0.8);">
               <v-card-text>

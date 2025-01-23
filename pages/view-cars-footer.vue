@@ -14,11 +14,12 @@
                 <v-spacer></v-spacer>
                 ເບີ່ງຂໍ້ມູນຫາງລົດ
                 <v-spacer></v-spacer>
+                <v-row justify="center">
+                    <v-btn color="#f593b3" class="white--text"
+                        @click="print"><v-icon>mdi-printer</v-icon>ພິມລາຍງານທັງໝົດ</v-btn>
+                </v-row>
             </v-card-title>
             <v-card-text>
-                <Height />
-                <Height />
-
                 <div class="d-flex align-center">
                     <v-card class="text-center ml-10 mr-10" max-width="400">
                         <img :src="imgFootTruckOld" height="220px" cover>
@@ -35,10 +36,6 @@
                     <div style="width:100%" class="px-2"><span>ປະເພດລົດ</span>
                         <v-text-field :rules="nameRules" label="ປະເພດລົດ" dense readonly flat solo
                             background-color="#f5f5f5" v-model="f_CAR_TYPE"></v-text-field>
-                    </div>
-                    <div style="width:100%" class="px-2">
-                        <!-- <v-text-field :rules="nameRules" label="ວັນທີເຕັກນິກໝົດ"  dense readonly flat solo background-color="#f5f5f5"
-                                    v-model="f_DATEEXPRIED"></v-text-field> -->
                     </div>
                 </div>
                 <div class="" style="display:flex;flex-direction:row;justify-content:space-between">
@@ -65,9 +62,9 @@
                         <v-text-field :rules="nameRules" label="ໂສ້" dense readonly flat solo background-color="#f5f5f5"
                             v-model="f_SO"></v-text-field>
                     </div>
-                    <div class="px-2" style="width:100%"><span>ຜ້າບັດ</span><v-text-field :rules="nameRules"
+                    <!-- <div class="px-2" style="width:100%"><span>ຜ້າບັດ</span><v-text-field :rules="nameRules"
                             label="ຜ້າບັດ" dense readonly flat solo background-color="#f5f5f5"
-                            v-model="f_PABUD"></v-text-field></div>
+                            v-model="f_PABUD"></v-text-field></div> -->
                     <div class="px-2" style="width:100%"><span>ໄຟຂ້າງ</span><v-text-field :rules="nameRules"
                             label="ໄຟຂ້າງ" dense readonly flat solo background-color="#f5f5f5"
                             v-model="f_FAIKHANG"></v-text-field></div>
@@ -97,8 +94,8 @@
                 </div>
                 <div style="width: 20%;">
                     <span>ວັນທີໝົດອາຍຸຕັ້ງສິດ</span>
-                    <v-menu  :close-on-content-click="false"
-                        :return-value.sync="dateExTungsit" transition="scale-transition" offset-y min-width="auto">
+                    <v-menu :close-on-content-click="false" :return-value.sync="dateExTungsit"
+                        transition="scale-transition" offset-y min-width="auto">
                         <template v-slot:activator="{ on, attrs }">
                             <v-text-field v-if="dateExTungsit_status === 'W'" dense outlined background-color="#FFF176"
                                 v-model="dateExTungsit" required append-icon="mdi-calendar" readonly v-bind="attrs"
@@ -129,13 +126,11 @@
                     <v-card-title>
                         <div class="d-flex">
                             <span>ຂໍ້ມູນຢາງລົດ:</span>
-
                         </div>
                     </v-card-title>
                     <v-card-text>
                         <div style="width:100%;display:flex;justify-content:space-between">
                             <div style="width:100%">
-
                                 <!-- Left -->
                                 <div style="background-color:#f5f5f5;border-radius:5px" class="pa-2">
                                     <div class="d-flex">
@@ -147,14 +142,6 @@
                                         <v-text-field class="ml-2" :rules="nameRules" dense readonly
                                             label="ກຳນົດແລ່ນໄດ້ km" v-model="l_TRIES_KM_1"></v-text-field>
                                     </div>
-                                    <!-- <div class="d-flex">
-                                        <div style="width:100%"><v-text-field :rules="nameRules" dense readonly label="ເລກໄມລ່າສຸດ"
-                                                v-model="f_KM1"></v-text-field>
-                                        </div>
-                                        <div style="width:100%" class="pl-2"><v-text-field :rules="nameRules" dense readonly
-                                                label="ເລກໄມປະຈຸບັນ" v-model="f_KM_LL1"></v-text-field></div>
-                                        <div style="width:100%"></div>
-                                    </div> -->
                                 </div>
                                 <div style="background-color:#f5f5f5;border-radius:5px" class="mt-2 pa-2">
                                     <div class="d-flex">
@@ -166,14 +153,6 @@
                                         <v-text-field class="ml-2" :rules="nameRules" dense readonly
                                             label="ກຳນົດແລ່ນໄດ້ km" v-model="l_TRIES_KM_2"></v-text-field>
                                     </div>
-                                    <!-- <div class="d-flex">
-                                        <div style="width:100%"><v-text-field :rules="nameRules" dense readonly label="ເລກໄມລ່າສຸດ"
-                                                v-model="f_KM2"></v-text-field>
-                                        </div>
-                                        <div style="width:100%" class="pl-2"><v-text-field :rules="nameRules" dense readonly
-                                                label="ເລກໄມປະຈຸບັນ" v-model="f_KM_LL2"></v-text-field></div>
-                                        <div style="width:100%"></div>
-                                    </div> -->
                                 </div>
                                 <div style="background-color:#f5f5f5;border-radius:5px" class="mt-2 pa-2">
                                     <div style="padding-top: 0px" class="d-flex">
@@ -184,14 +163,6 @@
                                         <v-text-field class="ml-2" :rules="nameRules" dense readonly
                                             label="ກຳນົດແລ່ນໄດ້ km" v-model="l_TRIES_KM_3"></v-text-field>
                                     </div>
-                                    <!-- <div class="d-flex">
-                                        <div style="width:100%"><v-text-field :rules="nameRules" dense readonly label="ເລກໄມລ່າສຸດ"
-                                                v-model="f_KM3"></v-text-field>
-                                        </div>
-                                        <div style="width:100%" class="pl-2"><v-text-field :rules="nameRules" dense readonly
-                                                label="ເລກໄມປະຈຸບັນ" v-model="f_KM_LL3"></v-text-field></div>
-                                        <div style="width:100%"></div>
-                                    </div> -->
                                 </div>
                                 <div style="background-color:#f5f5f5;border-radius:5px" class="mt-2 pa-2">
                                     <div class="d-flex">
@@ -203,14 +174,6 @@
                                         <v-text-field class="ml-2" :rules="nameRules" dense readonly
                                             label="ກຳນົດແລ່ນໄດ້ km" v-model="l_TRIES_KM_4"></v-text-field>
                                     </div>
-                                    <!-- <div class="d-flex">
-                                        <div style="width:100%"><v-text-field :rules="nameRules" dense readonly label="ເລກໄມລ່າສຸດ"
-                                                v-model="f_KM4"></v-text-field>
-                                        </div>
-                                        <div style="width:100%" class="pl-2"><v-text-field :rules="nameRules" dense readonly
-                                                label="ເລກໄມປະຈຸບັນ" v-model="f_KM_LL4"></v-text-field></div>
-                                        <div style="width:100%"></div>
-                                    </div> -->
                                 </div>
                                 <div style="background-color:#f5f5f5;border-radius:5px" class="mt-2 pa-2">
                                     <div style="padding-top: 0px" class="d-flex">
@@ -222,14 +185,6 @@
                                         <v-text-field class="ml-2" :rules="nameRules" dense readonly
                                             label="ກຳນົດແລ່ນໄດ້ km" v-model="l_TRIES_KM_5"></v-text-field>
                                     </div>
-                                    <!-- <div class="d-flex">
-                                        <div style="width:100%"><v-text-field :rules="nameRules" dense readonly label="ເລກໄມລ່າສຸດ"
-                                                v-model="f_KM5"></v-text-field>
-                                        </div>
-                                        <div style="width:100%" class="pl-2"><v-text-field :rules="nameRules" dense readonly
-                                                label="ເລກໄມປະຈຸບັນ" v-model="f_KM_LL5"></v-text-field></div>
-                                        <div style="width:100%"></div>
-                                    </div> -->
                                 </div>
                                 <div style="background-color:#f5f5f5;border-radius:5px" class="mt-2 pa-2">
                                     <div class="d-flex">
@@ -241,14 +196,6 @@
                                         <v-text-field class="ml-2" :rules="nameRules" dense readonly
                                             label="ກຳນົດແລ່ນໄດ້ km" v-model="l_TRIES_KM_6"></v-text-field>
                                     </div>
-                                    <!-- <div class="d-flex">
-                                        <div style="width:100%"><v-text-field :rules="nameRules" dense readonly label="ເລກໄມລ່າສຸດ"
-                                                v-model="f_KM6"></v-text-field>
-                                        </div>
-                                        <div style="width:100%" class="pl-2"><v-text-field :rules="nameRules" dense readonly
-                                                label="ເລກໄມປະຈຸບັນ" v-model="f_KM_LL6"></v-text-field></div>
-                                        <div style="width:100%"></div>
-                                    </div> -->
                                 </div>
                                 <!-- NEW SESSION -->
                                 <div style="background-color:#f5f5f5;border-radius:5px" class="mt-2 pa-2"
@@ -262,14 +209,6 @@
                                         <v-text-field class="ml-2" :rules="nameRules" dense readonly
                                             label="ກຳນົດແລ່ນໄດ້ km" v-model="l_TRIES_KM_7"></v-text-field>
                                     </div>
-                                    <!-- <div class="d-flex">
-                                        <div style="width:100%"><v-text-field :rules="nameRules" dense readonly label="ເລກໄມລ່າສຸດ"
-                                                v-model="f_KM7"></v-text-field>
-                                        </div>
-                                        <div style="width:100%" class="pl-2"><v-text-field :rules="nameRules" dense readonly
-                                                label="ເລກໄມປະຈຸບັນ" v-model="f_KM_LL7"></v-text-field></div>
-                                        <div style="width:100%"></div>
-                                    </div> -->
                                 </div>
                                 <div style="background-color:#f5f5f5;border-radius:5px" class="mt-2 pa-2"
                                     v-if="l_TRIES_8">
@@ -282,14 +221,6 @@
                                         <v-text-field class="ml-2" :rules="nameRules" dense readonly
                                             label="ກຳນົດແລ່ນໄດ້ kms" v-model="l_TRIES_KM_8"></v-text-field>
                                     </div>
-                                    <!-- <div class="d-flex">
-                                        <div style="width:100%"><v-text-field :rules="nameRules" dense readonly label="ເລກໄມລ່າສຸດ"
-                                                v-model="f_KM8"></v-text-field>
-                                        </div>
-                                        <div style="width:100%" class="pl-2"><v-text-field :rules="nameRules" dense readonly
-                                                label="ເລກໄມປະຈຸບັນ" v-model="f_KM_LL8"></v-text-field></div>
-                                        <div style="width:100%"></div>
-                                    </div> -->
                                 </div>
                             </div>
                             <div style="display:flex;flex-direction:row;justify-content:center;align-items:center">
@@ -312,14 +243,6 @@
                                         <v-text-field class="ml-2" :rules="nameRules" dense readonly
                                             label="ກຳນົດແລ່ນໄດ້ km" v-model="r_TRIES_KM_1"></v-text-field>
                                     </div>
-                                    <!-- <div class="d-flex">
-                                        <div style="width:100%"><v-text-field :rules="nameRules" dense readonly label="ເລກໄມລ່າສຸດ"
-                                                v-model="f_KM9"></v-text-field>
-                                        </div>
-                                        <div style="width:100%" class="ml-2"><v-text-field :rules="nameRules" dense readonly
-                                                label="ເລກໄມປະຈຸບັນ" v-model="f_KM_LL9"></v-text-field></div>
-                                        <div style="width:100%"></div>
-                                    </div> -->
                                 </div>
                                 <div style="background-color:#f5f5f5;border-radius:5px" class="mt-2 pa-2">
                                     <div class="d-flex">
@@ -331,14 +254,6 @@
                                         <v-text-field class="ml-2" :rules="nameRules" dense readonly
                                             label="ກຳນົດແລ່ນໄດ້ km" v-model="r_TRIES_KM_2"></v-text-field>
                                     </div>
-                                    <!-- <div class="d-flex">
-                                        <div style="width:100%"><v-text-field :rules="nameRules" dense readonly label="ເລກໄມລ່າສຸດ"
-                                                v-model="f_KM10"></v-text-field>
-                                        </div>
-                                        <div style="width:100%" class="ml-2"><v-text-field :rules="nameRules" dense readonly
-                                                label="ເລກໄມປະຈຸບັນ" v-model="f_KM_LL10"></v-text-field></div>
-                                        <div style="width:100%"></div>
-                                    </div> -->
                                 </div>
                                 <div style="background-color:#f5f5f5;border-radius:5px" class="mt-2 pa-2">
                                     <div style="padding-top: 0px" class="d-flex">
@@ -349,14 +264,6 @@
                                         <v-text-field class="ml-2" :rules="nameRules" dense readonly
                                             label="ກຳນົດແລ່ນໄດ້ km" v-model="r_TRIES_KM_3"></v-text-field>
                                     </div>
-                                    <!-- <div class="d-flex">
-                                        <div style="width:100%"><v-text-field :rules="nameRules" dense readonly label="ເລກໄມລ່າສຸດ"
-                                                v-model="f_KM11"></v-text-field>
-                                        </div>
-                                        <div style="width:100%" class="ml-2"><v-text-field :rules="nameRules" dense readonly
-                                                label="ເລກໄມປະຈຸບັນ" v-model="f_KM_LL11"></v-text-field></div>
-                                        <div style="width:100%"></div>
-                                    </div> -->
                                 </div>
                                 <div style="background-color:#f5f5f5;border-radius:5px" class="mt-2 pa-2">
                                     <div class="d-flex">
@@ -368,14 +275,6 @@
                                         <v-text-field class="ml-2" :rules="nameRules" dense readonly
                                             label="ກຳນົດແລ່ນໄດ້ km" v-model="r_TRIES_KM_4"></v-text-field>
                                     </div>
-                                    <!-- <div class="d-flex">
-                                        <div style="width:100%"><v-text-field :rules="nameRules" dense readonly label="ເລກໄມລ່າສຸດ"
-                                                v-model="f_KM12"></v-text-field>
-                                        </div>
-                                        <div style="width:100%" class="ml-2"><v-text-field :rules="nameRules" dense readonly
-                                                label="ເລກໄມປະຈຸບັນ" v-model="f_KM_LL12"></v-text-field></div>
-                                        <div style="width:100%"></div>
-                                    </div> -->
                                 </div>
                                 <div style="background-color:#f5f5f5;border-radius:5px" class="mt-2 pa-2">
                                     <div style="padding-top: 0px" class="d-flex">
@@ -387,14 +286,6 @@
                                         <v-text-field class="ml-2" :rules="nameRules" dense readonly
                                             label="ກຳນົດແລ່ນໄດ້ km" v-model="r_TRIES_KM_5"></v-text-field>
                                     </div>
-                                    <!-- <div class="d-flex">
-                                        <div style="width:100%"><v-text-field :rules="nameRules" dense readonly label="ເລກໄມລ່າສຸດ"
-                                                v-model="f_KM13"></v-text-field>
-                                        </div>
-                                        <div style="width:100%" class="ml-2"><v-text-field :rules="nameRules" dense readonly
-                                                label="ເລກໄມປະຈຸບັນ" v-model="f_KM_LL13"></v-text-field></div>
-                                        <div style="width:100%"></div>
-                                    </div> -->
                                 </div>
                                 <div style="background-color:#f5f5f5;border-radius:5px" class="mt-2 pa-2">
                                     <div class="d-flex">
@@ -406,14 +297,6 @@
                                         <v-text-field class="ml-2" :rules="nameRules" dense readonly
                                             label="ກຳນົດແລ່ນໄດ້ km" v-model="r_TRIES_KM_6"></v-text-field>
                                     </div>
-                                    <!-- <div class="d-flex">
-                                        <div style="width:100%"><v-text-field :rules="nameRules" dense readonly label="ເລກໄມລ່າສຸດ"
-                                                v-model="f_KM14"></v-text-field>
-                                        </div>
-                                        <div style="width:100%" class="ml-2"><v-text-field :rules="nameRules" dense readonly
-                                                label="ເລກໄມປະຈຸບັນ" v-model="f_KM_LL14"></v-text-field></div>
-                                        <div style="width:100%"></div>
-                                    </div> -->
                                 </div>
                                 <!-- NEW SESSION -->
                                 <div style="background-color:#f5f5f5;border-radius:5px" class="mt-2 pa-2"
@@ -428,14 +311,6 @@
                                         <v-text-field class="ml-2" :rules="nameRules" dense readonly
                                             label="ກຳນົດແລ່ນໄດ້ km" v-model="r_TRIES_KM_7"></v-text-field>
                                     </div>
-                                    <!-- <div class="d-flex">
-                                        <div style="width:100%"><v-text-field :rules="nameRules" dense readonly label="ເລກໄມລ່າສຸດ"
-                                                v-model="f_KM15"></v-text-field>
-                                        </div>
-                                        <div style="width:100%" class="ml-2"><v-text-field :rules="nameRules" dense readonly
-                                                label="ເລກໄມປະຈຸບັນ" v-model="f_KM_LL15"></v-text-field></div>
-                                        <div style="width:100%"></div>
-                                    </div> -->
                                 </div>
                                 <div style="background-color:#f5f5f5;border-radius:5px" class="mt-2 pa-2"
                                     v-if="r_TRIES_8">
@@ -447,19 +322,6 @@
                                         <v-text-field class="ml-2" :rules="nameRules" dense readonly
                                             label="ກຳນົດແລ່ນໄດ້ kms" v-model="r_TRIES_KM_8"></v-text-field>
                                     </div>
-                                    <!-- <div class="d-flex">
-                                        <div style="width:100%"><v-text-field :rules="nameRules" dense readonly label="ເລກໄມລ່າສຸດ"
-                                                v-model="f_KM16"></v-text-field>
-                                        </div>
-                                        <div style="width:100%" class="pl-2"><v-text-field :rules="nameRules" dense readonly
-                                                label="ເລກໄມປະຈຸບັນ" v-model="f_KM_LL16"></v-text-field></div>
-                                        <div style="width:100%"></div>
-                                    </div> -->
-                                    <!-- <v-card class="pa-4 mt-2" flat>
-                    <span>ໝາຍເຫດ</span>
-                    <v-textarea outlined dense readonly placeholder="ຕົວຢ່າງ: ປ່ຽນນໍ້າມັນເຄື່ອງ..."
-                        v-model="his_REASON"></v-textarea>
-                </v-card> -->
                                 </div>
                             </div>
                         </div>
@@ -467,10 +329,275 @@
                 </v-card>
             </v-card-text>
         </v-card>
-
-        <Height />
-        <Height />
-        <Height />
+        <div style="display: none;">
+            <div id="modalInvoice">
+                <Noti />
+                <v-row
+                    style="font-size:14px;margin-left: 50px;margin-top: 10px;display:flex;justify-content:start;flex-direction:column;align-items:start">
+                    <div>
+                        <span>ສໍານັກງານຕັ້ງຢູ່ ອາຄານ ສະໜາມຍິງປືນ 20 ມັງກອນ, ສະໜາມກີລາກອງທັບ,</span>
+                        <span> ບ້ານຈອມມະນີ, ເມືອງ ໄຊເສດຖາ, ນະຄອນຫຼວງວຽງຈັນ, ສປປ ລາວ</span>
+                        <span>ໂທລະສັບ: 020 92661111, 020 92 254 999 </span>
+                        <span> ອີເມວ: kounkham@Mining|ເວັບໄຊ: kounkham</span>
+                    </div>
+                </v-row>
+                <br>
+                <div class="text-center"
+                    style="display:flex;justify-content:center;font-size:20px;font-weight:bold;margin-top: 18px;margin-bottom: 35px;">
+                    ລາຍງານຂໍ້ມູນຫາງລົດ
+                </div>
+                <v-card-text>
+                    <div style="display:flex;flex-direction:row;justify-content:space-between">
+                        <div class="text-center ml-10 mr-10">
+                            <img :src="imgFootTruckOld" height="200px" width="250px" cover>
+                        </div>
+                        <div style="padding-top: 30px;">
+                            <div style="margin-bottom: 20px;">ຍີ່ຫໍ້ຫາງລົດ: {{ f_BRANCH }}</div>
+                            <div style="margin-bottom: 20px;">ຫາງລົດປີ: {{ f_YEAR }}</div>
+                            <div style="margin-bottom: 20px;">ປະເພດລົດ: {{ f_CAR_TYPE }}</div>
+                            <div>ໄຟຂ້າງ: {{ f_FAIKHANG }}</div>
+                        </div>
+                        <div style="padding-top: 30px;">
+                            <div style="margin-bottom: 20px;">ທະບຽນຫາງລົດ: {{ f_CARD_NO }}</div>
+                            <div style="margin-bottom: 20px;">ເລກຄັນຊີ :{{ f_LEKKUNZEE }}</div>
+                            <div style="margin-bottom: 20px;">ເຜົາ : {{ f_PAO }}</div>
+                            <div>ໄຟທ້າຍ : {{ f_FAITHAIY }}</div>
+                        </div>
+                    </div>
+                    <div
+                        style="margin-top:20px;margin-right:10px; display:flex;flex-direction:row;justify-content:space-between">
+                        <div style="padding-top: 30px;">
+                            <div style="margin-bottom: 20px;"> ໂຕລັອກຕູ້: {{ f_TOLOCKTU }}</div>
+                            <div style="margin-bottom: 20px;"> ໂສ້: {{ f_SO }}</div>
+                            <!-- <div style="margin-bottom: 20px;"> ຜ້າບັດ: {{ f_PABUD }}</div> -->
+                            <div style="margin-bottom: 20px;">
+                                <div>ສະຖານະລົດ:</div>
+                                <v-radio-group inline v-model="f_STATUS">
+                                    <div class="pl-4 d-flex align-center">
+                                        <v-radio label="ວ່າງ" value="Y" color="#55CE63"></v-radio>
+                                        <v-radio label="ບໍ່ວ່າງ" value="N" color="red"></v-radio>
+                                    </div>
+                                </v-radio-group>
+                            </div>
+                        </div>
+                        <div style="padding-top: 30px;">
+                            <div style="margin-bottom: 20px;"> ບັງຕົມ: {{ f_BGTHOM }}</div>
+                            <div style="margin-bottom: 20px;">ເລກປະກັນໄພ: {{ f_GALATY_NO }}</div>
+                            <div style="margin-bottom: 20px;">ເລກຕັ້ງສິດ: {{ lektungsit }}</div>
+                        </div>
+                        <div style="padding-top: 30px;">
+                            <div style="margin-bottom: 20px;">ຂໍເກາະ : {{ f_KORKC }}</div>
+                            <div style="margin-bottom: 20px;">ວັນທີຫມົດປະກັນໄພ: {{ f_GALATY_DEP }}</div>
+                            <div style="margin-bottom: 20px;">ວັນທີໝົດອາຍຸຕັ້ງສິດ: {{ dateExTungsit }}</div>
+                        </div>
+                    </div>
+                    <!-- ຂໍ້ມູນຢາງລົດ -->
+                    <v-card flat>
+                        <v-card-text style="margin-top: 100px;">
+                            <div class="text-center" style="display:flex;justify-content:center;font-size:20px;font-weight:bold;margin-top: 30px;margin-bottom: 10px;">
+                                ຂໍ້ມູນຢາງລົດ
+                            </div>
+                            <div style="width:100%;display:flex;justify-content:space-between ;margin-top: 10px;">
+                                <div style="width:100%">
+                                    <!-- Left -->
+                                    <div dense>
+                                        <div>
+                                            ລະຫັດຢາງລົດ:{{ l_TRIES_1 }}
+                                        </div>
+                                        <div>
+                                            ວັນທີປ່ຽນຢາງ:{{ l_TRIES_DATE_1 }}
+                                        </div>
+                                        <div>
+                                            ກຳນົດແລ່ນໄດ້km:{{ l_TRIES_KM_1 }}
+                                        </div>
+                                    </div>
+                                    <div style="margin-top: 15px;">
+                                        <div>
+                                            ລະຫັດຢາງລົດ:{{ l_TRIES_2 }}
+                                        </div>
+                                        <div>
+                                            ວັນທີປ່ຽນຢາງ:{{ l_TRIES_DATE_2 }}
+                                        </div>
+                                        <div>
+                                            ກຳນົດແລ່ນໄດ້km:{{ l_TRIES_KM_2 }}
+                                        </div>
+                                    </div>
+                                    <div dense style="margin-top: 15px;">
+                                        <div>
+                                            ລະຫັດຢາງລົດ:{{ l_TRIES_3 }}
+                                        </div>
+                                        <div>
+                                            ວັນທີປ່ຽນຢາງ;{{ l_TRIES_DATE_3 }}
+                                        </div>
+                                        <div>
+                                            ກຳນົດແລ່ນໄດ້km:{{ l_TRIES_KM_3 }}
+                                        </div>
+                                    </div>
+                                    <div dense style="margin-top: 15px;">
+                                        <div>
+                                            ລະຫັດຢາງລົດ;{{ l_TRIES_4 }}
+                                        </div>
+                                        <div>
+                                            ວັນທີປ່ຽນຢາງ:{{ l_TRIES_DATE_4 }}
+                                        </div>
+                                        <div>
+                                            ກຳນົດແລ່ນໄດ້km;{{ l_TRIES_KM_4 }}
+                                        </div>
+                                    </div>
+                                    <div dense style="margin-top: 15px;">
+                                        <div>
+                                            ລະຫັດຢາງລົດ;{{ l_TRIES_5 }}
+                                        </div>
+                                        <div>
+                                            ວັນທີປ່ຽນຢາງ:{{ l_TRIES_DATE_5 }}
+                                        </div>
+                                        <div>
+                                            ກຳນົດແລ່ນໄດ້km:{{ l_TRIES_KM_5 }}
+                                        </div>
+                                    </div>
+                                    <div dense style="margin-top: 15px;">
+                                        <div>
+                                            ລະຫັດຢາງລົດ:{{ l_TRIES_6 }}
+                                        </div>
+                                        <div>
+                                            ວັນທີປ່ຽນຢາງ:{{ l_TRIES_DATE_6 }}
+                                        </div>
+                                        <div>
+                                            ກຳນົດແລ່ນໄດ້km:{{ l_TRIES_KM_6 }}
+                                        </div>
+                                    </div>
+                                    <!-- NEW SESSION -->
+                                    <div dense v-if="l_TRIES_7" style="margin-top: 15px;">
+                                        <div>
+                                            ລະຫັດຢາງລົດ:{{ l_TRIES_7 }}
+                                        </div>
+                                        <div>
+                                            ວັນທີປ່ຽນຢາງ:{{ l_TRIES_DATE_7 }}
+                                        </div>
+                                        <div>
+                                            ກຳນົດແລ່ນໄດ້km:{{ l_TRIES_KM_7 }}
+                                        </div>
+                                    </div>
+                                    <div dense v-if="l_TRIES_8" style="margin-top: 15px;">
+                                        <div>
+                                            ລະຫັດຢາງລົດ:{{ l_TRIES_8 }}
+                                        </div>
+                                        <div>
+                                            ວັນທີປ່ຽນຢາງ:{{ l_TRIES_DATE_8 }}
+                                        </div>
+                                        <div>
+                                            ກຳນົດແລ່ນໄດ້km:{{ l_TRIES_KM_8 }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div  style="width:100%; margin-top: 84px;">
+                                    <div v-if="r_TRIES_7" class="text-center">
+                                        <img class="mx-auto" src="../assets/images/back16.png" width="150"
+                                            height="420" />
+                                    </div>
+                                    <div v-else class="text-center">
+                                        <img class="mx-auto" src="../assets/images/backs12.png" width="150"
+                                            height="310" />
+                                    </div>
+                                </div>
+                                <!-- right -->
+                                <div style="width:100%">
+                                    <div dense>
+                                        <div>
+                                            ລະຫັດຢາງລົດ:{{ r_TRIES_1 }}
+                                        </div>
+                                        <div>
+                                            ວັນທີປ່ຽນຢາງ:{{ r_TRIES_DATE_1 }}
+                                        </div>
+                                        <div>
+                                            ກຳນົດແລ່ນໄດ້km:{{ r_TRIES_KM_1 }}
+                                        </div>
+                                    </div>
+                                    <div style="margin-top: 15px;">
+                                        <div>
+                                            ລະຫັດຢາງລົດ:{{ r_TRIES_2 }}
+                                        </div>
+                                        <div>
+                                            ວັນທີປ່ຽນຢາງ:{{ r_TRIES_DATE_2 }}
+                                        </div>
+                                        <div>
+                                            ກຳນົດແລ່ນໄດ້km:{{ r_TRIES_KM_2 }}
+                                        </div>
+                                    </div>
+                                    <div dense style="margin-top: 15px;">
+                                        <div>
+                                            ລະຫັດຢາງລົດ:{{ r_TRIES_3 }}
+                                        </div>
+                                        <div>
+                                            ວັນທີປ່ຽນຢາງ;{{ r_TRIES_DATE_3 }}
+                                        </div>
+                                        <div>
+                                            ກຳນົດແລ່ນໄດ້km:{{ r_TRIES_KM_3 }}
+                                        </div>
+                                    </div>
+                                    <div dense style="margin-top: 15px;">
+                                        <div>
+                                            ລະຫັດຢາງລົດ;{{ r_TRIES_4 }}
+                                        </div>
+                                        <div>
+                                            ວັນທີປ່ຽນຢາງ:{{ r_TRIES_DATE_4 }}
+                                        </div>
+                                        <div>
+                                            ກຳນົດແລ່ນໄດ້km;{{ r_TRIES_KM_4 }}
+                                        </div>
+                                    </div>
+                                    <div dense style="margin-top: 15px;">
+                                        <div>
+                                            ລະຫັດຢາງລົດ;{{ r_TRIES_5 }}
+                                        </div>
+                                        <div>
+                                            ວັນທີປ່ຽນຢາງ:{{ r_TRIES_DATE_5 }}
+                                        </div>
+                                        <div>
+                                            ກຳນົດແລ່ນໄດ້km:{{ r_TRIES_KM_5 }}
+                                        </div>
+                                    </div>
+                                    <div dense style="margin-top: 15px;">
+                                        <div>
+                                            ລະຫັດຢາງລົດ:{{ r_TRIES_6 }}
+                                        </div>
+                                        <div>
+                                            ວັນທີປ່ຽນຢາງ:{{ r_TRIES_DATE_6 }}
+                                        </div>
+                                        <div>
+                                            ກຳນົດແລ່ນໄດ້km:{{ r_TRIES_KM_6 }}
+                                        </div>
+                                    </div>
+                                    <!-- NEW SESSION -->
+                                    <div dense v-if="r_TRIES_7" style="margin-top: 15px;">
+                                        <div>
+                                            ລະຫັດຢາງລົດ:{{ r_TRIES_7 }}
+                                        </div>
+                                        <div>
+                                            ວັນທີປ່ຽນຢາງ:{{ r_TRIES_DATE_7 }}
+                                        </div>
+                                        <div>
+                                            ກຳນົດແລ່ນໄດ້km:{{ r_TRIES_KM_7 }}
+                                        </div>
+                                    </div>
+                                    <div dense v-if="r_TRIES_8" style="margin-top: 15px;">
+                                        <div>
+                                            ລະຫັດຢາງລົດ:{{ r_TRIES_8 }}
+                                        </div>
+                                        <div>
+                                            ວັນທີປ່ຽນຢາງ:{{ r_TRIES_DATE_8 }}
+                                        </div>
+                                        <div>
+                                            ກຳນົດແລ່ນໄດ້km:{{ r_TRIES_KM_8 }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </v-card-text>
+                    </v-card>
+                </v-card-text>
+            </div>
+        </div>
     </div>
 </template>
 <script>
@@ -586,7 +713,7 @@ export default {
             f_KM_LL15: '',
             f_KM_LL16: '',
             dateExTungsit: '',
-            dateExTungsit_status:''
+            dateExTungsit_status: ''
         }
     },
     mounted() {
@@ -596,6 +723,19 @@ export default {
         }
     },
     methods: {
+        print() {
+            const modal = document.getElementById("modalInvoice")
+            const cloned = modal.cloneNode(true)
+            let section = document.getElementById("print")
+            if (!section) {
+                section = document.createElement("div")
+                section.id = "print"
+                document.body.appendChild(section)
+            }
+            section.innerHTML = "";
+            section.appendChild(cloned);
+            window.print();
+        },
         async onInserTruct() {
             // if (!this.$refs.form.validate()) {
             //     swal.fire({

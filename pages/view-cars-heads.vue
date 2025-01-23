@@ -739,9 +739,7 @@
                                     <v-icon color="red">mdi-alert-outline</v-icon>
                                     <span class="ml-2" style="color: r;">ກະລຸນາປ່ຽນໝໍ້ໄຟ</span>
                                 </div>
-
                             </div>
-
                             <v-card-text>
                                 <v-row>
                                     <v-col cols="3">
@@ -776,7 +774,6 @@
                                                         <v-spacer></v-spacer>
                                                     </v-date-picker>
                                                 </v-menu>
-
                                                 <div class="tops">
                                                 </div>
                                             </v-col>
@@ -1109,14 +1106,9 @@
                                    </v-col>
                                 </v-row>
                                 <Height />
-
-
-
                             </v-card-text>
-
                         </v-card>
                         <v-card outlined>
-
                             <v-card-text class="px-7">
                                 <div class="d-flex">
                                     <span style="font-size:14pt">ຂໍ້ມູນຢາງລົດ:</span>
@@ -1124,7 +1116,6 @@
                                 <Height />
                                 <div style="display: flex;">
                                     <div style="width:100%">
-
                                         <!-- Left -->
                                         <div style="background-color:#f5f5f5;height:125px;padding-top:5px;border-radius:5px"
                                             class="px-2">
@@ -1378,7 +1369,6 @@
                                 </div>
                             </v-card-text>
                         </v-card>
-
                     </v-form>
                 </v-card-text>
             </div>

@@ -694,29 +694,16 @@
                             </div>
                         </v-card-text>
                     </v-card>
-
                 </v-form>
             </v-card-text>
         </v-card>
         <div style="display:none">
             <div id="modalInvoice">
                 <Noti />
-                <v-row
-                    style="font-size:14px;margin-left: 50px;margin-top: 10px;display:flex;justify-content:start;flex-direction:column;align-items:start">
-                    <div>
-                        <span>ສໍານັກງານຕັ້ງຢູ່ ອາຄານ ສະໜາມຍິງປືນ 20 ມັງກອນ, ສະໜາມກີລາກອງທັບ,</span>
-                        <span> ບ້ານຈອມມະນີ, ເມືອງ ໄຊເສດຖາ, ນະຄອນຫຼວງວຽງຈັນ, ສປປ ລາວ</span>
-                        <span>ໂທລະສັບ: 020 92661111, 020 92 254 999 </span>
-                        <span> ອີເມວ: kounkham@Mining|ເວັບໄຊ: kounkham</span>
-                    </div>
-                </v-row>
-                <br>
                 <div class="text-center"
                     style="display:flex;justify-content:center;font-size:19px;font-weight:bold;margin-top: 15px;margin-bottom: 15px;">
                     ລາຍງານ </div>
-
                 <v-card-text>
-                    <v-form v-model="valid" ref="form" lazy-validation>
                         <!-- ຂໍ້ມູນຫົວລົດ================== -->
                         <v-card outlined>
                             <div class="pa-2 pl-6 pt-4 d-flex">
@@ -739,7 +726,9 @@
                                     <v-icon color="red">mdi-alert-outline</v-icon>
                                     <span class="ml-2" style="color: r;">ກະລຸນາປ່ຽນໝໍ້ໄຟ</span>
                                 </div>
+
                             </div>
+
                             <v-card-text>
                                 <v-row>
                                     <v-col cols="3">
@@ -774,15 +763,11 @@
                                                         <v-spacer></v-spacer>
                                                     </v-date-picker>
                                                 </v-menu>
-                                                <div class="tops">
-                                                </div>
                                             </v-col>
                                             <v-col clos="6" md="4" sm="4">
                                                 <span>ປະກັນໄພ</span>
                                                 <v-text-field dense outlined background-color="#f5f5f5" readonly
                                                     v-model="h_VICIVLE_GALATY"></v-text-field>
-                                                <div class="tops">
-                                                </div>
                                             </v-col>
                                         </v-row>
                                         <v-row style="margin-top: -14px;">
@@ -803,8 +788,6 @@
                                                         <v-spacer></v-spacer>
                                                     </v-date-picker>
                                                 </v-menu>
-                                                <div class="tops">
-                                                </div>
                                             </v-col>
                                             <v-col clos="6" md="4" sm="4">
                                                 <span>ຍີ່ຫໍ້ລົດ</span>
@@ -873,7 +856,6 @@
                                         </v-row>
                                     </v-col>
                                 </v-row>
-
                                 <v-row style="margin-top: -14px;">
                                     <v-col clos="6" md="3" sm="3">
                                         <span>GPS</span><v-text-field dense outlined background-color="#f5f5f5" readonly
@@ -900,8 +882,6 @@
                                                     v-model="idMorFai"></v-text-field>
                                             </v-col>
                                         </v-row>
-
-
                                         <div class="tops">
                                             <span> ຂະໜາດ: {{ sizeMorFai }} || ອາຍຸການໃຊ້ງານ: {{ serviceLIFE }} ປີ
                                             </span>
@@ -1038,7 +1018,6 @@
                                         </div>
                                     </v-col>
                                 </v-row>
-
                                 <v-row>
                                     <v-col clos="6" md="3" sm="3">
                                         <span>ຜ້າບັດ</span>
@@ -1093,7 +1072,6 @@
                                         </div>
                                     </v-col>
                                     <v-col clos="6" md="3" sm="3">
-    
                                         <v-radio-group style="display: flex;" inline v-model="h_VICIVLE_GLASS">
                                             <div>
                                                 <span>ນໍ້າມັນລົດໃຊ້</span>
@@ -1103,12 +1081,13 @@
                                                 <v-radio label="ກະຊວນ" value="ກະຊວນ"></v-radio>
                                             </div>
                                         </v-radio-group>
-                                   </v-col>
+                                    </v-col>
                                 </v-row>
                                 <Height />
                             </v-card-text>
                         </v-card>
                         <v-card outlined>
+
                             <v-card-text class="px-7">
                                 <div class="d-flex">
                                     <span style="font-size:14pt">ຂໍ້ມູນຢາງລົດ:</span>
@@ -1116,6 +1095,7 @@
                                 <Height />
                                 <div style="display: flex;">
                                     <div style="width:100%">
+
                                         <!-- Left -->
                                         <div style="background-color:#f5f5f5;height:125px;padding-top:5px;border-radius:5px"
                                             class="px-2">
@@ -1243,14 +1223,12 @@
                                             </div>
                                         </div>
                                     </div>
-
                                     <div class="text-center">
                                         <img v-if="r_TIRE_NO_2" class="mx-auto" src="../assets/images/head12.png"
                                             width="150" height="450" />
                                         <img v-else class="mx-auto" src="../assets/images/head10.png" width="150"
                                             height="390" />
                                     </div>
-
                                     <!-- Right -->
                                     <div style="width:100%">
                                         <div style="background-color:#f5f5f5;height:120px;padding-top:5px;border-radius:5px"
@@ -1258,7 +1236,6 @@
                                             <div style="display: flex;">
                                                 <v-text-field dense outlined label="ລະຫັດຢາງລົດ"
                                                     v-model="r_TIRE_NO_1"></v-text-field>
-
                                                 <v-text-field class="ml-2" dense outlined label="ວັນທີປ່ຽນຢາງ"
                                                     v-model="r_TIRE_DATE_1"></v-text-field>
                                                 <v-text-field class="ml-2" dense outlined label="ກຳນົດແລ່ນໄດ້ km"
@@ -1369,11 +1346,9 @@
                                 </div>
                             </v-card-text>
                         </v-card>
-                    </v-form>
                 </v-card-text>
             </div>
         </div>
-
         <Height />
         <Height />
         <Height />
@@ -1520,6 +1495,7 @@ export default {
         }
     },
     methods: {
+ 
         print() {
             const modal = document.getElementById("modalInvoice")
             const cloned = modal.cloneNode(true)

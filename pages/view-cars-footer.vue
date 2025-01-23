@@ -368,15 +368,7 @@
                             <div style="margin-bottom: 20px;"> ໂຕລັອກຕູ້: {{ f_TOLOCKTU }}</div>
                             <div style="margin-bottom: 20px;"> ໂສ້: {{ f_SO }}</div>
                             <!-- <div style="margin-bottom: 20px;"> ຜ້າບັດ: {{ f_PABUD }}</div> -->
-                            <div style="margin-bottom: 20px;">
-                                <div>ສະຖານະລົດ:</div>
-                                <v-radio-group inline v-model="f_STATUS">
-                                    <div class="pl-4 d-flex align-center">
-                                        <v-radio label="ວ່າງ" value="Y" color="#55CE63"></v-radio>
-                                        <v-radio label="ບໍ່ວ່າງ" value="N" color="red"></v-radio>
-                                    </div>
-                                </v-radio-group>
-                            </div>
+                     
                         </div>
                         <div style="padding-top: 30px;">
                             <div style="margin-bottom: 20px;"> ບັງຕົມ: {{ f_BGTHOM }}</div>

@@ -70,8 +70,6 @@
                             v-model="f_FAIKHANG"></v-text-field></div>
                 </div>
                 <div class="" style="display:flex;flex-direction:row;justify-content:space-between">
-
-
                     <div class="pr-2" style="width:100%"><span>ໄຟທ້າຍ</span><v-text-field :rules="nameRules"
                             label="ໄຟທ້າຍ" dense readonly flat solo background-color="#f5f5f5"
                             v-model="f_FAITHAIY"></v-text-field></div>

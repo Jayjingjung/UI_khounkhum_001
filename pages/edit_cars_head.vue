@@ -202,6 +202,23 @@
                                         <div class="tops">
                                         </div>
                                     </v-col>
+                                    <v-col clos="6" md="4" sm="4" style="border-radius:5px;height:40px">
+                                        <v-radio-group inline v-model="status_use_unuse_car">
+                                            <div class="pl-4 d-flex align-center">
+                                                <span>ສະຖານະລົດໃ້ຊ້ງານ</span>
+                                                <Width />
+                                                <v-radio label="ວ່າງ" value="run" color="#55CE63"></v-radio>
+                                                <Width />
+                                                <v-radio label="ບໍ່ວ່າງ" value="stop" color="red"></v-radio>
+                                            </div>
+                                        </v-radio-group>
+                                    </v-col>
+                                    <v-col>
+                                        <span>ໝາຍເຫດ</span>
+                                        <v-textarea rounded background-color="#f5f5f5" filled
+                                            placeholder="ສະແດງຄວາມຄິດເຫັນ..."
+                                            v-model="comment"></v-textarea>
+                                    </v-col>
                                     <v-col cols="12" md="4" sm="6">
                                         <v-icon color="black">mdi-calendar-range</v-icon>
                                         <span>ວັນທີ່ປ່ຽນນ້ຳມັນເຄື່ອງ</span>
@@ -507,9 +524,18 @@
                 <!-- ຂໍ້ມູນຢາງລົດ -->
                 <v-card flat>
                     <v-card-text>
-                        <div class="d-flex">
-                            <span style="font-size:14pt">ຂໍ້ມູນຢາງລົດ:</span>
-                        </div>
+                        <v-card-actions>
+                            <div class="d-flex">
+                                <span style="font-size:14pt">ຂໍ້ມູນຢາງລົດ:</span>
+                            </div>
+                            <v-spacer></v-spacer>
+                            <div> ຢີ່ຫໍ້ຢ່າງລົດ</div>
+                            <div>
+                                <v-text-field :rules="nameRules" dense flat solo background-color="#f5f5f5"
+                                    v-model="brand_wheel_car"></v-text-field>
+                            </div>
+                            <v-spacer></v-spacer>
+                        </v-card-actions>
                         <Height />
                         <div class="d-flex">
                             <div style="width:100%">
@@ -815,11 +841,11 @@ import swal from 'sweetalert2'
 export default {
     data() {
         return {
-            toBatRowStatus:'',
-            toBatRowGalanty:'',
-            toBatRowtabienLod:'',
-            dateExTungsit_status:'',
-            date_change_lean:'',
+            toBatRowStatus: '',
+            toBatRowGalanty: '',
+            toBatRowtabienLod: '',
+            dateExTungsit_status: '',
+            date_change_lean: '',
             imagePreview: '',
             canRun1: '',
             canRun2: '',
@@ -841,6 +867,7 @@ export default {
             nameRules: [(v) => !!v || ''],
             // state save data
             his_REASON: '',
+            comment:'',
             h_VICIVLE_GLASS: 'ກະຊວນ',
             h_VICIVLE_NUMBER: '',
             h_VICIVLE_GALATY: '',
@@ -875,11 +902,13 @@ export default {
             h_VICIVLE_FAIYKHANG: '',
             h_VICIVLE_VENMONGNAR: '',
             lektungsit: '',
+            brand_wheel_car: '',
             h_VICIVLE_VENMONGLHG: '',
             h_VICIVLE_VENKHANG: '',
             h_LEK_NUMMUNKHG: '',
             kim_KM: '',
             h_STATUS: '',
+            status_use_unuse_car: '',
             r_TIRE_NO_1: '',
             r_TIRE_NO_2: '',
             r_TIRE_NO_3: '',
@@ -899,7 +928,7 @@ export default {
             r_TIRE_KM_5: '',
             formattedDate: null,
             r_TIRE_KM_6: '',
-            r_TIRE_KM_7:'',
+            r_TIRE_KM_7: '',
             ll_TIRE_NO_1: '',
             ll_TIRE_NO_2: '',
             ll_TIRE_NO_5: '',
@@ -934,7 +963,7 @@ export default {
             h_KM10: '',
             h_KM11: '',
             h_KM12: '',
-            h_KM13:'',
+            h_KM13: '',
             //right last and now
             h_KML_1: '',
             h_KML_2: '',
@@ -1225,6 +1254,7 @@ export default {
                     console.log("dataUpd", data)
                     this.imageTruckold = data?.data[0]?.imageTruck;
                     this.h_STATUS = data?.data[0]?.h_STATUS;
+                    this.status_use_unuse_car = data?.data[0]?.status_use_unuse_car;
                     this.kim_KM = data?.data[0]?.kim_KM,
                         this.exHangMar = data?.data[0]?.exHangMar,
                         this.exCarDate = data?.data[0]?.exCarDate,
@@ -1265,6 +1295,7 @@ export default {
                         this.h_VICIVLE_FAIYKHANG = data?.data[0]?.h_VICIVLE_FAIYKHANG,
                         this.h_VICIVLE_VENMONGNAR = data?.data[0]?.h_VICIVLE_VENMONGNAR,
                         this.lektungsit = data?.data[0]?.lektungsit,
+                        this.brand_wheel_car = data?.data[0]?.brand_wheel_car,
                         this.h_VICIVLE_VENMONGLHG = data?.data[0]?.h_VICIVLE_VENMONGLHG,
                         this.h_VICIVLE_VENKHANG = data?.data[0]?.h_VICIVLE_VENKHANG,
                         this.h_KM13 = data?.data[0]?.h_KM13,
@@ -1388,6 +1419,7 @@ export default {
                 formdata.append('h_VICIVLE_FAIYKHANG', this.h_VICIVLE_FAIYKHANG)
                 formdata.append('h_VICIVLE_VENMONGNAR', this.h_VICIVLE_VENMONGNAR)
                 formdata.append('lektungsit', this.lektungsit)
+                formdata.append('brand_wheel_car', this.brand_wheel_car)
                 formdata.append('h_VICIVLE_VENMONGLHG', this.h_VICIVLE_VENMONGLHG)
                 formdata.append('h_VICIVLE_VENKHANG', this.h_VICIVLE_VENKHANG)
                 formdata.append('h_VICIVLE_GLASS', this.h_VICIVLE_GLASS)
@@ -1470,7 +1502,9 @@ export default {
                 formdata.append('batNo', this.keyId)
                 formdata.append('imageTruck', this.imageTruckold)
                 formdata.append('his_REASON', this.his_REASON)
+                formdata.append('comment', this.comment)
                 formdata.append('h_STATUS', this.h_STATUS)
+                formdata.append('status_use_unuse_car', this.status_use_unuse_car)
                 formdata.append('key_id', this.$route.query.key)
                 //add new
                 formdata.append('saiystay', this.saiystay)

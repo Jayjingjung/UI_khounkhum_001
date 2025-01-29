@@ -46,8 +46,12 @@
             </div>
             <div>
 
-                <v-select dense outlined v-model="selectedItem" :items="uniqueShops" label="ຮ້ານ"
-                    placeholder="Choose a shop" @change="applyFilters"></v-select>
+                <v-autocomplete dense outlined v-model="selectedItem" :items="uniqueShops" label="ຮ້ານ"
+                    placeholder="Choose a shop" @change="onSelectShop"></v-autocomplete>
+                <v-autocomplete dense outlined v-model="selectedLocation" :items="uniqueLocations"
+                    label="ເລືອກສະຖານທີ່ເເຊວງ" placeholder="Choose location"
+                    @change="onSelectLocation"></v-autocomplete>
+
             </div>
 
             <v-row justify="start">
@@ -55,37 +59,6 @@
             </v-row>
 
         </div>
-
-
-
-
-
-        <!-- <v-data-table :items-per-page="5" :headers="truck_table_headersv2" :items="filteredItems"
-                    :search="search">
-                    <template v-slot:item="row">
-                        <tr>
-                            <td>
-                                <v-checkbox v-if="row?.item?.approve_status !== 'YES'" v-model="selectedItems"
-                                    :value="row.item" @change="updateTotalTid" />
-                            </td>
-                            <td>{{ row?.item?.item_name }}</td>
-                            <td>{{ row?.item?.branch_inventory }}</td>
-                            <td>{{ row?.item?.qty_Fix }}</td>
-                            <td>{{ row?.item?.total_Price }}</td>
-                            <td>{{ row?.item?.description }}</td>
-                            <td>{{ row?.item?.fix_Detail }}</td>
-                            <td>{{ row?.item?.location_fix }}</td>
-                            <td>{{ row?.item?.dateFix }}</td>
-                            <td>{{ row?.item?.item_id }}</td>
-                            <td>{{ row?.item?.footer_id }}</td>
-                            <td>{{ row?.item?.f_BRANCH }}</td>
-                            <td>{{ row?.item?.header_id }}</td>
-                            <td>{{ row?.item?.h_VICIVLE_NUMBER }}</td>
-                        
-                       
-                        </tr>
-                    </template>
-                </v-data-table> -->
         <div style="width: 100%;">
             <v-card class="card-shadow" rounded="lg" style="border: 0.5px solid #e0e0e0; border-radius: 3px;">
                 <v-card-title style="background-color: #af565c" class="white--text">
@@ -95,7 +68,7 @@
                     :search="search">
                     <template v-slot:item="row">
                         <tr>
-                            <td></td>
+
                             <td>{{ row?.item?.item_name }}</td>
                             <td>{{ row?.item?.branch_inventory }}</td>
                             <td>{{ row?.item?.qty_Fix }}</td>
@@ -110,14 +83,14 @@
                             <td>{{ row?.item?.header_id }}</td>
                             <td>{{ row?.item?.h_VICIVLE_NUMBER }}</td>
                             <td>
-                                <v-btn v-if="row.item.approve_status !== 'NO'&row.item.new_status !== 'GO'" @click="updatestatusconfirm(row.item)"
-                                    color="success">
+                                <v-btn v-if="row.item.approve_status !== 'NO' & row.item.new_status !== 'GO'"
+                                    @click="updatestatusconfirm(row.item)" color="success">
                                     Send
                                 </v-btn>
                             </td>
                             <td>
-                                <v-btn v-if="row.item.new_status !== 'GO'" :loading="loading_processing" @click="updatestatuscancle(row.item)"
-                                    color="error">
+                                <v-btn v-if="row.item.new_status !== 'GO'" :loading="loading_processing"
+                                    @click="updatestatuscancle(row.item)" color="error">
                                     Cancel
                                 </v-btn>
                             </td>
@@ -148,7 +121,7 @@
                             <td>{{ row?.item?.f_BRANCH }}</td>
                             <td>{{ row?.item?.header_id }}</td>
                             <td>{{ row?.item?.h_VICIVLE_NUMBER }}</td>
-                          
+
                         </tr>
                     </template>
                 </v-data-table>
@@ -170,6 +143,7 @@ export default {
             applyFilters: '',
             selectedCurrency: null,
             filter: null,
+            selectedLocation: null, // ບໍ່ມີ location ທີ່ເລືອກໃນຕອນເລີ່ມ
             show_list: [],
             truck_data_listv2: [],
             truck_data_listv: [],
@@ -178,12 +152,13 @@ export default {
             search: '',
             formattedcreate: '',
             create: '',
+            filter1: null, // ຕັ້ງຄ່າໃຫ້ມີຄ່າເລີ່ມຕົ້ນ
             createMenu: '',
             updatecreate: '',
             allinve: '', // Added this property
             selectedCurrency: '', // Default currency
             truck_table_headersv2: [
-                { text: 'Checkbox', value: 'Checkbox' },
+                // { text: 'Checkbox', value: 'Checkbox' },
                 { text: 'ຊື່', value: 'item_name' },
                 { text: 'branch_inventory', value: 'branch_inventory' },
                 { text: 'ຈໍານວນ', value: 'qty_Fix' },
@@ -235,9 +210,13 @@ export default {
 
     },
     computed: {
-        filteredTruckData() {
-        return this.truck_data_listv.filter(item => item.new_status === 'GO');
+        uniqueLocations() {
+        const locations = this.truck_data_listv2.map(item => item.location_fix);
+        return [...new Set(locations)];
     },
+        filteredTruckData() {
+            return this.truck_data_listv.filter(item => item.new_status === 'GO');
+        },
         // Get unique shop names for the dropdown
         uniqueShops() {
             const shopNames = this.truck_data_listv2.map(item => item.item_name);
@@ -265,24 +244,37 @@ export default {
 
 
         filteredItems() {
-            return this.truck_data_listv2.filter((item) => {
-                const matchesItem = this.selectedItem ? item.item_name === this.selectedItem : true;
-                const matchesStatus = this.filter ? item.approve_status === this.filter : true;
-                const matchesCurrency = this.selectedCurrency ? item.cur === this.selectedCurrency : true;
-                return matchesItem && matchesStatus && matchesCurrency;
-            });
+        return this.truck_data_listv2.filter((item) => {
+            const matchesItem = this.selectedItem ? item.item_name === this.selectedItem : true;
+            const matchesLocation = this.selectedLocation ? item.location_fix === this.selectedLocation : true;
+            const matchesStatus = this.filter ? item.approve_status === this.filter : true;
+            const matchesCurrency = this.selectedCurrency ? item.cur === this.selectedCurrency : true;
+
+            return matchesItem && matchesLocation && matchesStatus && matchesCurrency;
+        });
         }
         ,
     },
 
     methods: {
+        onSelectLocation(selected) {
+        console.log("Location selected:", selected);
+        this.selectedLocation = selected;
+    },
+        onSelectShop(selected) {
+            console.log("Shop selected:", selected);
+            this.selectedItem = selected;
+        },
+        applyFilters() {
+            console.log("Filter applied with selectedItem:", this.selectedItem);
+        },
         handleError(title, message) {
             console.error(`${title}: ${message}`);
             alert(`${title}: ${message}`);
         },
 
         setFilter(filterValue) {
-            this.filter = filterValue;
+            this.filter1 = filterValue; // ປ່ຽນ `filter1` ຄ່າໃໝ່
         },
         formatDate(date) {
             if (!date) return '';
@@ -492,7 +484,7 @@ export default {
             try {
                 this.loading_processing = true;
 
-             
+
                 const data = {
                     key_id: item.key_id, // Pass the item's key_id
                     status: "YES", // Set the status to 'NO'
@@ -516,9 +508,9 @@ export default {
                         confirmButtonText: "OK",
                     });
 
-                
+
                     window.location.reload();
-                  
+
                 }
             } catch (error) {
                 console.error("Error:", error);

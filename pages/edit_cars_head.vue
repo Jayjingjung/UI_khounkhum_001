@@ -78,19 +78,7 @@
                                         background-color="#f5f5f5" v-model="imageTruck"></v-file-input>
                                     <div class="tops"></div>
                                 </div>
-                                <div>
-                                    <v-radio-group inline v-model="status_use_unuse_car">
-                                        <div class="pl-4 align-center">
-                                            <div style="font-size: 16px; font-weight: bold;">ສະຖານະລົດໃຊ້ງານ</div>
-                                            <div>
-                                                <Width />
-                                                <v-radio label="Running" value="run" color="#55CE63"></v-radio>
-                                                <Width />
-                                                <v-radio label="Stop" value="stop" color="red"></v-radio>
-                                            </div>
-                                        </div>
-                                    </v-radio-group>
-                                </div>
+
 
                             </v-col>
                             <v-col cols="9">
@@ -215,11 +203,7 @@
                                         <div class="tops">
                                         </div>
                                     </v-col>
-                                    <v-col>
-                                        <span style="font-size: 16px; font-weight: bold;">Comment</span>
-                                        <v-textarea v-model="comment" rounded background-color="#ECEFF1" filled
-                                            placeholder="ສະແດງຄວາມຄິດເຫັນ..."></v-textarea>
-                                    </v-col>
+
                                     <v-col cols="12" md="4" sm="6">
                                         <v-icon color="black">mdi-calendar-range</v-icon>
                                         <span>ວັນທີ່ປ່ຽນນ້ຳມັນເຄື່ອງ</span>
@@ -448,54 +432,63 @@
                                 <div class="tops">
                                 </div>
                             </v-col>
+                            <v-col clos="6" md="3" sm="3">
+                                <div>
+                                    <div>
+                                        ຕັ້ງສິດ
+                                    </div>
+                                    <v-text-field :rules="nameRules" label="ຕັ້ງສິດ" dense flat solo
+                                        background-color="#f5f5f5" v-model="lektungsit"></v-text-field>
+                                </div>
+                            </v-col>
+                            <v-col clos="6" md="3" sm="3">
+
+                                <div>ວັນທີໝົດອາຍຸຕັ້ງສິດ</div>
+                                <v-menu ref="end_tangsit" v-model="end_tangsit" :close-on-content-click="false"
+                                    :return-value.sync="dateExTungsit" transition="scale-transition" offset-y
+                                    min-width="auto">
+                                    <template v-slot:activator="{ on, attrs }">
+                                        <v-text-field v-if="dateExTungsit_status === 'W'" dense outlined
+                                            background-color="#FFF176" v-model="dateExTungsit" required
+                                            append-icon="mdi-calendar" readonly v-bind="attrs" v-on="on"
+                                            :rules="nameRules"></v-text-field>
+                                        <v-text-field v-else-if="dateExTungsit_status === 'E'" dense outlined
+                                            background-color="red" v-model="dateExTungsit" required
+                                            append-icon="mdi-calendar" readonly v-bind="attrs" v-on="on"
+                                            :rules="nameRules"></v-text-field>
+                                        <v-text-field v-else dense outlined background-color="#f5f5f5"
+                                            v-model="dateExTungsit" required append-icon="mdi-calendar" readonly
+                                            v-bind="attrs" v-on="on" :rules="nameRules"></v-text-field>
+                                    </template>
+                                    <v-date-picker v-model="dateExTungsit" no-title scrollable
+                                        @input="$refs.end_tangsit.save(dateExTungsit)">
+
+                                    </v-date-picker>
+                                </v-menu>
+                            </v-col>
+                            <v-col clos="6" md="3" sm="3">
+                            </v-col>
+                            <v-col>
+                                <v-radio-group inline v-model="status_use_unuse_car">
+                                    <div class="pl-4 align-center">
+                                        <div style="font-size: 16px; font-weight: bold;">ສະຖານະລົດໃຊ້ງານ
+                                        </div>
+                                        <div>
+                                            <Width />
+                                            <v-radio label="Running" value="run" color="#55CE63"></v-radio>
+                                            <Width />
+                                            <v-radio label="Stop" value="stop" color="red"></v-radio>
+                                        </div>
+                                    </div>
+                                </v-radio-group>
+                                <span style="font-size: 16px; font-weight: bold;width: 100%;">Comment</span>
+                                <v-textarea v-model="comment" rounded background-color="#ECEFF1" filled
+                                    placeholder="ສະແດງຄວາມຄິດເຫັນ..."></v-textarea>
+                            </v-col>
+
+
                         </v-row>
-                        <v-card class="card-shadow mx-auto mt-10" width="1400">
-                            <v-card-title style="display:flex;background-color:#E57373;color:white">
-                                <v-spacer></v-spacer>
-                                ເລກຕັ້ງສິດ
-                                <v-spacer></v-spacer>
-                            </v-card-title>
-                            <v-row style="margin-top: -14px;" justify="center" align="center">
-                                <v-col cols="12" md="6" sm="8" class="text-center">
-                                    <v-card-actions>
-                                        <div>
-                                            <div>
-                                                ຕັ້ງສິດ
-                                            </div>
-                                            <v-text-field :rules="nameRules" label="ຕັ້ງສິດ" dense flat solo
-                                                background-color="#f5f5f5" v-model="lektungsit"></v-text-field>
-                                        </div>
-                                        <v-spacer></v-spacer>
-                                        <div>
-                                            <div>ວັນທີໝົດອາຍຸຕັ້ງສິດ</div>
-                                            <v-menu ref="end_tangsit" v-model="end_tangsit"
-                                                :close-on-content-click="false" :return-value.sync="dateExTungsit"
-                                                transition="scale-transition" offset-y min-width="auto">
-                                                <template v-slot:activator="{ on, attrs }">
-                                                    <v-text-field v-if="dateExTungsit_status === 'W'" dense outlined
-                                                        background-color="#FFF176" v-model="dateExTungsit" required
-                                                        append-icon="mdi-calendar" readonly v-bind="attrs" v-on="on"
-                                                        :rules="nameRules"></v-text-field>
-                                                    <v-text-field v-else-if="dateExTungsit_status === 'E'" dense
-                                                        outlined background-color="red" v-model="dateExTungsit" required
-                                                        append-icon="mdi-calendar" readonly v-bind="attrs" v-on="on"
-                                                        :rules="nameRules"></v-text-field>
-                                                    <v-text-field v-else dense outlined background-color="#f5f5f5"
-                                                        v-model="dateExTungsit" required append-icon="mdi-calendar"
-                                                        readonly v-bind="attrs" v-on="on"
-                                                        :rules="nameRules"></v-text-field>
-                                                </template>
-                                                <v-date-picker v-model="dateExTungsit" no-title scrollable
-                                                    @input="$refs.end_tangsit.save(dateExTungsit)">
-                                                    <v-spacer></v-spacer>
-                                                </v-date-picker>
-                                            </v-menu>
-                                        </div>
-                                    </v-card-actions>
-                                </v-col>
-                            </v-row>
-                        </v-card>
-                        <Height />
+
                         <div class="margintop d-flex align-center mt-4">
                             <div class="d-flex align-center pt-2  pr-2"
                                 style="background-color:#f7f7f7;border-radius:5px;height:40px">
@@ -536,7 +529,7 @@
                         <div style="font-size:16px; font-weight: bold;"> ຢີ່ຫໍ້ຢາງລົດ</div>
                         <div style="width: 20%;">
                             <v-text-field :rules="nameRules" dense flat solo background-color="#f5f5f5"
-                            v-model="brand_wheel_car"></v-text-field>
+                                v-model="brand_wheel_car"></v-text-field>
                         </div>
                         <div class="d-flex">
                             <div style="width:100%">

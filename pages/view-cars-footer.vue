@@ -349,18 +349,19 @@
                 </v-card>
             </v-card-text>
         </v-card>
-        <div style="display: none;">
-            <div id="modalInvoice">
-                <Noti />
-                <v-row
-                    style="font-size:14px;margin-left: 50px;margin-top: 10px;display:flex;justify-content:start;flex-direction:column;align-items:start">
-                    <div>
-                        <span>ສໍານັກງານຕັ້ງຢູ່ ອາຄານ ສະໜາມຍິງປືນ 20 ມັງກອນ, ສະໜາມກີລາກອງທັບ,</span>
-                        <span> ບ້ານຈອມມະນີ, ເມືອງ ໄຊເສດຖາ, ນະຄອນຫຼວງວຽງຈັນ, ສປປ ລາວ</span>
-                        <span>ໂທລະສັບ: 020 92661111, 020 92 254 999 </span>
-                        <span> ອີເມວ: kounkham@Mining|ເວັບໄຊ: kounkham</span>
-                    </div>
-                </v-row>
+        <div style="display:none">
+         
+         <div id="modalInvoice">
+             <Noti />
+             <v-row
+                 style="font-size:14px;margin-left: 50px;margin-top: 10px;display:flex;justify-content:start;flex-direction:column;align-items:start">
+                 <div>
+                     <span>ສໍານັກງານຕັ້ງຢູ່ ອາຄານ ສະໜາມຍິງປືນ 20 ມັງກອນ, ສະໜາມກີລາກອງທັບ,</span>
+                     <span> ບ້ານຈອມມະນີ, ເມືອງ ໄຊເສດຖາ, ນະຄອນຫຼວງວຽງຈັນ, ສປປ ລາວ</span>
+                     <span>ໂທລະສັບ: 020 92661111, 020 92 254 999 </span>
+                     <span> ອີເມວ: kounkham@Mining|ເວັບໄຊ: kounkham</span>
+                 </div>
+             </v-row>
                 <br>
                 <div class="text-center"
                     style="display:flex;justify-content:center;font-size:20px;font-weight:bold;margin-top: 18px;margin-bottom: 35px;">
@@ -1055,5 +1056,34 @@ export default {
     justify-content: center;
     background-color: red;
     justify-items: center;
+}
+
+@media screen {
+    #print {
+        display: none;
+    }
+}
+
+@media print {
+    @page {
+        size: A4;
+        margin: 1in;
+    }
+
+    body * {
+        visibility: hidden;
+    }
+
+    #print,
+    #print * {
+        visibility: visible;
+    }
+
+    #print {
+        position: absolute;
+        top: 0px;
+        right: 0px;
+        left: 0px;
+    }
 }
 </style>

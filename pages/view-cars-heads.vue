@@ -722,11 +722,18 @@
             </v-card-text>
         </v-card>
         <div style="display:none">
-            <div id="modalInvoice">
-                <Noti />
-                <div class="text-center"
-                    style="display:flex;justify-content:center;font-size:19px;font-weight:bold;margin-top: 15px;margin-bottom: 15px;">
-                    ລາຍງານ </div>
+         
+         <div id="modalInvoice">
+             <Noti />
+             <v-row
+                 style="font-size:14px;margin-left: 50px;margin-top: 10px;display:flex;justify-content:start;flex-direction:column;align-items:start">
+                 <div>
+                     <span>ສໍານັກງານຕັ້ງຢູ່ ອາຄານ ສະໜາມຍິງປືນ 20 ມັງກອນ, ສະໜາມກີລາກອງທັບ,</span>
+                     <span> ບ້ານຈອມມະນີ, ເມືອງ ໄຊເສດຖາ, ນະຄອນຫຼວງວຽງຈັນ, ສປປ ລາວ</span>
+                     <span>ໂທລະສັບ: 020 92661111, 020 92 254 999 </span>
+                     <span> ອີເມວ: kounkham@Mining|ເວັບໄຊ: kounkham</span>
+                 </div>
+             </v-row>
                 <v-card-text>
                     <!-- ຂໍ້ມູນຫົວລົດ================== -->
                     <v-card outlined>
@@ -850,6 +857,7 @@
                                             <div class="tops">
                                             </div>
                                         </v-col>
+<<<<<<< Updated upstream
 
                                     </v-row>
                                     <v-row style="margin-top: -14px;">
@@ -1021,6 +1029,167 @@
                             </v-row>
                             <v-row style="margin-top: -14px;">
 
+=======
+
+                                    </v-row>
+                                    <v-row style="margin-top: -14px;">
+                                        <v-col clos="6" md="4" sm="4">
+                                            <span>ປະເພດລົດ</span>
+                                            <v-text-field dense outlined background-color="#f5f5f5" readonly
+                                                v-model="h_VICIVLE_BRANCHTYPE"></v-text-field>
+                                            <div class="tops">
+                                            </div>
+                                        </v-col>
+                                        <v-col clos="6" md="4" sm="4">
+                                            <span>ເລກຈັກ</span>
+                                            <v-text-field dense outlined background-color="#f5f5f5" readonly
+                                                v-model="h_VICIVLE_LEKJUK"></v-text-field>
+                                            <div class="tops">
+                                            </div>
+                                        </v-col>
+                                        <v-col clos="6" md="4" sm="4">
+                                            <span>ເລກຖັງ</span><v-text-field dense outlined background-color="#f5f5f5"
+                                                readonly v-model="h_VICIVLE_LEKTHUNG"></v-text-field>
+                                            <div class="tops">
+                                            </div>
+                                        </v-col>
+                                    </v-row>
+                                </v-col>
+                            </v-row>
+                            <v-row style="margin-top: -14px;">
+                                <v-col clos="6" md="3" sm="3">
+                                    <span>GPS</span><v-text-field dense outlined background-color="#f5f5f5" readonly
+                                        v-model="h_VICIVLE_GPS"></v-text-field>
+                                    <div class="tops">
+                                    </div>
+                                </v-col>
+                                <v-col clos="6" md="3" sm="3">
+                                    <span>ຝອຍປັດນໍ້າຝົນ</span><v-text-field dense outlined background-color="#f5f5f5"
+                                        readonly v-model="h_VICIVLE_POYPUDNUMFON"></v-text-field>
+                                    <div class="tops">
+                                    </div>
+                                </v-col>
+                                <v-col clos="6" md="3" sm="3">
+                                    <span>ໝໍ້ໄຟ</span>
+                                    <v-row>
+                                        <v-col clos="6" md="2" sm="2">
+                                            <img :src="imageMorFai" cover height="40px" width="40px">
+                                            <!-- <img :src="imageBatery" cover height="40px" width="40px"> -->
+                                        </v-col>
+                                        <v-col clos="6" md="10" sm="10">
+                                            <v-text-field dense outlined background-color="#f5f5f5" readonly
+                                                v-model="idMorFai"></v-text-field>
+                                        </v-col>
+                                    </v-row>
+                                    <div class="tops">
+                                        <span> ຂະໜາດ: {{ sizeMorFai }} || ອາຍຸການໃຊ້ງານ: {{ serviceLIFE }} ປີ
+                                        </span>
+                                    </div>
+                                </v-col>
+                                <v-col clos="6" md="3" sm="3">
+                                    <span>ວັນທີໃສ່ໝໍ້ໄຟ</span>
+                                    <v-menu ref="start_bat" v-model="start_bat" :close-on-content-click="false"
+                                        :return-value.sync="start_bat_date" transition="scale-transition" offset-y
+                                        min-width="auto">
+                                        <template v-slot:activator="{ on, attrs }">
+                                            <v-text-field v-if="toBatRowStatus === 'W'" dense outlined
+                                                v-model="start_bat_date" background-color="#FFF176" required
+                                                append-icon="mdi-calendar" readonly v-bind="attrs" v-on="on"
+                                                :rules="nameRules"></v-text-field>
+                                            <v-text-field v-else-if="toBatRowStatus === 'E'" dense outlined
+                                                v-model="start_bat_date" background-color="red" required
+                                                append-icon="mdi-calendar" readonly v-bind="attrs" v-on="on"
+                                                :rules="nameRules"></v-text-field>
+                                            <v-text-field v-else dense outlined v-model="start_bat_date"
+                                                background-color="#f5f5f5" required append-icon="mdi-calendar" readonly
+                                                v-bind="attrs" v-on="on" :rules="nameRules"></v-text-field>
+                                        </template>
+                                        <v-date-picker v-model="start_bat_date" no-title scrollable
+                                            @input="$refs.start_bat.save(start_bat_date)">
+                                            <v-spacer></v-spacer>
+                                        </v-date-picker>
+                                    </v-menu>
+                                    <div class="tops">
+                                    </div>
+                                </v-col>
+                            </v-row>
+                            <v-row style="margin-top: -14px;">
+                                <v-col clos="6" md="3" sm="3">
+                                    <span>ວັນທີໝົດອາຍຸໝໍ້ໄຟ</span>
+                                    <v-menu ref="end_bat" v-model="end_bat" :close-on-content-click="false"
+                                        :return-value.sync="end_bat_date" transition="scale-transition" offset-y
+                                        min-width="auto">
+                                        <template v-slot:activator="{ on, attrs }">
+                                            <v-text-field v-if="toBatRowStatus === 'W'" dense outlined
+                                                background-color="#FFF176" v-model="end_bat_date" required
+                                                append-icon="mdi-calendar" readonly v-bind="attrs" v-on="on"
+                                                :rules="nameRules"></v-text-field>
+                                            <v-text-field v-else-if="toBatRowStatus === 'E'" dense outlined
+                                                background-color="red" v-model="end_bat_date" required
+                                                append-icon="mdi-calendar" readonly v-bind="attrs" v-on="on"
+                                                :rules="nameRules"></v-text-field>
+                                            <v-text-field v-else dense outlined background-color="#f5f5f5"
+                                                v-model="end_bat_date" required append-icon="mdi-calendar" readonly
+                                                v-bind="attrs" v-on="on" :rules="nameRules"></v-text-field>
+                                        </template>
+                                        <v-date-picker v-model="end_bat_date" no-title scrollable
+                                            @input="$refs.end_bat.save(end_bat_date)">
+                                            <v-spacer></v-spacer>
+                                        </v-date-picker>
+                                    </v-menu>
+                                    <div class="tops">
+                                    </div>
+                                </v-col>
+                                <v-col clos="6" md="3" sm="3">
+                                    <span>ບັງຕົມ</span><v-text-field dense outlined background-color="#f5f5f5" readonly
+                                        v-model="h_VICIVLE_BGTOM"></v-text-field>
+                                    <div class="tops">
+                                    </div>
+                                </v-col>
+                                <v-col clos="6" md="3" sm="3">
+                                    <span>ຈານລາກ</span><v-text-field dense outlined background-color="#f5f5f5" readonly
+                                        v-model="h_VICIVLE_JANLARK"></v-text-field>
+                                    <div class="tops">
+                                    </div>
+                                </v-col>
+                                <v-col clos="6" md="3" sm="3">
+                                    <span>ໄຟໜ້າ</span><v-text-field dense outlined background-color="#f5f5f5" readonly
+                                        v-model="h_VICIVLE_FAINAR"></v-text-field>
+                                    <div class="tops">
+                                    </div>
+                                </v-col>
+                            </v-row>
+                            <v-row style="margin-top: -14px;">
+                                <v-col clos="6" md="3" sm="3">
+                                    <span>ແຮງມ້າ</span><v-text-field :rules="nameRules" dense outlined
+                                        background-color="#f5f5f5" v-model="exHangMar"></v-text-field>
+                                    <div class="tops">
+                                    </div>
+                                </v-col>
+                                <v-col clos="6" md="3" sm="3">
+                                    <span>ໄຟຂ້າງ</span><v-text-field dense outlined background-color="#f5f5f5" readonly
+                                        v-model="h_VICIVLE_FAIYKHANG"></v-text-field>
+                                    <div class="tops">
+                                    </div>
+                                </v-col>
+                                <v-col clos="6" md="3" sm="3">
+                                    <span>ໄຟທ້າຍ</span>
+                                    <v-text-field dense outlined background-color="#f5f5f5" readonly
+                                        v-model="h_VICIVLE_FAITHAIY"></v-text-field>
+                                    <div class="tops">
+                                    </div>
+                                </v-col>
+                                <v-col clos="6" md="3" sm="3">
+                                    <span>ແວ່ນມອງໜ້າ</span><v-text-field dense outlined background-color="#f5f5f5"
+                                        readonly v-model="h_VICIVLE_VENMONGNAR"></v-text-field>
+                                    <div class="tops">
+                                    </div>
+                                </v-col>
+
+                            </v-row>
+                            <v-row style="margin-top: -14px;">
+
+>>>>>>> Stashed changes
                                 <v-col clos="6" md="3" sm="3">
                                     <span>ແວ່ນມອງຫຼັງ</span><v-text-field dense outlined background-color="#f5f5f5"
                                         readonly v-model="h_VICIVLE_VENMONGLHG"></v-text-field>
@@ -1700,42 +1869,32 @@ export default {
     font-size: 14px;
 }
 
+@media screen {
+    #print {
+        display: none;
+    }
+}
+
 @media print {
     @page {
-        size: A4 landscape;
-        /* Sets horizontal orientation */
-        margin: 1cm;
+        size: A4;
+        margin: 1in;
     }
 
-    body {
-        margin: 0;
-        font-size: 12pt;
+    body * {
+        visibility: hidden;
     }
 
-    #app {
-        width: 1400px;
-        height: 100%;
+    #print,
+    #print * {
+        visibility: visible;
     }
 
-    /* Ensure print-content is styled correctly */
-    #print-content {
-        width: 1400px;
-        display: flex;
-        flex-wrap: wrap;
-    }
-
-    .v-btn {
-        display: none;
-        /* Hide print button */
-    }
-
-    .v-text-field {
-        border: none;
-    }
-
-    .print-title {
-        font-size: 18pt;
-        font-weight: bold;
+    #print {
+        position: absolute;
+        top: 0px;
+        right: 0px;
+        left: 0px;
     }
 }
 </style>

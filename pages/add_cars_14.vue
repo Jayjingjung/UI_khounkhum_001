@@ -388,11 +388,12 @@
                   </v-radio-group>
                 </v-row>
               </div>
-              <div class="pl-10">
+            </div>
+            <div class="pl-10" style="width: 23%;" >
+              <div style="font-size: 18px; font-weight: bold;">ຢີ່ຫໍ້ຢາງລົດ</div>
                 <v-text-field label="ຢີ່ຫໍ້ຢາງລົດ"outlined dense flat solo background-color="#f5f5f5" v-model="brand_wheel_car">
                 </v-text-field>
               </div>
-            </div>
             <Height />
             <Height />
             <div class="d-flex align-center">

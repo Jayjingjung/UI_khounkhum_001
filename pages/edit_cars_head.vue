@@ -78,6 +78,19 @@
                                         background-color="#f5f5f5" v-model="imageTruck"></v-file-input>
                                     <div class="tops"></div>
                                 </div>
+                                <div>
+                                    <v-radio-group inline v-model="status_use_unuse_car">
+                                        <div class="pl-4 align-center">
+                                            <div style="font-size: 16px; font-weight: bold;">ສະຖານະລົດໃຊ້ງານ</div>
+                                            <div>
+                                                <Width />
+                                                <v-radio label="Running" value="run" color="#55CE63"></v-radio>
+                                                <Width />
+                                                <v-radio label="Stop" value="stop" color="red"></v-radio>
+                                            </div>
+                                        </div>
+                                    </v-radio-group>
+                                </div>
 
                             </v-col>
                             <v-col cols="9">
@@ -202,22 +215,10 @@
                                         <div class="tops">
                                         </div>
                                     </v-col>
-                                    <v-col clos="6" md="4" sm="4" style="border-radius:5px;height:40px">
-                                        <v-radio-group inline v-model="status_use_unuse_car">
-                                            <div class="pl-4 d-flex align-center">
-                                                <span>ສະຖານະລົດໃ້ຊ້ງານ</span>
-                                                <Width />
-                                                <v-radio label="ວ່າງ" value="run" color="#55CE63"></v-radio>
-                                                <Width />
-                                                <v-radio label="ບໍ່ວ່າງ" value="stop" color="red"></v-radio>
-                                            </div>
-                                        </v-radio-group>
-                                    </v-col>
                                     <v-col>
-                                        <span>ໝາຍເຫດ</span>
-                                        <v-textarea rounded background-color="#f5f5f5" filled
-                                            placeholder="ສະແດງຄວາມຄິດເຫັນ..."
-                                            v-model="comment"></v-textarea>
+                                        <span style="font-size: 16px; font-weight: bold;">Comment</span>
+                                        <v-textarea v-model="comment" rounded background-color="#ECEFF1" filled
+                                            placeholder="ສະແດງຄວາມຄິດເຫັນ..."></v-textarea>
                                     </v-col>
                                     <v-col cols="12" md="4" sm="6">
                                         <v-icon color="black">mdi-calendar-range</v-icon>
@@ -413,31 +414,36 @@
                         </v-row>
                         <v-row>
                             <v-col clos="6" md="3" sm="3">
+                                <span>ສາຍສະເຕ</span>
                                 <v-text-field :rules="nameRules" label="ສາຍສະເຕ" dense flat solo
                                     background-color="#f5f5f5" v-model="saiystay"></v-text-field>
                                 <div class="tops">
                                 </div>
                             </v-col>
                             <v-col clos="6" md="3" sm="3">
+                                <span> ກະລິກ</span>
                                 <v-text-field :rules="nameRules" label="ກະລິກ" dense flat solo
                                     background-color="#f5f5f5" v-model="galick"></v-text-field>
                                 <div class="tops">
                                 </div>
                             </v-col>
                             <v-col clos="6" md="3" sm="3">
+                                <span>ຜ້າບັດ</span>
                                 <v-text-field :rules="nameRules" label="ຜ້າບັດ" dense flat solo
                                     background-color="#f5f5f5" v-model="pha_But"></v-text-field>
                                 <div class="tops">
                                 </div>
                             </v-col>
                             <v-col clos="6" md="3" sm="3">
+                                <span>ກໍານົດປ່ຽນນໍ້າມັນເກຍ (ຕາມເລກໄມ)</span>
                                 <v-text-field label="ກໍານົດປ່ຽນນໍ້າມັນເກຍ (ຕາມເລກໄມ)" dense flat solo
                                     background-color="#f5f5f5" v-model="leanGia"></v-text-field>
                                 <div class="tops">
                                 </div>
                             </v-col>
                             <v-col clos="6" md="3" sm="3">
-                                <v-text-field label="ກໍານົດປ່ຽນນ້ຳມັນເຟືອງທ້າຍ (ຕາມເລກໄມ)" dense flat solo
+                                <span>ກໍານົດປ່ຽນນ້ຳມັນເຟືອງທ້າຍ(ຕາມເລກໄມ)</span>
+                                <v-text-field label="ກໍານົດປ່ຽນນ້ຳມັນເຟືອງທ້າຍ(ຕາມເລກໄມ)" dense flat solo
                                     background-color="#f5f5f5" v-model="leanFuengThaiy"></v-text-field>
                                 <div class="tops">
                                 </div>
@@ -524,19 +530,14 @@
                 <!-- ຂໍ້ມູນຢາງລົດ -->
                 <v-card flat>
                     <v-card-text>
-                        <v-card-actions>
-                            <div class="d-flex">
-                                <span style="font-size:14pt">ຂໍ້ມູນຢາງລົດ:</span>
-                            </div>
-                            <v-spacer></v-spacer>
-                            <div> ຢີ່ຫໍ້ຢ່າງລົດ</div>
-                            <div>
-                                <v-text-field :rules="nameRules" dense flat solo background-color="#f5f5f5"
-                                    v-model="brand_wheel_car"></v-text-field>
-                            </div>
-                            <v-spacer></v-spacer>
-                        </v-card-actions>
-                        <Height />
+                        <div class="text-center">
+                            <span style="font-size:18px; font-weight: bold;">ຂໍ້ມູນຢາງລົດ:</span>
+                        </div>
+                        <div style="font-size:16px; font-weight: bold;"> ຢີ່ຫໍ້ຢາງລົດ</div>
+                        <div style="width: 20%;">
+                            <v-text-field :rules="nameRules" dense flat solo background-color="#f5f5f5"
+                            v-model="brand_wheel_car"></v-text-field>
+                        </div>
                         <div class="d-flex">
                             <div style="width:100%">
                                 <!-- Left -->
@@ -867,7 +868,7 @@ export default {
             nameRules: [(v) => !!v || ''],
             // state save data
             his_REASON: '',
-            comment:'',
+            comment: '',
             h_VICIVLE_GLASS: 'ກະຊວນ',
             h_VICIVLE_NUMBER: '',
             h_VICIVLE_GALATY: '',
@@ -1296,6 +1297,7 @@ export default {
                         this.h_VICIVLE_VENMONGNAR = data?.data[0]?.h_VICIVLE_VENMONGNAR,
                         this.lektungsit = data?.data[0]?.lektungsit,
                         this.brand_wheel_car = data?.data[0]?.brand_wheel_car,
+                        this.comment = data?.data[0]?.comment,
                         this.h_VICIVLE_VENMONGLHG = data?.data[0]?.h_VICIVLE_VENMONGLHG,
                         this.h_VICIVLE_VENKHANG = data?.data[0]?.h_VICIVLE_VENKHANG,
                         this.h_KM13 = data?.data[0]?.h_KM13,
@@ -1524,7 +1526,7 @@ export default {
                         })
                         this.onGetmorfaiList()
                         this.ongetData()
-                        // this.$router.push('/cars_14')
+                        this.$router.push('/cars_14')
                     } else {
                         this.loading_processing = false
                         swal.fire({

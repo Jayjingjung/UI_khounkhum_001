@@ -82,8 +82,9 @@
                                 v-model="lektungsit"></v-text-field>
                         </div>
                     </div>
-                    <div style="width:20%">
-                            <div>ວັນທີໝົດອາຍຸຕັ້ງສິດ</div>
+                    <div class="d-flex">
+                        <div style="width:23%">
+                            <div>ວັນທີ່ໝົດອາຍຸຕັ້ງສິດ</div>
                             <v-menu ref="end_tangsit" v-model="end_tangsit" :close-on-content-click="false"
                                 :return-value.sync="dateExTungsit" transition="scale-transition" offset-y
                                 min-width="auto">
@@ -106,6 +107,23 @@
                                 </v-date-picker>
                             </v-menu>
                         </div>
+                        <div class="ml-10" style="width:23%">
+                            <div>ວັນທີ່ໝົດອາຍຸທະບຽລົດຫາງ </div>
+                            <v-menu ref="end_dateExpireLicensePlate" v-model="end_dateExpireLicensePlate" :close-on-content-click="false"
+                                :return-value.sync="dateExpireLicensePlate" transition="scale-transition" offset-y
+                                min-width="auto">
+                                <template v-slot:activator="{ on, attrs }">
+                                    <v-text-field dense outlined background-color="#f5f5f5" v-model="dateExpireLicensePlate"
+                                        required append-icon="mdi-calendar" readonly v-bind="attrs" v-on="on"
+                                        :rules="nameRules"></v-text-field>
+                                </template>
+                                <v-date-picker v-model="dateExpireLicensePlate" no-title scrollable
+                                    @input="$refs.end_dateExpireLicensePlate.save(dateExpireLicensePlate)">
+                                    <v-spacer></v-spacer>
+                                </v-date-picker>
+                            </v-menu>
+                        </div>
+                    </div>
                     <div class="d-flex align-center pt-2 pr-2"
                         style="background-color:#f7f7f7;border-radius:5px;height:50px">
                         <v-radio-group inline v-model="f_STATUS">
@@ -505,8 +523,10 @@ export default {
             f_GALATY_NO: '',
             lektungsit: '',
             end_tangsit: false,
-            dateExTungsit:'',
-            dateExTungsit_status:'',
+            end_dateExpireLicensePlate:false,
+            dateExTungsit: '',
+            dateExpireLicensePlate:'',
+            dateExTungsit_status: '',
             f_GALATY_DEP: '',
             f_CAR_TYPE: '',
             //img
@@ -737,7 +757,8 @@ export default {
                 formdata.append('f_KM_LL16', this.f_KM_LL16)
                 formdata.append('imgFootTruck', this.imgFootTruckOld),
                 formdata.append('dateExTungsit', this.dateExTungsit)
-                    formdata.append('toKen', localStorage.getItem("toKen"))
+                formdata.append('dateExpireLicensePlate', this.dateExpireLicensePlate)
+                formdata.append('toKen', localStorage.getItem("toKen"))
 
 
 
@@ -815,6 +836,7 @@ export default {
                         this.f_CAR_TYPE = data?.data[0]?.f_CAR_TYPE,
                         this.dateExTungsit_status = data?.data[0]?.dateExTungsit_status,
                         this.dateExTungsit = data?.data[0]?.dateExTungsit,
+                        this.dateExpireLicensePlate = data?.data[0]?.dateExpireLicensePlate,
                         this.l_TRIES_1 = data?.data[0]?.l_TRIES_1,
                         this.l_TRIES_2 = data?.data[0]?.l_TRIES_2,
                         this.l_TRIES_3 = data?.data[0]?.l_TRIES_3,

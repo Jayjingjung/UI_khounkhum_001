@@ -90,22 +90,44 @@
                             background-color="#f5f5f5" v-model="lektungsit"></v-text-field>
                     </div>
                 </div>
-                <div style="width: 20%;">
-                    <span>ວັນທີໝົດອາຍຸຕັ້ງສິດ</span>
-                    <v-menu :close-on-content-click="false" :return-value.sync="dateExTungsit"
-                        transition="scale-transition" offset-y min-width="auto">
-                        <template v-slot:activator="{ on, attrs }">
-                            <v-text-field v-if="dateExTungsit_status === 'W'" dense outlined background-color="#FFF176"
-                                v-model="dateExTungsit" required append-icon="mdi-calendar" readonly v-bind="attrs"
-                                v-on="on" :rules="nameRules"></v-text-field>
-                            <v-text-field v-else-if="dateExTungsit_status === 'E'" dense outlined background-color="red"
-                                v-model="dateExTungsit" required append-icon="mdi-calendar" readonly v-bind="attrs"
-                                v-on="on" :rules="nameRules"></v-text-field>
-                            <v-text-field v-else dense outlined background-color="#f5f5f5" v-model="dateExTungsit"
-                                required append-icon="mdi-calendar" readonly v-bind="attrs" v-on="on"
-                                :rules="nameRules"></v-text-field>
-                        </template>>
-                    </v-menu>
+                <div class="d-flex">
+                    <div style="width: 23%;">
+                        <span>ວັນທີໝົດອາຍຸຕັ້ງສິດ</span>
+                        <v-menu :close-on-content-click="false" :return-value.sync="dateExTungsit"
+                            transition="scale-transition" offset-y min-width="auto">
+                            <template v-slot:activator="{ on, attrs }">
+                                <v-text-field v-if="dateExTungsit_status === 'W'" dense outlined
+                                    background-color="#FFF176" v-model="dateExTungsit" required
+                                    append-icon="mdi-calendar" readonly v-bind="attrs" v-on="on"
+                                    :rules="nameRules"></v-text-field>
+                                <v-text-field v-else-if="dateExTungsit_status === 'E'" dense outlined
+                                    background-color="red" v-model="dateExTungsit" required append-icon="mdi-calendar"
+                                    readonly v-bind="attrs" v-on="on" :rules="nameRules"></v-text-field>
+                                <v-text-field v-else dense outlined background-color="#f5f5f5" v-model="dateExTungsit"
+                                    required append-icon="mdi-calendar" readonly v-bind="attrs" v-on="on"
+                                    :rules="nameRules"></v-text-field>
+                            </template>>
+                        </v-menu>
+                    </div>
+                    <div class="ml-8" style="width: 23%;">
+                        <span>ວັນໝົດອາຍຸທະບຽນຫາງລົດ</span>
+                        <v-menu :close-on-content-click="false" :return-value.sync="dateExpireLicensePlate"
+                            transition="scale-transition" offset-y min-width="auto">
+                            <template v-slot:activator="{ on, attrs }">
+                                <v-text-field v-if="dateExpireLicensePlate_status === 'W'" dense outlined
+                                    background-color="#FFF176" v-model="dateExpireLicensePlate" required
+                                    append-icon="mdi-calendar" readonly v-bind="attrs" v-on="on"
+                                    :rules="nameRules"></v-text-field>
+                                <v-text-field v-else-if="dateExpireLicensePlate_status === 'E'" dense outlined
+                                    background-color="red" v-model="dateExpireLicensePlate" required
+                                    append-icon="mdi-calendar" readonly v-bind="attrs" v-on="on"
+                                    :rules="nameRules"></v-text-field>
+                                <v-text-field v-else dense outlined background-color="#f5f5f5"
+                                    v-model="dateExpireLicensePlate" required append-icon="mdi-calendar" readonly
+                                    v-bind="attrs" v-on="on" :rules="nameRules"></v-text-field>
+                            </template>>
+                        </v-menu>
+                    </div>
                 </div>
                 <div class="d-flex align-center pt-2 pr-2"
                     style="background-color:#f7f7f7;border-radius:5px;height:50px">
@@ -392,7 +414,8 @@
                     <!-- ຂໍ້ມູນຢາງລົດ -->
                     <v-card flat>
                         <v-card-text style="margin-top: 100px;">
-                            <div class="text-center" style="display:flex;justify-content:center;font-size:20px;font-weight:bold;margin-top: 30px;margin-bottom: 10px;">
+                            <div class="text-center"
+                                style="display:flex;justify-content:center;font-size:20px;font-weight:bold;margin-top: 30px;margin-bottom: 10px;">
                                 ຂໍ້ມູນຢາງລົດ
                             </div>
                             <div style="width:100%;display:flex;justify-content:space-between ;margin-top: 10px;">
@@ -488,7 +511,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div  style="width:100%; margin-top: 84px;">
+                                <div style="width:100%; margin-top: 84px;">
                                     <div v-if="r_TRIES_7" class="text-center">
                                         <img class="mx-auto" src="../assets/images/back16.png" width="150"
                                             height="420" />
@@ -711,7 +734,9 @@ export default {
             f_KM_LL15: '',
             f_KM_LL16: '',
             dateExTungsit: '',
-            dateExTungsit_status: ''
+            dateExTungsit_status: '',
+            dateExpireLicensePlate: '',
+            dateExpireLicensePlate_status: ''
         }
     },
     mounted() {
@@ -920,6 +945,8 @@ export default {
                         this.f_CAR_TYPE = data?.data[0]?.f_CAR_TYPE,
                         this.dateExTungsit_status = data?.data[0]?.dateExTungsit_status,
                         this.dateExTungsit = data?.data[0]?.dateExTungsit,
+                        this.dateExpireLicensePlate = data?.data[0]?.dateExpireLicensePlate,
+                        this.dateExpireLicensePlate_status = data?.data[0]?.dateExpireLicensePlate_status,
                         this.l_TRIES_1 = data?.data[0]?.l_TRIES_1,
                         this.l_TRIES_2 = data?.data[0]?.l_TRIES_2,
                         this.l_TRIES_3 = data?.data[0]?.l_TRIES_3,

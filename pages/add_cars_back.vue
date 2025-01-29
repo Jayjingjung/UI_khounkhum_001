@@ -80,11 +80,11 @@
                     </div>
                     <div class="" style="display:flex;flex-direction:row;justify-content:space-between">
                         <v-row>
-                            <v-col  style="width:100%" class="px-2">
+                            <v-col >
                                 <v-text-field :rules="nameRules" label="ບັງຕົມ" dense outlined
                                     background-color="#f5f5f5" v-model="f_BGTHOM"></v-text-field>
                             </v-col>
-                            <v-col  class="px-2" style="width:100%">
+                            <v-col >
                                 <v-text-field :rules="nameRules" label="ເລກປະກັນໄພ" dense outlined
                                     background-color="#f5f5f5" v-model="f_GALATY_NO"></v-text-field>
                             </v-col>
@@ -104,11 +104,15 @@
                                     </v-date-picker>
                                 </v-menu>
                             </v-col>
-                            <v-col style="width:100%">
+                            <v-col >
                                 <v-text-field :rules="nameRules" label="ເລກຕັ້ງສິດ" dense outlined
                                     background-color="#f5f5f5" v-model="lektungsit"></v-text-field>
                             </v-col>
-                            <v-col>
+                        </v-row>
+                    </div>
+                    <div class="" style="display:flex;flex-direction:row;justify-content:space-between">
+                        <v-row>
+                            <v-col >
                                 <v-menu ref="end_tungsit" v-model="end_tungsit" :close-on-content-click="false"
                                     :return-value.sync="dateExTungsit" transition="scale-transition" offset-y
                                     min-width="auto">
@@ -123,8 +127,24 @@
                                     </v-date-picker>
                                 </v-menu>
                             </v-col>
+                            <v-col width="30%">
+                                <v-menu ref="end_dateExpireLicensePlate" v-model="end_dateExpireLicensePlate" :close-on-content-click="false"
+                                    :return-value.sync="dateExpireLicensePlate" transition="scale-transition" offset-y
+                                    min-width="auto">
+                                    <template v-slot:activator="{ on, attrs }">
+                                        <v-text-field dense outlined background-color="#f5f5f5" v-model="dateExpireLicensePlate"
+                                            required label="* ວັນໝົດອາຍຸທະບຽນຫາງລົດ" append-icon="mdi-calendar" readonly
+                                            v-bind="attrs" v-on="on" :rules="nameRules"></v-text-field>
+                                    </template>
+                                    <v-date-picker v-model="dateExpireLicensePlate" no-title scrollable
+                                        @input="$refs.end_dateExpireLicensePlate.save(dateExpireLicensePlate)">
+                                        <v-spacer></v-spacer>
+                                    </v-date-picker>
+                                </v-menu>
+                            </v-col>
+                            <v-col></v-col>
+                            <v-col></v-col>
                         </v-row>
-
                     </div>
                     <v-card flat>
                         <v-card-title>
@@ -523,7 +543,9 @@ export default {
             f_GALATY_NO: '',
             lektungsit: '',
             end_tungsit: false,
+            end_dateExpireLicensePlate:false,
             dateExTungsit:'',
+            dateExpireLicensePlate:'',
             f_GALATY_DEP: '',
             f_CAR_TYPE: '',
 
@@ -668,6 +690,7 @@ export default {
                 formdata.append('f_GALATY_NO', this.f_GALATY_NO)
                 formdata.append('lektungsit', this.lektungsit)
                 formdata.append('dateExTungsit', this.dateExTungsit)
+                formdata.append('dateExpireLicensePlate', this.dateExpireLicensePlate)
                 formdata.append('f_GALATY_DEP', this.f_GALATY_DEP)
                 formdata.append('f_CAR_TYPE', this.f_CAR_TYPE)
                 formdata.append('l_TRIES_1', this.l_TRIES_1)

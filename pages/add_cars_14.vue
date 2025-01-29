@@ -389,6 +389,11 @@
                 </v-row>
               </div>
             </div>
+            <div class="pl-10" style="width: 23%;" >
+              <div style="font-size: 18px; font-weight: bold;">ຢີ່ຫໍ້ຢາງລົດ</div>
+                <v-text-field label="ຢີ່ຫໍ້ຢາງລົດ"outlined dense flat solo background-color="#f5f5f5" v-model="brand_wheel_car">
+                </v-text-field>
+              </div>
             <Height />
             <Height />
             <div class="d-flex align-center">
@@ -734,6 +739,9 @@ export default {
       leanGia: '',
       leanFuengThaiy: '',
       lektungsit: '',
+      status_use_unuse_car:'run',
+      comment:null,
+      brand_wheel_car:'',
       pha_But: '',
       //add new
       kim_KM: '',
@@ -1098,6 +1106,9 @@ export default {
         formdata.append('leanGia', this.leanGia)
         formdata.append('leanFuengThaiy', this.leanFuengThaiy)
         formdata.append('lektungsit', this.lektungsit)
+        formdata.append('status_use_unuse_car', this.status_use_unuse_car)
+        formdata.append('comment', this.comment)
+        formdata.append('brand_wheel_car', this.brand_wheel_car)
         formdata.append('pha_But', this.pha_But)
         formdata.append('date_change_lean', this.formattedDate || "0000-00-00")
         formdata.append('toKen', localStorage.getItem("toKen"))

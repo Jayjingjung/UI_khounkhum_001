@@ -2168,11 +2168,11 @@ export default {
   },
   watch: {
     // Watch for changes in TOTAL_branchName
-    TOTAL_branchName(newVal) {
-      // If the branch name is Thakhaek, set FeeJumPo2 to 400000
-      if (newVal === 'Thakhaek') {
-        this.FeeJumPo2 = 400000;
-      }},
+    // TOTAL_branchName(newVal) {
+    //   // If the branch name is Thakhaek, set FeeJumPo2 to 400000
+    //   if (newVal === 'Thakhaek') {  
+    //     this.FeeJumPo2 = 400000;
+    //   }},
     product_price: function (newValue) {
       const real_total = parseInt(newValue?.split(',').join('')) * parseInt(this.product_weight ? this.product_weight?.split(',').join('') : 1);
       // const set_real_total = (real_total)?.toString().replace(/\D/g, '').replace(/\B(?=(\d{3})+(?!\d))/g, ',')

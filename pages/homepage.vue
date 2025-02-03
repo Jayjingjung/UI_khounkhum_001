@@ -217,7 +217,7 @@
       <!-- ລາຍຈ່າຍ -->
 
       <v-col cols="12" md="3">
-        <div v-if="USER_ROLE === 'ADMIN' || USER_ROLE === 'ACCOUNT_POYLOD' || USER_ROLE === 'FINANCE'">
+        <div v-if="USER_ROLE === 'ADMIN' || USER_ROLE === 'ACCOUNT_POYLOD' || USER_ROLE === 'FINANCE'|| USER_ROLE === 'FINANCE_TK'">
           <v-card to="report_customers" height="100" elevation="2" rounded="lg" width="310px"
             style="border: 1px solid rgb(139, 12, 156);">
             <v-card-text>
@@ -237,7 +237,7 @@
 
       <v-col cols="12" md="3">
         <div
-          v-if="USER_ROLE === 'ADMIN' || USER_ROLE === 'ACCOUNT_POYLOD' || USER_ROLE === 'FINANCE' || USER_ROLE === 'BOR-HIN-KHUAT'">
+          v-if="USER_ROLE === 'ADMIN' || USER_ROLE === 'ACCOUNT_POYLOD' || USER_ROLE === 'FINANCE'|| USER_ROLE === 'FINANCE_TK' || USER_ROLE === 'BOR-HIN-KHUAT'">
           <v-card to="report_staft" height="100" elevation="2" rounded="lg" width="310px"
             style="border: 1px solid rgb(139, 12, 156);">
             <v-card-text>
@@ -281,7 +281,7 @@
     <v-row>
       <v-col cols="12" md="3">
         <div
-          v-if="USER_ROLE === 'ADMIN' || USER_ROLE === 'ACCOUNT_POYLOD' || USER_ROLE === 'INVENTORY' || USER_ROLE === 'INVENANSFINANCE' || USER_ROLE === 'FINANCE' || USER_ROLE === 'BOR-HIN-KHUAT'">
+          v-if="USER_ROLE === 'ADMIN' || USER_ROLE === 'ACCOUNT_POYLOD' || USER_ROLE === 'INVENTORY' || USER_ROLE === 'INVENANSFINANCE' || USER_ROLE === 'FINANCE'|| USER_ROLE === 'FINANCE_TK' || USER_ROLE === 'BOR-HIN-KHUAT'">
           <v-card to="./accountExpense/ix-account" height="100" elevation="2" rounded="lg" width="310px"
             style="border: 1px solid rgb(221, 5, 245);">
             <v-card-text>
@@ -298,7 +298,7 @@
 
       <v-col cols="12" md="3">
         <div
-          v-if="USER_ROLE === 'USER' || USER_ID === 'ADMIN' || USER_ROLE === 'FINANCE' || USER_ROLE === 'BOR-HIN-KHUAT' || USER_ROLE == 'INVENANSFINANCE'">
+          v-if="USER_ROLE === 'USER' || USER_ID === 'ADMIN' || USER_ROLE === 'FINANCE'|| USER_ROLE === 'FINANCE_TK' || USER_ROLE === 'BOR-HIN-KHUAT' || USER_ROLE == 'INVENANSFINANCE'">
           <v-card to="/reportbaisner" height="100" elevation="2" rounded="lg" width="310px"
             style="border: 1px solid  rgba(191, 0, 0, 0.8);">
             <v-card-text>

@@ -76,12 +76,17 @@ export default {
         this.$router.push('/homepagehr');
       } else if (USER_NAME === 'sisnok' && USER_ROLE === 'FOR_DOCUMENT_ADMIN') {
         this.$router.push('/dashboard');
-      } else if (USER_NAME === 'admin-bor-hin-khuad' && USER_ROLE === 'BOR-HIN-KHUAT') {
+      }
+      else if (USER_NAME === 'phet' && USER_ROLE === 'FINANCE_TK') {
+        this.$router.push('/homepage');
+      }  
+      else if (USER_NAME === 'admin-bor-hin-khuad' && USER_ROLE === 'BOR-HIN-KHUAT') {
         this.$router.push('/stone_admin');
       } 
       else if (USER_NAME === 'NN') {
         this.$router.push('./HR/akasarn');
       }
+    
       else if (USER_NAME === 'AdminProof' ) {
         this.$router.push('/confirm');
       }

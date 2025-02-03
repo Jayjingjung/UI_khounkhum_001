@@ -1,7 +1,7 @@
 <template>
   <v-app dark>
     <v-app-bar
-      v-if="USER_ROLE == 'USER' || USER_ROLE == 'ADMIN' || USER_ROLE === 'FINANCE' || USER_ROLE === 'ACCOUNT_POYLOD'"
+      v-if="USER_ROLE == 'USER' || USER_ROLE == 'ADMIN' || USER_ROLE === 'FINANCE'|| USER_ROLE === 'FINANCE_TK' || USER_ROLE === 'ACCOUNT_POYLOD'"
       style="width: 1850px;" fixed app color="#E57373" class="mt-2">
       <v-dialog v-model="loading_processing" persistent width="55">
         <v-card width="55" height="55" class="pt-3 pl-3">

@@ -405,6 +405,25 @@
                         </div>
                     </div>
                     <!-- ຂໍ້ມູນຢາງລົດ -->
+                    <div class="ml-8" style="width: 23%;">
+                        <span>ວັນໝົດອາຍຸທະບຽນຫາງລົດ</span>
+                        <v-menu :close-on-content-click="false" :return-value.sync="dateExpireLicensePlate"
+                            transition="scale-transition" offset-y min-width="auto">
+                            <template v-slot:activator="{ on, attrs }">
+                                <v-text-field v-if="dateExpireLicensePlate_status === 'W'" dense outlined
+                                    background-color="#FFF176" v-model="dateExpireLicensePlate" required
+                                    append-icon="mdi-calendar" readonly v-bind="attrs" v-on="on"
+                                    :rules="nameRules"></v-text-field>
+                                <v-text-field v-else-if="dateExpireLicensePlate_status === 'E'" dense outlined
+                                    background-color="red" v-model="dateExpireLicensePlate" required
+                                    append-icon="mdi-calendar" readonly v-bind="attrs" v-on="on"
+                                    :rules="nameRules"></v-text-field>
+                                <v-text-field v-else dense outlined background-color="#f5f5f5"
+                                    v-model="dateExpireLicensePlate" required append-icon="mdi-calendar" readonly
+                                    v-bind="attrs" v-on="on" :rules="nameRules"></v-text-field>
+                            </template>>
+                        </v-menu>
+                    </div>
                     <v-card flat>
                         <v-card-text style="margin-top: 100px;">
                             <div class="text-center"

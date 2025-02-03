@@ -527,33 +527,9 @@
                                 </b>
                             </td>
                         </div>
-
-                        <!-- <div style="height: 35px;margin-left: 30px;">
-
-                            <td>
-                                <h3 style="color: seagreen;"> ປຽນເປັນກີບເເລ້ວ: </h3>
-                            </td>
-                            <td>
-                                <b>
-                                    <h3 class="red--text "> {{ sumFooter_Credit.totalMoney_credit }} LAK</h3>
-                                </b>
-                            </td>
-                        </div> -->
+              
 
 
-
-                        <!-- <div style="height: 35px;margin-top: 10px;">
-                            <td style="margin-right: 5px;">
-                                <h3>10. ລວມ <span v-if="startDate !== null">ເປັນເງີນ :</span></h3>
-
-                               
-                            </td>
-                            <td v-if="sumFooter_allL != null">
-                                <b>
-                                    <h2 style="margin-top: -3px;" class="red--text"> {{ sumFooter_allL }} LAK</h2>
-                                </b>
-                            </td>
-                        </div> -->
                     </div>
                     <div>
                         <div style="height: 35px;">
@@ -1069,6 +1045,8 @@ export default {
             const totalMoney = this.sumFooter.totalMoney || 0;
             const totalMoneypop = this.sumFooter_Creditpaid.sumtotalOilPaid || 0;
             const totalMoney2 = this.totalMoney2 || 0;
+            // <h3 class="red--text ">{{ sumFooter_Creditpaid.sumtotalOilPaid }} LAK</h3>
+
             // Parse the formatted numbers
             const biaOutWastedParsed = parseFormattedNumber(formatNumber(biaOutWasted));
             const totalMoneyParsed = parseFormattedNumber(formatNumber(totalMoney));
@@ -1076,8 +1054,8 @@ export default {
             const totalMoney2Parsed = parseFormattedNumber(formatNumber(totalMoney2));
 
             // Compute the total and format the result
-            this.sumFooter_all = formatNumber(biaOutWastedParsed + totalMoneyParsed);
-            this.sumFooter_allL = formatNumber(biaOutWastedParsed + totalMoneyParsed + totalMoney+totalMoney2Parsed);
+            // this.sumFooter_all = formatNumber(biaOutWastedParsed + totalMoneyParsed);
+            this.sumFooter_allL = formatNumber(biaOutWastedParsed + totalMoneyParsed + totalMoney+totalMoney2Parsed+totalMoneypopParsed);
         },
         formatDate(date) {
             if (!date) return '';

@@ -1675,25 +1675,20 @@ export default {
     font-size: 14px;
 }
 
+@media screen {
+    #print {
+        display: none;
+    }
+}
+
 @media print {
     @page {
-        size: A4 landscape;
-        /* Sets horizontal orientation */
-        margin: 1cm;
-    }
-
-    body {
-        margin: 0;
-        font-size: 12pt;
+        size: A4;
+        margin: 1in;
     }
 
     body * {
         visibility: hidden;
-    }
-
-    #print,
-    #print * {
-        visibility: visible;
     }
 
     #print {

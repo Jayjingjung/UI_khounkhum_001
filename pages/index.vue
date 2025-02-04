@@ -88,7 +88,7 @@ export default {
       }
     
       else if (USER_NAME === 'AdminProof' ) {
-        this.$router.push('/confirm');
+        this.$router.push('/homeflx');
       }
       else if (['borhinkuad-konengua', 'borhinkuad-sykhoun', 'borhinkuad-tha', 'borhinkuad-xiengkong', 'Geo-Explo'].includes(USER_NAME)) {
         this.$router.push('/mining');

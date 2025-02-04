@@ -1690,6 +1690,10 @@ export default {
     body * {
         visibility: hidden;
     }
+    #print,
+    #print * {
+        visibility: visible;
+    }
 
     #print {
         position: absolute;

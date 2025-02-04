@@ -702,11 +702,18 @@
             </v-card-text>
         </v-card>
         <div style="display:none">
-            <div id="modalInvoice">
-                <Noti />
-                <div class="text-center"
-                    style="display:flex;justify-content:center;font-size:19px;font-weight:bold;margin-top: 15px;margin-bottom: 15px;">
-                    ລາຍງານ </div>
+         
+         <div id="modalInvoice">
+             <Noti />
+             <v-row
+                 style="font-size:14px;margin-left: 50px;margin-top: 10px;display:flex;justify-content:start;flex-direction:column;align-items:start">
+                 <div>
+                     <span>ສໍານັກງານຕັ້ງຢູ່ ອາຄານ ສະໜາມຍິງປືນ 20 ມັງກອນ, ສະໜາມກີລາກອງທັບ,</span>
+                     <span> ບ້ານຈອມມະນີ, ເມືອງ ໄຊເສດຖາ, ນະຄອນຫຼວງວຽງຈັນ, ສປປ ລາວ</span>
+                     <span>ໂທລະສັບ: 020 92661111, 020 92 254 999 </span>
+                     <span> ອີເມວ: kounkham@Mining|ເວັບໄຊ: kounkham</span>
+                 </div>
+             </v-row>
                 <v-card-text>
                     <!-- ຂໍ້ມູນຫົວລົດ================== -->
                     <v-card outlined>
@@ -1668,18 +1675,16 @@ export default {
     font-size: 14px;
 }
 
-
-
-@media screen {
-    #print {
-        display: none;
-    }
-}
-
 @media print {
     @page {
-        size: A4;
-        margin: 1in;
+        size: A4 landscape;
+        /* Sets horizontal orientation */
+        margin: 1cm;
+    }
+
+    body {
+        margin: 0;
+        font-size: 12pt;
     }
 
     body * {

@@ -6,12 +6,12 @@
                 <div class="d-flex">
                     <v-text-field dense v-model="searchQuery" label="🔍 ຄົ້ນຫາປະເພດອະໄລ່" outlined
                         clearable></v-text-field>
-                    <v-btn color="success" class="ml-4" style="border-radius: 10px">
-                        <v-icon>
-                            mdi-plus
-                        </v-icon>
-                        ເພີ່ມ
+                    <v-btn @click="dialog = true" style="background-color: teal; color: white;">
+                        + ເພີ່ມ
                     </v-btn>
+                    <v-dialog max-width="700px" v-model="dialog">
+                        <sangkao />
+                    </v-dialog>
                 </div>
             </v-card-actions>
             <div>
@@ -164,6 +164,8 @@
 export default {
     data() {
         return {
+            dialog: false,
+
             categories: [],
             truck_data_list: [],
             loading_processing: false,
@@ -267,4 +269,5 @@ export default {
     white-space: nowrap;
     width: 100%;
 }
+
 </style>

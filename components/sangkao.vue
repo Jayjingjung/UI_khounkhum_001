@@ -3,16 +3,8 @@
         <v-card style="width: 800px; height: 100%; ">
             <v-card-text>
                 <div>
+                    <h1 class="mb-10 mt-10">ເພີ່ມ</h1>
                     <v-row>
-                        <v-col cols="12">
-                            <p class="text-caption font-weight-bold">ປະເພດ <span class="red--text">*</span></p>
-                            <v-chip-group v-model="selectedType_Oldwarehouse" mandatory>
-                                <v-chip v-for="(type, index) in partTypes" :key="index" outlined>
-                                    {{ type }}
-                                </v-chip>
-                            </v-chip-group>
-                        </v-col>
-
                         <v-col cols="12">
                             <v-autocomplete v-model="itemName_Oldwarehouse" :items="itemOptions" label="ເລືອກ ອຸປະກອນ"
                                 outlined dense required></v-autocomplete>
@@ -24,6 +16,10 @@
                         <v-col cols="12">
                             <v-text-field label="*ປະເພດ" dense outlined background-color="#f5f5f5"
                                 v-model="selectedType_Oldwarehouse"></v-text-field>
+                        </v-col>
+                        <v-col cols="12">
+                            <v-autocomplete v-model="selectedType_Oldwarehouse" :items="typeOptions" label="ເລືອກປະເພດ"
+                                outlined dense required></v-autocomplete>
                         </v-col>
                         <v-col cols="12">
                             <v-autocomplete v-model="vehicle_Oldwarehouse" :items="vehicleOptions" label="ເລືອກຫົວລົດ"
@@ -104,13 +100,13 @@ export default {
             description_Oldwarehouse: "",
             image_Oldwarehouse: null,
             imagePreview: null,
-            partTypes: ["Peripherals", "Connectors", "Central Components"],
+      
             vehicleOptions: [],
             vehiclefooter: [],
             itemOptions: [],
+            typeOptions: [],
             image_Oldwarehouse: null,
             imagea: null,
-
             showCamera: false,
         };
     },
@@ -263,7 +259,19 @@ export default {
             this.importExpirationDate_Oldwarehouse = "";
             this.description_Oldwarehouse = "";
         },
-
+        async fetchOldInventory() {
+            try {
+                const response = await this.$axios.$post('showOldInventory.service', {
+                    toKen: localStorage.getItem('toKen'),
+                });
+                if (response.status === "00") {
+                    this.typeOptions = response.data.map(item => item.selectedType_Oldwarehouse);
+                }
+                console.log("Old Inventory Data:", response);
+            } catch (error) {
+                console.error("Error fetching old inventory:", error);
+            }
+        },
 
 
     },
@@ -272,6 +280,7 @@ export default {
         await this.fetchVehicleOptions();
         await this.fetchVehiclefooter();
         await this.fetchItemOptions();
+        await this.fetchOldInventory();
     },
 };
 </script>

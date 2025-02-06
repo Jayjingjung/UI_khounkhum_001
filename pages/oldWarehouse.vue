@@ -1,29 +1,34 @@
 <template>
     <v-container>
         <v-card-text>
-            <v-card-actions>
-                <v-spacer></v-spacer>
-                <div class="d-flex">
-                    <v-text-field dense v-model="searchQuery" label="🔍 ຄົ້ນຫາປະເພດອະໄລ່" outlined
-                        clearable></v-text-field>
-                    <v-btn @click="dialog = true" style="background-color: teal; color: white;">
-                        + ເພີ່ມ
-                    </v-btn>
-                    <v-dialog max-width="700px" v-model="dialog">
-                        <sangkao />
-                    </v-dialog>
-                </div>
-            </v-card-actions>
             <div>
-                <v-card-text style="font-size: 30px; font-weight: bold;">
-                    ສາງອະໄລ່ເກົ່າ
-                    <v-divider></v-divider>
-                </v-card-text>
+
+                <div style="display: flex; justify-content:space-between; ">
+                    <div>
+                        <h1>
+                            ສາງອະໄລ່ເກົ່າ
+                        </h1>
+                    </div>
+                    <div>
+                        <v-btn @click="dialog = true" style="background-color: teal; color: white;margin-bottom: 15px;">
+                            + ເພີ່ມ
+                        </v-btn>
+                    </div>
+                </div>
+
+
+                <v-dialog max-width="700px" v-model="dialog">
+                    <sangkao />
+                </v-dialog>
+            </div>
+            <div>
+                <v-text-field dense v-model="searchQuery" label="🔍 ຄົ້ນຫາປະເພດອະໄລ່" outlined clearable></v-text-field>
+
             </div>
         </v-card-text>
         <v-col>
             <v-row v-for="(category, index) in filteredCategories" :key="index">
-                <v-card style="width: 100%;" flat>
+                <v-card style="width: 100%;height: 450px;" flat>
                     <v-card-actions>
                         <v-card-title style="font-weight: bold; color: #0097A7;">{{ category.type }}</v-card-title>
                         <!-- <div>{{ category.description }}</div> -->
@@ -43,17 +48,21 @@
                                 <v-card class="mx-auto" width="300px" color="#ECEFF1" @click="openPartDialog(part)">
                                     <v-card-text>
                                         <v-img :src="part.image" height="200px" />
-                                        <!-- <v-card-title>{{ part.description }}</v-card-title> -->
-                                        <div class="mt-4"
-                                            style="font-size: 18px;font-weight: bold; text-align: center;">
+
+                                        <div class="mt-4" style="font-size: 18px;font-weight: 500;color:black; ">
                                             ຊື່ອະໄລ່
+
                                             {{ part.namec }}
                                         </div>
-                                        <div class="mt-4" style="font-size: 16px;font-weight: bold;">
+                                        <div class="mt-2" style="font-size: 16px;font-weight: 500;">
+                                            ລະຫັດ:
+                                            {{ part.key_id }}
+                                        </div>
+                                        <div class="mt-2" style="font-size: 16px;font-weight: 500;">
                                             ລາຄາ:
                                             {{ part.price }}
                                         </div>
-                                        <div style="font-size: 16px;font-weight: bold;">
+                                        <div style="font-size: 16px;font-weight: 500;">
                                             ຈໍານວນ:
                                             {{ part.totall }}
                                         </div>
@@ -66,21 +75,19 @@
             </v-row>
         </v-col>
         <!-- Dialog for selected part -->
-        <v-dialog v-model="showPartDialog" max-width="620">
+        <v-dialog v-model="showPartDialog" max-width="50%">
             <v-card>
+                <v-img style="display: block;justify-self: center;" :src="selectedPart?.image" max-width="500px" />
                 <v-row>
-                    <v-col cols="12" sm="6" md="4">
-                        <v-img :src="selectedPart?.image" max-width="270" />
-                    </v-col>
-                    <v-col cols="12" sm="6">
-                        <div class="mt-10" style="font-size: 18px;font-weight: bold; text-align: center;">
+                    <v-col  >
+                        <div class="mt-4" style="font-size: 18px;font-weight: 500;color:black; ">
                             {{ selectedPart?.namec }}
                         </div>
-                        <div class="mt-4" style="font-size: 16px">
+                        <div class="mt-4" style="font-size: 16px;font-weight: 500;">
                             ລາຄາ:
                             {{ selectedPart?.price }}
                         </div>
-                        <div style="font-size: 16px">
+                        <div style="font-size: 16px;font-weight: 500;">
                             ຈໍານວນ:
                             {{ selectedPart?.totall }}
                         </div>
@@ -117,12 +124,12 @@
             </v-card>
         </v-dialog>
         <!-- Dialog for showing all parts in a category -->
-        <v-dialog v-model="showDetails" width="70%">
+        <v-dialog v-model="showDetails" width="100%">
             <v-card class="mx-auto">
                 <v-card-text>
                     <v-card-actions>
                         <v-card-title></v-card-title>
-                        <v-btn color="#00796B" @click="closeDetails">
+                        <v-btn style="color: aliceblue;" color="#00796B" @click="closeDetails">
                             <v-icon>mdi-backburger</v-icon>ອອກ
                         </v-btn>
                         <v-spacer></v-spacer>
@@ -139,15 +146,21 @@
                                 <v-card-text>
                                     <v-img :src="part.image" height="200px" />
                                     <!-- <v-card-title>{{ part.description }}</v-card-title> -->
-                                    <div class="mt-4" style="font-size: 18px;font-weight: bold; text-align: center;">
+                                    <div class="mt-4" style="font-size: 18px;font-weight: 500;color:black; ">
                                         ຊື່ອະໄລ່
+
                                         {{ part.namec }}
                                     </div>
-                                    <div class="mt-4" style="font-size: 16px;font-weight: bold;">
+
+                                    <div class="mt-2" style="font-size: 16px;font-weight: 500;">
+                                        ລະຫັດ:
+                                        {{ part.key_id }}
+                                    </div>
+                                    <div class="mt-2" style="font-size: 16px;font-weight: 500;">
                                         ລາຄາ:
                                         {{ part.price }}
                                     </div>
-                                    <div style="font-size: 16px;font-weight: bold;">
+                                    <div style="font-size: 16px;font-weight: 500;">
                                         ຈໍານວນ:
                                         {{ part.totall }}
                                     </div>
@@ -232,6 +245,7 @@ export default {
                     type: truck.selectedType_Oldwarehouse, // Use selectedType_Oldwarehouse as the part name
                     image: truck.image_Oldwarehouse, // Use image_Oldwarehouse as the image URL
                     namec: truck.itemName_Oldwarehouse,
+                    key_id: truck.key_id,
                     totall: truck.qty_Oldwarehouse,
                     headc: truck.vehicle_Oldwarehouse,
                     tailc: truck.vehiclefooter_Oldwarehouse,
@@ -265,9 +279,7 @@ export default {
 
 <style scoped>
 .scroll-container {
-    overflow-x: auto;
-    white-space: nowrap;
+
     width: 100%;
 }
-
 </style>

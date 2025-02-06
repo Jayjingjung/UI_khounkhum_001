@@ -2,7 +2,6 @@
     <v-container>
         <v-card-text>
             <div>
-
                 <div style="display: flex; justify-content:space-between; ">
                     <div>
                         <h1>
@@ -15,20 +14,49 @@
                         </v-btn>
                     </div>
                 </div>
-
-
                 <v-dialog max-width="700px" v-model="dialog">
                     <sangkao />
+                </v-dialog>
+                <v-dialog max-width="500px" v-model="editDialog">
+                    <v-card>
+                        <v-card-text>
+                            <h1 class="pt-10">ແກ້ໄຂ</h1>
+                            <v-card-text>
+                                <v-form ref="editForm" v-model="formValid">
+                                    <!-- Image Preview -->
+                                    <v-img v-if="selectedPart.imagePreview" :src="selectedPart.imagePreview"
+                                        height="200px" contain></v-img>
+                                    <v-text-field v-model="selectedPart.namec" label="ຊື່"
+                                        :rules="[v => !!v || 'Name is required']"></v-text-field>
+                                    <v-text-field v-model="selectedPart.price" label="ລາຄາ" type="number"
+                                        :rules="[v => !!v || 'Price is required']"></v-text-field>
+                                    <v-text-field v-model="selectedPart.totall" label="ຈໍານວນ" type="number"
+                                        :rules="[v => !!v || 'Total is required']"></v-text-field>
+                                    <v-text-field v-model="selectedPart.headc" label="ຫົວລົດ"
+                                        :rules="[v => !!v || 'Head Code is required']"></v-text-field>
+                                    <v-text-field v-model="selectedPart.tailc" label="ຫາງລົດ"
+                                        :rules="[v => !!v || 'Tail Code is required']"></v-text-field>
+                                    <v-text-field type="date" v-model="selectedPart.date" label="ວັນທີ່ນໍາເຂົ້າ"
+                                        :rules="[v => !!v || 'Tail Code is required']"></v-text-field>
+                                    <v-textarea v-model="selectedPart.detail" label="ລາຍລະອຽດ" rows="4"></v-textarea>
+                                </v-form>
+                            </v-card-text>
+                            <v-card-actions>
+                                <v-btn color="secondary" @click="editDialog = false">Cancel</v-btn>
+                                <v-spacer></v-spacer>
+                                <v-btn color="primary" @click="updatePart">Save</v-btn>
+                            </v-card-actions>
+                        </v-card-text>
+                    </v-card>
                 </v-dialog>
             </div>
             <div>
                 <v-text-field dense v-model="searchQuery" label="🔍 ຄົ້ນຫາປະເພດອະໄລ່" outlined clearable></v-text-field>
-
             </div>
         </v-card-text>
         <v-col>
             <v-row v-for="(category, index) in filteredCategories" :key="index">
-                <v-card style="width: 100%;height: 450px;" flat>
+                <v-card style="width: 100%;" flat>
                     <v-card-actions>
                         <v-card-title style="font-weight: bold; color: #0097A7;">{{ category.type }}</v-card-title>
                         <!-- <div>{{ category.description }}</div> -->
@@ -45,49 +73,56 @@
                     <div class="scroll-container">
                         <v-row class="flex-nowrap">
                             <v-col v-for="(part, index) in category.parts" :key="index">
-                                <v-card class="mx-auto" width="300px" color="#ECEFF1" @click="openPartDialog(part)">
-                                    <v-card-text>
-                                        <v-img :src="part.image" height="200px" />
-
-                                        <div class="mt-4" style="font-size: 18px;font-weight: 500;color:black; ">
-                                            ຊື່ອະໄລ່
-
-                                            {{ part.namec }}
-                                        </div>
-                                        <div class="mt-2" style="font-size: 16px;font-weight: 500;">
-                                            ລະຫັດ:
-                                            {{ part.key_id }}
-                                        </div>
-                                        <div class="mt-2" style="font-size: 16px;font-weight: 500;">
-                                            ລາຄາ:
-                                            {{ part.price }}
-                                        </div>
-                                        <div style="font-size: 16px;font-weight: 500;">
-                                            ຈໍານວນ:
-                                            {{ part.totall }}
-                                        </div>
-                                    </v-card-text>
-                                </v-card>
+                                <v-hover v-slot:default="{ hover }">
+                                    <v-card class="mx-auto" width="300px" color="#ECEFF1">
+                                        <v-card-text>
+                                            <v-img :src="part.image" height="200px">
+                                                <v-card-actions>
+                                                    <v-spacer></v-spacer>
+                                                    <v-btn v-if="hover" fab text small @click="editData(part)">
+                                                        <v-icon color="#18FFFF">mdi-dots-vertical</v-icon>
+                                                    </v-btn>
+                                                </v-card-actions>
+                                            </v-img>
+                                            <div style="text-align: center;">
+                                                <v-btn color="#18FFFF" @click="openPartDialog(part)" v-if="hover">
+                                                    Read More
+                                                </v-btn>
+                                            </div>
+                                            <div class="mt-4"
+                                                style="font-size: 18px;font-weight: bold; text-align: center;">
+                                                {{ part.namec }}
+                                            </div>
+                                            <div class="mt-4" style="font-size: 16px;font-weight: bold;">
+                                                ລາຄາ: {{ part.price }}
+                                            </div>
+                                            <div style="font-size: 16px;font-weight: bold;">
+                                                ຈໍານວນ: {{ part.totall }}
+                                            </div>
+                                        </v-card-text>
+                                    </v-card>
+                                </v-hover>
                             </v-col>
                         </v-row>
                     </div>
+
                 </v-card>
             </v-row>
         </v-col>
         <!-- Dialog for selected part -->
-        <v-dialog v-model="showPartDialog" max-width="50%">
+        <v-dialog v-model="showPartDialog" max-width="620">
             <v-card>
-                <v-img style="display: block;justify-self: center;" :src="selectedPart?.image" max-width="500px" />
-                <v-row>
-                    <v-col  >
-                        <div class="mt-4" style="font-size: 18px;font-weight: 500;color:black; ">
+                <v-card-text>
+                    <v-img style="display: block;justify-self: center;" :src="selectedPart?.image" max-width="500px" />
+                    <div style="text-align: center;">
+                        <div class="mt-10" style="font-size: 18px;font-weight: bold; text-align: center;">
                             {{ selectedPart?.namec }}
                         </div>
-                        <div class="mt-4" style="font-size: 16px;font-weight: 500;">
+                        <div class="mt-4" style="font-size: 16px">
                             ລາຄາ:
                             {{ selectedPart?.price }}
                         </div>
-                        <div style="font-size: 16px;font-weight: 500;">
+                        <div style="font-size: 16px">
                             ຈໍານວນ:
                             {{ selectedPart?.totall }}
                         </div>
@@ -117,19 +152,21 @@
                             ລາຍລະອຽດ: <br>
                             <span>
                                 {{ selectedPart?.detail }}
+                                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Repudiandae ex saepe quae
+                                error, eveniet libero! Dolor qui deleniti labore voluptatum.
                             </span>
                         </div>
-                    </v-col>
-                </v-row>
+                    </div>
+                </v-card-text>
             </v-card>
         </v-dialog>
         <!-- Dialog for showing all parts in a category -->
-        <v-dialog v-model="showDetails" width="100%">
+        <v-dialog v-model="showDetails" width="90%">
             <v-card class="mx-auto">
                 <v-card-text>
                     <v-card-actions>
                         <v-card-title></v-card-title>
-                        <v-btn style="color: aliceblue;" color="#00796B" @click="closeDetails">
+                        <v-btn color="#F50057" @click="closeDetails">
                             <v-icon>mdi-backburger</v-icon>ອອກ
                         </v-btn>
                         <v-spacer></v-spacer>
@@ -140,32 +177,36 @@
                         {{ selectedCategory?.type }}
                     </div>
                     <v-row>
-                        <v-col v-for="(part, index) in selectedCategory?.parts" :key="index"
-                            @click="openPartDialog(part)">
-                            <v-card class="mx-auto" width="300px" color="#ECEFF1">
-                                <v-card-text>
-                                    <v-img :src="part.image" height="200px" />
-                                    <!-- <v-card-title>{{ part.description }}</v-card-title> -->
-                                    <div class="mt-4" style="font-size: 18px;font-weight: 500;color:black; ">
-                                        ຊື່ອະໄລ່
-
-                                        {{ part.namec }}
-                                    </div>
-
-                                    <div class="mt-2" style="font-size: 16px;font-weight: 500;">
-                                        ລະຫັດ:
-                                        {{ part.key_id }}
-                                    </div>
-                                    <div class="mt-2" style="font-size: 16px;font-weight: 500;">
-                                        ລາຄາ:
-                                        {{ part.price }}
-                                    </div>
-                                    <div style="font-size: 16px;font-weight: 500;">
-                                        ຈໍານວນ:
-                                        {{ part.totall }}
-                                    </div>
-                                </v-card-text>
-                            </v-card>
+                        <v-col v-for="(part, index) in selectedCategory?.parts" :key="index">
+                            <v-hover v-slot:default="{ hover }">
+                                <v-card class="mx-auto" width="300px" color="#ECEFF1">
+                                    <v-card-text>
+                                        <v-img :src="part.image" height="200px">
+                                            <v-card-actions>
+                                                <v-spacer></v-spacer>
+                                                <v-btn v-if="hover" fab text small @click="editData(part)">
+                                                    <v-icon color="#18FFFF">mdi-dots-vertical</v-icon>
+                                                </v-btn>
+                                            </v-card-actions>
+                                        </v-img>
+                                        <div style="text-align: center;">
+                                            <v-btn color="#18FFFF" @click="openPartDialog(part)" v-if="hover">
+                                                Read More
+                                            </v-btn>
+                                        </div>
+                                        <div class="mt-4"
+                                            style="font-size: 18px;font-weight: bold; text-align: center;">
+                                            {{ part.namec }}
+                                        </div>
+                                        <div class="mt-4" style="font-size: 16px;font-weight: bold;">
+                                            ລາຄາ: {{ part.price }}
+                                        </div>
+                                        <div style="font-size: 16px;font-weight: bold;">
+                                            ຈໍານວນ: {{ part.totall }}
+                                        </div>
+                                    </v-card-text>
+                                </v-card>
+                            </v-hover>
                         </v-col>
                     </v-row>
                 </v-card-text>
@@ -178,15 +219,17 @@ export default {
     data() {
         return {
             dialog: false,
-
+            editDialog: false,
             categories: [],
             truck_data_list: [],
             loading_processing: false,
             selectedCategory: null,
-            selectedPart: null,
+            selectedPart: {},
+            // selectedPart: null,
             showDetails: false,
             showPartDialog: false,
             searchQuery: "",
+            formValid: false,
         };
     },
     async mounted() {
@@ -245,7 +288,6 @@ export default {
                     type: truck.selectedType_Oldwarehouse, // Use selectedType_Oldwarehouse as the part name
                     image: truck.image_Oldwarehouse, // Use image_Oldwarehouse as the image URL
                     namec: truck.itemName_Oldwarehouse,
-                    key_id: truck.key_id,
                     totall: truck.qty_Oldwarehouse,
                     headc: truck.vehicle_Oldwarehouse,
                     tailc: truck.vehiclefooter_Oldwarehouse,
@@ -257,6 +299,71 @@ export default {
             }, {});
             // Convert grouped data into an array of categories
             this.categories = Object.values(groupedData);
+        },
+        async updatePart() {
+            try {
+                // Form validation check
+                if (!this.formValid) {
+                    this.$swal.fire({
+                        title: 'ຜິດພາດ!',
+                        text: 'ກະລຸນາປ້ອນຂໍ້ມູນທັງຫມົດ!',
+                        icon: 'error',
+                        confirmButtonColor: '#3085d6',
+                        confirmButtonText: 'OK',
+                    });
+                    return;
+                }
+
+                // Send the update request to the API
+                const response = await this.$axios.$post('updateOldInventory.service', {
+                    toKen: localStorage.getItem('toKen'),
+                    // partId: this.selectedPart.id, // Ensure you are passing the unique part ID
+                    itemName_Oldwarehouse: this.selectedPart.namec,
+                    price_Oldwarehouse: this.selectedPart.price,
+                    qty_Oldwarehouse: this.selectedPart.totall,
+                    vehicle_Oldwarehouse: this.selectedPart.headc,
+                    vehiclefooter_Oldwarehouse: this.selectedPart.tailc,
+                    importExpirationDate_Oldwarehouse: this.selectedPart.date,
+                    description_Oldwarehouse: this.selectedPart.detail,
+                });
+
+                // Handle response
+                if (response?.data?.success) {
+                    // Notify user of success
+                    this.$swal.fire({
+                        title: 'ສຳເລັດ!',
+                        text: 'ຂໍ້ມູນຖືກອັບເດດແລ້ວ',
+                        icon: 'success',
+                        confirmButtonColor: '#3085d6',
+                        confirmButtonText: 'OK',
+                    });
+
+                    // Close the dialog and refresh data
+                    this.editDialog = false;
+                    await this.onGetTruckList(); // Refresh the truck list after update
+                    this.mapTruckDataToCategories(); // Re-map the truck data to categories
+                } else {
+                    // Show error if update failed
+                    this.$swal.fire({
+                        title: 'ຜິດພາດ!',
+                        text: response?.message || 'ການອັບເດດຜິດພາດ',
+                        icon: 'error',
+                        confirmButtonColor: '#3085d6',
+                        confirmButtonText: 'OK',
+                    });
+                }
+            } catch (error) {
+                // Handle any errors during the API call
+                console.error(error);
+                this.$swal.fire({
+                    title: 'ແຈ້ງເຕືອນ',
+                    text: error.message || 'ການອັບເດດຜິດພາດ',
+                    icon: 'error',
+                    allowOutsideClick: false,
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: 'OK',
+                });
+            }
         },
         viewAll(category) {
             console.log('Selected Category:', JSON.stringify(category, null, 2));
@@ -270,6 +377,10 @@ export default {
             this.selectedPart = part;
             this.showPartDialog = true;
         },
+        editData(part) {
+            this.selectedPart = part;
+            this.editDialog = true;
+        },
         closePartDialog() {
             this.showPartDialog = false;
         },
@@ -279,7 +390,8 @@ export default {
 
 <style scoped>
 .scroll-container {
-
+    overflow-x: auto;
+    white-space: nowrap;
     width: 100%;
 }
 </style>

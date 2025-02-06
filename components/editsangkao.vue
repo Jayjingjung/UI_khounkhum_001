@@ -1,9 +1,9 @@
 <template>
     <div>
-        <v-card style="width: 800px; height: 100%; ">
+        <v-card style="width: 800px; height: 100%;">
             <v-card-text>
                 <div>
-                    <h1 class="mb-10 mt-10">ເພີ່ມ</h1>
+                    <h1 class="mb-10 mt-10">ແກ້ໄຂ</h1>
                     <v-row>
                         <v-col cols="12">
                             <v-autocomplete v-model="itemName_Oldwarehouse" :items="itemOptions" label="ເລືອກ ອຸປະກອນ"
@@ -29,6 +29,7 @@
                             <v-autocomplete v-model="vehiclefooter_Oldwarehouse" :items="vehiclefooter"
                                 label="ເລືອກຫາງລົດ" outlined dense required></v-autocomplete>
                         </v-col>
+
                         <v-col cols="12">
                             <v-text-field dense outlined v-model="price_Oldwarehouse" label="ລາຄາ" prefix="$ or K"
                                 type="number" required></v-text-field>
@@ -36,15 +37,12 @@
                         <v-col cols="12">
                             <v-text-field type="date" label="ເລືອກວັນທີ" v-model="importExpirationDate_Oldwarehouse"
                                 outlined dense></v-text-field>
-
-
                         </v-col>
 
                         <v-col cols="12">
                             <v-textarea dense outlined v-model="description_Oldwarehouse" label="ລາຍລະອຽດ"
                                 required></v-textarea>
                         </v-col>
-
 
                         <v-card-text>
                             <div>
@@ -54,12 +52,6 @@
                                             append-inner-icon="mdi-card-account-details" background-color="#f5f5f5"
                                             v-model="imagea" @change="previewImage"></v-file-input>
                                     </v-col>
-                                    <!-- <v-col cols="12">
-                                            <v-btn @click="openCamera">
-                                                <v-icon>mdi-camera</v-icon>
-                                                ຖ່າຍຮູບ
-                                            </v-btn>
-                                        </v-col> -->
                                     <v-col cols="12">
                                         <video ref="video" class="camera-video" v-show="showCamera" autoplay></video>
                                         <canvas ref="canvas" style="display: none;"></canvas>
@@ -75,8 +67,8 @@
                 </div>
             </v-card-text>
             <v-card-actions class="d-flex justify-space-between">
-                <v-btn variant="outlined">ຍົກເລີກ</v-btn>
-                <v-btn @click="insertData" color="primary">ສົ່ງ</v-btn>
+                <v-btn @click="cancelEdit" variant="outlined">ຍົກເລີກ</v-btn>
+                <v-btn @click="updateData" color="primary">ອັບເດດ</v-btn>
             </v-card-actions>
         </v-card>
     </div>
@@ -88,7 +80,6 @@ import Swal from 'sweetalert2';
 export default {
     data() {
         return {
-            openForm: false,
             selectedType_Oldwarehouse: null,
             itemName_Oldwarehouse: "",
             qty_Oldwarehouse: "",
@@ -99,12 +90,11 @@ export default {
             description_Oldwarehouse: "",
             image_Oldwarehouse: null,
             imagePreview: null,
-      
+
             vehicleOptions: [],
             vehiclefooter: [],
             itemOptions: [],
             typeOptions: [],
-            image_Oldwarehouse: null,
             imagea: null,
             showCamera: false,
         };
@@ -212,17 +202,9 @@ export default {
             this.showCamera = false;
             video.srcObject.getTracks().forEach(track => track.stop());
         },
-        insertData() {
-            let formData = new FormData();
-            if (this.imagea) {
-                formData.append('image_Oldwarehouse', this.imagea);
-            }
-            console.log("Data submitted", formData);
-        },
-        async insertData() {
+        async updateData() {
             try {
-                let formData = new FormData(); // ✅ Correct declaration
-
+                let formData = new FormData();
                 formData.append('itemName_Oldwarehouse', this.itemName_Oldwarehouse);
                 formData.append('qty_Oldwarehouse', this.qty_Oldwarehouse);
                 formData.append('selectedType_Oldwarehouse', this.selectedType_Oldwarehouse);
@@ -231,95 +213,33 @@ export default {
                 formData.append('price_Oldwarehouse', this.price_Oldwarehouse);
                 formData.append('importExpirationDate_Oldwarehouse', this.importExpirationDate_Oldwarehouse);
                 formData.append('description_Oldwarehouse', this.description_Oldwarehouse);
-
-                // ✅ Append image file only if it exists
                 if (this.imagea) {
                     formData.append('image_Oldwarehouse', this.imagea);
                 }
 
-                formData.append('toKen', localStorage.getItem("toKen"));
-
-                const response = await this.$axios.$post('/InsertOldInventory.service', formData);
-
-                // ✅ Success Alert
-                Swal.fire('Success', 'Data inserted successfully!', 'success');
-
-                this.openForm = false;
-            } catch (error) {
-                console.error("❌ Error inserting data:", error);
-                Swal.fire('Error', 'Failed to insert data', 'error');
-            }
-            this.selectedType_Oldwarehouse = "";
-            this.itemName_Oldwarehouse = "";
-            this.qty_Oldwarehouse = "";
-            this.vehicle_Oldwarehouse = "";
-            this.vehiclefooter_Oldwarehouse = "";
-            this.price_Oldwarehouse = "";
-            this.importExpirationDate_Oldwarehouse = "";
-            this.description_Oldwarehouse = "";
-        },
-        async fetchOldInventory() {
-            try {
-                const response = await this.$axios.$post('showOldInventory.service', {
-                    toKen: localStorage.getItem('toKen'),
+                const response = await this.$axios.$post('updateData.service', formData, {
+                    headers: { 'Content-Type': 'multipart/form-data' }
                 });
-                if (response.status === "00") {
-                    this.typeOptions = response.data.map(item => item.selectedType_Oldwarehouse);
+
+                if (response.success) {
+                    Swal.fire('Success', 'Data updated successfully', 'success');
+                } else {
+                    Swal.fire('Error', 'Failed to update data', 'error');
                 }
-                console.log("Old Inventory Data:", response);
             } catch (error) {
-                console.error("Error fetching old inventory:", error);
+                console.error("Error updating data:", error);
+                Swal.fire('Error', 'Failed to update data', 'error');
             }
         },
-
-
+        cancelEdit() {
+            this.loadFromLocalStorage(); // Reset to original values
+        },
     },
-    async mounted() {
+    mounted() {
         this.loadFromLocalStorage();
-        await this.fetchVehicleOptions();
-        await this.fetchVehiclefooter();
-        await this.fetchItemOptions();
-        await this.fetchOldInventory();
-    },
+        this.fetchVehicleOptions();
+        this.fetchVehiclefooter();
+        this.fetchItemOptions();
+    }
 };
 </script>
-
-<style>
-/* .x {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 5;
-    background-color: rgb(255, 255, 255);
-} */
-
-/* .camera-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-} */
-
-.camera-video {
-    width: 100%;
-    max-height: 300px;
-
-}
-
-.capture-btn {
-    margin-top: 10px;
-    width: 100px;
-    height: 100px;
-    /* border-radius: 100%; */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.camera-video {
-    width: 100%;
-    max-height: 300px;
-}
-</style>

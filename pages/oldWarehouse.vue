@@ -45,9 +45,9 @@
 
                                     <v-text-field v-model="selectedPart.namec" label="ຊື່"
                                         :rules="[v => !!v || 'Name is required']"></v-text-field>
-                                    <v-text-field v-model="selectedPart.price" label="ລາຄາ" type="number"
+                                    <v-text-field v-model="selectedPart.price" label="ລາຄາ"
                                         :rules="[v => !!v || 'Price is required']"></v-text-field>
-                                    <v-text-field v-model="selectedPart.totall" label="ຈໍານວນ" type="number"
+                                    <v-text-field v-model="selectedPart.totall" label="ຈໍານວນ"
                                         :rules="[v => !!v || 'Total is required']"></v-text-field>
                                     <v-text-field v-model="selectedPart.headc" label="ຫົວລົດ"
                                         :rules="[v => !!v || 'Head Code is required']"></v-text-field>
@@ -102,15 +102,18 @@
                                         <v-list>
                                             <v-list-item>
                                                 <v-list-item-group>
-                                                    <v-list-item>
-                                                        <v-list-item-title @click="editData(part)">
-                                                            ແກ້ໄຊ
+                                                    <!-- ปุ่มแก้ไข -->
+                                                    <v-list-item @click="editData(part)">
+                                                        <v-list-item-title>
+                                                            ແກ້ໄຂ
                                                         </v-list-item-title>
                                                     </v-list-item>
-                                                    <v-list-item>
-                                                        <v-list-item-tittle>
-                                                            ລຶບ
-                                                        </v-list-item-tittle>
+
+                                                    <!-- ปุ่มลบ -->
+                                                    <v-list-item @click="deleteItem(part)">
+                                                        <v-list-item-title>
+                                                            ລຶບອອກ
+                                                        </v-list-item-title>
                                                     </v-list-item>
                                                 </v-list-item-group>
                                             </v-list-item>
@@ -192,7 +195,7 @@
                 <v-card-text>
                     <v-card-actions>
                         <v-card-title></v-card-title>
-                        <v-btn color="#F50057"  @click="closeDetails">
+                        <v-btn color="#F50057" @click="closeDetails">
                             <v-icon>mdi-backburger</v-icon> ອອກ
                         </v-btn>
                         <v-spacer></v-spacer>
@@ -215,15 +218,18 @@
                                     <v-list>
                                         <v-list-item>
                                             <v-list-item-group>
-                                                <v-list-item>
-                                                    <v-list-item-title @click="editData(part)">
-                                                        ແກ້ໄຊ
+                                                <!-- ปุ่มแก้ไข -->
+                                                <v-list-item @click="editData(part)">
+                                                    <v-list-item-title>
+                                                        ແກ້ໄຂ
                                                     </v-list-item-title>
                                                 </v-list-item>
-                                                <v-list-item>
-                                                    <v-list-item-tittle>
+
+                                                <!-- ปุ่มลบ -->
+                                                <v-list-item @click="deleteItem(part)">
+                                                    <v-list-item-title>
                                                         ລຶບອອກ
-                                                    </v-list-item-tittle>
+                                                    </v-list-item-title>
                                                 </v-list-item>
                                             </v-list-item-group>
                                         </v-list-item>
@@ -251,6 +257,7 @@
     </v-container>
 </template>
 <script>
+import Swal from "sweetalert2";
 export default {
     data() {
         return {
@@ -339,6 +346,7 @@ export default {
                     price: truck.price_Oldwarehouse,
                     date: truck.importExpirationDate_Oldwarehouse,
                     detail: truck.description_Oldwarehouse,
+                    id: truck.key_id
                 });
                 return acc;
             }, {});
@@ -350,7 +358,7 @@ export default {
                 // Form data preparation (including the image file if available)
                 const formData = new FormData();
                 formData.append('toKen', localStorage.getItem('toKen'));
-                // formData.append('partId', this.selectedPart.id); // Ensure you are passing the unique part ID
+                formData.append('key_id', this.selectedPart.id); // Ensure you are passing the unique part ID
                 formData.append('itemName_Oldwarehouse', this.selectedPart.namec);
                 formData.append('price_Oldwarehouse', this.selectedPart.price);
                 formData.append('qty_Oldwarehouse', this.selectedPart.totall);
@@ -362,22 +370,19 @@ export default {
                     formData.append('image_Oldwarehouse', this.selectedPart.image); // ส่งไฟล์ภาพจริง
                 }
                 // Send the update request to the API
-                const response = await this.$axios.$post('updateOldInventory.service', formData, {
-                    headers: {
-                        'Content-Type': 'multipart/form-data', // Ensure correct content type
-                    },
+                const response = await this.$axios.$post('UpdateOldInventory.service', formData, {
+                    // headers: {
+                    //     'Content-Type': 'multipart/form-data', // Ensure correct content type
+                    // },
                 });
-                // Handle response
-                if (response?.data?.success) {
-                    // Notify user of success
-                    this.$swal.fire({
+                if (response?.status === "00") {
+                    Swal.fire({
                         title: 'ສຳເລັດ!',
                         text: 'ຂໍ້ມູນຖືກອັບເດດແລ້ວ',
                         icon: 'success',
                         confirmButtonColor: '#3085d6',
                         confirmButtonText: 'OK',
                     });
-
                     // Close the dialog and refresh data
                     this.editDialog = false;
                     await this.onGetTruckList(); // Refresh the truck list after update
@@ -402,6 +407,51 @@ export default {
                     allowOutsideClick: false,
                     confirmButtonColor: '#3085d6',
                     confirmButtonText: 'OK',
+                });
+            }
+        },
+        async deleteItem(part) {
+            try {
+                console.log('Part ID:', part.id); // ตรวจสอบว่า part.id ถูกต้องหรือไม่
+                const confirm = await Swal.fire({
+                    title: "ທ່ານຕ້ອງການລົບຂໍ້ມູນແທ້ບໍ່?",
+                    text: "ເພາະຖ້າລົບແລ້ວຈະບໍ່ສາມາດກູ້ຂໍ້ມູນຄືນໄດ້.",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: '#FF1744',
+                    cancelButtonColor: '#EEFF41',
+                    confirmButtonText: "ລົບອອກ!",
+                    cancelButtonText: 'ຍົກເລີກ'
+                });
+
+                if (confirm.isConfirmed) {
+                    const response = await this.$axios.$post(
+                        "/DelOldInventory.service",
+                        {
+                            key_id: part.id,
+                        },
+                    );
+                    console.log("key_id", part.id)
+                    console.log("Response from API:", response); // ตรวจสอบการตอบกลับจาก API
+                    if (response?.status === "00") {
+                        Swal.fire({
+                            title: "ສຳເລັດ",
+                            text: "successfully!",
+                            icon: "success",
+                        });
+                        await this.onGetTruckList();
+                        this.mapTruckDataToCategories(); // group data
+                    } else {
+                        Swal.fire({
+                            icon: "error",
+                            text: "Failed to delete data!",
+                        });
+                    }
+                }
+            } catch (error) {
+                Swal.fire({
+                    icon: "error",
+                    text: "Failed to delete data111!",
                 });
             }
         },

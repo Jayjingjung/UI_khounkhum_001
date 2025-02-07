@@ -23,9 +23,28 @@
                             <h1 class="pt-10">ແກ້ໄຂ</h1>
                             <v-card-text>
                                 <v-form ref="editForm" v-model="formValid">
-                                    <!-- Image Preview -->
-                                    <v-img v-if="selectedPart.imagePreview" :src="selectedPart.imagePreview"
-                                        height="200px" contain></v-img>
+                                    <!-- Show Old Image if Available -->
+                                    <div class="image-container" style="position: relative; height: 170px;">
+                                        <!-- แสดงภาพที่อัปโหลดจริง -->
+                                        <v-img v-if="selectedPart.image" :src="selectedPart.image" height="170px"
+                                            contain style="position: absolute; top: 0; left: 0;" />
+
+                                        <!-- แสดงพรีวิวภาพ (ใช้ Base64) -->
+                                        <v-img v-if="selectedPart.imagePreview" :src="selectedPart.imagePreview"
+                                            height="170px" contain style="position: absolute; top: 0; left: 0;" />
+
+                                    </div>
+                                    <div style="text-align: center;">
+                                        <v-btn dense @click="clearImage" color="success" class="mt-2">
+                                            ປ່ຽນຮູບ
+                                        </v-btn>
+                                    </div>
+
+                                    <!-- การอัปโหลดไฟล์ -->
+                                    <v-file-input v-if="!selectedPart.imagePreview && !selectedPart.image"
+                                        label="ອັບໂຫຼດຮູບ" accept="image/*" prepend-icon="mdi-camera"
+                                        @change="onImageChange" />
+
                                     <v-text-field v-model="selectedPart.namec" label="ຊື່"
                                         :rules="[v => !!v || 'Name is required']"></v-text-field>
                                     <v-text-field v-model="selectedPart.price" label="ລາຄາ" type="number"
@@ -224,8 +243,17 @@ export default {
             truck_data_list: [],
             loading_processing: false,
             selectedCategory: null,
-            selectedPart: {},
-            // selectedPart: null,
+            // selectedPart: {},
+            selectedPart: {
+                namec: '',
+                price: '',
+                totall: '',
+                headc: '',
+                tailc: '',
+                detail: '',
+                image: null,
+                imagePreview: '', // Ensure this is initialized
+            },
             showDetails: false,
             showPartDialog: false,
             searchQuery: "",
@@ -302,31 +330,26 @@ export default {
         },
         async updatePart() {
             try {
-                // Form validation check
-                if (!this.formValid) {
-                    this.$swal.fire({
-                        title: 'ຜິດພາດ!',
-                        text: 'ກະລຸນາປ້ອນຂໍ້ມູນທັງຫມົດ!',
-                        icon: 'error',
-                        confirmButtonColor: '#3085d6',
-                        confirmButtonText: 'OK',
-                    });
-                    return;
+                // Form data preparation (including the image file if available)
+                const formData = new FormData();
+                formData.append('toKen', localStorage.getItem('toKen'));
+                // formData.append('partId', this.selectedPart.id); // Ensure you are passing the unique part ID
+                formData.append('itemName_Oldwarehouse', this.selectedPart.namec);
+                formData.append('price_Oldwarehouse', this.selectedPart.price);
+                formData.append('qty_Oldwarehouse', this.selectedPart.totall);
+                formData.append('vehicle_Oldwarehouse', this.selectedPart.headc);
+                formData.append('vehiclefooter_Oldwarehouse', this.selectedPart.tailc);
+                formData.append('description_Oldwarehouse', this.selectedPart.detail);
+                // Append image if available
+                if (this.selectedPart.image) {
+                    formData.append('image_Oldwarehouse', this.selectedPart.image); // ส่งไฟล์ภาพจริง
                 }
-
                 // Send the update request to the API
-                const response = await this.$axios.$post('updateOldInventory.service', {
-                    toKen: localStorage.getItem('toKen'),
-                    // partId: this.selectedPart.id, // Ensure you are passing the unique part ID
-                    itemName_Oldwarehouse: this.selectedPart.namec,
-                    price_Oldwarehouse: this.selectedPart.price,
-                    qty_Oldwarehouse: this.selectedPart.totall,
-                    vehicle_Oldwarehouse: this.selectedPart.headc,
-                    vehiclefooter_Oldwarehouse: this.selectedPart.tailc,
-                    importExpirationDate_Oldwarehouse: this.selectedPart.date,
-                    description_Oldwarehouse: this.selectedPart.detail,
+                const response = await this.$axios.$post('updateOldInventory.service', formData, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data', // Ensure correct content type
+                    },
                 });
-
                 // Handle response
                 if (response?.data?.success) {
                     // Notify user of success
@@ -378,8 +401,29 @@ export default {
             this.showPartDialog = true;
         },
         editData(part) {
-            this.selectedPart = part;
+            // this.selectedPart = part;
+            // this.editDialog = true;
+            this.selectedPart = { ...part }; // Make a copy of the part data
+            this.selectedPart.imagePreview = part.imagePreview || ''; // Set preview if available
             this.editDialog = true;
+        },
+        // Handles image change (preview and upload logic)
+        onImageChange(file) {
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    this.selectedPart.imagePreview = e.target.result; // เก็บ Base64
+                    this.selectedPart.image = file; // เก็บไฟล์จริง
+                };
+                reader.readAsDataURL(file);
+            } else {
+                this.selectedPart.imagePreview = '';
+                this.selectedPart.image = null;
+            }
+        },
+        clearImage() {
+            this.selectedPart.imagePreview = null;
+            this.selectedPart.image = null;
         },
         closePartDialog() {
             this.showPartDialog = false;
@@ -389,6 +433,13 @@ export default {
 </script>
 
 <style scoped>
+.image-container {
+    position: relative;
+    width: 100%;
+    /* หรือกำหนดความกว้างที่ต้องการ */
+    height: 170px;
+}
+
 .scroll-container {
     overflow-x: auto;
     white-space: nowrap;

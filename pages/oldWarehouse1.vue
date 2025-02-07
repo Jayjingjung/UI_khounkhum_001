@@ -44,6 +44,28 @@
                     <div class="scroll-container">
                         <v-row class="flex-nowrap">
                             <v-col v-for="(part, index) in category.parts" :key="index">
+                                <v-card class="mx-auto" width="300px" color="#ECEFF1" style="position: relative;">
+                                    <!-- Dots Button with Dropdown Menu -->
+                                    <v-menu offset-y>
+                                        <template v-slot:activator="{ on, attrs }">
+                                            <v-btn icon small
+                                                style="position: absolute; top: 5px; right: 5px; z-index: 1;"
+                                                v-bind="attrs" v-on="on">
+                                                <v-icon>mdi-dots-horizontal</v-icon>
+                                            </v-btn>
+                                        </template>
+
+                                        <v-list>
+                                            <v-list-item @click="editPart(part)">
+                                                <v-list-item-icon>
+                                                    <v-icon>mdi-pencil</v-icon>
+                                                </v-list-item-icon>
+                                                <v-list-item-content>ແກ້ໄຂ</v-list-item-content>
+                                            </v-list-item>
+                                        </v-list>
+                                    </v-menu>
+
+                                    <v-card-text @click="openPartDialog(part)">
                                         <v-img :src="part.image" height="200px" />
 
                                         <div class="mt-4" style="font-size: 18px;font-weight: 500;color:black; ">

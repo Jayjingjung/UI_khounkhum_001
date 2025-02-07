@@ -211,7 +211,7 @@
       <v-col cols="12" md="3">
         <div
         >
-          <v-card to="oldWarehouse" height="100" elevation="2" rounded="lg" width="310px"
+          <v-card to="" height="100" elevation="2" rounded="lg" width="310px"
             style="border: 1px solid rgb(255, 153, 51);">
             <v-card-text>
               <div class="d-flex align-center">

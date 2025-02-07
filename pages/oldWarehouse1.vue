@@ -68,7 +68,6 @@
                                     <v-card-text @click="openPartDialog(part)">
                                         <v-img :src="part.image" height="200px" />
 
-                                        <div class="mt-4" style="font-size: 18px;font-weight: 500;color:black; ">
                                         <div class="mt-4" style="font-size: 18px;font-weight: 500;color:black;">
                                             ຊື່ອະໄລ່
                                             {{ part.namec }}

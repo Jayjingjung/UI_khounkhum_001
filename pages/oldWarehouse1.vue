@@ -44,29 +44,25 @@
                     <div class="scroll-container">
                         <v-row class="flex-nowrap">
                             <v-col v-for="(part, index) in category.parts" :key="index">
-                                <v-card class="mx-auto" width="300px" color="#ECEFF1" @click="openPartDialog(part)">
-                                    <v-card-text>
                                         <v-img :src="part.image" height="200px" />
 
                                         <div class="mt-4" style="font-size: 18px;font-weight: 500;color:black; ">
+                                        <div class="mt-4" style="font-size: 18px;font-weight: 500;color:black;">
                                             ຊື່ອະໄລ່
-
                                             {{ part.namec }}
                                         </div>
                                         <div class="mt-2" style="font-size: 16px;font-weight: 500;">
-                                            ລະຫັດ:
-                                            {{ part.key_id }}
+                                            ລະຫັດ: {{ part.key_id }}
                                         </div>
                                         <div class="mt-2" style="font-size: 16px;font-weight: 500;">
-                                            ລາຄາ:
-                                            {{ part.price }}
+                                            ລາຄາ: {{ part.price }}
                                         </div>
                                         <div style="font-size: 16px;font-weight: 500;">
-                                            ຈໍານວນ:
-                                            {{ part.totall }}
+                                            ຈໍານວນ: {{ part.totall }}
                                         </div>
                                     </v-card-text>
                                 </v-card>
+
                             </v-col>
                         </v-row>
                     </div>
@@ -78,7 +74,7 @@
             <v-card>
                 <v-img style="display: block;justify-self: center;" :src="selectedPart?.image" max-width="500px" />
                 <v-row>
-                    <v-col  >
+                    <v-col>
                         <div class="mt-4" style="font-size: 18px;font-weight: 500;color:black; ">
                             {{ selectedPart?.namec }}
                         </div>

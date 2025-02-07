@@ -507,11 +507,10 @@ export default {
                         text: "Data successfully sent.",
                         confirmButtonText: "OK",
                     });
-
-
                     // window.location.reload(); 
                 this.onGetshowdata_tablev2()
                 this.onGetshowdata_tablev()
+
 
                 }
             } catch (error) {

@@ -1683,16 +1683,26 @@ export default {
 
 @media print {
     @page {
-        size: A4;
-        margin: 1in;
+        size: A4 landscape;
+        /* Sets horizontal orientation */
+        margin: 1cm;
     }
 
-    body * {
-        visibility: hidden;
+    body {
+        margin: 0;
+        font-size: 12pt;
     }
-    #print,
-    #print * {
-        visibility: visible;
+
+    #app {
+        width: 1400px;
+        height: 100%;
+    }
+
+    /* Ensure print-content is styled correctly */
+    #print-content {
+        width: 1400px;
+        display: flex;
+        flex-wrap: wrap;
     }
 
 

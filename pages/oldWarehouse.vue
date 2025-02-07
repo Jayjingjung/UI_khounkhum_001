@@ -192,8 +192,8 @@
                 <v-card-text>
                     <v-card-actions>
                         <v-card-title></v-card-title>
-                        <v-btn color="#F50057" @click="closeDetails">
-                            <v-icon>mdi-backburger</v-icon>ອອກ
+                        <v-btn color="#F50057"  @click="closeDetails">
+                            <v-icon>mdi-backburger</v-icon> ອອກ
                         </v-btn>
                         <v-spacer></v-spacer>
                     </v-card-actions>

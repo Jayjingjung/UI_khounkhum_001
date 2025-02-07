@@ -14,9 +14,10 @@
                         </v-btn>
                     </div>
                 </div>
-                <v-dialog max-width="700px" v-model="dialog">
+                <v-dialog style="display: flex; justify-content: flex-end;" max-width="700px" v-model="dialog">
                     <sangkao />
                 </v-dialog>
+
                 <v-dialog max-width="500px" v-model="editDialog">
                     <v-card>
                         <v-card-text>

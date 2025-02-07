@@ -215,7 +215,7 @@
             style="border: 1px solid rgb(255, 153, 51);">
             <v-card-text>
               <div class="d-flex align-center">
-                <v-icon color="orange" size="55">mdi-</v-icon>
+                <v-icon color="orange" size="55">mdi-hoop-house</v-icon>
 
                 <div class="pl-5 pb-5 pt-5 pr-5">
                   <span style="font-size: 17pt;font-weight: bold;">ສາງອາໄຫຼ່ເກົ່າ</span><br />

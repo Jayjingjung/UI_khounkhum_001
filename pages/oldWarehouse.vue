@@ -32,14 +32,12 @@
                                         <!-- แสดงพรีวิวภาพ (ใช้ Base64) -->
                                         <v-img v-if="selectedPart.imagePreview" :src="selectedPart.imagePreview"
                                             height="170px" contain style="position: absolute; top: 0; left: 0;" />
-
                                     </div>
                                     <div style="text-align: center;">
                                         <v-btn dense @click="clearImage" color="success" class="mt-2">
                                             ປ່ຽນຮູບ
                                         </v-btn>
                                     </div>
-
                                     <!-- การอัปโหลดไฟล์ -->
                                     <v-file-input v-if="!selectedPart.imagePreview && !selectedPart.image"
                                         label="ອັບໂຫຼດຮູບ" accept="image/*" prepend-icon="mdi-camera"
@@ -61,7 +59,7 @@
                                 </v-form>
                             </v-card-text>
                             <v-card-actions>
-                                <v-btn color="secondary" @click="editDialog = false">Cancel</v-btn>
+                                <v-btn color="error" @click="editDialog = false">Cancel</v-btn>
                                 <v-spacer></v-spacer>
                                 <v-btn color="primary" @click="updatePart">Save</v-btn>
                             </v-card-actions>
@@ -92,39 +90,50 @@
                     <div class="scroll-container">
                         <v-row class="flex-nowrap">
                             <v-col v-for="(part, index) in category.parts" :key="index">
-                                <v-hover v-slot:default="{ hover }">
-                                    <v-card class="mx-auto" width="300px" color="#ECEFF1">
-                                        <v-card-text>
-                                            <v-img :src="part.image" height="200px">
-                                                <v-card-actions>
-                                                    <v-spacer></v-spacer>
-                                                    <v-btn v-if="hover" fab text small @click="editData(part)">
-                                                        <v-icon color="#18FFFF">mdi-dots-vertical</v-icon>
-                                                    </v-btn>
-                                                </v-card-actions>
-                                            </v-img>
-                                            <div style="text-align: center;">
-                                                <v-btn color="#18FFFF" @click="openPartDialog(part)" v-if="hover">
-                                                    Read More
-                                                </v-btn>
-                                            </div>
-                                            <div class="mt-4"
-                                                style="font-size: 18px;font-weight: bold; text-align: center;">
-                                                {{ part.namec }}
-                                            </div>
-                                            <div class="mt-4" style="font-size: 16px;font-weight: bold;">
-                                                ລາຄາ: {{ part.price }}
-                                            </div>
-                                            <div style="font-size: 16px;font-weight: bold;">
-                                                ຈໍານວນ: {{ part.totall }}
-                                            </div>
-                                        </v-card-text>
-                                    </v-card>
-                                </v-hover>
+                                <v-card class="mx-auto" width="270px" color="#ECEFF1">
+                                    <v-menu offset-y>
+                                        <template v-slot:activator="{ on, attrs }">
+                                            <v-btn icon small
+                                                style="position: absolute; top: 5px; right: 5px; z-index: 1;"
+                                                v-bind="attrs" v-on="on">
+                                                <v-icon>mdi-dots-vertical</v-icon>
+                                            </v-btn>
+                                        </template>
+                                        <v-list>
+                                            <v-list-item>
+                                                <v-list-item-group>
+                                                    <v-list-item>
+                                                        <v-list-item-title @click="editData(part)">
+                                                            ແກ້ໄຊ
+                                                        </v-list-item-title>
+                                                    </v-list-item>
+                                                    <v-list-item>
+                                                        <v-list-item-tittle>
+                                                            ລຶບ
+                                                        </v-list-item-tittle>
+                                                    </v-list-item>
+                                                </v-list-item-group>
+                                            </v-list-item>
+                                        </v-list>
+                                    </v-menu>
+                                    <v-card-text @click="openPartDialog(part)">
+                                        <v-img :src="part.image" height="200px">
+                                        </v-img>
+                                        <div class="mt-4"
+                                            style="font-size: 18px;font-weight: bold; text-align: center;">
+                                            {{ part.namec }}
+                                        </div>
+                                        <div class="mt-4" style="font-size: 16px;font-weight: bold;">
+                                            ລາຄາ: {{ part.price }}
+                                        </div>
+                                        <div style="font-size: 16px;font-weight: bold;">
+                                            ຈໍານວນ: {{ part.totall }}
+                                        </div>
+                                    </v-card-text>
+                                </v-card>
                             </v-col>
                         </v-row>
                     </div>
-
                 </v-card>
             </v-row>
         </v-col>
@@ -171,8 +180,6 @@
                             ລາຍລະອຽດ: <br>
                             <span>
                                 {{ selectedPart?.detail }}
-                                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Repudiandae ex saepe quae
-                                error, eveniet libero! Dolor qui deleniti labore voluptatum.
                             </span>
                         </div>
                     </div>
@@ -197,35 +204,45 @@
                     </div>
                     <v-row>
                         <v-col v-for="(part, index) in selectedCategory?.parts" :key="index">
-                            <v-hover v-slot:default="{ hover }">
-                                <v-card class="mx-auto" width="300px" color="#ECEFF1">
-                                    <v-card-text>
-                                        <v-img :src="part.image" height="200px">
-                                            <v-card-actions>
-                                                <v-spacer></v-spacer>
-                                                <v-btn v-if="hover" fab text small @click="editData(part)">
-                                                    <v-icon color="#18FFFF">mdi-dots-vertical</v-icon>
-                                                </v-btn>
-                                            </v-card-actions>
-                                        </v-img>
-                                        <div style="text-align: center;">
-                                            <v-btn color="#18FFFF" @click="openPartDialog(part)" v-if="hover">
-                                                Read More
-                                            </v-btn>
-                                        </div>
-                                        <div class="mt-4"
-                                            style="font-size: 18px;font-weight: bold; text-align: center;">
-                                            {{ part.namec }}
-                                        </div>
-                                        <div class="mt-4" style="font-size: 16px;font-weight: bold;">
-                                            ລາຄາ: {{ part.price }}
-                                        </div>
-                                        <div style="font-size: 16px;font-weight: bold;">
-                                            ຈໍານວນ: {{ part.totall }}
-                                        </div>
-                                    </v-card-text>
-                                </v-card>
-                            </v-hover>
+                            <v-card class="mx-auto" width="270px" color="#ECEFF1">
+                                <v-menu offset-y>
+                                    <template v-slot:activator="{ on, attrs }">
+                                        <v-btn icon small style="position: absolute; top: 5px; right: 5px; z-index: 1;"
+                                            v-bind="attrs" v-on="on">
+                                            <v-icon>mdi-dots-vertical</v-icon>
+                                        </v-btn>
+                                    </template>
+                                    <v-list>
+                                        <v-list-item>
+                                            <v-list-item-group>
+                                                <v-list-item>
+                                                    <v-list-item-title @click="editData(part)">
+                                                        ແກ້ໄຊ
+                                                    </v-list-item-title>
+                                                </v-list-item>
+                                                <v-list-item>
+                                                    <v-list-item-tittle>
+                                                        ລຶບ
+                                                    </v-list-item-tittle>
+                                                </v-list-item>
+                                            </v-list-item-group>
+                                        </v-list-item>
+                                    </v-list>
+                                </v-menu>
+                                <v-card-text @click="openPartDialog(part)">
+                                    <v-img :src="part.image" height="200px">
+                                    </v-img>
+                                    <div class="mt-4" style="font-size: 18px;font-weight: bold; text-align: center;">
+                                        {{ part.namec }}
+                                    </div>
+                                    <div class="mt-4" style="font-size: 16px;font-weight: bold;">
+                                        ລາຄາ: {{ part.price }}
+                                    </div>
+                                    <div style="font-size: 16px;font-weight: bold;">
+                                        ຈໍານວນ: {{ part.totall }}
+                                    </div>
+                                </v-card-text>
+                            </v-card>
                         </v-col>
                     </v-row>
                 </v-card-text>

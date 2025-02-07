@@ -38,7 +38,8 @@
                                     <v-textarea v-model="selectedPart.detail" label="ລາຍລະອຽດ" rows="4"></v-textarea>
 
                                     <!-- File Input for Image Upload -->
-                                    <<v-file-input label="ເລືອກຮູບພາບ" accept="image/*" @change="onFileChange"></v-file-input>
+                                    <<v-file-input label="ເລືອກຮູບພາບ" accept="image/*"
+                                        @change="onFileChange"></v-file-input>
 
                                 </v-form>
                             </v-card-text>
@@ -57,7 +58,7 @@
         </v-card-text>
         <v-col>
             <v-row v-for="(category, index) in filteredCategories" :key="index">
-                <v-card style="width: 100%;" flat>
+                <v-card style="width: 100%;height: 450px;" flat>
                     <v-card-actions>
                         <v-card-title style="font-weight: bold; color: #0097A7;">{{ category.type }}</v-card-title>
                         <!-- <div>{{ category.description }}</div> -->
@@ -74,39 +75,49 @@
                     <div class="scroll-container">
                         <v-row class="flex-nowrap">
                             <v-col v-for="(part, index) in category.parts" :key="index">
-                                <v-hover v-slot:default="{ hover }">
-                                    <v-card class="mx-auto" width="300px" color="#ECEFF1">
-                                        <v-card-text>
-                                            <v-img :src="part.image" height="200px">
-                                                <v-card-actions>
-                                                    <v-spacer></v-spacer>
-                                                    <v-btn v-if="hover" fab text small @click="editData(part)">
-                                                        <v-icon color="#18FFFF">mdi-dots-vertical</v-icon>
-                                                    </v-btn>
-                                                </v-card-actions>
-                                            </v-img>
-                                            <div style="text-align: center;">
-                                                <v-btn color="#18FFFF" @click="openPartDialog(part)" v-if="hover">
-                                                    Read More
-                                                </v-btn>
-                                            </div>
-                                            <div class="mt-4"
-                                                style="font-size: 18px;font-weight: bold; text-align: center;">
-                                                {{ part.namec }}
-                                            </div>
-                                            <div class="mt-4" style="font-size: 16px;font-weight: bold;">
-                                                ລາຄາ: {{ part.price }}
-                                            </div>
-                                            <div style="font-size: 16px;font-weight: bold;">
-                                                ຈໍານວນ: {{ part.totall }}
-                                            </div>
-                                        </v-card-text>
-                                    </v-card>
-                                </v-hover>
+                                <v-card class="mx-auto" width="300px" color="#ECEFF1" style="position: relative;">
+                                    <!-- Dots Button with Dropdown Menu -->
+                                    <v-menu offset-y>
+                                        <template v-slot:activator="{ on, attrs }">
+                                            <v-btn icon small
+                                                style="position: absolute; top: 5px; right: 5px; z-index: 1;"
+                                                v-bind="attrs" v-on="on">
+                                                <v-icon>mdi-dots-horizontal</v-icon>
+                                            </v-btn>
+                                        </template>
+
+                                        <v-list>
+                                            <v-list-item @click="editPart(part)">
+                                                <v-list-item-icon>
+                                                    <v-icon>mdi-pencil</v-icon>
+                                                </v-list-item-icon>
+                                                <v-list-item-content>ແກ້ໄຂ</v-list-item-content>
+                                            </v-list-item>
+                                        </v-list>
+                                    </v-menu>
+
+                                    <v-card-text @click="openPartDialog(part)">
+                                        <v-img :src="part.image" height="200px" />
+
+                                        <div class="mt-4" style="font-size: 18px;font-weight: 500;color:black;">
+                                            ຊື່ອະໄລ່
+                                            {{ part.namec }}
+                                        </div>
+                                        <div class="mt-2" style="font-size: 16px;font-weight: 500;">
+                                            ລະຫັດ: {{ part.key_id }}
+                                        </div>
+                                        <div class="mt-2" style="font-size: 16px;font-weight: 500;">
+                                            ລາຄາ: {{ part.price }}
+                                        </div>
+                                        <div style="font-size: 16px;font-weight: 500;">
+                                            ຈໍານວນ: {{ part.totall }}
+                                        </div>
+                                    </v-card-text>
+                                </v-card>
+
                             </v-col>
                         </v-row>
                     </div>
-
                 </v-card>
             </v-row>
         </v-col>

@@ -222,7 +222,7 @@
                                                 </v-list-item>
                                                 <v-list-item>
                                                     <v-list-item-tittle>
-                                                        ລຶບ
+                                                        ລຶບອອກ
                                                     </v-list-item-tittle>
                                                 </v-list-item>
                                             </v-list-item-group>

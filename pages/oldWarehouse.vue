@@ -14,7 +14,6 @@
                         </v-btn>
                     </div>
                 </div>
-                <v-dialog style="display: flex; justify-content: flex-end;" max-width="700px" v-model="dialog">
                 <v-dialog max-width="700px" v-model="dialog">
                     <sangkao />
                 </v-dialog>

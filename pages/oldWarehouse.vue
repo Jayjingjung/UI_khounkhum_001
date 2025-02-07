@@ -23,9 +23,26 @@
                             <h1 class="pt-10">ແກ້ໄຂ</h1>
                             <v-card-text>
                                 <v-form ref="editForm" v-model="formValid">
-                                    <!-- Image Preview -->
-                                    <v-img v-if="selectedPart.imagePreview" :src="selectedPart.imagePreview"
-                                        height="200px" contain></v-img>
+                                    <!-- Show Old Image if Available -->
+                                    <div class="image-container" style="position: relative; height: 170px;">
+                                        <!-- แสดงภาพที่อัปโหลดจริง -->
+                                        <v-img v-if="selectedPart.image" :src="selectedPart.image" height="170px"
+                                            contain style="position: absolute; top: 0; left: 0;" />
+
+                                        <!-- แสดงพรีวิวภาพ (ใช้ Base64) -->
+                                        <v-img v-if="selectedPart.imagePreview" :src="selectedPart.imagePreview"
+                                            height="170px" contain style="position: absolute; top: 0; left: 0;" />
+                                    </div>
+                                    <div style="text-align: center;">
+                                        <v-btn dense @click="clearImage" color="success" class="mt-2">
+                                            ປ່ຽນຮູບ
+                                        </v-btn>
+                                    </div>
+                                    <!-- การอัปโหลดไฟล์ -->
+                                    <v-file-input v-if="!selectedPart.imagePreview && !selectedPart.image"
+                                        label="ອັບໂຫຼດຮູບ" accept="image/*" prepend-icon="mdi-camera"
+                                        @change="onImageChange" />
+
                                     <v-text-field v-model="selectedPart.namec" label="ຊື່"
                                         :rules="[v => !!v || 'Name is required']"></v-text-field>
                                     <v-text-field v-model="selectedPart.price" label="ລາຄາ" type="number"
@@ -42,7 +59,7 @@
                                 </v-form>
                             </v-card-text>
                             <v-card-actions>
-                                <v-btn color="secondary" @click="editDialog = false">Cancel</v-btn>
+                                <v-btn color="error" @click="editDialog = false">Cancel</v-btn>
                                 <v-spacer></v-spacer>
                                 <v-btn color="primary" @click="updatePart">Save</v-btn>
                             </v-card-actions>
@@ -73,39 +90,50 @@
                     <div class="scroll-container">
                         <v-row class="flex-nowrap">
                             <v-col v-for="(part, index) in category.parts" :key="index">
-                                <v-hover v-slot:default="{ hover }">
-                                    <v-card class="mx-auto" width="300px" color="#ECEFF1">
-                                        <v-card-text>
-                                            <v-img :src="part.image" height="200px">
-                                                <v-card-actions>
-                                                    <v-spacer></v-spacer>
-                                                    <v-btn v-if="hover" fab text small @click="editData(part)">
-                                                        <v-icon color="#18FFFF">mdi-dots-vertical</v-icon>
-                                                    </v-btn>
-                                                </v-card-actions>
-                                            </v-img>
-                                            <div style="text-align: center;">
-                                                <v-btn color="#18FFFF" @click="openPartDialog(part)" v-if="hover">
-                                                    Read More
-                                                </v-btn>
-                                            </div>
-                                            <div class="mt-4"
-                                                style="font-size: 18px;font-weight: bold; text-align: center;">
-                                                {{ part.namec }}
-                                            </div>
-                                            <div class="mt-4" style="font-size: 16px;font-weight: bold;">
-                                                ລາຄາ: {{ part.price }}
-                                            </div>
-                                            <div style="font-size: 16px;font-weight: bold;">
-                                                ຈໍານວນ: {{ part.totall }}
-                                            </div>
-                                        </v-card-text>
-                                    </v-card>
-                                </v-hover>
+                                <v-card class="mx-auto" width="270px" color="#ECEFF1">
+                                    <v-menu offset-y>
+                                        <template v-slot:activator="{ on, attrs }">
+                                            <v-btn icon small
+                                                style="position: absolute; top: 5px; right: 5px; z-index: 1;"
+                                                v-bind="attrs" v-on="on">
+                                                <v-icon>mdi-dots-vertical</v-icon>
+                                            </v-btn>
+                                        </template>
+                                        <v-list>
+                                            <v-list-item>
+                                                <v-list-item-group>
+                                                    <v-list-item>
+                                                        <v-list-item-title @click="editData(part)">
+                                                            ແກ້ໄຊ
+                                                        </v-list-item-title>
+                                                    </v-list-item>
+                                                    <v-list-item>
+                                                        <v-list-item-tittle>
+                                                            ລຶບ
+                                                        </v-list-item-tittle>
+                                                    </v-list-item>
+                                                </v-list-item-group>
+                                            </v-list-item>
+                                        </v-list>
+                                    </v-menu>
+                                    <v-card-text @click="openPartDialog(part)">
+                                        <v-img :src="part.image" height="200px">
+                                        </v-img>
+                                        <div class="mt-4"
+                                            style="font-size: 18px;font-weight: bold; text-align: center;">
+                                            {{ part.namec }}
+                                        </div>
+                                        <div class="mt-4" style="font-size: 16px;font-weight: bold;">
+                                            ລາຄາ: {{ part.price }}
+                                        </div>
+                                        <div style="font-size: 16px;font-weight: bold;">
+                                            ຈໍານວນ: {{ part.totall }}
+                                        </div>
+                                    </v-card-text>
+                                </v-card>
                             </v-col>
                         </v-row>
                     </div>
-
                 </v-card>
             </v-row>
         </v-col>
@@ -152,8 +180,6 @@
                             ລາຍລະອຽດ: <br>
                             <span>
                                 {{ selectedPart?.detail }}
-                                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Repudiandae ex saepe quae
-                                error, eveniet libero! Dolor qui deleniti labore voluptatum.
                             </span>
                         </div>
                     </div>
@@ -178,35 +204,45 @@
                     </div>
                     <v-row>
                         <v-col v-for="(part, index) in selectedCategory?.parts" :key="index">
-                            <v-hover v-slot:default="{ hover }">
-                                <v-card class="mx-auto" width="300px" color="#ECEFF1">
-                                    <v-card-text>
-                                        <v-img :src="part.image" height="200px">
-                                            <v-card-actions>
-                                                <v-spacer></v-spacer>
-                                                <v-btn v-if="hover" fab text small @click="editData(part)">
-                                                    <v-icon color="#18FFFF">mdi-dots-vertical</v-icon>
-                                                </v-btn>
-                                            </v-card-actions>
-                                        </v-img>
-                                        <div style="text-align: center;">
-                                            <v-btn color="#18FFFF" @click="openPartDialog(part)" v-if="hover">
-                                                Read More
-                                            </v-btn>
-                                        </div>
-                                        <div class="mt-4"
-                                            style="font-size: 18px;font-weight: bold; text-align: center;">
-                                            {{ part.namec }}
-                                        </div>
-                                        <div class="mt-4" style="font-size: 16px;font-weight: bold;">
-                                            ລາຄາ: {{ part.price }}
-                                        </div>
-                                        <div style="font-size: 16px;font-weight: bold;">
-                                            ຈໍານວນ: {{ part.totall }}
-                                        </div>
-                                    </v-card-text>
-                                </v-card>
-                            </v-hover>
+                            <v-card class="mx-auto" width="270px" color="#ECEFF1">
+                                <v-menu offset-y>
+                                    <template v-slot:activator="{ on, attrs }">
+                                        <v-btn icon small style="position: absolute; top: 5px; right: 5px; z-index: 1;"
+                                            v-bind="attrs" v-on="on">
+                                            <v-icon>mdi-dots-vertical</v-icon>
+                                        </v-btn>
+                                    </template>
+                                    <v-list>
+                                        <v-list-item>
+                                            <v-list-item-group>
+                                                <v-list-item>
+                                                    <v-list-item-title @click="editData(part)">
+                                                        ແກ້ໄຊ
+                                                    </v-list-item-title>
+                                                </v-list-item>
+                                                <v-list-item>
+                                                    <v-list-item-tittle>
+                                                        ລຶບ
+                                                    </v-list-item-tittle>
+                                                </v-list-item>
+                                            </v-list-item-group>
+                                        </v-list-item>
+                                    </v-list>
+                                </v-menu>
+                                <v-card-text @click="openPartDialog(part)">
+                                    <v-img :src="part.image" height="200px">
+                                    </v-img>
+                                    <div class="mt-4" style="font-size: 18px;font-weight: bold; text-align: center;">
+                                        {{ part.namec }}
+                                    </div>
+                                    <div class="mt-4" style="font-size: 16px;font-weight: bold;">
+                                        ລາຄາ: {{ part.price }}
+                                    </div>
+                                    <div style="font-size: 16px;font-weight: bold;">
+                                        ຈໍານວນ: {{ part.totall }}
+                                    </div>
+                                </v-card-text>
+                            </v-card>
                         </v-col>
                     </v-row>
                 </v-card-text>
@@ -224,8 +260,17 @@ export default {
             truck_data_list: [],
             loading_processing: false,
             selectedCategory: null,
-            selectedPart: {},
-            // selectedPart: null,
+            // selectedPart: {},
+            selectedPart: {
+                namec: '',
+                price: '',
+                totall: '',
+                headc: '',
+                tailc: '',
+                detail: '',
+                image: null,
+                imagePreview: '', // Ensure this is initialized
+            },
             showDetails: false,
             showPartDialog: false,
             searchQuery: "",
@@ -302,31 +347,26 @@ export default {
         },
         async updatePart() {
             try {
-                // Form validation check
-                if (!this.formValid) {
-                    this.$swal.fire({
-                        title: 'ຜິດພາດ!',
-                        text: 'ກະລຸນາປ້ອນຂໍ້ມູນທັງຫມົດ!',
-                        icon: 'error',
-                        confirmButtonColor: '#3085d6',
-                        confirmButtonText: 'OK',
-                    });
-                    return;
+                // Form data preparation (including the image file if available)
+                const formData = new FormData();
+                formData.append('toKen', localStorage.getItem('toKen'));
+                // formData.append('partId', this.selectedPart.id); // Ensure you are passing the unique part ID
+                formData.append('itemName_Oldwarehouse', this.selectedPart.namec);
+                formData.append('price_Oldwarehouse', this.selectedPart.price);
+                formData.append('qty_Oldwarehouse', this.selectedPart.totall);
+                formData.append('vehicle_Oldwarehouse', this.selectedPart.headc);
+                formData.append('vehiclefooter_Oldwarehouse', this.selectedPart.tailc);
+                formData.append('description_Oldwarehouse', this.selectedPart.detail);
+                // Append image if available
+                if (this.selectedPart.image) {
+                    formData.append('image_Oldwarehouse', this.selectedPart.image); // ส่งไฟล์ภาพจริง
                 }
-
                 // Send the update request to the API
-                const response = await this.$axios.$post('updateOldInventory.service', {
-                    toKen: localStorage.getItem('toKen'),
-                    // partId: this.selectedPart.id, // Ensure you are passing the unique part ID
-                    itemName_Oldwarehouse: this.selectedPart.namec,
-                    price_Oldwarehouse: this.selectedPart.price,
-                    qty_Oldwarehouse: this.selectedPart.totall,
-                    vehicle_Oldwarehouse: this.selectedPart.headc,
-                    vehiclefooter_Oldwarehouse: this.selectedPart.tailc,
-                    importExpirationDate_Oldwarehouse: this.selectedPart.date,
-                    description_Oldwarehouse: this.selectedPart.detail,
+                const response = await this.$axios.$post('updateOldInventory.service', formData, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data', // Ensure correct content type
+                    },
                 });
-
                 // Handle response
                 if (response?.data?.success) {
                     // Notify user of success
@@ -378,8 +418,29 @@ export default {
             this.showPartDialog = true;
         },
         editData(part) {
-            this.selectedPart = part;
+            // this.selectedPart = part;
+            // this.editDialog = true;
+            this.selectedPart = { ...part }; // Make a copy of the part data
+            this.selectedPart.imagePreview = part.imagePreview || ''; // Set preview if available
             this.editDialog = true;
+        },
+        // Handles image change (preview and upload logic)
+        onImageChange(file) {
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    this.selectedPart.imagePreview = e.target.result; // เก็บ Base64
+                    this.selectedPart.image = file; // เก็บไฟล์จริง
+                };
+                reader.readAsDataURL(file);
+            } else {
+                this.selectedPart.imagePreview = '';
+                this.selectedPart.image = null;
+            }
+        },
+        clearImage() {
+            this.selectedPart.imagePreview = null;
+            this.selectedPart.image = null;
         },
         closePartDialog() {
             this.showPartDialog = false;
@@ -389,6 +450,13 @@ export default {
 </script>
 
 <style scoped>
+.image-container {
+    position: relative;
+    width: 100%;
+    /* หรือกำหนดความกว้างที่ต้องการ */
+    height: 170px;
+}
+
 .scroll-container {
     overflow-x: auto;
     white-space: nowrap;

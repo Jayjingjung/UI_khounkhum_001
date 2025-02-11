@@ -25,23 +25,29 @@
                                 <v-form ref="editForm" v-model="formValid">
                                     <!-- Show Old Image if Available -->
                                     <div class="image-container" style="position: relative; height: 170px;">
-                                        <!-- แสดงภาพที่อัปโหลดจริง -->
+                                        <!-- แสดงภาพที่อัปโหลดจริง (ไฟล์ที่ผู้ใช้เลือก) -->
                                         <v-img v-if="selectedPart.image" :src="selectedPart.image" height="170px"
                                             contain style="position: absolute; top: 0; left: 0;" />
 
-                                        <!-- แสดงพรีวิวภาพ (ใช้ Base64) -->
-                                        <v-img v-if="selectedPart.imagePreview" :src="selectedPart.imagePreview"
-                                            height="170px" contain style="position: absolute; top: 0; left: 0;" />
+                                        <!-- แสดงพรีวิวภาพ (Base64) หากไม่มีไฟล์จริง -->
+                                        <v-img v-if="selectedPart.imagePreview && !selectedPart.image"
+                                            :src="selectedPart.imagePreview" height="170px" contain
+                                            style="position: absolute; top: 0; left: 0;" />
                                     </div>
+
+                                    <!-- ปุ่มเปลี่ยนรูป -->
                                     <div style="text-align: center;">
                                         <v-btn dense @click="clearImage" color="success" class="mt-2">
                                             ປ່ຽນຮູບ
                                         </v-btn>
                                     </div>
-                                    <!-- การอัปโหลดไฟล์ -->
+
+                                    <!-- ฟอร์มอัปโหลดไฟล์ -->
                                     <v-file-input v-if="!selectedPart.imagePreview && !selectedPart.image"
                                         label="ອັບໂຫຼດຮູບ" accept="image/*" prepend-icon="mdi-camera"
                                         @change="onImageChange" />
+
+
 
                                     <v-text-field v-model="selectedPart.namec" label="ຊື່"
                                         :rules="[v => !!v || 'Name is required']"></v-text-field>
@@ -277,7 +283,8 @@ export default {
                 detail: '',
                 image: null,
                 imagePreview: '', // Ensure this is initialize
-                type: ''
+                type: '',
+                imageOld: '',
             },
             showDetails: false,
             showPartDialog: false,
@@ -368,7 +375,9 @@ export default {
                     });
                     return;
                 }
+
                 const formattedDate = new Date(this.selectedPart.date).toISOString().split('T')[0]; // แปลงเป็นรูปแบบ YYYY-MM-DD
+
                 // เตรียมข้อมูล formData
                 const formData = new FormData();
                 formData.append('toKen', localStorage.getItem('toKen'));
@@ -381,25 +390,23 @@ export default {
                 formData.append('description_Oldwarehouse', this.selectedPart.detail);
                 formData.append('selectedType_Oldwarehouse', this.selectedPart.type);
                 formData.append('importExpirationDate_Oldwarehouse', formattedDate);
-                // เพิ่มรูปภาพหากมี
+
+                // ถ้าผู้ใช้เลือกภาพใหม่ จะส่งไฟล์ใหม่ไป
                 if (this.selectedPart.image) {
-                    if (this.selectedPart.image.size > 5 * 1024 * 1024) {
-                        this.$swal.fire({
-                            title: 'ແຈ້ງເຕືອນ',
-                            text: 'ຂະໜາດຮູບພາບໃຫຍ່ເກີນໄປ',
-                            icon: 'error',
-                            confirmButtonColor: '#3085d6',
-                            confirmButtonText: 'OK',
-                        });
-                        return;
-                    }
-                    formData.append('image_Oldwarehouse', this.selectedPart.image);
+                    formData.append('image_Oldwarehouse', this.selectedPart.image); // ส่งไฟล์จริง
+                } else if (this.selectedPart.imageOld) {
+                    // ถ้าไม่มีการเลือกไฟล์ใหม่, ส่ง URL ของภาพเก่าในรูปแบบที่ API รองรับ
+                    const imageUrl = this.selectedPart.imageOld;
+                    formData.append('image_Oldwarehouse', imageUrl); // ส่ง URL ของภาพเก่า
                 }
-                // แสดงข้อมูล formData สำหรับ debugging
+
+                // ตรวจสอบข้อมูล formData ที่จะส่ง
                 console.log([...formData.entries()]);
+
                 // ส่ง request อัปเดต
                 const response = await this.$axios.$post('UpdateOldInventory.service', formData, {});
-                console.log(response);  // ดูรายละเอียดการตอบกลับ
+                console.log(response);  // ตรวจสอบ response
+
                 if (response?.status === "00") {
                     Swal.fire({
                         title: 'ສຳເລັດ!',
@@ -496,18 +503,17 @@ export default {
             this.selectedPart.imagePreview = part.imagePreview || ''; // Set preview if available
             this.editDialog = true;
         },
-        // Handles image change (preview and upload logic)
         onImageChange(file) {
             if (file) {
                 const reader = new FileReader();
                 reader.onload = (e) => {
-                    this.selectedPart.imagePreview = e.target.result; // เก็บ Base64
+                    this.selectedPart.imagePreview = e.target.result; // เก็บ Base64 สำหรับแสดงพรีวิว
                     this.selectedPart.image = file; // เก็บไฟล์จริง
                 };
-                reader.readAsDataURL(file);
+                reader.readAsDataURL(file); // อ่านไฟล์เป็น Base64
             } else {
-                this.selectedPart.imagePreview = '';
-                this.selectedPart.image = null;
+                this.selectedPart.imagePreview = ''; // ลบค่าภาพพรีวิว
+                this.selectedPart.image = null; // ลบไฟล์จริง
             }
         },
         clearImage() {

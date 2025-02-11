@@ -34,7 +34,7 @@
     "nuxt": "^2.18.1",
     "nuxt-sweetalert2": "^1.0.0",
     "pdfjs-dist": "^4.4.168",
-    "sweetalert2": "^11.14.0",
+    "sweetalert2": "^11.15.10",
     "v-viewer": "^1.6.4",
     "vue": "^2.7.16",
     "vue-apexcharts": "^1.7.0",

@@ -23,12 +23,27 @@
                             <h1 class="pt-10">ແກ້ໄຂ</h1>
                             <v-card-text>
                                 <v-form ref="editForm" v-model="formValid">
-                                    <!-- แสดงรูปภาพตัวอย่าง -->
-                                    <v-img v-if="selectedPart.imagePreview" :src="selectedPart.imagePreview"
-                                        max-height="200" contain class="mb-4"></v-img>
-                                    <v-file-input v-model="selectedPart.newImage" label="อัปโหลดรูปภาพ" accept="image/*"
-                                        prepend-icon="mdi-camera" @change="onImageChange"
-                                        :rules="[v => !v || v.size < 2000000 || 'ขนาดรูปภาพต้องไม่เกิน 2 MB!']"></v-file-input>
+                                    <!-- Show Old Image if Available -->
+                                    <div class="image-container" style="position: relative; height: 170px;">
+                                        <!-- แสดงภาพที่อัปโหลดจริง (ไฟล์ที่ผู้ใช้เลือก) -->
+                                        <!-- <v-img v-if="selectedPart.image" :src="selectedPart.image" height="170px"
+                                            contain style="position: absolute; top: 0; left: 0;" /> -->
+                                        <!-- แสดงพรีวิวภาพ (Base64) หากไม่มีไฟล์จริง -->
+                                        <v-img v-if="selectedPart.imagePreview" :src="selectedPart.imagePreview"
+                                            height="170px" contain style="position: absolute; top: 0; left: 0;" />
+                                    </div>
+
+                                    <!-- ปุ่มเปลี่ยนรูป -->
+                                    <!-- <div style="text-align: center;">
+                                        <v-btn dense @click="clearImage" color="success" class="mt-2">
+                                            ປ່ຽນຮູບ
+                                        </v-btn>
+                                    </div> -->
+
+                                    <!-- v-if="!selectedPart.imagePreview && !selectedPart.image" -->
+                                    <!-- ฟอร์มอัปโหลดไฟล์ -->
+                                    <v-file-input label="ອັບໂຫຼດຮູບ" accept="image/*" prepend-icon="mdi-camera"
+                                        @change="onImageChange" />
                                     <v-text-field v-model="selectedPart.namec" label="ຊື່"
                                         :rules="[v => !!v || 'Name is required']"></v-text-field>
                                     <v-text-field v-model="selectedPart.type" label="ປະເພດ"
@@ -47,7 +62,8 @@
                             <v-card-actions>
                                 <v-btn color="error" @click="editDialog = false">ຍົກເລີກ</v-btn>
                                 <v-spacer></v-spacer>
-                                <v-btn color="primary" @click="updatePart">ອັບເດັບ</v-btn>
+                                <v-btn color="primary" @click="updatePart" v-if="selectedPart.imagePreview && selectedPart.image">ອັບເດັບ</v-btn>
+                                <div v-else  style="font-size: 20px;font-weight: bold;color: red;">ກາລຸນາປ້ອນຮູບກ່ອນທຸກຄັ້ງ</div>
                             </v-card-actions>
                         </v-card-text>
                     </v-card>
@@ -127,13 +143,13 @@
             </v-row>
         </v-col>
         <!-- Dialog for selected part -->
-        <v-dialog v-model="showPartDialog" max-width="580">
+        <v-dialog v-model="showPartDialog" max-width="590">
             <v-card>
                 <v-card-text>
                     <v-card-actions>
                         <div>
                             <v-img style="display: block;justify-self: center;" :src="selectedPart?.image"
-                                max-width="260px" />
+                                max-width="250px" />
                         </div>
                         <v-spacer></v-spacer>
                         <div class="mr-10">
@@ -150,7 +166,7 @@
                                     {{ selectedPart?.totall }}
                                 </div>
                                 <v-row>
-                                    <v-col cols="6">
+                                    <v-col cols="5">
                                         <div v-if="selectedPart?.headc" style="font-size: 16px">
                                             ຫົວລົດ:
                                             <div>
@@ -164,7 +180,7 @@
                                             </div>
                                         </div>
                                     </v-col>
-                                    <v-col cols="6">
+                                    <v-col cols="7">
                                         <div>
                                             <div class="ml-2">
                                                 ວັນທີ່ນໍາເຂົ້າ
@@ -276,16 +292,14 @@ export default {
                 headc: '',
                 tailc: '',
                 detail: '',
+                image: null,
+                imagePreview: '', // Ensure this is initialize
                 type: '',
-                newImage: null, // สำหรับเก็บไฟล์รูปภาพที่อัปโหลด
-                imagePreview: '', // สำหรับแสดงตัวอย่างรูปภาพ
             },
-            image1: '',
             showDetails: false,
             showPartDialog: false,
             searchQuery: "",
             formValid: false,
-            token: null
         };
     },
     async mounted() {
@@ -304,15 +318,6 @@ export default {
         }
     },
     methods: {
-        onImageChange(event) {
-            const file = event; // ไฟล์ที่ผู้ใช้เลือก
-            if (file) {
-                // สร้าง URL ชั่วคราวสำหรับแสดงตัวอย่างรูปภาพ
-                this.selectedPart.imagePreview = URL.createObjectURL(file);
-            } else {
-                this.selectedPart.imagePreview = '';
-            }
-        },
         async onGetTruckList() {
             try {
                 this.loading_processing = true;
@@ -369,7 +374,7 @@ export default {
         async updatePart() {
             try {
                 // ตรวจสอบฟิลด์ที่จำเป็น
-                if (!this.selectedPart.namec || !this.selectedPart.price || !this.selectedPart.totall || !this.selectedPart.type || !this.selectedPart.namec) {
+                if (!this.selectedPart.namec || !this.selectedPart.price || !this.selectedPart.totall || !this.selectedPart.type || !this.selectedPart.namec || !this.selectedPart.image) {
                     this.$swal.fire({
                         title: 'ແຈ້ງເຕືອນ',
                         text: 'ກະລຸນາຕື່ມຂໍ້ມູນໃຫ້ຄົບຖ້ວນ',
@@ -381,6 +386,7 @@ export default {
                 }
 
                 const formattedDate = new Date(this.selectedPart.date).toISOString().split('T')[0]; // แปลงเป็นรูปแบบ YYYY-MM-DD
+
                 // เตรียมข้อมูล formData
                 const formData = new FormData();
                 formData.append('toKen', localStorage.getItem('toKen'));
@@ -394,13 +400,10 @@ export default {
                 formData.append('selectedType_Oldwarehouse', this.selectedPart.type);
                 formData.append('importExpirationDate_Oldwarehouse', formattedDate);
 
-                // เพิ่มรูปภาพใหม่ถ้ามี
-                if (this.selectedPart.newImage) {
-                    formData.append('image_Oldwarehouse', this.selectedPart.newImage); // New image (binary) - use directly
-                } else {
-                    formData.append('image_Oldwarehouse', this.image1);
+                // ถ้าผู้ใช้เลือกภาพใหม่ จะส่งไฟล์ใหม่ไป
+                if (this.selectedPart.image) {
+                    formData.append('image_Oldwarehouse', this.selectedPart.image);
                 }
-
                 // ตรวจสอบข้อมูล formData ที่จะส่ง
                 console.log([...formData.entries()]);
 
@@ -503,6 +506,26 @@ export default {
             this.selectedPart = { ...part }; // Make a copy of the part data
             this.selectedPart.imagePreview = part.imagePreview || ''; // Set preview if available
             this.editDialog = true;
+        },
+        onImageChange(file) {
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    // Store the Base64 preview URL
+                    this.selectedPart.imagePreview = e.target.result;
+                    // Store the actual file for uploading
+                    this.selectedPart.image = file;
+                };
+                reader.readAsDataURL(file);
+            } else {
+                this.selectedPart.imagePreview = '';
+                this.selectedPart.image = null;
+            }
+        },
+
+        clearImage() {
+            this.selectedPart.imagePreview = null;
+            this.selectedPart.image = null;
         },
         closePartDialog() {
             this.showPartDialog = false;

@@ -26,29 +26,24 @@
                                     <!-- Show Old Image if Available -->
                                     <div class="image-container" style="position: relative; height: 170px;">
                                         <!-- แสดงภาพที่อัปโหลดจริง (ไฟล์ที่ผู้ใช้เลือก) -->
-                                        <v-img v-if="selectedPart.image" :src="selectedPart.image" height="170px"
-                                            contain style="position: absolute; top: 0; left: 0;" />
-
+                                        <!-- <v-img v-if="selectedPart.image" :src="selectedPart.image" height="170px"
+                                            contain style="position: absolute; top: 0; left: 0;" /> -->
                                         <!-- แสดงพรีวิวภาพ (Base64) หากไม่มีไฟล์จริง -->
-                                        <v-img v-if="selectedPart.imagePreview && !selectedPart.image"
-                                            :src="selectedPart.imagePreview" height="170px" contain
-                                            style="position: absolute; top: 0; left: 0;" />
+                                        <v-img v-if="selectedPart.imagePreview" :src="selectedPart.imagePreview"
+                                            height="170px" contain style="position: absolute; top: 0; left: 0;" />
                                     </div>
 
                                     <!-- ปุ่มเปลี่ยนรูป -->
-                                    <div style="text-align: center;">
+                                    <!-- <div style="text-align: center;">
                                         <v-btn dense @click="clearImage" color="success" class="mt-2">
                                             ປ່ຽນຮູບ
                                         </v-btn>
-                                    </div>
+                                    </div> -->
 
+                                    <!-- v-if="!selectedPart.imagePreview && !selectedPart.image" -->
                                     <!-- ฟอร์มอัปโหลดไฟล์ -->
-                                    <v-file-input v-if="!selectedPart.imagePreview && !selectedPart.image"
-                                        label="ອັບໂຫຼດຮູບ" accept="image/*" prepend-icon="mdi-camera"
+                                    <v-file-input label="ອັບໂຫຼດຮູບ" accept="image/*" prepend-icon="mdi-camera"
                                         @change="onImageChange" />
-
-
-
                                     <v-text-field v-model="selectedPart.namec" label="ຊື່"
                                         :rules="[v => !!v || 'Name is required']"></v-text-field>
                                     <v-text-field v-model="selectedPart.type" label="ປະເພດ"
@@ -67,7 +62,8 @@
                             <v-card-actions>
                                 <v-btn color="error" @click="editDialog = false">ຍົກເລີກ</v-btn>
                                 <v-spacer></v-spacer>
-                                <v-btn color="primary" @click="updatePart">ອັບເດັບ</v-btn>
+                                <v-btn color="primary" @click="updatePart" v-if="selectedPart.imagePreview && selectedPart.image">ອັບເດັບ</v-btn>
+                                <div v-else  style="font-size: 20px;font-weight: bold;color: red;">ກາລຸນາປ້ອນຮູບກ່ອນທຸກຄັ້ງ</div>
                             </v-card-actions>
                         </v-card-text>
                     </v-card>
@@ -99,8 +95,7 @@
                                 <v-card class="mx-auto" width="270px" color="#ECEFF1">
                                     <v-menu offset-y>
                                         <template v-slot:activator="{ on, attrs }">
-                                            <v-btn icon
-                                                style="position: absolute; top: 1px; right: 2px; z-index: 1;"
+                                            <v-btn icon style="position: absolute; top: 1px; right: 2px; z-index: 1;"
                                                 v-bind="attrs" v-on="on">
                                                 <v-icon color="#00796B">mdi-dots-vertical</v-icon>
                                             </v-btn>
@@ -148,13 +143,13 @@
             </v-row>
         </v-col>
         <!-- Dialog for selected part -->
-        <v-dialog v-model="showPartDialog" max-width="580">
+        <v-dialog v-model="showPartDialog" max-width="590">
             <v-card>
                 <v-card-text>
                     <v-card-actions>
                         <div>
                             <v-img style="display: block;justify-self: center;" :src="selectedPart?.image"
-                                max-width="260px" />
+                                max-width="250px" />
                         </div>
                         <v-spacer></v-spacer>
                         <div class="mr-10">
@@ -171,7 +166,7 @@
                                     {{ selectedPart?.totall }}
                                 </div>
                                 <v-row>
-                                    <v-col cols="6">
+                                    <v-col cols="5">
                                         <div v-if="selectedPart?.headc" style="font-size: 16px">
                                             ຫົວລົດ:
                                             <div>
@@ -185,7 +180,7 @@
                                             </div>
                                         </div>
                                     </v-col>
-                                    <v-col cols="6">
+                                    <v-col cols="7">
                                         <div>
                                             <div class="ml-2">
                                                 ວັນທີ່ນໍາເຂົ້າ
@@ -231,7 +226,7 @@
                             <v-card class="mx-auto" width="270px" color="#ECEFF1">
                                 <v-menu offset-y>
                                     <template v-slot:activator="{ on, attrs }">
-                                        <v-btn icon  style="position: absolute; top: 1px; right: 2px; z-index: 1;"
+                                        <v-btn icon style="position: absolute; top: 1px; right: 2px; z-index: 1;"
                                             v-bind="attrs" v-on="on">
                                             <v-icon color="#00796B">mdi-dots-vertical</v-icon>
                                         </v-btn>
@@ -300,13 +295,11 @@ export default {
                 image: null,
                 imagePreview: '', // Ensure this is initialize
                 type: '',
-                imageOld: '',
             },
             showDetails: false,
             showPartDialog: false,
             searchQuery: "",
             formValid: false,
-            token: null
         };
     },
     async mounted() {
@@ -381,7 +374,7 @@ export default {
         async updatePart() {
             try {
                 // ตรวจสอบฟิลด์ที่จำเป็น
-                if (!this.selectedPart.namec || !this.selectedPart.price || !this.selectedPart.totall || !this.selectedPart.type || !this.selectedPart.namec) {
+                if (!this.selectedPart.namec || !this.selectedPart.price || !this.selectedPart.totall || !this.selectedPart.type || !this.selectedPart.namec || !this.selectedPart.image) {
                     this.$swal.fire({
                         title: 'ແຈ້ງເຕືອນ',
                         text: 'ກະລຸນາຕື່ມຂໍ້ມູນໃຫ້ຄົບຖ້ວນ',
@@ -409,13 +402,8 @@ export default {
 
                 // ถ้าผู้ใช้เลือกภาพใหม่ จะส่งไฟล์ใหม่ไป
                 if (this.selectedPart.image) {
-                    formData.append('image_Oldwarehouse', this.selectedPart.image); // ส่งไฟล์จริง
-                } else if (this.selectedPart.imageOld) {
-                    // ถ้าไม่มีการเลือกไฟล์ใหม่, ส่ง URL ของภาพเก่าในรูปแบบที่ API รองรับ
-                    const imageUrl = this.selectedPart.imageOld;
-                    formData.append('image_Oldwarehouse', imageUrl); // ส่ง URL ของภาพเก่า
+                    formData.append('image_Oldwarehouse', this.selectedPart.image);
                 }
-
                 // ตรวจสอบข้อมูล formData ที่จะส่ง
                 console.log([...formData.entries()]);
 
@@ -523,15 +511,18 @@ export default {
             if (file) {
                 const reader = new FileReader();
                 reader.onload = (e) => {
-                    this.selectedPart.imagePreview = e.target.result; // เก็บ Base64 สำหรับแสดงพรีวิว
-                    this.selectedPart.image = file; // เก็บไฟล์จริง
+                    // Store the Base64 preview URL
+                    this.selectedPart.imagePreview = e.target.result;
+                    // Store the actual file for uploading
+                    this.selectedPart.image = file;
                 };
-                reader.readAsDataURL(file); // อ่านไฟล์เป็น Base64
+                reader.readAsDataURL(file);
             } else {
-                this.selectedPart.imagePreview = ''; // ลบค่าภาพพรีวิว
-                this.selectedPart.image = null; // ลบไฟล์จริง
+                this.selectedPart.imagePreview = '';
+                this.selectedPart.image = null;
             }
         },
+
         clearImage() {
             this.selectedPart.imagePreview = null;
             this.selectedPart.image = null;

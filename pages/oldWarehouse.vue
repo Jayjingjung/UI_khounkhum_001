@@ -384,9 +384,7 @@ export default {
                     });
                     return;
                 }
-
                 const formattedDate = new Date(this.selectedPart.date).toISOString().split('T')[0]; // แปลงเป็นรูปแบบ YYYY-MM-DD
-
                 // เตรียมข้อมูล formData
                 const formData = new FormData();
                 formData.append('toKen', localStorage.getItem('toKen'));
@@ -447,8 +445,8 @@ export default {
             try {
                 console.log('Part ID:', part.id); // ตรวจสอบว่า part.id ถูกต้องหรือไม่
                 const confirm = await Swal.fire({
-                    title: "ທ່ານຕ້ອງການລົບຂໍ້ມູນແທ້ບໍ່?",
-                    text: "ເພາະຖ້າລົບແລ້ວຈະບໍ່ສາມາດກູ້ຂໍ້ມູນຄືນໄດ້.",
+                    title: "ທ່ານຕ້ອງການລຶບຂໍ້ມູນແທ້ບໍ່?",
+                    text: "ເພາະຖ້າລຶບແລ້ວຈະບໍ່ສາມາດກູ້ຂໍ້ມູນຄືນໄດ້.",
                     icon: "warning",
                     showCancelButton: true,
                     confirmButtonColor: '#FF1744',

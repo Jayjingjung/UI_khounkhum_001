@@ -6,7 +6,7 @@
       <button @click="launchFireworks">Launch Fireworks</button>
     </div> -->
     <v-card class="x">
-
+    
       <v-btn style="background-color: #f44336;width: 100px;display: flex; " rounded to="/" text>
         <v-icon color="white">mdi-power</v-icon>
       </v-btn>

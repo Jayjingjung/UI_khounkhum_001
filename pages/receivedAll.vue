@@ -32,6 +32,8 @@
                     </v-btn>
                 </v-card-title>
 
+             
+
 
                 <v-btn style="margin-top: 20px;width: 100%;" @click="dialog = true" color="primary">
                     <v-icon>

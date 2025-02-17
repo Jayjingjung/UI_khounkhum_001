@@ -1,7 +1,7 @@
 <template>
     <div>
         <div style="display: flex; justify-content: center; align-items: center; width: 100%; ">
-            <v-card class="card-shadow mb-6" rounded="lg" style="width: 1500px;height: 800px;">
+            <v-card class="card-shadow mb-6" rounded="lg" style="width: 100%;height: 100%;">
 
                 <v-card-title style="border-bottom:0.5px solid #e0e0e0;background-color:#E57373;color:white">
                     ລາຍງານ

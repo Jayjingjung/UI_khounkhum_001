@@ -511,7 +511,9 @@ export default {
                 this.onGetshowdata_tablev2()
                 this.onGetshowdata_tablev()
 
-
+                
+                    window.location.reload();
+                  
                 }
             } catch (error) {
                 console.error("Error:", error);

@@ -70,7 +70,8 @@
                             <td><v-avatar>
                                     <img :src="row.item.img">
                                 </v-avatar></td>
-                            <td>{{ row?.item?.qty }}</td>
+                            <!-- ✅ Apply red color if qty > 10 -->
+                            <td :class="{ 'red-text': row?.item?.qty < 10 }">{{ row?.item?.qty }}</td>
                             <td>{{ row?.item?.unit }}</td>
                             <td>{{ row?.item?.unit_price?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</td>
                             <td>
@@ -480,5 +481,9 @@ export default {
 .center-btn {
     display: flex;
     justify-content: center;
+}
+.red-text {
+  color: red;
+  font-weight: bold;
 }
 </style>

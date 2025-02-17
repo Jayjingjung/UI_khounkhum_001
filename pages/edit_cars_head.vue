@@ -21,49 +21,63 @@
                     <div class="pa-2 pl-6 pt-4 d-flex">
                         <v-spacer></v-spacer>
                         <div v-if="alert === true"
-                            style="border:1px solid red;height:40px;border-radius:3px;display:flex;align-items:center"
+                            style="border:1px solid red;height:40px;border-radius:3px;display:flex;align-items:center;font-size: 14px;"
                             class="ml-2 pl-2 pr-10 mr-4">
                             <v-icon color="red">mdi-alert-outline</v-icon>
                             <span class="ml-2 red--text">ນໍ້າມັນເຄື່ອງໝົດກຳນົດແລ້ວ!</span>
                         </div>
 
                         <div v-if="toBatRowStatus === 'W'"
-                            style="border:1px solid #ff9200;height:40px;border-radius:3px;display:flex;align-items:center"
+                            style="border:1px solid #ff9200;height:40px;border-radius:3px;display:flex;align-items:center;font-size: 14px;"
                             class="ml-2 pl-2 pr-10 mr-4">
                             <v-icon color="#F9A825">mdi-alert-outline</v-icon>
                             <span class="ml-2" style="color: #ff9200;">ໝໍ້ໄຟໃກ້ຈະໝົດອາຍຸການໃຊ້ງານ</span>
                         </div>
                         <div v-else-if="toBatRowStatus === 'E'"
-                            style="border:1px solid red;height:40px;border-radius:3px;display:flex;align-items:center"
+                            style="border:1px solid red;height:40px;border-radius:3px;display:flex;align-items:center;font-size: 14px;"
                             class="ml-2 pl-2 pr-10 mr-4">
                             <v-icon color="red">mdi-alert-circle</v-icon>
                             <span class="ml-2" style="color: red;">ກະລຸນາປ່ຽນໝໍ້ໄຟ</span>
                         </div>
                         <!-- plate number -->
                         <div v-if="toBatRowtabienLod === 'W'"
-                            style="border:1px solid #ff9200;height:40px;border-radius:3px;display:flex;align-items:center"
+                            style="border:1px solid #ff9200;height:40px;border-radius:3px;display:flex;align-items:center;font-size: 14px;"
                             class="ml-2 pl-2 pr-10 mr-4">
                             <v-icon color="#F9A825">mdi-alert-outline</v-icon>
                             <span class="ml-2" style="color: #ff9200;">ທະບຽນລົດໃກ້ຈະໝົດອາຍຸການໃຊ້ງານ</span>
                         </div>
                         <div v-else-if="toBatRowtabienLod === 'E'"
-                            style="border:1px solid red;height:40px;border-radius:3px;display:flex;align-items:center"
+                            style="border:1px solid red;height:40px;border-radius:3px;display:flex;align-items:center;font-size: 14px;"
                             class="ml-2 pl-2 pr-10 mr-4">
                             <v-icon color="red">mdi-alert-circle</v-icon>
                             <span class="ml-2" style="color: red;">ທະບຽນລົດໝົດອາຍຸແລ້ວ</span>
                         </div>
                         <!-- ปะกันไพ -->
                         <div v-if="toBatRowGalanty === 'W'"
-                            style="border:1px solid #ff9200;height:40px;border-radius:3px;display:flex;align-items:center"
+                            style="border:1px solid #ff9200;height:40px;border-radius:3px;display:flex;align-items:center;font-size: 14px;"
                             class="ml-2 pl-2 pr-10 mr-4">
                             <v-icon color="#F9A825">mdi-alert-outline</v-icon>
                             <span class="ml-2" style="color: #ff9200;">ປະກັນໄພໃກ້ຈະໝົດແລ້ວ</span>
                         </div>
                         <div v-else-if="toBatRowGalanty === 'E'"
-                            style="border:1px solid red;height:40px;border-radius:3px;display:flex;align-items:center"
+                            style="border:1px solid red;height:40px;border-radius:3px;display:flex;align-items:center;font-size: 14px;"
                             class="ml-2 pl-2 pr-10 mr-4">
                             <v-icon color="red">mdi-alert-circle</v-icon>
                             <span class="ml-2" style="color: red;">ປະກັນໄພໝົດອາຍຸແລ້ວ</span>
+                        </div>
+
+
+                        <div v-if="technique_date_status === 'W'"
+                            style="border:1px solid #ff9200;height:40px;border-radius:3px;display:flex;align-items:center;font-size: 14px;"
+                            class="ml-2 pl-2 pr-10 mr-4">
+                            <v-icon color="#F9A825">mdi-alert-outline</v-icon>
+                            <span class="ml-2" style="color: #ff9200;">ກວດກາເຕັກນິກລົດ (ເດືອນລະຄັ້ງ)</span>
+                        </div>
+                        <div v-else-if="technique_date_status === 'E'"
+                            style="border:1px solid red;height:40px;border-radius:3px;display:flex;align-items:center;font-size: 14px;"
+                            class="ml-2 pl-2 pr-10 mr-4">
+                            <v-icon color="red">mdi-alert-circle</v-icon>
+                            <span class="ml-2" style="color: red;">ກວດກາເຕັກນິກລົດ (ເດືອນລະຄັ້ງ)</span>
                         </div>
                     </div>
 
@@ -467,6 +481,28 @@
                                 </v-menu>
                             </v-col>
                             <v-col clos="6" md="3" sm="3">
+                                <div>
+                                    <div>
+                                        ວັນທີ່ ໃບກວດກາເຕັກນິກ ຄັ້ງຕໍ່ໄປ
+                                    </div>
+                                    <v-text-field :rules="nameRules" type="date" label="ວັນທີ່" dense flat solo
+                                        background-color="#f5f5f5" v-model="technique_date"></v-text-field>
+                                </div>
+                            </v-col>
+                            <v-col cols="6" md="3" sm="3">
+                                <div>
+                                    <div>
+                                        ກວດກາເຕັກນິກລົດ (ເດືອນລະຄັ້ງ)
+                                    </div>
+                                    <v-text-field  :rules="nameRules" type="date"
+                                        label="ກວດກາເຕັກນຶກລົດ (ເດືອນລະຄັ້ງ)" dense flat solo
+                                        :background-color="technique_date_status === 'E' ? 'red' : '#f5f5f5'"
+                                        v-model="technique_date_per_month">
+                                    </v-text-field>
+                                </div>
+                            </v-col>
+
+                            <v-col clos="6" md="3" sm="3">
                             </v-col>
                             <v-col>
                                 <v-radio-group inline v-model="status_use_unuse_car">
@@ -534,8 +570,8 @@
                         <div class="d-flex">
                             <div style="width:100%">
                                 <!-- Left -->
-                                <div style="background-color:#f2ebeb;height:80px;padding-top:5px;border-radius:5px"
-                                    class="px-2">
+                                <div style="background-color:#f2ebeb;color: brown;;height:120px;padding-top:5px;border-radius:5px"
+                                    class="px-2"> 1
                                     <div class="d-flex pt-1">
                                         <v-text-field :rules="nameRules" rounded background-color="#fff" dense
                                             label="ລະຫັດຢາງລົດ" v-model="ll_TIRE_NO_1"></v-text-field>
@@ -557,8 +593,8 @@
                                             v-model="canRun1"></v-text-field>
                                     </div>
                                 </div>
-                                <div style="background-color:#f2ebeb;height:80px;padding-top:5px;border-radius:5px"
-                                    class="px-2 mt-1 pt-1" v-if="ll_TIRE_NO_2">
+                                <div style="background-color:#f2ebeb;color: brown;;height:120px;padding-top:5px;border-radius:5px"
+                                    class="px-2 mt-1 pt-1" v-if="ll_TIRE_NO_2">2
                                     <div class="d-flex">
                                         <v-text-field :rules="nameRules" rounded dense background-color="#fff"
                                             label="ລະຫັດຢາງລົດ" v-model="ll_TIRE_NO_2"></v-text-field>
@@ -576,8 +612,8 @@
                                             label="ແລ່ນໄປແລ້ວ km" v-model="canRun2"></v-text-field>
                                     </div>
                                 </div>
-                                <div style="background-color:#f2ebeb;height:80px;padding-top:5px;border-radius:5px"
-                                    class="px-2 mt-1">
+                                <div style="background-color:#f2ebeb;color: brown;;height:120px;padding-top:5px;border-radius:5px"
+                                    class="px-2 mt-1">3
                                     <div class="d-flex pt-1">
                                         <v-text-field :rules="nameRules" rounded dense background-color="#fff"
                                             label="ລະຫັດຢາງລົດ" v-model="ll_TIRE_NO_3"></v-text-field>
@@ -595,8 +631,8 @@
                                             label="ແລ່ນໄປແລ້ວ km" v-model="canRun3"></v-text-field>
                                     </div>
                                 </div>
-                                <div style="background-color:#f2ebeb;height:80px;padding-top:5px;border-radius:5px"
-                                    class="px-2 mt-1 pt-2">
+                                <div style="background-color:#f2ebeb;color: brown;;height:120px;padding-top:5px;border-radius:5px"
+                                    class="px-2 mt-1 pt-2">4
                                     <div class="d-flex">
                                         <v-text-field :rules="nameRules" rounded dense background-color="#fff"
                                             label="ລະຫັດຢາງລົດ" v-model="ll_TIRE_NO_4"></v-text-field>
@@ -614,8 +650,8 @@
                                             label="ແລ່ນໄປແລ້ວ km" v-model="canRun4"></v-text-field>
                                     </div>
                                 </div>
-                                <div style="background-color:#f2ebeb;height:80px;padding-top:5px;border-radius:5px"
-                                    class="px-2 mt-1 pt-2">
+                                <div style="background-color:#f2ebeb;color: brown;;height:120px;padding-top:5px;border-radius:5px"
+                                    class="px-2 mt-1 pt-2">5
                                     <div style="padding-top: 0px" class="d-flex">
                                         <v-text-field :rules="nameRules" rounded dense background-color="#fff"
                                             label="ລະຫັດຢາງລົດ" v-model="ll_TIRE_NO_5"></v-text-field>
@@ -634,8 +670,8 @@
                                             label="ແລ່ນໄປແລ້ວ km" v-model="canRun5"></v-text-field>
                                     </div>
                                 </div>
-                                <div style="background-color:#f2ebeb;height:80px;padding-top:5px;border-radius:5px"
-                                    class="px-2 mt-1 pt-2">
+                                <div style="background-color:#f2ebeb;color: brown;;height:120px;padding-top:5px;border-radius:5px"
+                                    class="px-2 mt-1 pt-2">6
                                     <div class="d-flex">
                                         <v-text-field :rules="nameRules" rounded dense background-color="#fff"
                                             label="ລະຫັດຢາງລົດ" v-model="ll_TIRE_NO_6"></v-text-field>
@@ -662,8 +698,8 @@
                             </div>
                             <!-- Right -->
                             <div style="width:100%">
-                                <div style="background-color:#f2ebeb;height:80px;padding-top:5px;border-radius:5px"
-                                    class="px-2 pt-2">
+                                <div style="background-color:#f2ebeb;color: brown;;height:120px;padding-top:5px;border-radius:5px"
+                                    class="px-2 pt-2">7
                                     <div class="d-flex">
                                         <v-text-field :rules="nameRules" rounded dense background-color="#fff"
                                             label="ລະຫັດຢາງລົດ" v-model="r_TIRE_NO_1"></v-text-field>
@@ -683,8 +719,8 @@
                                 </div>
                                 <!-- =========12 los========== -->
                                 <div v-if="r_TIRE_NO_2"
-                                    style="background-color:#f2ebeb;height:80px;padding-top:0px;border-radius:5px"
-                                    class="px-2 mt-1">
+                                    style="background-color:#f2ebeb;color: brown;;height:120px;padding-top:0px;border-radius:5px"
+                                    class="px-2 mt-1">8
                                     <div class="d-flex pt-2">
                                         <v-text-field :rules="nameRules" rounded dense background-color="#fff"
                                             label="ລະຫັດຢາງລົດ" v-model="r_TIRE_NO_2"></v-text-field>
@@ -703,8 +739,8 @@
                                     </div>
                                 </div>
                                 <!-- /////////////////////////////// -->
-                                <div style="background-color:#f2ebeb;height:80px;padding-top:5px;border-radius:5px"
-                                    class="px-2 mt-1">
+                                <div style="background-color:#f2ebeb;color: brown;;height:120px;padding-top:5px;border-radius:5px"
+                                    class="px-2 mt-1">9
                                     <div class="d-flex pt-1">
                                         <v-text-field :rules="nameRules" rounded dense background-color="#fff"
                                             label="ລະຫັດຢາງລົດ" v-model="r_TIRE_NO_3"></v-text-field>
@@ -722,8 +758,8 @@
                                             label="ແລ່ນໄປແລ້ວ km" v-model="canRun9"></v-text-field>
                                     </div>
                                 </div>
-                                <div style="background-color:#f2ebeb;height:80px;padding-top:5px;border-radius:5px"
-                                    class="px-2 mt-1 pt-2">
+                                <div style="background-color:#f2ebeb;color: brown;;height:120px;padding-top:5px;border-radius:5px"
+                                    class="px-2 mt-1 pt-2">10
                                     <div class="d-flex">
                                         <v-text-field :rules="nameRules" rounded dense background-color="#fff"
                                             label="ລະຫັດຢາງລົດ" v-model="r_TIRE_NO_4"></v-text-field>
@@ -741,8 +777,8 @@
                                             label="ແລ່ນໄປແລ້ວ km" v-model="canRun10"></v-text-field>
                                     </div>
                                 </div>
-                                <div style="background-color:#f2ebeb;height:80px;padding-top:5px;border-radius:5px"
-                                    class="px-2 pt-2 mt-1 ">
+                                <div style="background-color:#f2ebeb;color: brown;;height:120px;padding-top:5px;border-radius:5px"
+                                    class="px-2 pt-2 mt-1 ">11
                                     <div class="d-flex">
                                         <v-text-field :rules="nameRules" rounded dense background-color="#fff"
                                             label="ລະຫັດຢາງລົດ" v-model="r_TIRE_NO_5"></v-text-field>
@@ -761,8 +797,8 @@
                                             label="ແລ່ນໄປແລ້ວ km" v-model="canRun11"></v-text-field>
                                     </div>
                                 </div>
-                                <div style="background-color:#f2ebeb;height:80px;padding-top:5px;border-radius:5px"
-                                    class="px-2 mt-1 pt-2">
+                                <div style="background-color:#f2ebeb;color: brown;;height:120px;padding-top:5px;border-radius:5px"
+                                    class="px-2 mt-1 pt-2">12
                                     <div class="d-flex">
                                         <v-text-field :rules="nameRules" rounded dense background-color="#fff"
                                             label="ລະຫັດຢາງລົດ" v-model="r_TIRE_NO_6"></v-text-field>
@@ -782,8 +818,8 @@
                                 </div>
                             </div>
                         </div>
-                        <div style="background-color:#f2ebeb;height:80px;padding-top:5px;border-radius:5px"
-                            class="px-2 mt-1 pt-2">
+                        <div style="background-color:#f2ebeb;color: brown;;height:120px;padding-top:5px;border-radius:5px;"
+                            class="px-2 mt-1 pt-2">13
                             <div class="d-flex">
                                 <v-text-field :rules="nameRules" rounded dense background-color="#fff"
                                     label="ລະຫັດຢາງລົດ" v-model="r_TIRE_NO_7"></v-text-field>
@@ -987,6 +1023,8 @@ export default {
             imageMorFai: '',
             modalMorFai: '',
             sizeMorFai: '',
+            technique_date_per_month: '',
+            technique_date: '',
             serviceLIFE: ''
         }
     },
@@ -1364,6 +1402,9 @@ export default {
                         this.leanGia = data?.data[0]?.leanGia,
                         this.leanFuengThaiy = data?.data[0]?.leanFuengThaiy,
                         this.pha_But = data?.data[0]?.pha_But
+                    this.technique_date = data?.data[0]?.technique_date
+                    this.technique_date_per_month = data?.data[0]?.technique_date_per_month
+                    this.technique_date_status = data?.data[0]?.technique_date_status
                 })
             } catch (error) {
                 swal.fire({
@@ -1507,6 +1548,11 @@ export default {
                 formdata.append('leanGia', this.leanGia)
                 formdata.append('leanFuengThaiy', this.leanFuengThaiy)
                 formdata.append('pha_But', this.pha_But),
+
+                    formdata.append('technique_date', this.technique_date),
+
+                    formdata.append('technique_date_per_month', this.technique_date_per_month),
+
                     formdata.append('toKen', localStorage.getItem("toKen"))
                 await this.$axios.$post('/updateVicicleHeaderByID.service', formdata).then((data) => {
                     console.log("saveStatus:", data)
@@ -1519,7 +1565,9 @@ export default {
                         })
                         this.onGetmorfaiList()
                         this.ongetData()
-                        this.$router.push('/cars_14')
+                        // this.$router.push('/cars_14')
+      window.location.reload();
+
                     } else {
                         this.loading_processing = false
                         swal.fire({

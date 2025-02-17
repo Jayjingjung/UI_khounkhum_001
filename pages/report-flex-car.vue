@@ -22,20 +22,25 @@
             </v-data-table>
         </v-card>
 
-
-
-
-
         <v-card style="width: 100%;">
             <v-card class="card-shadow" rounded="lg" style="border: 0.5px solid #e0e0e0; border-radius: 3px;">
                 <v-card-title style="background-color: #b72222" class="white--text">
                     ອາໄຫຼ່ທີນໍາອອກຈາກສາງ
                 </v-card-title>
+
+                <div style="width:600px" class="d-flex align-center">
+                    <v-text-field placeholder="ຄົ້ນຫາດ້ວຍລະຫັດປ່ອຍລົດ..." v-model="search" rounded
+                        background-color="#f5f5f5" prepend-inner-icon="mdi-magnify"></v-text-field>
+                    <div style="width: 50px;"></div>
+                    <v-btn color="primary" class="card-shadow"
+                        @click="print1"><v-icon>mdi-printer</v-icon>ພີມລາຍງານທັງໝົດ</v-btn>
+                </div>
                 <div style="display: flex; justify-content: flex-start;margin-left: 30px;margin-top: 10px;">
                     <p style="margin-right: 10px;font-size: 20px">ລວມຄ່າໃຊ້ຈ່າຍທັງໝົດ: </p>
                     <p style="font-size: 25px;margin-top: -5px;">{{ sumFooter?.totalFixCost }}</p>
                 </div>
                 <div style="display: flex; margin-top: 10px;"></div>
+                
                 <v-data-table :items-per-page="5" :headers="data_list_showFix" :items="showFix_data_list"
                     :search="search">
                     <template v-slot:item="row">
@@ -172,12 +177,12 @@
                     style="display:flex;justify-content:center;font-size:19px;font-weight:bold;margin-top: 15px;">
                     ລາຍງານ ສິນຄ້າ </div>
 
-                    <div v-for="(item, i) in showFix_data_list" :key="i" style="margin-top: 10px;font-size: 13px;">
-                 
+                <div v-for="(item, i) in showFix_data_list" :key="i" style="margin-top: 10px;font-size: 13px;">
+
                     <p>ວັນທີ :
                         {{ item?.dateFix }}
                     </p>
-                  
+
                 </div>
 
 
@@ -185,7 +190,7 @@
                     style="padding:2px;border: 0.5px solid #999;border-collapse: collapse;width:100%; font-size: 13px;margin-top: 50px;">
                     <tr style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;border-radius:10px">
 
-                       
+
                         <td style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px"
                             class=" font-weight-bold">ຮູບພາບ</td>
                         <td style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px"
@@ -199,7 +204,7 @@
                         <td style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px"
                             class=" font-weight-bold">ລາຍຈ່າຍເພີນ ຄ່າຊ່າງ</td>
 
-                    
+
 
 
                         <td style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px"
@@ -213,7 +218,7 @@
                     <tr style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;border-radius:10px"
                         v-for="(item, i) in showFix_data_list" :key="i">
 
-                        
+
                         <td style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px"
                             class="font-weight-bold">
                             <img :src="item.img" :alt="item.item_name" style="width:50px; height:50px;">
@@ -233,7 +238,7 @@
                                 ',') }}
                         </td>
 
-                  
+
 
                         <td style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px"
                             class=" font-weight-bold">{{ item?.location_fix }}</td>
@@ -291,7 +296,84 @@
 
 
         </div>
+        <div style="display:none">
+            <div id="modalInvoice1">
 
+                <Noti />
+
+
+                <v-row
+                    style="font-size:14px;margin-left: 50px;margin-top: 10px;display:flex;justify-content:start;flex-direction:column;align-items:start">
+
+
+                    <div>
+                        <span>ສໍານັກງານຕັ້ງຢູ່ ອາຄານ ສະໜາມຍິງປືນ 20 ມັງກອນ, ສະໜາມກີລາກອງທັບ,</span>
+                        <span> ບ້ານຈອມມະນີ, ເມືອງ ໄຊເສດຖາ, ນະຄອນຫຼວງວຽງຈັນ, ສປປ ລາວ</span>
+                        <span>ໂທລະສັບ: 020 92661111, 020 92 254 999 </span>
+                        <span> ອີເມວ: kounkham@Mining|ເວັບໄຊ: kounkham</span>
+                    </div>
+
+                </v-row>
+
+                <table
+                    style="padding:2px;border: 0.5px solid #999;border-collapse: collapse;width:100%; font-size: 13px;margin-top: 50px;">
+                    <tr style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;border-radius:10px">
+                        <td style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px"
+                            class=" font-weight-bold">ຮູບພາບ</td>
+                        <td style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px"
+                            class=" font-weight-bold">ຫົວລັດ</td>
+                        <td style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px"
+                            class=" font-weight-bold">ຫາງລົດ</td>
+                        <td style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px"
+                            class=" font-weight-bold">ຈໍານວນ</td>
+                        <td style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px"
+                            class=" font-weight-bold">ລາ​ຄາ​</td>
+                        <td style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px"
+                            class=" font-weight-bold">ລາ​ຄາ​ລວມ</td>
+                        <td style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px"
+                            class=" font-weight-bold">ລາຍຈ່າຍເພີນເຕີມ</td>
+                        <td style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px"
+                            class=" font-weight-bold">ວັນທີ</td>
+                        <td style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px"
+                            class=" font-weight-bold">ສະຖານທີ</td>
+
+                        <td style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px"
+                            class=" font-weight-bold">ເເຂວງ</td>
+                        <td style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px"
+                            class=" font-weight-bold">ລາຍລະອຽດ</td>
+
+                    </tr>
+                    <tr style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;border-radius:10px"
+                        v-for="(item, i) in showFix_data_list" :key="i">
+                        <td style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px"
+                            class="font-weight-bold">
+                            <img :src="item.img" :alt="item.item_name" style="width:50px; height:50px;">
+                        </td>
+                        <td style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px"
+                            class=" font-weight-bold">{{ item?.h_VICIVLE_NUMBER }}</td>
+                        <td style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px"
+                            class=" font-weight-bold">{{ item?.f_BRANCH }}</td>
+                        <td style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px"
+                            class=" font-weight-bold">{{ item?.qty_Fix }}</td>
+                        <td style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px"
+                            class=" font-weight-bold">{{ item?.total_Price }}</td>
+                        <td style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px"
+                            class=" font-weight-bold">{{ item?.total_ }}</td>
+
+                        <td style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px"
+                            class=" font-weight-bold">{{ item?.add_on }}</td>
+                        <td style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px"
+                            class=" font-weight-bold">{{ item?.description }}</td>
+                        <td style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px"
+                            class=" font-weight-bold">{{ item?.totaldateFix_Price }}</td>
+                        <td style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px"
+                            class=" font-weight-bold">{{ item?.fix_Detail }}</td>
+
+
+                    </tr>
+                </table>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -390,6 +472,19 @@ export default {
     methods: {
         print() {
             const modal = document.getElementById("modalInvoice")
+            const cloned = modal.cloneNode(true)
+            let section = document.getElementById("print")
+            if (!section) {
+                section = document.createElement("div")
+                section.id = "print"
+                document.body.appendChild(section)
+            }
+            section.innerHTML = "";
+            section.appendChild(cloned);
+            window.print();
+        },
+        print1() {
+            const modal = document.getElementById("modalInvoice1")
             const cloned = modal.cloneNode(true)
             let section = document.getElementById("print")
             if (!section) {
@@ -549,6 +644,7 @@ export default {
 </script>
 
 <style scoped>
+
 .card-shadow {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }

@@ -1173,7 +1173,7 @@
                             <label for="real_totalMoney">ລາຂາ ທັງໝົດ:</label>
                             <span id="real_totalMoney">{{
                                 real_totalMoney?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
-                            }}</span>
+                                }}</span>
                         </div>
 
                         <div style="width: 100%; margin: 0 auto;">
@@ -1730,10 +1730,12 @@ export default {
 
         async ongetppocode() {
             try {
-                const response = await this.$axios.$post('/GenCodePO.service');
+                const response = await this.$axios.$post('/GenPurchaseOrderNew.service', {
+                    toKen: localStorage.getItem('toKen'),
+                });
                 // Handle the response and extract the po_CODE
                 const po_CODE = response.data[0]?.po_CODE;
-                console.log("GenCodePO API response:", response);
+                console.log("GenPurchaseOrderNew API response:", response);
 
                 // Call onSubmit with the generated po_CODE
                 this.onSubmit(po_CODE);
@@ -1742,7 +1744,7 @@ export default {
                 // window.location.reload();
 
             } catch (error) {
-                console.error('GenCodePO API error:', error);
+                console.error('GenPurchaseOrderNew API error:', error);
                 // Handle the error, such as displaying an error message
             }
         },

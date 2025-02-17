@@ -446,8 +446,8 @@
                                 <div style="width:100%">
 
                                     <!-- Left -->
-                                    <div style="background-color:#f5f5f5;height:120px;padding-top:5px;border-radius:5px"
-                                        class="px-2">
+                                    <div style="background-color:#f5f5f5;height:140px;color:brown;;padding-top:5px;border-radius:5px"
+                                        class="px-2">1
                                         <div class="d-flex pt-1">
                                             <v-text-field outlined dense label="ລະຫັດຢາງລົດ"
                                                 v-model="ll_TIRE_NO_1"></v-text-field>
@@ -465,8 +465,8 @@
 
                                         </div>
                                     </div>
-                                    <div style="background-color:#f5f5f5;height:120px;padding-top:5px;border-radius:5px"
-                                        class="px-2 mt-1 pt-1" v-if="ll_TIRE_NO_2">
+                                    <div style="background-color:#f5f5f5;height:140px;color:brown;;padding-top:5px;border-radius:5px"
+                                        class="px-2 mt-1 pt-1" v-if="ll_TIRE_NO_2">2
                                         <div class="d-flex">
                                             <v-text-field dense outlined label="ລະຫັດຢາງລົດ"
                                                 v-model="ll_TIRE_NO_2"></v-text-field>
@@ -482,8 +482,8 @@
                                                 v-model="h_KML_2"></v-text-field>
                                         </div>
                                     </div>
-                                    <div style="background-color:#f5f5f5;height:120px;padding-top:5px;border-radius:5px"
-                                        class="px-2 mt-1">
+                                    <div style="background-color:#f5f5f5;height:140px;color:brown;;padding-top:5px;border-radius:5px"
+                                        class="px-2 mt-1">3
                                         <div class="d-flex pt-1">
                                             <v-text-field dense outlined label="ລະຫັດຢາງລົດ"
                                                 v-model="ll_TIRE_NO_3"></v-text-field>
@@ -499,8 +499,8 @@
                                                 v-model="h_KML_3"></v-text-field>
                                         </div>
                                     </div>
-                                    <div style="background-color:#f5f5f5;height:120px;padding-top:5px;border-radius:5px"
-                                        class="px-2 mt-1 pt-2">
+                                    <div style="background-color:#f5f5f5;height:140px;color:brown;;padding-top:5px;border-radius:5px"
+                                        class="px-2 mt-1 pt-2">4
                                         <div class="d-flex">
                                             <v-text-field dense outlined label="ລະຫັດຢາງລົດ"
                                                 v-model="ll_TIRE_NO_4"></v-text-field>
@@ -517,8 +517,8 @@
                                                 v-model="h_KML_4"></v-text-field>
                                         </div>
                                     </div>
-                                    <div style="background-color:#f5f5f5;height:120px;padding-top:5px;border-radius:5px"
-                                        class="px-2 mt-1 pt-2">
+                                    <div style="background-color:#f5f5f5;height:140px;color:brown;;padding-top:5px;border-radius:5px"
+                                        class="px-2 mt-1 pt-2">5
                                         <div style="padding-top: 0px" class="d-flex">
                                             <v-text-field dense outlined label="ລະຫັດຢາງລົດ"
                                                 v-model="ll_TIRE_NO_5"></v-text-field>
@@ -535,8 +535,8 @@
                                                 v-model="h_KML_5"></v-text-field>
                                         </div>
                                     </div>
-                                    <div style="background-color:#f5f5f5;height:120px;padding-top:5px;border-radius:5px"
-                                        class="px-2 mt-1 pt-2">
+                                    <div style="background-color:#f5f5f5;height:140px;color:brown;;padding-top:5px;border-radius:5px"
+                                        class="px-2 mt-1 pt-2">6
                                         <div class="d-flex">
                                             <v-text-field dense outlined label="ລະຫັດຢາງລົດ"
                                                 v-model="ll_TIRE_NO_6"></v-text-field>
@@ -553,8 +553,8 @@
                                                 v-model="h_KML_6"></v-text-field>
                                         </div>
                                     </div>
-                                    <div style="background-color:#f5f5f5;height:120px;padding-top:5px;border-radius:5px"
-                                        class="px-2 mt-1 pt-2">
+                                    <div style="background-color:#f5f5f5;height:140px;color:brown;;padding-top:5px;border-radius:5px"
+                                        class="px-2 mt-1 pt-2">13
                                         <div class="d-flex">
                                             <v-text-field dense outlined label="ລະຫັດຢາງລົດ"
                                                 v-model="r_TIRE_NO_7"></v-text-field>
@@ -582,8 +582,8 @@
 
                                 <!-- Right -->
                                 <div style="width:100%">
-                                    <div style="background-color:#f5f5f5;height:120px;padding-top:5px;border-radius:5px"
-                                        class="px-2 pt-2">
+                                    <div style="background-color:#f5f5f5;height:140px;color:brown;;padding-top:5px;border-radius:5px"
+                                        class="px-2 pt-2">7
                                         <div class="d-flex">
                                             <v-text-field dense outlined label="ລະຫັດຢາງລົດ"
                                                 v-model="r_TIRE_NO_1"></v-text-field>
@@ -602,8 +602,8 @@
                                     </div>
                                     <!-- =========12 los========== -->
                                     <div v-if="r_TIRE_NO_2"
-                                        style="background-color:#f5f5f5;height:120px;padding-top:0px;border-radius:5px"
-                                        class="px-2 mt-1">
+                                        style="background-color:#f5f5f5;height:140px;color:brown;;padding-top:0px;border-radius:5px"
+                                        class="px-2 mt-1">8
                                         <div class="d-flex pt-2">
                                             <v-text-field dense outlined label="ລະຫັດຢາງລົດ"
                                                 v-model="r_TIRE_NO_2"></v-text-field>
@@ -622,8 +622,8 @@
                                     </div>
 
                                     <!-- /////////////////////////////// -->
-                                    <div style="background-color:#f5f5f5;height:120px;padding-top:5px;border-radius:5px"
-                                        class="px-2 mt-1">
+                                    <div style="background-color:#f5f5f5;height:140px;color:brown;;padding-top:5px;border-radius:5px"
+                                        class="px-2 mt-1">9
                                         <div class="d-flex pt-1">
                                             <v-text-field dense outlined label="ລະຫັດຢາງລົດ"
                                                 v-model="r_TIRE_NO_3"></v-text-field>
@@ -640,8 +640,8 @@
                                                 v-model="h_KML_9"></v-text-field>
                                         </div>
                                     </div>
-                                    <div style="background-color:#f5f5f5;height:120px;padding-top:5px;border-radius:5px"
-                                        class="px-2 mt-1 pt-2">
+                                    <div style="background-color:#f5f5f5;height:140px;color:brown;;padding-top:5px;border-radius:5px"
+                                        class="px-2 mt-1 pt-2">10
                                         <div class="d-flex">
                                             <v-text-field dense outlined label="ລະຫັດຢາງລົດ"
                                                 v-model="r_TIRE_NO_4"></v-text-field>
@@ -658,8 +658,8 @@
                                                 v-model="h_KML_10"></v-text-field>
                                         </div>
                                     </div>
-                                    <div style="background-color:#f5f5f5;height:120px;padding-top:5px;border-radius:5px"
-                                        class="px-2 pt-2 mt-1 ">
+                                    <div style="background-color:#f5f5f5;height:140px;color:brown;;padding-top:5px;border-radius:5px"
+                                        class="px-2 pt-2 mt-1 ">11
                                         <div class="d-flex">
                                             <v-text-field dense outlined label="ລະຫັດຢາງລົດ"
                                                 v-model="r_TIRE_NO_5"></v-text-field>
@@ -676,8 +676,8 @@
                                                 v-model="h_KML_11"></v-text-field>
                                         </div>
                                     </div>
-                                    <div style="background-color:#f5f5f5;height:120px;padding-top:5px;border-radius:5px"
-                                        class="px-2 mt-1 pt-2">
+                                    <div style="background-color:#f5f5f5;height:140px;color:brown;;padding-top:5px;border-radius:5px"
+                                        class="px-2 mt-1 pt-2">12
                                         <div class="d-flex">
                                             <v-text-field dense outlined label="ລະຫັດຢາງລົດ"
                                                 v-model="r_TIRE_NO_6"></v-text-field>
@@ -1122,7 +1122,7 @@
 
                                         </div>
                                     </div>
-                                    <div style="background-color:#f5f5f5;height:120px;padding-top:5px;border-radius:5px"
+                                    <div style="background-color:#f5f5f5;height:140px;color:brown;;padding-top:5px;border-radius:5px"
                                         class="px-2 " v-if="ll_TIRE_NO_2">
                                         <div style="display: flex;" class=" pt-1">
                                             <v-text-field dense outlined label="ລະຫັດຢາງລົດ"
@@ -1156,7 +1156,7 @@
                                                 v-model="h_KML_3"></v-text-field>
                                         </div>
                                     </div>
-                                    <div style="background-color:#f5f5f5;height:120px;padding-top:5px;border-radius:5px"
+                                    <div style="background-color:#f5f5f5;height:140px;color:brown;;padding-top:5px;border-radius:5px"
                                         class="px-2 mt-1 pt-2">
                                         <div style="display: flex;">
                                             <v-text-field dense outlined label="ລະຫັດຢາງລົດ"
@@ -1174,7 +1174,7 @@
                                                 v-model="h_KML_4"></v-text-field>
                                         </div>
                                     </div>
-                                    <div style="background-color:#f5f5f5;height:120px;padding-top:5px;border-radius:5px"
+                                    <div style="background-color:#f5f5f5;height:140px;color:brown;;padding-top:5px;border-radius:5px"
                                         class="px-2 mt-1 pt-2">
                                         <div style="display: flex;">
                                             <v-text-field dense outlined label="ລະຫັດຢາງລົດ"
@@ -1192,7 +1192,7 @@
                                                 v-model="h_KML_5"></v-text-field>
                                         </div>
                                     </div>
-                                    <div style="background-color:#f5f5f5;height:120px;padding-top:5px;border-radius:5px"
+                                    <div style="background-color:#f5f5f5;height:140px;color:brown;;padding-top:5px;border-radius:5px"
                                         class="px-2 mt-1 pt-2">
                                         <div style="display: flex;">
                                             <v-text-field dense outlined label="ລະຫັດຢາງລົດ"
@@ -1210,7 +1210,7 @@
                                                 v-model="h_KML_6"></v-text-field>
                                         </div>
                                     </div>
-                                    <div style="background-color:#f5f5f5;height:120px;padding-top:5px;border-radius:5px"
+                                    <div style="background-color:#f5f5f5;height:140px;color:brown;;padding-top:5px;border-radius:5px"
                                         class="px-2 mt-1 pt-2">
                                         <div style="display: flex;">
                                             <v-text-field dense outlined label="ລະຫັດຢາງລົດ"
@@ -1237,8 +1237,8 @@
                                 </div>
                                 <!-- Right -->
                                 <div style="width:100%">
-                                    <div style="background-color:#f5f5f5;height:120px;padding-top:5px;border-radius:5px"
-                                        class="px-2 pt-2">
+                                    <div style="background-color:#f5f5f5;height:140px;color:brown;;padding-top:5px;border-radius:5px"
+                                        class="px-2 pt-2">1
                                         <div style="display: flex;">
                                             <v-text-field dense outlined label="ລະຫັດຢາງລົດ"
                                                 v-model="r_TIRE_NO_1"></v-text-field>
@@ -1256,8 +1256,8 @@
                                     </div>
                                     <!-- =========12 los========== -->
                                     <div v-if="r_TIRE_NO_2"
-                                        style="background-color:#f5f5f5;height:120px;padding-top:0px;border-radius:5px"
-                                        class="px-2 mt-1">
+                                        style="background-color:#f5f5f5;height:140px;color:brown;;padding-top:0px;border-radius:5px"
+                                        class="px-2 mt-1">2
                                         <div style="display: flex;" class=" pt-1">
                                             <v-text-field dense outlined label="ລະຫັດຢາງລົດ"
                                                 v-model="r_TIRE_NO_2"></v-text-field>
@@ -1276,8 +1276,8 @@
                                     </div>
 
                                     <!-- /////////////////////////////// -->
-                                    <div style="background-color:#f5f5f5;height:120px;padding-top:5px;border-radius:5px"
-                                        class="px-2 mt-1">
+                                    <div style="background-color:#f5f5f5;height:140px;color:brown;;padding-top:5px;border-radius:5px"
+                                        class="px-2 mt-1">3
                                         <div style="display: flex;" class=" pt-1">
                                             <v-text-field dense outlined label="ລະຫັດຢາງລົດ"
                                                 v-model="r_TIRE_NO_3"></v-text-field>
@@ -1294,7 +1294,7 @@
                                                 v-model="h_KML_9"></v-text-field>
                                         </div>
                                     </div>
-                                    <div style="background-color:#f5f5f5;height:120px;padding-top:5px;border-radius:5px"
+                                    <div style="background-color:#f5f5f5;height:140px;color:brown;;padding-top:5px;border-radius:5px"
                                         class="px-2 mt-1 pt-2">
                                         <div style="display: flex;">
                                             <v-text-field dense outlined label="ລະຫັດຢາງລົດ"
@@ -1312,7 +1312,7 @@
                                                 v-model="h_KML_10"></v-text-field>
                                         </div>
                                     </div>
-                                    <div style="background-color:#f5f5f5;height:120px;padding-top:5px;border-radius:5px"
+                                    <div style="background-color:#f5f5f5;height:140px;color:brown;;padding-top:5px;border-radius:5px"
                                         class="px-2 pt-2 mt-1 ">
                                         <div style="display: flex;">
                                             <v-text-field dense outlined label="ລະຫັດຢາງລົດ"
@@ -1330,7 +1330,7 @@
                                                 v-model="h_KML_11"></v-text-field>
                                         </div>
                                     </div>
-                                    <div style="background-color:#f5f5f5;height:120px;padding-top:5px;border-radius:5px"
+                                    <div style="background-color:#f5f5f5;height:140px;color:brown;;padding-top:5px;border-radius:5px"
                                         class="px-2 mt-1 pt-2">
                                         <div style="display: flex;">
                                             <v-text-field dense outlined label="ລະຫັດຢາງລົດ"
@@ -1681,37 +1681,39 @@ export default {
     }
 }
 
+@media screen {
+    #print {
+        display: none;
+    }
+}
+
 @media print {
     @page {
-        size: A4 landscape;
-        /* Sets horizontal orientation */
-        margin: 1cm;
+        size: A4;
+        margin: 1in;
     }
 
-    body {
-        margin: 0;
-        font-size: 12pt;
+    body * {
+        visibility: hidden;
     }
 
-    #app {
-        width: 1400px;
-        height: 100%;
+    #print,
+    #print * {
+        visibility: visible;
     }
 
-    /* Ensure print-content is styled correctly */
-    #print-content {
-        width: 1400px;
-        display: flex;
-        flex-wrap: wrap;
+    .v-btn {
+        display: none;
+        /* Hide print button */
     }
 
+    .v-text-field {
+        border: none;
+    }
 
-
-    #print {
-        position: absolute;
-        top: 0px;
-        right: 0px;
-        left: 0px;
+    .print-title {
+        font-size: 18pt;
+        font-weight: bold;
     }
 }
 </style>

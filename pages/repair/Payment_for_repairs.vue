@@ -1440,6 +1440,8 @@ export default {
             apiResponse: {}, // Placeholder for your API response
             shop_id: null,        // to store shop id
             isCreditSelected: '',  // to toggle credit shop autocomplete
+            // items: '',  // to toggle credit shop autocomplete
+            selectedType: '',  // to toggle credit shop autocomplete
             show_list: [
 
             ],        // your list of shop items
@@ -2133,7 +2135,9 @@ export default {
         },
         async onGetLeaveNumber() {
             try {
-                const response = await this.$axios.$post('/gencodeofferpaper.service');
+                const response = await this.$axios.$post('/GenOfferPaperNew.service', {
+                    toKen: localStorage.getItem('toKen'),
+                });
                 console.log("inv:", response);
                 if (response?.status === '00') {
                     const offerCode = response.data[0]?.offer_CODE;

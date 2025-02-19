@@ -67,6 +67,7 @@ export default {
       localStorage.setItem('USER_ROLE', data?.role);
       localStorage.setItem('DEPARTMENT', data?.department); // Added this line
       localStorage.setItem('toKen', data?.toKen);
+      localStorage.setItem('sprit_role', data?.sprit_role);
       this.loadingLogin = false;
 
       const USER_ROLE = localStorage.getItem('USER_ROLE');
@@ -84,7 +85,7 @@ export default {
         this.$router.push('/stone_admin');
       } 
       else if (USER_NAME === 'NN') {
-        this.$router.push('./HR/akasarn');
+        this.$router.push('./homepagehr');
       }
     
       else if (USER_NAME === 'AdminProof' ) {

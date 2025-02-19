@@ -1,9 +1,7 @@
 <template>
   <div>
-    <v-card class="x">
-      <v-btn  style="background-color: #f44336;width: 100px;display: flex;margin-left: 10px;margin-top: 10px;" rounded to="/" text>
-        <v-icon color="white">mdi-power</v-icon>
-      </v-btn>
+    <v-card class="">
+   
       <div class="button-list">
         <v-list v-model="selectedCard">
           <v-btn ref="btn1" value="1" @click="selectedCard = '1'" @mouseover="changeColor('#FFE5FF', $refs.btn1)"

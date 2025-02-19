@@ -350,13 +350,13 @@
                                 </div>
                             </v-col>
                             <v-col clos="6" md="3" sm="3">
-                                <span>ບັງຕົມ</span><v-text-field :rules="nameRules" label="ບັງຕົມ" dense flat solo
+                                <span>ບັງຕົມ</span><v-text-field outlined :rules="nameRules" label="ບັງຕົມ" dense flat solo
                                     background-color="#f5f5f5" v-model="h_VICIVLE_BGTOM"></v-text-field>
                                 <div class="tops">
                                 </div>
                             </v-col>
                             <v-col clos="6" md="3" sm="3">
-                                <span>ຈານລາກ</span><v-text-field :rules="nameRules" label="ຈານລາກ" dense flat solo
+                                <span>ຈານລາກ</span><v-text-field outlined :rules="nameRules" label="ຈານລາກ" dense flat solo
                                     background-color="#f5f5f5" v-model="h_VICIVLE_JANLARK"></v-text-field>
                                 <div class="tops">
                                 </div>
@@ -364,26 +364,26 @@
                         </v-row>
                         <v-row style="margin-top: -14px;">
                             <v-col clos="6" md="3" sm="3">
-                                <span>ແຮງມ້າ</span><v-text-field :rules="nameRules" dense flat solo
+                                <span>ແຮງມ້າ</span><v-text-field outlined :rules="nameRules" dense flat solo
                                     background-color="#f5f5f5" v-model="exHangMar"></v-text-field>
                                 <div class="tops">
                                 </div>
                             </v-col>
                             <v-col clos="6" md="3" sm="3">
-                                <span>ໄຟໜ້າ</span><v-text-field :rules="nameRules" label="ໄຟໜ້າ" dense flat solo
+                                <span>ໄຟໜ້າ</span><v-text-field outlined :rules="nameRules" label="ໄຟໜ້າ" dense flat solo
                                     background-color="#f5f5f5" v-model="h_VICIVLE_FAINAR"></v-text-field>
                                 <div class="tops">
                                 </div>
                             </v-col>
                             <v-col clos="6" md="3" sm="3">
                                 <span>ໄຟທ້າຍ</span>
-                                <v-text-field :rules="nameRules" label="ໄຟທ້າຍ" dense flat solo
+                                <v-text-field outlined :rules="nameRules" label="ໄຟທ້າຍ" dense flat solo
                                     background-color="#f5f5f5" v-model="h_VICIVLE_FAITHAIY"></v-text-field>
                                 <div class="tops">
                                 </div>
                             </v-col>
                             <v-col clos="6" md="3" sm="3">
-                                <span>ໄຟຂ້າງ</span><v-text-field :rules="nameRules" label="ໄຟຂ້າງ" dense flat solo
+                                <span>ໄຟຂ້າງ</span><v-text-field outlined :rules="nameRules" label="ໄຟຂ້າງ" dense flat solo
                                     background-color="#f5f5f5" v-model="h_VICIVLE_FAIYKHANG"></v-text-field>
                                 <div class="tops">
                                 </div>
@@ -391,20 +391,20 @@
                         </v-row>
                         <v-row style="margin-top: -14px;">
                             <v-col clos="6" md="3" sm="3">
-                                <span>ແວ່ນມອງໜ້າ</span><v-text-field :rules="nameRules" label="ແວ່ນມອງໜ້າ" dense flat
+                                <span>ແວ່ນມອງໜ້າ</span><v-text-field outlined :rules="nameRules" label="ແວ່ນມອງໜ້າ" dense flat
                                     solo background-color="#f5f5f5" v-model="h_VICIVLE_VENMONGNAR"></v-text-field>
                                 <div class="tops">
                                 </div>
                             </v-col>
                             <v-col clos="6" md="3" sm="3">
-                                <span>ແວ່ນມອງຫຼັງ</span><v-text-field :rules="nameRules" label="ແວ່ນມອງຫຼັງ" dense flat
+                                <span>ແວ່ນມອງຫຼັງ</span><v-text-field outlined :rules="nameRules" label="ແວ່ນມອງຫຼັງ" dense flat
                                     solo background-color="#f5f5f5" v-model="h_VICIVLE_VENMONGLHG"></v-text-field>
                                 <div class="tops">
                                 </div>
                             </v-col>
                             <v-col clos="6" md="3" sm="3">
                                 <span>ແວ່ນຂ້າງ</span>
-                                <v-text-field :rules="nameRules" label="ແວ່ນຂ້າງ" dense flat solo
+                                <v-text-field outlined :rules="nameRules" label="ແວ່ນຂ້າງ" dense flat solo
                                     background-color="#f5f5f5" v-model="h_VICIVLE_VENKHANG"></v-text-field>
                                 <div class="tops">
                                 </div>
@@ -413,35 +413,35 @@
                         <v-row>
                             <v-col clos="6" md="3" sm="3">
                                 <span>ສາຍສະເຕ</span>
-                                <v-text-field :rules="nameRules" label="ສາຍສະເຕ" dense flat solo
+                                <v-text-field outlined :rules="nameRules" label="ສາຍສະເຕ" dense flat solo
                                     background-color="#f5f5f5" v-model="saiystay"></v-text-field>
                                 <div class="tops">
                                 </div>
                             </v-col>
                             <v-col clos="6" md="3" sm="3">
                                 <span> ກະລິກ</span>
-                                <v-text-field :rules="nameRules" label="ກະລິກ" dense flat solo
+                                <v-text-field outlined :rules="nameRules" label="ກະລິກ" dense flat solo
                                     background-color="#f5f5f5" v-model="galick"></v-text-field>
                                 <div class="tops">
                                 </div>
                             </v-col>
                             <v-col clos="6" md="3" sm="3">
                                 <span>ຜ້າບັດ</span>
-                                <v-text-field :rules="nameRules" label="ຜ້າບັດ" dense flat solo
+                                <v-text-field outlined :rules="nameRules" label="ຜ້າບັດ" dense flat solo
                                     background-color="#f5f5f5" v-model="pha_But"></v-text-field>
                                 <div class="tops">
                                 </div>
                             </v-col>
                             <v-col clos="6" md="3" sm="3">
                                 <span>ກໍານົດປ່ຽນນໍ້າມັນເກຍ (ຕາມເລກໄມ)</span>
-                                <v-text-field label="ກໍານົດປ່ຽນນໍ້າມັນເກຍ (ຕາມເລກໄມ)" dense flat solo
+                                <v-text-field outlined label="ກໍານົດປ່ຽນນໍ້າມັນເກຍ (ຕາມເລກໄມ)" dense flat solo
                                     background-color="#f5f5f5" v-model="leanGia"></v-text-field>
                                 <div class="tops">
                                 </div>
                             </v-col>
                             <v-col clos="6" md="3" sm="3">
                                 <span>ກໍານົດປ່ຽນນ້ຳມັນເຟືອງທ້າຍ(ຕາມເລກໄມ)</span>
-                                <v-text-field label="ກໍານົດປ່ຽນນ້ຳມັນເຟືອງທ້າຍ(ຕາມເລກໄມ)" dense flat solo
+                                <v-text-field  outlined label="ກໍານົດປ່ຽນນ້ຳມັນເຟືອງທ້າຍ(ຕາມເລກໄມ)" dense flat solo
                                     background-color="#f5f5f5" v-model="leanFuengThaiy"></v-text-field>
                                 <div class="tops">
                                 </div>
@@ -451,7 +451,7 @@
                                     <div>
                                         ຕັ້ງສິດ
                                     </div>
-                                    <v-text-field :rules="nameRules" label="ຕັ້ງສິດ" dense flat solo
+                                    <v-text-field outlined :rules="nameRules" label="ຕັ້ງສິດ" dense flat solo
                                         background-color="#f5f5f5" v-model="lektungsit"></v-text-field>
                                 </div>
                             </v-col>
@@ -485,7 +485,7 @@
                                     <div>
                                         ວັນທີ່ ໃບກວດກາເຕັກນິກ ຄັ້ງຕໍ່ໄປ
                                     </div>
-                                    <v-text-field :rules="nameRules" type="date" label="ວັນທີ່" dense flat solo
+                                    <v-text-field outlined :rules="nameRules" type="date" label="ວັນທີ່" dense flat solo
                                         background-color="#f5f5f5" v-model="technique_date"></v-text-field>
                                 </div>
                             </v-col>
@@ -494,8 +494,8 @@
                                     <div>
                                         ກວດກາເຕັກນິກລົດ (ເດືອນລະຄັ້ງ)
                                     </div>
-                                    <v-text-field  :rules="nameRules" type="date"
-                                        label="ກວດກາເຕັກນຶກລົດ (ເດືອນລະຄັ້ງ)" dense flat solo
+                                    <v-text-field outlined :rules="nameRules" type="date" label="ກວດກາເຕັກນຶກລົດ (ເດືອນລະຄັ້ງ)"
+                                        dense flat solo
                                         :background-color="technique_date_status === 'E' ? 'red' : '#f5f5f5'"
                                         v-model="technique_date_per_month">
                                     </v-text-field>
@@ -518,7 +518,7 @@
                                     </div>
                                 </v-radio-group>
                                 <span style="font-size: 16px; font-weight: bold;width: 100%;">Comment</span>
-                                <v-textarea v-model="comment" rounded background-color="#ECEFF1" filled
+                                <v-textarea v-model="comment" outlined rounded background-color="#ECEFF1" filled
                                     placeholder="ສະແດງຄວາມຄິດເຫັນ..."></v-textarea>
                             </v-col>
 
@@ -1566,7 +1566,7 @@ export default {
                         this.onGetmorfaiList()
                         this.ongetData()
                         // this.$router.push('/cars_14')
-      window.location.reload();
+                        window.location.reload();
 
                     } else {
                         this.loading_processing = false

@@ -2,7 +2,7 @@
     <div>
 
 
-        <v-card class="x">
+        <v-card class="">
 
 
             <!-- <v-img src="path-to-image.jpg" alt="Header Image" height="200px"></v-img> Add an image if needed -->
@@ -32,7 +32,7 @@
                     </v-btn>
                 </v-card-title>
 
-             
+
 
 
                 <v-btn style="margin-top: 20px;width: 100%;" @click="dialog = true" color="primary">
@@ -471,7 +471,7 @@
                                     <td>{{ item.typeName }}</td>
                                     <td>{{ item.topic }}</td>
                                     <td>{{ item.num ? item.num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') : ''
-                                        }}</td>
+                                    }}</td>
                                     <td>{{ item.unit }}</td>
                                     <td>{{ item.amount_money ?
                                         item.amount_money.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') : '' }}</td>
@@ -1356,15 +1356,17 @@ export default {
     margin-right: 10px;
 
 }
-.x {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
 
-  z-index: 5;
-  background-color: rgb(255, 255, 255);
+.x {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+
+    z-index: 5;
+    background-color: rgb(255, 255, 255);
 }
+
 @media (max-width: 768px) {
     .search-print {
         flex-direction: column;

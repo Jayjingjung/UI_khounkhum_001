@@ -1,11 +1,8 @@
 <template>
   <div>
 
-    <v-card class="fullscreen-map">
-      <v-btn style="background-color: #f44336;width: 40px;display: flex;margin-left: 10px;margin-top: 10px;" rounded
-        to="/" text>
-        <v-icon color="white">mdi-power</v-icon>
-      </v-btn>
+    <v-card class="">
+
       <v-card-text>
         <div>
           <div style="display: flex; justify-self: center; margin-bottom: 40px;">
@@ -115,6 +112,7 @@ export default {
       USER_NAME: localStorage.getItem("USER_NAME"),
       status: "not_all",
       drawer: false, // Controls the visibility of the drawer
+      drawerOpen: false, // Controls the visibility of the drawer
     };
   },
   computed: {

@@ -286,21 +286,21 @@
 
               <div style="width:100%">
                 <v-select outlined dense label="ເລືອກປໍ້ານໍ້າມັນ" :items="AllFuelStation_gas"
-                  item-text="fuelStationName" item-value="fuelStationId" @change="onGetgas" :rules="nameRules">
+                  item-text="fuelStationName" item-value="fuelStationId" @change="onGetgas">
                 </v-select>
               </div>
 
 
 
 
-              <div id="appDebt" style="width: 100%; margin-top: 10px; margin-bottom: 10px;">
-                <!-- <label for="out_in_debt">ຄ້າງຈ່າຍ ຫຼື ສໍາລະເເລ້ວ:</label> -->
-                <!-- <select id="out_in_debt" v-model="debtType"
+              <!-- <div id="appDebt" style="width: 100%; margin-top: 10px; margin-bottom: 10px;">
+                <label for="out_in_debt">ຄ້າງຈ່າຍ ຫຼື ສໍາລະເເລ້ວ:</label>
+                <select id="out_in_debt" v-model="debtType"
                   :style="{ width: '100%', border: '2px solid ' + (debtType === 'in_debt' ? '#ff2819' : '#75CCC7'), borderRadius: '5px', padding: '5px' }">
                   <option value="out_debt">ສໍາລະເເລ້ວ</option>
                   <option value="in_debt">ຄ້າງຈ່າຍ</option>
-                </select> -->
-              </div>
+                </select>
+              </div> -->
 
 
 

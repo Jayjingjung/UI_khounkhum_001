@@ -298,6 +298,13 @@
     </div>
 
 
+    <div
+        v-if="sprit_role == 'OFFICE'">
+        <v-btn style="background-color: #f44336;width: 100px; margin-left: 20px; margin-top: 20px; " rounded
+          @click="onLogOut" text elevation="0">
+          <v-icon color="white">mdi-power</v-icon>
+        </v-btn>
+      </div>
 
     <div class="content mt-5">
       <v-main class="bg pl-10 mr-10 ml-1 d-flex justify-center align-vertical">
@@ -329,6 +336,7 @@ export default {
       TOTAL_payStatus: '',
       TOTAL_totalOwe: '',
       TOTAL_notiDetails: '',
+      sprit_role: '',
       loading_processing: false,
       getNotiTab3: {}
     }
@@ -353,6 +361,7 @@ export default {
     this.USER_ID = localStorage.getItem('USER_ID');
     this.USER_NAME = localStorage.getItem('USER_NAME');
     this.USER_ROLE = localStorage.getItem('USER_ROLE');
+    this.sprit_role = localStorage.getItem('sprit_role');
     this.total_count();
   },
   methods: {

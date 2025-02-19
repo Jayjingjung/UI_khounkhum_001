@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-card class="x">
+    <v-card class="">
       <div style="display: flex; overflow-x: auto; width: 1640px; margin-left: 10px;">
         <v-list style="display: flex; min-width: 1200px;" v-model="selectedCard">
           <v-btn ref="btn1" value="1" @click="selectedCard = '1'" @mouseover="changeColor('#FFE5FF', $refs.btn1)"
@@ -32,15 +32,18 @@
         </v-btn>
       </div>
 
-      <v-card style="width: 100%;height:750px;overflow-x: auto;">
+      <v-card style="width: 100%;height:auto;overflow-x: auto;">
         <div v-if="selectedCard === '1'">
           <v-card class="card-shadow mb-4" rounded="lg">
             <v-card-title style="border-bottom:0.5px solid #e0e0e0;background-color:#685f40;color:white">
               ລາຍການ ອຸປະກອນ
               <v-row justify="center">
                 <v-btn color="#f593b3" class="white--text"
-                  @click="print"><v-icon>mdi-printer</v-icon>ພິມລາຍງານທັງໝົດ</v-btn>
+                @click="print"><v-icon>mdi-printer</v-icon>ພິມລາຍງານທັງໝົດ</v-btn>
               </v-row>
+              <v-text-field class="search-field" placeholder="ຄົ້ນຫາ..." v-model="search" rounded
+                  background-color="#e1e1e1" prepend-inner-icon="mdi-magnify">
+                </v-text-field>
             </v-card-title>
             <div class="mt-2">
               <v-data-table :items="report_listitemOffice" :headers="report_leave_caroffice_header" :search="search"

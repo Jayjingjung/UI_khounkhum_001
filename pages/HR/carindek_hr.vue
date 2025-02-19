@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-card  class="x">
+    <v-card  class=""> 
     <div style="display: flex; overflow-x: auto; width: 1640px; margin-left: 10px;">
       <v-list style="display: flex; min-width: 1200px;" v-model="selectedCard">
         <v-btn ref="btn1" value="1" @click="selectedCard = '1'" @mouseover="changeColor('#FFE5FF', $refs.btn1)"

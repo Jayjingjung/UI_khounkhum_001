@@ -40,7 +40,7 @@
                     <p style="font-size: 25px;margin-top: -5px;">{{ sumFooter?.totalFixCost }}</p>
                 </div>
                 <div style="display: flex; margin-top: 10px;"></div>
-                
+
                 <v-data-table :items-per-page="5" :headers="data_list_showFix" :items="showFix_data_list"
                     :search="search">
                     <template v-slot:item="row">
@@ -317,61 +317,71 @@
 
                 <table
                     style="padding:2px;border: 0.5px solid #999;border-collapse: collapse;width:100%; font-size: 13px;margin-top: 50px;">
-                    <tr style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;border-radius:10px">
-                        <td style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px"
-                            class=" font-weight-bold">ຮູບພາບ</td>
-                        <td style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px"
-                            class=" font-weight-bold">ຫົວລັດ</td>
-                        <td style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px"
-                            class=" font-weight-bold">ຫາງລົດ</td>
-                        <td style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px"
-                            class=" font-weight-bold">ຈໍານວນ</td>
-                        <td style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px"
-                            class=" font-weight-bold">ລາ​ຄາ​</td>
-                        <td style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px"
-                            class=" font-weight-bold">ລາ​ຄາ​ລວມ</td>
-                        <td style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px"
-                            class=" font-weight-bold">ລາຍຈ່າຍເພີນເຕີມ</td>
-                        <td style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px"
-                            class=" font-weight-bold">ວັນທີ</td>
-                        <td style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px"
-                            class=" font-weight-bold">ສະຖານທີ</td>
-
-                        <td style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px"
-                            class=" font-weight-bold">ເເຂວງ</td>
-                        <td style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px"
-                            class=" font-weight-bold">ລາຍລະອຽດ</td>
-
-                    </tr>
-                    <tr style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;border-radius:10px"
-                        v-for="(item, i) in showFix_data_list" :key="i">
-                        <td style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px"
-                            class="font-weight-bold">
-                            <img :src="item.img" :alt="item.item_name" style="width:50px; height:50px;">
-                        </td>
-                        <td style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px"
-                            class=" font-weight-bold">{{ item?.h_VICIVLE_NUMBER }}</td>
-                        <td style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px"
-                            class=" font-weight-bold">{{ item?.f_BRANCH }}</td>
-                        <td style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px"
-                            class=" font-weight-bold">{{ item?.qty_Fix }}</td>
-                        <td style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px"
-                            class=" font-weight-bold">{{ item?.total_Price }}</td>
-                        <td style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px"
-                            class=" font-weight-bold">{{ item?.total_ }}</td>
-
-                        <td style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px"
-                            class=" font-weight-bold">{{ item?.add_on }}</td>
-                        <td style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px"
-                            class=" font-weight-bold">{{ item?.description }}</td>
-                        <td style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px"
-                            class=" font-weight-bold">{{ item?.totaldateFix_Price }}</td>
-                        <td style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px"
-                            class=" font-weight-bold">{{ item?.fix_Detail }}</td>
-
-
-                    </tr>
+                    <thead>
+                        <tr style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;border-radius:10px">
+                            <th style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;">
+                                ຮູບພາບ</th>
+                            <th style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;">
+                                ຫົວລັດ</th>
+                            <th style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;">
+                                ຫາງລົດ</th>
+                            <th style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;">
+                                ຈໍານວນ</th>
+                            <th style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;">
+                                ລາ​ຄາ​</th>
+                            <th style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;">
+                                ລາ​ຄາ​ລວມ
+                            </th>
+                            <th style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;">
+                                ລາຍຈ່າຍເພີນເຕີມ</th>
+                            <th style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;">
+                                ຄຳອະທິບາຍ
+                            </th>
+                            <th style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;">
+                                ວັນທີ</th>
+                            <th style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;">
+                                ສະຖານທີ</th>
+                            <th style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;">
+                                ເເຂວງ</th>
+                            <th style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;">
+                                ລາຍລະອຽດ
+                            </th>
+                          
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="(item, i) in showFix_data_list" :key="i"
+                            style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;border-radius:10px">
+                            <td style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;">
+                                <img :src="item.img" :alt="item.item_name" style="width:50px; height:50px;">
+                            </td>
+                            <td style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;">{{
+                                item?.h_VICIVLE_NUMBER }}</td>
+                            <td style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;">{{
+                                item?.f_BRANCH }}</td>
+                            <td style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;">{{
+                                item?.qty_Fix }}</td>
+                            <td style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;">{{
+                                item?.total_Price }}</td>
+                            <td style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;">{{
+                                item?.total_ }}</td>
+                            <td style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;">{{
+                                item?.add_on }}</td>
+                            <td style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;">{{
+                                item?.description }}</td>
+                            <td style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;">{{
+                                item?.dateFix }}</td>
+                            <td style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;">{{
+                                item?.location_fix }}</td>
+                            <td style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;">{{
+                                getBranchName(item?.branch_inventory) }}</td>
+                            <td style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;">{{
+                                item?.fix_Detail }}</td>
+                            
+                        </tr>
+                    </tbody>
                 </table>
+
             </div>
         </div>
     </div>
@@ -644,7 +654,6 @@ export default {
 </script>
 
 <style scoped>
-
 .card-shadow {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }

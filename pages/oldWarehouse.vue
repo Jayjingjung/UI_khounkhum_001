@@ -72,7 +72,8 @@
                 </v-dialog>
             </div>
             <div>
-                <v-text-field dense v-model="searchQuery" label="🔍 ຄົ້ນຫາປະເພດອະໄລ່" outlined clearable></v-text-field>
+                <v-text-field dense v-model="searchQuery" label="🔍 ຄົ້ນຫາປະເພດອາໄຫຼ່" outlined
+                    clearable></v-text-field>
             </div>
         </v-card-text>
         <v-col>
@@ -150,8 +151,12 @@
                 <v-card-text>
                     <v-card-actions>
                         <div>
-                            <v-img style="display: block;justify-self: center;" :src="selectedPart?.image"
-                                max-width="250px" />
+                            <!-- <v-img style="display: block;justify-self: center;" :src="selectedPart?.image"
+                                max-width="250px" /> -->
+                            <a :href="selectedPart?.image" target="_blank">
+                                <v-img style="display: block; justify-self: center; cursor: pointer;"
+                                    :src="selectedPart?.image" max-width="250px" />
+                            </a>
                             <div v-if="$vuetify.breakpoint.xs">
                                 <div style="text-align: center; width: 300px;">
                                     <div class="mt-10" style="font-size: 18px;font-weight: bold; text-align: center;">
@@ -203,7 +208,8 @@
                             </div>
                         </div>
                         <v-spacer></v-spacer>
-                        <div class="mr-10" v-if="$vuetify.breakpoint.sm || $vuetify.breakpoint.md || $vuetify.breakpoint.lg || $vuetify.breakpoint.xl">
+                        <div class="mr-10"
+                            v-if="$vuetify.breakpoint.sm || $vuetify.breakpoint.md || $vuetify.breakpoint.lg || $vuetify.breakpoint.xl">
                             <div style="text-align: center; width: 300px;">
                                 <div class="mt-10" style="font-size: 18px;font-weight: bold; text-align: center;">
                                     {{ selectedPart?.namec }}

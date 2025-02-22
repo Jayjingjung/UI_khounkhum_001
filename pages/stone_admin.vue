@@ -151,7 +151,6 @@
                                     </v-card-actions>
                                 </div>
                             </v-card>
-
                             <!-- Filtered List -->
                             <div v-if="filteredReportList.length">
 
@@ -479,6 +478,28 @@
                                     </v-btn>
                                 </v-list-item>
                             </v-list-group>
+                            <v-list-group no-action sub-group v-if="USER_ROLE === 'FOR_DOCUMENT_ADMIN'">
+                                <template v-slot:activator>
+                                    <v-icon color="green">mdi-message-image-outline</v-icon>
+                                    <v-list-item-content> 
+                                        <v-list-item-title
+                                            style="height: 20px; overflow: visible;">ສາງ</v-list-item-title>
+                                    </v-list-item-content>
+                                </template>
+                                <v-list-item>
+                                    <v-btn rounded @click="toImage1(branch.key_id, branch.b_name,)">
+                                        ສາງນໍ້າມັນ
+                                    </v-btn>
+                                    <v-spacer></v-spacer>
+                                    <v-btn rounded to="./wareHouse/warehouse">
+                                        ສາງອາໄຫຼ່
+                                    </v-btn>
+                                    <v-spacer></v-spacer>
+                                    <v-btn to="OldWarehouse" rounded>
+                                        ສາງອາໄຫຼ່ເກົ່າ
+                                    </v-btn>
+                                </v-list-item>
+                            </v-list-group>
                         </v-list-group>
                     </v-list>
                 </v-card>
@@ -488,6 +509,8 @@
 </template>
 
 <script>
+import OldWarehouse from './oldWarehouse.vue';
+
 export default {
     data() {
         return {

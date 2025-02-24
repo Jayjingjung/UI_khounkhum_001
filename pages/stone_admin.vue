@@ -495,7 +495,7 @@
                                         ສາງອາໄຫຼ່
                                     </v-btn>
                                     <v-spacer></v-spacer>
-                                    <v-btn to="OldWarehouse" rounded>
+                                    <v-btn @click="toOldSang(branch.b_name, branch.b_name)"  rounded>
                                         ສາງອາໄຫຼ່ເກົ່າ
                                     </v-btn>
                                 </v-list-item>
@@ -666,6 +666,12 @@ export default {
         showDocument(bouang, village) {
             this.$router.push({
                 name: "documentation2",
+                query: { bouang, village },
+            });
+        },
+        toOldSang(bouang, village) {
+            this.$router.push({
+                name: "oldWarehouse3",
                 query: { bouang, village },
             });
         },

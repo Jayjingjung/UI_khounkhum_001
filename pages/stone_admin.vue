@@ -307,6 +307,35 @@
                             </v-list-group>
                         </v-card>
                     </v-col>
+                    <v-col cols="auto">
+                        <v-card color="#E0F7FA" max-width="300">
+                            <!-- v-if="USER_ROLE !== 'BOR-HIN-KHUAT'" -->
+                            <v-list-group no-action sub-group v-if="USER_ROLE === 'FOR_DOCUMENT_ADMIN'">
+                                <template v-slot:activator>
+                                    <v-icon color="white">mdi-file-document</v-icon>
+                                    <v-list-item-content>
+                                        <v-list-item-title
+                                            style="font-size: 20px; font-weight: bold;">ລວມສາງນໍ້າມັນ ແລະ ອາໄຫຼ່</v-list-item-title>
+                                    </v-list-item-content>
+                                </template>
+                                <v-list-item>
+                                    <v-btn rounded>
+                                        ສາງນໍ້າມັນ
+                                    </v-btn>
+                                </v-list-item>
+                                <v-list-item>
+                                    <v-btn to="./wareHouse/warehouse" rounded>
+                                        ສາງອາໄຫຼ່
+                                    </v-btn>
+                                </v-list-item>
+                                <v-list-item>
+                                    <v-btn to="oldWarehouse" rounded>
+                                        ສາງອາໄຫຼ່ເກົ່າ
+                                    </v-btn>
+                                </v-list-item>
+                            </v-list-group>
+                        </v-card>
+                    </v-col>
                 </v-row>
             </v-container>
             <!-- Loop through the branches and display each in v-col -->

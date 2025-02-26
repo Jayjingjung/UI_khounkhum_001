@@ -7,7 +7,8 @@
                 </v-btn>
             </div>
             <v-spacer></v-spacer>
-            <v-btn v-if="USER_ROLE === 'FOR_DOCUMENT_ADMIN'" color="#00E676" style="font-size: 20px; font-weight: bold;" :to="{ path: '/borhinsetting' }">
+            <v-btn v-if="USER_ROLE === 'FOR_DOCUMENT_ADMIN'" color="#00E676" style="font-size: 20px; font-weight: bold;"
+                :to="{ path: '/borhinsetting' }">
                 ຈັດການບໍ່ຕ່າງໆ
             </v-btn>
         </v-card-actions>
@@ -314,8 +315,8 @@
                                 <template v-slot:activator>
                                     <v-icon color="white">mdi-file-document</v-icon>
                                     <v-list-item-content>
-                                        <v-list-item-title
-                                            style="font-size: 20px; font-weight: bold;">ລວມສາງນໍ້າມັນ ແລະ ອາໄຫຼ່</v-list-item-title>
+                                        <v-list-item-title style="font-size: 20px; font-weight: bold;">ລວມສາງນໍ້າມັນ ແລະ
+                                            ອາໄຫຼ່</v-list-item-title>
                                     </v-list-item-content>
                                 </template>
                                 <v-list-item>
@@ -339,8 +340,8 @@
                 </v-row>
             </v-container>
             <!-- Loop through the branches and display each in v-col -->
-            <v-col v-for="(branch, index) in branches" :key="index" >
-                <v-card class="mt-4" >
+            <v-col v-for="(branch, index) in branches" :key="index">
+                <v-card class="mt-4">
                     <v-list color="#E0F7FA">
                         <v-list-group :value="false" prepend-icon="mdi-excavator"
                             @click="setTokenAndFetch(branch.key_id)">
@@ -510,7 +511,7 @@
                             <v-list-group no-action sub-group v-if="USER_ROLE === 'FOR_DOCUMENT_ADMIN'">
                                 <template v-slot:activator>
                                     <v-icon color="green">mdi-message-image-outline</v-icon>
-                                    <v-list-item-content> 
+                                    <v-list-item-content>
                                         <v-list-item-title
                                             style="height: 20px; overflow: visible;">ສາງ</v-list-item-title>
                                     </v-list-item-content>
@@ -520,11 +521,11 @@
                                         ສາງນໍ້າມັນ
                                     </v-btn>
                                     <v-spacer></v-spacer>
-                                    <v-btn rounded to="./wareHouse/warehouse">
+                                    <v-btn rounded @click="toSang('25000', branch.b_name,)">
                                         ສາງອາໄຫຼ່
                                     </v-btn>
                                     <v-spacer></v-spacer>
-                                    <v-btn @click="toOldSang(branch.b_name, branch.b_name)"  rounded>
+                                    <v-btn @click="toOldSang(branch.b_name, branch.b_name)" rounded>
                                         ສາງອາໄຫຼ່ເກົ່າ
                                     </v-btn>
                                 </v-list-item>
@@ -701,6 +702,12 @@ export default {
         toOldSang(bouang, village) {
             this.$router.push({
                 name: "oldWarehouse3",
+                query: { bouang, village },
+            });
+        },
+        toSang(bouang, village) {
+            this.$router.push({
+                path: "/wareHouse/warehouse1",
                 query: { bouang, village },
             });
         },

@@ -508,7 +508,7 @@
                                     </v-btn>
                                 </v-list-item>
                             </v-list-group>
-                            <v-list-group no-action sub-group v-if="USER_ROLE === 'FOR_DOCUMENT_ADMIN'">
+                            <v-list-group no-action sub-group >
                                 <template v-slot:activator>
                                     <v-icon color="green">mdi-message-image-outline</v-icon>
                                     <v-list-item-content>
@@ -521,11 +521,11 @@
                                         ສາງນໍ້າມັນ
                                     </v-btn>
                                     <v-spacer></v-spacer>
-                                    <v-btn rounded @click="toSang('25000', branch.b_name,)">
+                                    <v-btn rounded @click="toSang(branch.key_id, branch.b_name,)">
                                         ສາງອາໄຫຼ່
                                     </v-btn>
                                     <v-spacer></v-spacer>
-                                    <v-btn @click="toOldSang(branch.b_name, branch.b_name)" rounded>
+                                    <v-btn @click="toOldSang(branch.key_id, branch.b_name)" rounded>
                                         ສາງອາໄຫຼ່ເກົ່າ
                                     </v-btn>
                                 </v-list-item>

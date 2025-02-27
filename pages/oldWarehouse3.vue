@@ -15,7 +15,7 @@
                     </div>
                 </div>
                 <v-dialog max-width="700px" v-model="dialog">
-                    <sangkao />
+                    <sangkao @closeDialog="dialog = false" />
                 </v-dialog>
                 <v-dialog max-width="500px" v-model="editDialog">
                     <v-card>
@@ -155,7 +155,7 @@
                                 max-width="250px" /> -->
                             <a :href="selectedPart?.image" target="_blank">
                                 <v-img style="display: block; justify-self: center; cursor: pointer;"
-                                    :src="selectedPart?.image" max-width="250px" />
+                                    :src="selectedPart?.image" max-width="250px" max-height="500px" />
                             </a>
                             <div v-if="$vuetify.breakpoint.xs">
                                 <div style="text-align: center; width: 300px;">
@@ -358,7 +358,7 @@ export default {
             searchQuery: "",
             formValid: false,
             bouang: null,
-            bouang1: "Iron",
+            bouang1: "holyshit",
             village: ''
         };
     },

@@ -454,7 +454,6 @@ export default {
                 formData.append('description_Oldwarehouse', this.selectedPart.detail);
                 formData.append('selectedType_Oldwarehouse', this.selectedPart.type);
                 formData.append('importExpirationDate_Oldwarehouse', formattedDate);
-
                 // ถ้าผู้ใช้เลือกภาพใหม่ จะส่งไฟล์ใหม่ไป
                 if (this.selectedPart.image) {
                     formData.append('image_Oldwarehouse', this.selectedPart.image);
@@ -593,7 +592,6 @@ export default {
 .image-container {
     position: relative;
     width: 100%;
-    /* หรือกำหนดความกว้างที่ต้องการ */
     height: 170px;
 }
 

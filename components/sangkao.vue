@@ -3,20 +3,81 @@
         <v-card style="width: 800px; height: 100%; ">
             <v-card-text>
                 <div>
-                    <h1 style=" display: flex;align-items: center;justify-content: center" class="mb-10 mt-10">ເພີ່ມ
+                    <h1 style=" display: flex;align-items: center;justify-content: center" class="mb-10 mt-10">
+                        ເພີ່ມອາໄຫຼ່ເກົ່າ
                     </h1>
                     <v-row>
                         <v-col cols="12">
-                            <div style="display: flex; justify-content:space-between; ">
-                                <spen>ຊື່</spen>
-                                <spen>ຈຳເປັນ</spen>
+                            <div style="justify-content:space-between; ">
+                                <spen class="name">ຊື່ອາໄຫຼ່</spen>
+                                <v-radio-group v-model="inputMethod" row>
+                                    <v-radio label="ເລືອກຈາກລາຍການ" value="select"></v-radio>
+                                    <v-radio label="ປ້ອນເອງ" value="textField"></v-radio>
+                                </v-radio-group>
                             </div>
-                            <v-autocomplete v-model="itemName_Oldwarehouse" :items="itemOptions" label="ເລືອກ ອຸປະກອນ"
-                                outlined dense required></v-autocomplete>
+                            <div v-if="inputMethod === 'textField'">
+                                <v-text-field label="ປ້ອນຊື່" dense outlined background-color="#f5f5f5"
+                                    v-model="itemName_Oldwarehouse" required></v-text-field>
+                            </div>
+                            <div v-if="inputMethod === 'select'">
+                                <v-autocomplete v-model="itemName_Oldwarehouse" :items="itemOptions"
+                                    label="ເລືອກຊື່ອາໄຫຼ່" outlined dense required></v-autocomplete>
+                            </div>
+                        </v-col>
+                        <v-col cols="12">
+                            <div style="justify-content:space-between; ">
+                                <spen class="name">ປະເພດອາໄຫຼ່</spen>
+                                <v-radio-group v-model="inputType" row>
+                                    <v-radio label="ເລືອກຈາກລາຍການ" value="selectType"></v-radio>
+                                    <v-radio label="ປ້ອນເອງ" value="textType"></v-radio>
+                                </v-radio-group>
+                            </div>
+                            <div v-if="inputType === 'textType'">
+                                <v-text-field label="ປ້ອນປະເພດອາໄຫຼ່" dense outlined background-color="#f5f5f5"
+                                    v-model="selectedType_Oldwarehouse"></v-text-field>
+                            </div>
+                            <div v-if="inputType === 'selectType'">
+                                <v-autocomplete v-model="selectedType_Oldwarehouse" :items="typeOptions"
+                                    label="ເລືອກປະເພດອາໄຫຼ່" outlined dense required></v-autocomplete>
+                            </div>
+                        </v-col>
+                        <v-col cols="12">
+                            <div style="justify-content:space-between; ">
+                                <spen class="name">ຫົວລົດ</spen>
+                                <v-radio-group v-model="inputHead" row>
+                                    <v-radio label="ເລືອກຈາກລາຍການ" value="selectHead"></v-radio>
+                                    <v-radio label="ປ້ອນເອງ" value="textHead"></v-radio>
+                                </v-radio-group>
+                            </div>
+                            <div v-if="inputHead === 'selectHead'">
+                                <v-autocomplete v-model="vehicle_Oldwarehouse" :items="vehicleOptions"
+                                    label="ເລືອກຫົວລົດ" outlined dense required></v-autocomplete>
+                            </div>
+                            <div v-if="inputHead === 'textHead'">
+                                <v-text-field label="ປ້ອນຫົວລົດ" dense outlined background-color="#f5f5f5"
+                                    v-model="vehicle_Oldwarehouse"></v-text-field>
+                            </div>
+                        </v-col>
+                        <v-col cols="12">
+                            <div style="justify-content:space-between; ">
+                                <spen class="name">ຫາງລົດ</spen>
+                                <v-radio-group v-model="inputTail" row>
+                                    <v-radio label="ເລືອກຈາກລາຍການ" value="selectTail"></v-radio>
+                                    <v-radio label="ປ້ອນເອງ" value="textTail"></v-radio>
+                                </v-radio-group>
+                            </div>
+                            <div v-if="inputTail === 'selectTail'">
+                                <v-autocomplete v-model="vehiclefooter_Oldwarehouse" :items="vehiclefooter"
+                                    label="ເລືອກຫາງລົດ" outlined dense required></v-autocomplete>
+                            </div>
+                            <div v-if="inputTail === 'textTail'">
+                                <v-text-field label="ປ້ອນຫາງລົດ" dense outlined background-color="#f5f5f5"
+                                    v-model="vehiclefooter_Oldwarehouse"></v-text-field>
+                            </div>
                         </v-col>
                         <v-col cols="12">
                             <div style="display: flex; justify-content:space-between; ">
-                                <spen>ຈໍານວນ</spen>
+                                <spen class="name">ຈໍານວນ</spen>
                                 <spen></spen>
                             </div>
                             <v-text-field label="*ຈໍານວນ" dense outlined background-color="#f5f5f5"
@@ -24,83 +85,41 @@
                         </v-col>
                         <v-col cols="12">
                             <div style="display: flex; justify-content:space-between; ">
-                                <spen>ປະເພດ</spen>
-                                <spen>ຈຳເປັນ</spen>
-                            </div>
-                            <v-text-field label="*ປະເພດ" dense outlined background-color="#f5f5f5"
-                                v-model="selectedType_Oldwarehouse"></v-text-field>
-                        </v-col>
-                        <v-col cols="12">
-                            <div style="display: flex; justify-content:space-between; ">
-                                <spen>ປະເພດ</spen>
-                                <spen>ຈຳເປັນ</spen>
-                            </div>
-                            <v-autocomplete v-model="selectedType_Oldwarehouse" :items="typeOptions" label="ເລືອກປະເພດ"
-                                outlined dense required></v-autocomplete>
-                        </v-col>
-                        <v-col cols="12">
-                            <div style="display: flex; justify-content:space-between; ">
-                                <spen>ຫົວລົດ</spen>
+                                <spen class="name">ລາຄາ</spen>
                                 <spen></spen>
                             </div>
-                            <v-autocomplete v-model="vehicle_Oldwarehouse" :items="vehicleOptions" label="ເລືອກຫົວລົດ"
-                                outlined dense required></v-autocomplete>
+                            <v-text-field dense outlined v-model="price_Oldwarehouse" label="ລາຄາ"
+                                required></v-text-field>
                         </v-col>
                         <v-col cols="12">
                             <div style="display: flex; justify-content:space-between; ">
-                                <spen>ຫາງລົດ</spen>
-                                <spen></spen>
-                            </div>
-                            <v-autocomplete v-model="vehiclefooter_Oldwarehouse" :items="vehiclefooter"
-                                label="ເລືອກຫາງລົດ" outlined dense required></v-autocomplete>
-                        </v-col>
-                        <v-col cols="12">
-                            <div style="display: flex; justify-content:space-between; ">
-                                <spen>ລາຄາ</spen>
-                                <spen></spen>
-                            </div>
-                            <v-text-field dense outlined v-model="price_Oldwarehouse" label="ລາຄາ" prefix="$ or K"
-                                type="number" required></v-text-field>
-                        </v-col>
-                        <v-col cols="12">
-                            <div style="display: flex; justify-content:space-between; ">
-                                <spen>ວັນທີ່ນໍາເຂົ້າ</spen>
+                                <spen class="name">ວັນທີ່ນໍາເຂົ້າ</spen>
                                 <spen>ຈຳເປັນ</spen>
                             </div>
                             <v-text-field type="date" v-model="importExpirationDate_Oldwarehouse" outlined
                                 dense></v-text-field>
-
-
                         </v-col>
 
                         <v-col cols="12">
                             <div style="display: flex; justify-content:space-between; ">
-                                <spen>ລາຍລະອຽດ</spen>
+                                <spen class="name">ລາຍລະອຽດ</spen>
                                 <spen></spen>
                             </div>
                             <v-textarea dense outlined v-model="description_Oldwarehouse" label="ລາຍລະອຽດ"
                                 required></v-textarea>
                         </v-col>
-
-
                         <v-card-text>
                             <div>
                                 <v-row>
                                     <v-col cols="12">
                                         <div style="display: flex; justify-content:space-between; ">
-                                            <spen>ຮູບ</spen>
+                                            <spen class="name">ຮູບ</spen>
                                             <spen>ຈຳເປັນ</spen>
                                         </div>
                                         <v-file-input label="ອັບໂຫຼດໄຟລ໌" outlined dense prepend-icon="mdi-cloud-upload"
                                             append-inner-icon="mdi-card-account-details" background-color="#f5f5f5"
                                             v-model="imagea" @change="previewImage"></v-file-input>
                                     </v-col>
-                                    <!-- <v-col cols="12">
-                                            <v-btn @click="openCamera">
-                                                <v-icon>mdi-camera</v-icon>
-                                                ຖ່າຍຮູບ
-                                            </v-btn>
-                                        </v-col> -->
                                     <v-col cols="12">
                                         <video ref="video" class="camera-video" v-show="showCamera" autoplay></video>
                                         <canvas ref="canvas" style="display: none;"></canvas>
@@ -115,10 +134,13 @@
                     </v-row>
                 </div>
             </v-card-text>
-            <v-card-actions class="d-flex justify-space-between">
-                <v-btn variant="outlined">ຍົກເລີກ</v-btn>
-                <v-btn @click="insertData" color="primary">ສົ່ງ</v-btn>
-            </v-card-actions>
+            <v-card-text>
+                <v-card-actions class="justify-space-between">
+                    <v-btn color="error" @click="clearData">ຍົກເລີກ</v-btn>
+                    <v-spacer></v-spacer>
+                    <v-btn @click="insertData" color="success">ບັນທຶກ</v-btn>
+                </v-card-actions>
+            </v-card-text>
         </v-card>
     </div>
 </template>
@@ -140,7 +162,6 @@ export default {
             description_Oldwarehouse: "",
             image_Oldwarehouse: null,
             imagePreview: null,
-
             vehicleOptions: [],
             vehiclefooter: [],
             itemOptions: [],
@@ -148,6 +169,10 @@ export default {
             image_Oldwarehouse: null,
             imagea: null,
             showCamera: false,
+            inputMethod: 'select',
+            inputType: 'selectType',
+            inputHead: 'selectHead',
+            inputTail: 'selectTail',
         };
     },
     watch: {
@@ -298,6 +323,7 @@ export default {
             this.price_Oldwarehouse = "";
             this.importExpirationDate_Oldwarehouse = "";
             this.description_Oldwarehouse = "";
+            this.clearData();
         },
         async fetchOldInventory() {
             try {
@@ -312,7 +338,21 @@ export default {
                 console.error("Error fetching old inventory:", error);
             }
         },
-
+        clearData() {
+            this.$emit("closeDialog"); // ສົ່ງ event ກັບ page ໃຫ້ປິດ v-dialog
+            this.inputMethod = 'select';
+            this.inputType = 'selectType';
+            this.itemName_Oldwarehouse = '';
+            this.selectedType_Oldwarehouse = '';
+            this.qty_Oldwarehouse = '';
+            this.vehicle_Oldwarehouse = '';
+            this.vehiclefooter_Oldwarehouse = '';
+            this.price_Oldwarehouse = '';
+            this.importExpirationDate_Oldwarehouse = '';
+            this.description_Oldwarehouse = '';
+            this.imagea = null;
+            this.imagePreview = null;
+        }
 
     },
     async mounted() {
@@ -326,22 +366,10 @@ export default {
 </script>
 
 <style>
-/* .x {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 5;
-    background-color: rgb(255, 255, 255);
-} */
-
-/* .camera-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-} */
+.name {
+    font-size: 18px;
+    font-weight: bold;
+}
 
 .camera-video {
     width: 100%;

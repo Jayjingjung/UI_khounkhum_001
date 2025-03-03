@@ -163,13 +163,13 @@
                 <v-row>
 
                   <v-col cols="12" class="p-3">
-                    <v-file-input label="ອັບໂຫຼດຮູູບ" outlined dense prepend-icon="mdi-camera" v-model="imageupdatemorfai"
+                    <v-file-input  label="ອັບໂຫຼດຮູູບ" :rules="nameRules" outlined dense prepend-icon="mdi-camera" v-model="imageupdatemorfai"
                       @change="onGetupdatemorfaiImage"></v-file-input>
                     <div class="tops">
                     </div>
                   </v-col>
                   <v-col cols="12">
-                    <v-text-field label="ລະຫັດໝໍ້ໄຟ" outlined dense readonly v-model="up_batno"></v-text-field>
+                    <v-text-field label="ລະຫັດໝໍ້ໄຟ" outlined dense  v-model="up_batno"></v-text-field>
                     <div class="tops">
                     </div>
                   </v-col>

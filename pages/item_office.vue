@@ -80,7 +80,7 @@
                 <v-menu v-model="licensePlatedate_getin" :close-on-content-click="false" :nudge-right="40"
                   transition="scale-transition" offset-y>
                   <template v-slot:activator="{ on }">
-                    <v-text-field v-model="formattedLdate_getin" label="ວັນທີ ຮັບເຂົ້າ" readonly
+                    <v-text-field dense outlined v-model="formattedLdate_getin" label="ວັນທີ ຮັບເຂົ້າ" readonly
                       v-on="on"></v-text-field>
                   </template>
                   <v-date-picker v-model="date_getin" no-title scrollable
@@ -92,7 +92,7 @@
                 <v-menu v-model="licensePlatedate_getin1" :close-on-content-click="false" :nudge-right="40"
                   transition="scale-transition" offset-y>
                   <template v-slot:activator="{ on }">
-                    <v-text-field v-model="formattedLdate_getin1" label="ວັນໝົດອາຍຸ" readonly
+                    <v-text-field dense outlined v-model="formattedLdate_getin1" label="ວັນໝົດອາຍຸ" readonly
                       v-on="on"></v-text-field>
                   </template>
                   <v-date-picker v-model="dateExpire" no-title scrollable
@@ -154,7 +154,7 @@ export default {
       licensePlatedate_getin: false, // Declare the property here
       licensePlatedate_getin1: false, // Declare the property here
       colors: '',
-      price: '',
+      price: '0',
       unit: '',
       currencies: ['USD', 'LAK', 'THB'],
     };

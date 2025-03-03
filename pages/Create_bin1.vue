@@ -22,11 +22,14 @@
                             <span>{{ data.item.itemName }} ({{ data.item.unit_price }} LAK)</span>
                         </template>
                     </v-autocomplete>
+
                     <div class="d-flex align-center pl-2">
-                        <v-text-field label="*ຈໍານວນ" dense outlined background-color="#f5f5f5"
+                        <v-text-field label="*ຈໍານວນ" type="number" dense outlined background-color="#f5f5f5"
                             v-model="qty_Fix"></v-text-field>
                         <div class="tops"></div>
                     </div>
+                    
+
                 </div>
 
                 <div style="width:95%;" class="pl-2">
@@ -35,6 +38,7 @@
                             item-text="h_VICIVLE_NUMBER" item-value="key_id" @change="onGetCarDetails"
                             :rules="nameRules">
                         </v-autocomplete>
+                        
                         <div class="d-flex align-center pl-2">
                             <v-text-field label="*ລາ​ຄາ​ລວມ" dense outlined background-color="#f5f5f5"
                                 v-model="total_Price"></v-text-field>
@@ -42,6 +46,31 @@
                         </div>
                     </div>
                 </div>
+                <!-- <div style="width:95%;" class="pl-2">
+                    <div>
+                    
+                        <div class="d-flex align-center pl-2">
+                            <v-text-field label="*ລົດ" dense outlined background-color="#f5f5f5"
+                                v-model="h_VICIVLE_NUMBER"></v-text-field>
+                            <div class="tops"></div>
+                        </div>
+                    </div>
+                </div> -->
+                <!-- <div style="width:95%;" class="pl-2">
+                    <div>
+                        <div class="d-flex align-center pl-2">
+                            <v-text-field label="*ລາ​ຄາ​ລວມ" dense outlined background-color="#f5f5f5"
+                                v-model="total_Price"></v-text-field>
+                            <div class="tops"></div>
+                        </div>
+                        
+                        <div class="d-flex align-center pl-2">
+                            <v-text-field label="*ລາ​ຄາ​ລວມ" dense outlined background-color="#f5f5f5"
+                                v-model="total_Price"></v-text-field>
+                            <div class="tops"></div>
+                        </div>
+                    </div>
+                </div> -->
 
                 <div style="width:95%;" class="pl-2">
                     <div>

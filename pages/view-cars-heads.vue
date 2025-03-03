@@ -400,30 +400,30 @@
                                     </v-menu>
                                 </v-col>
                                 <v-col clos="6" md="3" sm="3">
+                                <div>
                                     <div>
-                                        <div>
-                                            ວັນທີ່ ໃບກວດກາເຕັກນິກ ຄັ້ງຕໍ່ໄປ
-                                        </div>
-                                        <v-text-field :rules="nameRules" type="date" label="ວັນທີ່" dense outlined flat solo
-                                            background-color="#f5f5f5" v-model="technique_date"></v-text-field>
+                                        ວັນທີ່ ໃບກວດກາເຕັກນິກ ຄັ້ງຕໍ່ໄປ
                                     </div>
-                                </v-col>
-                                <v-col cols="6" md="3" sm="3">
+                                    <v-text-field outlined :rules="nameRules" type="date" label="ວັນທີ່" dense flat solo
+                                        :background-color="technique_date_status === 'E' ? 'red' : '#f5f5f5'"
+                                        v-model="technique_date">
+
+                                    </v-text-field>
+                                </div>
+                            </v-col>
+                            <v-col cols="6" md="3" sm="3">
+                                <div>
                                     <div>
-                                        <div>
-                                            ວັນທີ່ ໃບກວດກາເຕັກນິກ ຄັ້ງຕໍ່ໄປ
-
-                                        </div>
-                                        <v-text-field :rules="nameRules" type="date"
-                                            label="ກວດກາເຕັກນຶກລົດ (ເດືອນລະຄັ້ງ)" dense outlined flat solo
-                                            :background-color="technique_date_status === 'E' ? 'red' : '#f5f5f5'"
-                                            v-model="technique_date_per_month">
-                                        </v-text-field>
+                                        ກວດກາເຕັກນິກລົດ (ເດືອນລະຄັ້ງ)
                                     </div>
-                                </v-col>
+                                    <v-text-field outlined :rules="nameRules" type="date"
+                                        label="ກວດກາເຕັກນຶກລົດ (ເດືອນລະຄັ້ງ)" dense flat solo
+                                        v-model="technique_date_per_month">
+                                    </v-text-field>
+                                </div>
+                            </v-col>
 
-                                <v-col clos="6" md="3" sm="3">
-                                </v-col>
+                             
                                 <v-col>
                                     <v-radio-group inline v-model="status_use_unuse_car">
                                         <div class="pl-4 align-center">
@@ -1093,7 +1093,7 @@
                                         <div>
                                             ຕັ້ງສິດ
                                         </div>
-                                        <v-text-field :rules="nameRules" label="ຕັ້ງສິດ" dense flat solo
+                                        <v-text-field outlined :rules="nameRules" label="ຕັ້ງສິດ" dense flat solo
                                             background-color="#f5f5f5" v-model="lektungsit"></v-text-field>
                                     </div>
                                 </v-col>
@@ -1127,25 +1127,33 @@
                                         <div>
                                             ວັນທີ່ ໃບກວດກາເຕັກນິກ ຄັ້ງຕໍ່ໄປ
                                         </div>
-                                        <v-text-field :rules="nameRules" type="date" label="ວັນທີ່" dense flat solo
+                                        <v-text-field outlined :rules="nameRules" type="date" label="ວັນທີ່" dense flat solo
                                             background-color="#f5f5f5" v-model="technique_date"></v-text-field>
                                     </div>
                                 </v-col>
-                                <v-col cols="6" md="3" sm="3">
-                                    <div>
-                                        <div>
-                                            ກວດກາເຕັກນິກລົດ (ເດືອນລະຄັ້ງ)
-                                        </div>
-                                        <v-text-field :rules="nameRules" type="date"
-                                            label="ກວດກາເຕັກນຶກລົດ (ເດືອນລະຄັ້ງ)" dense flat solo
-                                            :background-color="technique_date_status === 'E' ? 'red' : '#f5f5f5'"
-                                            v-model="technique_date_per_month">
-                                        </v-text-field>
-                                    </div>
-                                </v-col>
-
                                 <v-col clos="6" md="3" sm="3">
-                                </v-col>
+                                <div>
+                                    <div>
+                                        ວັນທີ່ ໃບກວດກາເຕັກນິກ ຄັ້ງຕໍ່ໄປ
+                                    </div>
+                                    <v-text-field outlined :rules="nameRules" type="date" label="ວັນທີ່" dense flat solo
+                                        :background-color="technique_date_status === 'E' ? 'red' : '#f5f5f5'"
+                                        v-model="technique_date">
+
+                                    </v-text-field>
+                                </div>
+                            </v-col>
+                            <v-col cols="6" md="3" sm="3">
+                                <div>
+                                    <div>
+                                        ກວດກາເຕັກນິກລົດ (ເດືອນລະຄັ້ງ)
+                                    </div>
+                                    <v-text-field outlined :rules="nameRules" type="date"
+                                        label="ກວດກາເຕັກນຶກລົດ (ເດືອນລະຄັ້ງ)" dense flat solo
+                                        v-model="technique_date_per_month">
+                                    </v-text-field>
+                                </div>
+                            </v-col>
                                 <v-col>
                                     <v-radio-group inline v-model="status_use_unuse_car">
                                         <div class="pl-4 align-center">

@@ -315,9 +315,50 @@
                 </v-date-picker>
               </v-menu>
             </v-col>
+
+            <v-col clos="6" md="3" sm="3">
+              <div>
+                <div>
+                  ວັນທີ່ ໃບກວດກາເຕັກນິກ ຄັ້ງຕໍ່ໄປ
+                </div>
+                <v-text-field outlined :rules="nameRules" type="date" label="ວັນທີ່" dense flat solo
+                  :background-color="technique_date_status === 'E' ? 'red' : '#f5f5f5'" v-model="technique_date">
+
+                </v-text-field>
+              </div>
+            </v-col>
+            <v-col cols="6" md="3" sm="3">
+              <div>
+                <div>
+                  ກວດກາເຕັກນິກລົດ (ເດືອນລະຄັ້ງ)
+                </div>
+                <v-text-field outlined :rules="nameRules" type="date" label="ກວດກາເຕັກນຶກລົດ (ເດືອນລະຄັ້ງ)" dense flat
+                  solo v-model="technique_date_per_month">
+                </v-text-field>
+              </div>
+            </v-col>
+
+
           </v-row>
-          <v-row>
-          </v-row>
+          <v-col>
+            <v-radio-group inline v-model="status_use_unuse_car">
+              <div class="pl-4 align-center">
+                <div style="font-size: 16px; font-weight: bold;">ສະຖານະລົດໃຊ້ງານ
+                </div>
+                <div>
+                  <Width />
+                  <v-radio label="Running" value="run" color="#55CE63"></v-radio>
+                  <Width />
+                  <v-radio label="Stop" value="stop" color="red"></v-radio>
+                </div>
+              </div>
+            </v-radio-group>
+            <span style="font-size: 16px; font-weight: bold;width: 100%;">Comment</span>
+            <v-textarea v-model="comment" outlined rounded background-color="#ECEFF1" filled
+              placeholder="ສະແດງຄວາມຄິດເຫັນ..."></v-textarea>
+          </v-col>
+
+
           <v-card class="card-shadow mx-auto mt-10" width="1400">
             <v-card-title style="display:flex;background-color:#E57373;color:white">
               <v-spacer></v-spacer>
@@ -326,7 +367,7 @@
             </v-card-title>
             <v-row style="margin-top: -14px;">
               <v-col clos="12" md="6" sm="4">
-                <span >ຕັ້ງສິດ</span>
+                <span>ຕັ້ງສິດ</span>
                 <v-card-actions>
                   <div>
                     <v-text-field label="ຕັ້ງສິດ" dense flat solo background-color="#f5f5f5" v-model="lektungsit">
@@ -335,18 +376,19 @@
                   <v-spacer></v-spacer>
                   <div>
                     <v-menu ref="end_tungsit" v-model="end_tungsit" :close-on-content-click="false"
-                    :return-value.sync="dateExTungsit" transition="scale-transition" offset-y min-width="auto">
-                    <template v-slot:activator="{ on, attrs }">
-                      <v-text-field dense outlined background-color="#f5f5f5" v-model="dateExTungsit" required
-                      label="* ວັນທີໝົດອາຍຸຕັ້ງສິດ" append-icon="mdi-calendar" readonly v-bind="attrs" v-on="on"
-                      :rules="nameRules"></v-text-field>
-                    </template>
-                    <v-date-picker v-model="dateExTungsit" no-title scrollable @input="$refs.end_tungsit.save(dateExTungsit)">
-                      <v-spacer></v-spacer>
-                    </v-date-picker>
-                  </v-menu>
-                </div>
-              </v-card-actions>
+                      :return-value.sync="dateExTungsit" transition="scale-transition" offset-y min-width="auto">
+                      <template v-slot:activator="{ on, attrs }">
+                        <v-text-field dense outlined background-color="#f5f5f5" v-model="dateExTungsit" required
+                          label="* ວັນທີໝົດອາຍຸຕັ້ງສິດ" append-icon="mdi-calendar" readonly v-bind="attrs" v-on="on"
+                          :rules="nameRules"></v-text-field>
+                      </template>
+                      <v-date-picker v-model="dateExTungsit" no-title scrollable
+                        @input="$refs.end_tungsit.save(dateExTungsit)">
+                        <v-spacer></v-spacer>
+                      </v-date-picker>
+                    </v-menu>
+                  </div>
+                </v-card-actions>
               </v-col>
             </v-row>
           </v-card>
@@ -389,11 +431,12 @@
                 </v-row>
               </div>
             </div>
-            <div class="pl-10" style="width: 23%;" >
+            <div class="pl-10" style="width: 23%;">
               <div style="font-size: 18px; font-weight: bold;">ຢີ່ຫໍ້ຢາງລົດ</div>
-                <v-text-field label="ຢີ່ຫໍ້ຢາງລົດ"outlined dense flat solo background-color="#f5f5f5" v-model="brand_wheel_car">
-                </v-text-field>
-              </div>
+              <v-text-field label="ຢີ່ຫໍ້ຢາງລົດ" outlined dense flat solo background-color="#f5f5f5"
+                v-model="brand_wheel_car">
+              </v-text-field>
+            </div>
             <Height />
             <Height />
             <div class="d-flex align-center">
@@ -720,7 +763,7 @@ export default {
       end_tungsit: false,
       start_bat_date: null,
       end_bat_date: null,
-      dateExTungsit:'',
+      dateExTungsit: '',
       exCarDate: null,
       end_cardate: null,
       h_VICIVLE_BGTOM: '',
@@ -739,10 +782,15 @@ export default {
       leanGia: '',
       leanFuengThaiy: '',
       lektungsit: '',
-      status_use_unuse_car:'run',
-      comment:null,
-      brand_wheel_car:'',
+      status_use_unuse_car: 'run',
+      comment: null,
+      brand_wheel_car: '',
       pha_But: '',
+
+      technique_date_per_month: '',
+      technique_date: '',
+ 
+
       //add new
       kim_KM: '',
       r_TIRE_NO_1: '',
@@ -1112,6 +1160,14 @@ export default {
         formdata.append('pha_But', this.pha_But)
         formdata.append('date_change_lean', this.formattedDate || "0000-00-00")
         formdata.append('toKen', localStorage.getItem("toKen"))
+
+
+        formdata.append('technique_date', this.technique_date)
+        formdata.append('technique_date_per_month', this.technique_date_per_month)
+  
+     
+      
+
 
         // let data = {
 

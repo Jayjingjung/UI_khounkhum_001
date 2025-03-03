@@ -12,19 +12,19 @@
                     <div style="width:100%;display:flex" class="pt-4">
 
                         <div class="d-flex align-center">
-                        <v-menu ref="start_menu" v-model="start_menu" :close-on-content-click="false"
-                            :return-value.sync="startDate" transition="scale-transition" offset-y min-width="auto">
-                            <template v-slot:activator="{ on, attrs }">
-                                <v-text-field dense outlined v-model="formattedStartDate" required
-                                    label="ວັນທີເລີ່ມຕົ້ນ" append-icon="mdi-calendar" readonly v-bind="attrs"
-                                    v-on="on"></v-text-field>
-                            </template>
-                            <v-date-picker v-model="startDate" no-title scrollable
-                                @input="$refs.start_menu.save(startDate)">
-                                <v-spacer></v-spacer>
-                            </v-date-picker>
-                        </v-menu>
-                    </div>
+                            <v-menu ref="start_menu" v-model="start_menu" :close-on-content-click="false"
+                                :return-value.sync="startDate" transition="scale-transition" offset-y min-width="auto">
+                                <template v-slot:activator="{ on, attrs }">
+                                    <v-text-field dense outlined v-model="formattedStartDate" required
+                                        label="ວັນທີເລີ່ມຕົ້ນ" append-icon="mdi-calendar" readonly v-bind="attrs"
+                                        v-on="on"></v-text-field>
+                                </template>
+                                <v-date-picker v-model="startDate" no-title scrollable
+                                    @input="$refs.start_menu.save(startDate)">
+                                    <v-spacer></v-spacer>
+                                </v-date-picker>
+                            </v-menu>
+                        </div>
                         <div class="d-flex align-center pl-2">
                             <v-menu ref="end_menu" v-model="end_menu" :close-on-content-click="false"
                                 :return-value.sync="endDate" transition="scale-transition" offset-y min-width="auto">
@@ -100,7 +100,8 @@
                         <v-radio-group v-model="status" column>
                             <v-radio label="ໃບປະຕິບັດງານລົດທີ່ຍັງບໍ່ໄດ້ອອກໃບຮຽກເກັບເງິນ" color="red darken-3"
                                 value="N"></v-radio>
-                            <v-radio label="ໃບປະຕິບັດງານລົດທີ່ໄດ້ອອກໃບປະຕິຮຽກເກັບເງິນ" color="success" value="Y"></v-radio>
+                            <v-radio label="ໃບປະຕິບັດງານລົດທີ່ໄດ້ອອກໃບປະຕິຮຽກເກັບເງິນ" color="success"
+                                value="Y"></v-radio>
                             <v-radio label="ໃບປະຕິບັດງານລົດທັງໝົດ" color="primary" value=null></v-radio>
                         </v-radio-group>
                     </div>
@@ -235,18 +236,18 @@
                 <Noti />
 
 
-<v-row
-    style="font-size:14px;margin-left: 50px;margin-top: 10px;display:flex;justify-content:start;flex-direction:column;align-items:start">
+                <v-row
+                    style="font-size:14px;margin-left: 50px;margin-top: 10px;display:flex;justify-content:start;flex-direction:column;align-items:start">
 
 
-    <div>
-        <span>ສໍານັກງານຕັ້ງຢູ່ ອາຄານ ສະໜາມຍິງປືນ 20 ມັງກອນ, ສະໜາມກີລາກອງທັບ,</span>
-        <span> ບ້ານຈອມມະນີ, ເມືອງ ໄຊເສດຖາ, ນະຄອນຫຼວງວຽງຈັນ, ສປປ ລາວ</span>
-        <span>ໂທລະສັບ: 020 92661111, 020 92 254 999 </span>
-        <span> ອີເມວ: kounkham@Mining|ເວັບໄຊ: kounkham</span>
-    </div>
+                    <div>
+                        <span>ສໍານັກງານຕັ້ງຢູ່ ອາຄານ ສະໜາມຍິງປືນ 20 ມັງກອນ, ສະໜາມກີລາກອງທັບ,</span>
+                        <span> ບ້ານຈອມມະນີ, ເມືອງ ໄຊເສດຖາ, ນະຄອນຫຼວງວຽງຈັນ, ສປປ ລາວ</span>
+                        <span>ໂທລະສັບ: 020 92661111, 020 92 254 999 </span>
+                        <span> ອີເມວ: kounkham@Mining|ເວັບໄຊ: kounkham</span>
+                    </div>
 
-</v-row>
+                </v-row>
                 <br>
 
                 <div class="text-center pb-10 pt-10 font-weight-bold"
@@ -496,18 +497,18 @@
                 <Noti />
 
 
-<v-row
-    style="font-size:14px;margin-left: 50px;margin-top: 10px;display:flex;justify-content:start;flex-direction:column;align-items:start">
+                <v-row
+                    style="font-size:14px;margin-left: 50px;margin-top: 10px;display:flex;justify-content:start;flex-direction:column;align-items:start">
 
 
-    <div>
-        <span>ສໍານັກງານຕັ້ງຢູ່ ອາຄານ ສະໜາມຍິງປືນ 20 ມັງກອນ, ສະໜາມກີລາກອງທັບ,</span>
-        <span> ບ້ານຈອມມະນີ, ເມືອງ ໄຊເສດຖາ, ນະຄອນຫຼວງວຽງຈັນ, ສປປ ລາວ</span>
-        <span>ໂທລະສັບ: 020 92661111, 020 92 254 999 </span>
-        <span> ອີເມວ: kounkham@Mining|ເວັບໄຊ: kounkham</span>
-    </div>
+                    <div>
+                        <span>ສໍານັກງານຕັ້ງຢູ່ ອາຄານ ສະໜາມຍິງປືນ 20 ມັງກອນ, ສະໜາມກີລາກອງທັບ,</span>
+                        <span> ບ້ານຈອມມະນີ, ເມືອງ ໄຊເສດຖາ, ນະຄອນຫຼວງວຽງຈັນ, ສປປ ລາວ</span>
+                        <span>ໂທລະສັບ: 020 92661111, 020 92 254 999 </span>
+                        <span> ອີເມວ: kounkham@Mining|ເວັບໄຊ: kounkham</span>
+                    </div>
 
-</v-row>
+                </v-row>
                 <br>
                 <div class="text-center" style="display:flex;justify-content:center;font-size:20px;font-weight:bold">
                     ລາຍງານໃບປະຕິບັດງານ</div>
@@ -977,6 +978,9 @@ export default {
 
                         this.successList = response.data.filter(item => item.status === 'Y').length;
                         this.waitingList = response.data.filter(item => item.status === 'N').length;
+
+                        // เรียงลำดับข้อมูลตาม performancedate จากวันที่ใหม่ -> เก่า
+                        this.report_peration_list = data?.data.sort((a, b) => new Date(b.performancedate) - new Date(a.performancedate));
 
                         // Format the sumAmount with commas
                         if (this.sumAmount !== null) {

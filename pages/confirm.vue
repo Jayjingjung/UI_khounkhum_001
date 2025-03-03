@@ -1,7 +1,6 @@
 <template>
     <div>
         <div>
-
             <v-btn
                 style="margin-left: 2px; margin-right: 2px; background-color: white; color: black; height: 65px; border: 1px solid rgb(	175, 86, 92);"
                 :color="filter1 === 'YES' ? 'green' : ''" @click="setFilter('YES')">
@@ -46,14 +45,16 @@
             </div>
             <div>
 
-                <v-autocomplete dense outlined v-model="selectedItem" :items="uniqueShops" label="ຮ້ານ"
-                    placeholder="Choose a shop" @change="onSelectShop"></v-autocomplete>
+                <v-autocomplete dense outlined v-model="selectedItem" :items="uniqueItem" label="ອາໄລ"
+                    placeholder="Choose a item" @change="onSelectitem"></v-autocomplete>
+
+            </div>
+            <div>
+
                 <v-autocomplete dense outlined v-model="selectedLocation" :items="uniqueLocations"
                     label="ເລືອກສະຖານທີ່ເເຊວງ" placeholder="Choose location"
                     @change="onSelectLocation"></v-autocomplete>
-
             </div>
-
             <v-row justify="start">
                 <v-btn class="mr-4 mt-5 ml-5" width="130" color="success" @click="onGetshowdata_tablev2">ຄົ້ນຫາ</v-btn>
             </v-row>
@@ -66,6 +67,7 @@
                 </v-card-title>
                 <v-data-table :items-per-page="5" :headers="truck_table_headersv2" :items="filteredItems"
                     :search="search">
+
                     <template v-slot:item="row">
                         <tr>
 
@@ -211,21 +213,21 @@ export default {
     },
     computed: {
         uniqueLocations() {
-        const locations = this.truck_data_listv2.map(item => item.location_fix);
-        return [...new Set(locations)];
-    },
+            const locations = this.truck_data_listv2.map(item => item.location_fix);
+            return [...new Set(locations)];
+        },
         filteredTruckData() {
             return this.truck_data_listv.filter(item => item.new_status === 'GO');
         },
-        // Get unique shop names for the dropdown
-        uniqueShops() {
-            const shopNames = this.truck_data_listv2.map(item => item.item_name);
-            return [...new Set(shopNames)];
+        // Get unique item names for the dropdown
+        uniqueItem() {
+            const itemNames = this.truck_data_listv2.map(item => item.item_name);
+            return [...new Set(itemNames)];
         },
-        shopOptions() {
+        itemOptions() {
             return this.show_list.map((item) => ({
                 item_id: item.item_id,
-                item_name: item.item_name || "Unnamed item", // Show default text if shop_name is null
+                item_name: item.item_name || "Unnamed item", // Show default text if item_name is null
             }));
         },
 
@@ -243,26 +245,39 @@ export default {
         },
 
 
-        filteredItems() {
-        return this.truck_data_listv2.filter((item) => {
-            const matchesItem = this.selectedItem ? item.item_name === this.selectedItem : true;
-            const matchesLocation = this.selectedLocation ? item.location_fix === this.selectedLocation : true;
-            const matchesStatus = this.filter ? item.approve_status === this.filter : true;
-            const matchesCurrency = this.selectedCurrency ? item.cur === this.selectedCurrency : true;
+        // filteredItems() {
+        //     return this.truck_data_listv2.filter((item) => {
+        //         const matchesItem = this.selectedItem ? item.item_name === this.selectedItem : true;
+        //         const matchesLocation = this.selectedLocation ? item.location_fix === this.selectedLocation : true;
+        //         const matchesStatus = this.filter ? item.approve_status === this.filter : true;
+        //         const matchesCurrency = this.selectedCurrency ? item.cur === this.selectedCurrency : true;
 
-            return matchesItem && matchesLocation && matchesStatus && matchesCurrency;
-        });
+        //         return matchesItem && matchesLocation && matchesStatus && matchesCurrency;
+        //     });
+        // }
+        filteredItems() {
+            return this.truck_data_listv2
+                .filter((item) => {
+                    const matchesItem = this.selectedItem ? item.item_name === this.selectedItem : true;
+                    const matchesLocation = this.selectedLocation ? item.location_fix === this.selectedLocation : true;
+                    const matchesStatus = this.filter ? item.approve_status === this.filter : true;
+                    const matchesCurrency = this.selectedCurrency ? item.cur === this.selectedCurrency : true;
+                    return matchesItem && matchesLocation && matchesStatus && matchesCurrency;
+                })
+                .sort((a, b) => {
+                    return new Date(b.dateFix) - new Date(a.dateFix); // เรียงจากวันที่ล่าสุดไปเก่า
+                });
         }
         ,
     },
 
     methods: {
         onSelectLocation(selected) {
-        console.log("Location selected:", selected);
-        this.selectedLocation = selected;
-    },
-        onSelectShop(selected) {
-            console.log("Shop selected:", selected);
+            console.log("Location selected:", selected);
+            this.selectedLocation = selected;
+        },
+        onSelectitem(selected) {
+            console.log("item selected:", selected);
             this.selectedItem = selected;
         },
         applyFilters() {
@@ -508,12 +523,12 @@ export default {
                         confirmButtonText: "OK",
                     });
                     // window.location.reload(); 
-                this.onGetshowdata_tablev2()
-                this.onGetshowdata_tablev()
+                    this.onGetshowdata_tablev2()
+                    this.onGetshowdata_tablev()
 
-                
-                    window.location.reload();
-                  
+
+                    // window.location.reload();
+
                 }
             } catch (error) {
                 console.error("Error:", error);
@@ -557,7 +572,7 @@ export default {
                     });
 
                     // Optionally reload or refresh data
-                    window.location.reload();
+                    // window.location.reload();
                     // OR trigger data refresh:
                     // this.fetchTruckData();
                 }

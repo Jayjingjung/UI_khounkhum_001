@@ -7,24 +7,16 @@
             </v-card-title>
             <v-card-text>
                 <v-form ref="invoiceForm" v-model="valid">
-                    
                     <!-- Quotation Code -->
-                    <v-text-field
-                        label="ລະຫັດໃບຮຽກເກັບເງິນ"
-                        outlined
-                        dense
-                        v-model="quotation_code"
-                        readonly
-                    >
+                    <v-text-field label="ລະຫັດໃບຮຽກເກັບເງິນ" outlined dense v-model="quotation_code" readonly>
                         <template v-slot:append>
                             <v-btn color="primary" small @click="generateQuotationCode">Generate</v-btn>
                         </template>
                     </v-text-field>
-
-                  
-
                 </v-form>
             </v-card-text>
+            <invoice />
+            <invoicearray />
         </v-card>
     </div>
 </template>
@@ -46,12 +38,15 @@ export default {
             try {
                 this.loading_processing = true;
                 const response = await this.$axios.$post("/GenQuotationCodeKKT.service");
-                
+
                 console.log("inv:", response); // ✅ Debugging Response
 
                 // ✅ ดึงข้อมูลจาก response.data[0].kkt_code
                 if (response?.status === "00" && response?.data?.length) {
                     this.quotation_code = response.data[0].kkt_code;
+                    // ✅ บันทึกลง Local Storage
+                    localStorage.setItem("quotation_code", this.quotation_code);
+
                     Swal.fire({
                         title: "ສຳເລັດ",
                         text: `ສ້າງລະຫັດ Quotation Code: ${this.quotation_code} ສຳເລັດ!`,

@@ -8,7 +8,7 @@
     <v-row>
       <!-- ຂໍ້ມູນຫົວລົດ -->
       <v-col cols="12" md="3">
-        <div v-if="USER_ROLE === 'ADMIN' || USER_ROLE === 'ACCOUNT_POYLOD' || USER_ROLE === 'USER'">
+        <div v-if="USER_ROLE === 'ADMIN' || USER_ROLE === 'ACCOUNT_POYLOD' || USER_ROLE === 'USER'  ">
           <v-card to="/cars_14" height="100" elevation="2" rounded="lg" width="310px"
             style="border: 1px solid rgb(41, 0, 245);">
             <v-card-text>

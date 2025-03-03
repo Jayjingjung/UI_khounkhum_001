@@ -218,7 +218,7 @@
                                         </div>
                                     </v-col>
 
-                                    <v-col cols="12" md="4" sm="6">
+                                    <!-- <v-col cols="12" md="4" sm="6">
                                         <v-icon color="black">mdi-calendar-range</v-icon>
                                         <span>ວັນທີ່ປ່ຽນນ້ຳມັນເຄື່ອງ</span>
                                         <v-menu ref="date_change_lean" v-model="date_change_lean"
@@ -234,7 +234,20 @@
                                                 <v-spacer></v-spacer>
                                             </v-date-picker>
                                         </v-menu>
+                                    </v-col> -->
+                                    <v-col cols="6" md="3" sm="3">
+                                        <div>
+                                            <div>
+                                                ວັນທີ່ປ່ຽນນ້ຳມັນເຄື່ອງ
+                                            </div>
+                                            <v-text-field outlined :rules="nameRules" type="date"
+                                                label="ວັນທີ" dense flat solo
+                                                v-model="formattedDate">
+                                            </v-text-field>
+                                        </div>
                                     </v-col>
+
+
                                 </v-row>
                                 <v-row style="margin-top: -14px;">
                                     <v-col clos="6" md="4" sm="4">
@@ -350,14 +363,14 @@
                                 </div>
                             </v-col>
                             <v-col clos="6" md="3" sm="3">
-                                <span>ບັງຕົມ</span><v-text-field outlined :rules="nameRules" label="ບັງຕົມ" dense flat solo
-                                    background-color="#f5f5f5" v-model="h_VICIVLE_BGTOM"></v-text-field>
+                                <span>ບັງຕົມ</span><v-text-field outlined :rules="nameRules" label="ບັງຕົມ" dense flat
+                                    solo background-color="#f5f5f5" v-model="h_VICIVLE_BGTOM"></v-text-field>
                                 <div class="tops">
                                 </div>
                             </v-col>
                             <v-col clos="6" md="3" sm="3">
-                                <span>ຈານລາກ</span><v-text-field outlined :rules="nameRules" label="ຈານລາກ" dense flat solo
-                                    background-color="#f5f5f5" v-model="h_VICIVLE_JANLARK"></v-text-field>
+                                <span>ຈານລາກ</span><v-text-field outlined :rules="nameRules" label="ຈານລາກ" dense flat
+                                    solo background-color="#f5f5f5" v-model="h_VICIVLE_JANLARK"></v-text-field>
                                 <div class="tops">
                                 </div>
                             </v-col>
@@ -370,8 +383,8 @@
                                 </div>
                             </v-col>
                             <v-col clos="6" md="3" sm="3">
-                                <span>ໄຟໜ້າ</span><v-text-field outlined :rules="nameRules" label="ໄຟໜ້າ" dense flat solo
-                                    background-color="#f5f5f5" v-model="h_VICIVLE_FAINAR"></v-text-field>
+                                <span>ໄຟໜ້າ</span><v-text-field outlined :rules="nameRules" label="ໄຟໜ້າ" dense flat
+                                    solo background-color="#f5f5f5" v-model="h_VICIVLE_FAINAR"></v-text-field>
                                 <div class="tops">
                                 </div>
                             </v-col>
@@ -383,22 +396,24 @@
                                 </div>
                             </v-col>
                             <v-col clos="6" md="3" sm="3">
-                                <span>ໄຟຂ້າງ</span><v-text-field outlined :rules="nameRules" label="ໄຟຂ້າງ" dense flat solo
-                                    background-color="#f5f5f5" v-model="h_VICIVLE_FAIYKHANG"></v-text-field>
+                                <span>ໄຟຂ້າງ</span><v-text-field outlined :rules="nameRules" label="ໄຟຂ້າງ" dense flat
+                                    solo background-color="#f5f5f5" v-model="h_VICIVLE_FAIYKHANG"></v-text-field>
                                 <div class="tops">
                                 </div>
                             </v-col>
                         </v-row>
                         <v-row style="margin-top: -14px;">
                             <v-col clos="6" md="3" sm="3">
-                                <span>ແວ່ນມອງໜ້າ</span><v-text-field outlined :rules="nameRules" label="ແວ່ນມອງໜ້າ" dense flat
-                                    solo background-color="#f5f5f5" v-model="h_VICIVLE_VENMONGNAR"></v-text-field>
+                                <span>ແວ່ນມອງໜ້າ</span><v-text-field outlined :rules="nameRules" label="ແວ່ນມອງໜ້າ"
+                                    dense flat solo background-color="#f5f5f5"
+                                    v-model="h_VICIVLE_VENMONGNAR"></v-text-field>
                                 <div class="tops">
                                 </div>
                             </v-col>
                             <v-col clos="6" md="3" sm="3">
-                                <span>ແວ່ນມອງຫຼັງ</span><v-text-field outlined :rules="nameRules" label="ແວ່ນມອງຫຼັງ" dense flat
-                                    solo background-color="#f5f5f5" v-model="h_VICIVLE_VENMONGLHG"></v-text-field>
+                                <span>ແວ່ນມອງຫຼັງ</span><v-text-field outlined :rules="nameRules" label="ແວ່ນມອງຫຼັງ"
+                                    dense flat solo background-color="#f5f5f5"
+                                    v-model="h_VICIVLE_VENMONGLHG"></v-text-field>
                                 <div class="tops">
                                 </div>
                             </v-col>
@@ -441,7 +456,7 @@
                             </v-col>
                             <v-col clos="6" md="3" sm="3">
                                 <span>ກໍານົດປ່ຽນນ້ຳມັນເຟືອງທ້າຍ(ຕາມເລກໄມ)</span>
-                                <v-text-field  outlined label="ກໍານົດປ່ຽນນ້ຳມັນເຟືອງທ້າຍ(ຕາມເລກໄມ)" dense flat solo
+                                <v-text-field outlined label="ກໍານົດປ່ຽນນ້ຳມັນເຟືອງທ້າຍ(ຕາມເລກໄມ)" dense flat solo
                                     background-color="#f5f5f5" v-model="leanFuengThaiy"></v-text-field>
                                 <div class="tops">
                                 </div>
@@ -486,7 +501,10 @@
                                         ວັນທີ່ ໃບກວດກາເຕັກນິກ ຄັ້ງຕໍ່ໄປ
                                     </div>
                                     <v-text-field outlined :rules="nameRules" type="date" label="ວັນທີ່" dense flat solo
-                                        background-color="#f5f5f5" v-model="technique_date"></v-text-field>
+                                        :background-color="technique_date_status === 'E' ? 'red' : '#f5f5f5'"
+                                        v-model="technique_date">
+
+                                    </v-text-field>
                                 </div>
                             </v-col>
                             <v-col cols="6" md="3" sm="3">
@@ -494,9 +512,8 @@
                                     <div>
                                         ກວດກາເຕັກນິກລົດ (ເດືອນລະຄັ້ງ)
                                     </div>
-                                    <v-text-field outlined :rules="nameRules" type="date" label="ກວດກາເຕັກນຶກລົດ (ເດືອນລະຄັ້ງ)"
-                                        dense flat solo
-                                        :background-color="technique_date_status === 'E' ? 'red' : '#f5f5f5'"
+                                    <v-text-field outlined :rules="nameRules" type="date"
+                                        label="ກວດກາເຕັກນຶກລົດ (ເດືອນລະຄັ້ງ)" dense flat solo
                                         v-model="technique_date_per_month">
                                     </v-text-field>
                                 </div>
@@ -571,7 +588,7 @@
                             <div style="width:100%">
                                 <!-- Left -->
                                 <div style="background-color:#f2ebeb;color: brown;;height:120px;padding-top:5px;border-radius:5px"
-                                    class="px-2"> 1
+                                    class="px-2"> P+1
                                     <div class="d-flex pt-1">
                                         <v-text-field :rules="nameRules" rounded background-color="#fff" dense
                                             label="ລະຫັດຢາງລົດ" v-model="ll_TIRE_NO_1"></v-text-field>
@@ -594,7 +611,7 @@
                                     </div>
                                 </div>
                                 <div style="background-color:#f2ebeb;color: brown;;height:120px;padding-top:5px;border-radius:5px"
-                                    class="px-2 mt-1 pt-1" v-if="ll_TIRE_NO_2">2
+                                    class="px-2 mt-1 pt-1" v-if="ll_TIRE_NO_2">P+2
                                     <div class="d-flex">
                                         <v-text-field :rules="nameRules" rounded dense background-color="#fff"
                                             label="ລະຫັດຢາງລົດ" v-model="ll_TIRE_NO_2"></v-text-field>
@@ -613,7 +630,7 @@
                                     </div>
                                 </div>
                                 <div style="background-color:#f2ebeb;color: brown;;height:120px;padding-top:5px;border-radius:5px"
-                                    class="px-2 mt-1">3
+                                    class="px-2 mt-1">P+3
                                     <div class="d-flex pt-1">
                                         <v-text-field :rules="nameRules" rounded dense background-color="#fff"
                                             label="ລະຫັດຢາງລົດ" v-model="ll_TIRE_NO_3"></v-text-field>
@@ -632,7 +649,7 @@
                                     </div>
                                 </div>
                                 <div style="background-color:#f2ebeb;color: brown;;height:120px;padding-top:5px;border-radius:5px"
-                                    class="px-2 mt-1 pt-2">4
+                                    class="px-2 mt-1 pt-2">P+4
                                     <div class="d-flex">
                                         <v-text-field :rules="nameRules" rounded dense background-color="#fff"
                                             label="ລະຫັດຢາງລົດ" v-model="ll_TIRE_NO_4"></v-text-field>
@@ -651,7 +668,7 @@
                                     </div>
                                 </div>
                                 <div style="background-color:#f2ebeb;color: brown;;height:120px;padding-top:5px;border-radius:5px"
-                                    class="px-2 mt-1 pt-2">5
+                                    class="px-2 mt-1 pt-2">P+5
                                     <div style="padding-top: 0px" class="d-flex">
                                         <v-text-field :rules="nameRules" rounded dense background-color="#fff"
                                             label="ລະຫັດຢາງລົດ" v-model="ll_TIRE_NO_5"></v-text-field>
@@ -671,7 +688,7 @@
                                     </div>
                                 </div>
                                 <div style="background-color:#f2ebeb;color: brown;;height:120px;padding-top:5px;border-radius:5px"
-                                    class="px-2 mt-1 pt-2">6
+                                    class="px-2 mt-1 pt-2">P+6
                                     <div class="d-flex">
                                         <v-text-field :rules="nameRules" rounded dense background-color="#fff"
                                             label="ລະຫັດຢາງລົດ" v-model="ll_TIRE_NO_6"></v-text-field>
@@ -699,7 +716,7 @@
                             <!-- Right -->
                             <div style="width:100%">
                                 <div style="background-color:#f2ebeb;color: brown;;height:120px;padding-top:5px;border-radius:5px"
-                                    class="px-2 pt-2">7
+                                    class="px-2 pt-2">P+7
                                     <div class="d-flex">
                                         <v-text-field :rules="nameRules" rounded dense background-color="#fff"
                                             label="ລະຫັດຢາງລົດ" v-model="r_TIRE_NO_1"></v-text-field>
@@ -720,7 +737,7 @@
                                 <!-- =========12 los========== -->
                                 <div v-if="r_TIRE_NO_2"
                                     style="background-color:#f2ebeb;color: brown;;height:120px;padding-top:0px;border-radius:5px"
-                                    class="px-2 mt-1">8
+                                    class="px-2 mt-1">P+8
                                     <div class="d-flex pt-2">
                                         <v-text-field :rules="nameRules" rounded dense background-color="#fff"
                                             label="ລະຫັດຢາງລົດ" v-model="r_TIRE_NO_2"></v-text-field>
@@ -740,7 +757,7 @@
                                 </div>
                                 <!-- /////////////////////////////// -->
                                 <div style="background-color:#f2ebeb;color: brown;;height:120px;padding-top:5px;border-radius:5px"
-                                    class="px-2 mt-1">9
+                                    class="px-2 mt-1">P+9
                                     <div class="d-flex pt-1">
                                         <v-text-field :rules="nameRules" rounded dense background-color="#fff"
                                             label="ລະຫັດຢາງລົດ" v-model="r_TIRE_NO_3"></v-text-field>
@@ -759,7 +776,7 @@
                                     </div>
                                 </div>
                                 <div style="background-color:#f2ebeb;color: brown;;height:120px;padding-top:5px;border-radius:5px"
-                                    class="px-2 mt-1 pt-2">10
+                                    class="px-2 mt-1 pt-2">P+10
                                     <div class="d-flex">
                                         <v-text-field :rules="nameRules" rounded dense background-color="#fff"
                                             label="ລະຫັດຢາງລົດ" v-model="r_TIRE_NO_4"></v-text-field>
@@ -778,7 +795,7 @@
                                     </div>
                                 </div>
                                 <div style="background-color:#f2ebeb;color: brown;;height:120px;padding-top:5px;border-radius:5px"
-                                    class="px-2 pt-2 mt-1 ">11
+                                    class="px-2 pt-2 mt-1 ">P+11
                                     <div class="d-flex">
                                         <v-text-field :rules="nameRules" rounded dense background-color="#fff"
                                             label="ລະຫັດຢາງລົດ" v-model="r_TIRE_NO_5"></v-text-field>
@@ -798,7 +815,7 @@
                                     </div>
                                 </div>
                                 <div style="background-color:#f2ebeb;color: brown;;height:120px;padding-top:5px;border-radius:5px"
-                                    class="px-2 mt-1 pt-2">12
+                                    class="px-2 mt-1 pt-2">P+12
                                     <div class="d-flex">
                                         <v-text-field :rules="nameRules" rounded dense background-color="#fff"
                                             label="ລະຫັດຢາງລົດ" v-model="r_TIRE_NO_6"></v-text-field>
@@ -819,7 +836,7 @@
                             </div>
                         </div>
                         <div style="background-color:#f2ebeb;color: brown;;height:120px;padding-top:5px;border-radius:5px;"
-                            class="px-2 mt-1 pt-2">13
+                            class="px-2 mt-1 pt-2">P+13
                             <div class="d-flex">
                                 <v-text-field :rules="nameRules" rounded dense background-color="#fff"
                                     label="ລະຫັດຢາງລົດ" v-model="r_TIRE_NO_7"></v-text-field>

@@ -1587,66 +1587,165 @@ export default {
         },
 
 
+        // formatMoney(value) {
+        //     if (typeof value === 'number' || typeof value === 'string') {
+        //         return value.toString().replace(/\D/g, '').replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+        //     }
+        //     return value;
+        // }
+        // , 
         formatMoney(value) {
-            if (typeof value === 'number' || typeof value === 'string') {
-                return value.toString().replace(/\D/g, '').replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-            }
-            return value;
-        },
+            let num = parseFloat(value);
+            if (isNaN(num)) return value;
+            // Format the number to 2 decimal places
+            let parts = num.toFixed(2).split('.');
+            // Add comma as thousand separators to the integer part
+            parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+            return parts.join('.');
+        }
+        ,
+        // formatMoney1(value) {
+        //     if (typeof value === 'number' || typeof value === 'string') {
+        //         return value.toString().replace(/\D/g, '').replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+        //     }
+        //     return value;
+        // },
         formatMoney1(value) {
-            if (typeof value === 'number' || typeof value === 'string') {
-                return value.toString().replace(/\D/g, '').replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-            }
-            return value;
-        },
+            let num = parseFloat(value);
+            if (isNaN(num)) return value;
+            // Format the number to 2 decimal places
+            let parts = num.toFixed(2).split('.');
+            // Apply thousand separators (using a space) to the integer part
+            parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+            return parts.join('.');
+        }
+
+        ,
         formatMoney2(value) {
-            if (typeof value === 'number' || typeof value === 'string') {
-                return value.toString().replace(/\D/g, '').replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-            }
-            return value;
-        },
+            let num = parseFloat(value);
+            if (isNaN(num)) return value;
+            // Format the number to 2 decimal places
+            let parts = num.toFixed(2).split('.');
+            // Apply thousand separators (using a space) to the integer part
+            parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+            return parts.join('.');
+        }
+
+        
+        // formatMoney2(value) {
+        //     if (typeof value === 'number' || typeof value === 'string') {
+        //         return value.toString().replace(/\D/g, '').replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+        //     }
+        //     return value;
+        // }
+        ,
         formatMoney3(value) {
-            if (typeof value === 'number' || typeof value === 'string') {
-                return value.toString().replace(/\D/g, '').replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-            }
-            return value;
-        },
+            let num = parseFloat(value);
+            if (isNaN(num)) return value;
+            // Format the number to 2 decimal places
+            let parts = num.toFixed(2).split('.');
+            // Apply thousand separators (using a space) to the integer part
+            parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+            return parts.join('.');
+        }
+        ,
+        // formatMoney3(value) {
+        //     if (typeof value === 'number' || typeof value === 'string') {
+        //         return value.toString().replace(/\D/g, '').replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+        //     }
+        //     return value;
+        // },
         formatMoney4(value) {
-            if (typeof value === 'number' || typeof value === 'string') {
-                return value.toString().replace(/\D/g, '').replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-            }
-            return value;
+            let num = parseFloat(value);
+            if (isNaN(num)) return value;
+            // Format the number to 2 decimal places
+            let parts = num.toFixed(2).split('.');
+            // Apply thousand separators (using a space) to the integer part
+            parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+            return parts.join('.');
         },
+
+        // formatMoney4(value) {
+        //     if (typeof value === 'number' || typeof value === 'string') {
+        //         return value.toString().replace(/\D/g, '').replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+        //     }
+        //     return value;
+        // },
         formatMoney5(value) {
-            if (typeof value === 'number' || typeof value === 'string') {
-                return value.toString().replace(/\D/g, '').replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-            }
-            return value;
+            let num = parseFloat(value);
+            if (isNaN(num)) return value;
+            // Format the number to 2 decimal places
+            let parts = num.toFixed(2).split('.');
+            // Apply thousand separators (using a space) to the integer part
+            parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+            return parts.join('.');
         },
+        // formatMoney5(value) {
+        //     if (typeof value === 'number' || typeof value === 'string') {
+        //         return value.toString().replace(/\D/g, '').replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+        //     }
+        //     return value;
+        // },
         formatMoney6(value) {
-            if (typeof value === 'number' || typeof value === 'string') {
-                return value.toString().replace(/\D/g, '').replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-            }
-            return value;
+            let num = parseFloat(value);
+            if (isNaN(num)) return value;
+            // Format the number to 2 decimal places
+            let parts = num.toFixed(2).split('.');
+            // Apply thousand separators (using a space) to the integer part
+            parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+            return parts.join('.');
         },
+        // formatMoney6(value) {
+        //     if (typeof value === 'number' || typeof value === 'string') {
+        //         return value.toString().replace(/\D/g, '').replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+        //     }
+        //     return value;
+        // },
         formatMoney7(value) {
-            if (typeof value === 'number' || typeof value === 'string') {
-                return value.toString().replace(/\D/g, '').replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-            }
-            return value;
+            let num = parseFloat(value);
+            if (isNaN(num)) return value;
+            // Format the number to 2 decimal places
+            let parts = num.toFixed(2).split('.');
+            // Apply thousand separators (using a space) to the integer part
+            parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+            return parts.join('.');
         },
+        // formatMoney7(value) {
+        //     if (typeof value === 'number' || typeof value === 'string') {
+        //         return value.toString().replace(/\D/g, '').replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+        //     }
+        //     return value;
+        // },
         formatMoney8(value) {
-            if (typeof value === 'number' || typeof value === 'string') {
-                return value.toString().replace(/\D/g, '').replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-            }
-            return value;
+            let num = parseFloat(value);
+            if (isNaN(num)) return value;
+            // Format the number to 2 decimal places
+            let parts = num.toFixed(2).split('.');
+            // Apply thousand separators (using a space) to the integer part
+            parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+            return parts.join('.');
         },
+        // formatMoney8(value) {
+        //     if (typeof value === 'number' || typeof value === 'string') {
+        //         return value.toString().replace(/\D/g, '').replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+        //     }
+        //     return value;
+        // },
         formatMoney9(value) {
-            if (typeof value === 'number' || typeof value === 'string') {
-                return value.toString().replace(/\D/g, '').replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-            }
-            return value;
+            let num = parseFloat(value);
+            if (isNaN(num)) return value;
+            // Format the number to 2 decimal places
+            let parts = num.toFixed(2).split('.');
+            // Apply thousand separators (using a space) to the integer part
+            parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+            return parts.join('.');
         },
+        // formatMoney9(value) {
+        //     if (typeof value === 'number' || typeof value === 'string') {
+        //         return value.toString().replace(/\D/g, '').replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+        //     }
+        //     return value;
+        // },
         askBeforeDeleteCusInfo(itemId) {
             // Handle delete action
         },
@@ -2176,14 +2275,17 @@ export default {
                     item_id: this.item_id, // Assuming item_id is accessible in this component
                     unit_price: this.unit_price,
                     qty_offer: this.qty_offer, // Assuming number is accessible in this component
-                    totalMoney: this.totalMoney,
+                    // totalMoney: this.totalMoney,
+                    totalMoney: Number(parseFloat(this.totalMoney).toFixed(3)),
+
                     itemName: this.itemName,
                     img: this.img,
 
                     item_id1: this.item_id1,// Assuming item_id is accessible in this component
                     unit_price1: this.unit_price1,
                     qty_offer1: this.qty_offer1, // Assuming number is accessible in this component
-                    totalMoney1: this.totalMoney1,
+                    // totalMoney1: this.totalMoney1,
+                    totalMoney1: Number(parseFloat(this.totalMoney1).toFixed(3)),
                     item_name1: this.itemName1,
                     img1: this.img1,
 
@@ -2191,7 +2293,8 @@ export default {
                     item_id2: this.item_id2, // Assuming item_id is accessible in this component
                     unit_price2: this.unit_price2,
                     qty_offer2: this.qty_offer2, // Assuming number is accessible in this component
-                    totalMoney2: this.totalMoney2,
+                    // totalMoney2: this.totalMoney2,
+                    totalMoney2: Number(parseFloat(this.totalMoney2).toFixed(3)),
                     item_name2: this.itemName2,
                     img2: this.img2,
 
@@ -2199,7 +2302,9 @@ export default {
                     item_id3: this.item_id3, // Assuming item_id is accessible in this component
                     unit_price3: this.unit_price3,
                     qty_offer3: this.qty_offer3, // Assuming number is accessible in this component
-                    totalMoney3: this.totalMoney3,
+                    // totalMoney3: this.totalMoney3,
+                    // totalMoney3: parseFloat(this.totalMoney3).toFixed(3),
+                    totalMoney3: Number(parseFloat(this.totalMoney3).toFixed(3)),
                     item_name3: this.itemName3,
                     img3: this.img3,
 
@@ -2207,7 +2312,10 @@ export default {
                     item_id4: this.item_id4, // Assuming item_id is accessible in this component
                     unit_price4: this.unit_price4,
                     qty_offer4: this.qty_offer4, // Assuming number is accessible in this component
-                    totalMoney4: this.totalMoney4,
+                    // totalMoney4: this.totalMoney4,
+                    // totalMoney4: parseFloat(this.totalMoney4).toFixed(3),
+                    totalMoney4: Number(parseFloat(this.totalMoney4).toFixed(3)),
+
                     item_name4: this.itemName4,
                     img4: this.img4,
 
@@ -2215,7 +2323,10 @@ export default {
                     item_id5: this.item_id5, // Assuming item_id is accessible in this component
                     unit_price5: this.unit_price5,
                     qty_offer5: this.qty_offer5, // Assuming number is accessible in this component
-                    totalMoney5: this.totalMoney5,
+                    // totalMoney5: this.totalMoney5,
+               
+                    totalMoney5: Number(parseFloat(this.totalMoney5).toFixed(3)),
+
                     item_name5: this.itemName5,
                     img5: this.img5,
 
@@ -2223,7 +2334,10 @@ export default {
                     item_id6: this.item_id6, // Assuming item_id is accessible in this component
                     unit_price6: this.unit_price6,
                     qty_offer6: this.qty_offer6, // Assuming number is accessible in this component
-                    totalMoney6: this.totalMoney6,
+                    // totalMoney6: this.totalMoney6,
+                    // totalMoney6: parseFloat(this.totalMoney6).toFixed(3),
+                    totalMoney6: Number(parseFloat(this.totalMoney6).toFixed(3)),
+
                     item_name6: this.itemName6,
                     img6: this.img6,
 
@@ -2231,7 +2345,9 @@ export default {
                     item_id7: this.item_id7, // Assuming item_id is accessible in this component
                     unit_price7: this.unit_price7,
                     qty_offer7: this.qty_offer7, // Assuming number is accessible in this component
-                    totalMoney7: this.totalMoney7,
+                    // totalMoney7: this.totalMoney7,
+                    totalMoney7: Number(parseFloat(this.totalMoney7).toFixed(3)),
+
                     item_name7: this.itemName7,
                     img7: this.img7,
 
@@ -2239,7 +2355,9 @@ export default {
                     item_id8: this.item_id8, // Assuming item_id is accessible in this component
                     unit_price8: this.unit_price8,
                     qty_offer8: this.qty_offer8, // Assuming number is accessible in this component
-                    totalMoney8: this.totalMoney8,
+                    // totalMoney8: this.totalMoney8,
+                    totalMoney8: Number(parseFloat(this.totalMoney8).toFixed(3)),
+
                     item_name8: this.itemName8,
                     img8: this.img8,
 
@@ -2247,7 +2365,9 @@ export default {
                     item_id9: this.item_id9, // Assuming item_id is accessible in this component
                     unit_price9: this.unit_price9,
                     qty_offer9: this.qty_offer9, // Assuming number is accessible in this component
-                    totalMoney9: this.totalMoney9,
+                    // totalMoney9: this.totalMoney9,
+                    totalMoney9: Number(parseFloat(this.totalMoney9).toFixed(3)),
+
                     item_name9: this.itemName9,
                     img9: this.img9,
 
@@ -2349,7 +2469,7 @@ export default {
             }
         },
 
-        async ondelete(offerCode,key_id) {
+        async ondelete(offerCode, key_id) {
             try {
                 const response = await this.$axios.$post('/deletefferpaper.service', {
                     toKen: localStorage.getItem('toKen'),

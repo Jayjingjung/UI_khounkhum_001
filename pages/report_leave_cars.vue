@@ -94,13 +94,13 @@
                                 <div style="width: 500px;margin-right: 20px;">
                                     <v-row>
                                         <v-btn v-for="month in 12" :key="month" @click="setMonth(month)">{{ month
-                                            }}</v-btn>
+                                        }}</v-btn>
                                     </v-row>
                                 </div>
                                 <div style="width: 500px;margin-left: 20px;">
                                     <v-row>
                                         <v-btn v-for="year in availableYears" :key="year" @click="setYear(year)">{{ year
-                                            }}</v-btn>
+                                        }}</v-btn>
                                     </v-row>
                                 </div>
                             </div>
@@ -527,7 +527,7 @@
                                 </b>
                             </td>
                         </div>
-              
+
 
 
                     </div>
@@ -797,19 +797,19 @@ export default {
         sumFooterferpaper: 'computeSumFooterAll'
     },
     computed: {
-   
-    Alltitnee() {
-  // Remove commas and convert the strings to numbers before adding them
-  const cleanSfcusd = parseFloat(this.sfcusd.replace(/,/g, ''));
-  const cleanSfcthb = parseFloat(this.sfcthb.replace(/,/g, ''));
-  const cleanSfclak = parseFloat(this.sfclak.replace(/,/g, ''));
-  
-  // Sum the cleaned values
-  const total = cleanSfclak + cleanSfcthb + cleanSfcusd;
-  
-  // Format the total with commas and return it
-  return total?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-},
+
+        Alltitnee() {
+            // Remove commas and convert the strings to numbers before adding them
+            const cleanSfcusd = parseFloat(this.sfcusd.replace(/,/g, ''));
+            const cleanSfcthb = parseFloat(this.sfcthb.replace(/,/g, ''));
+            const cleanSfclak = parseFloat(this.sfclak.replace(/,/g, ''));
+
+            // Sum the cleaned values
+            const total = cleanSfclak + cleanSfcthb + cleanSfcusd;
+
+            // Format the total with commas and return it
+            return total?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+        },
 
         // formattedTHB() {
         //     return this.sfcthb.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
@@ -1055,7 +1055,7 @@ export default {
 
             // Compute the total and format the result
             // this.sumFooter_all = formatNumber(biaOutWastedParsed + totalMoneyParsed);
-            this.sumFooter_allL = formatNumber(biaOutWastedParsed + totalMoneyParsed + totalMoney+totalMoney2Parsed+totalMoneypopParsed);
+            this.sumFooter_allL = formatNumber(biaOutWastedParsed + totalMoneyParsed + totalMoney + totalMoney2Parsed + totalMoneypopParsed);
         },
         formatDate(date) {
             if (!date) return '';
@@ -1313,6 +1313,8 @@ export default {
                                 this.waitingList += 1;
                             }
                         });
+ // เรียงลำดับข้อมูลตาม out_DATE จากวันที่ใหม่ -> เก่า
+ this.report_leave_car_list = data?.data.sort((a, b) => new Date(b.out_DATE) - new Date(a.out_DATE));
 
                         this.report_leave_car_list = data?.data
                         this.sumFooter = data?.sumFooter

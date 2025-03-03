@@ -41,7 +41,7 @@
                         </div>
                     </v-col>
                     <v-col cols="12" md="3">
-                        <div v-if="USER_ROLE === 'USER' || USER_ROLE === 'ADMIN'">
+                        <div v-if="USER_ROLE === 'USER' || USER_ROLE === 'ADMIN' || USER_ROLE === 'FINANCE_TK'">
 
                             <v-card to="/screwdriver" height="100" elevation="2" rounded="lg" width="310px"
                                 style="border: 1px solid rgb(224, 0, 105) ;">

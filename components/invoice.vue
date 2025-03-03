@@ -7,29 +7,50 @@
             </v-card-title>
             <v-card-text>
                 <v-form ref="invoiceForm" v-model="valid">
-                    <!-- File Upload -->
-                    <v-file-input v-model="invoice.document_1" outlined dense label="Upload PDF or Picture"
-                        accept=".pdf, image/*" show-size required></v-file-input>
+                    <!-- ✅ ใช้ Quotation Code จาก Local Storage (readonly) -->
+                     <div style="display: flex;">
 
-                    <v-text-field label="Customer ID" outlined dense v-model="invoice.customer_id"></v-text-field>
-                    <v-text-field label="Token" outlined dense v-model="invoice.toKen"></v-text-field>
-                    <v-text-field label="Topic" outlined dense v-model="invoice.topic"></v-text-field>
-                    <v-text-field label="Currency" outlined dense v-model="invoice.currency"></v-text-field>
-                    <v-text-field label="Date" outlined dense type="date" v-model="invoice.datee"></v-text-field>
-                    <v-text-field label="Due Date" outlined dense type="date" v-model="invoice.due_date"></v-text-field>
-                    <v-text-field label="Reference Number" outlined dense v-model="invoice.reference_number"></v-text-field>
-                    <v-text-field label="Lek Bai Sung" outlined dense v-model="invoice.lek_bai_sung"></v-text-field>
-                    <v-text-field label="Amount of Money" outlined dense type="number"
-                        v-model="invoice.amount_money"></v-text-field>
-                    <v-text-field label="Quotation" outlined dense v-model="invoice.quotation"></v-text-field>
-                    <v-textarea label="Description" outlined dense v-model="invoice.description"></v-textarea>
-                    <v-text-field label="Note" outlined dense v-model="invoice.note"></v-text-field>
-                    <v-text-field label="Type ID" outlined dense v-model="invoice.type_id"></v-text-field>
-                    <v-text-field label="Number" outlined dense v-model="invoice.num"></v-text-field>
-                    <v-text-field label="Unit" outlined dense v-model="invoice.unit"></v-text-field>
-                    <v-text-field label="Total Money" outlined dense v-model="invoice.totalMoney"></v-text-field>
-                    <v-text-field label="Quotation Code" outlined dense v-model="invoice.quotation_code"></v-text-field>
+                         <v-text-field  style="width: 20%;"  label="Code" outlined dense v-model="invoice.quotation_code"
+                         readonly></v-text-field>
+                         <v-text-field  style="width: 80%;" label="ຫົວຂໍ້" outlined dense v-model="invoice.topic"></v-text-field>
+                        </div>
+                    <v-row>
 
+
+                        <!-- File Upload -->
+                        <v-file-input  style="width: 100%;"  v-model="invoice.document_1" outlined dense label="ອັບໂຫຼດເອກກະສານ"
+                            accept=".pdf, image/*" show-size required></v-file-input>
+                        <!-- ✅ Dropdown เลือกลูกค้า (Customer) -->
+                        <v-select label="ເລືອກລູກຄ້າ" outlined dense v-model="invoice.customer_id" :items="customerList"
+                            item-text="customerName" item-value="id">
+                        </v-select> 
+                        <!-- <v-text-field label="Token" outlined dense v-model="invoice.toKen"></v-text-field> -->
+                        <v-text-field label="ວັນທີເຂົ້າ" outlined dense type="date" v-model="invoice.datee"></v-text-field>
+                        <v-text-field label="ວັນທີຄົບກໍານົດ" outlined dense type="date"
+                            v-model="invoice.due_date"></v-text-field>
+                        <!-- <v-text-field label="Reference Number" outlined dense
+                        v-model="invoice.reference_number"></v-text-field> -->
+                        <!-- <v-text-field label="Lek Bai Sung" outlined dense v-model="invoice.lek_bai_sung"></v-text-field> -->
+                        <!-- <v-text-field label="Quotation" outlined dense v-model="invoice.quotation"></v-text-field> -->
+                        
+                        
+                        <!-- ✅ Dropdown เลือก Type (Bouang) -->
+                        <v-select label="ເລືອກເບື້ອງ" outlined dense v-model="invoice.type_id" :items="bouangList"
+                        item-text="nameOfBouang" item-value="key_id"></v-select>
+                        
+                        <v-text-field label="ຈໍານວນ" outlined dense v-model="invoice.num" @input="calculateTotal"></v-text-field>
+                        
+                        <!-- ✅ Dropdown for Unit -->
+                        <v-select label="ຫົວໜ່ວຍ" outlined dense v-model="invoice.unit" :items="unitList"></v-select>
+                        
+                        <v-text-field label="ລາຄາ" outlined dense type="number" v-model="invoice.amount_money" @input="calculateTotal"></v-text-field>
+                        <v-select label="ສະກຸນເງິນ" outlined dense v-model="invoice.currency" :items="currencyList"></v-select>
+                        <v-text-field style="width: 100%;" label="ລາຄາທັງໝົດ" readonly outlined dense v-model="invoice.totalMoney"></v-text-field>
+                        <v-text-field style="width: 100%;" label="ໝາຍເຫດ" outlined dense
+                            v-model="invoice.note"></v-text-field>
+                        <v-textarea style="width: 100%;" label="ພິມລາຍລະອຽດ" outlined dense
+                            v-model="invoice.description"></v-textarea>
+                    </v-row>
                     <!-- Save Button -->
                     <v-btn :loading="loading_processing" color="primary" @click="saveInvoice">
                         Save Invoice
@@ -46,8 +67,13 @@ import Swal from "sweetalert2";
 export default {
     data() {
         return {
+            quotation_code: localStorage.getItem("quotation_code") || "", // ✅ ดึงจาก Local Storage ถ้ามีค่า
             valid: false,
             loading_processing: false,
+            customerList: [], // ✅ เก็บข้อมูลลูกค้าจาก API
+            bouangList: [], // ✅ เก็บข้อมูลจาก API
+            unitList: ["ອັນ", "ໂຕນ", "ລິດ", "ຄັ້ງ"], // ✅ Static unit list
+            currencyList: ["LAK", "USD", "THB"], // ✅ Static unit list
             invoice: {
                 document_1: null,
                 customer_id: "",
@@ -56,10 +82,10 @@ export default {
                 currency: "",
                 datee: "",
                 due_date: "",
-                reference_number: "",
-                lek_bai_sung: "",
+                reference_number: "0",
+                lek_bai_sung: "0",
                 amount_money: "",
-                quotation: "",
+                quotation: "0",
                 description: "",
                 note: "",
                 type_id: "",
@@ -70,7 +96,72 @@ export default {
             },
         };
     },
+    mounted() {
+        // ✅ ดึงค่าจาก Local Storage เมื่อคอมโพเนนต์โหลด
+        this.invoice.quotation_code = localStorage.getItem("quotation_code") || "";
+        this.getBouangAll();
+        this.getAllCustomer();
+    },
+
     methods: {
+        
+        calculateTotal() {
+            const num = parseFloat(this.invoice.num) || 0;
+            const amount_money = parseFloat(this.invoice.amount_money) || 0;
+            this.invoice.totalMoney = (num * amount_money).toFixed(2);
+        },
+        async getAllCustomer() {
+            try {
+                const response = await this.$axios.$post("getAllCustomer", {
+                    toKen: localStorage.getItem("toKen"),
+                });
+
+                if (response?.status === "00" && response?.data) {
+                    this.customerList = response.data; // ✅ อัปเดต dropdown ลูกค้า
+                } else {
+                    Swal.fire({
+                        title: "ແຈ້ງເຕືອນ",
+                        text: response?.message || "ບໍ່ສາມາດດຶງລູກຄ້າ",
+                        icon: "error",
+                        confirmButtonText: "OK",
+                    });
+                }
+            } catch (error) {
+                console.error("Error:", error);
+                Swal.fire({
+                    title: "ແຈ້ງເຕືອນ",
+                    text: error.message || "Error fetching customers",
+                    icon: "error",
+                    confirmButtonText: "OK",
+                });
+            }
+        },
+        async getBouangAll() {
+            try {
+                const response = await this.$axios.$post("/getBouangAll.service", {
+                    toKen: localStorage.getItem("toKen"),
+                });
+
+                if (response?.status === "00" && response?.data) {
+                    this.bouangList = response.data; // ✅ อัปเดต dropdown
+                } else {
+                    Swal.fire({
+                        title: "ແຈ້ງເຕືອນ",
+                        text: response?.message || "ບໍ່ສາມາດດຶງຂໍ້ມູນ",
+                        icon: "error",
+                        confirmButtonText: "OK",
+                    });
+                }
+            } catch (error) {
+                console.error("Error:", error);
+                Swal.fire({
+                    title: "ແຈ້ງເຕືອນ",
+                    text: error.message || "Error fetching data",
+                    icon: "error",
+                    confirmButtonText: "OK",
+                });
+            }
+        },
         async saveInvoice() {
             if (!this.$refs.invoiceForm.validate()) return;
 
@@ -147,7 +238,7 @@ export default {
                 num: "",
                 unit: "",
                 totalMoney: "",
-                quotation_code: "",
+                quotation_code: localStorage.getItem("quotation_code"),
             };
         },
     },

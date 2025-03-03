@@ -1,3 +1,5 @@
+
+
 <template>
     <div>
         <!-- Table for Invoice List -->
@@ -13,21 +15,33 @@
                             <v-btn color="primary" dark @click="addRow">ເພີ່ມລາຍການ</v-btn>
                         </v-toolbar>
                     </template>
+
+                    <!-- Quotation Code -->
+                    <template v-slot:item.quotation_code="{ item }">
+                        <v-text-field v-model="item.quotation_code" dense outlined readonly></v-text-field>
+                    </template>
+
+                    <!-- List Name -->
                     <template v-slot:item.listName="{ item }">
                         <v-text-field v-model="item.listName" dense outlined></v-text-field>
                     </template>
+
+                    <!-- Number -->
                     <template v-slot:item.num="{ item }">
-                        <v-text-field v-model="item.num" dense outlined></v-text-field>
+                        <v-text-field v-model="item.num" dense outlined type="number" @input="calculateTotal(item)"></v-text-field>
                     </template>
 
+                    <!-- Amount of Money -->
                     <template v-slot:item.amount_money="{ item }">
-                        <v-text-field v-model="item.amount_money" dense outlined></v-text-field>
+                        <v-text-field v-model="item.amount_money" dense outlined type="number" @input="calculateTotal(item)"></v-text-field>
                     </template>
 
+                    <!-- Total Money (Auto-Calculated) -->
                     <template v-slot:item.totalMooney="{ item }">
-                        <v-text-field v-model="item.totalMooney" dense outlined disabled></v-text-field>
+                        <v-text-field v-model="item.totalMooney" dense outlined  readonly></v-text-field>
                     </template>
 
+                    <!-- Actions -->
                     <template v-slot:item.actions="{ item }">
                         <v-btn color="red" dark small @click="removeRow(item)">ລຶບ</v-btn>
                     </template>
@@ -38,6 +52,7 @@
                     ບັນທຶກຂໍ້ມູນ
                 </v-btn>
             </v-card-text>
+            
         </v-card>
     </div>
 </template>
@@ -49,32 +64,54 @@ export default {
     data() {
         return {
             loading_processing: false,
-            invoiceArray: [
-            { listName: "list", quotation_code: "KKt-2", num: "", amount_money: "", totalMooney: "", selectedCurrency: "", selectedUnit : ""},
-               
-            ],
+            quotation_code: "", // ✅ ดึงค่าจาก Local Storage
+            invoiceArray: [],
             headers: [
-                { text: "Quotation Code", value: "quotation_code" },
-                { text: "listName", value: "listName" },
-                { text: "Number", value: "num" },
-                { text: "Amount of Money", value: "amount_money" },
-                { text: "Total Money", value: "totalMooney" },
-                { text: "Actions", value: "actions", sortable: false },
+                { text: "Code", value: "quotation_code" },
+                { text: "ເລືອກລູກຄ້າ", value: "listName" },
+                { text: "ຈໍານວນ", value: "num" },
+                { text: "ລາຄາ", value: "amount_money" },
+                { text: "ລາຄາທັງໝົດ", value: "totalMooney" },
+                { text: "", value: "actions", sortable: false },
             ],
         };
     },
+
+    mounted() {
+        // ✅ ดึงค่า `quotation_code` จาก Local Storage เมื่อโหลดหน้า
+        this.quotation_code = localStorage.getItem("quotation_code") || "";
+        
+        // ✅ เพิ่มแถวแรกอัตโนมัติ พร้อมใส่ค่า `quotation_code`
+        this.addRow();
+    },
+
     methods: {
         addRow() {
-            this.invoiceArray.push({  quotation_code: "KKt-2",listName: "", num: "", amount_money: "", totalMooney: "" });
+            // ✅ ใช้ค่า `quotation_code` จาก Local Storage ทุกครั้งที่เพิ่มแถว
+            this.invoiceArray.push({ 
+                quotation_code: this.quotation_code, 
+                listName: "", 
+                num: "", 
+                amount_money: "", 
+                totalMooney: "0.00" ,
+            });
         },
+
         removeRow(item) {
             this.invoiceArray = this.invoiceArray.filter(i => i !== item);
         },
+
+        // ✅ Auto-calculate `totalMooney` with decimals
+        calculateTotal(item) {
+            const num = parseFloat(item.num) || 0;
+            const amount_money = parseFloat(item.amount_money) || 0;
+            item.totalMooney = (num * amount_money).toFixed(2); // Ensure decimal precision
+        },
+
         async saveInvoice() {
             try {
                 this.loading_processing = true;
 
-               
                 const response = await this.$axios.$post(
                     "http://khounkham.com/api-prod/v1/truck/InsertNameListArray.service",
                     this.invoiceArray
@@ -89,6 +126,7 @@ export default {
                     });
 
                     this.invoiceArray = []; // รีเซ็ตข้อมูล
+                    this.addRow(); // ✅ เพิ่มแถวแรกใหม่หลังจากบันทึก
                 } else {
                     Swal.fire({
                         title: "ແຈ້ງເຕືອນ",

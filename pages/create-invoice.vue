@@ -61,6 +61,14 @@
                             </v-date-picker>
                         </v-menu>
                     </div>
+                    <div class="ml-2 pt-1">
+
+
+                        <v-autocomplete dense outlined v-model="selectedcustomerName" :items="customers" item-value="id"
+                            item-text="customerName" label="ເລືອກລູກຄ້າ" placeholder="Choose Customer"
+                            @change="onGetAllPermance"></v-autocomplete>
+
+                    </div>
 
 
                     <div class="ml-2 pt-1">
@@ -79,7 +87,7 @@
                     </div>
                 </div>
                 <div>
-                    <v-data-table :items="report_peration_list" :headers="report_operation_header" :search="search">
+                    <v-data-table :items="sortedReportPerationList" :headers="report_operation_header" :search="search">
                         <template v-slot:item="row">
                             <tr
                                 @click="onChooseForBill(row?.item?.performancebillno, row?.item?.customer_ID, row?.item?.currency)">
@@ -320,7 +328,7 @@
                         }}
                     </span>
                     <span style="font-size:12px">ຫາ ວັນທີ: {{ formattedEndDate
-                        }} 
+                        }}
                     </span>
 
 
@@ -518,7 +526,9 @@ export default {
             array_invoice: [],
             data_for_print: [],
             sum_total_print: [],
-            data_header_print: []
+            data_header_print: [],
+            selectedcustomerName: null, // Store selected customer ID
+            customers: [], // Store customers from API
         };
     },
     watch: {
@@ -540,6 +550,9 @@ export default {
         },
     },
     computed: {
+        sortedReportPerationList() {
+            return [...this.report_peration_list].sort((a, b) => new Date(b.datePerformanceCreate) - new Date(a.datePerformanceCreate));
+        },
         formattedStartDate() {
             return this.start_date ? moment(this.start_date).format('YYYY-MM-DD') : '';
         },
@@ -550,6 +563,7 @@ export default {
     mounted() {
         this.onGetAllPermance();
         this.onGetInvoiceBillNo();
+        this.getAllCustomers(); // Fetch customers on page load
     },
     methods: {
 
@@ -723,28 +737,46 @@ export default {
 
         },
 
-        onGetAllPermance() {
-            this.loading_processing = true
+        async onGetAllPermance() {
+            this.loading_processing = true;
             try {
-                this.$axios.$post('/listGetPayment.service', {
-                    toKen: localStorage.getItem("toKen"), startDate: this.start_date,
+                const response = await this.$axios.$post('/listGetPayment.service', {
+                    toKen: localStorage.getItem("toKen"),
+                    startDate: this.start_date,
                     endDate: this.end_date,
+                    cusId: this.selectedcustomerName, // Send selected customer ID to API
+                });
 
-                }).then((data) => {
-                    if (data?.data) {
-                        this.loading_processing = false
-                        let push = { 'check': 'false' }
-                        this.report_peration_list = data?.data?.map((list) => {
-                            return { ...list, ...push }
-                        })
-                    } else {
-                        this.report_peration_list = []
-                        this.loading_processing = false
-                    }
-                })
+                if (response?.data) {
+                    this.report_peration_list = response.data.sort((a, b) => new Date(b.datePerformanceCreate) - new Date(a.datePerformanceCreate));
+                } else {
+                    this.report_peration_list = [];
+                }
             } catch (error) {
-                console.log(error)
-                this.loading_processing = false
+                console.log(error);
+                this.report_peration_list = [];
+            } finally {
+                this.loading_processing = false;
+            }
+        }
+        ,
+        async getAllCustomers() {
+            try {
+                const response = await this.$axios.$post('/getAllCustomer', {
+                    toKen: localStorage.getItem("toKen"),
+                });
+
+                if (response?.status === '00' && response?.data) {
+                    this.customers = response.data.map(customer => ({
+                        id: customer.id, // Send this to API
+                        customerName: customer.customerName, // Show in dropdown
+                    }));
+                } else {
+                    this.customers = [];
+                }
+            } catch (error) {
+                console.error('Error fetching customers:', error);
+                this.customers = [];
             }
         },
         onGetInvoiceBillNo() {

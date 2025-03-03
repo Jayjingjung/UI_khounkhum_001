@@ -88,7 +88,7 @@ export default {
         this.$router.push('./homepagehr');
       }
     
-      else if (USER_NAME === 'AdminProof' ) {
+      else if (USER_NAME === 'AdminProof'||USER_NAME === 'savanh_approve'||USER_NAME === 'savanh_approve_oil' ) {
         this.$router.push('/homeflx');
       }
       else if (['borhinkuad-konengua', 'borhinkuad-sykhoun', 'borhinkuad-tha', 'borhinkuad-xiengkong', 'Geo-Explo'].includes(USER_NAME)) {

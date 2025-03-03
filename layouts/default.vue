@@ -281,7 +281,7 @@
     <div style="display: flex;">
 
       <div
-        v-if="USER_ROLE == 'FOR_DOCUMENT_ADMIN' || USER_ROLE == 'BOR-HIN-KHUAT' || USER_ROLE == 'FOR_DOCUMENT' || USER_NAME == 'borhinkuad-konengua' || USER_ROLE == 'borhinkuad-sykhoun' || USER_ROLE == 'borhinkuad-tha' || USER_ROLE == 'borhinkuad-xiengkong' || USER_ROLE == 'INVENANSFINANCE'">
+        v-if="  USER_ROLE == 'BOR-HIN-KHUAT' || USER_ROLE == 'FOR_DOCUMENT' || USER_NAME == 'borhinkuad-konengua' || USER_ROLE == 'borhinkuad-sykhoun' || USER_ROLE == 'borhinkuad-tha' || USER_ROLE == 'borhinkuad-xiengkong' || USER_ROLE == 'INVENANSFINANCE'">
         <v-btn style="background-color: #f44336;width: 100px; margin-left: 20px; margin-top: 20px; " rounded
           @click="onLogOut" text elevation="0">
           <v-icon color="white">mdi-power</v-icon>

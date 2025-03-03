@@ -358,7 +358,7 @@ export default {
             searchQuery: "",
             formValid: false,
             bouang: null,
-            bouang1: "holyshit",
+            bouang1: "holyshit", 
             village: ''
         };
     },
@@ -396,7 +396,7 @@ export default {
                     this.truck_data_list = [];
                 } else {
                     this.truck_data_list = response.data;
-                }
+                } 
             } catch (error) {
                 console.log(error);
                 this.$swal.fire({

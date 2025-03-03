@@ -517,7 +517,7 @@
                                     </v-list-item-content>
                                 </template>
                                 <v-list-item>
-                                    <v-btn rounded @click="toImage1(branch.key_id, branch.b_name,)">
+                                    <v-btn rounded @click="toSang1( branch.b_name,)">
                                         ສາງນໍ້າມັນ
                                     </v-btn>
                                     <v-spacer></v-spacer>
@@ -708,6 +708,12 @@ export default {
         toSang(bouang, village) {
             this.$router.push({
                 path: "/wareHouse/warehouse1",
+                query: { bouang, village },
+            });
+        },
+        toSang1(bouang, village) {
+            this.$router.push({
+                path: "/repair/repair3",
                 query: { bouang, village },
             });
         },

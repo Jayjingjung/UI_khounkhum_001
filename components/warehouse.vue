@@ -2,18 +2,9 @@
     <div>
         <v-card class="card-shadow" rounded="lg" style="border:0.5px solid #e0e0e0;border-radius:3px">
             <v-card-title style="background-color:#a05de1" class="white--text">
-                ອາໄລ
+                ອາໄຫຼ່ ແລະ ນໍ້າມັນໃນສາງ
             </v-card-title>
             <v-row>
-                <div>
-                    <v-col>
-                        <!-- <v-badge :content="" color="teal"> -->
-                        <v-btn style="border: 2px solid rgb(160,93,225)" to="./product-list">ນໍາເຂົ້າອາໄລ</v-btn>
-                        <v-badge style="margin-left: -35px;" :content="TOTAL_total_Wait" color="teal">
-                        </v-badge>
-                        <!-- </v-badge> -->
-                    </v-col>
-                </div>
                 <div class="mt-2 ml-4 pt-6" style="width: 500px; ">
                     <v-text-field dense solo flat background-color="#f5f5f5" v-model="search" placeholder="ຄົ້ນຫາ..."
                         prepend-inner-icon="mdi-magnify" clearable></v-text-field>
@@ -22,7 +13,7 @@
             <div v-if="sumFooter" class="sum-footer mt-4">
                 <v-card>
                     <v-card-title class="text-right">
-                        ມູນລາຄ່າລາໄລທັງໝົດ ທີຢູ່ໃນສາງ: {{ sumFooter.totalValue }}
+                        ມູນລາຄ່າອາໄຫຼ່ທັງໝົດທີຢູ່ໃນສາງ: {{ sumFooter.totalValue }}
                     </v-card-title>
                 </v-card>
             </div>
@@ -123,9 +114,9 @@
                             <tr>
                                 <td>ລຳດັບ</td>
                                 <td>ຮູບພາບ</td>
-                                <td>ລາໄລ</td>
+                                <td>ອາໄຫຼ່</td>
                                 <td>ຈໍານວນ</td>
-                                <td>ຫົວນວຍ</td>
+                                <td>ຫົວໜ່ວຍ</td>
                                 <td>ລາຄາ</td>
                                 <td>ລາຄາທັງໝົດ</td>
                             </tr>
@@ -187,12 +178,10 @@ export default {
     mounted() {
         const bouang = this.$route.query.bouang;
         const village = this.$route.query.village;
-
         if (bouang && village) {
             this.bouang = bouang;
             this.village = village;
         }
-
         this.total_count();
         this.USER_ID = localStorage.getItem('USER_ID');
         this.USER_NAME = localStorage.getItem('USER_NAME');
@@ -279,17 +268,14 @@ export default {
                 const response = await this.$axios.$post('ReportStock.service', {
                     toKen: localStorage.getItem('toKen'),
                 });
-
                 console.log('API response:', response);
-
                 if (response?.status === '00' && response?.data) {
                     // ตรวจสอบว่า bouang มีค่าหรือไม่
-                    if (this.bouang1) {
-                        this.truck_data_list = response.data.filter(item => item.unitPirce === this.bouang1);
+                    if (this.bouang) {
+                        this.truck_data_list = response.data.filter(item => item.unitPirce === this.bouang);
                     } else {
                         this.truck_data_list = response.data; // ถ้า bouang เป็น null ให้แสดงข้อมูลทั้งหมด
                     }
-
                     this.sumFooter = response.sumFooter;
                 } else {
                     this.showErrorAlert('Error', 'Failed to fetch data from the API');
@@ -323,16 +309,13 @@ export default {
         size: A4;
         margin: 1in;
     }
-
     body * {
         visibility: hidden;
     }
-
     #print,
     #print * {
         visibility: visible;
     }
-
     #print {
         position: absolute;
         top: 0px;
@@ -340,7 +323,6 @@ export default {
         left: 0px;
     }
 }
-
 .v-btn {
     margin-top: 10px;
     margin-bottom: 10px;
@@ -348,7 +330,6 @@ export default {
     margin-right: 10px;
     width: 150px;
 }
-
 .sum-footer {
     background-color: #f5f5f5;
     padding: 10px;

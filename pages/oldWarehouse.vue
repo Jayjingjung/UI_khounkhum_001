@@ -62,8 +62,10 @@
                             <v-card-actions>
                                 <v-btn color="error" @click="editDialog = false">ຍົກເລີກ</v-btn>
                                 <v-spacer></v-spacer>
-                                <v-btn color="primary" @click="updatePart" v-if="selectedPart.imagePreview && selectedPart.image">ອັບເດັບ</v-btn>
-                                <div v-else  style="font-size: 20px;font-weight: bold;color: red;">ກາລຸນາປ້ອນຮູບກ່ອນທຸກຄັ້ງ</div>
+                                <v-btn color="primary" @click="updatePart"
+                                    v-if="selectedPart.imagePreview && selectedPart.image">ອັບເດັບ</v-btn>
+                                <div v-else style="font-size: 20px;font-weight: bold;color: red;">
+                                    ກາລຸນາປ້ອນຮູບກ່ອນທຸກຄັ້ງ</div>
                             </v-card-actions>
                         </v-card-text>
                     </v-card>
@@ -150,10 +152,59 @@
                         <div>
                             <v-img style="display: block;justify-self: center;" :src="selectedPart?.image"
                                 max-width="250px" />
+                            <div v-if="$vuetify.breakpoint.xs">
+                                <div style="text-align: center; width: 300px;">
+                                    <div class="mt-10" style="font-size: 18px;font-weight: bold; text-align: center;">
+                                        {{ selectedPart?.namec }}
+                                    </div>
+                                    <div class="mt-4" style="font-size: 16px">
+                                        ລາຄາ:
+                                        {{ selectedPart?.price }}
+                                    </div>
+                                    <div style="font-size: 16px">
+                                        ຈໍານວນ:
+                                        {{ selectedPart?.totall }}
+                                    </div>
+                                    <v-row>
+                                        <v-col cols="5">
+                                            <div v-if="selectedPart?.headc" style="font-size: 16px">
+                                                ຫົວລົດ:
+                                                <div>
+                                                    {{ selectedPart?.headc }}
+                                                </div>
+                                            </div>
+                                            <div v-if="selectedPart?.tailc" style="font-size: 16px">
+                                                ຫາງລົດ:
+                                                <div>
+                                                    {{ selectedPart?.tailc }}
+                                                </div>
+                                            </div>
+                                        </v-col>
+                                        <v-col cols="7">
+                                            <div>
+                                                <div class="ml-2">
+                                                    ວັນທີ່ນໍາເຂົ້າ
+                                                </div>
+                                                <div color="orange" small>
+                                                    {{ selectedPart?.date }}
+                                                </div>
+                                            </div>
+                                        </v-col>
+                                    </v-row>
+                                    <div>
+                                        <v-card-text>
+                                            ລາຍລະອຽດ:
+                                            <div>
+                                                {{ selectedPart?.detail }}
+                                            </div>
+                                        </v-card-text>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <v-spacer></v-spacer>
-                        <div class="mr-10">
-                            <div style="text-align: center;">
+                        <div class="mr-10" v-if="$vuetify.breakpoint.sm || $vuetify.breakpoint.md || $vuetify.breakpoint.lg || $vuetify.breakpoint.xl">
+                            <div style="text-align: center; width: 300px;">
                                 <div class="mt-10" style="font-size: 18px;font-weight: bold; text-align: center;">
                                     {{ selectedPart?.namec }}
                                 </div>

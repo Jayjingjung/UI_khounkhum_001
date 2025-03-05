@@ -75,13 +75,10 @@
         </v-dialog>
         <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn style="margin-top: 20px;margin-left: 20px; font-size: 16px;font-weight: bold " @click="dialog = true"
-                color="#00E676">
-                <v-icon color="white">
-                    mdi-account-search
-                </v-icon>
+            <v-chip style=" font-size: 16px;font-weight: bold " @click="dialog = true"
+            color="#00E676">
                 ຍອດລວມທີ່ຈ່າຍໃຫ້ລູກຄ້າ
-            </v-btn>
+            </v-chip>
         </v-card-actions>
         <v-card variant="outlined" class="card-shadow mb-4" rounded="lg" color="#00E676">
             <div style="font-size: 20px; font-weight: bold; padding: 18px 18px 0px 18px; " >
@@ -108,9 +105,9 @@
                                     }}</td>
                                 <td>{{ item.amount_money ?
                                     item.amount_money.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') : '' }}</td>
+                                    <td>{{ item.num }}</td>
                                 <td>{{ item.totalMoney ? item.totalMoney.toString().replace(/\B(?=(\d{3})+(?!\d))/g,
                                     ',') : '' }}</td>
-                                <td>{{ item.num }}</td>
                                 <!-- Currency with Conditional Styling -->
                                 <td :style="currencyStyle(item.currency)">
                                     {{ item.currency }}

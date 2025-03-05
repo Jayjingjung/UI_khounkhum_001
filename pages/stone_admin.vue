@@ -300,7 +300,8 @@
                                     <v-btn rounded to="re01akasarn">
                                         ເບີ່ງ
                                     </v-btn>
-                                    <v-spacer></v-spacer>
+                                </v-list-item>
+                                <v-list-item>
                                     <v-btn to="./HR/akasarn" color="success" rounded>
                                         ເພີ່ມ
                                     </v-btn>
@@ -311,7 +312,7 @@
                     <v-col cols="auto">
                         <v-card color="#E0F7FA" max-width="300">
                             <!-- v-if="USER_ROLE !== 'BOR-HIN-KHUAT'" -->
-                            <v-list-group no-action sub-group v-if="USER_ROLE === 'FOR_DOCUMENT_ADMIN'">
+                            <v-list-group no-action sub-group >
                                 <template v-slot:activator>
                                     <v-icon color="white">mdi-file-document</v-icon>
                                     <v-list-item-content>
@@ -320,17 +321,12 @@
                                     </v-list-item-content>
                                 </template>
                                 <v-list-item>
-                                    <v-btn rounded>
-                                        ສາງນໍ້າມັນ
+                                    <v-btn to="./repair/repair3" rounded>
+                                        ສາງອາໄຫຼ່ ແລະ ນໍໍ້າມັນ
                                     </v-btn>
                                 </v-list-item>
                                 <v-list-item>
-                                    <v-btn to="./wareHouse/warehouse" rounded>
-                                        ສາງອາໄຫຼ່
-                                    </v-btn>
-                                </v-list-item>
-                                <v-list-item>
-                                    <v-btn to="oldWarehouse" rounded>
+                                    <v-btn to="oldWarehouse4" rounded>
                                         ສາງອາໄຫຼ່ເກົ່າ
                                     </v-btn>
                                 </v-list-item>
@@ -508,7 +504,7 @@
                                     </v-btn>
                                 </v-list-item>
                             </v-list-group>
-                            <v-list-group no-action sub-group >
+                            <v-list-group no-action sub-group>
                                 <template v-slot:activator>
                                     <v-icon color="green">mdi-message-image-outline</v-icon>
                                     <v-list-item-content>
@@ -517,13 +513,13 @@
                                     </v-list-item-content>
                                 </template>
                                 <v-list-item>
-                                    <v-btn rounded @click="toSang1( branch.b_name,)">
-                                        ສາງນໍ້າມັນ
+                                    <v-btn rounded @click="toSang1(branch.b_name,)">
+                                        ສາງອະໄຫຼ່ ແລະ ນໍ້າມັນ
                                     </v-btn>
                                     <v-spacer></v-spacer>
-                                    <v-btn rounded @click="toSang(branch.key_id, branch.b_name,)">
+                                    <!-- <v-btn rounded @click="toSang(branch.key_id, branch.b_name,)">
                                         ສາງອາໄຫຼ່
-                                    </v-btn>
+                                    </v-btn> -->
                                     <v-spacer></v-spacer>
                                     <v-btn @click="toOldSang(branch.key_id, branch.b_name)" rounded>
                                         ສາງອາໄຫຼ່ເກົ່າ
@@ -701,7 +697,7 @@ export default {
         },
         toOldSang(bouang, village) {
             this.$router.push({
-                name: "oldWarehouse3",
+                name: "oldwarehouse4",
                 query: { bouang, village },
             });
         },

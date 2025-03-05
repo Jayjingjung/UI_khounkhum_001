@@ -35,7 +35,7 @@
                     </div>
                 </v-row>
                 <div style="background-color:#e5ac73;height: 70px; color: black; font-size: 18px; font-weight: bold;padding: 16px;" >
-                    ລາຍການທີໄດ້ຮັບການສັ່ງຊື້ເເລ້ວໆ
+                    ລາຍການທີໄດ້ຮັບການສັ່ງຊື້ເເລ້ວ
                 </div>
                 <v-data-table :headers="truck_table_headers" :items="filteredItems" :search="search">
                     <template v-slot:item="row">

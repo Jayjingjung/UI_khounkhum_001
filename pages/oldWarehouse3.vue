@@ -15,7 +15,7 @@
                     </div>
                 </div>
                 <v-dialog max-width="700px" v-model="dialog">
-                    <sangkao />
+                    <sangkao @closeDialog="dialog = false" />
                 </v-dialog>
                 <v-dialog max-width="500px" v-model="editDialog">
                     <v-card>
@@ -155,7 +155,7 @@
                                 max-width="250px" /> -->
                             <a :href="selectedPart?.image" target="_blank">
                                 <v-img style="display: block; justify-self: center; cursor: pointer;"
-                                    :src="selectedPart?.image" max-width="250px" />
+                                    :src="selectedPart?.image" max-width="250px" max-height="500px" />
                             </a>
                             <div v-if="$vuetify.breakpoint.xs">
                                 <div style="text-align: center; width: 300px;">
@@ -357,11 +357,21 @@ export default {
             showPartDialog: false,
             searchQuery: "",
             formValid: false,
+            bouang: null,
+            bouang1: "holyshit", 
+            village: ''
         };
     },
     async mounted() {
+        const bouang = this.$route.query.bouang;
+        const village = this.$route.query.village;
+
+        if (bouang && village) {
+            this.bouang = bouang;
+            this.village = village;
+        }
         await this.onGetTruckList();
-        this.mapTruckDataToCategories(); // group data
+        this.mapTruckDataToCategories(); // Group data
     },
     computed: {
         filteredCategories() {
@@ -386,7 +396,7 @@ export default {
                     this.truck_data_list = [];
                 } else {
                     this.truck_data_list = response.data;
-                }
+                } 
             } catch (error) {
                 console.log(error);
                 this.$swal.fire({
@@ -402,9 +412,13 @@ export default {
             }
         },
         mapTruckDataToCategories() {
-            // Group truck data by h_VICIVLE_BRANCH (or any other field you want to use as a category)
             const groupedData = this.truck_data_list.reduce((acc, truck) => {
-                const categoryName = truck.selectedType_Oldwarehouse; // Use h_VICIVLE_BRANCH as the category name
+                // Check if the truck matches the bouang value
+                if (this.bouang1 && truck.selectedType_Oldwarehouse !== this.bouang1) {
+                    return acc; // Skip if it doesn't match
+                }
+
+                const categoryName = truck.selectedType_Oldwarehouse;
                 if (!acc[categoryName]) {
                     acc[categoryName] = {
                         type: categoryName,
@@ -412,8 +426,8 @@ export default {
                     };
                 }
                 acc[categoryName].parts.push({
-                    type: truck.selectedType_Oldwarehouse, // Use selectedType_Oldwarehouse as the part name
-                    image: truck.image_Oldwarehouse, // Use image_Oldwarehouse as the image URL
+                    type: truck.selectedType_Oldwarehouse,
+                    image: truck.image_Oldwarehouse,
                     namec: truck.itemName_Oldwarehouse,
                     totall: truck.qty_Oldwarehouse,
                     headc: truck.vehicle_Oldwarehouse,
@@ -423,8 +437,10 @@ export default {
                     detail: truck.description_Oldwarehouse,
                     id: truck.key_id
                 });
+
                 return acc;
             }, {});
+
             // Convert grouped data into an array of categories
             this.categories = Object.values(groupedData);
         },

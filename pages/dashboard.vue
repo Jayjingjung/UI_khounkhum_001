@@ -18,7 +18,7 @@
                     </v-card>
                 </div>
             </v-col> -->
-            <v-col cols="12" md="3">
+            <!-- <v-col cols="12" md="3">
                 <div>
                     <v-card to="/dashbord_new" height="100" elevation="2" rounded="lg" width="310px"
                         style="border: 1px solid rgb(222, 222, 222);">
@@ -33,10 +33,38 @@
                         </v-card-text>
                     </v-card>
                 </div>
-
+            </v-col> -->
+            <v-col cols="12" md="3">
+                <div>
+                    <v-card  height="100" elevation="2" rounded="lg" width="310px"
+                        style="border: 1px solid rgb(222, 222, 222);">
+                        <v-card-text>
+                            <div class="d-flex align-center">
+                                <v-icon color="orange" size="55">mdi-cash-multiple</v-icon>
+                                <div class="pl-5 pb-5 pt-5 pr-5">
+                                    <span style="font-size: 17pt; font-weight: bold;">ໜີ້ຕ້ອງຮັບ</span><br />
+                                </div>
+                            </div>
+                        </v-card-text>
+                    </v-card>
+                </div>
+            </v-col>
+            <v-col cols="12" md="3">
+                <div>
+                    <v-card  height="100" elevation="2" rounded="lg" width="310px"
+                        style="border: 1px solid rgb(222, 222, 222);">
+                        <v-card-text>
+                            <div class="d-flex align-center">
+                                <v-icon color="orange" size="55">mdi-cash-multiple</v-icon>
+                                <div class="pl-5 pb-5 pt-5 pr-5">
+                                    <span style="font-size: 17pt; font-weight: bold;">ລາຍຈ່າຍລວມ(ບໍ່)</span><br />
+                                </div>
+                            </div>
+                        </v-card-text>
+                    </v-card>
+                </div>
             </v-col>
         </v-row>
-
         <!-- ປະທານ -->
         <v-row>
             <v-col cols="12" md="3">
@@ -45,18 +73,31 @@
                         style="border: 1px solid rgb(222, 222, 222);">
                         <v-card-text>
                             <div class="d-flex align-center">
-                                <v-icon color="orange" size="55">mdi-receipt-send-outline</v-icon>
+                                <v-icon color="orange" size="55">mdi-cash-multiple</v-icon>
                                 <div class="pl-5 pb-5 pt-5 pr-5">
-                                    <span style="font-size: 17pt; font-weight: bold;">ໃບສະເໜີ</span><br />
+                                    <span style="font-size: 17pt; font-weight: bold;">ໜີ້ຕ້ອງສົ່ງ</span><br />
 
                                 </div>
                             </div>
                         </v-card-text>
                     </v-card>
                 </div>
-
             </v-col>
-
+            <v-col cols="12" md="3">
+                <div>
+                    <v-card  height="100" elevation="2" rounded="lg" width="310px"
+                        style="border: 1px solid rgb(222, 222, 222);">
+                        <v-card-text>
+                            <div class="d-flex align-center">
+                                <v-icon color="orange" size="55">mdi-cash-multiple</v-icon>
+                                <div class="pl-5 pb-5 pt-5 pr-5">
+                                    <span style="font-size: 17pt; font-weight: bold;">ລາຍຮັບລວມ(ບໍ່)</span><br />
+                                </div>
+                            </div>
+                        </v-card-text>
+                    </v-card>
+                </div>
+            </v-col>
         </v-row>
         <v-row>
             <v-col cols="12" md="3">

@@ -7,7 +7,8 @@
                 </v-btn>
             </div>
             <v-spacer></v-spacer>
-            <v-btn v-if="USER_ROLE === 'FOR_DOCUMENT_ADMIN'" color="#00E676" style="font-size: 20px; font-weight: bold;" :to="{ path: '/borhinsetting' }">
+            <v-btn v-if="USER_ROLE === 'FOR_DOCUMENT_ADMIN'" color="#00E676" style="font-size: 20px; font-weight: bold;"
+                :to="{ path: '/borhinsetting' }">
                 ຈັດການບໍ່ຕ່າງໆ
             </v-btn>
         </v-card-actions>
@@ -151,7 +152,6 @@
                                     </v-card-actions>
                                 </div>
                             </v-card>
-
                             <!-- Filtered List -->
                             <div v-if="filteredReportList.length">
 
@@ -300,9 +300,34 @@
                                     <v-btn rounded to="re01akasarn">
                                         ເບີ່ງ
                                     </v-btn>
-                                    <v-spacer></v-spacer>
+                                </v-list-item>
+                                <v-list-item>
                                     <v-btn to="./HR/akasarn" color="success" rounded>
                                         ເພີ່ມ
+                                    </v-btn>
+                                </v-list-item>
+                            </v-list-group>
+                        </v-card>
+                    </v-col>
+                    <v-col cols="auto">
+                        <v-card color="#E0F7FA" max-width="300">
+                            <!-- v-if="USER_ROLE !== 'BOR-HIN-KHUAT'" -->
+                            <v-list-group no-action sub-group >
+                                <template v-slot:activator>
+                                    <v-icon color="purple">mdi-warehouse</v-icon>
+                                    <v-list-item-content>
+                                        <v-list-item-title style="font-size: 20px; font-weight: bold;">ລວມສາງນໍ້າມັນ ແລະ
+                                            ອາໄຫຼ່</v-list-item-title>
+                                    </v-list-item-content>
+                                </template>
+                                <v-list-item>
+                                    <v-btn to="./repair/repair3" rounded>
+                                        ສາງອາໄຫຼ່ ແລະ ນໍໍ້າມັນ
+                                    </v-btn>
+                                </v-list-item>
+                                <v-list-item>
+                                    <v-btn to="oldWarehouse4" rounded>
+                                        ສາງອາໄຫຼ່ເກົ່າ
                                     </v-btn>
                                 </v-list-item>
                             </v-list-group>
@@ -311,8 +336,8 @@
                 </v-row>
             </v-container>
             <!-- Loop through the branches and display each in v-col -->
-            <v-col v-for="(branch, index) in branches" :key="index" >
-                <v-card class="mt-4" >
+            <v-col v-for="(branch, index) in branches" :key="index">
+                <v-card class="mt-4">
                     <v-list color="#E0F7FA">
                         <v-list-group :value="false" prepend-icon="mdi-excavator"
                             @click="setTokenAndFetch(branch.key_id)">
@@ -479,6 +504,64 @@
                                     </v-btn>
                                 </v-list-item>
                             </v-list-group>
+                            <v-list-group no-action sub-group>
+                                <template v-slot:activator>
+                                    <v-icon color="purple">mdi-warehouse</v-icon>
+                                    <v-list-item-content>
+                                        <v-list-item-title
+                                            style="height: 20px; overflow: visible;">ສາງ</v-list-item-title>
+                                    </v-list-item-content>
+                                </template>
+                                <v-list-item>
+                                    <v-btn rounded @click="toSang1(branch.b_name,)">
+                                        ສາງອະໄຫຼ່ ແລະ ນໍ້າມັນ
+                                    </v-btn>
+                                    <v-spacer></v-spacer>
+                                    <!-- <v-btn rounded @click="toSang(branch.key_id, branch.b_name,)">
+                                        ສາງອາໄຫຼ່
+                                    </v-btn> -->
+                                    <v-spacer></v-spacer>
+                                    <v-btn @click="toOldSang(branch.key_id, branch.b_name)" rounded>
+                                        ສາງອາໄຫຼ່ເກົ່າ
+                                    </v-btn>
+                                </v-list-item>
+                            </v-list-group>
+                            <v-list-group no-action sub-group>
+                                <template v-slot:activator>
+                                    <v-icon color="yellow">mdi-cash-multiple</v-icon>
+                                    <v-list-item-content>
+                                        <v-list-item-title
+                                            style="height: 20px; overflow: visible;">Stock ແຮ່</v-list-item-title>
+                                    </v-list-item-content>
+                                </template>
+                                <v-list-item>
+                                    <!-- <v-btn rounded >
+                                        ໜີ້ຕ້ອງຮັບ
+                                    </v-btn>
+                                    <v-spacer></v-spacer>
+                                    <v-btn  rounded>
+                                        ໜີ້ຕ້ອງສົ່ງ
+                                    </v-btn> -->
+                                </v-list-item>
+                            </v-list-group>
+                            <v-list-group no-action sub-group>
+                                <template v-slot:activator>
+                                    <v-icon color="yellow">mdi-cash-multiple</v-icon>
+                                    <v-list-item-content>
+                                        <v-list-item-title
+                                            style="height: 20px; overflow: visible;">ໜີ້</v-list-item-title>
+                                    </v-list-item-content>
+                                </template>
+                                <v-list-item>
+                                    <v-btn rounded >
+                                        ໜີ້ຕ້ອງຮັບ
+                                    </v-btn>
+                                    <v-spacer></v-spacer>
+                                    <v-btn  rounded>
+                                        ໜີ້ຕ້ອງສົ່ງ
+                                    </v-btn>
+                                </v-list-item>
+                            </v-list-group>
                         </v-list-group>
                     </v-list>
                 </v-card>
@@ -488,6 +571,8 @@
 </template>
 
 <script>
+import OldWarehouse from './oldWarehouse.vue';
+
 export default {
     data() {
         return {
@@ -643,6 +728,24 @@ export default {
         showDocument(bouang, village) {
             this.$router.push({
                 name: "documentation2",
+                query: { bouang, village },
+            });
+        },
+        toOldSang(bouang, village) {
+            this.$router.push({
+                name: "oldwarehouse4",
+                query: { bouang, village },
+            });
+        },
+        toSang(bouang, village) {
+            this.$router.push({
+                path: "/wareHouse/warehouse1",
+                query: { bouang, village },
+            });
+        },
+        toSang1(bouang, village) {
+            this.$router.push({
+                path: "/repair/repair3",
                 query: { bouang, village },
             });
         },

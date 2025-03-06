@@ -14,6 +14,7 @@
                 <v-spacer></v-spacer>
                 ແບບຟອມ ອັບເດດ ຂໍ້ມູນ ອາໄຫຼ່
                 <v-spacer></v-spacer>
+                <v-btn color="#f593b3" class="white--text" @click="print"><v-icon>mdi-printer</v-icon>ພິມລາຍງານ</v-btn>
             </v-card-title>
             <v-card-text class="pa-8 mx-auto" width="1200" style="border:0px solid #e0e0e0">
                 <v-form v-model="valid" lazy-validation ref="form">
@@ -47,6 +48,11 @@
                                     <v-text-field label="* ຈຳນວນ" dense outlined background-color="#f5f5f5"
                                         v-model="qty"></v-text-field>
                                 </v-col>
+                                <v-col cols="6" md="3" sm="3">
+
+                                    <v-textarea dense outlined v-model="ລາຍລະອຽດ" label="ລາຍລະອຽດ"
+                                        required></v-textarea>
+                                </v-col>
                             </v-row>
                         </v-col>
                     </v-row>
@@ -57,6 +63,69 @@
                 </v-form>
             </v-card-text>
         </v-card>
+        <div style="display:none">
+            <div id="modalInvoice">
+                <Noti />
+                <v-row
+                    style="font-size:14px;margin-left: 50px;margin-top: 10px;display:flex;justify-content:start;flex-direction:column;align-items:start">
+                    <div>
+                        <span>ສໍານັກງານຕັ້ງຢູ່ ອາຄານ ສະໜາມຍິງປືນ 20 ມັງກອນ, ສະໜາມກີລາກອງທັບ,</span>
+                        <span> ບ້ານຈອມມະນີ, ເມືອງ ໄຊເສດຖາ, ນະຄອນຫຼວງວຽງຈັນ, ສປປ ລາວ</span>
+                        <span>ໂທລະສັບ: 020 92661111, 020 92 254 999 </span>
+                        <span> ອີເມວ: kounkham@Mining | ເວັບໄຊ: kounkham</span>
+                    </div>
+                </v-row>
+
+                <div style="margin-top: 20px;">
+                    <table
+                        style="padding:2px;border: 0.5px solid #999;border-collapse: collapse;width:100%; font-size: 12px">
+                        <tr style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;border-radius:10px">
+                            <td style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px"
+                                class="font-weight-bold">ຮູບພາບ</td>
+                            <td style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px"
+                                class="font-weight-bold">ລະຫັດ</td>
+                            <td style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px"
+                                class="font-weight-bold">ຫົວໜ່ວຍ</td>
+                            <td style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px"
+                                class="font-weight-bold">ລາຄາ</td>
+                            <td style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px"
+                                class="font-weight-bold">ຈຳນວນ</td>
+                                <td style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px"
+                                class="font-weight-bold">ລາຍລະອຽດ</td>
+
+
+                        </tr>
+                        <tr style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;border-radius:10px">
+
+
+                            <td style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px"
+                                class="font-weight-bold">
+                                <img :src="img" height="220px" cover>
+
+                            </td>
+                            <td style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px"
+                                class="font-weight-bold">{{
+                                    itemName }}</td>
+                            <td style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px"
+                                class="font-weight-bold">{{
+                                    unit }}</td>
+                            <td style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px"
+                                class="font-weight-bold">{{
+                                    unit_price }}</td>
+                            <td style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px"
+                                class="font-weight-bold">{{
+                                    qty }}</td>
+                                      <td style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px"
+                                class="font-weight-bold">{{
+                                    ລາຍລະອຽດ }}</td>
+
+                        </tr>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+
     </div>
 </template>
 
@@ -68,13 +137,17 @@ export default {
     data() {
         return {
             loading_processing: false,
-            img: null,
-            itemName: '',
-            unit: '',
-            unit_price: '',
-            qty: '',
+            item: {
+                img: null,
+                itemName: '',
+                unit: '',
+                unit_price: '',
+                qty: '',
+            },
             valid: false,
             item_id: '',
+            items: [],
+            nameRules: [v => !!v || 'File is required'],
         }
     },
 
@@ -85,6 +158,20 @@ export default {
     },
 
     methods: {
+
+        print() {
+            const modal = document.getElementById("modalInvoice")
+            const cloned = modal.cloneNode(true)
+            let section = document.getElementById("print")
+            if (!section) {
+                section = document.createElement("div")
+                section.id = "print"
+                document.body.appendChild(section)
+            }
+            section.innerHTML = "";
+            section.appendChild(cloned);
+            window.print();
+        },
         async onGetadd(item_id) {
             try {
                 this.loading_processing = true;
@@ -203,5 +290,34 @@ export default {
 
 .red-background {
     background-color: red !important;
+}
+
+@media screen {
+    #print {
+        display: none;
+    }
+}
+
+@media print {
+    @page {
+        size: A4;
+        margin: 1in;
+    }
+
+    body * {
+        visibility: hidden;
+    }
+
+    #print,
+    #print * {
+        visibility: visible;
+    }
+
+    #print {
+        position: absolute;
+        top: 0px;
+        right: 0px;
+        left: 0px;
+    }
 }
 </style>

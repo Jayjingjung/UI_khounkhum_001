@@ -1,20 +1,12 @@
 <template>
     <div>
-        <div>
+        <div style="display: flex;">
             <!-- <v-img src="path-to-image.jpg" alt="Header Image" height="200px"></v-img> Add an image if needed -->
-
-            <v-card class="card-shadow mb-4" rounded="lg">
-
-
+            <v-card style="width: 65%;" class="card-shadow mb-4" rounded="lg">
                 <v-card-title style="display:flex;background-color:#42c69f;color:white">
-
-
                     <v-btn fab elevation="0" dark width="30" height="30" small color="white" to="receivedAll">
                         <v-icon color="#73c5e5">mdi-arrow-left</v-icon>
                     </v-btn>
-
-
-
                     <v-spacer></v-spacer>
                     ໃບສະເໝີລາຄາ
                     <v-spacer></v-spacer>
@@ -22,15 +14,7 @@
                         <v-icon>mdi-printer</v-icon> ພີມລາຍງານທັງໝົດ
                     </v-btn>
                 </v-card-title>
-
-
-
                 <div class="main-content">
-                    <!-- Customer Selection -->
-                    <!-- <v-card> -->
-
-
-
                     <v-col cols="12" md="4" sm="6">
                         <v-icon color="black">mdi-account</v-icon>
                         <span>ລູກຄ້າ</span>
@@ -71,16 +55,7 @@
                         </div>
 
                     </v-col>
-                    <!-- <v-col cols="12" md="4" sm="6">
-                        <v-icon color="black">mdi-file-document-outline</v-icon>
 
-                        <span>ໃບສະເໜີລາຄາເລກທີ</span>
-
-                        <v-text-field label="ພີມໃບສະເໜີລາຄາເລກທີ" outlined dense v-model="quotation"></v-text-field>
-                    </v-col> -->
-                    <!-- </v-card> -->
-                </div>
-                <div class="main-content">
                     <v-col cols="12" md="4" sm="6">
                         <v-icon color="black">mdi-calendar-range</v-icon>
 
@@ -97,6 +72,7 @@
                             </v-date-picker>
                         </v-menu>
                     </v-col>
+
 
 
                     <v-col cols="12" md="4" sm="6">
@@ -116,26 +92,6 @@
                             </v-date-picker>
                         </v-menu>
                     </v-col>
-
-                    <!-- <v-col cols="12" md="4" sm="6">
-                        <v-icon color="black">mdi-file-document-outline</v-icon>
-
-                        <span>ໃບສັ່ງເລກທີ</span>
-                        <v-text-field label="ພີມໃບສັ່ງເລກທີ" outlined dense v-model="lek_bai_sung"
-                            :rules="[v => !!v || 'Required field']"></v-text-field>
-                    </v-col> -->
-                </div>
-
-                <div class="footer-content">
-
-                    <!-- <v-col cols="12" md="4" sm="6">
-                        <v-icon color="black">mdi-file-document-outline</v-icon>
-
-                        <span>ການອ້າງອີງ</span>
-                        <v-text-field label="ພີມການອ້າງອີງ" outlined dense v-model="reference_number"></v-text-field>
-                    </v-col> -->
-                    <!-- Customer Selection -->
-
                     <v-col cols="12" md="4" sm="6">
                         <div style="margin-right: 10px;">
                             <v-icon color="black">mdi-file-document-outline</v-icon>
@@ -145,8 +101,6 @@
                             <v-text-field label="ພິມຫົວຂໍ" outlined dense v-model="topic"></v-text-field>
                         </div>
                     </v-col>
-
-
 
                     <v-col cols="12" md="4" sm="6">
                         <v-icon color="black">mdi-account</v-icon>
@@ -158,51 +112,14 @@
                             <v-autocomplete outlined dense label="-ປະເພດ-" :items="buang_data_list"
                                 item-text="nameOfBouang" item-value="key_id" @change="onGetbuangDetails">
                             </v-autocomplete>
-
                         </div>
                     </v-col>
-
-
-                </div>
-
-                <v-row justify="center" align="center">
-                    <v-col cols="12" md="4" sm="6">
-                        <v-icon color="black">mdi-file-pdf-box</v-icon>
-                        <span>ອັບໂຫຼດເອກກະສານ1</span>
-                        <v-file-input style="margin-right: 30px;" ref="fileInput1" label="ອັບໂຫຼດເອກກະສານ1" outlined
-                            dense prepend-icon="mdi-file-pdf" append-inner-icon="mdi-file-pdf"
-                            background-color="#f5f5f5" v-model="document_1" @change="checkFileName1">
-                        </v-file-input>
-                    </v-col>
-
-
-
-
-
-                    <v-col cols="12" md="4" sm="6">
-                        <v-icon color="black">mdi-file-pdf-box</v-icon>
-                        <span>ອັບໂຫຼດເອກກະສານ1</span>
-
-
-                        <v-card-text>
-                            <iframe v-if="document_1" :src="document_1" width="100%" height="500px"
-                                frameborder="0"></iframe>
-                        </v-card-text>
-                    </v-col>
-
-
-                </v-row>
-
-                <div class="footer-content">
-
 
 
                     <v-col cols="12" md="4" sm="6">
                         <div style="margin-right: 10px;">
                             <v-icon size="55" color="black">mdi-tape-measure</v-icon>
-
                             <span>ຫົວໜ່ວຍ</span>
-
                             <div class="currency-selection">
                                 <div justify="center" align="center">
                                     <v-btn style="width: 70px;font-size: 20px "
@@ -227,7 +144,6 @@
                                     </v-btn>
                                 </div>
                             </div>
-
                         </div>
                     </v-col>
                     <v-col cols="12" md="4" sm="6">
@@ -242,11 +158,6 @@
                             </v-text-field>
                         </div>
                     </v-col>
-
-                    <!-- Customer Selection -->
-
-
-
 
                     <v-col cols="12" md="4" sm="6">
                         <v-icon size="55" color="black">mdi-cash</v-icon>
@@ -263,11 +174,6 @@
                             </v-text-field>
                         </div>
                     </v-col>
-
-
-                </div>
-
-                <v-row justify="center" align="center">
                     <v-col cols="12" md="4" sm="6">
                         <v-icon size="55" color="black">mdi-cash-plus</v-icon>
                         <span>ລາຄາທັງໝົດ</span>
@@ -282,7 +188,9 @@
                             </div>
                         </div>
                     </v-col>
-                </v-row>
+                </div>
+
+
                 <div>
 
                     <v-data-table :headers="headers" :items="deptList" item-key="key_id" class="elevation-1">
@@ -342,6 +250,24 @@
                 </div>
 
 
+            </v-card>
+            <v-card style="width: 35%;">
+                <v-col cols="12" md="4" sm="6">
+                    <v-icon color="black">mdi-file-pdf-box</v-icon>
+                    <span>ອັບໂຫຼດເອກກະສານ1</span>
+                    <v-file-input style="margin-right: 30px;" ref="fileInput1" label="ອັບໂຫຼດເອກກະສານ1" outlined dense
+                        prepend-icon="mdi-file-pdf" append-inner-icon="mdi-file-pdf" background-color="#f5f5f5"
+                        v-model="document_1" @change="checkFileName1">
+                    </v-file-input>
+                </v-col>
+                <v-col cols="12" md="4" sm="6">
+                    <v-icon color="black">mdi-file-pdf-box</v-icon>
+                    <span>ອັບໂຫຼດເອກກະສານ1</span>
+                    <v-card-text>
+                        <iframe v-if="document_1" :src="document_1" width="800px" height="500px"
+                            frameborder="0"></iframe>
+                    </v-card-text>
+                </v-col>
             </v-card>
             <div style="display:none">
                 <div id="modalInvoice">
@@ -500,7 +426,7 @@
                                 <td style="padding:10px;border: 0.5px solid #999;color:#000;text-align: center;"
                                     class="font-weight-bold">
                                     {{ item.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}
-                                </td> 
+                                </td>
                                 <td style="padding:10px;border: 0.5px solid #999;color:#000;text-align: center;"
                                     class="font-weight-bold">
                                     {{ unit }}
@@ -641,12 +567,12 @@ export default {
             deptList: [],
 
             headers: [
-                { text: 'Key ID', value: 'key_id' },
-                { text: 'List Name', value: 'listName' },
-                { text: 'Quotation Code', value: 'quotation_code' },
-                { text: 'Amount', value: 'amount' },
-                { text: 'Price', value: 'price' },
-                { text: 'Total Price', value: 'totalPrice' },
+                { text: 'ID', value: 'key_id' },
+                { text: 'ຊື່ລູກຄ້າ', value: 'listName' },
+                { text: 'Code', value: 'quotation_code' },
+                { text: 'ຈໍານວນ', value: 'amount' },
+                { text: 'ລາຄາ', value: 'price' },
+                { text: 'ລາຄາທັງໝົດ', value: 'totalPrice' },
             ]
         };
     },
@@ -789,7 +715,7 @@ export default {
                     this.typeName = details.typeName || "";
                     this.bouang = details.type_id || "";
                     this.customer_id = details.customer_id || "";
-            
+
                     this.selectedCurrency = details.currency || "";
                     this.selectedunit = details.unit || "";
                     this.displaynum = details.num || "";

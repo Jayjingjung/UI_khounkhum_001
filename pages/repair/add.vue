@@ -34,6 +34,12 @@
                                 <div class="tops">
                                 </div>
                             </v-col>
+                            <v-col>
+                                <v-textarea label="* ລາຍລະອຽດ" type="commen" dense outlined background-color="#f5f5f5"
+                                    v-model="unit_price"></v-textarea>
+                                <div class="tops">
+                                </div>
+                            </v-col>
                             <!-- <v-col>
                                 <v-text-field label="* ຈໍານວນ" dense outlined background-color="#f5f5f5"
                                     v-model="qty"></v-text-field>
@@ -71,7 +77,7 @@
                                     <img :src="row.item.img">
                                 </v-avatar></td>
                             <!-- ✅ Apply red color if qty > 10 -->
-                            <td :class="{ 'red-text': row?.item?.qty < 10 }">{{ row?.item?.qty }}</td>
+                            <td :class="{ 'red-text': row?.item?.qty < 5 }">{{ row?.item?.qty }}</td>
                             <td>{{ row?.item?.unit }}</td>
                             <td>{{ row?.item?.unit_price?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</td>
                             <td>

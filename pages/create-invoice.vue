@@ -66,7 +66,7 @@
 
                         <v-autocomplete dense outlined v-model="selectedcustomerName" :items="customers" item-value="id"
                             item-text="customerName" label="ເລືອກລູກຄ້າ" placeholder="Choose Customer"
-                            @change="onGetAllPermance"></v-autocomplete>
+                         ></v-autocomplete>
 
                     </div>
 
@@ -87,10 +87,9 @@
                     </div>
                 </div>
                 <div>
-                    <v-data-table :items="sortedReportPerationList" :headers="report_operation_header" :search="search">
+                    <v-data-table :items="report_peration_list" :headers="report_operation_header" :search="search">
                         <template v-slot:item="row">
-                            <tr
-                                @click="onChooseForBill(row?.item?.performancebillno, row?.item?.customer_ID, row?.item?.currency)">
+                            <tr>
                                 <td>
                                     <v-btn fab elevation="0" width="25" height="25" class="card-shadow" outlined
                                         color="green" small
@@ -488,6 +487,8 @@ import moment from 'moment'
 export default {
     data() {
         return {
+            customers: [], // Store customers from API
+
             nextDatePayy: false,
             nextDatePay: null,
             moment: moment,
@@ -526,9 +527,7 @@ export default {
             array_invoice: [],
             data_for_print: [],
             sum_total_print: [],
-            data_header_print: [],
-            selectedcustomerName: null, // Store selected customer ID
-            customers: [], // Store customers from API
+            data_header_print: []
         };
     },
     watch: {
@@ -550,9 +549,6 @@ export default {
         },
     },
     computed: {
-        sortedReportPerationList() {
-            return [...this.report_peration_list].sort((a, b) => new Date(b.datePerformanceCreate) - new Date(a.datePerformanceCreate));
-        },
         formattedStartDate() {
             return this.start_date ? moment(this.start_date).format('YYYY-MM-DD') : '';
         },
@@ -561,12 +557,32 @@ export default {
         },
     },
     mounted() {
+        this.getAllCustomers(); // Fetch customers on page load
+  
+
         this.onGetAllPermance();
         this.onGetInvoiceBillNo();
-        this.getAllCustomers(); // Fetch customers on page load
     },
     methods: {
+        async getAllCustomers() {
+            try {
+                const response = await this.$axios.$post('/getAllCustomer', {
+                    toKen: localStorage.getItem("toKen"),
+                });
 
+                if (response?.status === '00' && response?.data) {
+                    this.customers = response.data.map(customer => ({
+                        id: customer.id, // Send this to API
+                        customerName: customer.customerName, // Show in dropdown
+                    }));
+                } else {
+                    this.customers = [];
+                }
+            } catch (error) {
+                console.error('Error fetching customers:', error);
+                this.customers = [];
+            }
+        },
         async onCreateInvoice() {
             this.loading_processing = true
             try {
@@ -737,46 +753,28 @@ export default {
 
         },
 
-        async onGetAllPermance() {
-            this.loading_processing = true;
+        onGetAllPermance() {
+            this.loading_processing = true
             try {
-                const response = await this.$axios.$post('/listGetPayment.service', {
-                    toKen: localStorage.getItem("toKen"),
-                    startDate: this.start_date,
+                this.$axios.$post('/listGetPayment.service', {
+                    toKen: localStorage.getItem("toKen"), startDate: this.start_date,
                     endDate: this.end_date,
-                    cusId: this.selectedcustomerName, // Send selected customer ID to API
-                });
 
-                if (response?.data) {
-                    this.report_peration_list = response.data.sort((a, b) => new Date(b.datePerformanceCreate) - new Date(a.datePerformanceCreate));
-                } else {
-                    this.report_peration_list = [];
-                }
+                }).then((data) => {
+                    if (data?.data) {
+                        this.loading_processing = false
+                        let push = { 'check': 'false' }
+                        this.report_peration_list = data?.data?.map((list) => {
+                            return { ...list, ...push }
+                        })
+                    } else {
+                        this.report_peration_list = []
+                        this.loading_processing = false
+                    }
+                })
             } catch (error) {
-                console.log(error);
-                this.report_peration_list = [];
-            } finally {
-                this.loading_processing = false;
-            }
-        }
-        ,
-        async getAllCustomers() {
-            try {
-                const response = await this.$axios.$post('/getAllCustomer', {
-                    toKen: localStorage.getItem("toKen"),
-                });
-
-                if (response?.status === '00' && response?.data) {
-                    this.customers = response.data.map(customer => ({
-                        id: customer.id, // Send this to API
-                        customerName: customer.customerName, // Show in dropdown
-                    }));
-                } else {
-                    this.customers = [];
-                }
-            } catch (error) {
-                console.error('Error fetching customers:', error);
-                this.customers = [];
+                console.log(error)
+                this.loading_processing = false
             }
         },
         onGetInvoiceBillNo() {

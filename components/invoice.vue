@@ -35,7 +35,7 @@
                         
                         
                         <!-- ✅ Dropdown เลือก Type (Bouang) -->
-                        <v-select label="ເລືອກເບື້ອງ" outlined dense v-model="invoice.type_id" :items="bouangList"
+                        <v-select label="ເລືອກບ້ວງ" outlined dense v-model="invoice.type_id" :items="bouangList"
                         item-text="nameOfBouang" item-value="key_id"></v-select>
                         
                         <v-text-field label="ຈໍານວນ" outlined dense v-model="invoice.num" @input="calculateTotal"></v-text-field>

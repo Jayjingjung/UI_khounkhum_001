@@ -1,10 +1,6 @@
 <template>
     <div>
-
-
         <v-card class="">
-
-
             <!-- <v-img src="path-to-image.jpg" alt="Header Image" height="200px"></v-img> Add an image if needed -->
 
             <v-card class="card-shadow mb-4" rounded="lg">

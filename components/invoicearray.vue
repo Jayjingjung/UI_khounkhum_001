@@ -1,5 +1,3 @@
-
-
 <template>
     <div>
         <!-- Table for Invoice List -->
@@ -21,24 +19,27 @@
                         <v-text-field v-model="item.quotation_code" dense outlined readonly></v-text-field>
                     </template>
 
-                    <!-- List Name -->
-                    <template v-slot:item.listName="{ item }">
-                        <v-text-field v-model="item.listName" dense outlined></v-text-field>
-                    </template>
 
+                    <!-- Customer Dropdown -->
+                    <template v-slot:item.listName="{ item }">
+                        <v-select v-model="item.listName" :items="customerList" item-value="customerName" item-text="customerName" dense
+                            outlined label="ເລືອກລູກຄ້າ"></v-select>
+                    </template>
                     <!-- Number -->
                     <template v-slot:item.num="{ item }">
-                        <v-text-field v-model="item.num" dense outlined type="number" @input="calculateTotal(item)"></v-text-field>
+                        <v-text-field v-model="item.num" dense outlined type="number"
+                            @input="calculateTotal(item)"></v-text-field>
                     </template>
 
                     <!-- Amount of Money -->
                     <template v-slot:item.amount_money="{ item }">
-                        <v-text-field v-model="item.amount_money" dense outlined type="number" @input="calculateTotal(item)"></v-text-field>
+                        <v-text-field v-model="item.amount_money" dense outlined type="number"
+                            @input="calculateTotal(item)"></v-text-field>
                     </template>
 
                     <!-- Total Money (Auto-Calculated) -->
                     <template v-slot:item.totalMooney="{ item }">
-                        <v-text-field v-model="item.totalMooney" dense outlined  readonly></v-text-field>
+                        <v-text-field v-model="item.totalMooney" dense outlined readonly></v-text-field>
                     </template>
 
                     <!-- Actions -->
@@ -52,7 +53,7 @@
                     ບັນທຶກຂໍ້ມູນ
                 </v-btn>
             </v-card-text>
-            
+
         </v-card>
     </div>
 </template>
@@ -74,26 +75,57 @@ export default {
                 { text: "ລາຄາທັງໝົດ", value: "totalMooney" },
                 { text: "", value: "actions", sortable: false },
             ],
+            customerList: [], // ✅ เก็บข้อมูลลูกค้าจาก API
+
         };
     },
 
     mounted() {
         // ✅ ดึงค่า `quotation_code` จาก Local Storage เมื่อโหลดหน้า
         this.quotation_code = localStorage.getItem("quotation_code") || "";
-        
+
         // ✅ เพิ่มแถวแรกอัตโนมัติ พร้อมใส่ค่า `quotation_code`
         this.addRow();
+
+        this.getAllCustomer();
+
     },
 
     methods: {
+        async getAllCustomer() {
+            try {
+                const response = await this.$axios.$post("getAllCustomer", {
+                    toKen: localStorage.getItem("toKen"),
+                });
+
+                if (response?.status === "00" && response?.data) {
+                    this.customerList = response.data; // ✅ อัปเดต dropdown ลูกค้า
+                } else {
+                    Swal.fire({
+                        title: "ແຈ້ງເຕືອນ",
+                        text: response?.message || "ບໍ່ສາມາດດຶງລູກຄ້າ",
+                        icon: "error",
+                        confirmButtonText: "OK",
+                    });
+                }
+            } catch (error) {
+                console.error("Error:", error);
+                Swal.fire({
+                    title: "ແຈ້ງເຕືອນ",
+                    text: error.message || "Error fetching customers",
+                    icon: "error",
+                    confirmButtonText: "OK",
+                });
+            }
+        },
         addRow() {
             // ✅ ใช้ค่า `quotation_code` จาก Local Storage ทุกครั้งที่เพิ่มแถว
-            this.invoiceArray.push({ 
-                quotation_code: this.quotation_code, 
-                listName: "", 
-                num: "", 
-                amount_money: "", 
-                totalMooney: "0.00" ,
+            this.invoiceArray.push({
+                quotation_code: this.quotation_code,
+                listName: "",
+                num: "",
+                amount_money: "",
+                totalMooney: "0.00",
             });
         },
 

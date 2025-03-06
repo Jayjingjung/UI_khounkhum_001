@@ -4,6 +4,15 @@
             <v-card-title style="background-color:	#b76d22" class="white--text">
                 ສະເໜີໃຊ້ອາໄຫຼ່ໃນສາງ
             </v-card-title>
+            <!-- Error Card -->
+            <v-alert v-if="showError" type="error" dense>
+                ຈຳນວນ (ອາໄລ)
+                ຂອງສິນຄ້ານີ້ຕ້ອງຫຼາຍກວ່າ 5
+            </v-alert>
+          <!-- Error Message for ຢາງລົດວີໂກ້ qty <= 20 -->
+          <v-alert v-if="showError && this.selectedEquipment.itemName === 'ຢາງລົດວີໂກ້'" type="error" dense>
+            ຈຳນວນ (ຢາງລົດວີໂກ້) ຂອງສິນຄ້ານີ້ຕ້ອງຫຼາຍກວ່າ 20
+        </v-alert>
             <v-card class="flex-container ">
                 <div style="width:95%;" class="pl-2">
 
@@ -12,6 +21,16 @@
                     <!-- <div v-if="selectedEquipment" class="mt-2">
                         <p>ລາຄາຕໍ່ອັນ: {{ selectedEquipment.unit_price }} LAK</p>
                     </div> -->
+
+                    <!-- <v-autocomplete outlined dense label="ເລືອກ ອຸປະກອນ" :items="Mechanicequipment" item-text="itemName"
+                        item-value="item_id" @change="onSelectMechanicequipment">
+                        <template v-slot:selection="data">
+                            <span>{{ data.item.itemName }} ({{ data.item.unit_price }} LAK)</span>
+                        </template>
+<template v-slot:item="data">
+                            <span>{{ data.item.itemName }} ({{ data.item.unit_price }} LAK)</span>
+                        </template>
+</v-autocomplete> -->
 
                     <v-autocomplete outlined dense label="ເລືອກ ອຸປະກອນ" :items="Mechanicequipment" item-text="itemName"
                         item-value="item_id" @change="onSelectMechanicequipment">
@@ -23,12 +42,14 @@
                         </template>
                     </v-autocomplete>
 
+
+
                     <div class="d-flex align-center pl-2">
                         <v-text-field label="*ຈໍານວນ" type="number" dense outlined background-color="#f5f5f5"
                             v-model="qty_Fix"></v-text-field>
                         <div class="tops"></div>
                     </div>
-                    
+
 
                 </div>
 
@@ -38,7 +59,7 @@
                             item-text="h_VICIVLE_NUMBER" item-value="key_id" @change="onGetCarDetails"
                             :rules="nameRules">
                         </v-autocomplete>
-                        
+
                         <div class="d-flex align-center pl-2">
                             <v-text-field label="*ລາ​ຄາ​ລວມ" dense outlined background-color="#f5f5f5"
                                 v-model="total_Price"></v-text-field>
@@ -129,8 +150,8 @@
                         </div>
                     </div>
                 </div>
-
-                <div style="width:95%;" class=" ml-2 mb-2">
+                <!-- ปุ่มจะไม่แสดงถ้า showError เป็น true -->
+                <div style="width:95%;" v-if="!showError" class=" ml-2 mb-2">
                     <v-btn elevation="0" color="#448AFF" @click="onGetLeaveNumber">
                         <v-icon color="white">mdi-check</v-icon>
                         <span class="white--text">ບັນທຶກ</span>
@@ -344,7 +365,7 @@ export default {
             selectedItems: '',
             updateTotalTid: '',
             search: '',
-
+            showError: false,
             // Other data properties...
         };
     },
@@ -384,15 +405,44 @@ export default {
             }
         },
 
+        // onSelectMechanicequipment(selectedItem) {
+        //     this.selectedEquipment = this.Mechanicequipment.find(item => item.item_id === selectedItem);
+        //     if (this.selectedEquipment) {
+        //         this.item_id = this.selectedEquipment.item_id; // Set the item_id from the selected item
+        //         this.item_name = this.selectedEquipment.itemName; // Set the itemName from the selected item
+        //         this.unit_price = this.selectedEquipment.unit_price; // Set the unit_price from the selected item
+        //         this.total_Price = this.unit_price * this.qty_Fix; // Calculate the total price
+        //     }
+        // },
         onSelectMechanicequipment(selectedItem) {
             this.selectedEquipment = this.Mechanicequipment.find(item => item.item_id === selectedItem);
+            // ✅ รีเซ็ต showError ทุกครั้งที่เลือกไอเท็มใหม่
+            this.showError = false;
             if (this.selectedEquipment) {
-                this.item_id = this.selectedEquipment.item_id; // Set the item_id from the selected item
-                this.item_name = this.selectedEquipment.itemName; // Set the itemName from the selected item
-                this.unit_price = this.selectedEquipment.unit_price; // Set the unit_price from the selected item
-                this.total_Price = this.unit_price * this.qty_Fix; // Calculate the total price
+                this.item_id = this.selectedEquipment.item_id;
+                this.item_name = this.selectedEquipment.itemName;
+                this.unit_price = this.selectedEquipment.unit_price;
+                this.total_Price = this.unit_price * this.qty_Fix;
+
+                // ✅ ตรวจสอบ qty ถ้าต่ำกว่า 10 ให้แสดง error
+                // if (this.selectedEquipment.qty <= 5) {
+                //     this.showError = true;
+                // } else {
+                //     this.showError = false;
+                // }
+                if (this.selectedEquipment) {
+                // ตรวจสอบเมื่อ qty <= 5
+                if (this.selectedEquipment.qty <= 5) {
+                    this.showError = true;
+                }
+                // ตรวจสอบเมื่อไอเท็มเป็น "ຢາງລົດວີໂກ້" และ qty <= 20
+                if (this.selectedEquipment.itemName === "ຢາງລົດວີໂກ້" && this.selectedEquipment.qty <= 20) {
+                    this.showError = true;
+                }
+            }
             }
         },
+
         onGetCarDetails(id) {
             console.log(id);
 

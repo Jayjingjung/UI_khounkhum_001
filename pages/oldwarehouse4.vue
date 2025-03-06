@@ -1,24 +1,37 @@
 <template>
     <div>
-        <div style="display: flex; justify-content:space-between; margin-top: 90px; ">
-            <div>
-                <h1>
-                    ສາງອະໄຫຼ່ເກົ່າ
-                </h1>
-            </div>
-            <div v-if="truck_data_list.length >= 5">
-                <v-alert type="warning" color="warning" style="font-size: 25px;"
-                    text>ສາງເກົ່າເຕັມ(ຕ້ອງການຂາຍອອກ)</v-alert>
-            </div>
-            <div v-else>
-                <v-btn @click="dialog = true" style="background-color: teal; color: white;margin-bottom: 15px; font-size: 18px; font-weight: bold;">
-                    + ເພີ່ມ
-                </v-btn>
-            </div>
+        <div style=" justify-content:space-between; margin-top: 90px; ">
+            <v-card-actions>
+                <v-spacer></v-spacer>
+                <div v-if="truck_data_list.length >= num">
+                    <v-alert type="warning" color="warning" style="font-size: 25px;"
+                        text>ສາງເກົ່າເຕັມ(ຕ້ອງການຂາຍອອກ)</v-alert>
+                    <!-- <v-btn fab @click="addList" color="primary" style="font-size: 20px; font-weight: bold;">
+                        <v-icon>
+                            mdi-plus
+                        </v-icon>
+                    </v-btn> -->
+                </div>
+                <div v-else>
+                    <v-chip @click="dialog = true" large
+                        style="background-color: #A7FFEB;margin-bottom: 15px; font-size: 18px; font-weight: bold;">
+                        + ເພີ່ມອະໄຫຼ່
+                    </v-chip>
+                </div>
+            </v-card-actions>
         </div>
         <v-dialog max-width="700px" v-model="dialog">
             <sangkao @closeDialog="dialog = false" />
         </v-dialog>
+        <div>
+            <h1 style="color: crimson;">
+                ສາງອະໄຫຼ່ເກົ່າ
+                <hr>
+            </h1>
+            <v-chip color="primary" class="mt-6" v-if="village" style="color: aqua; font-size: 17px; ">
+                {{ village }}
+            </v-chip>
+        </div>
         <div class="mt-10">
             <v-card-text>
                 <v-card-actions>
@@ -44,13 +57,13 @@
                     <span>{{ formatPrice(item.price_Oldwarehouse) }}</span>
                 </template>
                 <template v-slot:item.shows="{ item }">
-                    <v-chip  color="#A7FFEB" @click="showDetail(item)" class="mr-2">ເບີ່ງລາຍລະອຽດ</v-chip>
+                    <v-chip color="#A7FFEB" @click="showDetail(item)" class="mr-2">ເບີ່ງລາຍລະອຽດ</v-chip>
                 </template>
                 <template v-slot:item.edit="{ item }">
-                    <v-chip  color="yellow" @click="openEditDialog(item)" class="mr-2">ແກ້ໄຂ</v-chip>
+                    <v-chip color="yellow" @click="openEditDialog(item)" class="mr-2">ແກ້ໄຂ</v-chip>
                 </template>
                 <template v-slot:item.actions="{ item }">
-                    <v-chip  color="error" @click="deleteItem(item)">ລຶບ</v-chip>
+                    <v-chip color="error" @click="deleteItem(item)">ລຶບ</v-chip>
                 </template>
                 <template v-slot:no-data>
                     <v-alert type="warning" color="warning" text>ບໍ່ພົບຂໍ້ມູນ</v-alert>
@@ -254,16 +267,17 @@ export default {
                 { text: 'ວັນທີ່ນໍາເຂົ້າ', value: 'importExpirationDate_Oldwarehouse', align: 'center' },
                 { text: 'ລາຍລະອຽດ', value: 'description_Oldwarehouse', align: 'center' },
                 { text: '', value: 'shows', align: 'center' },
-                { text: 'ຕັ້ງຄ່າ', value: 'edit', align: 'center' }, 
+                { text: 'ຕັ້ງຄ່າ', value: 'edit', align: 'center' },
                 { text: '', value: 'actions', align: 'center' }, // Edit and delete buttons
             ],
             editDialog: false, // Controls edit dialog visibility
-            showDialog:false,
+            showDialog: false,
             editedItem: {}, // Item being edited
             defaultItem: {}, // Default empty item
             imageFile: null, // Stores the uploaded image file
             bouang: null,
-            village: ''
+            village: '',
+            num: '4',
         };
     },
     computed: {
@@ -281,8 +295,7 @@ export default {
             if (this.selectedType) {
                 data = data.filter(item => item.selectedType_Oldwarehouse === this.selectedType);
             }
-
-            // Filter by search keyword
+            // Filter by search keyword 
             if (this.search) {
                 const keyword = this.search.toLowerCase();
                 data = data.filter(item =>
@@ -352,7 +365,6 @@ export default {
         async saveEditedItem() {
             try {
                 this.loading_processing = true;
-
                 // Prepare FormData for the API request
                 const formData = new FormData();
                 const formattedDate = new Date(this.editedItem.importExpirationDate_Oldwarehouse).toISOString().split('T')[0]; // Format date
@@ -446,12 +458,12 @@ export default {
                         });
                         if (this.bouang) {
                             // this.forTest();
-                             await this.onGetTruckList(); 
+                            await this.onGetTruckList();
                         } else {
-                             await this.forTest();
+                            await this.forTest();
                             // await this.onGetTruckList(); // Refresh data
                         }
-                        
+
                     } else {
                         Swal.fire({
                             icon: "error",
@@ -487,6 +499,9 @@ export default {
                 confirmButtonColor: '#3085d6',
                 confirmButtonText: 'OK',
             });
+        },
+        addList() {
+            this.num = this.num + 1;
         }
     },
     mounted() {

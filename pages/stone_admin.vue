@@ -314,7 +314,7 @@
                             <!-- v-if="USER_ROLE !== 'BOR-HIN-KHUAT'" -->
                             <v-list-group no-action sub-group >
                                 <template v-slot:activator>
-                                    <v-icon color="white">mdi-file-document</v-icon>
+                                    <v-icon color="purple">mdi-warehouse</v-icon>
                                     <v-list-item-content>
                                         <v-list-item-title style="font-size: 20px; font-weight: bold;">ລວມສາງນໍ້າມັນ ແລະ
                                             ອາໄຫຼ່</v-list-item-title>
@@ -506,7 +506,7 @@
                             </v-list-group>
                             <v-list-group no-action sub-group>
                                 <template v-slot:activator>
-                                    <v-icon color="green">mdi-message-image-outline</v-icon>
+                                    <v-icon color="purple">mdi-warehouse</v-icon>
                                     <v-list-item-content>
                                         <v-list-item-title
                                             style="height: 20px; overflow: visible;">ສາງ</v-list-item-title>
@@ -523,6 +523,42 @@
                                     <v-spacer></v-spacer>
                                     <v-btn @click="toOldSang(branch.key_id, branch.b_name)" rounded>
                                         ສາງອາໄຫຼ່ເກົ່າ
+                                    </v-btn>
+                                </v-list-item>
+                            </v-list-group>
+                            <v-list-group no-action sub-group>
+                                <template v-slot:activator>
+                                    <v-icon color="yellow">mdi-cash-multiple</v-icon>
+                                    <v-list-item-content>
+                                        <v-list-item-title
+                                            style="height: 20px; overflow: visible;">Stock ແຮ່</v-list-item-title>
+                                    </v-list-item-content>
+                                </template>
+                                <v-list-item>
+                                    <!-- <v-btn rounded >
+                                        ໜີ້ຕ້ອງຮັບ
+                                    </v-btn>
+                                    <v-spacer></v-spacer>
+                                    <v-btn  rounded>
+                                        ໜີ້ຕ້ອງສົ່ງ
+                                    </v-btn> -->
+                                </v-list-item>
+                            </v-list-group>
+                            <v-list-group no-action sub-group>
+                                <template v-slot:activator>
+                                    <v-icon color="yellow">mdi-cash-multiple</v-icon>
+                                    <v-list-item-content>
+                                        <v-list-item-title
+                                            style="height: 20px; overflow: visible;">ໜີ້</v-list-item-title>
+                                    </v-list-item-content>
+                                </template>
+                                <v-list-item>
+                                    <v-btn rounded >
+                                        ໜີ້ຕ້ອງຮັບ
+                                    </v-btn>
+                                    <v-spacer></v-spacer>
+                                    <v-btn  rounded>
+                                        ໜີ້ຕ້ອງສົ່ງ
                                     </v-btn>
                                 </v-list-item>
                             </v-list-group>

@@ -96,12 +96,24 @@
                                 row?.item?.unitPirce?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</td>
                             <td style="font-size: 18px;">{{
                                 row?.item?.sumUnitWithPrice?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</td>
-                            <td>
+                            <!-- <td>
                                 <v-btn small color="primary" class="card-shadow"
                                     @click="openDateDialog(row.item.item_id, row.item.item_name)">
                                     <v-icon>mdi-folder-download</v-icon>ລາຍລະອຽດ
                                 </v-btn>
+                            </td> -->
+                            <td>
+                                <v-btn small color="primary" class="card-shadow"
+                                    @click="sendidgetDetail(row.item.item_id, row.item.item_name)">
+                                    <v-icon>mdi-folder-download</v-icon>ລາຍລະອຽດ
+                                </v-btn>
                             </td>
+                            <!-- <td>
+                                <v-btn small color="primary" class="card-shadow"
+                                    @click="">
+                                    <v-icon>mdi-folder-download</v-icon>ລາຍລະອຽດ {{ row?.item?.item_name }}
+                                </v-btn>
+                            </td> -->
                         </tr>
                     </template>
                 </v-data-table>
@@ -168,9 +180,9 @@ export default {
             search: '',
             startDatePicker: false,
             endDatePicker: false,
-            startDate: '',
+            startDate: null,
             TOTAL_total_Wait: '',
-            endDate: '',
+            endDate: null,
             dateDialog: false,
             selectedItemId: null,
             selectedItemName: '',
@@ -224,7 +236,6 @@ export default {
                     item_id: item_id,
                     startDate: this.startDate,
                     endDate: this.endDate,
-
                     // start_date: this.startDate,
                     // end_date: this.endDate
                 }

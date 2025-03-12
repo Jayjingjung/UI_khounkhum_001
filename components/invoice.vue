@@ -1,55 +1,144 @@
 <template>
     <div>
         <!-- Dialog for Invoice Form -->
-        <v-card class="card-shadow mb-4" rounded="lg" width="700px">
-            <v-card-title class="bg-green-500 text-white text-center py-4">
-                <h2>ໃບຮັບເງິນ</h2>
-            </v-card-title>
+        <v-card class="card-shadow mb-4" rounded="lg" width="100%">
+
             <v-card-text>
                 <v-form ref="invoiceForm" v-model="valid">
                     <!-- ✅ ใช้ Quotation Code จาก Local Storage (readonly) -->
-                     <div style="display: flex;">
-
-                         <v-text-field  style="width: 20%;"  label="Code" outlined dense v-model="invoice.quotation_code"
-                         readonly></v-text-field>
-                         <v-text-field  style="width: 80%;" label="ຫົວຂໍ້" outlined dense v-model="invoice.topic"></v-text-field>
-                        </div>
                     <v-row>
+                        <v-col cols="12" md="2" sm="6">
+                            <v-icon color="black">mdi-code-tags</v-icon>
+                            <span>KKT-code</span>
+                            <v-text-field outlined dense v-model="invoice.quotation_code" readonly></v-text-field>
+                        </v-col>
 
 
-                        <!-- File Upload -->
-                        <v-file-input  style="width: 100%;"  v-model="invoice.document_1" outlined dense label="ອັບໂຫຼດເອກກະສານ"
-                            accept=".pdf, image/*" show-size required></v-file-input>
-                        <!-- ✅ Dropdown เลือกลูกค้า (Customer) -->
-                        <v-select label="ເລືອກລູກຄ້າ" outlined dense v-model="invoice.customer_id" :items="customerList"
-                            item-text="customerName" item-value="id">
-                        </v-select> 
-                        <!-- <v-text-field label="Token" outlined dense v-model="invoice.toKen"></v-text-field> -->
-                        <v-text-field label="ວັນທີເຂົ້າ" outlined dense type="date" v-model="invoice.datee"></v-text-field>
-                        <v-text-field label="ວັນທີຄົບກໍານົດ" outlined dense type="date"
-                            v-model="invoice.due_date"></v-text-field>
-                        <!-- <v-text-field label="Reference Number" outlined dense
-                        v-model="invoice.reference_number"></v-text-field> -->
-                        <!-- <v-text-field label="Lek Bai Sung" outlined dense v-model="invoice.lek_bai_sung"></v-text-field> -->
-                        <!-- <v-text-field label="Quotation" outlined dense v-model="invoice.quotation"></v-text-field> -->
-                        
-                        
-                        <!-- ✅ Dropdown เลือก Type (Bouang) -->
-                        <v-select label="ເລືອກບ້ວງ" outlined dense v-model="invoice.type_id" :items="bouangList"
-                        item-text="nameOfBouang" item-value="key_id"></v-select>
-                        
-                        <v-text-field label="ຈໍານວນ" outlined dense v-model="invoice.num" @input="calculateTotal"></v-text-field>
-                        
-                        <!-- ✅ Dropdown for Unit -->
-                        <v-select label="ຫົວໜ່ວຍ" outlined dense v-model="invoice.unit" :items="unitList"></v-select>
-                        
-                        <v-text-field label="ລາຄາ" outlined dense type="number" v-model="invoice.amount_money" @input="calculateTotal"></v-text-field>
-                        <v-select label="ສະກຸນເງິນ" outlined dense v-model="invoice.currency" :items="currencyList"></v-select>
-                        <v-text-field style="width: 100%;" label="ລາຄາທັງໝົດ" readonly outlined dense v-model="invoice.totalMoney"></v-text-field>
-                        <v-text-field style="width: 100%;" label="ໝາຍເຫດ" outlined dense
-                            v-model="invoice.note"></v-text-field>
-                        <v-textarea style="width: 100%;" label="ພິມລາຍລະອຽດ" outlined dense
-                            v-model="invoice.description"></v-textarea>
+
+                        <v-col cols="12" md="4" sm="6">
+                            <v-icon color="black">mdi-comment-processing-outline</v-icon>
+                            <span>ຫົວຂໍ້</span>
+                            <v-text-field outlined dense v-model="invoice.topic"></v-text-field>
+                        </v-col>
+
+
+                        <v-col cols="12" md="4" sm="6">
+                            <v-icon color="black">mdi-note-text</v-icon>
+                            <span>ໝາຍເຫດ</span>
+
+                            <v-text-field style="width: 100%;" outlined dense v-model="invoice.note"></v-text-field>
+                        </v-col>
+                    </v-row>
+                    <v-row>
+                        <v-col class="selection" cols="12" md="2" sm="6">
+                            <span>
+                                <v-icon color="black">mdi-account</v-icon>
+                                ລູກຄ້າ
+
+                                <!-- ✅ Dropdown เลือกลูกค้า (Customer) -->
+                                <v-select label="ເລືອກລູກຄ້າ" outlined dense v-model="invoice.customer_id"
+                                    :items="customerList" item-text="customerName" item-value="id">
+                                </v-select>
+
+                            </span>
+                            <v-btn to="customer" style="background-color: blue;width: 10px;">
+                                <v-icon color="white">mdi-plus</v-icon>
+                            </v-btn>
+                        </v-col>
+
+
+
+                        <v-col class="selection" cols="12" md="2" sm="6">
+                            <span>
+                                <v-icon color="black">mdi-account</v-icon>
+                                ບ້ວງ
+
+                                <!-- ✅ Dropdown เลือก Type (Bouang) -->
+                                <v-select label="ເລືອກບ້ວງ" outlined dense v-model="invoice.type_id" :items="bouangList"
+                                    item-text="nameOfBouang" item-value="key_id"></v-select>
+
+                            </span>
+                            <v-btn to="customer" style="background-color: blue;width: 10px;">
+                                <v-icon color="white">mdi-plus</v-icon>
+                            </v-btn>
+                        </v-col>
+                    </v-row>
+                    <v-row>
+                        <v-col cols="12" md="2" sm="6">
+                            <v-icon color="black">mdi-file-document-plus</v-icon>
+                            <span>ອັບໂຫຼດເອກກະສານ</span>
+                            <!-- File Upload -->
+                            <v-file-input style="width: 100%;" v-model="invoice.document_1" outlined dense
+                                accept=".pdf, image/*" show-size required></v-file-input>
+                        </v-col>
+                  
+
+
+
+
+                        <v-col cols="12" md="2" sm="6">
+                            <v-icon color="black">mdi-sort-calendar-ascending</v-icon>
+                            <span>ວັນທີເຂົ້າ</span>
+
+                            <!-- <v-text-field label="Token" outlined dense v-model="invoice.toKen"></v-text-field> -->
+                            <v-text-field outlined dense type="date" v-model="invoice.datee"></v-text-field>
+                        </v-col>
+                        <v-col cols="12" md="2" sm="6">
+                            <v-icon color="black">mdi-clipboard-text-clock</v-icon>
+
+                            <span>ວັນທີຄົບກໍານົດ</span>
+
+                            <v-text-field outlined dense type="date" v-model="invoice.due_date"></v-text-field>
+                        </v-col>
+
+                        <v-col cols="12" md="2" sm="6">
+                            <v-icon color="black">mdi-numeric</v-icon>
+
+                            <span>ຈໍານວນ</span>
+
+                            <v-text-field outlined dense v-model="invoice.num" @input="calculateTotal"></v-text-field>
+                        </v-col>
+
+                        <v-col cols="12" md="2" sm="6">
+                            <v-icon color="black">mdi-application-edit-outline</v-icon>
+
+                            <span>ຫົວໜ່ວຍ</span>
+
+                            <!-- ✅ Dropdown for Unit -->
+                            <v-select label="ຫົວໜ່ວຍ" outlined dense v-model="invoice.unit" :items="unitList"></v-select>
+                        </v-col>
+                        <v-col cols="12" md="2" sm="6">
+                            <v-icon color="black">mdi-cash</v-icon>
+
+                            <span>ລາຄາ</span>
+
+                            <v-text-field outlined dense type="number" v-model="invoice.amount_money"
+                                @input="calculateTotal"></v-text-field>
+                        </v-col>
+                        <v-col cols="12" md="2" sm="6">
+                            <v-icon color="black">mdi-currency-usd</v-icon>
+
+                            <span>ສະກຸນເງິນ</span>
+
+                            <v-select label="ສະກຸນເງິນ" outlined dense v-model="invoice.currency" :items="currencyList"></v-select>
+                        </v-col>
+
+                        <v-col cols="12" md="2" sm="6">
+                            <v-icon color="black">mdi-cash-multiple</v-icon>
+
+                            <span>ລາຄາທັງໝົດ</span>
+
+                            <v-text-field style="width: 100%;" readonly outlined dense
+                                v-model="invoice.totalMoney"></v-text-field>
+
+                        </v-col>
+                        <v-col style="align-items: center;" cols="12" md="8" sm="6">
+                            <v-icon color="black">mdi-comment</v-icon>
+                            <span>ພິມລາຍລະອຽດ</span>
+
+                            <v-textarea style="width: 100%;" label="ພິມລາຍລະອຽດ" outlined dense
+                                v-model="invoice.description"></v-textarea>
+                        </v-col>
                     </v-row>
                     <!-- Save Button -->
                     <v-btn :loading="loading_processing" color="primary" @click="saveInvoice">
@@ -104,7 +193,7 @@ export default {
     },
 
     methods: {
-        
+
         calculateTotal() {
             const num = parseFloat(this.invoice.num) || 0;
             const amount_money = parseFloat(this.invoice.amount_money) || 0;
@@ -248,5 +337,11 @@ export default {
 <style scoped>
 .card-shadow {
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.selection {
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
 }
 </style>

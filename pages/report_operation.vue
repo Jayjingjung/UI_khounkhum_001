@@ -105,7 +105,7 @@
                             <v-radio label="ໃບປະຕິບັດງານລົດທັງໝົດ" color="primary" value=null></v-radio>
                         </v-radio-group>
                     </div>
-                    <div>
+                    <!-- <div>
                         <div>
                             <div style="width: 100%;display:flex;justify-content:center;margin-top: 20px;" class="pt-4">
 
@@ -123,7 +123,18 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
+                    <div style="display: flex;">
+                <div>
+                    <v-btn style="width: auto;" v-for="month in 12" :key="month" @click="setMonth(month)">{{ month
+                        }}</v-btn>
+                </div>
+                <div>
+                    <v-btn style="width: auto;" v-for="year in availableYears" :key="year" @click="setYear(year)">{{
+                        year
+                        }}</v-btn>
+                </div>
+            </div>
                 </div>
                 <div style="display:flex;align-items:center">
 

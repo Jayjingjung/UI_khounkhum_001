@@ -1215,12 +1215,7 @@ export default {
                 const response = await this.$axios.$post('/listDeptMustReceivedAll.service', {
 
                     toKen: localStorage.getItem('toKen'),
-                    // bound: this.bound,
-                    // bouang: this.selectedBuang,
-                    // company: this.company,
-                    // type: this.selectedProduct,
-                    // classofdocs: this.classofdocs,
-                    // userIdoffinanceial: this.userIdoffinanceial // Pass the selected userIdoffinanceial value here
+              
                 });
 
                 console.log('API Response:', response);  // Log the API response

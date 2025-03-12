@@ -151,7 +151,7 @@
                     </div>
                 </div>
                 <!-- ปุ่มจะไม่แสดงถ้า showError เป็น true -->
-                <div style="width:95%;" v-if="!showError" class=" ml-2 mb-2">
+                <div style="width:95%;" class=" ml-2 mb-2">
                     <v-btn elevation="0" color="#448AFF" @click="onGetLeaveNumber">
                         <v-icon color="white">mdi-check</v-icon>
                         <span class="white--text">ບັນທຶກ</span>

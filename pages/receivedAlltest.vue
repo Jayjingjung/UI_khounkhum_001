@@ -1,12 +1,18 @@
 <template>
     <div>
         <!-- Card Section -->
-        <v-card class="card-shadow mb-4" rounded="lg" width="700px">
-            <v-card-title class="bg-blue-500 text-white text-center py-4">
-                <h2>ໃບຮຽກເກັບເງິນ</h2>
+
+        <v-card class="card-shadow mx-auto" width="1400">
+            <v-card-title style="display:flex;background-color:#E57373;color:white">
+                <v-btn fab elevation="0" dark width="30" height="30" small color="white" to="invoicetableshow">
+                    <v-icon color="#E57373">mdi-arrow-left</v-icon>
+                </v-btn>
+                <v-spacer></v-spacer>
+                ໃບຮຽກເກັບເງິນ
+                <v-spacer></v-spacer>
             </v-card-title>
             <v-card-text>
-                <v-form ref="invoiceForm" v-model="valid">
+                <v-form style="margin-top: 15px;" ref="invoiceForm" v-model="valid">
                     <!-- Quotation Code -->
                     <v-text-field label="ລະຫັດໃບຮຽກເກັບເງິນ" outlined dense v-model="quotation_code" readonly>
                         <template v-slot:append>
@@ -17,6 +23,10 @@
             </v-card-text>
             <invoice />
             <invoicearray />
+        </v-card>
+        <v-card>
+            <!-- <invoicetableshow /> -->
+
         </v-card>
     </div>
 </template>

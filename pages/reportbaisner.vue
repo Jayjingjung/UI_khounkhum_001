@@ -46,21 +46,17 @@
                         </v-btn>
                     </v-row>
                 </div>
+            </div>
 
+            <div style="display: flex;">
                 <div>
-                    <div style="width:100%;display:flex;justify-content:center;margin-top: 20px" class="pt-4">
-                        <div style="width: 400px;">
-                            <v-row>
-                                <v-btn v-for="month in 12" :key="month" @click="setMonth(month)">{{ month }}</v-btn>
-                            </v-row>
-                        </div>
-                        <div style="width: 400px;">
-                            <v-row>
-                                <v-btn v-for="year in availableYears" :key="year" @click="setYear(year)">{{ year
-                                    }}</v-btn>
-                            </v-row>
-                        </div>
-                    </div>
+                    <v-btn style="width: auto;" v-for="month in 12" :key="month" @click="setMonth(month)">{{ month
+                        }}</v-btn>
+                </div>
+                <div>
+                    <v-btn style="width: auto;" v-for="year in availableYears" :key="year" @click="setYear(year)">{{
+                        year
+                        }}</v-btn>
                 </div>
             </div>
         </v-card>
@@ -91,7 +87,7 @@
         </v-card>
 
         <div style="display:none">
-         
+
             <div id="modalInvoice">
                 <Noti />
                 <v-row
@@ -103,7 +99,8 @@
                         <span> ອີເມວ: kounkham@Mining|ເວັບໄຊ: kounkham</span>
                     </div>
                 </v-row>
-                <div class="text-center" style="display:flex;justify-content:center;font-size:20px;font-weight:bold;margin-top: 10px;">
+                <div class="text-center"
+                    style="display:flex;justify-content:center;font-size:20px;font-weight:bold;margin-top: 10px;">
                     ລາຍງານອາໄລ</div>
                 <div style="margin-top: 20px;">
                     <table
@@ -159,7 +156,7 @@
                                 ',') }} LAK
                         </h3>
 
-                       
+
                     </div>
                 </div>
             </div>

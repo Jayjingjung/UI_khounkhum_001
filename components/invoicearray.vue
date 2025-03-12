@@ -1,9 +1,9 @@
 <template>
     <div>
         <!-- Table for Invoice List -->
-        <v-card class="card-shadow mb-4" rounded="lg" width="800px">
+        <v-card class="card-shadow mb-4" rounded="lg" width="100%">
             <v-card-title class="bg-green-500 text-white text-center py-4">
-                <h2>ລາຍການໃບຮຽກເກັບເງິນ</h2>
+                <!-- <h2>ເພີ່ມລາຍການ</h2> -->
             </v-card-title>
             <v-card-text>
                 <v-data-table :headers="headers" :items="invoiceArray" item-value="name" dense class="elevation-1">

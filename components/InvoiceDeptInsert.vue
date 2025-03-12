@@ -4,7 +4,7 @@
         <div style="display: flex;">
             <v-card style="width: 100%;" class="card-shadow mb-4" rounded="lg">
                 <v-card-title style="display:flex;background-color:#24ab70;color:white">
-                    <v-btn fab elevation="0" dark width="30" height="30" small color="white" to="receivedAll">
+                    <v-btn fab elevation="0" dark width="30" height="30" small color="white" to="homepagehr">
                         <v-icon color="#24ab70">mdi-arrow-left</v-icon>
                     </v-btn>
                     <v-spacer></v-spacer>
@@ -58,16 +58,26 @@
                                 <tr>
                                     <!-- <th>ເລກບິນ</th> -->
                                     <th>ລາຍລະອຽດ</th>
+                                    <th>ເອກະສານ</th>
+                                    <th>ວັນທີ</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr v-for="item in groupedReportItems" :key="item.quotation_code">
                                     <!-- <td>{{ item.quotation_code }}</td> -->
+
                                     <td>
-                                        <v-btn color="primary" class="white--text"
+                                        <v-chip color="primary" class="white--text"
                                             @click="handleQuotationClick(item.quotation_code)">
                                             ເບິ່ງລາຍລະອຽດຂອງ {{ item.quotation_code }}
-                                        </v-btn>
+                                        </v-chip>
+                                    </td>
+                                    <td>
+                                        <v-img :src="item.pdfandpic" max-height="100" max-width="100"></v-img>
+                                        
+                                    </td>
+                                    <td>
+                                        <v-text-field v-model="item.date_invoice"dense outlined readonly></v-text-field>
                                     </td>
                                 </tr>
                             </tbody>
@@ -107,7 +117,7 @@
                                     </table>
                                     <div class="text-right mt-4">
                                         <strong>ຍອດລວມ: {{ totalAmount?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g,
-                            ',')  }}</strong>
+                                            ',') }}</strong>
                                     </div>
                                 </v-card-text>
                                 <v-card-actions>

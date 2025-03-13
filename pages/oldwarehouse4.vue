@@ -277,7 +277,7 @@ export default {
             imageFile: null, // Stores the uploaded image file
             bouang: null,
             village: '',
-            num: '4',
+            num: '100',
         };
     },
     computed: {

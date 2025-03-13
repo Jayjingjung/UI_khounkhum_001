@@ -281,7 +281,7 @@
     <div style="display: flex;">
 
       <div
-        v-if="  USER_ROLE == 'BOR-HIN-KHUAT' || USER_ROLE == 'FOR_DOCUMENT' || USER_NAME == 'borhinkuad-konengua' || USER_ROLE == 'borhinkuad-sykhoun' || USER_ROLE == 'borhinkuad-tha' || USER_ROLE == 'borhinkuad-xiengkong' ">
+        v-if="USER_ROLE=='FOR_DOCUMENT_ADMIN' ||  USER_ROLE == 'BOR-HIN-KHUAT' || USER_ROLE == 'FOR_DOCUMENT' || USER_NAME == 'borhinkuad-konengua' || USER_ROLE == 'borhinkuad-sykhoun' || USER_ROLE == 'borhinkuad-tha' || USER_ROLE == 'borhinkuad-xiengkong' ">
         <v-btn style="background-color: #f44336;width: 100px; margin-left: 20px; margin-top: 20px; " rounded
           @click="onLogOut" text elevation="0">
           <v-icon color="white">mdi-power</v-icon>
@@ -290,11 +290,11 @@
 
 
 
-      <div style="margin-top: 15px;margin-left: 15px;"
+      <!-- <div style="margin-top: 15px;margin-left: 15px;"
         v-if="USER_NAME == 'borhinkuad-konengua' || USER_ROLE == 'BOR-HIN-KHUAT' || USER_ROLE == 'borhinkuad-sykhoun' || USER_ROLE == 'borhinkuad-tha' || USER_ROLE == 'borhinkuad-xiengkong'">
         <v-chip style="width: auto;font-size: 25px;height: 50px;" v-if="TOTAL_branchName">{{ branchDisplayName
           }}</v-chip>
-      </div>
+      </div> -->
     </div>
 
 

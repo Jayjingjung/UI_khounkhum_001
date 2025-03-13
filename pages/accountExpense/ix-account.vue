@@ -23,7 +23,7 @@
 
                     <!-- ຂໍ້ມູນພະນັກງານຂັບລົດ -->
                     <v-col cols="12" md="3">
-                        <div v-if="USER_ROLE === 'USER' || USER_ROLE === 'ADMIN'">
+                        <div v-if="USER_ROLE === 'USER'|| USER_ROLE === 'INVENANSFINANCE' || USER_ROLE === 'ADMIN'">
 
                             <v-card to="/allowance_2" height="100" elevation="2" rounded="lg" width="310px"
                                 style="border: 1px solid rgb(224, 0, 105) ;">
@@ -41,7 +41,7 @@
                         </div>
                     </v-col>
                     <v-col cols="12" md="3">
-                        <div v-if="USER_ROLE === 'USER' || USER_ROLE === 'ADMIN' || USER_ROLE === 'FINANCE_TK'">
+                        <div v-if="USER_ROLE === 'USER'|| USER_ROLE === 'INVENANSFINANCE' || USER_ROLE === 'ADMIN' || USER_ROLE === 'FINANCE_TK'">
 
                             <v-card to="/screwdriver" height="100" elevation="2" rounded="lg" width="310px"
                                 style="border: 1px solid rgb(224, 0, 105) ;">
@@ -110,7 +110,7 @@
 
                     </v-col>
                     <v-col cols="12" md="3">
-                        <div v-if="USER_ROLE === 'USER'|| USER_ROLE === 'ADMIN'">
+                        <div v-if="USER_ROLE === 'USER'|| USER_ROLE === 'INVENANSFINANCE'|| USER_ROLE === 'ADMIN'">
 
                             <v-badge :content="TOTAL_total_PayOil" color="error">
                                 <v-card :to="{ name: 'getgass' }" height="100" elevation="2" rounded="lg" width="310px"
@@ -134,7 +134,7 @@
 
                     <!-- ຮັບເງິນຍ້ອນຫຼັງ -->
                     <v-col cols="12" md="3">
-                        <div v-if="USER_ROLE === 'USER' || USER_ROLE === 'ADMIN'">
+                        <div v-if="USER_ROLE === 'USER'|| USER_ROLE === 'INVENANSFINANCE' || USER_ROLE === 'ADMIN'">
                             <v-badge :content="TOTAL_totalOwe" color="error">
                                 <v-card :to="{ name: 'payment-debt' }" height="100" elevation="2" rounded="lg"
                                     width="310px" style="border: 1px solid rgb(93,199,0);">
@@ -157,7 +157,7 @@
 
                     <!-- ອອກໃບຮຽກເກັບເງິນ -->
                     <v-col cols="12" md="3">
-                        <div v-if="USER_ROLE === 'USER' || USER_ROLE === 'ADMIN'">
+                        <div v-if="USER_ROLE === 'USER'|| USER_ROLE === 'INVENANSFINANCE' || USER_ROLE === 'ADMIN'">
                         <!-- <div v-if="USER_ROLE === 'ADMIN' || USER_ROLE === 'FINANCE'"> -->
                         <v-badge :content="TOTAL_INVOICE" color="teal">
                             <v-card :to="{ name: 'invoice-list' }" height="100" elevation="2" rounded="lg" width="310px"
@@ -182,7 +182,7 @@
 
                     <!-- ຮັບເງິນ -->
                     <v-col cols="12" md="3">
-                        <div v-if="USER_ROLE === 'USER'|| USER_ROLE === 'ADMIN'">
+                        <div v-if="USER_ROLE === 'USER'|| USER_ROLE === 'INVENANSFINANCE'|| USER_ROLE === 'ADMIN'">
                             <v-badge :content="TOTAL_INVOICE" color="error">
 
                                 <v-card :to="{ name: 'payment' }" height="100%" width="310px" elevation="2" rounded="lg"

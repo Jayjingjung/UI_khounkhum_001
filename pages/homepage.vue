@@ -8,7 +8,7 @@
     <v-row>
       <!-- ຂໍ້ມູນຫົວລົດ -->
       <v-col cols="12" md="3">
-        <div v-if="USER_ROLE === 'ADMIN' || USER_ROLE === 'ACCOUNT_POYLOD' || USER_ROLE === 'USER'  ">
+        <div v-if="USER_ROLE === 'ADMIN' || USER_ROLE === 'ACCOUNT_POYLOD' || USER_ROLE === 'USER'|| USER_ROLE === 'INVENANSFINANCE'  ">
           <v-card to="/cars_14" height="100" elevation="2" rounded="lg" width="310px"
             style="border: 1px solid rgb(41, 0, 245);">
             <v-card-text>
@@ -28,7 +28,7 @@
 
       <!-- ຂໍ້ມູນຫາງລົດ -->
       <v-col cols="12" md="3">
-        <div v-if="USER_ROLE === 'ADMIN' || USER_ROLE === 'ACCOUNT_POYLOD' || USER_ROLE === 'USER'">
+        <div v-if="USER_ROLE === 'ADMIN' || USER_ROLE === 'ACCOUNT_POYLOD' || USER_ROLE === 'USER'|| USER_ROLE === 'INVENANSFINANCE'">
           <v-card to="/cars_footer" height="100" elevation="2" rounded="lg" width="310px"
             style="border: 1px solid rgb(41, 0, 245);">
             <v-card-text>
@@ -51,7 +51,7 @@
 
       <v-col cols="12" md="3">
         <div
-          v-if="USER_ROLE === 'ADMIN' || USER_ROLE === 'ACCOUNT_POYLOD' || USER_ROLE === 'USER' || USER_ROLE === 'BOR-HIN-KHUAT'">
+          v-if="USER_ROLE === 'ADMIN' || USER_ROLE === 'ACCOUNT_POYLOD' || USER_ROLE === 'USER' || USER_ROLE === 'BOR-HIN-KHUAT'|| USER_ROLE === 'INVENANSFINANCE'">
           <v-card to="/employee" height="100" elevation="2" rounded="lg" width="310px"
             style="border: 1px solid rgb(41, 0, 245);">
             <v-card-text>
@@ -109,7 +109,7 @@
     <!-- ອອກໃບປ່ອຍລົດ -->
     <v-row>
       <v-col cols="12" md="3">
-        <div v-if="USER_ROLE === 'ADMIN' || USER_ROLE === 'ACCOUNT_POYLOD' || USER_ROLE === 'USER'">
+        <div v-if="USER_ROLE === 'ADMIN' || USER_ROLE === 'ACCOUNT_POYLOD' || USER_ROLE === 'USER'|| USER_ROLE === 'INVENANSFINANCE'">
           <v-badge :content="TOTAL_notiDetails" color="teal">
             <v-card to="/leave-cars-list" height="100" elevation="2" rounded="lg" width="310px"
               style="border: 1px solid rgb(93,199,0);">
@@ -126,7 +126,7 @@
         </div>
       </v-col>
       <v-col cols="12" md="3">
-        <div v-if="USER_ROLE === 'ADMIN' || USER_ROLE === 'ACCOUNT_POYLOD' || USER_ROLE === 'USER'">
+        <div v-if="USER_ROLE === 'ADMIN' || USER_ROLE === 'ACCOUNT_POYLOD' || USER_ROLE === 'USER'|| USER_ROLE === 'INVENANSFINANCE'">
           <v-badge color="teal" :content='TOTAL_FORMANCE'>
             <v-card to="/operation-list" height="100" width="310px" elevation="2" rounded="lg"
               style="border: 1px solid rgb(93,199,0);">

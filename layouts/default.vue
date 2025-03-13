@@ -1,7 +1,7 @@
 <template>
   <v-app dark>
     <v-app-bar
-      v-if="USER_ROLE == 'USER' || USER_ROLE == 'ADMIN' || USER_ROLE === 'FINANCE'|| USER_ROLE === 'FINANCE_TK' || USER_ROLE === 'ACCOUNT_POYLOD'"
+      v-if="USER_ROLE == 'USER' || USER_ROLE == 'ADMIN' || USER_ROLE === 'FINANCE'|| USER_ROLE === 'FINANCE_TK' || USER_ROLE === 'ACCOUNT_POYLOD'|| USER_ROLE === 'INVENANSFINANCE'"
       style="width: 100%;" fixed app color="#E57373" class="mt-2">
       <v-dialog v-model="loading_processing" persistent width="55">
         <v-card width="55" height="55" class="pt-3 pl-3">
@@ -281,7 +281,7 @@
     <div style="display: flex;">
 
       <div
-        v-if="  USER_ROLE == 'BOR-HIN-KHUAT' || USER_ROLE == 'FOR_DOCUMENT' || USER_NAME == 'borhinkuad-konengua' || USER_ROLE == 'borhinkuad-sykhoun' || USER_ROLE == 'borhinkuad-tha' || USER_ROLE == 'borhinkuad-xiengkong' || USER_ROLE == 'INVENANSFINANCE'">
+        v-if="  USER_ROLE == 'BOR-HIN-KHUAT' || USER_ROLE == 'FOR_DOCUMENT' || USER_NAME == 'borhinkuad-konengua' || USER_ROLE == 'borhinkuad-sykhoun' || USER_ROLE == 'borhinkuad-tha' || USER_ROLE == 'borhinkuad-xiengkong' ">
         <v-btn style="background-color: #f44336;width: 100px; margin-left: 20px; margin-top: 20px; " rounded
           @click="onLogOut" text elevation="0">
           <v-icon color="white">mdi-power</v-icon>

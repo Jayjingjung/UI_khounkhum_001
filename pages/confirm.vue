@@ -105,7 +105,12 @@
             <v-card class="card-shadow" rounded="lg" style="border: 0.5px solid #e0e0e0; border-radius: 3px;">
                 <v-card-title style="background-color: #af565c" class="white--text">
                     ສໍາເລັດ
+
+                    <v-btn color="#f593b3" class="white--text" @click="print">
+                        <v-icon>mdi-printer</v-icon>ພິມລາຍງານທັງໝົດ
+                    </v-btn>
                 </v-card-title>
+
                 <v-data-table :items-per-page="5" :headers="truck_table_headersv" :items="filteredTruckData"
                     :search="search">
                     <template v-slot:item="row">
@@ -121,13 +126,147 @@
                             <td>{{ row?.item?.item_id }}</td>
                             <td>{{ row?.item?.footer_id }}</td>
                             <td>{{ row?.item?.f_BRANCH }}</td>
-                            <td>{{ row?.item?.header_id }}</td>
+                            <!-- <td>{{ row?.item?.header_id }}</td> -->
                             <td>{{ row?.item?.h_VICIVLE_NUMBER }}</td>
 
                         </tr>
                     </template>
                 </v-data-table>
             </v-card>
+        </div>
+        <div style="display:none">
+
+            <div id="modalInvoice">
+                <Noti />
+                <v-row
+                    style="font-size:14px;margin-left: 50px;margin-top: 10px;display:flex;justify-content:start;flex-direction:column;align-items:start">
+                    <div>
+                        <span>ສໍານັກງານຕັ້ງຢູ່ ອາຄານ ສະໜາມຍິງປືນ 20 ມັງກອນ, ສະໜາມກີລາກອງທັບ,</span>
+                        <span> ບ້ານຈອມມະນີ, ເມືອງ ໄຊເສດຖາ, ນະຄອນຫຼວງວຽງຈັນ, ສປປ ລາວ</span>
+                        <span>ໂທລະສັບ: 020 92661111, 020 92 254 999 </span>
+                        <span> ອີເມວ: kounkham@Mining|ເວັບໄຊ: kounkham</span>
+                    </div>
+                </v-row>
+                <div class="text-center"
+                    style="display:flex;justify-content:center;font-size:20px;font-weight:bold;margin-top: 10px;">
+                    ລາຍງານອາໄລ</div>
+
+
+
+                <table
+                    style="padding:2px;border: 0.5px solid #999;border-collapse: collapse;width:100%; font-size: 12px">
+                    <tr style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;border-radius:10px">
+                        <td style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px"
+                            class="font-weight-bold">ລຳດັບ</td>
+
+                        <td style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px"
+                            class="font-weight-bold">ຊື່</td>
+                        <!-- <td style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px"
+                            class="font-weight-bold">ສາຂາ</td> -->
+
+                        <td style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px"
+                            class="font-weight-bold">ຈໍານວນ</td>
+
+
+                        <td style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px"
+                            class="font-weight-bold">ລາຄາ</td>
+
+
+                        <td style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px"
+                            class="font-weight-bold">ລາຍລະອຽດ</td>
+
+                        <td style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px"
+                            class="font-weight-bold">ລາຍລະອຽດການເເປງ</td>
+
+                        <td style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px"
+                            class="font-weight-bold">ເເຊວງ</td>
+                        <td style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px"
+                            class="font-weight-bold">ວັນທີ</td>
+
+                        <!-- <td style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px"
+                            class="font-weight-bold">footer_id</td> -->
+                        <td style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px"
+                            class="font-weight-bold">ຫົວລັດ</td>
+
+                        <td style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px"
+                            class="font-weight-bold">ຫາງລົດ</td>
+
+                        <td style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px"
+                            class="font-weight-bold">ທະບຽນ</td>
+
+                    </tr>
+                    <tr style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;border-radius:10px"
+                        v-for="(item, i) in filteredTruckData" :key="i">
+                        <td style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px;text-align: center;"
+                            class="font-weight-bold">{{ i + 1 }}</td>
+
+                        <td style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px"
+                            class="font-weight-bold">{{
+                                item?.item_name?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g,
+                                    ',') }}</td>
+
+                        <!-- <td style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px"
+                            class="font-weight-bold">{{
+                                item?.branch_inventory?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g,
+                                    ',') }}</td> -->
+
+
+                        <td style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px"
+                            class="font-weight-bold">{{
+                                item?.qty_Fix?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g,
+                                    ',') }}</td>
+
+                        <td style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px"
+                            class="font-weight-bold">{{
+                                item?.total_Price?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g,
+                                    ',') }}</td>
+
+                        <td style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px"
+                            class="font-weight-bold">{{
+                                item?.description?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g,
+                                    ',') }}</td>
+
+                        <td style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px"
+                            class="font-weight-bold">{{
+                                item?.fix_Detail?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g,
+                                    ',') }}</td>
+                        <td style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px"
+                            class="font-weight-bold">{{
+                                item?.location_fix?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g,
+                                    ',') }}</td>
+                        <td style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px"
+                            class="font-weight-bold">{{
+                                item?.dateFix?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g,
+                                    ',') }}</td>
+                        <td style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px"
+                            class="font-weight-bold">{{
+                                item?.item_id?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g,
+                                    ',') }}</td>
+                        <!-- <td style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px"
+                            class="font-weight-bold">{{
+                                item?.footer_id?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g,
+                                    ',') }}</td> -->
+                        <td style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px"
+                            class="font-weight-bold">{{
+                                item?.f_BRANCH?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g,
+                                    ',') }}</td>
+                        <!-- <td style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px"
+                            class="font-weight-bold">{{
+                                item?.header_id?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g,
+                                    ',') }}</td> -->
+
+
+                        <td style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px"
+                            class="font-weight-bold">{{
+                                item?.h_VICIVLE_NUMBER?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g,
+                                    ',') }}</td>
+
+
+
+
+                    </tr>
+                </table>
+            </div>
         </div>
 
     </div>
@@ -162,7 +301,7 @@ export default {
             truck_table_headersv2: [
                 // { text: 'Checkbox', value: 'Checkbox' },
                 { text: 'ຊື່', value: 'item_name' },
-                { text: 'branch_inventory', value: 'branch_inventory' },
+                { text: 'ສາຂາ', value: 'branch_inventory' },
                 { text: 'ຈໍານວນ', value: 'qty_Fix' },
                 { text: 'ລາຄາ', value: 'total_Price' },
                 { text: 'ລາຍລະອຽດ', value: 'description' },
@@ -177,9 +316,9 @@ export default {
                 { text: 'ທະບຽນ', value: '' },
             ],
             truck_table_headersv: [
-                { text: 'Checkbox', value: 'Checkbox' },
+                // { text: 'Checkbox', value: 'Checkbox' },
                 { text: 'ຊື່', value: 'item_name' },
-                { text: 'branch_inventory', value: 'branch_inventory' },
+                { text: 'ສາຂາ', value: 'branch_inventory' },
                 { text: 'ຈໍານວນ', value: 'qty_Fix' },
                 { text: 'ລາຄາ', value: 'total_Price' },
                 { text: 'ລາຍລະອຽດ', value: 'description' },
@@ -272,6 +411,19 @@ export default {
     },
 
     methods: {
+        print() {
+            const modal = document.getElementById("modalInvoice")
+            const cloned = modal.cloneNode(true)
+            let section = document.getElementById("print")
+            if (!section) {
+                section = document.createElement("div")
+                section.id = "print"
+                document.body.appendChild(section)
+            }
+            section.innerHTML = "";
+            section.appendChild(cloned);
+            window.print();
+        },
         onSelectLocation(selected) {
             console.log("Location selected:", selected);
             this.selectedLocation = selected;
@@ -614,5 +766,35 @@ export default {
     background-color: green;
     width: 150px;
     color: rgb(0, 0, 0);
+}
+
+
+@media screen {
+    #print {
+        display: none;
+    }
+}
+
+@media print {
+    @page {
+        size: A4;
+        margin: 1in;
+    }
+
+    body * {
+        visibility: hidden;
+    }
+
+    #print,
+    #print * {
+        visibility: visible;
+    }
+
+    #print {
+        position: absolute;
+        top: 0px;
+        right: 0px;
+        left: 0px;
+    }
 }
 </style>

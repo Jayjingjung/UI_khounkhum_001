@@ -531,24 +531,6 @@
                                     <v-icon color="yellow">mdi-cash-multiple</v-icon>
                                     <v-list-item-content>
                                         <v-list-item-title
-                                            style="height: 20px; overflow: visible;">Stock ແຮ່</v-list-item-title>
-                                    </v-list-item-content>
-                                </template>
-                                <v-list-item>
-                                    <!-- <v-btn rounded >
-                                        ໜີ້ຕ້ອງຮັບ
-                                    </v-btn>
-                                    <v-spacer></v-spacer>
-                                    <v-btn  rounded>
-                                        ໜີ້ຕ້ອງສົ່ງ
-                                    </v-btn> -->
-                                </v-list-item>
-                            </v-list-group>
-                            <v-list-group no-action sub-group>
-                                <template v-slot:activator>
-                                    <v-icon color="yellow">mdi-cash-multiple</v-icon>
-                                    <v-list-item-content>
-                                        <v-list-item-title
                                             style="height: 20px; overflow: visible;">ໜີ້</v-list-item-title>
                                     </v-list-item-content>
                                 </template>
@@ -560,6 +542,18 @@
                                     <v-btn  rounded>
                                         ໜີ້ຕ້ອງສົ່ງ
                                     </v-btn>
+                                </v-list-item>
+                            </v-list-group>
+                            <v-list-group no-action sub-group>
+                                <template v-slot:activator>
+                                    <v-icon color="yellow">mdi-cash-multiple</v-icon>
+                                    <v-list-item-content>
+                                        <v-list-item-title
+                                            style="height: 20px; overflow: visible;">Stock</v-list-item-title>
+                                    </v-list-item-content>
+                                </template>
+                                <v-list-item>
+                                    <!-- s -->
                                 </v-list-item>
                             </v-list-group>
                         </v-list-group>

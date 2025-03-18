@@ -246,7 +246,8 @@
 </template>
 
 <script>
-import Swal from "sweetalert2";
+import Swal from "sweetalert2";// ในคอมโพเนนต์ที่ใช้ EventBus
+import { EventBus } from '@/plugins/eventBus';  // หรือ '~/plugins/eventBus'
 
 export default {
     data() {
@@ -457,11 +458,11 @@ export default {
                             icon: "success",
                         });
                         if (this.bouang) {
-                            // this.forTest();
-                            await this.onGetTruckList();
+                            this.forTest();
+                            // await this.onGetTruckList();
                         } else {
-                            await this.forTest();
-                            // await this.onGetTruckList(); // Refresh data
+                            // await this.forTest();
+                            await this.onGetTruckList(); // Refresh data
                         }
 
                     } else {
@@ -505,20 +506,25 @@ export default {
         }
     },
     mounted() {
-        const bouang = this.$route.query.bouang;
-        const village = this.$route.query.village;
+        const { bouang, village } = this.$route.query;  // Destructure values from query params
 
         if (bouang) {
-            // If bouang has a truthy value
+            // If 'bouang' has a truthy value in query params
             this.bouang = bouang;
             this.village = village;
-            this.forTest();
+            this.forTest();  // Call forTest() when 'bouang' exists
         } else {
-            // If bouang is falsy (undefined, null, empty, etc.)
-            this.onGetTruckList(); // Fetch data when component is mounted
+            // If 'bouang' is falsy (undefined, null, etc.)
+            this.onGetTruckList();  // Fetch truck data when the component is mounted
         }
-    }
 
+        // Listen for 'FetchData' event from EventBus
+        EventBus.$on('FetchData', this.onGetTruckList);
+    },
+    destroyed() {
+        // Remove event listener when the component is destroyed to avoid memory leaks
+        EventBus.$off('FetchData', this.onGetTruckList);
+    },
 };
 </script>
 

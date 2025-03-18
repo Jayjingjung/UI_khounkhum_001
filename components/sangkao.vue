@@ -7,6 +7,30 @@
                         ເພີ່ມອາໄຫຼ່ເກົ່າ
                     </h1>
                     <v-row>
+                        <v-card-text>
+                            <div>
+                                <v-row>
+                                    <v-col cols="12">
+                                        <video ref="video" class="camera-video" v-show="showCamera" autoplay></video>
+                                        <canvas ref="canvas" style="display: none;"></canvas>
+                                        <v-btn v-if="showCamera" @click="capturePhoto">ບັນທຶກຮູບ</v-btn>
+                                    </v-col>
+                                    <v-col cols="12">
+                                        <v-img v-if="imagePreview" :src="imagePreview" contain height="200"></v-img>
+                                    </v-col>
+                                    <v-col cols="12">
+                                        <div style="display: flex; justify-content:space-between; ">
+                                            <spen class="name">ຮູບ</spen>
+                                            <spen>ຈຳເປັນ</spen>
+                                        </div>
+                                        <v-file-input label="ອັບໂຫຼດໄຟລ໌ພາບ" outlined dense
+                                            prepend-icon="mdi-cloud-upload" append-inner-icon="mdi-card-account-details"
+                                            background-color="#f5f5f5" v-model="imagea"
+                                            @change="previewImage"></v-file-input>
+                                    </v-col>
+                                </v-row>
+                            </div>
+                        </v-card-text>
                         <v-col cols="12">
                             <div style="justify-content:space-between; ">
                                 <spen class="name">ຊື່ອາໄຫຼ່</spen>
@@ -108,29 +132,6 @@
                             <v-textarea dense outlined v-model="description_Oldwarehouse" label="ລາຍລະອຽດ"
                                 required></v-textarea>
                         </v-col>
-                        <v-card-text>
-                            <div>
-                                <v-row>
-                                    <v-col cols="12">
-                                        <div style="display: flex; justify-content:space-between; ">
-                                            <spen class="name">ຮູບ</spen>
-                                            <spen>ຈຳເປັນ</spen>
-                                        </div>
-                                        <v-file-input label="ອັບໂຫຼດໄຟລ໌" outlined dense prepend-icon="mdi-cloud-upload"
-                                            append-inner-icon="mdi-card-account-details" background-color="#f5f5f5"
-                                            v-model="imagea" @change="previewImage"></v-file-input>
-                                    </v-col>
-                                    <v-col cols="12">
-                                        <video ref="video" class="camera-video" v-show="showCamera" autoplay></video>
-                                        <canvas ref="canvas" style="display: none;"></canvas>
-                                        <v-btn v-if="showCamera" @click="capturePhoto">ບັນທຶກຮູບ</v-btn>
-                                    </v-col>
-                                    <v-col cols="12">
-                                        <v-img v-if="imagePreview" :src="imagePreview" contain height="200"></v-img>
-                                    </v-col>
-                                </v-row>
-                            </div>
-                        </v-card-text>
                     </v-row>
                 </div>
             </v-card-text>
@@ -147,6 +148,7 @@
 
 <script>
 import Swal from 'sweetalert2';
+import { EventBus } from '@/plugins/eventBus';
 
 export default {
     data() {
@@ -307,23 +309,19 @@ export default {
 
                 const response = await this.$axios.$post('/InsertOldInventory.service', formData);
 
-                // ✅ Success Alert
-                Swal.fire('Success', 'Data inserted successfully!', 'success');
+                // ✅ Success Alerts
+                Swal.fire('Success', 'ປ້ອນຂໍ້ມູນເຂົ້າສຳເລັດ!', 'success');
 
                 this.openForm = false;
+                this.$emit("closeDialog"); // ສົ່ງ event ກັບ page ໃຫ້ປິດ v-dialog
+                // ส่ง event ไปยัง Event Bus
+                EventBus.$emit('FetchData');
+                this.clearData();
             } catch (error) {
                 console.error("❌ Error inserting data:", error);
                 Swal.fire('Error', 'Failed to insert data', 'error');
+                this.clearData();
             }
-            this.selectedType_Oldwarehouse = "";
-            this.itemName_Oldwarehouse = "";
-            this.qty_Oldwarehouse = "";
-            this.vehicle_Oldwarehouse = "";
-            this.vehiclefooter_Oldwarehouse = "";
-            this.price_Oldwarehouse = "";
-            this.importExpirationDate_Oldwarehouse = "";
-            this.description_Oldwarehouse = "";
-            this.clearData();
         },
         async fetchOldInventory() {
             try {
@@ -339,7 +337,6 @@ export default {
             }
         },
         clearData() {
-            this.$emit("closeDialog"); // ສົ່ງ event ກັບ page ໃຫ້ປິດ v-dialog
             this.inputMethod = 'select';
             this.inputType = 'selectType';
             this.itemName_Oldwarehouse = '';

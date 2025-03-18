@@ -24,12 +24,15 @@
                                     </v-card-title>
                                 </div>
                             </div>
-                            <!-- <v-text-field label="ຄົ້ນຫາ" v-model="searchQuery" append-icon="mdi-magnify"
-                                @input="functionSearch" :style="{ width: '300px' }"></v-text-field> -->
-                            <!-- Search Field -->
-                            <v-text-field label="ຄົ້ນຫາ" v-model="searchQuery" append-icon="mdi-magnify"
-                                :style="{ width: '300px' }">
-                            </v-text-field>
+                            <v-card-actions>
+                                <div class="green--text" style="font-size: 18px; font-weight: bold;">
+                                    ມີທັງໝົດ {{ totalList }} ລາຍການ
+                                </div>
+                                <v-spacer></v-spacer>
+                                <v-text-field label="ຄົ້ນຫາ" v-model="searchQuery" append-icon="mdi-magnify"
+                                    :style="{ width: '300px' }">
+                                </v-text-field>
+                            </v-card-actions>
                             <div>
                                 <v-card-actions>
                                     <div class="ml-10" style="font-weight:bold">
@@ -67,7 +70,7 @@
                 </div>
             </v-card>
             <!-- Full Picture Dialog with Scrollable Content -->
-            <v-dialog v-model="dialog" max-width="55%" persistent disable-esc>
+            <v-dialog v-model="dialog" max-width="100%" height="100%" persistent disable-esc content-class="dialog-top">
                 <v-card>
                     <v-card class="pt-2 pl-2" style="position: sticky; top: 0; z-index: 1;" flat color="#69F0AE">
                         <v-card-actions>
@@ -99,7 +102,8 @@
                     </v-card-text>
                 </v-card>
             </v-dialog>
-            <v-dialog v-model="dialog1" max-width="55%" persistent disable-esc>
+
+            <v-dialog v-model="dialog1" height="100໌%" spersistent disable-esc>
                 <v-card>
                     <v-card class="pt-2 pl-2" style="position: sticky; top: 0; z-index: 1;" flat color="#69F0AE">
                         <v-card-actions>
@@ -121,12 +125,15 @@
                             </v-btn>
                         </v-card-actions>
                     </v-card>
-                    <v-carousel hide-delimiters height="100%">
-                        <v-carousel-item v-for="(pic, index) in carouselPics" :key="index" :src="pic"
-                            reverse-transition="fade-transition" transition="fade-transition">
-                            <v-img :src="pic" @click="openInNewTab(pic)"></v-img>
-                        </v-carousel-item>
-                    </v-carousel>
+                    <v-card>
+                        <v-card-text>
+                            <v-carousel hide-delimiters>
+                                <v-carousel-item v-for="(pic, index) in carouselPics" :key="index">
+                                    <v-img :src="pic" class="custom-img" @click="openInNewTab(pic)"></v-img>
+                                </v-carousel-item>
+                            </v-carousel>
+                        </v-card-text>
+                    </v-card>
                 </v-card>
             </v-dialog>
         </v-container>
@@ -144,12 +151,12 @@ export default {
             dialog: false,
             dialog1: false, // State for the dialog
             toKen: "c27bcc229bf00e6c1deb14b93d6fe80655f35371e4907d0431a23aa4f68b3d41",
-            key_id:'',
+            key_id: '',
             carouselPics: [], // List of images for the carousel
             carouselIndex: 0, // Current index for the carousel
             selectedFolderName: "", // Folder name for the selected picture group
             selectedDateCreate: "", // Date of creation for the selected picture group
-            number:"",
+            number: "",
         };
     },
     computed: {
@@ -160,12 +167,15 @@ export default {
                 picGroup.folderName.toLowerCase().includes(query)
             );
         },
+        totalList() {
+            return this.filteredPicList.length;
+        }
     },
     mounted() {
         const key_id = this.$route.query.key_id;
         const number = this.$route.query.number;
         if (key_id && number) {
-            this.key_id=key_id;
+            this.key_id = key_id;
             this.number = number;
         }
         this.onGetPicList();
@@ -227,4 +237,24 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.custom-img {
+    /* max-width: 800px; */
+    width: 600px;
+    height: auto;
+    /* margin: auto; */
+    /* ໃຫ້ຈັດກາງ */
+}
+
+.dialog-top .v-dialog__content {
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 2000;
+    /* Make sure it's above other content */
+    height: auto;
+    max-height: 100vh;
+    /* Set max height to avoid overflow */
+}
+</style>

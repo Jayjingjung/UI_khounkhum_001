@@ -312,7 +312,7 @@
                     <v-col cols="auto">
                         <v-card color="#E0F7FA" max-width="300">
                             <!-- v-if="USER_ROLE !== 'BOR-HIN-KHUAT'" -->
-                            <v-list-group no-action sub-group >
+                            <v-list-group no-action sub-group>
                                 <template v-slot:activator>
                                     <v-icon color="purple">mdi-warehouse</v-icon>
                                     <v-list-item-content>
@@ -335,9 +335,14 @@
                     </v-col>
                 </v-row>
             </v-container>
+            <v-container>
+                <div class="green--text" style="margin-bottom: 10px; font-size: 24px; font-weight: bold;">
+                    ປັດຈູບັນລວມທັງໝົດມີ: {{ totalBranches }} ບໍ່
+                </div>
+            </v-container>
             <!-- Loop through the branches and display each in v-col -->
             <v-col v-for="(branch, index) in branches" :key="index">
-                <v-card class="mt-4">
+                <v-card>
                     <v-list color="#E0F7FA">
                         <v-list-group :value="false" prepend-icon="mdi-excavator"
                             @click="setTokenAndFetch(branch.key_id)">
@@ -535,11 +540,11 @@
                                     </v-list-item-content>
                                 </template>
                                 <v-list-item>
-                                    <v-btn rounded >
+                                    <v-btn rounded>
                                         ໜີ້ຕ້ອງຮັບ
                                     </v-btn>
                                     <v-spacer></v-spacer>
-                                    <v-btn  rounded>
+                                    <v-btn rounded>
                                         ໜີ້ຕ້ອງສົ່ງ
                                     </v-btn>
                                 </v-list-item>
@@ -592,6 +597,12 @@ export default {
             selectedToken: null,
             key_id: null,
         };
+    },
+    computed: {
+        // ນັບຈຳນວນສາຂາ
+        totalBranches() {
+            return this.branches.length;
+        }
     },
     mounted() {
         this.fetchBranches();

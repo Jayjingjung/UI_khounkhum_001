@@ -130,7 +130,7 @@
                                             style="font-size: 18px;font-weight: bold; text-align: center;">
                                             {{ part.namec }}
                                         </div>
-                                        <div class="mt-4" style="font-size: 16px;font-weight: bold;">
+                                        <div v-if="part.price" class="mt-4" style="font-size: 16px;font-weight: bold;">
                                             ລາຄາ: {{ part.price }}
                                         </div>
                                         <div style="font-size: 16px;font-weight: bold;">

@@ -14,6 +14,9 @@
                 <v-spacer></v-spacer>
                 ອັບເດດຂໍ້ມູນຫົວລົດ
                 <v-spacer></v-spacer>
+                <v-btn color="primary" @click="goToPdfPage">
+                    <v-icon left>mdi-file-pdf-box</v-icon> PDF
+                </v-btn>
             </v-card-title>
             <v-form v-model="valid" ref="form" lazy-validation>
                 <!-- ຂໍ້ມູນຫົວລົດ================== -->
@@ -240,9 +243,8 @@
                                             <div>
                                                 ວັນທີ່ປ່ຽນນ້ຳມັນເຄື່ອງ
                                             </div>
-                                            <v-text-field outlined :rules="nameRules" type="date"
-                                                label="ວັນທີ" dense flat solo
-                                                v-model="formattedDate">
+                                            <v-text-field outlined :rules="nameRules" type="date" label="ວັນທີ" dense
+                                                flat solo v-model="formattedDate">
                                             </v-text-field>
                                         </div>
                                     </v-col>
@@ -464,7 +466,7 @@
                             <v-col clos="6" md="3" sm="3">
                                 <div>
                                     <div>
-                                        ຕັ້ງສິດ 
+                                        ຕັ້ງສິດ
                                     </div>
                                     <v-text-field outlined :rules="nameRules" label="ຕັ້ງສິດ" dense flat solo
                                         background-color="#f5f5f5" v-model="lektungsit"></v-text-field>
@@ -1205,8 +1207,13 @@ export default {
             this.ongetData()
         }
         this.onGetmorfaiList()
+        // this.pdf()
     },
     methods: {
+        goToPdfPage() {
+            // Navigate to `pdf_cars_head.vue` while passing the extracted `key`
+            this.$router.push({ path: "/pdf_cars_head", query: { key: this.$route.query.key } });
+        },
         openUpload() {
             document.getElementById('file-field').click()
         },
@@ -1609,6 +1616,7 @@ export default {
                 })
             }
         },
+
         onClearData() {
             this.$refs.form.reset();
             setTimeout(() => this.ins_glass = 'ກະຊວນ', 1000)

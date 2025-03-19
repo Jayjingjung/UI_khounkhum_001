@@ -1,53 +1,45 @@
 <template>
   <div>
-    <v-card class="">
-   
-      <div class="button-list">
-        <v-list v-model="selectedCard">
-          <v-btn ref="btn1" value="1" @click="selectedCard = '1'" @mouseover="changeColor('#FFE5FF', $refs.btn1)"
-            @mouseleave="changeColor('white', $refs.btn1)" class="button-style">
-            <v-icon size="40">mdi-barcode-scan</v-icon>
-            ຂໍ້ມູນເອກກະສານ
-          </v-btn>
-        </v-list>
-      </div>
+    <v-card>
+
+
       <div class="additional-buttons">
         <v-row>
-          <v-btn dark color="#80BFFF" to="/akasarn_add" class="card-shadow mb-2 mt-2" rounded>
+          <v-btn style="width: auto;" dark color="blue" to="/akasarn_add" class="card-shadow mb-2 mt-2">
             <v-icon color="white">mdi-scan-helper</v-icon>
             <span class="white--text">ເພີ່ມຂໍ້ມູນເອກກະສານ</span>
           </v-btn>
-          <v-btn dark color="#80BFFF" to="/type" class="card-shadow mb-2 mt-2" rounded>
+          <v-btn style="width: auto;" dark color="blue" to="/type" class="card-shadow mb-2 mt-2">
             <v-icon color="white">mdi-scan-helper</v-icon>
             <span class="white--text">ເພີ່ມປະເພດ</span>
           </v-btn>
-          <v-btn dark color="#80BFFF" to="/addcompany" class="card-shadow mb-2 mt-2" rounded>
+          <v-btn style="width: auto;" dark color="blue" to="/addcompany" class="card-shadow mb-2 mt-2">
             <v-icon color="white">mdi-scan-helper</v-icon>
             <span class="white--text">ບໍລິສັດ</span>
           </v-btn>
-          <v-btn dark color="#80BFFF" to="/addbuang" class="card-shadow mb-2 mt-2" rounded>
+          <v-btn style="width: auto;" dark color="blue" to="/addbuang" class="card-shadow mb-2 mt-2">
             <v-icon color="white">mdi-scan-helper</v-icon>
             <span class="white--text">ບ້ວງ</span>
           </v-btn>
-          <!-- <v-btn dark color="#80BFFF" to="/forphon" class="card-shadow mb-2 mt-2" rounded>
+          <!-- <v-btn dark color="#80BFFF" to="/forphon" class="card-shadow mb-2 mt-2" >
             <v-icon color="white">mdi-cellphone-settings</v-icon>
             <span class="white--text">For Phon</span>
           </v-btn> -->
         </v-row>
       </div>
       <v-row class="mt-5">
-        <v-autocomplete style="width: 200px; margin-left: 15px; margin-right: 15px;" outlined dense
-          label="ປະເພດ ທີເພີ່ມເອງ" :items="products_data_list" item-text="typeName" item-value="id"
-          background-color="#13d95a" v-model="selectedProduct" @change="onGetProductDetails"></v-autocomplete>
-        <v-autocomplete style="width: 200px; margin-left: 15px; margin-right: 15px;" outlined dense label="ບໍລິສັດ"
-          :items="loca_data_list" item-text="province" item-value="id" background-color="#c6a50b" v-model="selectedLoca"
-          @change="onGetLocaDetails"></v-autocomplete>
-        <v-select background-color="#ffa5f1" dense outlined style="width: 200px; margin-left: 15px; margin-right: 15px;"
-          :items="conditionalItems1" v-model="classofdocs" label="ໃບອະນຸຍາດ"></v-select>
-        <v-autocomplete style="width: 100px; margin-left: 15px; margin-right: 15px;" outlined dense label="ບ້ວງ"
-          :items="buang_data_list" item-text="nameOfBouang" item-value="nameOfBouang" background-color="#c6a50b"
-          v-model="selectedBuang" @change="onGetbuangDetails"></v-autocomplete>
-        <v-btn v-if="!hideInboundNumber" color="primary" class="filter-button mr-5 mb-5" @click="setBound('in')">
+
+  
+  <v-autocomplete style="width: 200px; margin-left: 15px; margin-right: 15px;" outlined dense label="ບໍລິສັດ"
+    :items="loca_data_list" item-text="province" item-value="id" background-color="#c6a50b" v-model="selectedLoca"
+    @change="onGetLocaDetails"></v-autocomplete>
+  <v-select background-color="#ffa5f1" dense outlined style="width: 200px; margin-left: 15px; margin-right: 15px;"
+    :items="conditionalItems1" v-model="classofdocs" label="ໃບອະນຸຍາດ"></v-select>
+  <v-autocomplete style="width: 100px; margin-left: 15px; margin-right: 15px;" outlined dense label="ບ້ວງ"
+    :items="buang_data_list" item-text="nameOfBouang" item-value="nameOfBouang" background-color="#c6a50b"
+    v-model="selectedBuang" @change="onGetbuangDetails"></v-autocomplete>
+  <!-- Slide Group for Selecting Company (Replaces v-autocomplete) -->
+  <v-btn v-if="!hideInboundNumber" color="primary" class="filter-button mr-5 mb-5" @click="setBound('in')">
           <v-icon>mdi-</v-icon>ຂາເຂົ້າ
         </v-btn>
         <v-btn v-if="!hideInboundNumber" color="primary" class="filter-button mr-5 mb-5" @click="setBound('inside')">
@@ -292,6 +284,43 @@ export default {
     this.onGetLocationList();
   },
   methods: {
+    selectProduct(item) {
+      this.selectedProduct = item.id; // Store selected product ID
+      this.onGetProductDetails(item.id); // Trigger data fetch for selected product
+    },
+    onGetProductDetails(id) {
+      let data = this.products_data_list.find(el => el.id === id);
+      this.product_name = data?.typeName;
+      this.documentType = id;
+      console.log("Selected Document Type:", this.product_name);
+    },
+    // Select company from slide group
+    selectCompany(item) {
+      this.selectedLoca = item.id; // Store selected company ID
+      this.onGetLocaDetails(item.id); // Fetch related details
+    },
+
+    // Select document class from slide group
+    selectClassofDocs(item) {
+      this.classofdocs = item; // Update selected document class
+    },
+
+    // Select bouang from slide group
+    selectBuang(item) {
+      this.selectedBuang = item.nameOfBouang; // Store selected bouang
+      this.onGetbuangDetails(item.nameOfBouang);
+    },
+
+    onGetLocaDetails(id) {
+      let data = this.loca_data_list.find(el => el.id === id);
+      this.company = data?.province; // Update company
+      console.log("Selected Company:", this.company);
+    },
+
+    onGetbuangDetails(nameOfBouang) {
+      let data = this.buang_data_list.find(el => el.nameOfBouang === nameOfBouang);
+      console.log("Selected Bouang:", nameOfBouang);
+    },
     viewup(key_id) {
       this.$router.push({ path: '/UpdateDR', query: { key_id: key_id } });
     },

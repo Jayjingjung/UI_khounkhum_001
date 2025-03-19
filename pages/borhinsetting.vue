@@ -10,18 +10,22 @@
         <v-data-table :headers="headers" :items="filteredBranches" item-value="key_id" class="elevation-1">
             <template v-slot:top>
                 <v-toolbar flat>
-                    <v-toolbar-title style="font-size: 20px; font-weight: bold;">ບໍ່ຕ່າງໆ</v-toolbar-title>
+                    <v-toolbar-title style="font-size: 24px; font-weight: bold;">ລາຍການບໍຫີນຂູດ</v-toolbar-title>
                     <v-spacer></v-spacer>
                     <!-- Search Input -->
                     <v-text-field v-model="searchQuery" label="ຄົ້ນຫາ" append-icon="mdi-magnify" single-line
                         hide-details></v-text-field>
                     <v-spacer></v-spacer>
-                    <!-- <v-btn color="primary" @click="fetchBranches">Refresh</v-btn> -->
                     <v-btn color="#00E676" @click="addDialog = true" style="font-size: 16px; font-weight: bold;">
                         ເພີ່ມ
                     </v-btn>
                 </v-toolbar>
+                <!-- แสดงจำนวนรายการทั้งหมด -->
+                <div class="ml-5 green--text" style="margin-top: 10px; font-size: 18px; font-weight: bold;">
+                        ມີທັງໝົດ: {{ totalItems }}ບໍ່
+                    </div>
             </template>
+
             <template v-slot:[`item.actions`]="{ item }">
                 <v-btn color="success" @click="editBranch(item)" icon>
                     <v-icon>mdi-pencil</v-icon>
@@ -31,6 +35,12 @@
                 </v-btn>
             </template>
         </v-data-table>
+
+        <!-- แสดงจำนวนรายการทั้งหมด -->
+        <div style="margin-top: 10px; font-size: 18px; font-weight: bold;">
+            ຈຳນວນລາຍການ: {{ totalItems }}
+        </div>
+
         <!-- Edit Dialog -->
         <v-dialog v-model="editDialog" max-width="400px">
             <v-card>
@@ -95,8 +105,8 @@ export default {
     data() {
         return {
             toKen: "c27bcc229bf00e6c1deb14b93d6fe80655f35371e4907d0431a23aa4f68b3d41",
-            b_tel:"02072467194",
-            email:"borhin@gmail.com",
+            b_tel: "02072467194",
+            email: "borhin@gmail.com",
             branches: [],
             searchQuery: "",
             editDialog: false,
@@ -143,6 +153,9 @@ export default {
                         branch.email.toLowerCase().includes(this.searchQuery.toLowerCase())
                     );
                 });
+        },
+        totalItems() {
+            return this.filteredBranches.length;
         }
     },
     methods: {
@@ -286,7 +299,7 @@ export default {
                                 icon: "success",
                             });
                             this.onClearData();
-                            this.addDialog= false;
+                            this.addDialog = false;
                             this.fetchBranches();
                         } else {
                             this.loading_processing = false;

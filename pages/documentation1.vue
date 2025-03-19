@@ -6,7 +6,7 @@
                     <v-icon color="#0a3382">mdi-arrow-left</v-icon>
                 </v-btn>
                 <v-card-title v-if="buttonname" class="font-weight-bold">
-                    {{ buttonname }}
+                    ເອກະສານທີ່ກ່ຽວຂ້ອງ {{ buttonname }}
                 </v-card-title>
                 <v-spacer></v-spacer>
             </v-card-actions>

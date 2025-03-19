@@ -17,32 +17,32 @@
                         </v-btn>
                     </template>
                     <v-list>
-                        <v-btn color="white" to="customer" elevation="0" block><span
-                                class="black--text">w</span><v-spacer></v-spacer></v-btn>
-
-                        <v-btn color="white" to="employee" elevation="0" block><span
-                                class="black--text">w</span><v-spacer></v-spacer></v-btn>
+                        <v-btn color="white" to="" elevation="0" block><span
+                                class="black--text"></span><v-spacer></v-spacer></v-btn>
 
 
-                        <v-btn color="white" to="products" elevation="0" block><span
-                                class="black--text">ເພີ່ມສິນຄ້າ</span><v-spacer></v-spacer></v-btn>
-                        <v-btn color="white" to="locations" elevation="0" block><span
-                                class="black--text">ເພີ່ມສະຖານທີຈັດສົ່ງ</span><v-spacer></v-spacer></v-btn>
 
 
-                        <v-btn color="white" to="morfai" elevation="0" block><span
-                                class="black--text">ເພີ່ມຍີ່ຫໍ້ໝໍ້ໄຟ</span><v-spacer></v-spacer></v-btn>
+                    </v-list>
+                </v-menu>
+                <v-menu v-if="USER_NAME == 'JT' " offset-y>
+                    <template v-slot:activator="{ on, attrs }">
+                        <v-btn color="white" v-bind="attrs" v-on="on" text elevation="0">
+                            <v-icon color="#fff" size="18"> mdi-file-document-multiple</v-icon>
+                            ຈັດການບໍລິຫານເລຂາ
+                            <v-icon color="#fff">mdi-chevron-down-circle</v-icon>
+                        </v-btn>
+                    </template>
+                    <v-list>
+                        <v-btn color="white" to="stone_admin" elevation="0" block><span
+                                class="black--text">document</span><v-spacer></v-spacer></v-btn>
 
-                        <v-btn color="white" to="create-expense-type" elevation="0" block><span
-                                class="black--text">ປະເພດລາຍຮັບ -
-                                ລາຍຈ່າຍ</span><v-spacer></v-spacer></v-btn>
+                        <v-btn color="white" to="./HR/carindek_hr" elevation="0" block><span
+                                class="black--text">ລົດບໍລິຫານ</span><v-spacer></v-spacer></v-btn>
 
-                        <!-- Gas -->
 
-                        <v-btn color="white" to="insert _gas" elevation="0" block><span
-                                class="black--text">ເພີ່ມສະຖານີປໍານໍ້າມັນ</span><v-spacer></v-spacer></v-btn>
 
-                        <!-- Gas -->
+
                     </v-list>
                 </v-menu>
             </div>

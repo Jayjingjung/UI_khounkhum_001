@@ -11,7 +11,7 @@
 
       <v-row>
         <!-- ລົດບໍລິຫານ -->
-        <v-col cols="12" md="3">
+        <!-- <v-col cols="12" md="3">
           <div v-if="USER_ROLE === 'USER' || USER_ROLE === 'HR' ||USER_ID === 'ADMIN'">
             <v-card to="./HR/carindek_hr" height="100" elevation="2" rounded="lg" width="310px"
               style="border: 1px solid  rgba(191, 0, 0, 0.8);">
@@ -26,7 +26,7 @@
               </v-card-text>
             </v-card>
           </div>
-        </v-col>
+        </v-col> -->
         <!-- ລາຍຮັບ-ລາຍຈ່າຍອື່ນໆ -->
 
         <v-col cols="12" md="3">

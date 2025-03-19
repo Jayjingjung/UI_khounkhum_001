@@ -7,22 +7,25 @@
                 </v-btn>
             </div>
             <v-spacer></v-spacer>
-            <v-btn v-if="USER_ROLE === 'FOR_DOCUMENT_ADMIN'" color="#00E676" style="font-size: 20px; font-weight: bold;"
+            <v-btn v-if="USER_ROLE === 'FOR_DOCUMENT_ADMIN'" color="#A7FFEB" style="font-size: 20px; font-weight: bold;"
                 :to="{ path: '/borhinsetting' }">
+                <v-icon>
+                    mdi-cog-refresh
+                </v-icon>
                 ຈັດການບໍ່ຕ່າງໆ
             </v-btn>
         </v-card-actions>
-        <div class="mb-8 mt-6" style="font-size: 20px; font-weight: bold;">
+        <div class="mb-8 mt-6" style="font-size: 24px; font-weight: bold; font-style: italic;">
             ຝ່າຍສຳຫຼວດ ແລະ ຂຸດຄົ້ນບໍ່ແຮ່
             <hr>
         </div>
         <!-- ລາຍຈ່າຍ  -->
-        <v-dialog v-model="sisternokDoc" max-width="790" persistent disable-esc>
-            <v-card class="mx-auto" max-width="790">
+        <v-dialog v-model="sisternokDoc" max-width="890" persistent disable-esc>
+            <v-card class="mx-auto" max-width="890">
                 <div class="mt-4">
                     <v-card-text>
                         <v-card style="position: sticky; top: 0; z-index: 1;" flat>
-                            <v-btn @click="refresher" rounded color="#00E676">
+                            <v-btn fab @click="refresher" rounded color="#A7FFEB">
                                 <v-icon>mdi-arrow-collapse-left</v-icon>
                             </v-btn>
                             <div class="text-center font-weight-bold" style="font-size: 20px">
@@ -71,21 +74,33 @@
         </v-dialog>
         <v-row>
             <!-- ຂໍ້ມູນຜົນການສຳຫຼວດ -->
-            <v-dialog v-model="surveydocument" max-width="790" persistent disable-esc>
-                <v-card class="mx-auto" max-width="790">
+            <v-dialog v-model="surveydocument" max-width="890" persistent disable-esc>
+                <v-card class="mx-auto" max-width="890">
                     <div class="mt-4">
                         <v-card-text>
                             <v-card style="position: sticky; top: 0; z-index: 1;" flat>
-                                <v-btn @click="refresher" rounded color="#00E676">
+                                <v-btn fab @click="refresher" rounded color="#A7FFEB">
                                     <v-icon>
                                         mdi-arrow-collapse-left
                                     </v-icon>
                                 </v-btn>
-                                <div class="text-center font-weight-bold" style="font-size: 20px">
+                                <div class="text-center font-weight-bold"
+                                    style="font-size: 20px; font-weight: bold;font-style: italic;">
                                     ຂໍ້ມູນຜົນການສຳຫຼວດ</div>
                                 <v-divider></v-divider>
-                                <v-text-field label="ຄົ້ນຫາ" v-model="searchQuery" append-icon="mdi-magnify"
-                                    @input="filteredServey" :style="{ width: '300px' }"></v-text-field>
+                                <v-card-title v-if="number">
+                                    <v-chip color="#A7FFEB" dense class="font-weight-bold">
+                                        {{ number }}
+                                    </v-chip>
+                                </v-card-title>
+                                <v-card-actions>
+                                    <div class="ml-4" style="font-size: 18px; font-weight: bold;">
+                                        ມີທັງໝົດ {{ totalList }} ລາຍການ
+                                    </div>
+                                    <v-spacer></v-spacer>
+                                    <v-text-field label="ຄົ້ນຫາ" v-model="searchQuery" append-icon="mdi-magnify"
+                                        @input="filteredServey" :style="{ width: '300px' }"></v-text-field>
+                                </v-card-actions>
                                 <div>
                                     <v-card-actions>
                                         <div class="ml-10" style="font-weight:bold">
@@ -108,7 +123,8 @@
                                                 mdi-progress-download
                                             </v-icon>
                                         </v-btn>
-                                        <div @click="showResultpdf(item.file)" class="hoverable">
+                                        <div @click="showResultpdf(item.file)" class="hoverable"
+                                            style="font-size: 16px;font-style: italic;">
                                             {{ item.type }}
                                             <v-divider></v-divider>
                                         </div>
@@ -125,23 +141,34 @@
                 </v-card>
             </v-dialog>
             <!-- ຂໍ້ມູນຮເຈາະ  -->
-            <v-dialog v-model="filedocuments" max-width="790" persistent disable-esc>
-                <v-card class="mx-auto" max-width="790">
+            <v-dialog v-model="filedocuments" max-width="890" persistent disable-esc>
+                <v-card class="mx-auto" max-width="890">
                     <div class="mt4">
                         <v-card-text>
                             <!-- Section Header -->
                             <v-card style="position: sticky; top: 0; z-index: 1;" flat>
-                                <v-btn @click="refresher" rounded color="#00E676">
+                                <v-btn fab @click="refresher" rounded color="#A7FFEB">
                                     <v-icon>mdi-arrow-collapse-left</v-icon>
                                 </v-btn>
-                                <div class="text-center font-weight-bold" style="font-size: 20px">
+                                <div class="text-center font-weight-bold"
+                                    style="font-size: 20px; font-weight: bold;font-style: italic;">
                                     ຂໍ້ມູນຮູເຈາະ
                                 </div>
                                 <v-divider></v-divider>
-
-                                <!-- Search Field -->
-                                <v-text-field label="ຄົ້ນຫາ" v-model="search" append-icon="mdi-magnify"
+                                <v-card-title v-if="number">
+                                    <v-chip color="#A7FFEB" dense class="font-weight-bold">
+                                        {{ number }}
+                                    </v-chip>
+                                </v-card-title>
+                                <v-card-actions>
+                                    <div class="ml-4" style="font-size: 18px; font-weight: bold;">
+                                        ມີທັງໝົດ {{ totalHucho }} ລາຍການ
+                                    </div>
+                                    <v-spacer></v-spacer>
+                                    <!-- Search Field -->
+                                    <v-text-field label="ຄົ້ນຫາ" v-model="search" append-icon="mdi-magnify"
                                     @input="filterReportList" :style="{ width: '300px' }"></v-text-field>
+                                </v-card-actions>
                                 <div>
                                     <v-card-actions>
                                         <div class="ml-10" style="font-weight:bold">
@@ -160,7 +187,8 @@
                                         <v-btn text @click="click2fuction(item.pic)">
                                             <v-icon color="#00E676">mdi-progress-download</v-icon>
                                         </v-btn>
-                                        <div class="hoverable" @click="click2fuction(item.pic)">
+                                        <div class="hoverable" @click="click2fuction(item.pic)"
+                                            style="font-size: 16px;font-style: italic;">
                                             {{ item.full_Name_Hole_number }}
                                             <v-divider></v-divider>
                                         </div>
@@ -175,21 +203,33 @@
                 </v-card>
             </v-dialog>
             <!-- ຂໍ້ມູນວິໃຈຕົວຢ່າງ  -->
-            <v-dialog v-model="testDoc" max-width="790" persistent disable-esc>
-                <v-card class="mx-auto" max-width="790">
+            <v-dialog v-model="testDoc" max-width="890" persistent disable-esc>
+                <v-card class="mx-auto" max-width="890">
                     <div>
                         <v-card-text>
                             <v-card style="position: sticky; top: 0; z-index: 1;" flat>
-                                <v-btn @click="refresher" rounded color="#00E676">
+                                <v-btn fab @click="refresher" rounded color="#A7FFEB">
                                     <v-icon>
                                         mdi-arrow-collapse-left
                                     </v-icon>
                                 </v-btn>
-                                <div class="text-center font-weight-bold" style="font-size: 20px">
+                                <div class="text-center font-weight-bold"
+                                    style="font-size: 20px; font-weight: bold;font-style: italic;">
                                     ຂໍ້ມູນວິໃຈຕົວຢ່າງ</div>
                                 <v-divider></v-divider>
-                                <v-text-field label="ຄົ້ນຫາ" v-model="searchQuery" append-icon="mdi-magnify"
-                                    @input="functionvichai" :style="{ width: '300px' }"></v-text-field>
+                                <v-card-title v-if="number">
+                                    <v-chip color="#A7FFEB" dense class="font-weight-bold">
+                                        {{ number }}
+                                    </v-chip>
+                                </v-card-title>
+                                <v-card-actions>
+                                    <div class="ml-4" style="font-size: 18px; font-weight: bold;">
+                                        ມີທັງໝົດ {{ totalSurvey }} ລາຍການ
+                                    </div>
+                                    <v-spacer></v-spacer>
+                                    <v-text-field label="ຄົ້ນຫາ" v-model="searchQuery" append-icon="mdi-magnify"
+                                        @input="functionvichai" :style="{ width: '300px' }"></v-text-field>
+                                </v-card-actions>
                                 <div>
                                     <v-card-actions>
                                         <div class="ml-10" style="font-weight:bold">
@@ -212,7 +252,8 @@
                                                 mdi-progress-download
                                             </v-icon>
                                         </v-btn>
-                                        <div @click="showResultpdf(item.file)" class="hoverable">
+                                        <div @click="showResultpdf(item.file)" class="hoverable"
+                                            style="font-size: 16px;font-style: italic;">
                                             {{ item.type }}
                                             <v-divider></v-divider>
                                         </div>
@@ -229,21 +270,33 @@
                 </v-card>
             </v-dialog>
             <!-- ຂໍ້ມູນລາຍຈ່າຍ -->
-            <v-dialog v-model="payfile" max-width="790" persistent disable-esc>
-                <v-card class="mx-auto" max-width="790">
+            <v-dialog v-model="payfile" max-width="890" persistent disable-esc>
+                <v-card class="mx-auto" max-width="890">
                     <div class="mt-4">
                         <v-card-text>
                             <v-card style="position: sticky; top: 0; z-index: 1;" flat>
-                                <v-btn @click="refresher" rounded color="#00E676">
+                                <v-btn fab @click="refresher" rounded color="#A7FFEB">
                                     <v-icon>
                                         mdi-arrow-collapse-left
                                     </v-icon>
                                 </v-btn>
-                                <div class="text-center font-weight-bold" style="font-size: 20px">
+                                <div class="text-center font-weight-bold"
+                                    style="font-size: 20px; font-weight: bold;font-style: italic;">
                                     ຂໍ້ມູນລາຍຈ່າຍ</div>
                                 <v-divider></v-divider>
-                                <v-text-field label="ຄົ້ນຫາ" v-model="searchQuery" append-icon="mdi-magnify"
-                                    @input="functionpay" :style="{ width: '300px' }"></v-text-field>
+                                <v-card-title v-if="number">
+                                    <v-chip color="#A7FFEB" dense class="font-weight-bold">
+                                        {{ number }}
+                                    </v-chip>
+                                </v-card-title>
+                                <v-card-actions>
+                                    <div class="ml-4" style="font-size: 18px; font-weight: bold;">
+                                        ມີທັງໝົດ {{ totalPayment }} ລາຍການ
+                                    </div>
+                                    <v-spacer></v-spacer>
+                                    <v-text-field label="ຄົ້ນຫາ" v-model="searchQuery" append-icon="mdi-magnify"
+                                        @input="functionpay" :style="{ width: '300px' }"></v-text-field>
+                                </v-card-actions>
                                 <div>
                                     <v-card-actions>
                                         <div class="ml-10" style="font-weight:bold">
@@ -267,7 +320,8 @@
                                                 mdi-progress-download
                                             </v-icon>
                                         </v-btn>
-                                        <div @click="showResultpdf(item.file)" class="hoverable">
+                                        <div @click="showResultpdf(item.file)" class="hoverable"
+                                            style="font-size: 16px;font-style: italic;">
                                             {{ item.type }}
                                             <v-divider></v-divider>
                                         </div>
@@ -336,15 +390,15 @@
                 </v-row>
             </v-container>
             <v-container>
-                <div class="green--text" style="margin-bottom: 10px; font-size: 24px; font-weight: bold;">
-                    ປັດຈູບັນລວມທັງໝົດມີ: {{ totalBranches }} ບໍ່
+                <div style="margin-bottom: 10px; font-size: 20px; font-weight: bold; font-style: italic;">
+                    ປັດຈູບັນລວມທັງໝົດມີ: {{ totalBranches }} ບໍ
                 </div>
             </v-container>
             <!-- Loop through the branches and display each in v-col -->
             <v-col v-for="(branch, index) in branches" :key="index">
                 <v-card>
                     <v-list color="#E0F7FA">
-                        <v-list-group :value="false" prepend-icon="mdi-excavator"
+                        <v-list-group :value="activeBranch === branch.key_id" prepend-icon="mdi-excavator"
                             @click="setTokenAndFetch(branch.key_id)">
                             <template v-slot:activator>
                                 <v-list-item-title style="font-size: 20px; font-weight: bold;">
@@ -400,7 +454,7 @@
                                     </v-list-item-content>
                                 </template>
                                 <v-list-item>
-                                    <v-btn @click="seeDocument(branch.key_id, 'ເອກະສານບ້ານຄອນງົວ')" rounded>
+                                    <v-btn @click="seeDocument(branch.key_id, branch.b_name)" rounded>
                                         ເບີ່ງ
                                     </v-btn>
                                     <v-spacer></v-spacer>
@@ -420,7 +474,7 @@
                                     </v-list-item-content>
                                 </template>
                                 <v-list-item>
-                                    <v-btn @click="filterSurvey" rounded>
+                                    <v-btn @click="filterSurvey(branch.b_name)" rounded>
                                         ເບີ່ງ
                                     </v-btn>
                                     <v-spacer></v-spacer>
@@ -442,7 +496,7 @@
                                     </v-list-item-content>
                                 </template>
                                 <v-list-item>
-                                    <v-btn rounded @click="filedocuments = true">
+                                    <v-btn rounded @click="Huchoi(branch.b_name)">
                                         ເບີ່ງ
                                     </v-btn>
                                     <v-spacer></v-spacer>
@@ -460,7 +514,7 @@
                                     </v-list-item-content>
                                 </template>
                                 <v-list-item>
-                                    <v-btn @click="filterTest" rounded>
+                                    <v-btn @click="filterTest(branch.b_name)" rounded>
                                         ເບີ່ງ
                                     </v-btn>
                                     <v-spacer></v-spacer>
@@ -480,7 +534,7 @@
                                     </v-list-item-content>
                                 </template>
                                 <v-list-item>
-                                    <v-btn rounded @click="filterPayment">
+                                    <v-btn rounded @click="filterPayment(branch.b_name)">
                                         ເບີ່ງ
                                     </v-btn>
                                     <v-spacer></v-spacer>
@@ -596,17 +650,33 @@ export default {
             payment1: [],
             selectedToken: null,
             key_id: null,
+            activeBranch: null,  // Store the currently active branch's key_id
+            number: '',
         };
     },
     computed: {
         // ນັບຈຳນວນສາຂາ
         totalBranches() {
             return this.branches.length;
-        }
+        },
+        totalList() {
+            return this.filterServey.length;
+        },
+        totalSurvey() {
+            return this.vichai.length;
+        },
+        totalPayment() {
+            return this.payment.length;
+        },
+        totalHucho() {
+            return this.filteredReportList.length;
+        },
     },
     mounted() {
         this.fetchBranches();
         this.USER_ROLE = this.$route.query.userRole || localStorage.getItem('userRole') || 'BOR-HIN-KHUAT';  // ຄ່າ default ເປັນ 'BOR-HIN-KHUAT
+        const number = this.$route.query.number;
+        this.number = number;
     },
     watch: {
         '$route.query.userRole': function (newRole) {
@@ -617,9 +687,16 @@ export default {
     methods: {
         setTokenAndFetch(key_id) {
             console.log("Clicked key_id:", key_id);
+            // หากคลิก branch เดิมอีกครั้งจะทำให้ activeBranch กลับไปเป็น null
+            this.activeBranch = this.activeBranch === key_id ? null : key_id; // Toggle activeBranch
             this.key_id = key_id;
             this.fetchAllData();
             this.ShowAllListOfHole();
+        },
+        Huchoi(number) {
+            this.filedocuments = true;
+            this.query = { number };
+            this.number = number;
         },
         filterNokPay() {
             this.sisternok1 = this.payAll.filter((item) => item.name === "pay1");
@@ -627,22 +704,29 @@ export default {
             this.sisternokDoc = true;
         },
         // Filter Survey Data
-        filterSurvey() {
+        filterSurvey(number) {
+            console.log("Number received:", number);
             this.filterServey1 = this.payAll.filter((item) => item.name === "servey");
-            this.filterServey = this.filterServey1
+            this.filterServey = this.filterServey1;
             this.surveydocument = true;
+            this.query = { number };
+            this.number = number;
         },
         // Filter Vichai Data
-        filterTest() {
+        filterTest(number) {
             this.vichai1 = this.payAll.filter((item) => item.name === "testData");
             this.vichai = this.vichai1
             this.testDoc = true;
+            this.query = { number };
+            this.number = number;
         },
         // Filter Payment Data
-        filterPayment() {
+        filterPayment(number) {
             this.payment1 = this.payAll.filter((item) => item.name === "pay");
             this.payment = this.payment1
             this.payfile = true;
+            this.query = { number };
+            this.number = number;
         },
         fetchAllData() {
             try {
@@ -772,8 +856,27 @@ export default {
                 query: { key_id, number }
             });
         },
+        // refresher() {
+        //     window.location.reload();
+        // },
         refresher() {
-            window.location.reload();
+            // this.key_id = null;
+            this.fetchBranches();
+            this.ShowAllListOfHole();
+            this.sisternokDoc = false;
+            this.surveydocument = false;
+            this.filedocuments = false;
+            this.testDoc = false;
+            this.payfile = false;
+            this.sisternok1 = [];
+            this.sisternok = [];
+            this.filterServey1 = [];
+            this.filterServey = [];
+            this.vichai = [];
+            this.vichai1 = [];
+            this.payment = [];
+            this.payment1 = [];
+            this.searchQuery = '';
         },
         nokSearch() {
             // ຟັງຊັ່ນກອງຂໍ້ມູນຕາມຄ່າຄົ້ນຫາ

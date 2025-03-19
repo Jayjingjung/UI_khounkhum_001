@@ -1,13 +1,13 @@
 <template>
   <v-app dark>
-    <div >
+    <div>
 
-    <appbarloginser />
+      <appbarloginser />
     </div>
-    <div v-if="userRole === 'HR'||userRole === 'FOR_DOCUMENT'">
+    <div
+      v-if="userRole === 'HR' || userRole === 'FOR_DOCUMENT' || userRole === 'FOR_DOCUMENT_ADMIN' || userRole === 'BOR-HIN-KHUAT'">
       <appbarvt />
     </div>
-
     <div class="content mt-5">
       <v-main class="bg pl-10 mr-10 ml-1 d-flex justify-center align-vertical">
         <div class="content mt-10">
@@ -19,6 +19,7 @@
 </template>
 
 <script>
+
 export default {
   data() {
     return {

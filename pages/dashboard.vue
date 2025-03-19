@@ -1,140 +1,146 @@
 <template>
     <div>
-        <!-- ປະທານ -->
-        <v-row>
-            <!-- <v-col cols="12" md="3">
-                <div>
-                    <v-card to="/re01akasarn1" height="100" elevation="2" rounded="lg" width="310px"
-                        style="border: 1px solid rgb(222, 222, 222);">
-                        <v-card-text>
-                            <div class="d-flex align-center">
-                                <v-icon color="orange" size="55">mdi-application-import</v-icon>
-                                <div class="pl-5 pb-5 pt-5 pr-5">
-                                    <span style="font-size: 17pt; font-weight: bold;">ເອກະສານ</span><br />
-
+        <v-container style="padding-top: 40px;">
+            <div>
+                <!-- ປະທານ -->
+                <v-row>
+                    <!-- <v-col cols="12" md="3">
+                        <div>
+                            <v-card to="/re01akasarn1" height="100" elevation="2" rounded="lg" width="310px"
+                            style="border: 1px solid rgb(222, 222, 222);">
+                            <v-card-text>
+                                <div class="d-flex align-center">
+                                    <v-icon color="orange" size="55">mdi-application-import</v-icon>
+                                    <div class="pl-5 pb-5 pt-5 pr-5">
+                                        <span style="font-size: 17pt; font-weight: bold;">ເອກະສານ</span><br />
+                                        
+                                    </div>
                                 </div>
-                            </div>
-                        </v-card-text>
-                    </v-card>
-                </div>
-            </v-col> -->
-            <!-- <v-col cols="12" md="3">
-                <div>
-                    <v-card to="/dashbord_new" height="100" elevation="2" rounded="lg" width="310px"
+                            </v-card-text>
+                        </v-card>
+                    </div>
+                </v-col> -->
+                    <!-- <v-col cols="12" md="3">
+                    <div>
+                        <v-card to="/dashbord_new" height="100" elevation="2" rounded="lg" width="310px"
                         style="border: 1px solid rgb(222, 222, 222);">
                         <v-card-text>
                             <div class="d-flex align-center">
                                 <v-icon color="orange" size="55">mdi-plus</v-icon>
                                 <div class="pl-5 pb-5 pt-5 pr-5">
                                     <span style="font-size: 17pt; font-weight: bold;">5555</span><br />
-
+                                    
                                 </div>
                             </div>
                         </v-card-text>
                     </v-card>
                 </div>
             </v-col> -->
-            <v-col cols="12" md="3">
-                <div>
-                    <v-card  height="100" elevation="2" rounded="lg" width="310px"
-                        style="border: 1px solid rgb(222, 222, 222);">
-                        <v-card-text>
-                            <div class="d-flex align-center">
-                                <v-icon color="orange" size="55">mdi-cash-multiple</v-icon>
-                                <div class="pl-5 pb-5 pt-5 pr-5">
-                                    <span style="font-size: 17pt; font-weight: bold;">ໜີ້ຕ້ອງຮັບ</span><br />
-                                </div>
-                            </div>
-                        </v-card-text>
-                    </v-card>
-                </div>
-            </v-col>
-            <v-col cols="12" md="3">
-                <div>
-                    <v-card  height="100" elevation="2" rounded="lg" width="310px"
-                        style="border: 1px solid rgb(222, 222, 222);">
-                        <v-card-text>
-                            <div class="d-flex align-center">
-                                <v-icon color="orange" size="55">mdi-cash-multiple</v-icon>
-                                <div class="pl-5 pb-5 pt-5 pr-5">
-                                    <span style="font-size: 17pt; font-weight: bold;">ລາຍຈ່າຍລວມ(ບໍ່)</span><br />
-                                </div>
-                            </div>
-                        </v-card-text>
-                    </v-card>
-                </div>
-            </v-col>
-        </v-row>
-        <!-- ປະທານ -->
-        <v-row>
-            <v-col cols="12" md="3">
-                <div>
-                    <v-card to="/DeptMustReceive" height="100" elevation="2" rounded="lg" width="310px"
-                        style="border: 1px solid rgb(222, 222, 222);">
-                        <v-card-text>
-                            <div class="d-flex align-center">
-                                <v-icon color="orange" size="55">mdi-cash-multiple</v-icon>
-                                <div class="pl-5 pb-5 pt-5 pr-5">
-                                    <span style="font-size: 17pt; font-weight: bold;">ໜີ້ຕ້ອງສົ່ງ</span><br />
+                    <v-col cols="12" md="3">
+                        <div>
+                            <v-card height="100" elevation="2" rounded="lg" width="310px"
+                                style="border: 1px solid rgb(222, 222, 222);">
+                                <v-card-text>
+                                    <div class="d-flex align-center">
+                                        <v-icon color="orange" size="55">mdi-cash-multiple</v-icon>
+                                        <div class="pl-5 pb-5 pt-5 pr-5">
+                                            <span style="font-size: 17pt; font-weight: bold;">ໜີ້ຕ້ອງຮັບ</span><br />
+                                        </div>
+                                    </div>
+                                </v-card-text>
+                            </v-card>
+                        </div>
+                    </v-col>
+                    <v-col cols="12" md="3">
+                        <div>
+                            <v-card height="100" elevation="2" rounded="lg" width="310px"
+                                style="border: 1px solid rgb(222, 222, 222);">
+                                <v-card-text>
+                                    <div class="d-flex align-center">
+                                        <v-icon color="orange" size="55">mdi-cash-multiple</v-icon>
+                                        <div class="pl-5 pb-5 pt-5 pr-5">
+                                            <span
+                                                style="font-size: 17pt; font-weight: bold;">ລາຍຈ່າຍລວມ(ບໍ່)</span><br />
+                                        </div>
+                                    </div>
+                                </v-card-text>
+                            </v-card>
+                        </div>
+                    </v-col>
+                </v-row>
+                <!-- ປະທານ -->
+                <v-row>
+                    <v-col cols="12" md="3">
+                        <div>
+                            <v-card to="/DeptMustReceive" height="100" elevation="2" rounded="lg" width="310px"
+                                style="border: 1px solid rgb(222, 222, 222);">
+                                <v-card-text>
+                                    <div class="d-flex align-center">
+                                        <v-icon color="orange" size="55">mdi-cash-multiple</v-icon>
+                                        <div class="pl-5 pb-5 pt-5 pr-5">
+                                            <span style="font-size: 17pt; font-weight: bold;">ໜີ້ຕ້ອງສົ່ງ</span><br />
 
-                                </div>
-                            </div>
-                        </v-card-text>
-                    </v-card>
-                </div>
-            </v-col>
-            <v-col cols="12" md="3">
-                <div>
-                    <v-card  height="100" elevation="2" rounded="lg" width="310px"
-                        style="border: 1px solid rgb(222, 222, 222);">
-                        <v-card-text>
-                            <div class="d-flex align-center">
-                                <v-icon color="orange" size="55">mdi-cash-multiple</v-icon>
-                                <div class="pl-5 pb-5 pt-5 pr-5">
-                                    <span style="font-size: 17pt; font-weight: bold;">ລາຍຮັບລວມ(ບໍ່)</span><br />
-                                </div>
-                            </div>
-                        </v-card-text>
-                    </v-card>
-                </div>
-            </v-col>
-        </v-row>
-        <v-row>
-            <v-col cols="12" md="3">
-                <div>
-                    <v-card @click="navigateToStoneAdmin" height="100" elevation="2" rounded="lg" width="310px"
-                        style="border: 1px solid rgb(222, 222, 222);">
-                        <v-card-text>
-                            <div class="d-flex align-center">
-                                <v-icon color="orange" size="55">mdi-excavator</v-icon>
-                                <div class="pl-5 pb-5 pt-5 pr-5">
-                                    <span style="font-size: 17pt; font-weight: bold;">ບໍ່ຕ່າງໆ</span><br />
-                                </div>
-                            </div>
-                        </v-card-text>
-                    </v-card>
-                </div>
-            </v-col>
-        </v-row>
+                                        </div>
+                                    </div>
+                                </v-card-text>
+                            </v-card>
+                        </div>
+                    </v-col>
+                    <v-col cols="12" md="3">
+                        <div>
+                            <v-card height="100" elevation="2" rounded="lg" width="310px"
+                                style="border: 1px solid rgb(222, 222, 222);">
+                                <v-card-text>
+                                    <div class="d-flex align-center">
+                                        <v-icon color="orange" size="55">mdi-cash-multiple</v-icon>
+                                        <div class="pl-5 pb-5 pt-5 pr-5">
+                                            <span
+                                                style="font-size: 17pt; font-weight: bold;">ລາຍຮັບລວມ(ບໍ່)</span><br />
+                                        </div>
+                                    </div>
+                                </v-card-text>
+                            </v-card>
+                        </div>
+                    </v-col>
+                </v-row>
+                <v-row>
+                    <v-col cols="12" md="3">
+                        <div>
+                            <v-card @click="navigateToStoneAdmin" height="100" elevation="2" rounded="lg" width="310px"
+                                style="border: 1px solid rgb(222, 222, 222);">
+                                <v-card-text>
+                                    <div class="d-flex align-center">
+                                        <v-icon color="orange" size="55">mdi-excavator</v-icon>
+                                        <div class="pl-5 pb-5 pt-5 pr-5">
+                                            <span style="font-size: 17pt; font-weight: bold;">ບໍ່ຕ່າງໆ</span><br />
+                                        </div>
+                                    </div>
+                                </v-card-text>
+                            </v-card>
+                        </div>
+                    </v-col>
+                </v-row>
 
-        <!-- ປະທານ -->
-        <!-- <v-row>
-            <v-col cols="12" md="3">
-                <div>
-                    <v-card to="/stone_admin" height="100" elevation="2" rounded="lg" width="310px"
-                        style="border: 1px solid rgb(222, 222, 222);">
-                        <v-card-text>
-                            <div class="d-flex align-center">
-                                <v-icon color="orange" size="55">mdi-landslide</v-icon>
-                                <div class="pl-5 pb-5 pt-5 pr-5">
-                                    <span style="font-size: 17pt; font-weight: bold;">ບໍ່ຫີນ</span><br />
-                                </div>
-                            </div>
-                        </v-card-text>
-                    </v-card>
+                <!-- ປະທານ -->
+                <!-- <v-row>
+    <v-col cols="12" md="3">
+        <div>
+            <v-card to="/stone_admin" height="100" elevation="2" rounded="lg" width="310px"
+            style="border: 1px solid rgb(222, 222, 222);">
+            <v-card-text>
+                <div class="d-flex align-center">
+                    <v-icon color="orange" size="55">mdi-landslide</v-icon>
+                    <div class="pl-5 pb-5 pt-5 pr-5">
+                        <span style="font-size: 17pt; font-weight: bold;">ບໍ່ຫີນ</span><br />
+                    </div>
                 </div>
-            </v-col>
-        </v-row>  -->
+            </v-card-text>
+        </v-card>
+    </div>
+</v-col>
+</v-row>  -->
+            </div>
+        </v-container>
     </div>
 </template>
 <script>

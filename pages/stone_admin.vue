@@ -167,7 +167,7 @@
                                     <v-spacer></v-spacer>
                                     <!-- Search Field -->
                                     <v-text-field label="ຄົ້ນຫາ" v-model="search" append-icon="mdi-magnify"
-                                    @input="filterReportList" :style="{ width: '300px' }"></v-text-field>
+                                        @input="filterReportList" :style="{ width: '300px' }"></v-text-field>
                                 </v-card-actions>
                                 <div>
                                     <v-card-actions>
@@ -342,7 +342,8 @@
                     <v-col cols="auto">
                         <v-card color="#E0F7FA" max-width="300">
                             <!-- v-if="USER_ROLE !== 'BOR-HIN-KHUAT'" -->
-                            <v-list-group no-action sub-group v-if="USER_ROLE === 'FOR_DOCUMENT_ADMIN'">
+                            <v-list-group no-action sub-group
+                                v-if="USER_ROLE === 'FOR_DOCUMENT_ADMIN' || USER_ROLE === 'FOR_DOCUMENT'">
                                 <template v-slot:activator>
                                     <v-icon color="white">mdi-file-document</v-icon>
                                     <v-list-item-content>
@@ -366,7 +367,7 @@
                     <v-col cols="auto">
                         <v-card color="#E0F7FA" max-width="300">
                             <!-- v-if="USER_ROLE !== 'BOR-HIN-KHUAT'" -->
-                            <v-list-group no-action sub-group>
+                            <v-list-group no-action sub-group v-if="USER_ROLE !== 'FOR_DOCUMENT'">
                                 <template v-slot:activator>
                                     <v-icon color="purple">mdi-warehouse</v-icon>
                                     <v-list-item-content>
@@ -408,7 +409,8 @@
                             <v-card-text>
                                 {{ branch.location }}
                             </v-card-text>
-                            <v-list-group no-action sub-group v-if="USER_ROLE === 'FOR_DOCUMENT_ADMIN'">
+                            <v-list-group no-action sub-group
+                                v-if="USER_ROLE === 'FOR_DOCUMENT_ADMIN' || USER_ROLE === 'FOR_DOCUMENT'">
                                 <template v-slot:activator>
                                     <v-icon color="white">mdi-file-document</v-icon>
                                     <v-list-item-content>
@@ -444,7 +446,7 @@
                                     </v-btn>
                                 </v-list-item>
                             </v-list-group>
-                            <v-list-group no-action sub-group>
+                            <v-list-group no-action sub-group v-if="USER_ROLE !== 'FOR_DOCUMENT'">
                                 <template v-slot:activator>
                                     <v-icon color="white">mdi-file-document</v-icon>
                                     <v-list-item-content>
@@ -465,7 +467,7 @@
                                     </v-btn>
                                 </v-list-item>
                             </v-list-group>
-                            <v-list-group no-action sub-group>
+                            <v-list-group no-action sub-group v-if="USER_ROLE !== 'FOR_DOCUMENT'">
                                 <template v-slot:activator>
                                     <v-icon color="green">mdi-account-hard-hat</v-icon>
                                     <v-list-item-content>
@@ -474,7 +476,11 @@
                                     </v-list-item-content>
                                 </template>
                                 <v-list-item>
-                                    <v-btn @click="filterSurvey(branch.b_name)" rounded>
+                                    <!-- <v-btn @click="filterSurvey(branch.b_name)" rounded>
+                                        ເບີ່ງ
+                                    </v-btn> -->
+                                    <v-btn @click="seeDocument1(branch.key_id, branch.b_name, 'ຂໍ້ມູນສຳຫຼວດ', '1')"
+                                        rounded>
                                         ເບີ່ງ
                                     </v-btn>
                                     <v-spacer></v-spacer>
@@ -486,7 +492,7 @@
                                     <br>
                                 </v-list-item>
                             </v-list-group>
-                            <v-list-group no-action sub-group>
+                            <v-list-group no-action sub-group v-if="USER_ROLE !== 'FOR_DOCUMENT'">
                                 <template v-slot:activator>
                                     <v-icon color="red">mdi-screw-machine-flat-top</v-icon>
                                     <v-list-item-content>
@@ -505,7 +511,7 @@
                                     </v-btn>
                                 </v-list-item>
                             </v-list-group>
-                            <v-list-group no-action sub-group>
+                            <v-list-group no-action sub-group v-if="USER_ROLE !== 'FOR_DOCUMENT'">
                                 <template v-slot:activator>
                                     <v-icon color="blue">mdi-test-tube-off</v-icon>
                                     <v-list-item-content>
@@ -514,7 +520,11 @@
                                     </v-list-item-content>
                                 </template>
                                 <v-list-item>
-                                    <v-btn @click="filterTest(branch.b_name)" rounded>
+                                    <!-- <v-btn @click="filterTest(branch.b_name)" rounded>
+                                        ເບີ່ງ
+                                    </v-btn> -->
+                                    <v-btn @click="seeDocument2(branch.key_id, branch.b_name, 'ຂໍ້ມູນວິໃຈຕົວຢ່າງ', '2')"
+                                        rounded>
                                         ເບີ່ງ
                                     </v-btn>
                                     <v-spacer></v-spacer>
@@ -525,7 +535,7 @@
                                     </v-btn>
                                 </v-list-item>
                             </v-list-group>
-                            <v-list-group no-action sub-group>
+                            <v-list-group no-action sub-group v-if="USER_ROLE !== 'FOR_DOCUMENT'">
                                 <template v-slot:activator>
                                     <v-icon color="yellow">mdi-cash-100</v-icon>
                                     <v-list-item-content>
@@ -534,7 +544,11 @@
                                     </v-list-item-content>
                                 </template>
                                 <v-list-item>
-                                    <v-btn rounded @click="filterPayment(branch.b_name)">
+                                    <!-- <v-btn rounded @click="filterPayment(branch.b_name)">
+                                        ເບີ່ງ
+                                    </v-btn> -->
+                                    <v-btn @click="seeDocument3(branch.key_id, branch.b_name, 'ຂໍ້ມູນລາຍຈ່າຍ', '3')"
+                                        rounded>
                                         ເບີ່ງ
                                     </v-btn>
                                     <v-spacer></v-spacer>
@@ -545,7 +559,7 @@
                                     </v-btn>
                                 </v-list-item>
                             </v-list-group>
-                            <v-list-group no-action sub-group>
+                            <v-list-group no-action sub-group v-if="USER_ROLE !== 'FOR_DOCUMENT'">
                                 <template v-slot:activator>
                                     <v-icon color="green">mdi-message-image-outline</v-icon>
                                     <v-list-item-content>
@@ -563,7 +577,7 @@
                                     </v-btn>
                                 </v-list-item>
                             </v-list-group>
-                            <v-list-group no-action sub-group>
+                            <v-list-group no-action sub-group v-if="USER_ROLE !== 'FOR_DOCUMENT'">
                                 <template v-slot:activator>
                                     <v-icon color="purple">mdi-warehouse</v-icon>
                                     <v-list-item-content>
@@ -585,7 +599,7 @@
                                     </v-btn>
                                 </v-list-item>
                             </v-list-group>
-                            <v-list-group no-action sub-group>
+                            <v-list-group no-action sub-group v-if="USER_ROLE !== 'FOR_DOCUMENT'">
                                 <template v-slot:activator>
                                     <v-icon color="yellow">mdi-cash-multiple</v-icon>
                                     <v-list-item-content>
@@ -603,7 +617,7 @@
                                     </v-btn>
                                 </v-list-item>
                             </v-list-group>
-                            <v-list-group no-action sub-group>
+                            <v-list-group no-action sub-group v-if="USER_ROLE !== 'FOR_DOCUMENT'">
                                 <template v-slot:activator>
                                     <v-icon color="yellow">mdi-cash-multiple</v-icon>
                                     <v-list-item-content>
@@ -807,6 +821,48 @@ export default {
                 name: 'documentation1',
                 query: { key_id, label: number }
             });
+        },
+        seeDocument1(key_id, number, name, number1) {
+            const queryParams = new URLSearchParams({
+                key_id,
+                label: number,
+                name,
+                number1
+            }).toString();
+            const url = this.$router.resolve({
+                name: 'borhinDoc',
+                query: { key_id, label: number, name, number1 }
+            }).href;  // Resolving the full URL
+
+            window.open(url, '_blank'); // Opens the resolved URL in a new tab
+        },
+        seeDocument2(key_id, number, name, number1) {
+            const queryParams = new URLSearchParams({
+                key_id,
+                label: number,
+                name,
+                number1
+            }).toString();
+            const url = this.$router.resolve({
+                name: 'borhinDoc',
+                query: { key_id, label: number, name, number1 }
+            }).href;  // Resolving the full URL
+
+            window.open(url, '_blank'); // Opens the resolved URL in a new tab
+        },
+        seeDocument3(key_id, number, name, number1) {
+            const queryParams = new URLSearchParams({
+                key_id,
+                label: number,
+                name,
+                number1
+            }).toString();
+            const url = this.$router.resolve({
+                name: 'borhinDoc',
+                query: { key_id, label: number, name, number1 }
+            }).href;  // Resolving the full URL
+
+            window.open(url, '_blank'); // Opens the resolved URL in a new tab
         },
         insertDocument(key_id, buttonLabel, number, number1) {
             this.$router.push({

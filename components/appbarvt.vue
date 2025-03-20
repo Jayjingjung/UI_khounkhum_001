@@ -39,6 +39,13 @@
                         </v-list-item>
                     </v-list>
                 </v-menu>
+                <v-btn text @click="navigateToStoneAdmin" class="white--text" style="font-weight: bold;"
+                    v-if="userRole === 'FOR_DOCUMENT' && USER_NAME === 'JT'">
+                    <v-icon>
+                        mdi-excavator
+                    </v-icon>
+                    ບໍ່ຕ່າງໆ
+                </v-btn>
             </div>
 
             <v-spacer />
@@ -106,7 +113,11 @@ export default {
         onLogOut() {
             localStorage.clear();
             this.$router.push('/');
-        }
+        },
+        navigateToStoneAdmin() {
+            // เมื่อคลิกปุ่ม, นำทางไปยัง 'stone_admin.vue' พร้อมกับส่ง query userRole
+            this.$router.push({ name: 'stone_admin', query: { userRole: 'FOR_DOCUMENT' } });
+        },
     }
 };
 </script>

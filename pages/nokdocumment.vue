@@ -72,7 +72,7 @@ export default {
             files: null,
             dateInsert: null,
             type: '',
-            toKen: "tZl011U2nNs9AdvQDIStduuOIc8yWmxw",
+            toKen: "c27bcc229bf00e6c1deb14b93d6fe80655f35371e4907d0431a23aa4f68b3d41",
             key_id:'',
             buttonname: '',
             valid: false,
@@ -113,6 +113,7 @@ export default {
                 const response = await this.$axios.$post('/ShowAllResultOfServey.service', {
                     branchUser: this.USER_ROLE,
                     toKen: this.toKen,
+                    branch_id:this.key_id,
                 });
                 if (response?.status === '00') {
                     this.nameDetails = response.data || [];

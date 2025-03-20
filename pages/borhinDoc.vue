@@ -6,9 +6,12 @@
                     <v-btn fab elevation="0" small color="green" @click="$router.back()">
                         <v-icon color="#0a3382">mdi-arrow-left</v-icon>
                     </v-btn>
-                    <v-card-title v-if="buttonname" class="font-weight-bold">
-                        ເອກະສານທີ່ກ່ຽວຂ້ອງ {{ buttonname }}
+                    <v-card-title v-if="name && buttonname" class="font-weight-bold">
+                        {{ name }} {{ buttonname }}
                     </v-card-title>
+                    <!-- <v-card-title v-if="buttonname" class="font-weight-bold">
+                        {{ buttonname }}
+                    </v-card-title> -->
                     <v-spacer></v-spacer>
                 </v-card-actions>
             </v-card>
@@ -94,26 +97,47 @@ export default {
             selectedNameDetail: null,
             buttonname: null,
             toKen: "c27bcc229bf00e6c1deb14b93d6fe80655f35371e4907d0431a23aa4f68b3d41",
-            key_id:'',
+            key_id: '',
             USER_ROLE: localStorage.getItem("USER_ROLE") || null,
+            name: '',
+            number1: '',
         };
     },
     computed: {
         // Unique nameDetails for filter buttons
         uniqueNameDetails() {
-            return [
-                ...new Set(
-                    this.payAll
-                        .map((item) => item.nameDetail)
-                        .filter((value) => value && value !== 'null' && value !== 'ເອກະສານ') // ຕັດ null และ 'ເອກະສານ'
-                ),
-            ];
+            if (this.number1 === '1') {
+                return [
+                    ...new Set(
+                        this.payAll
+                            .filter((item) => item.type !== null && item.name === 'servey')  // Filtering for 'servey'
+                            .map((item) => item.type)
+                    ),
+                ];
+            } if (this.number1 === '2') {
+                return [
+                    ...new Set(
+                        this.payAll
+                            .filter((item) => item.type !== null && item.name === 'testData')  // Filtering for 'nok'
+                            .map((item) => item.type)
+                    ),
+                ];
+            }
+            else {
+                return [
+                    ...new Set(
+                        this.payAll
+                            .filter((item) => item.type !== null && item.name === 'pay')// Filtering for 'testData'
+                            .map((item) => item.type)
+                    ),
+                ];
+            }
         },
         // Filtered items based on search and selected nameDetail
         filteredItems() {
             let items = this.payAll;
             if (this.selectedNameDetail) {
-                items = items.filter((item) => item.nameDetail === this.selectedNameDetail);
+                items = items.filter((item) => item.type === this.selectedNameDetail);
             }
 
             if (this.searchQuery) {
@@ -128,15 +152,19 @@ export default {
         },
     },
     mounted() {
-        const key_id = this.$route.query.key_id;
-        const label = this.$route.query.label;
-
+        const { key_id, label } = this.$route.query;
+        const { name, number1 } = this.$route.query;
         if (key_id && label) {
             this.buttonname = label;
-            this.key_id=key_id;
+            this.key_id = key_id;
+        }
+        if (name && number1) {
+            this.name = name;
+            this.number1 = number1;
         }
         this.fetchAllData();
     },
+
     methods: {
         refresher() {
             window.location.reload();

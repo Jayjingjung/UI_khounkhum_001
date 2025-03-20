@@ -4,7 +4,7 @@
         <v-app-bar style="width: 100%;" fixed app color="#Bf0008" class="mt-2"
             v-if="userRole === 'HR' || userRole === 'FOR_DOCUMENT'">
             <v-btn fab dark small>
-                <img @click="onGoTo" class="mx-auto" src="../assets/images/logo01.png" width="80" />
+                <img @click="$router.back()" class="mx-auto" src="../assets/images/logo01.png" width="80" />
             </v-btn>
             <div style="margin-left: 20px;">
                 <v-menu offset-y>
@@ -16,7 +16,7 @@
                         </v-btn>
                     </template>
                     <v-list>
-                        <v-list-item to="/customer">
+                        <!-- <v-list-item to="/customer">
                             <v-list-item-title>ລູກຄ້າ</v-list-item-title>
                         </v-list-item>
                         <v-list-item to="/employee">
@@ -36,7 +36,7 @@
                         </v-list-item>
                         <v-list-item to="/insert_gas">
                             <v-list-item-title>ເພີ່ມສະຖານີປໍານໍ້າມັນ</v-list-item-title>
-                        </v-list-item>
+                        </v-list-item> -->
                     </v-list>
                 </v-menu>
                 <v-btn text @click="navigateToStoneAdmin" class="white--text" style="font-weight: bold;"
@@ -107,9 +107,6 @@ export default {
         console.log('USER_ROLE:', this.userRole);
     },
     methods: {
-        onGoTo() {
-            this.$router.push('/homepage');
-        },
         onLogOut() {
             localStorage.clear();
             this.$router.push('/');

@@ -505,7 +505,7 @@
                                     <!-- <v-btn rounded @click="Huchoi(branch.b_name)">
                                         ເບີ່ງ
                                     </v-btn> -->
-                                    <v-btn @click="seeDocument4(branch.key_id, branch.b_name, 'ຂໍ້ມູນຮູເຈາະ','4')"
+                                    <v-btn @click="seeDocument4(branch.key_id, branch.b_name, 'ຂໍ້ມູນຮູເຈາະ', '4')"
                                         rounded>
                                         ເບີ່ງ
                                     </v-btn>
@@ -868,7 +868,7 @@ export default {
 
             window.open(url, '_blank'); // Opens the resolved URL in a new tab
         },
-        seeDocument4(key_id, number, name,number1) {
+        seeDocument4(key_id, number, name, number1) {
             const queryParams = new URLSearchParams({
                 key_id,
                 label: number,
@@ -877,7 +877,7 @@ export default {
             }).toString();
             const url = this.$router.resolve({
                 name: 'huchoDoc',
-                query: { key_id, label: number, name,number1}
+                query: { key_id, label: number, name, number1 }
             }).href;  // Resolving the full URL
 
             window.open(url, '_blank'); // Opens the resolved URL in a new tab
@@ -925,10 +925,10 @@ export default {
             });
         },
         toImage1(key_id, number) {
-            this.$router.push({
-                name: 'showimage',
-                query: { key_id, number }
-            });
+            window.open(
+                this.$router.resolve({ name: 'showimage', query: { key_id, number } }).href,
+                '_blank'
+            );
         },
         // refresher() {
         //     window.location.reload();

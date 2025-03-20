@@ -502,7 +502,11 @@
                                     </v-list-item-content>
                                 </template>
                                 <v-list-item>
-                                    <v-btn rounded @click="Huchoi(branch.b_name)">
+                                    <!-- <v-btn rounded @click="Huchoi(branch.b_name)">
+                                        ເບີ່ງ
+                                    </v-btn> -->
+                                    <v-btn @click="seeDocument4(branch.key_id, branch.b_name, 'ຂໍ້ມູນຮູເຈາະ','4')"
+                                        rounded>
                                         ເບີ່ງ
                                     </v-btn>
                                     <v-spacer></v-spacer>
@@ -860,6 +864,20 @@ export default {
             const url = this.$router.resolve({
                 name: 'borhinDoc',
                 query: { key_id, label: number, name, number1 }
+            }).href;  // Resolving the full URL
+
+            window.open(url, '_blank'); // Opens the resolved URL in a new tab
+        },
+        seeDocument4(key_id, number, name,number1) {
+            const queryParams = new URLSearchParams({
+                key_id,
+                label: number,
+                name,
+                number1
+            }).toString();
+            const url = this.$router.resolve({
+                name: 'huchoDoc',
+                query: { key_id, label: number, name,number1}
             }).href;  // Resolving the full URL
 
             window.open(url, '_blank'); // Opens the resolved URL in a new tab

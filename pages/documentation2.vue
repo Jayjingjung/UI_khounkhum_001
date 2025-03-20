@@ -16,14 +16,14 @@
                         </v-chip>
                         <v-spacer></v-spacer>
                         <div>
-                            <v-btn style="margin-left: 10px;" color="primary" class="card-shadow"
+                            <!-- <v-btn style="margin-left: 10px;" color="primary" class="card-shadow"
                                 @click="setBound('in')">
                                 <v-icon>mdi-</v-icon>ຂາເຂົ້າ
                             </v-btn>
                             <v-btn style="margin-left: 10px;" color="primary" class="card-shadow"
                                 @click="setBound('out')">
                                 <v-icon>mdi-</v-icon>ຂາອອກ
-                            </v-btn>
+                            </v-btn> -->
                             <!-- <v-btn to="./HR/akasarn" style="background-color: #00E676">
                                 <v-icon color="white">mdi-plus</v-icon>
                             </v-btn> -->

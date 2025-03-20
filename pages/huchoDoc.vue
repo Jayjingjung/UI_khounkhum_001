@@ -6,12 +6,12 @@
                     <!-- <v-btn fab elevation="0" small color="green" @click="$router.back()">
                         <v-icon color="#0a3382">mdi-arrow-left</v-icon>
                     </v-btn> -->
-                    <v-card-title v-if="name && buttonname" class="font-weight-bold">
-                        {{ name }} {{ buttonname }}
-                    </v-card-title>
-                    <!-- <v-card-title v-if="buttonname" class="font-weight-bold">
-                        {{ buttonname }}
+                    <!-- <v-card-title v-if="name" class="font-weight-bold">
+                         {{ name }}
                     </v-card-title> -->
+                    <v-card-title v-if="buttonname" class="font-weight-bold">
+                     ຂໍ້ມູນຮູເຈາະ {{ buttonname }}
+                    </v-card-title>
                     <v-spacer></v-spacer>
                 </v-card-actions>
             </v-card>
@@ -27,10 +27,9 @@
                                     mdi-arrow-collapse-left
                                 </v-icon>
                             </v-btn>
-                            <div v-if="name && buttonname" class="text-center font-weight-bold"
+                            <div v-if="buttonname" class="text-center font-weight-bold"
                                 style="font-size: 20px; font-weight: bold;font-style: italic;">
-                                {{ name }} {{buttonname }}
-                            </div>
+                                   ຂໍ້ມູນຮູເຈາະ {{buttonname  }}</div>
                             <v-divider></v-divider>
                             <v-card-title v-if="number">
                                 <v-chip color="#A7FFEB" dense class="font-weight-bold">
@@ -51,11 +50,6 @@
                                         ຊື່ເອກະສານ
                                         <v-divider></v-divider>
                                     </div>
-                                    <v-spacer></v-spacer>
-                                    <div style="font-weight:bold">
-                                        ວັນທີ່,ເດືອນ,ປີ
-                                        <v-divider></v-divider>
-                                    </div>
                                 </v-card-actions>
                             </div>
                         </v-card>
@@ -65,12 +59,10 @@
                                     <v-btn text @click="showResultpdf(item.file)">
                                         <v-icon color="#00E676">mdi-progress-download</v-icon>
                                     </v-btn>
-                                    <div @click="showResultpdf(item.file)" class="hoverable">
-                                        {{ item.type }}
+                                    <div @click="showResultpdf(item.pic)" class="hoverable">
+                                        {{ item.full_Name_Hole_number }}
                                         <v-divider></v-divider>
                                     </div>
-                                    <v-spacer></v-spacer>
-                                    ({{ item.dateInsert }})
                                 </v-card-actions>
                             </div>
                         </div>
@@ -120,58 +112,40 @@ export default {
         return {
             searchQuery: "",
             fileList: false,
-            payAll: [],
+            huchoList: [],
             selectedNameDetail: null,
             buttonname: null,
             toKen: "c27bcc229bf00e6c1deb14b93d6fe80655f35371e4907d0431a23aa4f68b3d41",
             key_id: '',
             USER_ROLE: localStorage.getItem("USER_ROLE") || null,
             name: '',
-            number1: '',
             searchData: '', // This will store the search query entered by the user
+            number1: '',
         };
     },
     computed: {
         // Unique nameDetails for filter buttons
         uniqueNameDetails() {
-            const query = this.searchData.toLowerCase(); // Convert the search query to lowercase for case-insensitive matching
-
-            let filteredData;
-
-            if (this.number1 === '1') {
-                filteredData = this.payAll
-                    .filter((item) => item.type !== null && item.name === 'servey');
-            } else if (this.number1 === '2') {
-                filteredData = this.payAll
-                    .filter((item) => item.type !== null && item.name === 'testData');
-            } else {
-                filteredData = this.payAll
-                    .filter((item) => item.type !== null && item.name === 'pay');
-            }
-
-            // Further filter based on the searchData
-            if (query) {
-                filteredData = filteredData.filter(item =>
-                    item.type && item.type.toLowerCase().includes(query) // Search based on the 'type' field
-                );
-            }
-
-            // Return unique values based on 'type'
-            return [...new Set(filteredData.map((item) => item.type))];
+            return [
+                ...new Set(
+                    this.huchoList
+                        .map((item) => item.full_Name_Hole_number)
+                        .filter((value) => value && value !== 'null' && value !== 'ເອກະສານ') // ຕັດ null และ 'ເອກະສານ'
+                ),
+            ];
         },
         // Filtered items based on search and selected nameDetail
         filteredItems() {
-            let items = this.payAll;
+            let items = this.huchoList;
             if (this.selectedNameDetail) {
-                items = items.filter((item) => item.type === this.selectedNameDetail);
+                items = items.filter((item) => item.full_Name_Hole_number === this.selectedNameDetail);
             }
 
             if (this.searchQuery) {
                 const searchTerm = this.searchQuery.trim().toLowerCase();
                 items = items.filter(
                     (item) =>
-                        item.type.toLowerCase().includes(searchTerm) ||
-                        item.dateInsert.includes(searchTerm)
+                        item.full_Name_Hole_number.toLowerCase().includes(searchTerm)
                 );
             }
             return items;
@@ -185,16 +159,15 @@ export default {
     },
     mounted() {
         const { key_id, label } = this.$route.query;
-        const { name, number1 } = this.$route.query;
+        const  name = this.$route.query;
         if (key_id && label) {
             this.buttonname = label;
             this.key_id = key_id;
         }
-        if (name && number1) {
+        if (name) {
             this.name = name;
-            this.number1 = number1;
         }
-        this.fetchAllData();
+        this.ShowListOfHole();
     },
 
     methods: {
@@ -204,26 +177,30 @@ export default {
         refresher() {
             window.location.reload();
         },
-        fetchAllData() {
-            this.$axios
-                .$post("/ShowAllResultOfServey.service", {
+        ShowListOfHole() {
+            try {
+                this.$axios.$post('/ShowAllListOfHole.service', {
                     branchUser: this.USER_ROLE,
                     toKen: this.toKen,
+                    // bound: this.bound,
                     branch_id: this.key_id,
-                })
-                .then((response) => {
-                    if (response?.status === "00") {
-                        this.payAll = response.data || [];
+                }).then((data) => {
+                    if (data?.status === "00") {
+                        this.huchoList = data?.data;
+                        this.filteredReportList = data?.data; // Initialize filtered list
                     } else {
-                        this.payAll = [];
+                        this.report_listitemOffice = [];
+                        this.filteredReportList = [];
+
                     }
-                })
-                .catch((error) => {
-                    swal.fire({
-                        icon: "error",
-                        text: "Failed to fetch data: " + error.message,
-                    });
                 });
+            } catch (error) {
+                swal.fire({
+                    icon: 'error',
+                    text: error,
+                });
+                console.log(error);
+            }
         },
         onButtonClick(nameDetail) {
             this.selectedNameDetail = nameDetail;

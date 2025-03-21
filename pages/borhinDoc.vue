@@ -29,14 +29,9 @@
                             </v-btn>
                             <div v-if="name && buttonname" class="text-center font-weight-bold"
                                 style="font-size: 20px; font-weight: bold;font-style: italic;">
-                                {{ name }} {{buttonname }}
+                                {{ name }} {{ buttonname }}
                             </div>
                             <v-divider></v-divider>
-                            <v-card-title v-if="number">
-                                <v-chip color="#A7FFEB" dense class="font-weight-bold">
-                                    {{ number }}
-                                </v-chip>
-                            </v-card-title>
                             <v-card-actions>
                                 <div class="ml-4" style="font-size: 18px; font-weight: bold;">
                                     ມີທັງໝົດ {{ totalList }} ລາຍການ
@@ -89,14 +84,14 @@
             </div>
             <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-text-field label="ຄົ້ນຫາ" v-model="searchData" append-icon="mdi-magnify" :style="{ width: '300px' }"
-                    @input="updateSearchData"></v-text-field>
+                <v-text-field label="ຄົ້ນຫາ" v-model="searchData" append-icon="mdi-magnify" :style="{ width: '300px' }">
+                </v-text-field>
             </v-card-actions>
             <v-card-text>
                 <div v-if="uniqueNameDetails.length">
                     <v-row>
                         <v-col cols="12" sm="6" md="4" v-for="(item, index) in uniqueNameDetails" :key="index"
-                            class=" justify-center align-center" @click="onButtonClick(item)">
+                            class="justify-center align-center" @click="onButtonClick(item)">
                             <v-card height="65px" color="#E0F7FA">
                                 <v-card-text class="text-center font-weight-bold" style="font-size: 20px;">
                                     <div>{{ item }}</div>
@@ -106,7 +101,9 @@
                     </v-row>
                 </div>
                 <div v-else class="text-center mt-5">
-                    <div style="font-size: 20px; font-weight: bold;color: #ff5733;">ຍັງບໍ່ມີຂໍ້ມູນ ຫຼືຶ ເອກະສານ</div>
+                    <div style="font-size: 20px; font-weight: bold;color: #ff5733;">
+                        ຍັງບໍ່ມີຂໍ້ມູນ ຫຼືຶ ເອກະສານ
+                    </div>
                 </div>
             </v-card-text>
         </v-card>
@@ -134,25 +131,23 @@ export default {
     computed: {
         // Unique nameDetails for filter buttons
         uniqueNameDetails() {
-            const query = this.searchData.toLowerCase(); // Convert the search query to lowercase for case-insensitive matching
+            const query = this.searchData.toLowerCase(); // Lowercase for case-insensitive search
 
-            let filteredData;
+            let filteredData = [];
 
+            // Filter based on 'number1' and 'name' fields
             if (this.number1 === '1') {
-                filteredData = this.payAll
-                    .filter((item) => item.type !== null && item.name === 'servey');
+                filteredData = this.payAll.filter((item) => item.type !== null && item.name === 'servey');
             } else if (this.number1 === '2') {
-                filteredData = this.payAll
-                    .filter((item) => item.type !== null && item.name === 'testData');
+                filteredData = this.payAll.filter((item) => item.type !== null && item.name === 'testData');
             } else {
-                filteredData = this.payAll
-                    .filter((item) => item.type !== null && item.name === 'pay');
+                filteredData = this.payAll.filter((item) => item.type !== null && item.name === 'pay');
             }
 
-            // Further filter based on the searchData
+            // Further filter by the searchData (search by 'type')
             if (query) {
                 filteredData = filteredData.filter(item =>
-                    item.type && item.type.toLowerCase().includes(query) // Search based on the 'type' field
+                    item.type && item.type.toLowerCase().includes(query)
                 );
             }
 
@@ -198,11 +193,10 @@ export default {
     },
 
     methods: {
-        updateSearchData(event) {
-            this.searchData = event.target.value; // Update the search query when the user types
-        },
         refresher() {
-            window.location.reload();
+            // window.location.reload();
+            this.fileList = false;
+            this.searchQuery = "";
         },
         fetchAllData() {
             this.$axios

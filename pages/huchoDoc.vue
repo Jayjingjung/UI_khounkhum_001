@@ -80,13 +80,15 @@
             </div>
             <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-text-field label="ຄົ້ນຫາ" v-model="searchData" append-icon="mdi-magnify"
-                    :style="{ width: '300px' }"></v-text-field>
+                <!-- Search Field -->
+                <v-text-field label="ຄົ້ນຫາ" v-model="searchData" append-icon="mdi-magnify" :style="{ width: '300px' }">
+                </v-text-field>
             </v-card-actions>
             <v-card-text>
-                <div v-if="uniqueNameDetails.length">
+                <!-- Display filtered results -->
+                <div v-if="filteredUniqueNameDetails.length">
                     <v-row>
-                        <v-col cols="12" sm="6" md="4" v-for="(item, index) in uniqueNameDetails" :key="index"
+                        <v-col cols="12" sm="6" md="4" v-for="(item, index) in filteredUniqueNameDetails" :key="index"
                             class=" justify-center align-center" @click="onButtonClick(item)">
                             <v-card height="65px" color="#E0F7FA">
                                 <v-card-text class="text-center font-weight-bold" style="font-size: 20px;">
@@ -119,9 +121,11 @@ export default {
             key_id: '',
             USER_ROLE: localStorage.getItem("USER_ROLE") || null,
             name: '',
+            searchData: '',
         };
     },
     computed: {
+        // Get the unique folder names
         uniqueNameDetails() {
             return [
                 ...new Set(
@@ -131,6 +135,14 @@ export default {
                 ),
             ];
         },
+        // Filter the unique names based on searchData
+        filteredUniqueNameDetails() {
+            // Check if searchData is not empty and filter the list
+            return this.uniqueNameDetails.filter(item => {
+                return item.toLowerCase().includes(this.searchData.toLowerCase());
+            });
+        },
+
         filteredItems() {
             let items = this.huchoList;
 

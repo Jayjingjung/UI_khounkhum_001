@@ -15,7 +15,7 @@
                             <v-icon color="#fff">mdi-chevron-down-circle</v-icon>
                         </v-btn>
                     </template>
-                    <v-list>
+                    <!-- <v-list>
                         <v-list-item to="/customer">
                             <v-list-item-title>ລູກຄ້າ</v-list-item-title>
                         </v-list-item>
@@ -37,7 +37,7 @@
                         <v-list-item to="/insert_gas">
                             <v-list-item-title>ເພີ່ມສະຖານີປໍານໍ້າມັນ</v-list-item-title>
                         </v-list-item>
-                    </v-list>
+                    </v-list> -->
                 </v-menu>
                 <v-btn text @click="navigateToStoneAdmin" class="white--text" style="font-weight: bold;"
                     v-if="userRole === 'FOR_DOCUMENT' && USER_NAME === 'JT'">
@@ -62,6 +62,9 @@
 
         <!-- แถบเมนูสำหรับ FOR_DOCUMENT_ADMIN และ BOR-HIN-KHUAT -->
         <v-app-bar color="#A7FFEB" fixed v-if="userRole === 'FOR_DOCUMENT_ADMIN' || userRole === 'BOR-HIN-KHUAT'">
+            <v-btn fab dark small>
+                <img @click="onGoTo" class="mx-auto" src="../assets/images/logo01.png" width="80" />
+            </v-btn>
             <v-spacer />
             <v-btn style="width: auto;" rounded elevation="0" text>
                 <v-icon color="black">mdi-account</v-icon>

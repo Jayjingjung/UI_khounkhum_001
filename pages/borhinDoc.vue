@@ -202,7 +202,9 @@ export default {
             this.searchData = event.target.value; // Update the search query when the user types
         },
         refresher() {
-            window.location.reload();
+            // window.location.reload();
+            this.fileList = false;
+            this.searchQuery = "";
         },
         fetchAllData() {
             this.$axios

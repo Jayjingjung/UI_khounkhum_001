@@ -816,7 +816,7 @@ export default {
         },
         navigate(branch_id, village) {
             this.$router.push({
-                name: 'Add_a_hole',
+                name: 'Add_a_hole1',
                 query: { branch_id, village }
             });
         },

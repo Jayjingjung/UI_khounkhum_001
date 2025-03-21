@@ -29,7 +29,7 @@
                             </v-btn>
                             <div v-if="buttonname" class="text-center font-weight-bold"
                                 style="font-size: 20px; font-weight: bold;font-style: italic;">
-                                ຂໍ້ມູນຮູເຈາະ{{ buttonname }} </div>
+                                ຂໍ້ມູນຮູເຈາະ{{ buttonname }} ({{ selectedNameDetail }}) </div>
                             <v-divider></v-divider>
                             <v-card-title v-if="number">
                                 <v-chip color="#A7FFEB" dense class="font-weight-bold">
@@ -44,13 +44,11 @@
                                 <v-text-field label="ຄົ້ນຫາ" v-model="searchQuery" append-icon="mdi-magnify"
                                     :style="{ width: '300px' }"></v-text-field>
                             </v-card-actions>
-                            <div>
-                                <v-card-actions>
-                                    <div class="ml-10" style="font-weight:bold">
-                                        ຊື່ເອກະສານ
-                                        <v-divider></v-divider>
-                                    </div>
-                                </v-card-actions>
+                            <div style="padding-left: 100px;">
+                                <div style="font-weight:bold; font-size: 16px; font-style: italic;">
+                                    ຊື່ເອກະສານ
+                                    <v-divider></v-divider>
+                                </div>
                             </div>
                         </v-card>
                         <div v-if="filteredItems.length">
@@ -181,7 +179,10 @@ export default {
             this.searchData = event.target.value; // Update the search query when the user types
         },
         refresher() {
-            window.location.reload();
+            this.fileList = false;
+            this.searchQuery = "";
+
+            // window.location.reload();
         },
         ShowListOfHole() {
             try {

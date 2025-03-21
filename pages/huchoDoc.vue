@@ -3,12 +3,6 @@
         <div style="padding-top: 100px;">
             <v-card color="#E0F7FA" class="mb-10">
                 <v-card-actions>
-                    <!-- <v-btn fab elevation="0" small color="green" @click="$router.back()">
-                        <v-icon color="#0a3382">mdi-arrow-left</v-icon>
-                    </v-btn> -->
-                    <!-- <v-card-title v-if="name" class="font-weight-bold">
-                         {{ name }}
-                    </v-card-title> -->
                     <v-card-title v-if="buttonname" class="font-weight-bold">
                         ຂໍ້ມູນຮູເຈາະ {{ buttonname }}
                     </v-card-title>
@@ -16,6 +10,7 @@
                 </v-card-actions>
             </v-card>
         </div>
+
         <!-- Dialog -->
         <v-dialog v-model="fileList" max-width="890" persistent disable-esc>
             <v-card class="mx-auto" max-width="890">
@@ -28,8 +23,9 @@
                                 </v-icon>
                             </v-btn>
                             <div v-if="buttonname" class="text-center font-weight-bold"
-                                style="font-size: 20px; font-weight: bold;font-style: italic;">
-                                ຂໍ້ມູນຮູເຈາະ{{ buttonname }} ({{ selectedNameDetail }}) </div>
+                                style="font-size: 20px; font-weight: bold; font-style: italic;">
+                                ຂໍ້ມູນຮູເຈາະ{{ buttonname }} ({{ selectedNameDetail }})
+                            </div>
                             <v-divider></v-divider>
                             <v-card-title v-if="number">
                                 <v-chip color="#A7FFEB" dense class="font-weight-bold">
@@ -65,7 +61,6 @@
                                         {{ item.full_Name_Hole_number }}
                                         <v-divider></v-divider>
                                     </div>
-
                                 </v-card-actions>
                             </div>
                         </div>
@@ -76,6 +71,7 @@
                 </div>
             </v-card>
         </v-dialog>
+
         <!-- Filter Buttons -->
         <v-card flat>
             <div class="ml-4 pt-6"
@@ -84,8 +80,8 @@
             </div>
             <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-text-field label="ຄົ້ນຫາ" v-model="searchData" append-icon="mdi-magnify" :style="{ width: '300px' }"
-                    @input="updateSearchData"></v-text-field>
+                <v-text-field label="ຄົ້ນຫາ" v-model="searchData" append-icon="mdi-magnify"
+                    :style="{ width: '300px' }"></v-text-field>
             </v-card-actions>
             <v-card-text>
                 <div v-if="uniqueNameDetails.length">
@@ -113,7 +109,8 @@ import swal from "sweetalert2";
 export default {
     data() {
         return {
-            searchQuery: "",
+            searchQuery: "",  // For searching documents inside the folder
+            searchData: "",   // For searching folders
             fileList: false,
             huchoList: [],
             selectedNameDetail: null,
@@ -122,28 +119,27 @@ export default {
             key_id: '',
             USER_ROLE: localStorage.getItem("USER_ROLE") || null,
             name: '',
-            searchData: '', // This will store the search query entered by the user
-            number1: '',
         };
     },
     computed: {
-        // Unique nameDetails for filter buttons
         uniqueNameDetails() {
             return [
                 ...new Set(
                     this.huchoList
                         .map((item) => item.full_Name_Hole_number)
-                        .filter((value) => value && value !== 'null' && value !== 'ເອກະສານ') // ຕັດ null และ 'ເອກະສານ'
+                        .filter((value) => value && value !== 'null' && value !== 'ເອກະສານ') // Filter out null and 'ເອກະສານ'
                 ),
             ];
         },
-        // Filtered items based on search and selected nameDetail
         filteredItems() {
             let items = this.huchoList;
+
+            // Filter by selected folder name
             if (this.selectedNameDetail) {
                 items = items.filter((item) => item.full_Name_Hole_number === this.selectedNameDetail);
             }
 
+            // Search filter: both hoeNumber and full_Name_Hole_number
             if (this.searchQuery) {
                 const searchTerm = this.searchQuery.trim().toLowerCase();
                 items = items.filter(
@@ -152,6 +148,7 @@ export default {
                         item.hoeNumber.toLowerCase().includes(searchTerm)
                 );
             }
+
             return items;
         },
         totalList() {
@@ -163,42 +160,29 @@ export default {
     },
     mounted() {
         const { key_id, label } = this.$route.query;
-        const name = this.$route.query;
         if (key_id && label) {
             this.buttonname = label;
             this.key_id = key_id;
-        }
-        if (name) {
-            this.name = name;
         }
         this.ShowListOfHole();
     },
 
     methods: {
-        updateSearchData(event) {
-            this.searchData = event.target.value; // Update the search query when the user types
-        },
         refresher() {
             this.fileList = false;
-            this.searchQuery = "";
-
-            // window.location.reload();
+            this.searchQuery = ""; // Reset search query
         },
         ShowListOfHole() {
             try {
                 this.$axios.$post('/ShowAllListOfHole.service', {
                     branchUser: this.USER_ROLE,
                     toKen: this.toKen,
-                    // bound: this.bound,
                     branch_id: this.key_id,
                 }).then((data) => {
                     if (data?.status === "00") {
                         this.huchoList = data?.data;
-                        this.filteredReportList = data?.data; // Initialize filtered list
                     } else {
-                        this.report_listitemOffice = [];
-                        this.filteredReportList = [];
-
+                        this.huchoList = [];
                     }
                 });
             } catch (error) {
@@ -206,7 +190,6 @@ export default {
                     icon: 'error',
                     text: error,
                 });
-                console.log(error);
             }
         },
         onButtonClick(nameDetail) {

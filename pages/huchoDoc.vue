@@ -10,7 +10,7 @@
                          {{ name }}
                     </v-card-title> -->
                     <v-card-title v-if="buttonname" class="font-weight-bold">
-                     ຂໍ້ມູນຮູເຈາະ {{ buttonname }}
+                        ຂໍ້ມູນຮູເຈາະ {{ buttonname }}
                     </v-card-title>
                     <v-spacer></v-spacer>
                 </v-card-actions>
@@ -29,7 +29,7 @@
                             </v-btn>
                             <div v-if="buttonname" class="text-center font-weight-bold"
                                 style="font-size: 20px; font-weight: bold;font-style: italic;">
-                                   ຂໍ້ມູນຮູເຈາະ {{buttonname  }}</div>
+                                ຂໍ້ມູນຮູເຈາະ{{ buttonname }} </div>
                             <v-divider></v-divider>
                             <v-card-title v-if="number">
                                 <v-chip color="#A7FFEB" dense class="font-weight-bold">
@@ -56,13 +56,18 @@
                         <div v-if="filteredItems.length">
                             <div v-for="(item, index) in filteredItems" :key="index">
                                 <v-card-actions>
-                                    <v-btn text @click="showResultpdf(item.file)">
+                                    <v-btn text @click="showResultpdf(item.pic)">
                                         <v-icon color="#00E676">mdi-progress-download</v-icon>
                                     </v-btn>
-                                    <div @click="showResultpdf(item.pic)" class="hoverable">
+                                    <div v-if="item.hoeNumber" @click="showResultpdf(item.pic)" class="hoverable">
+                                        {{ item.hoeNumber }}
+                                        <v-divider></v-divider>
+                                    </div>
+                                    <div v-else @click="showResultpdf(item.pic)" class="hoverable">
                                         {{ item.full_Name_Hole_number }}
                                         <v-divider></v-divider>
                                     </div>
+
                                 </v-card-actions>
                             </div>
                         </div>
@@ -145,7 +150,8 @@ export default {
                 const searchTerm = this.searchQuery.trim().toLowerCase();
                 items = items.filter(
                     (item) =>
-                        item.full_Name_Hole_number.toLowerCase().includes(searchTerm)
+                        item.full_Name_Hole_number.toLowerCase().includes(searchTerm) ||
+                        item.hoeNumber.toLowerCase().includes(searchTerm)
                 );
             }
             return items;
@@ -159,7 +165,7 @@ export default {
     },
     mounted() {
         const { key_id, label } = this.$route.query;
-        const  name = this.$route.query;
+        const name = this.$route.query;
         if (key_id && label) {
             this.buttonname = label;
             this.key_id = key_id;

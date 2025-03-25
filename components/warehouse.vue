@@ -203,9 +203,19 @@ export default {
             window.print();
         },
         openDateDialog(item_id, item_name) {
-            this.selectedItemId = item_id;
-            this.selectedItemName = item_name;
-            this.dateDialog = true;
+            // this.selectedItemId = item_id;
+            // this.selectedItemName = item_name;
+            // this.dateDialog = true;
+            this.$router.push({
+                name: 'sendidgetDetail',
+                query: {
+                    item_id: item_id,
+                    startDate: this.startDate,
+                    endDate: this.endDate,
+                    // start_date: this.startDate,
+                    // end_date: this.endDate
+                }
+            });
         },
         submitDates() {
             this.dateDialog = false;

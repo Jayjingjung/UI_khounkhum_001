@@ -32,13 +32,15 @@
           <v-row>
             <height />
             <v-file-input style="width: 100%;" label="ອັບໂຫຼດເອກກະສານ" dense append-inner-icon="mdi-file-pdf"
-              background-color="#f5f5f5" v-model="files"></v-file-input>
+              background-color="#f5f5f5" v-model="files" multiple></v-file-input>
+            <!-- <v-file-input style="width: 100%;" label="ອັບໂຫຼດເອກກະສານ" dense append-inner-icon="mdi-file-pdf"
+              background-color="#f5f5f5" v-model="files"></v-file-input> -->
 
             <!-- Conditional rendering based on USER_NAME -->
             <!-- <v-text-field v-if="USER_NAME !== 'Geo-Explo'" style="width: 100%;" label="ເບີຮູເຈາະ" dense
               v-model="full_Name_Hole_number" /> -->
             <div class="mt-8" style="justify-content:space-between; ">
-              <spen class="name">ເບີຮູເຈາະ</spen>
+              <span class="name">ເບີຮູເຈາະ</span>
               <v-radio-group v-model="inputMethod" row>
                 <v-radio label="ເລືອກຈາກລາຍການ" value="select"></v-radio>
                 <v-radio label="ປ້ອນເອງ" value="textField"></v-radio>
@@ -50,7 +52,7 @@
               :items="itemOptions" label="ເລືອກຮູເຈາະ" outlined dense required></v-autocomplete>
             <!-- <v-autocomplete v-if="inputMethod === 'select'" v-model="full_Name_Hole_number" :items="itemOptions"
               label="ເລືອກຮູເຈາະ" outlined dense required></v-autocomplete> -->
-            <v-text-field style="width: 100%;" label="ຊື່ເອກະສານ" outlined dense v-model="holeNumber"></v-text-field>
+            <!-- <v-text-field style="width: 100%;" label="ຊື່ເອກະສານ" outlined dense v-model="holeNumber"></v-text-field> -->
             <!-- <v-text-field v-if="USER_NAME !== 'Geo-Explo'" outlined style="width: 100%;" label="*  ຂໍ້ມູນ Collar" dense
               v-model="dataColler"></v-text-field> -->
           </v-row>
@@ -81,7 +83,7 @@ export default {
       loading_processing: false,
       full_Name_Hole_number: "",
       dataColler: null,
-      holeNumber: "",
+      holeNumber: null,
       files: null,
       village: null,
       USER_NAME: localStorage.getItem('USER_NAME'), // Fetch the USER_NAME from localStorage
@@ -139,7 +141,13 @@ export default {
 
       try {
         const formdata = new FormData();
-        formdata.append('files', this.files);
+
+        // Append all files to FormData
+        this.files.forEach(file => {
+          // formdata.append('files[]', file);
+          formdata.append('files', file);
+        });
+        // formdata.append('files', this.files);
         formdata.append('full_Name_Hole_number', this.full_Name_Hole_number);
         formdata.append('holeNumber', this.holeNumber);
         formdata.append('dataColler', this.dataColler);

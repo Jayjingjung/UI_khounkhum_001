@@ -10,7 +10,6 @@
                 </v-card-actions>
             </v-card>
         </div>
-
         <!-- Dialog -->
         <v-dialog v-model="fileList" max-width="890" persistent disable-esc>
             <v-card class="mx-auto" max-width="890">
@@ -53,14 +52,11 @@
                                     <v-btn text @click="showResultpdf(item.pic)">
                                         <v-icon color="#00E676">mdi-progress-download</v-icon>
                                     </v-btn>
-                                    <div v-if="item.hoeNumber" @click="showResultpdf(item.pic)" class="hoverable">
-                                        {{ item.hoeNumber }}
+                                    <div @click="showResultpdf(item.pic)" class="hoverable">
+                                        {{ getFileName(item.pic) }}
                                         <v-divider></v-divider>
                                     </div>
-                                    <div v-else @click="showResultpdf(item.pic)" class="hoverable">
-                                        {{ item.full_Name_Hole_number }}
-                                        <v-divider></v-divider>
-                                    </div>
+
                                 </v-card-actions>
                             </div>
                         </div>
@@ -71,7 +67,83 @@
                 </div>
             </v-card>
         </v-dialog>
+        <v-dialog v-model="dialog" max-width="100%" height="100%" persistent disable-esc content-class="dialog-top">
+            <v-card>
+                <v-card class="pt-2 pl-2" style="position: sticky; top: 0; z-index: 1;" flat color="#A7FFEB">
+                    <v-card-actions>
+                        <v-btn fab elevation="0" dark width="50" height="50" color="white" @click="dialog = false">
+                            <v-icon color="#0a3382">mdi-close</v-icon>
+                        </v-btn>
+                        <div v-if="buttonname" class="text-center font-weight-bold"
+                            style="font-size: 20px; font-weight: bold; font-style: italic;">
+                            ຂໍ້ມູນຮູເຈາະ{{ buttonname }} ({{ selectedNameDetail }})
+                        </div>
+                        <v-spacer></v-spacer>
+                        <v-btn @click="changeStyle()" color="#B3E5FC" rounded
+                            style="font-size: 16px; font-weight: bold; font-style: italic;">
+                            ເບີ່ງແບບ Slide
+                        </v-btn>
+                    </v-card-actions>
+                    <div style="font-size: 18px; font-weight: bold; padding-left: 90px;">
+                            ມີທັງໝົດ {{ totalList }} ລາຍການ
+                        </div>
+                </v-card>
+                <v-card-text>
+                    <v-row class="mt-2">
+                        <v-col v-for="(pic, index) in filteredItems" :key="index" cols="12" sm="6" md="2">
+                            <v-card class="mx-auto" @click="showResultpdf(pic.pic)" width="270px" height="390px"
+                                color="#ECEFF1">
+                                <!-- ตรวจสอบประเภทไฟล์ และแสดงไอคอนแทนไฟล์เอกสาร -->
+                                <v-img :src="getFilePreview(pic.pic)" alt="File Preview" height="300px" class="mb-2"
+                                    style="cursor: pointer;"></v-img>
+                                <v-card-text @click="showResultpdf(pic.pic)"
+                                    style="font-weight: bold; font-size: 16px;">
+                                    {{ getFileName(pic.pic) }}
+                                </v-card-text>
+                            </v-card>
+                        </v-col>
+                    </v-row>
+                </v-card-text>
+            </v-card>
+        </v-dialog>
 
+        <v-dialog v-model="dialog1" max-width="890" persistent disable-esc>
+            <v-card class="mx-auto" max-width="890" height="770px">
+                <div>
+                    <v-card class="pt-2 pl-2" style="position: sticky; top: 0; z-index: 1;" flat color="#A7FFEB">
+                        <v-card-actions>
+                            <v-btn fab elevation="0" dark width="50" height="50" color="white" @click="dialog1 = false">
+                                <v-icon color="#0a3382">mdi-close</v-icon>
+                            </v-btn>
+                            <div v-if="buttonname" class="text-center font-weight-bold"
+                                style="font-size: 20px; font-weight: bold; font-style: italic;">
+                                ຂໍ້ມູນຮູເຈາະ{{ buttonname }} ({{ selectedNameDetail }})
+                            </div>
+                            <v-spacer></v-spacer>
+                            <v-btn @click="changeStyle1()" color="#B3E5FC" rounded
+                                style="font-size: 16px; font-weight: bold; font-style: italic;">
+                                ເບີ່ງແບບລວມ
+                            </v-btn>
+                        </v-card-actions>
+                    </v-card>
+                    <v-carousel hide-delimiters class="mt-6">
+                        <v-carousel-item v-for="(pic, index) in filteredItems" :key="index" :src="pic"
+                            reverse-transition="fade-transition" transition="fade-transition">
+                            <div style="text-align: center; font-weight: bold; font-size: 16px;"
+                                @click="showResultpdf(pic.pic)" class="hoverable">
+                                <v-chip color="#B3E5FC">
+                                    {{ getFileName(pic.pic) }}
+                                </v-chip>
+                            </div>
+                            <div style="padding-left: 150px;" class="mt-4">
+                                <v-img width="80%" height="100%" :src="getFilePreview(pic.pic)"
+                                    @click="showResultpdf(pic.pic)"></v-img>
+                            </div>
+                        </v-carousel-item>
+                    </v-carousel>
+                </div>
+            </v-card>
+        </v-dialog>
         <!-- Filter Buttons -->
         <v-card flat>
             <div class="ml-4 pt-6"
@@ -114,6 +186,9 @@ export default {
             searchQuery: "",  // For searching documents inside the folder
             searchData: "",   // For searching folders
             fileList: false,
+            dialog: false,
+            dialog1: false,
+            carouselPics: [],
             huchoList: [],
             selectedNameDetail: null,
             buttonname: null,
@@ -206,7 +281,8 @@ export default {
         },
         onButtonClick(nameDetail) {
             this.selectedNameDetail = nameDetail;
-            this.fileList = true;
+            // this.fileList = true;
+            this.dialog = true;
         },
         showResultpdf(file) {
             if (file) {
@@ -218,6 +294,35 @@ export default {
                 });
             }
         },
+        getFileName(url) {
+            // Extracts the file name from the URL without the extension
+            const fileName = url.split('/').pop(); // Get the last part of the URL
+            return fileName.split('.')[0]; // Remove the extension (after the dot)
+        },
+        changeStyle() {
+            this.dialog = false;
+            this.dialog1 = true;
+        },
+        changeStyle1() {
+            this.dialog1 = false;
+            this.dialog = true;
+        },
+        getFilePreview(fileUrl) {
+            const fileExtension = fileUrl.split('.').pop().toLowerCase();
+            const fileIcons = {
+                pdf: 'https://cdn-icons-png.flaticon.com/512/337/337946.png',   // ไอคอน PDF
+                doc: 'https://cdn-icons-png.flaticon.com/512/337/337932.png',   // ไอคอน Word
+                docx: 'https://cdn-icons-png.flaticon.com/512/337/337932.png',
+                xls: 'https://cdn-icons-png.flaticon.com/512/732/732220.png',   // ไอคอน Excel
+                xlsx: 'https://cdn-icons-png.flaticon.com/512/732/732220.png',
+                csv: 'https://cdn-icons-png.flaticon.com/512/732/732220.png'    // ไอคอน CSV
+            };
+            // if it is document file, return the icon, otherwise return the fileUrl
+            return fileIcons[fileExtension] || fileUrl;
+        },
+        getFileName(fileUrl) {
+            return fileUrl.split('/').pop();
+        }
     },
 };
 </script>

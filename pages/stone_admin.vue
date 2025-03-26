@@ -476,13 +476,13 @@
                                     </v-list-item-content>
                                 </template>
                                 <v-list-item>
-                                    <!-- <v-btn @click="filterSurvey(branch.b_name)" rounded>
-                                        ເບີ່ງ
-                                    </v-btn> -->
-                                    <v-btn @click="seeDocument1(branch.key_id, branch.b_name, 'ຂໍ້ມູນສຳຫຼວດ', '1')"
-                                        rounded>
+                                    <v-btn @click="filterSurvey(branch.b_name)" rounded>
                                         ເບີ່ງ
                                     </v-btn>
+                                    <!-- <v-btn @click="seeDocument1(branch.key_id, branch.b_name, 'ຂໍ້ມູນສຳຫຼວດ', '1')"
+                                        rounded>
+                                        ເບີ່ງ
+                                    </v-btn> -->
                                     <v-spacer></v-spacer>
                                     <v-btn color="success"
                                         @click="paymentdoc(branch.key_id, branch.b_name, 'servey', 'ເອກະສານ', 'ເພີ່ມຂໍ້ມູນສຳຫຼວດ')"
@@ -524,13 +524,13 @@
                                     </v-list-item-content>
                                 </template>
                                 <v-list-item>
-                                    <!-- <v-btn @click="filterTest(branch.b_name)" rounded>
-                                        ເບີ່ງ
-                                    </v-btn> -->
-                                    <v-btn @click="seeDocument2(branch.key_id, branch.b_name, 'ຂໍ້ມູນວິໃຈຕົວຢ່າງ', '2')"
-                                        rounded>
+                                    <v-btn @click="filterTest(branch.b_name)" rounded>
                                         ເບີ່ງ
                                     </v-btn>
+                                    <!-- <v-btn @click="seeDocument2(branch.key_id, branch.b_name, 'ຂໍ້ມູນວິໃຈຕົວຢ່າງ', '2')"
+                                        rounded>
+                                        ເບີ່ງ
+                                    </v-btn> -->
                                     <v-spacer></v-spacer>
                                     <v-btn color="success"
                                         @click="paymentdoc(branch.key_id, branch.b_name, 'testData', 'ເອກະສານ', 'ເພີ່ມຂໍ້ມູນວິໃຈຕົວຢ່າງ')"
@@ -548,13 +548,13 @@
                                     </v-list-item-content>
                                 </template>
                                 <v-list-item>
-                                    <!-- <v-btn rounded @click="filterPayment(branch.b_name)">
-                                        ເບີ່ງ
-                                    </v-btn> -->
-                                    <v-btn @click="seeDocument3(branch.key_id, branch.b_name, 'ຂໍ້ມູນລາຍຈ່າຍ', '3')"
-                                        rounded>
+                                    <v-btn rounded @click="filterPayment(branch.b_name)">
                                         ເບີ່ງ
                                     </v-btn>
+                                    <!-- <v-btn @click="seeDocument3(branch.key_id, branch.b_name, 'ຂໍ້ມູນລາຍຈ່າຍ', '3')"
+                                        rounded>
+                                        ເບີ່ງ
+                                    </v-btn> -->
                                     <v-spacer></v-spacer>
                                     <v-btn color="success"
                                         @click="paymentdoc(branch.key_id, branch.b_name, 'pay', 'ເອກະສານ', 'ເພີ່ມຂໍ້ມູນລາຍຈ່າຍ')"

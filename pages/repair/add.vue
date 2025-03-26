@@ -80,19 +80,20 @@
                             <td :class="{ 'red-text': row?.item?.qty < 5 }">{{ row?.item?.qty }}</td>
                             <td>{{ row?.item?.unit }}</td>
                             <td>{{ row?.item?.unit_price?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</td>
-                            <td>
+                            <!-- <td>
                                 <v-btn class="green" small @click="askBeforeupdateCusInfo(row.item.item_id)">
                                     <v-icon color="white">mdi-update</v-icon>
                                     <span class="white--text">ອັບເດດ</span>
                                 </v-btn>
-                            </td>
+                            </td> -->
 
 
                             <td>
-                                <v-btn class="red" small @click="askBeforeDeleteCusInfo(row.item.item_id)">
+                                <v-btn class="red" small @click="onDeleteEmpInfo(row.item.item_id)">
                                     <v-icon color="white">mdi-delete</v-icon>
                                     <span class="white--text">ລຶບ</span>
                                 </v-btn>
+
                             </td>
                         </tr>
                     </template>
@@ -171,12 +172,12 @@
                         <td>{{ row?.item?.country }}</td>
                         <!-- <td>{{ row?.item?.branch }}</td> -->
 
-                        <!-- <td>
+                        <td>
                             <v-btn class="red" small @click="deleteshow(row.item.shop_id)">
                                 <v-icon color="white">mdi-delete</v-icon>
                                 <span class="white--text">ລຶບ</span>
                             </v-btn>
-                        </td> -->
+                        </td>
 
 
                     </tr>
@@ -297,20 +298,40 @@ export default {
             }
             try {
                 this.$axios.$post('/InsertShop.service', data).then((data) => {
-                    if (data?.status === '00') {
-                        this.$toast.success('ສຳເລັດແລ້ວ')
-                        this.onGetExpense()
-                        this.$refs.form.reset();
+                    if (data.status == '00') {
+                        Swal.fire({
+                            title: 'ເພີ່ມສຳເລັດ',
+                            icon: 'success',
+                            allowOutsideClick: false,
+                        });
+                        this.shop_name = '';
+                        this.address = '';
+                        this.phone = '';
+                        this.country = '';
+                        this.currency = '';
+                        this.onGetaddshow();
                     } else {
-                        swal.fire({
+                        this.loading_processing = false;
+                        Swal.fire({
+                            title: 'ແຈ້ງເຕືອນ',
+                            text: response?.message,
                             icon: 'error',
-                            text: data?.message
-                        })
+                            allowOutsideClick: false,
+                            confirmButtonColor: '#3085d6',
+                            confirmButtonText: 'OK',
+                        });
                     }
                 })
             } catch (error) {
-                console.log(error)
-                this.onGetaddshow();
+                this.loading_processing = false;
+                Swal.fire({
+                    title: 'ແຈ້ງເຕືອນ',
+                    text: response?.message,
+                    icon: 'error',
+                    allowOutsideClick: false,
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: 'OK',
+                });
             }
         },
         deleteshow(key) {
@@ -396,10 +417,33 @@ export default {
                 formdata.append('qty', this.qty);
                 formdata.append('toKen', localStorage.getItem('toKen'));
                 formdata.append('files', this.files);
-
                 this.loading_processing = true;
-                await this.$axios.$post('insertItems.service', formdata);
-
+                const response = await this.$axios.$post('insertItems.service', formdata);
+                if (response?.status == '00') {
+                    Swal.fire({
+                        title: 'ເພີ່ມສຳເລັດ',
+                        icon: 'success',
+                        allowOutsideClick: false,
+                    });
+                    // this.clearData();
+                    // this.onGetadd();
+                    this.itemName = '';
+                    this.unit = '';
+                    this.unit_price = '';
+                    this.qty = '';
+                    this.files = null;
+                    this.onGetadd();
+                } else {
+                    this.loading_processing = false;
+                    Swal.fire({
+                        title: 'ແຈ້ງເຕືອນ',
+                        text: response?.message,
+                        icon: 'error',
+                        allowOutsideClick: false,
+                        confirmButtonColor: '#3085d6',
+                        confirmButtonText: 'OK',
+                    });
+                }
                 // Handle success or show error messages here
             } catch (error) {
                 // Handle errors and show appropriate messages
@@ -431,24 +475,23 @@ export default {
         askBeforeupdateCusInfo(item_id) {
             this.$router.push({ path: '/updateitem', query: { item_id: item_id } });
         },
-        async onDeleteEmpInfo() {
+        async onDeleteEmpInfo(item_id) {
             try {
                 const data = {
-                    item_id: this.item_id, // Use item_id property
+                    item_id: item_id, // Use item_id parameter
                 };
                 this.loading_processing = true;
                 const response = await this.$axios.$post('DelItem.service', data);
 
                 if (response?.status == '00') {
-                    console.log(this.item_id);
-                    this.loading_processing = false;
-                    this.onGetadd();
-
+                    // console.log(item_id); // Log the item_id for debugging
                     Swal.fire({
                         title: 'ສຳເລັດ',
                         icon: 'success',
                         allowOutsideClick: false,
                     });
+                    this.onGetadd();
+                    this.loading_processing = false;
                 } else {
                     this.loading_processing = false;
                     Swal.fire({
@@ -463,7 +506,7 @@ export default {
             } catch (error) {
                 this.loading_processing = false;
                 Swal.fire({
-                    title: 'ແຈ້ງເຕືອນ',
+                    title: 'ແຈ້ງເຕອນ',
                     text: error.message || 'An error occurred while deleting',
                     icon: 'error',
                     allowOutsideClick: false,
@@ -472,6 +515,14 @@ export default {
                 });
             }
         },
+        clearData() {
+            this.itemName = '';
+            this.unit = '';
+            this.unit_price = '';
+            this.qty = '';
+            this.files = null;
+        },
+
     },
 
 };
@@ -488,8 +539,9 @@ export default {
     display: flex;
     justify-content: center;
 }
+
 .red-text {
-  color: red;
-  font-weight: bold;
+    color: red;
+    font-weight: bold;
 }
 </style>

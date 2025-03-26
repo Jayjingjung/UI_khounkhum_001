@@ -10,7 +10,6 @@
                 </v-card-actions>
             </v-card>
         </div>
-
         <!-- Dialog -->
         <v-dialog v-model="fileList" max-width="890" persistent disable-esc>
             <v-card class="mx-auto" max-width="890">
@@ -97,19 +96,22 @@
                 <v-card-text>
                     <v-row class="mt-2">
                         <v-col v-for="(pic, index) in filteredItems" :key="index" cols="12" sm="6" md="2">
-                            <v-card class="mx-auto" @click="showResultpdf(pic.pic)" width="270px" color="#ECEFF1">
-                                <v-img :src="pic.pic" alt="Picture" height="380px" class="mb-2"
+                            <v-card class="mx-auto" @click="showResultpdf(pic.pic)" width="270px" height="390px"
+                                color="#ECEFF1">
+                                <!-- ตรวจสอบประเภทไฟล์ และแสดงไอคอนแทนไฟล์เอกสาร -->
+                                <v-img :src="getFilePreview(pic.pic)" alt="File Preview" height="300px" class="mb-2"
                                     style="cursor: pointer;"></v-img>
-                                <div @click="showResultpdf(pic.pic)" class="hoverable">
+                                <v-card-text @click="showResultpdf(pic.pic)"
+                                    style="font-weight: bold; font-size: 16px;">
                                     {{ getFileName(pic.pic) }}
-                                    <v-divider></v-divider>
-                                </div>
+                                </v-card-text>
                             </v-card>
                         </v-col>
                     </v-row>
                 </v-card-text>
             </v-card>
         </v-dialog>
+
         <v-dialog v-model="dialog1" max-width="890" persistent disable-esc>
             <v-card class="mx-auto" max-width="890" height="770px">
                 <div>
@@ -129,16 +131,17 @@
                             </v-btn>
                         </v-card-actions>
                     </v-card>
-                    <v-carousel hide-delimiters>
+                    <v-carousel hide-delimiters class="mt-6">
                         <v-carousel-item v-for="(pic, index) in filteredItems" :key="index" :src="pic"
                             reverse-transition="fade-transition" transition="fade-transition">
-                            <div style="text-align: center; font-weight: bold; font-size: 16px; font-style: italic;"
+                            <div style="text-align: center; font-weight: bold; font-size: 16px;"
                                 @click="showResultpdf(pic.pic)" class="hoverable">
-                                {{ getFileName(pic.pic) }}
-                                <v-divider></v-divider>
+                                <v-chip color="#B3E5FC">
+                                    {{ getFileName(pic.pic) }}
+                                </v-chip>
                             </div>
-                            <div style="padding-left: 150px;">
-                                <v-img width="80%" height="100%" :src="pic.pic" @click="showResultpdf(pic.pic)"></v-img>
+                            <div style="padding-left: 150px;" class="mt-4">
+                                <v-img width="80%" height="100%" :src="getFilePreview(pic.pic)" @click="showResultpdf(pic.pic)"></v-img>
                             </div>
                         </v-carousel-item>
                     </v-carousel>
@@ -308,6 +311,22 @@ export default {
             this.dialog1 = false;
             this.dialog = true;
         },
+        getFilePreview(fileUrl) {
+        const fileExtension = fileUrl.split('.').pop().toLowerCase();
+        const fileIcons = {
+            pdf: 'https://cdn-icons-png.flaticon.com/512/337/337946.png',   // ไอคอน PDF
+            doc: 'https://cdn-icons-png.flaticon.com/512/337/337932.png',   // ไอคอน Word
+            docx: 'https://cdn-icons-png.flaticon.com/512/337/337932.png',
+            xls: 'https://cdn-icons-png.flaticon.com/512/732/732220.png',   // ไอคอน Excel
+            xlsx: 'https://cdn-icons-png.flaticon.com/512/732/732220.png',
+            csv: 'https://cdn-icons-png.flaticon.com/512/732/732220.png'    // ไอคอน CSV
+        };
+        // if it is document file, return the icon, otherwise return the fileUrl
+        return fileIcons[fileExtension] || fileUrl;
+    },
+    getFileName(fileUrl) {
+        return fileUrl.split('/').pop();
+    }
     },
 };
 </script>

@@ -40,7 +40,7 @@
             <!-- <v-text-field v-if="USER_NAME !== 'Geo-Explo'" style="width: 100%;" label="ເບີຮູເຈາະ" dense
               v-model="full_Name_Hole_number" /> -->
             <div class="mt-8" style="justify-content:space-between; ">
-              <spen class="name">ເບີຮູເຈາະ</spen>
+              <span class="name">ເບີຮູເຈາະ</span>
               <v-radio-group v-model="inputMethod" row>
                 <v-radio label="ເລືອກຈາກລາຍການ" value="select"></v-radio>
                 <v-radio label="ປ້ອນເອງ" value="textField"></v-radio>
@@ -144,7 +144,8 @@ export default {
 
         // Append all files to FormData
         this.files.forEach(file => {
-          formdata.append('files[]', file);
+          // formdata.append('files[]', file);
+          formdata.append('files', file);
         });
         // formdata.append('files', this.files);
         formdata.append('full_Name_Hole_number', this.full_Name_Hole_number);

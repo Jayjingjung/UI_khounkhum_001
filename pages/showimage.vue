@@ -6,10 +6,10 @@
                     <v-card-text>
                         <v-card style="position: sticky; top: 0; z-index: 1;" flat >
                             <v-card-text style="background-color: #A7FFEB; border-radius:36px 0 36px  0;">
-                                <v-btn fab elevation="0" dark width="50" height="50" color="white"
+                                <!-- <v-btn fab elevation="0" dark width="50" height="50" color="white"
                                     @click="$router.back()">
                                     <v-icon color="#0a3382">mdi-arrow-left</v-icon>
-                                </v-btn>
+                                </v-btn> -->
                                 <div class="text-center font-weight-bold" style="font-size: 20px">
                                     ຮູບພາບກ່ຽວກັບພາກສະໜາມ
                                 </div>

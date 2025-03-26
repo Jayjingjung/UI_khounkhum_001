@@ -76,7 +76,75 @@
                 </div>
             </v-card>
         </v-dialog>
-
+        <v-dialog v-model="dialog" max-width="100%" height="100%" persistent disable-esc content-class="dialog-top">
+            <v-card>
+                <v-card class="pt-2 pl-2" style="position: sticky; top: 0; z-index: 1;" flat color="#A7FFEB">
+                    <v-card-actions>
+                        <v-btn fab elevation="0" dark width="50" height="50" color="white" @click="dialog = false">
+                            <v-icon color="#0a3382">mdi-close</v-icon>
+                        </v-btn>
+                        <div v-if="buttonname" class="text-center font-weight-bold"
+                            style="font-size: 20px; font-weight: bold; font-style: italic;">
+                            ຂໍ້ມູນຮູເຈາະ{{ buttonname }} ({{ selectedNameDetail }})
+                        </div>
+                        <v-spacer></v-spacer>
+                        <v-btn @click="changeStyle()" color="#B3E5FC" rounded
+                            style="font-size: 16px; font-weight: bold; font-style: italic;">
+                            ເບີ່ງແບບ Slide
+                        </v-btn>
+                    </v-card-actions>
+                </v-card>
+                <v-card-text>
+                    <v-row class="mt-2">
+                        <v-col v-for="(pic, index) in filteredItems" :key="index" cols="12" sm="6" md="2">
+                            <v-card class="mx-auto" @click="showResultpdf(pic.pic)" width="270px" color="#ECEFF1">
+                                <v-img :src="pic.pic" alt="Picture" height="380px" class="mb-2"
+                                    style="cursor: pointer;"></v-img>
+                                <div @click="showResultpdf(pic.pic)" class="hoverable">
+                                    {{ getFileName(pic.pic) }}
+                                    <v-divider></v-divider>
+                                </div>
+                            </v-card>
+                        </v-col>
+                    </v-row>
+                </v-card-text>
+            </v-card>
+        </v-dialog>
+        <v-dialog v-model="dialog1" max-width="890" persistent disable-esc>
+            <v-card class="mx-auto" max-width="890" height="770px">
+                <div>
+                    <v-card class="pt-2 pl-2" style="position: sticky; top: 0; z-index: 1;" flat color="#A7FFEB">
+                        <v-card-actions>
+                            <v-btn fab elevation="0" dark width="50" height="50" color="white" @click="dialog1 = false">
+                                <v-icon color="#0a3382">mdi-close</v-icon>
+                            </v-btn>
+                            <div v-if="buttonname" class="text-center font-weight-bold"
+                                style="font-size: 20px; font-weight: bold; font-style: italic;">
+                                ຂໍ້ມູນຮູເຈາະ{{ buttonname }} ({{ selectedNameDetail }})
+                            </div>
+                            <v-spacer></v-spacer>
+                            <v-btn @click="changeStyle1()" color="#B3E5FC" rounded
+                                style="font-size: 16px; font-weight: bold; font-style: italic;">
+                                ເບີ່ງແບບລວມ
+                            </v-btn>
+                        </v-card-actions>
+                    </v-card>
+                    <v-carousel hide-delimiters>
+                        <v-carousel-item v-for="(pic, index) in filteredItems" :key="index" :src="pic"
+                            reverse-transition="fade-transition" transition="fade-transition">
+                            <div style="text-align: center; font-weight: bold; font-size: 16px; font-style: italic;"
+                                @click="showResultpdf(pic.pic)" class="hoverable">
+                                {{ getFileName(pic.pic) }}
+                                <v-divider></v-divider>
+                            </div>
+                            <div style="padding-left: 150px;">
+                                <v-img width="80%" height="100%" :src="pic.pic" @click="showResultpdf(pic.pic)"></v-img>
+                            </div>
+                        </v-carousel-item>
+                    </v-carousel>
+                </div>
+            </v-card>
+        </v-dialog>
         <!-- Filter Buttons -->
         <v-card flat>
             <div class="ml-4 pt-6"
@@ -119,6 +187,9 @@ export default {
             searchQuery: "",  // For searching documents inside the folder
             searchData: "",   // For searching folders
             fileList: false,
+            dialog: false,
+            dialog1: false,
+            carouselPics: [],
             huchoList: [],
             selectedNameDetail: null,
             buttonname: null,
@@ -211,7 +282,8 @@ export default {
         },
         onButtonClick(nameDetail) {
             this.selectedNameDetail = nameDetail;
-            this.fileList = true;
+            // this.fileList = true;
+            this.dialog = true;
         },
         showResultpdf(file) {
             if (file) {
@@ -224,10 +296,18 @@ export default {
             }
         },
         getFileName(url) {
-        // Extracts the file name from the URL without the extension
-        const fileName = url.split('/').pop(); // Get the last part of the URL
-        return fileName.split('.')[0]; // Remove the extension (after the dot)
-    }
+            // Extracts the file name from the URL without the extension
+            const fileName = url.split('/').pop(); // Get the last part of the URL
+            return fileName.split('.')[0]; // Remove the extension (after the dot)
+        },
+        changeStyle() {
+            this.dialog = false;
+            this.dialog1 = true;
+        },
+        changeStyle1() {
+            this.dialog1 = false;
+            this.dialog = true;
+        },
     },
 };
 </script>

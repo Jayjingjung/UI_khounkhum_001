@@ -52,14 +52,6 @@
                                     <v-btn text @click="showResultpdf(item.pic)">
                                         <v-icon color="#00E676">mdi-progress-download</v-icon>
                                     </v-btn>
-                                    <!-- <div v-if="item.hoeNumber" @click="showResultpdf(item.pic)" class="hoverable">
-                                        {{ item.hoeNumber }}
-                                        <v-divider></v-divider>
-                                    </div>
-                                    <div v-else @click="showResultpdf(item.pic)" class="hoverable">
-                                        {{ item.full_Name_Hole_number }}
-                                        <v-divider></v-divider>
-                                    </div> -->
                                     <div @click="showResultpdf(item.pic)" class="hoverable">
                                         {{ getFileName(item.pic) }}
                                         <v-divider></v-divider>
@@ -92,6 +84,9 @@
                             ເບີ່ງແບບ Slide
                         </v-btn>
                     </v-card-actions>
+                    <div style="font-size: 18px; font-weight: bold; padding-left: 90px;">
+                            ມີທັງໝົດ {{ totalList }} ລາຍການ
+                        </div>
                 </v-card>
                 <v-card-text>
                     <v-row class="mt-2">
@@ -141,7 +136,8 @@
                                 </v-chip>
                             </div>
                             <div style="padding-left: 150px;" class="mt-4">
-                                <v-img width="80%" height="100%" :src="getFilePreview(pic.pic)" @click="showResultpdf(pic.pic)"></v-img>
+                                <v-img width="80%" height="100%" :src="getFilePreview(pic.pic)"
+                                    @click="showResultpdf(pic.pic)"></v-img>
                             </div>
                         </v-carousel-item>
                     </v-carousel>
@@ -312,21 +308,21 @@ export default {
             this.dialog = true;
         },
         getFilePreview(fileUrl) {
-        const fileExtension = fileUrl.split('.').pop().toLowerCase();
-        const fileIcons = {
-            pdf: 'https://cdn-icons-png.flaticon.com/512/337/337946.png',   // ไอคอน PDF
-            doc: 'https://cdn-icons-png.flaticon.com/512/337/337932.png',   // ไอคอน Word
-            docx: 'https://cdn-icons-png.flaticon.com/512/337/337932.png',
-            xls: 'https://cdn-icons-png.flaticon.com/512/732/732220.png',   // ไอคอน Excel
-            xlsx: 'https://cdn-icons-png.flaticon.com/512/732/732220.png',
-            csv: 'https://cdn-icons-png.flaticon.com/512/732/732220.png'    // ไอคอน CSV
-        };
-        // if it is document file, return the icon, otherwise return the fileUrl
-        return fileIcons[fileExtension] || fileUrl;
-    },
-    getFileName(fileUrl) {
-        return fileUrl.split('/').pop();
-    }
+            const fileExtension = fileUrl.split('.').pop().toLowerCase();
+            const fileIcons = {
+                pdf: 'https://cdn-icons-png.flaticon.com/512/337/337946.png',   // ไอคอน PDF
+                doc: 'https://cdn-icons-png.flaticon.com/512/337/337932.png',   // ไอคอน Word
+                docx: 'https://cdn-icons-png.flaticon.com/512/337/337932.png',
+                xls: 'https://cdn-icons-png.flaticon.com/512/732/732220.png',   // ไอคอน Excel
+                xlsx: 'https://cdn-icons-png.flaticon.com/512/732/732220.png',
+                csv: 'https://cdn-icons-png.flaticon.com/512/732/732220.png'    // ไอคอน CSV
+            };
+            // if it is document file, return the icon, otherwise return the fileUrl
+            return fileIcons[fileExtension] || fileUrl;
+        },
+        getFileName(fileUrl) {
+            return fileUrl.split('/').pop();
+        }
     },
 };
 </script>

@@ -2,7 +2,7 @@
     <div>
         <!-- แถบเมนูสำหรับ HR และ FOR_DOCUMENT -->
         <v-app-bar style="width: 100%;" fixed app color="#Bf0008" class="mt-2"
-            v-if="userRole === 'HR' || userRole === 'FOR_DOCUMENT'">
+            v-if="userRole === 'HR' || userRole === 'FOR_DOCUMENT' || userRole === 'FOR_DOCUMENT_ADMIN' && USER_NAME === 'JT'">
             <v-btn fab dark small>
                 <img @click="$router.back()" class="mx-auto" src="../assets/images/logo01.png" width="80" />
             </v-btn>
@@ -40,7 +40,7 @@
                     </v-list>
                 </v-menu>
                 <v-btn text @click="navigateToStoneAdmin" class="white--text" style="font-weight: bold;"
-                    v-if="userRole === 'FOR_DOCUMENT' && USER_NAME === 'JT'">
+                    v-if=" USER_NAME === 'JT'">
                     <v-icon>
                         mdi-excavator
                     </v-icon>
@@ -61,7 +61,7 @@
         </v-app-bar>
 
         <!-- แถบเมนูสำหรับ FOR_DOCUMENT_ADMIN และ BOR-HIN-KHUAT -->
-        <v-app-bar color="#A7FFEB" fixed v-if="userRole === 'FOR_DOCUMENT_ADMIN' || userRole === 'BOR-HIN-KHUAT'">
+        <v-app-bar color="#A7FFEB" fixed v-if="USER_NAME === 'sisnok' || userRole === 'BOR-HIN-KHUAT'">
             <v-spacer />
             <v-btn style="width: auto;" rounded elevation="0" text>
                 <v-icon color="black">mdi-account</v-icon>

@@ -73,7 +73,7 @@ export default {
       const USER_ROLE = localStorage.getItem('USER_ROLE');
       const USER_NAME = localStorage.getItem('USER_NAME');
 
-      if (USER_ROLE === 'FOR_DOCUMENT'||USER_ROLE === 'HR'||USER_ROLE=== 'FINANCE') {
+      if (USER_ROLE === 'FOR_DOCUMENT'||USER_ROLE === 'HR'||USER_ROLE=== 'FINANCE' || USER_NAME ==='JT') {
         this.$router.push('/homepagehr');
       } else if (USER_NAME === 'sisnok' && USER_ROLE === 'FOR_DOCUMENT_ADMIN') {
         this.$router.push('/dashboard');

@@ -85,8 +85,8 @@
                         </v-btn>
                     </v-card-actions>
                     <div style="font-size: 18px; font-weight: bold; padding-left: 90px;">
-                            ມີທັງໝົດ {{ totalList }} ລາຍການ
-                        </div>
+                        ມີທັງໝົດ {{ totalList }} ລາຍການ
+                    </div>
                 </v-card>
                 <v-card-text>
                     <v-row class="mt-2">
@@ -197,6 +197,7 @@ export default {
             USER_ROLE: localStorage.getItem("USER_ROLE") || null,
             name: '',
             searchData: '',
+            number: ''
         };
     },
     computed: {
@@ -284,14 +285,108 @@ export default {
             // this.fileList = true;
             this.dialog = true;
         },
+        // showResultpdf(file) {
+        //     if (file) {
+        //         window.open(file, "_blank");
+        //     } else {
+        //         swal.fire({
+        //             icon: "error",
+        //             text: "File not available.",
+        //         });
+        //     }
+        // },
         showResultpdf(file) {
-            if (file) {
-                window.open(file, "_blank");
-            } else {
+            if (!file) {
+                swal.fire({ icon: "error", text: "File not available." });
+                return;
+            }
+
+            // Get file extension
+            const extension = file.split('.').pop().toLowerCase();
+
+            // List of formats that should auto-download
+            const downloadFormats = ['csv', 'xls', 'xlsx', 'doc', 'docx', 'ppt', 'pptx', 'zip', 'rar'];
+
+            if (downloadFormats.includes(extension)) {
+                // Auto-download logic
+                const link = document.createElement('a');
+                link.href = file;
+                link.download = file.split('/').pop(); // Use original filename
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+
+                // Optional: Show download confirmation
                 swal.fire({
-                    icon: "error",
-                    text: "File not available.",
+                    icon: "success",
+                    title: "Download Started",
+                    text: `Your ${extension.toUpperCase()} file is downloading`,
+                    timer: 2000,
+                    showConfirmButton: false
                 });
+            }
+            else {
+                // For viewable formats (images/PDFs) - use previous viewer logic
+                const overlay = document.createElement('div');
+                overlay.style.cssText = `
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.95);
+      z-index: 9999;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    `;
+
+                // Close button
+                const closeBtn = document.createElement('button');
+                closeBtn.innerHTML = '×';
+                closeBtn.style.cssText = `
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: rgba(255, 255, 255, 0.3);
+      border: none;
+      color: white;
+      font-size: 24px;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      cursor: pointer;
+    `;
+
+                // Content handling
+                if (['jpg', 'jpeg', 'png', 'gif', 'webp'].includes(extension)) {
+                    const img = document.createElement('img');
+                    img.src = file;
+                    img.style.maxWidth = '95%';
+                    img.style.maxHeight = '95%';
+                    img.style.objectFit = 'contain';
+                    overlay.appendChild(img);
+                }
+                else if (extension === 'pdf') {
+                    const iframe = document.createElement('iframe');
+                    iframe.src = file;
+                    iframe.style.width = '90%';
+                    iframe.style.height = '90%';
+                    iframe.style.border = 'none';
+                    overlay.appendChild(iframe);
+                }
+
+                overlay.appendChild(closeBtn);
+                document.body.appendChild(overlay);
+                document.body.style.overflow = 'hidden';
+
+                const closeViewer = () => {
+                    document.body.removeChild(overlay);
+                    document.body.style.overflow = '';
+                };
+
+                closeBtn.addEventListener('click', closeViewer);
+                document.addEventListener('keydown', (e) => e.key === 'Escape' && closeViewer());
             }
         },
         getFileName(url) {
@@ -315,9 +410,10 @@ export default {
                 docx: 'https://cdn-icons-png.flaticon.com/512/337/337932.png',
                 xls: 'https://cdn-icons-png.flaticon.com/512/732/732220.png',   // ไอคอน Excel
                 xlsx: 'https://cdn-icons-png.flaticon.com/512/732/732220.png',
-                csv: 'https://cdn-icons-png.flaticon.com/512/732/732220.png'    // ไอคอน CSV
+                csv: 'https://cdn-icons-png.flaticon.com/512/2306/2306206.png', // ไอคอน CSV
+                zip: 'https://cdn-icons-png.flaticon.com/512/888/888879.png',   // ไอคอน ZIP
+                rar: 'https://cdn-icons-png.flaticon.com/512/888/888879.png'    // ไอคอน RAR (ใช้ไอคอนเดียวกับ ZIP)
             };
-            // if it is document file, return the icon, otherwise return the fileUrl
             return fileIcons[fileExtension] || fileUrl;
         },
         getFileName(fileUrl) {

@@ -1,10 +1,10 @@
 <template>
     <v-row justify="center">
         <v-container>
-            <v-card class="mx-auto" max-width="790" >
+            <v-card class="mx-auto" max-width="790">
                 <div class="mt-4">
                     <v-card-text>
-                        <v-card style="position: sticky; top: 0; z-index: 1;" flat >
+                        <v-card style="position: sticky; top: 0; z-index: 1;" flat>
                             <v-card-text style="background-color: #A7FFEB; border-radius:36px 0 36px  0;">
                                 <!-- <v-btn fab elevation="0" dark width="50" height="50" color="white"
                                     @click="$router.back()">
@@ -78,15 +78,16 @@
                             <v-btn fab elevation="0" dark width="50" height="50" color="white" @click="dialog = false">
                                 <v-icon color="#0a3382">mdi-close</v-icon>
                             </v-btn>
-                            <div class="ml-10" style="font-size: 18px; font-weight: bold;">
-                                {{ selectedFolderName }}
+                            <div v-if="number" class="ml-10" style="font-size: 18px; font-weight: bold;">
+                                {{ selectedFolderName }} {{ number }}
                             </div>
                             <div class="ml-5" style="font-size: 16px; font-style: italic;">
                                 ({{ selectedDateCreate }})
                             </div>
                             <v-spacer></v-spacer>
                             <v-spacer></v-spacer>
-                            <v-btn @click="changeStyle()" color="#B3E5FC" rounded style="font-size: 16px; font-weight: bold; font-style: italic;">
+                            <v-btn @click="changeStyle()" color="#B3E5FC" rounded
+                                style="font-size: 16px; font-weight: bold; font-style: italic;">
                                 ເບີ່ງແບບ Slide
                             </v-btn>
                         </v-card-actions>
@@ -95,7 +96,7 @@
                         <v-row class="mt-2">
                             <v-col v-for="(pic, index) in carouselPics" :key="index" cols="12" sm="6" md="2">
                                 <v-card class="mx-auto" width="270px" color="#ECEFF1">
-                                    <v-img :src="pic" alt="Picture" height="380px" class="mb-2"
+                                    <v-img :src="getFilePreview(pic)" alt="Picture" height="380px" class="mb-2"
                                         @click="openInNewTab(pic)" style="cursor: pointer;"></v-img>
                                 </v-card>
                             </v-col>
@@ -103,35 +104,40 @@
                     </v-card-text>
                 </v-card>
             </v-dialog>
-            <v-dialog v-model="dialog1" width="55%" persistent disable-esc>
-                <v-card>
-                    <v-card class="pt-2 pl-2" style="position: sticky; top: 0; z-index: 1;" flat color="#A7FFEB">
-                        <v-card-actions>
-                            <v-btn fab elevation="0" dark width="50" height="50" color="white" @click="dialog1 = false">
-                                <v-icon color="#0a3382">mdi-close</v-icon>
-                            </v-btn>
-                            <div class="ml-10" style="font-size: 18px; font-weight: bold;">
-                                {{ selectedFolderName }}
-                            </div>
-                            <div class="ml-5" style="font-size: 16px; font-style: italic;">
-                                ({{ selectedDateCreate }})
-                            </div>
-                            <v-spacer></v-spacer>
-                            <v-btn @click="changeStyle1()" color="#B3E5FC" rounded style="font-size: 16px; font-weight: bold; font-style: italic;">
-                                ເບີ່ງແບບລວມ
-                            </v-btn>
-                        </v-card-actions>
-                    </v-card>
-                    <v-card>
-                        <v-card-text>
-                            <v-carousel hide-delimiters>
-                                <v-carousel-item v-for="(pic, index) in carouselPics" :key="index" :src="pic"
-                                    reverse-transition="fade-transition" transition="fade-transition">
-                                    <v-img :src="pic" @click="openInNewTab(pic)"></v-img>
-                                </v-carousel-item>
-                            </v-carousel>
-                        </v-card-text>
-                    </v-card>
+            <v-dialog v-model="dialog1" max-width="1090" persistent disable-esc>
+                <v-card class="mx-auto" max-width="1090" height="720px" flat>
+                    <div>
+                        <v-card class="pt-2 pl-2" style="position: sticky; top: 0; z-index: 1;" flat color="#A7FFEB">
+                            <v-card-actions>
+                                <v-btn fab elevation="0" dark width="50" height="50" color="white"
+                                    @click="dialog1 = false">
+                                    <v-icon color="#0a3382">mdi-close</v-icon>
+                                </v-btn>
+                                <div v-if="number" class="ml-10" style="font-size: 18px; font-weight: bold;">
+                                    {{ selectedFolderName }} {{ number }}
+                                </div>
+                                <div class="ml-5" style="font-size: 16px; font-style: italic;">
+                                    ({{ selectedDateCreate }})
+                                </div>
+                                <v-spacer></v-spacer>
+                                <v-btn @click="changeStyle1()" color="#B3E5FC" rounded
+                                    style="font-size: 16px; font-weight: bold; font-style: italic;">
+                                    ເບີ່ງແບບລວມ
+                                </v-btn>
+                            </v-card-actions>
+                        </v-card>
+                        <v-carousel hide-delimiters height="100%" >
+                            <v-carousel-item v-for="(pic, index) in carouselPics" :key="index" 
+                                reverse-transition="fade-transition" transition="fade-transition">
+                                <div style=" padding-top: 20px;">
+                                    <!-- Using v-img to display the image fully without cropping -->
+                                    <v-img max-width="100%" height="600px" :src="getFilePreview(pic)" contain
+                                        @click="openInNewTab(pic)"></v-img>
+                                </div>
+                            </v-carousel-item>
+                        </v-carousel>
+
+                    </div>
                 </v-card>
             </v-dialog>
         </v-container>
@@ -230,6 +236,20 @@ export default {
         },
         openInNewTab(imageUrl) {
             window.open(imageUrl, '_blank'); // Opens the image URL in a new tab
+        },
+        getFilePreview(fileUrl) {
+            const fileExtension = fileUrl.split('.').pop().toLowerCase();
+            const fileIcons = {
+                pdf: 'https://cdn-icons-png.flaticon.com/512/337/337946.png',   // ไอคอน PDF
+                doc: 'https://cdn-icons-png.flaticon.com/512/337/337932.png',   // ไอคอน Word
+                docx: 'https://cdn-icons-png.flaticon.com/512/337/337932.png',
+                xls: 'https://cdn-icons-png.flaticon.com/512/732/732220.png',   // ไอคอน Excel
+                xlsx: 'https://cdn-icons-png.flaticon.com/512/732/732220.png',
+                csv: 'https://cdn-icons-png.flaticon.com/512/2306/2306206.png', // ไอคอน CSV
+                zip: 'https://cdn-icons-png.flaticon.com/512/888/888879.png',   // ไอคอน ZIP
+                rar: 'https://cdn-icons-png.flaticon.com/512/888/888879.png'    // ไอคอน RAR (ใช้ไอคอนเดียวกับ ZIP)
+            };
+            return fileIcons[fileExtension] || fileUrl;
         },
     },
 };

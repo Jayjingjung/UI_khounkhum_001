@@ -14,7 +14,7 @@
                                         size="55">mdi-account-box-edit-outline</v-icon>
                                     <div class="pl-5 pb-5 pt-5 pr-5">
                                         <span
-                                            style="font-size: 17pt; font-weight: bold;">ລາຍຮັບ-ລາຍຈ່າຍອື່ນໆ</span><br />
+                                            style="font-size: 17pt; font-weight: bold;">ເພີ່ມລາຍຮັບ-ລາຍຈ່າຍອື່ນໆ</span><br />
                                     </div>
                                 </div>
                             </v-card-text>
@@ -23,7 +23,7 @@
 
                     <!-- ຂໍ້ມູນພະນັກງານຂັບລົດ -->
                     <v-col cols="12" md="3">
-                        <div v-if="USER_ROLE === 'USER'|| USER_ROLE === 'INVENANSFINANCE' || USER_ROLE === 'ADMIN'">
+                        <div v-if="USER_ROLE === 'USER' || USER_ROLE === 'INVENANSFINANCE' || USER_ROLE === 'ADMIN'">
 
                             <v-card to="/allowance_2" height="100" elevation="2" rounded="lg" width="310px"
                                 style="border: 1px solid rgb(224, 0, 105) ;">
@@ -32,7 +32,7 @@
                                         <div class="d-flex align-center">
                                             <v-icon color="#e00069" size="55">mdi-account-cash</v-icon>
                                             <div class="pl-5 pb-5 pt-5 pr-5">
-                                                <span style="font-size: 18pt;font-weight: bold;">ໜີ້ຕ້ອງສົງ</span><br />
+                                                <span style="font-size: 18pt;font-weight: bold;">ໜີ້ຕ້ອງສົ່</span><br />
                                             </div>
                                         </div>
                                     </v-card-text>
@@ -41,20 +41,21 @@
                         </div>
                     </v-col>
                     <v-col cols="12" md="3">
-                        <div v-if="USER_ROLE === 'USER'|| USER_ROLE === 'INVENANSFINANCE' || USER_ROLE === 'ADMIN' || USER_ROLE === 'FINANCE_TK'">
+                        <div
+                            v-if="USER_ROLE === 'USER' || USER_ROLE === 'INVENANSFINANCE' || USER_ROLE === 'ADMIN' || USER_ROLE === 'FINANCE_TK'">
 
                             <v-card to="/screwdriver" height="100" elevation="2" rounded="lg" width="310px"
                                 style="border: 1px solid rgb(224, 0, 105) ;">
-                            
-                                    <v-card-text>
-                                        <div class="d-flex align-center">
-                                            <v-icon color="#e00069" size="55">mdi-toolbox</v-icon>
-                                            <div class="pl-5 pb-5 pt-5 pr-5">
-                                                <span style="font-size: 18pt;font-weight: bold;">ໜີ້ອາໄລ</span><br />
-                                            </div>
+
+                                <v-card-text>
+                                    <div class="d-flex align-center">
+                                        <v-icon color="#e00069" size="55">mdi-toolbox</v-icon>
+                                        <div class="pl-5 pb-5 pt-5 pr-5">
+                                            <span style="font-size: 18pt;font-weight: bold;">ໜີ້ອາໄຫຼ່</span><br />
                                         </div>
-                                    </v-card-text>
-                              
+                                    </div>
+                                </v-card-text>
+
                             </v-card>
                         </div>
                     </v-col>
@@ -68,13 +69,13 @@
 
                                     <div class="pl-5 pb-5 pt-5 pr-5">
                                         <span
-                                            style="font-size: 17pt;font-weight: bold;">ລາຍການອາໄລ່ລໍຖ້າຊື້</span><br />
+                                            style="font-size: 17pt;font-weight: bold;">ລາຍການອາໄຫຼ່(ລໍຖ້າຊື້)</span><br />
                                     </div>
                                 </div>
                             </v-card-text>
                         </v-card>
                     </v-col>
-             
+
                     <v-col cols="12" md="3">
 
                         <v-card :to="{ name: 'report-expense' }" height="100" elevation="2" rounded="lg" width="310px"
@@ -84,8 +85,8 @@
                                     <v-icon color="#8b0c9c" size="55">mdi mdi-cash-clock</v-icon>
 
                                     <div class="pl-5 pb-5 pt-5 pr-5">
-                                        <span style="font-size: 17pt;font-weight: bold;">ລາຍງານຮັບ - ລາຍຈ່າຍ
-                                            ອື່ນໆ</span><br />
+                                        <span style="font-size: 17pt;font-weight: bold;">ລາຍງານລາຍຮັບ-ລາຍຈ່າຍອື່ນໆ
+                                        </span><br />
                                     </div>
                                 </div>
                             </v-card-text>
@@ -101,8 +102,7 @@
                                     <v-icon color="#8b0c9c" size="55">mdi mdi-truck-alert</v-icon>
 
                                     <div class="pl-5 pb-5 pt-5 pr-5">
-                                        <span style="font-size: 17pt;font-weight: bold;">ປະວັດການເບີກທອນອາໄລ
-                                            ຂອງລົດ</span><br />
+                                        <span style="font-size: 17pt;font-weight: bold;">ປະຫວັດການເບີກຖອນອາໄຫຼ່ຂອງລົດ</span><br />
                                     </div>
                                 </div>
                             </v-card-text>
@@ -110,7 +110,7 @@
 
                     </v-col>
                     <v-col cols="12" md="3">
-                        <div v-if="USER_ROLE === 'USER'|| USER_ROLE === 'INVENANSFINANCE'|| USER_ROLE === 'ADMIN'">
+                        <div v-if="USER_ROLE === 'USER' || USER_ROLE === 'INVENANSFINANCE' || USER_ROLE === 'ADMIN'">
 
                             <v-badge :content="TOTAL_total_PayOil" color="error">
                                 <v-card :to="{ name: 'getgass' }" height="100" elevation="2" rounded="lg" width="310px"
@@ -134,7 +134,7 @@
 
                     <!-- ຮັບເງິນຍ້ອນຫຼັງ -->
                     <v-col cols="12" md="3">
-                        <div v-if="USER_ROLE === 'USER'|| USER_ROLE === 'INVENANSFINANCE' || USER_ROLE === 'ADMIN'">
+                        <div v-if="USER_ROLE === 'USER' || USER_ROLE === 'INVENANSFINANCE' || USER_ROLE === 'ADMIN'">
                             <v-badge :content="TOTAL_totalOwe" color="error">
                                 <v-card :to="{ name: 'payment-debt' }" height="100" elevation="2" rounded="lg"
                                     width="310px" style="border: 1px solid rgb(93,199,0);">
@@ -157,24 +157,24 @@
 
                     <!-- ອອກໃບຮຽກເກັບເງິນ -->
                     <v-col cols="12" md="3">
-                        <div v-if="USER_ROLE === 'USER'|| USER_ROLE === 'INVENANSFINANCE' || USER_ROLE === 'ADMIN'">
-                        <!-- <div v-if="USER_ROLE === 'ADMIN' || USER_ROLE === 'FINANCE'"> -->
-                        <v-badge :content="TOTAL_INVOICE" color="teal">
-                            <v-card :to="{ name: 'invoice-list' }" height="100" elevation="2" rounded="lg" width="310px"
-                                style="border: 1px solid rgb(93,199,0);">
-                                <v-card-text>
-                                    <div class="d-flex align-center">
-                                        <v-badge :content="TOTAL_FORMANCE" color="error">
-                                            <v-icon color="green" size="55">mdi-hand-extended</v-icon>
-                                        </v-badge>
-                                        <div class="pl-5 pb-5 pt-5 pr-5">
-                                            <span
-                                                style="font-size: 18pt;font-weight: bold;">ອອກໃບຮຽກເກັບເງິນ</span><br />
+                        <div v-if="USER_ROLE === 'USER' || USER_ROLE === 'INVENANSFINANCE' || USER_ROLE === 'ADMIN'">
+                            <!-- <div v-if="USER_ROLE === 'ADMIN' || USER_ROLE === 'FINANCE'"> -->
+                            <v-badge :content="TOTAL_INVOICE" color="teal">
+                                <v-card :to="{ name: 'invoice-list' }" height="100" elevation="2" rounded="lg"
+                                    width="310px" style="border: 1px solid rgb(93,199,0);">
+                                    <v-card-text>
+                                        <div class="d-flex align-center">
+                                            <v-badge :content="TOTAL_FORMANCE" color="error">
+                                                <v-icon color="green" size="55">mdi-hand-extended</v-icon>
+                                            </v-badge>
+                                            <div class="pl-5 pb-5 pt-5 pr-5">
+                                                <span
+                                                    style="font-size: 18pt;font-weight: bold;">ອອກໃບຮຽກເກັບເງິນ</span><br />
+                                            </div>
                                         </div>
-                                    </div>
-                                </v-card-text>
-                            </v-card>
-                        </v-badge>
+                                    </v-card-text>
+                                </v-card>
+                            </v-badge>
                         </div>
                         <!-- </div> -->
 
@@ -182,7 +182,7 @@
 
                     <!-- ຮັບເງິນ -->
                     <v-col cols="12" md="3">
-                        <div v-if="USER_ROLE === 'USER'|| USER_ROLE === 'INVENANSFINANCE'|| USER_ROLE === 'ADMIN'">
+                        <div v-if="USER_ROLE === 'USER' || USER_ROLE === 'INVENANSFINANCE' || USER_ROLE === 'ADMIN'">
                             <v-badge :content="TOTAL_INVOICE" color="error">
 
                                 <v-card :to="{ name: 'payment' }" height="100%" width="310px" elevation="2" rounded="lg"
@@ -220,7 +220,7 @@
                             </v-card>
                         </div>
                     </v-col>
-                 
+
 
 
                 </v-row>

@@ -1,37 +1,58 @@
-<!-- components/handleFile.vue -->
-<script>
-export default {
-  methods: {
-    handleFile(file) {
-      if (!file) {
-        this.$swal.fire({ icon: "error", text: "File not available." });
-        return;
-      }
-
-      const extension = file.split('.').pop().toLowerCase();
-      const downloadFormats = ['csv', 'xls', 'xlsx', 'doc', 'docx', 'ppt', 'pptx', 'zip', 'rar'];
-      
-      if (downloadFormats.includes(extension)) {
-        // Auto-download logic
-        const link = document.createElement('a');
-        link.href = file;
-        link.download = file.split('/').pop();
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-        
-        this.$swal.fire({
-          icon: "success",
-          title: "Download Started",
-          text: `Your ${extension.toUpperCase()} file is downloading`,
-          timer: 2000,
-          showConfirmButton: false
-        });
-      } else {
-        // For viewable formats (images/PDFs)
-        window.open(file, '_blank');
+<template>
+    <div v-if="visible" class="overlay" @click="closeViewer">
+      <img :src="file" class="image" />
+  
+      <button class="close-btn" @click.stop="closeViewer">×</button>
+    </div>
+  </template>
+  
+  <script>
+  export default {
+    props: {
+      file: String,
+      visible: Boolean
+    },
+    methods: {
+      closeViewer() {
+        this.$emit("close");
       }
     }
+  };
+  </script>
+  
+  <style scoped>
+  .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    cursor: zoom-out;
   }
-}
-</script>
+  
+  .image {
+    max-width: 95%;
+    max-height: 95%;
+    object-fit: contain;
+  }
+  
+  .close-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: rgba(255, 255, 255, 0.3);
+    border: none;
+    color: white;
+    font-size: 24px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+  </style>
+  

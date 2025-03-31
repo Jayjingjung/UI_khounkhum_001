@@ -1,7 +1,7 @@
 <template>
     <div>
         <v-card class="card-shadow" rounded="lg" style="border:0.5px solid #e0e0e0;border-radius:3px;width: 100%;">
-            <v-card-title style="background-color:	#b76d22" class="white--text">
+            <v-card-title style="background-color:	#b76d22" class="white--text mt-6">
                 ສະເໜີໃຊ້ອາໄຫຼ່ໃນສາງ
             </v-card-title>
             <!-- Error Card -->
@@ -9,19 +9,16 @@
                 ຈຳນວນ (ອາໄລ)
                 ຂອງສິນຄ້ານີ້ຕ້ອງຫຼາຍກວ່າ 5
             </v-alert>
-          <!-- Error Message for ຢາງລົດວີໂກ້ qty <= 20 -->
-          <v-alert v-if="showError && this.selectedEquipment.itemName === 'ຢາງລົດວີໂກ້'" type="error" dense>
-            ຈຳນວນ (ຢາງລົດວີໂກ້) ຂອງສິນຄ້ານີ້ຕ້ອງຫຼາຍກວ່າ 20
-        </v-alert>
+            <!-- Error Message for ຢາງລົດວີໂກ້ qty <= 20 -->
+            <v-alert v-if="showError && this.selectedEquipment.itemName === 'ຢາງລົດວີໂກ້'" type="error" dense>
+                ຈຳນວນ (ຢາງລົດວີໂກ້) ຂອງສິນຄ້ານີ້ຕ້ອງຫຼາຍກວ່າ 20
+            </v-alert>
             <v-card class="flex-container ">
                 <div style="width:95%;" class="pl-2">
-
                     <!-- Display unit_price above the v-select component -->
-
                     <!-- <div v-if="selectedEquipment" class="mt-2">
                         <p>ລາຄາຕໍ່ອັນ: {{ selectedEquipment.unit_price }} LAK</p>
                     </div> -->
-
                     <!-- <v-autocomplete outlined dense label="ເລືອກ ອຸປະກອນ" :items="Mechanicequipment" item-text="itemName"
                         item-value="item_id" @change="onSelectMechanicequipment">
                         <template v-slot:selection="data">
@@ -31,7 +28,6 @@
                             <span>{{ data.item.itemName }} ({{ data.item.unit_price }} LAK)</span>
                         </template>
 </v-autocomplete> -->
-
                     <v-autocomplete outlined dense label="ເລືອກ ອຸປະກອນ" :items="Mechanicequipment" item-text="itemName"
                         item-value="item_id" @change="onSelectMechanicequipment">
                         <template v-slot:selection="data">
@@ -41,25 +37,18 @@
                             <span>{{ data.item.itemName }} ({{ data.item.unit_price }} LAK)</span>
                         </template>
                     </v-autocomplete>
-
-
-
                     <div class="d-flex align-center pl-2">
                         <v-text-field label="*ຈໍານວນ" type="number" dense outlined background-color="#f5f5f5"
                             v-model="qty_Fix"></v-text-field>
                         <div class="tops"></div>
                     </div>
-
-
                 </div>
-
                 <div style="width:95%;" class="pl-2">
                     <div>
                         <v-autocomplete outlined dense label="ເລືອກຫົວລົດ" :items="cars_list"
                             item-text="h_VICIVLE_NUMBER" item-value="key_id" @change="onGetCarDetails"
                             :rules="nameRules">
                         </v-autocomplete>
-
                         <div class="d-flex align-center pl-2">
                             <v-text-field label="*ລາ​ຄາ​ລວມ" dense outlined background-color="#f5f5f5"
                                 v-model="total_Price"></v-text-field>
@@ -69,7 +58,6 @@
                 </div>
                 <!-- <div style="width:95%;" class="pl-2">
                     <div>
-                    
                         <div class="d-flex align-center pl-2">
                             <v-text-field label="*ລົດ" dense outlined background-color="#f5f5f5"
                                 v-model="h_VICIVLE_NUMBER"></v-text-field>
@@ -84,7 +72,6 @@
                                 v-model="total_Price"></v-text-field>
                             <div class="tops"></div>
                         </div>
-                        
                         <div class="d-flex align-center pl-2">
                             <v-text-field label="*ລາ​ຄາ​ລວມ" dense outlined background-color="#f5f5f5"
                                 v-model="total_Price"></v-text-field>
@@ -92,7 +79,6 @@
                         </div>
                     </div>
                 </div> -->
-
                 <div style="width:95%;" class="pl-2">
                     <div>
                         <v-autocomplete outlined dense label="ເລືອກຫາງລົດ" :items="truct_footer_data_list"
@@ -106,7 +92,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div style="width:95%;" class="pl-2">
                     <div>
                         <div class="d-flex align-center pl-2">
@@ -121,9 +106,7 @@
                         </div>
                     </div>
                 </div>
-
                 <div style="width:95%;" class="pl-2">
-
                     <div>
                         <div class="d-flex align-center pl-2">
                             <v-select outlined dense label="ເລືອກ ສາຂາ" :items="branches" item-text="name"
@@ -140,7 +123,6 @@
                                         v-on="on"></v-text-field>
                                 </template>
                                 <v-text-field dense outlined label="ເລກໃບບິນ" v-model="ref_NOAmount1"></v-text-field>
-
                                 <v-date-picker v-model="dateFix" no-title scrollable
                                     @input="$refs.start_menu1.save(dateFix)">
                                     <v-spacer></v-spacer>
@@ -186,7 +168,6 @@
         </v-data-table>
     </v-card> -->
         </div>
-
         <div style="width: 100%;">
             <v-card class="card-shadow" rounded="lg" style="border: 0.5px solid #e0e0e0; border-radius: 3px;">
                 <v-card-title style="background-color: #b76d22" class="white--text">
@@ -197,7 +178,6 @@
                     <template v-slot:item="row">
                         <tr>
                             <td>
-
                             </td>
                             <td>{{ row?.item?.item_name }}</td>
                             <td>{{ row?.item?.branch_inventory }}</td>
@@ -206,21 +186,15 @@
                             <td>{{ row?.item?.description }}</td>
                             <td>{{ row?.item?.fix_Detail }}</td>
                             <td>{{ row?.item?.location_fix }}</td>
-
-
                             <td>{{ row?.item?.dateFix }}</td>
-                            <td>{{ row?.item?.item_id }}</td>
-                            <td>{{ row?.item?.footer_id }}</td>
-                            <td>{{ row?.item?.f_BRANCH }}</td>
-                            <td>{{ row?.item?.header_id }}</td>
+                            <!-- <td>{{ row?.item?.footer_id }}</td> -->
+                            <!-- <td>{{ row?.item?.item_id }}</td> -->
                             <td>{{ row?.item?.h_VICIVLE_NUMBER }}</td>
-
-
-
+                            <td>{{ row?.item?.f_BRANCH }}</td>
+                            <!-- <td>{{ row?.item?.header_id }}</td> -->
                         </tr>
                     </template>
                 </v-data-table>
-
             </v-card>
         </div>
         <div style="width: 100%;">
@@ -228,7 +202,6 @@
                 <v-card-title style="background-color: #b76d22" class="white--text">
                     ອາໄຫຼ່ໃນສາງ
                 </v-card-title>
-
                 <div style="display: flex; margin-top: 10px; margin-left: 10px;"></div>
                 <v-data-table :items-per-page="5" :headers="truck_table_headers" :items="truck_data_list"
                     :search="search">
@@ -247,7 +220,6 @@
         </div>
     </div>
 </template>
-
 <script>
 import Swal from 'sweetalert2';
 
@@ -307,7 +279,6 @@ export default {
             itemId: '', // Add itemId property
             Mechanicequipment: [],
             show_list: [],
-
             name: '',
             address: '',
             fixId: '',
@@ -317,21 +288,17 @@ export default {
             // Other data properties...
             search: '',
             truck_table_headers: [
-
                 { text: 'ຮູບພາບ', value: 'img' },
                 { text: 'ລາໄລ', value: 'item_name' },
                 { text: 'ຈໍານວນ', value: 'qty' },
                 { text: 'ຫົວນວຍ', value: 'unit' },
                 { text: 'ລາຄາ', value: 'unitPirce' },
                 { text: 'ລາຄາທັງໝົດ', value: 'sumUnitWithPrice' },
-
             ],
             truck_data_list: [],
             truck_data_listv2: [],
-
             data_list_showFix: [
                 { text: 'ຮູບພາບ', value: 'img' },
-
                 { text: 'ID', value: 'fixId' },
                 { text: 'ຫົວລັດ', value: 'h_VICIVLE_NUMBER' },
                 { text: 'ຫາງລົດ', value: 'f_BRANCH' },
@@ -340,26 +307,24 @@ export default {
                 { text: 'ລາຍຈ່າຍເພີນເຕີມ(ຄ່າຊ່າງ)', value: 'add_on' },
                 { text: 'ລາຍລະອຽດ', value: 'description' },
                 { text: 'ວັນທີເເປງ', value: 'dateFix' },
-
             ],
             truck_table_headersv2: [
                 { text: 'Checkbox', value: 'Checkbox' },
                 { text: 'ຊື່', value: 'item_name' },
-                { text: 'branch_inventory', value: 'branch_inventory' },
+                { text: 'ສາຂາ', value: 'branch_inventory' },
                 { text: 'ຈໍານວນ', value: 'qty_Fix' },
                 { text: 'ລາຄາ', value: 'total_Price' },
                 { text: 'ລາຍລະອຽດ', value: 'description' },
                 { text: 'ລາຍລະອຽດການເເປງ', value: 'fix_Detail' },
-                { text: 'ເເຊວງ', value: 'location_fix' },
+                { text: 'ເເຂວງ', value: 'location_fix' },
                 { text: 'ວັນທີ', value: 'dateFix' },
-                { text: 'footer_id', value: 'footer_id' },
-                { text: 'item_id', value: 'item_id' },
+                // { text: 'footer_id', value: 'footer_id' },
+                // { text: 'item_id', value: 'item_id' },
                 { text: 'ຫົວລັດ', value: 'h_VICIVLE_NUMBER' },
                 // { text: 'ຫາງລົດ', value: 'header_id' },
                 { text: 'ຫາງລົດ', value: 'f_BRANCH' },
             ],
             showFix_data_list: [],
-
             dateFix: '',
             ref_NOAmount1: '',
             selectedItems: '',
@@ -370,8 +335,6 @@ export default {
         };
     },
     computed: {
-
-
     },
     watch: {
         qty_Fix(newVal) {
@@ -384,12 +347,12 @@ export default {
         async onGetshowdata_table() {
             try {
                 this.loading_processing = true;
+                let key_id = localStorage.getItem('key_id') ? localStorage.getItem('key_id') : null;
                 const response = await this.$axios.$post('ReportStock.service', {
                     toKen: localStorage.getItem('toKen'),
+                    key_id: key_id,
                 });
-
                 console.log('API response:', response);
-
                 if (response?.status === '00' && response?.data) {
                     this.truck_data_list = response.data;
                 } else {
@@ -401,10 +364,8 @@ export default {
             } finally {
                 this.loading_processing = false;
                 // window.location.reload();
-
             }
         },
-
         // onSelectMechanicequipment(selectedItem) {
         //     this.selectedEquipment = this.Mechanicequipment.find(item => item.item_id === selectedItem);
         //     if (this.selectedEquipment) {
@@ -423,7 +384,6 @@ export default {
                 this.item_name = this.selectedEquipment.itemName;
                 this.unit_price = this.selectedEquipment.unit_price;
                 this.total_Price = this.unit_price * this.qty_Fix;
-
                 // ✅ ตรวจสอบ qty ถ้าต่ำกว่า 10 ให้แสดง error
                 // if (this.selectedEquipment.qty <= 5) {
                 //     this.showError = true;
@@ -431,21 +391,19 @@ export default {
                 //     this.showError = false;
                 // }
                 if (this.selectedEquipment) {
-                // ตรวจสอบเมื่อ qty <= 5
-                if (this.selectedEquipment.qty <= 5) {
-                    this.showError = true;
+                    // ตรวจสอบเมื่อ qty <= 5
+                    if (this.selectedEquipment.qty <= 5) {
+                        this.showError = true;
+                    }
+                    // ตรวจสอบเมื่อไอเท็มเป็น "ຢາງລົດວີໂກ້" และ qty <= 20
+                    if (this.selectedEquipment.itemName === "ຢາງລົດວີໂກ້" && this.selectedEquipment.qty <= 20) {
+                        this.showError = true;
+                    }
                 }
-                // ตรวจสอบเมื่อไอเท็มเป็น "ຢາງລົດວີໂກ້" และ qty <= 20
-                if (this.selectedEquipment.itemName === "ຢາງລົດວີໂກ້" && this.selectedEquipment.qty <= 20) {
-                    this.showError = true;
-                }
-            }
             }
         },
-
         onGetCarDetails(id) {
             console.log(id);
-
             let data = this.cars_list.filter((el) => el.h_ID === id);
             console.log('head:', data);
             this.h_VICIVLE_NUMBER = data[0]?.h_VICIVLE_NUMBER;
@@ -453,25 +411,22 @@ export default {
         },
         onGetMechanicequipment(item_id) {
             console.log(item_id);
-
             let data = this.Mechanicequipment.filter((el) => el.item_id === item_id);
             console.log('head:', data);
             this.itemName = data[0]?.itemName;
             this.item_id = item_id;
-
         },
         onGetTructFooterDetail(key_id) {
             let data = this.truct_footer_data_list.filter((el) => el.fkey_id === key_id);
             console.log("back:", data);
             this.f_CARD_NO = data[0]?.f_CARD_NO;
             this.fkey_id = key_id;
-
             // Set other data properties as needed
         },
-
         async onGetLeaveNumber() {
             try {
                 this.loading_processing = true;
+                let key_id = localStorage.getItem('key_id') ? localStorage.getItem('key_id') : null;
                 const data = {
                     item_name: this.item_name,
                     branch_inventory: this.branch_inventory,
@@ -486,15 +441,15 @@ export default {
                     dateFix: this.dateFix,
                     toKen: localStorage.getItem('toKen'),
                 };
-                console.log("send:", data);
+                if (key_id) {
+                    data.key_id = key_id
+                }
 
+                console.log("send:", data);
                 const response = await this.$axios.$post('/approvefix.service', data);
                 console.log("createReport:", response);
-
                 if (response?.status === '00') {
                     this.loading_processing = false;
-
-
                     // Display success alert using SweetAlert2
                     await Swal.fire({
                         icon: 'success',
@@ -507,7 +462,6 @@ export default {
             } catch (error) {
                 console.log(error);
                 this.loading_processing = false;
-
                 // Display error alert using SweetAlert2
                 await Swal.fire({
                     icon: 'error',
@@ -520,8 +474,10 @@ export default {
         async onGetadd() {
             try {
                 this.loading_processing = true;
+                let key_id = localStorage.getItem('key_id') ? localStorage.getItem('key_id') : null;
                 const data = await this.$axios.$post('ListItems.service', {
                     toKen: localStorage.getItem('toKen'),
+                    key_id: key_id,
                 });
                 console.log('itemName:', data?.data);
                 this.Mechanicequipment = data?.data || [];
@@ -572,9 +528,7 @@ export default {
                 const response = await this.$axios.$post('showFix.service', {
                     toKen: localStorage.getItem('toKen'),
                 });
-
                 console.log('API response:', response);
-
                 if (response?.status === '00' && response?.data) {
                     this.showFix_data_list = response.data;
                 } else {
@@ -586,7 +540,6 @@ export default {
             } finally {
                 this.loading_processing = false;
                 // window.location.reload();
-
             }
         },
         async onGetinbox(fixId) {
@@ -595,7 +548,6 @@ export default {
                     toKen: localStorage.getItem('toKen'),
                     fixId: fixId,
                 });
-
                 console.log('Print API response:', response);
                 this.fixId = response.data[0].fixId; // Assuming you want the first item's name
                 this.h_VICIVLE_NUMBER = response.data[0].h_VICIVLE_NUMBER; // Assuming you want the first item's qty_offer
@@ -607,7 +559,6 @@ export default {
                 this.dateFix = response.data[0].dateFix; // Assuming you want the first item's qty_offer
                 // Handle the response as needed, such as displaying a success message or handling errors
                 this.location_fix = response.data[0].location_fix; // Assuming you want the first item's qty_offer
-
                 this.openDialog(fixId); // Open the dialog after API call success
             } catch (error) {
                 console.error('Print API error:', error);
@@ -632,11 +583,8 @@ export default {
             console.log('description:', this.description);
             console.log('dateFix:', this.dateFix);
             console.log('location_fix:', this.location_fix);
-
-
             // Close the dialog after submission
             this.closeDialog();
-
         },
         async onSubmit() {
             try {
@@ -646,23 +594,16 @@ export default {
                     fixId: this.fixId, // Using the offerCode property
                     add_on: this.add_on, // Assuming you have an itemId property set from somewhere
                     location_fix: this.location_fix,
-
                 };
-
                 // Send the POST request to the API endpoint
                 const response = await this.$axios.$post('/UpdateFixCost.service', requestData);
-
                 console.log('UpdateFixCost API response:', response);
-
                 // Close the dialog after submission
                 this.closeDialog();
-
                 if (response?.status === '00') {
                     this.loading_processing = false;
                     // this.print();
                     // Other actions upon successful creation
-
-
                     // Display success alert using SweetAlert2
                     await Swal.fire({
                         icon: 'success',
@@ -672,16 +613,13 @@ export default {
                     });
                     window.location.reload();
                 }
-
                 // You can handle the response here, such as showing a success message or updating UI
             } catch (error) {
                 console.error('UpdateFixCost API error:', error);
                 // Handle the error, such as displaying an error message
-
             }
             window.location.reload();
         },
-
         async onGetshowlist() {
             try {
                 const response = await this.$axios.$post("showListofFixReq.service", {
@@ -703,14 +641,14 @@ export default {
         async onGetshowdata_tablev2() {
             try {
                 this.loading_processing = true;
+                let key_id = localStorage.getItem('key_id') ? localStorage.getItem('key_id') : null;
                 const data = {
                     startDate: this.startDate,
                     endDate: this.endDate,
                     toKen: localStorage.getItem('toKen'),
+                    key_id: key_id,
                 };
-
                 const response = await this.$axios.$post('showListofFixReq.service', data);
-
                 if (response?.status === '00' && response?.data) {
                     // Filter data where new_status is 'GO'
                     this.truck_data_listv2 = response.data.filter(item => item.new_status !== 'GO');
@@ -734,9 +672,7 @@ export default {
         //             endDate: this.endDate,
         //             toKen: localStorage.getItem('toKen'),
         //         };
-
         //         const response = await this.$axios.$post('showListofFixReq.service', data);
-
         //         if (response?.status === '00' && response?.data) {
         //             this.truck_data_listv2 = response.data;
         //         } else {
@@ -759,12 +695,9 @@ export default {
         this.onGetshowlist(); // Fetch truck footer data when component is mounted
         this.onGetshowdata_table(); // Fetch truck footer data when component is mounted
         this.onGetshowdata_tablev2(); // Fetch truck footer data when component is mounted
-
     },
-
 };
 </script>
-
 <style>
 .v-divider {
     margin-top: 10px;

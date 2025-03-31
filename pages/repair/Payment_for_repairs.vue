@@ -1,12 +1,13 @@
 <template>
     <div>
         <v-card class="card-shadow" rounded="lg" style="border:0.5px solid #e0e0e0;border-radius:3px;">
-            <v-card-title style="background-color:#edc69e" class="white--text">
-                ສະເໜີຊື້
+            <v-card-title style="background-color:#edc69e" class="white--text mt-6">
+                ສະເໜີຊື້ອາໄຫຼ່
             </v-card-title>
+            <v-chip class="mt-4 ml-6" color="#A7FFEB" v-if="bouang">
+                {{ bouang }}
+            </v-chip>
             <div style="margin-top: 10px;margin-left: 10px;margin-right: 10px;">
-
-
                 <div style="display: flex;">
                     <div style="display: flex;" class="pl-2">
                         <!-- Button for 'ຈ່າຍສົດ' (Cash Payment) -->
@@ -14,14 +15,12 @@
                             @click="selectShop('cash')">
                             ຈ່າຍສົດ
                         </v-btn>
-
                         <!-- Button for 'ຮ້ານເຄດີດ [ຕິດຫນີ້]' (Credit Shop) -->
                         <v-btn :style="getButtonStyle('credit')" style="margin-left: 15px;width: 250px;font-size: 25px"
                             @click="selectShop('credit')">
                             ຮ້ານເຄດີດ [ຕິດຫນີ້]
                         </v-btn>
                     </div>
-
                     <div v-if="selectedType !== 'cash'" class="pl-2">
                         <div class="currency-selection">
                             <div justify="center" align="center">
@@ -43,7 +42,6 @@
                     <div v-if="selectedType === 'cash'" class="pl-2">
                         <div class="currency-selection">
                             <div justify="center" align="center">
-
                                 <v-btn :style="getButtoncurrencyStyle('LAK')" style="width: 80px;font-size: 25px"
                                     @click="selectedCurrency = 'LAK'">
                                     LAK
@@ -58,7 +56,6 @@
                                 <v-text-field v-if="selectedCurrency !== 'LAK'" label="*ເລດ" dense outlined
                                     background-color="#f8c7c7" v-model="moneyRate">
                                 </v-text-field>
-
                                 <!-- <v-text-field label="*ເລດ" dense outlined background-color="#f8c7c7"
                                     v-model="moneyRate"></v-text-field> -->
                             </div>
@@ -70,10 +67,8 @@
                         </div>
                     </div>
                 </div>
-
                 <div style="display: flex; justify-self: center;align-self: center;margin-top: 15px;">
                     <div style="width: 130px;margin-left: 10px;">
-
                         <v-menu v-model="dateMenu" :close-on-content-click="false" transition="scale-transition"
                             offset-y min-width="auto">
                             <template v-slot:activator="{ on, attrs }">
@@ -84,7 +79,6 @@
                             <v-date-picker v-model="dateCreate" @input="dateMenu = false" />
                         </v-menu>
                     </div>
-
                     <div style="width:200px;" class="pl-2">
                         <!-- Autocomplete for selecting vehicle -->
                         <div style="width:200px">
@@ -109,26 +103,22 @@
                             v-model="description"></v-text-field>
                         <div class="tops"></div>
                     </div>
-
                     <div style="width:100%;" class="d-flex align-center pl-2">
                         <v-text-field label="* ຊື່ຜູ້ສະເໜີ" dense outlined background-color="#f5f5f5"
                             v-model="offerManName"></v-text-field>
                         <div class="tops"></div>
                     </div>
-
                     <div style="width:100%;" class="d-flex align-center pl-2">
                         <v-text-field label="*ໜ້າທີ່ຮັບຜິດຊອບ" dense outlined background-color="#f5f5f5"
                             v-model="job"></v-text-field>
                         <div class="tops"></div>
                     </div>
-
                 </div>
                 <div style="width:100%;" class="pl-2">
                     <span>ເພີ້ມ ອຸປະກອນ:</span>
                 </div>
                 <div style="display: flex;">
                     <!-- //item// -->
-
                     <div style="width:100%;" class="pl-2">
                         <v-autocomplete outlined dense label="ເລືອກ ອຸປະກອນ" :items="Mechanicequipment"
                             item-text="itemName" item-value="item_id" @change="onGetMechanicequipment">
@@ -158,9 +148,6 @@
                         </v-text-field>
                         <div class="tops"></div>
                     </div>
-
-
-
                 </div>
                 <div style="display: flex;">
                     <div style="width:100%;" class="pl-2">
@@ -188,13 +175,11 @@
                     </div>
                 </div>
                 <!-- //item2// -->
-
                 <div style="display: flex;">
                     <div style="width:100%;" class="pl-2">
                         <v-autocomplete outlined dense label="2:ເລືອກ ອຸປະກອນ" :items="Mechanicequipment2"
                             item-text="itemName" item-value="item_id" @change="onGetMechanicequipment2">
                         </v-autocomplete>
-
                     </div>
                     <div style="width:100%;" class="d-flex align-center pl-2">
                         <v-text-field label="2:*ຈໍານວນ " dense outlined background-color="#f5f5f5" v-model="qty_offer2"
@@ -206,7 +191,6 @@
                             v-model="unit_price2" @input="calculateTotalMoney2"></v-text-field>
                         <div class="tops"></div>
                     </div>
-
                     <div style="width:100%;" class="d-flex align-center pl-2">
                         <v-text-field label="2:*ເປັນເງິນທັງໝົດ" dense outlined background-color="#f5f5f5"
                             v-model="formattedTotalMoney2" readonly></v-text-field>
@@ -215,13 +199,11 @@
                 </div>
                 <!-- //item2// -->
                 <!-- //item3// -->
-
                 <div style="display: flex;">
                     <div style="width:100%;" class="pl-2">
                         <v-autocomplete outlined dense label="3:ເລືອກ ອຸປະກອນ" :items="Mechanicequipment3"
                             item-text="itemName" item-value="item_id" @change="onGetMechanicequipment3">
                         </v-autocomplete>
-
                     </div>
                     <div style="width:100%;" class="d-flex align-center pl-2">
                         <v-text-field label="3:*ຈໍານວນ " dense outlined background-color="#f5f5f5" v-model="qty_offer3"
@@ -233,7 +215,6 @@
                             v-model="unit_price3" @input="calculateTotalMoney3"></v-text-field>
                         <div class="tops"></div>
                     </div>
-
                     <div style="width:100%;" class="d-flex align-center pl-2">
                         <v-text-field label="3:*ເປັນເງິນທັງໝົດ" dense outlined background-color="#f5f5f5"
                             v-model="formattedTotalMoney3" readonly></v-text-field>
@@ -241,18 +222,14 @@
                     </div>
                 </div>
                 <!-- //item3// -->
-
-
                 <!-- Conditionally display the form when 'showForm' is true -->
                 <div v-if="showForm">
                     <!-- //item4// -->
-
                     <div style="display: flex;">
                         <div style="width:100%;" class="pl-2">
                             <v-autocomplete outlined dense label="4:ເລືອກ ອຸປະກອນ" :items="Mechanicequipment4"
                                 item-text="itemName" item-value="item_id" @change="onGetMechanicequipment4">
                             </v-autocomplete>
-
                         </div>
                         <div style="width:100%;" class="d-flex align-center pl-2">
                             <v-text-field label="4:*ຈໍານວນ " dense outlined background-color="#f5f5f5"
@@ -264,7 +241,6 @@
                                 v-model="unit_price4" @input="calculateTotalMoney4"></v-text-field>
                             <div class="tops"></div>
                         </div>
-
                         <div style="width:100%;" class="d-flex align-center pl-2">
                             <v-text-field label="4:*ເປັນເງິນທັງໝົດ" dense outlined background-color="#f5f5f5"
                                 v-model="formattedTotalMoney4" readonly></v-text-field>
@@ -273,15 +249,11 @@
                     </div>
                     <!-- //item4// -->
                     <!-- //item5// -->
-
-
-
                     <div style="display: flex;">
                         <div style="width:100%;" class="pl-2">
                             <v-autocomplete outlined dense label="5:ເລືອກ ອຸປະກອນ" :items="Mechanicequipment5"
                                 item-text="itemName" item-value="item_id" @change="onGetMechanicequipment5">
                             </v-autocomplete>
-
                         </div>
                         <div style="width:100%;" class="d-flex align-center pl-2">
                             <v-text-field label="5:*ຈໍານວນ " dense outlined background-color="#f5f5f5"
@@ -293,7 +265,6 @@
                                 v-model="unit_price5" @input="calculateTotalMoney5"></v-text-field>
                             <div class="tops"></div>
                         </div>
-
                         <div style="width:100%;" class="d-flex align-center pl-2">
                             <v-text-field label="5:*ເປັນເງິນທັງໝົດ" dense outlined background-color="#f5f5f5"
                                 v-model="formattedTotalMoney5" readonly></v-text-field>
@@ -302,13 +273,11 @@
                     </div>
                     <!-- //item5// -->
                     <!-- //item6// -->
-
                     <div style="display: flex;">
                         <div style="width:100%;" class="pl-2">
                             <v-autocomplete outlined dense label="6:ເລືອກ ອຸປະກອນ" :items="Mechanicequipment6"
                                 item-text="itemName" item-value="item_id" @change="onGetMechanicequipment6">
                             </v-autocomplete>
-
                         </div>
                         <div style="width:100%;" class="d-flex align-center pl-2">
                             <v-text-field label="6:*ຈໍານວນ " dense outlined background-color="#f5f5f5"
@@ -320,7 +289,6 @@
                                 v-model="unit_price6" @input="calculateTotalMoney6"></v-text-field>
                             <div class="tops"></div>
                         </div>
-
                         <div style="width:100%;" class="d-flex align-center pl-2">
                             <v-text-field label="6:*ເປັນເງິນທັງໝົດ" dense outlined background-color="#f5f5f5"
                                 v-model="formattedTotalMoney6" readonly></v-text-field>
@@ -328,15 +296,12 @@
                         </div>
                     </div>
                     <!-- //item6// -->
-
                     <!-- //item7// -->
-
                     <div style="display: flex;">
                         <div style="width:100%;" class="pl-2">
                             <v-autocomplete outlined dense label="7:ເລືອກ ອຸປະກອນ" :items="Mechanicequipment7"
                                 item-text="itemName" item-value="item_id" @change="onGetMechanicequipment7">
                             </v-autocomplete>
-
                         </div>
                         <div style="width:100%;" class="d-flex align-center pl-2">
                             <v-text-field label="7:*ຈໍານວນ " dense outlined background-color="#f5f5f5"
@@ -348,7 +313,6 @@
                                 v-model="unit_price7" @input="calculateTotalMoney7"></v-text-field>
                             <div class="tops"></div>
                         </div>
-
                         <div style="width:100%;" class="d-flex align-center pl-2">
                             <v-text-field label="7:*ເປັນເງິນທັງໝົດ" dense outlined background-color="#f5f5f5"
                                 v-model="formattedTotalMoney7" readonly></v-text-field>
@@ -356,15 +320,12 @@
                         </div>
                     </div>
                     <!-- //item7// -->
-
                     <!-- //item8// -->
-
                     <div style="display: flex;">
                         <div style="width:100%;" class="pl-2">
                             <v-autocomplete outlined dense label="8:ເລືອກ ອຸປະກອນ" :items="Mechanicequipment8"
                                 item-text="itemName" item-value="item_id" @change="onGetMechanicequipment8">
                             </v-autocomplete>
-
                         </div>
                         <div style="width:100%;" class="d-flex align-center pl-2">
                             <v-text-field label="8:*ຈໍານວນ " dense outlined background-color="#f5f5f5"
@@ -376,7 +337,6 @@
                                 v-model="unit_price8" @input="calculateTotalMoney8"></v-text-field>
                             <div class="tops"></div>
                         </div>
-
                         <div style="width:100%;" class="d-flex align-center pl-2">
                             <v-text-field label="8:*ເປັນເງິນທັງໝົດ" dense outlined background-color="#f5f5f5"
                                 v-model="formattedTotalMoney8" readonly></v-text-field>
@@ -384,15 +344,12 @@
                         </div>
                     </div>
                     <!-- //item8// -->
-
                     <!-- //item9// -->
-
                     <div style="display: flex;">
                         <div style="width:100%;" class="pl-2">
                             <v-autocomplete outlined dense label="9:ເລືອກ ອຸປະກອນ" :items="Mechanicequipment9"
                                 item-text="itemName" item-value="item_id" @change="onGetMechanicequipment9">
                             </v-autocomplete>
-
                         </div>
                         <div style="width:100%;" class="d-flex align-center pl-2">
                             <v-text-field label="9:*ຈໍານວນ " dense outlined background-color="#f5f5f5"
@@ -404,7 +361,6 @@
                                 v-model="unit_price9" @input="calculateTotalMoney9"></v-text-field>
                             <div class="tops"></div>
                         </div>
-
                         <div style="width:100%;" class="d-flex align-center pl-2">
                             <v-text-field label="9:*ເປັນເງິນທັງໝົດ" dense outlined background-color="#f5f5f5"
                                 v-model="formattedTotalMoney9" readonly></v-text-field>
@@ -413,9 +369,7 @@
                     </div>
                     <!-- //item9// -->
                 </div>
-
             </div>
-
             <div style="text-align: center; margin-bottom: 10px;">
                 <v-btn style="width: 200px;" elevation="0" color="#00a668" @click="onGetLeaveNumber">
                     <v-icon color="white">mdi-check</v-icon>
@@ -425,10 +379,8 @@
             <div style="text-align: start; margin-bottom: 10px;">
                 <v-btn color="#448AFF" @click="showForm = !showForm">
                     <span class="white--text">+ More</span>
-
                 </v-btn>
             </div>
-
             <v-data-table :items-per-page="5" :headers="truck_table_headers" :items="filteredItems" :search="search">
                 <template v-slot:item="row">
                     <tr>
@@ -443,11 +395,11 @@
                         <td>{{ row?.item?.h_VICIVLE_NUMBER }}</td>
                         <td>{{ row?.item?.item_name }}</td>
                         <td>{{ row?.item?.offer_CODE }}</td>
-                        <td>{{ row?.item?.statusPO }}</td>
+                        <!-- <td>{{ row?.item?.statusPO }}</td> -->
                         <td>{{ row?.item?.dateCreate }}</td>
-                        <td :class="getStatusClass(row.item.status)">
+                        <!-- <td :class="getStatusClass(row.item.status)">
                             {{ getStatusText(row.item.status) }}
-                        </td>
+                        </td> -->
                         <td>
                             <v-btn small color="primary" class="card-shadow" @click="onGetinbox(row.item.offer_CODE)">
                                 <v-icon>mdi-printer</v-icon>ລາຍລະອຽດ
@@ -462,8 +414,6 @@
                     </tr>
                 </template>
             </v-data-table>
-
-
             <!-- component for print  -->
         </v-card>
         <v-card class="card-shadow" rounded="lg"
@@ -490,6 +440,9 @@
                             <td>{{ row?.item?.item_name }}</td>
                             <td>{{ row?.item?.offer_CODE }}</td>
                             <!-- <td>{{ row?.item?.statusPO }}</td> -->
+                             <!-- <td :class="getStatusClass(row.item.status)">
+                                {{ getStatusText(row.item.status) }}
+                            </td> -->
                             <td>{{ row?.item?.dateCreate }}</td>
                             <!-- <td :class="getStatusClass(row.item.status)">
                                 {{ getStatusText(row.item.status) }}
@@ -502,18 +455,13 @@
                     </template>
                 </v-data-table>
             </v-card>
-
-
             <!-- component for print  -->
         </v-card>
-
         <v-dialog v-model="dialogVisible" max-width="800px" style="max-height: 800px;">
             <v-card>
                 <v-card-title style="font-size: 24px;">ປ້ອນຂໍ້ມູນ</v-card-title>
                 <v-card-title class="huakhr">
-
                     <div>
-
                         <span id="shopName">{{ shopName }}</span>
                     </div>
                     <div>
@@ -540,12 +488,10 @@
                 </v-card-actions>
                 <div style="display: flex;margin-left: 10px;margin-right: 10px;">
                     <v-card-text style="font-size: 18px;">
-
                         <div>
                             <label for="unit_price">ລາ​ຄາ​ຕໍ່​ຫນ່ວຍ:</label>
                             <span id="unit_price">{{ unit_price }}</span>
                         </div>
-
                         <div>
                             <label for="qty_offer">ຂໍ້ສະເໜີ ຈໍານວນ:</label>
                             <span id="qty_offer">{{ qty_offer }}</span>
@@ -554,36 +500,24 @@
                             <label for="totalMoney">ເງິນທັງໝົດ:</label>
                             <span id="totalMoney">{{ totalMoney }}</span>
                         </div>
-
-
                     </v-card-text>
-
                     <v-card-text style="font-size: 18px;">
-
-
                         <div>
                             <label for="item_name">ອາໄລ ຊື່:</label>
                             <span id="item_name">{{ item_name }}</span>
                         </div>
-
-
                         <label for="img">ຮູບພາບ:</label>
                         <div>
                             <img :src="img" style="width: 150px; height: 160px;">
                         </div>
-
                     </v-card-text>
-
                 </div>
-
                 <div v-if="item_name1 !== 'null'" style="display: flex;margin-left: 10px;margin-right: 10px;">
                     <v-card-text style="font-size: 18px;">
                         <div>
                             <label for="unit_price1">ລາ​ຄາ​ຕໍ່​ຫນ່ວຍ1:</label>
                             <span id="unit_price1">{{ unit_price1 }}</span>
                         </div>
-
-
                         <div>
                             <label for="qty_offer1">ຂໍ້ສະເໜີ ຈໍານວນ:</label>
                             <span id="qty_offer1">{{ qty_offer1 }}</span>
@@ -610,8 +544,6 @@
                             <label for="unit_price1">ລາ​ຄາ​ຕໍ່​ຫນ່ວຍ2:</label>
                             <span id="unit_price1">{{ unit_price2 }}</span>
                         </div>
-
-
                         <div>
                             <label for="qty_offer1">ຂໍ້ສະເໜີ ຈໍານວນ:</label>
                             <span id="qty_offer1">{{ qty_offer2 }}</span>
@@ -638,8 +570,6 @@
                             <label for="unit_price1">ລາ​ຄາ​ຕໍ່​ຫນ່ວຍ3:</label>
                             <span id="unit_price1">{{ unit_price3 }}</span>
                         </div>
-
-
                         <div>
                             <label for="qty_offer1">ຂໍ້ສະເໜີ ຈໍານວນ:</label>
                             <span id="qty_offer1">{{ qty_offer3 }}</span>
@@ -660,15 +590,12 @@
                         </div>
                     </v-card-text>
                 </div>
-
                 <div v-if="item_name4 !== 'null'" style="display: flex;margin-left: 10px;margin-right: 10px;">
                     <v-card-text style="font-size: 18px;">
                         <div>
                             <label for="unit_price1">ລາ​ຄາ​ຕໍ່​ຫນ່ວຍ:</label>
                             <span id="unit_price1">{{ unit_price4 }}</span>
                         </div>
-
-
                         <div>
                             <label for="qty_offer1">ຂໍ້ສະເໜີ ຈໍານວນ:</label>
                             <span id="qty_offer1">{{ qty_offer4 }}</span>
@@ -695,8 +622,6 @@
                             <label for="unit_price1">ລາ​ຄາ​ຕໍ່​ຫນ່ວຍ:</label>
                             <span id="unit_price1">{{ unit_price5 }}</span>
                         </div>
-
-
                         <div>
                             <label for="qty_offer1">ຂໍ້ສະເໜີ ຈໍານວນ:</label>
                             <span id="qty_offer1">{{ qty_offer5 }}</span>
@@ -723,8 +648,6 @@
                             <label for="unit_price1">ລາ​ຄາ​ຕໍ່​ຫນ່ວຍ:</label>
                             <span id="unit_price1">{{ unit_price6 }}</span>
                         </div>
-
-
                         <div>
                             <label for="qty_offer1">ຂໍ້ສະເໜີ ຈໍານວນ:</label>
                             <span id="qty_offer1">{{ qty_offer6 }}</span>
@@ -751,8 +674,6 @@
                             <label for="unit_price1">ລາ​ຄາ​ຕໍ່​ຫນ່ວຍ:</label>
                             <span id="unit_price1">{{ unit_price7 }}</span>
                         </div>
-
-
                         <div>
                             <label for="qty_offer1">ຂໍ້ສະເໜີ ຈໍານວນ:</label>
                             <span id="qty_offer1">{{ qty_offer7 }}</span>
@@ -779,8 +700,6 @@
                             <label for="unit_price1">ລາ​ຄາ​ຕໍ່​ຫນ່ວຍ:</label>
                             <span id="unit_price1">{{ unit_price8 }}</span>
                         </div>
-
-
                         <div>
                             <label for="qty_offer1">ຂໍ້ສະເໜີ ຈໍານວນ:</label>
                             <span id="qty_offer1">{{ qty_offer8 }}</span>
@@ -807,8 +726,6 @@
                             <label for="unit_price1">ລາ​ຄາ​ຕໍ່​ຫນ່ວຍ:</label>
                             <span id="unit_price1">{{ unit_price9 }}</span>
                         </div>
-
-
                         <div>
                             <label for="qty_offer1">ຂໍ້ສະເໜີ ຈໍານວນ:</label>
                             <span id="qty_offer1">{{ qty_offer9 }}</span>
@@ -829,7 +746,6 @@
                         </div>
                     </v-card-text>
                 </div>
-
                 <v-card-actions style="margin-right: auto;">
                     <v-btn color="red darken-1" text @click="closeDialog">ຍົກເລີກ</v-btn>
                 </v-card-actions>
@@ -837,11 +753,8 @@
                     <label for="dateCreate">ວັນທີສ້າງ:</label>
                     <span id="dateCreate">{{ dateCreate }}</span>
                 </v-card-actions>
-
             </v-card>
         </v-dialog>
-
-
         <div style="display:none">
             <div id="modalInvoice">
                 <v-row>
@@ -851,20 +764,17 @@
                             style="display:flex;justify-content:center;font-size:25px;font-weight:bold;margin-top: 10px;margin-left: ">
                             ໃບສະເໝີສັ່ງຊື້ສິນຄ້າ</div>
                         <div style="font-size: 18px;font-weight: bold;margin-top: 80px;margin-bottom: 50px;">
-
                             <div>
                                 <label for="dateCreate">ວັນທີສ້າງ:</label>
                                 <span id="dateCreate">{{ dateCreate
                                     }}</span>
                             </div>
-
                             <div>
                                 <label for="shopName">ຊື່ຮ້ານ:</label>
                                 <span id="shopName">{{ shopName?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
                                     }}</span>
                             </div>
                         </div>
-
                         <div style="display: flex;justify-content: space-between;margin-bottom: 20px;">
                             <div style="margin-bottom: 15px;">
                                 <label for="offer_CODE">ເລກທີໃບສ:</label>
@@ -889,7 +799,6 @@
                             <span id="description">{{ description?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
                                 }}</span>
                         </div>
-
                         <div
                             style="display: flex;margin-left: 10px;margin-right: 10px;margin-top: 30px;justify-content: space-between;">
                             <label for="img">ຮູບພາບ:</label>
@@ -923,7 +832,6 @@
                                     <span id="h_VICIVLE_NUMBER">{{ h_VICIVLE_NUMBER }}</span>
                                 </div> -->
                         </div>
-
                         <div v-if="item_name1 !== 'null'"
                             style="display: flex;margin-left: 10px;margin-right: 10px;margin-top: 30px;justify-content: space-between;">
                             <label for="img">ຮູບພາບ:</label>
@@ -959,8 +867,6 @@
                                     <span id="h_VICIVLE_NUMBER">{{ h_VICIVLE_NUMBER }}</span>
                                 </div> -->
                         </div>
-
-
                         <div v-if="item_name2 !== 'null'"
                             style="display: flex;margin-left: 10px;margin-right: 10px;margin-top: 30px;justify-content: space-between;">
                             <label for="img">ຮູບພາບ:</label>
@@ -1031,7 +937,6 @@
                                     <span id="h_VICIVLE_NUMBER">{{ h_VICIVLE_NUMBER }}</span>
                                 </div> -->
                         </div>
-
                         <div v-if="item_name4 !== 'null'"
                             style="display: flex;margin-left: 10px;margin-right: 10px;margin-top: 30px;justify-content: space-between;">
                             <label for="img">ຮູບພາບ:</label>
@@ -1241,18 +1146,15 @@
                                     <span id="h_VICIVLE_NUMBER">{{ h_VICIVLE_NUMBER }}</span>
                                 </div> -->
                         </div>
-
                         <div style="margin-bottom: 15px;margin-top: 20px;">
                             <label for="real_totalMoney">ລາຄາ ທັງໝົດ:</label>
                             <span id="real_totalMoney" style="text-decoration: underline;">{{
                                 real_totalMoney?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</span>
                         </div>
-
                         <div style="width: 100%; margin: 0 auto;">
                             <div style="display: flex; justify-self: center;">
                                 <div
                                     style="width:100%;margin-top:50px;display:flex;flex-direction:column;justify-content:center;align-items:center;padding-left:20px; font-size: 18px">
-
                                     <div>ຜູ້ສະເໜີ</div>
                                     <div style="height: 50px;"></div>
                                     <div style="display:flex;justify-content:space-between">
@@ -1261,7 +1163,6 @@
                                 </div>
                                 <div
                                     style="width:100%;margin-top:50px;display:flex;flex-direction:column;justify-content:center;align-items:center;padding-left:20px; font-size: 18px">
-
                                     <div>ຜູ້ຄຸມງານ</div>
                                     <div style="height: 50px;"></div>
                                     <div style="display:flex;justify-content:space-between">
@@ -1270,7 +1171,6 @@
                                 </div>
                                 <div
                                     style="width:100%;margin-top:50px;display:flex;flex-direction:column;justify-content:center;align-items:center;padding-left:20px; font-size: 18px">
-
                                     <div>ໜ່ວຍກວດກາ</div>
                                     <div style="height: 50px;"></div>
                                     <div style="display:flex;justify-content:space-between">
@@ -1279,7 +1179,6 @@
                                 </div>
                                 <div
                                     style="width:100%;margin-top:50px;display:flex;flex-direction:column;justify-content:center;align-items:center;padding-left:20px; font-size: 18px">
-
                                     <div>ອໍານວຍຍການບໍລີສັດ ຄູນຄໍາ</div>
                                     <div style="height: 50px;"></div>
                                     <div style="display:flex;justify-content:space-between">
@@ -1288,18 +1187,12 @@
                                 </div>
                             </div>
                         </div>
-
                     </v-col>
                 </v-row>
             </div>
         </div>
-
-
-
     </div>
-
 </template>
-
 <script>
 import Swal from 'sweetalert2';
 export default {
@@ -1314,8 +1207,6 @@ export default {
             // item_id: '',
             // item_id: '',
             // item_id: '',
-
-
             sumFooter: '',
             unit_price1: '0',
             qty_offer1: '0',
@@ -1338,13 +1229,10 @@ export default {
             totalMoney8: 0,
             totalMoney9: 0,
             totalMoney10: 0,
-
             item_name5: 0,
             img5: 0,
-
             item_name6: 0,
             img6: 0,
-
             img7: 0,
             item_name7: 0,
             item_name1: 0,
@@ -1359,18 +1247,14 @@ export default {
             Mechanicequipment9: '',
             Mechanicequipment8: '',
             Mechanicequipment6: '',
-
             Mechanicequipment7: '',
             Mechanicequipment3: '',
             Mechanicequipment5: '',
             Mechanicequipment4: '',
             items: '',
-
-
             img8: 0,
             item_name8: 0,
             item_name9: 0,
-
             unit_price: '0',
             unit_price2: '0',
             unit_price3: '0',
@@ -1384,7 +1268,6 @@ export default {
             img: '',
             img1: '',
             qty_offer: '0',
-
             qty_offer2: '0',
             qty_offer3: '0',
             qty_offer4: '0',
@@ -1394,8 +1277,6 @@ export default {
             qty_offer8: '0',
             qty_offer9: '0',
             qty_offer10: '0',
-
-
             description: '',
             offerManName: '',
             job: '',
@@ -1422,20 +1303,16 @@ export default {
                 { text: 'ລາຍລະອຽດ', value: 'description' },
                 { text: 'ຊື່ຜູ້ສະເໜີ', value: 'offerManName' },
                 { text: 'ອາຊີບ', value: 'job' },
-                { text: 'ລຳດັບຍ້າຍລົດ', value: 'f_CARD_NO' },
-                { text: 'ລຳດັບລົດ', value: 'h_VICIVLE_NUMBER' },
-                { text: 'ຊື່ສິ່ງທີ່ສະເໜີລຶບ', value: 'item_name' },
+                { text: 'ຫົວລົດ', value: 'f_CARD_NO' },
+                { text: 'ຫາງລົດ', value: 'h_VICIVLE_NUMBER' },
+                { text: 'ອາໄຫຼ່ທີ່ສະເໜີຊື້', value: 'item_name' },
                 { text: 'ເລກທີໃບສ້າງໃບບິນ', value: 'offer_CODE' },
-                { text: 'ສະທານະ', value: 'status' },
+                // { text: 'ສະຖານະ', value: 'status' },
                 { text: 'ວັນທີສ້າງໃບບິນ', value: 'dateCreate' },
-
-
-
             ],
             Mechanicequipment: [], // Array of equipment items for the first set
             Mechanicequipment1: [], // Array of equipment items for the second set
             truck_data_list: [],
-
             totalMoney: '0', // Initialize totalMoney
             apiResponse: {}, // Placeholder for your API response
             shop_id: null,        // to store shop id
@@ -1443,7 +1320,6 @@ export default {
             // items: '',  // to toggle credit shop autocomplete
             selectedType: '',  // to toggle credit shop autocomplete
             show_list: [
-
             ],        // your list of shop items
             nameRules: [],        // validation rules for the autocomplete
             showForm: false,
@@ -1453,7 +1329,6 @@ export default {
             loading_processing: false,
             moneyRate: "1",
             items: [],
-
         };
     },
     computed: {
@@ -1487,18 +1362,15 @@ export default {
         formattedTotalMoney6() {
             return this.formatMoney6(this.totalMoney6);
         },
-
         formattedTotalMoney7() {
             return this.formatMoney7(this.totalMoney7);
         },
         formattedTotalMoney8() {
             return this.formatMoney8(this.totalMoney8);
         },
-
         formattedTotalMoney9() {
             return this.formatMoney9(this.totalMoney9);
         },
-
         filteredItems() {
             if (!Array.isArray(this.truck_data_list)) {
                 return [];
@@ -1507,7 +1379,6 @@ export default {
                 item.statusPO === 'NO'
             );
         },
-
         formattedTotalled0() {
             const result = this.totalMoney * this.moneyRate;
             return this.formatMoney(result);
@@ -1530,9 +1401,7 @@ export default {
         formattedTotalled6() {
             return this.formattedTotalMoney6 * this.moneyRate;
         },
-
     },
-
     methods: {
         selectShop(type) {
             this.selectedType = type;  // Set the selected payment type
@@ -1585,8 +1454,6 @@ export default {
                     return 'Unknown';
             }
         },
-
-
         // formatMoney(value) {
         //     if (typeof value === 'number' || typeof value === 'string') {
         //         return value.toString().replace(/\D/g, '').replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
@@ -1619,7 +1486,6 @@ export default {
             parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
             return parts.join('.');
         }
-
         ,
         formatMoney2(value) {
             let num = parseFloat(value);
@@ -1630,8 +1496,6 @@ export default {
             parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
             return parts.join('.');
         }
-
-        
         // formatMoney2(value) {
         //     if (typeof value === 'number' || typeof value === 'string') {
         //         return value.toString().replace(/\D/g, '').replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
@@ -1664,7 +1528,6 @@ export default {
             parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
             return parts.join('.');
         },
-
         // formatMoney4(value) {
         //     if (typeof value === 'number' || typeof value === 'string') {
         //         return value.toString().replace(/\D/g, '').replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
@@ -1753,43 +1616,33 @@ export default {
             this.totalMoney = this.qty_offer * this.unit_price;
         },
         calculateTotalMoney1() {
-
             this.totalMoney1 = this.qty_offer1 * this.unit_price1;
         },
         calculateTotalMoney2() {
-
             this.totalMoney2 = this.qty_offer2 * this.unit_price2;
         },
         calculateTotalMoney3() {
-
             this.totalMoney3 = this.qty_offer3 * this.unit_price3;
         },
         calculateTotalMoney4() {
-
             this.totalMoney4 = this.qty_offer4 * this.unit_price4;
         },
         calculateTotalMoney5() {
-
             this.totalMoney5 = this.qty_offer5 * this.unit_price5;
         },
         calculateTotalMoney6() {
-
             this.totalMoney6 = this.qty_offer6 * this.unit_price6;
         },
         calculateTotalMoney7() {
-
             this.totalMoney7 = this.qty_offer7 * this.unit_price7;
         },
         calculateTotalMoney8() {
-
             this.totalMoney8 = this.qty_offer8 * this.unit_price8;
         },
         calculateTotalMoney9() {
-
             this.totalMoney9 = this.qty_offer9 * this.unit_price9;
         },
         calculateTotalMoney10() {
-
             this.totalMoney10 = this.qty_offer10 * this.unit_price10;
         },
         getStatusClass(status) {
@@ -1798,7 +1651,6 @@ export default {
         getStatusText(status) {
             return status === 'Y' ? 'ຈ່າຍເເລ້ວ' : 'ຍັງບໍ່ຈ່າຍ';
         },
-
         print() {
             const modal = document.getElementById("modalInvoice");
             const cloned = modal.cloneNode(true);
@@ -1817,13 +1669,10 @@ export default {
             console.log('Fetching data for printing with keyId:', keyId);
             // Add your logic here to fetch the data for printing
         },
-
         onGetMechanicequipment(item_id) {
             console.log(item_id);
-
             let data = this.Mechanicequipment.find((el) => el.item_id === item_id);
             console.log('head:', data);
-
             if (data) {
                 this.itemName = data.itemName;
                 this.item_id = item_id;
@@ -1833,14 +1682,11 @@ export default {
                 console.error('Data not found for item_id:', item_id);
             }
         },
-
         onGetMechanicequipment1(item_id) {
             console.log(item_id);
-
             // Use item_id1 to filter Mechanicequipment1 array
             let data = this.Mechanicequipment1.filter((el) => el.item_id === item_id);
             console.log('head:', data);
-
             if (data.length > 0) {
                 this.itemName1 = data[0].itemName; // Access itemName directly from the first item in the filtered data
                 this.item_id1 = item_id;
@@ -1852,11 +1698,9 @@ export default {
         },
         onGetMechanicequipment2(item_id) {
             console.log(item_id);
-
             // Use item_id1 to filter Mechanicequipment1 array
             let data = this.Mechanicequipment2.filter((el) => el.item_id === item_id);
             console.log('head:', data);
-
             if (data.length > 0) {
                 this.itemName2 = data[0].itemName; // Access itemName directly from the first item in the filtered data
                 this.item_id2 = item_id;
@@ -1868,11 +1712,9 @@ export default {
         },
         onGetMechanicequipment3(item_id) {
             console.log(item_id);
-
             // Use item_id1 to filter Mechanicequipment1 array
             let data = this.Mechanicequipment3.filter((el) => el.item_id === item_id);
             console.log('head:', data);
-
             if (data.length > 0) {
                 this.itemName3 = data[0].itemName; // Access itemName directly from the first item in the filtered data
                 this.item_id3 = item_id;
@@ -1883,11 +1725,9 @@ export default {
             }
         }, onGetMechanicequipment4(item_id) {
             console.log(item_id);
-
             // Use item_id1 to filter Mechanicequipment1 array
             let data = this.Mechanicequipment4.filter((el) => el.item_id === item_id);
             console.log('head:', data);
-
             if (data.length > 0) {
                 this.itemName4 = data[0].itemName; // Access itemName directly from the first item in the filtered data
                 this.item_id4 = item_id;
@@ -1898,11 +1738,9 @@ export default {
             }
         }, onGetMechanicequipment5(item_id) {
             console.log(item_id);
-
             // Use item_id1 to filter Mechanicequipment1 array
             let data = this.Mechanicequipment5.filter((el) => el.item_id === item_id);
             console.log('head:', data);
-
             if (data.length > 0) {
                 this.itemName5 = data[0].itemName; // Access itemName directly from the first item in the filtered data
                 this.item_id5 = item_id;
@@ -1913,11 +1751,9 @@ export default {
             }
         }, onGetMechanicequipment6(item_id) {
             console.log(item_id);
-
             // Use item_id1 to filter Mechanicequipment1 array
             let data = this.Mechanicequipment6.filter((el) => el.item_id === item_id);
             console.log('head:', data);
-
             if (data.length > 0) {
                 this.itemName6 = data[0].itemName; // Access itemName directly from the first item in the filtered data
                 this.item_id6 = item_id;
@@ -1928,11 +1764,9 @@ export default {
             }
         }, onGetMechanicequipment7(item_id) {
             console.log(item_id);
-
             // Use item_id1 to filter Mechanicequipment1 array
             let data = this.Mechanicequipment7.filter((el) => el.item_id === item_id);
             console.log('head:', data);
-
             if (data.length > 0) {
                 this.itemName7 = data[0].itemName; // Access itemName directly from the first item in the filtered data
                 this.item_id7 = item_id;
@@ -1943,11 +1777,9 @@ export default {
             }
         }, onGetMechanicequipment8(item_id) {
             console.log(item_id);
-
             // Use item_id1 to filter Mechanicequipment1 array
             let data = this.Mechanicequipment8.filter((el) => el.item_id === item_id);
             console.log('head:', data);
-
             if (data.length > 0) {
                 this.itemName8 = data[0].itemName; // Access itemName directly from the first item in the filtered data
                 this.item_id8 = item_id;
@@ -1959,11 +1791,9 @@ export default {
         },
         onGetMechanicequipment9(item_id) {
             console.log(item_id);
-
             // Use item_id1 to filter Mechanicequipment1 array
             let data = this.Mechanicequipment9.filter((el) => el.item_id === item_id);
             console.log('head:', data);
-
             if (data.length > 0) {
                 this.itemName9 = data[0].itemName; // Access itemName directly from the first item in the filtered data
                 this.item_id9 = item_id;
@@ -1975,11 +1805,9 @@ export default {
         },
         onGetMechanicequipment10(item_id) {
             console.log(item_id);
-
             // Use item_id1 to filter Mechanicequipment1 array
             let data = this.Mechanicequipment10.filter((el) => el.item_id === item_id);
             console.log('head:', data);
-
             if (data.length > 0) {
                 this.itemName10 = data[0].itemName; // Access itemName directly from the first item in the filtered data
                 this.item_id10 = item_id;
@@ -1991,7 +1819,6 @@ export default {
         },
         onGetCarDetails(id) {
             console.log(id);
-
             let data = this.cars_list.filter((el) => el.key_id === id);
             console.log('head:', data);
             this.h_VICIVLE_NUMBER = data[0]?.h_VICIVLE_NUMBER;
@@ -2002,29 +1829,23 @@ export default {
             console.log("back:", data);
             this.f_CARD_NO = data[0]?.f_CARD_NO;
             this.fkey_id = key_id;
-
             // Set other data properties as needed
         },
         onGetshow(shop_id) {
             console.log(shop_id);
-
             let data = this.show_list.filter((el) => el.shop_id === shop_id); // Use id parameter instead of shop_id
             console.log('head:', data);
             this.shop_name = data[0]?.shop_name;
             this.shop_id = shop_id; // Assign id to skey_id
-
             // Set other data properties as needed
         },
-
         async onGetinbox(offerCode) {
             try {
                 const response = await this.$axios.$post('/showofferpaperDetail.service', {
                     toKen: localStorage.getItem('toKen'),
                     offer_CODE: offerCode,
                 });
-
                 console.log('Print API response:', response);
-
                 // Update your data properties with the response data
                 this.offer_CODE = response.data[0].offer_CODE;
                 this.unit_price = response.data[0].unit_price;
@@ -2097,27 +1918,21 @@ export default {
                 this.item_id7 = response.data[0].item_id7;
                 this.item_id8 = response.data[0].item_id8;
                 this.item_id9 = response.data[0].item_id9;
-
                 // Open the dialog after API call success
                 this.openDialog(this.offer_CODE);
-
                 this.sumFooter = response.sumFooter;
-
             } catch (error) {
                 console.error('Print API error:', error);
                 // Handle the error, such as displaying an error message
             }
         },
-
         openDialog(offerCode) {
             this.offerCode = offerCode;
             this.dialogVisible = true;
         },
-
         closeDialog() {
             this.dialogVisible = false;
         },
-
         async onPrint() {
             // Clone the modal content
             const modal = document.getElementById("modalInvoice");
@@ -2130,15 +1945,12 @@ export default {
                 section.id = "print";
                 document.body.appendChild(section);
             }
-
             // Clear existing content and append the cloned modal
             section.innerHTML = "";
             section.appendChild(cloned);
-
             // Print the content
             window.print();
         },
-
         async onGetTruckFooter() {
             try {
                 this.loading_processing = true;
@@ -2194,11 +2006,12 @@ export default {
         async onGetadd() {
             try {
                 this.loading_processing = true;
+                let key_id = localStorage.getItem('key_id') ? localStorage.getItem('key_id') : null;
                 const data = await this.$axios.$post('ListItems.service', {
                     toKen: localStorage.getItem('toKen'),
+                    key_id: key_id,
                 });
                 console.log('itemName:', data?.data);
-
                 this.Mechanicequipment = data?.data || [];
                 this.Mechanicequipment1 = data?.data || [];
                 this.Mechanicequipment2 = data?.data || [];
@@ -2220,8 +2033,10 @@ export default {
         async onGetaddshow() {
             try {
                 this.loading_processing = true;
+                let key_id = localStorage.getItem('key_id') ? localStorage.getItem('key_id') : null;
                 const data = await this.$axios.$post('ListShops.service', {
                     toKen: localStorage.getItem('toKen'),
+                    key_id: key_id,
                 });
                 console.log('itemName:', data?.data);
                 this.show_list = data?.data || [];
@@ -2234,8 +2049,10 @@ export default {
         },
         async onGetLeaveNumber() {
             try {
+                let key_id = localStorage.getItem('key_id') ? localStorage.getItem('key_id') : null;
                 const response = await this.$axios.$post('/GenOfferPaperNew.service', {
                     toKen: localStorage.getItem('toKen'),
+                    key_id: key_id,
                 });
                 console.log("inv:", response);
                 if (response?.status === '00') {
@@ -2247,14 +2064,11 @@ export default {
                         text: 'Your message here', // Customize the success message
                         confirmButtonText: 'OK',
                     });
-
                 }
             } catch (error) {
                 console.log(error);
-
             }
         },
-
         async onCreateReports(offerCode) {
             try {
                 this.loading_processing = true;
@@ -2271,16 +2085,13 @@ export default {
                     key_id: this.key_id,
                     offer_CODE: offerCode,
                     toKen: localStorage.getItem('toKen'),
-
                     item_id: this.item_id, // Assuming item_id is accessible in this component
                     unit_price: this.unit_price,
                     qty_offer: this.qty_offer, // Assuming number is accessible in this component
                     // totalMoney: this.totalMoney,
                     totalMoney: Number(parseFloat(this.totalMoney).toFixed(3)),
-
                     itemName: this.itemName,
                     img: this.img,
-
                     item_id1: this.item_id1,// Assuming item_id is accessible in this component
                     unit_price1: this.unit_price1,
                     qty_offer1: this.qty_offer1, // Assuming number is accessible in this component
@@ -2288,8 +2099,6 @@ export default {
                     totalMoney1: Number(parseFloat(this.totalMoney1).toFixed(3)),
                     item_name1: this.itemName1,
                     img1: this.img1,
-
-
                     item_id2: this.item_id2, // Assuming item_id is accessible in this component
                     unit_price2: this.unit_price2,
                     qty_offer2: this.qty_offer2, // Assuming number is accessible in this component
@@ -2297,8 +2106,6 @@ export default {
                     totalMoney2: Number(parseFloat(this.totalMoney2).toFixed(3)),
                     item_name2: this.itemName2,
                     img2: this.img2,
-
-
                     item_id3: this.item_id3, // Assuming item_id is accessible in this component
                     unit_price3: this.unit_price3,
                     qty_offer3: this.qty_offer3, // Assuming number is accessible in this component
@@ -2307,109 +2114,79 @@ export default {
                     totalMoney3: Number(parseFloat(this.totalMoney3).toFixed(3)),
                     item_name3: this.itemName3,
                     img3: this.img3,
-
-
                     item_id4: this.item_id4, // Assuming item_id is accessible in this component
                     unit_price4: this.unit_price4,
                     qty_offer4: this.qty_offer4, // Assuming number is accessible in this component
                     // totalMoney4: this.totalMoney4,
                     // totalMoney4: parseFloat(this.totalMoney4).toFixed(3),
                     totalMoney4: Number(parseFloat(this.totalMoney4).toFixed(3)),
-
                     item_name4: this.itemName4,
                     img4: this.img4,
-
-
                     item_id5: this.item_id5, // Assuming item_id is accessible in this component
                     unit_price5: this.unit_price5,
                     qty_offer5: this.qty_offer5, // Assuming number is accessible in this component
                     // totalMoney5: this.totalMoney5,
-               
                     totalMoney5: Number(parseFloat(this.totalMoney5).toFixed(3)),
-
                     item_name5: this.itemName5,
                     img5: this.img5,
-
-
                     item_id6: this.item_id6, // Assuming item_id is accessible in this component
                     unit_price6: this.unit_price6,
                     qty_offer6: this.qty_offer6, // Assuming number is accessible in this component
                     // totalMoney6: this.totalMoney6,
                     // totalMoney6: parseFloat(this.totalMoney6).toFixed(3),
                     totalMoney6: Number(parseFloat(this.totalMoney6).toFixed(3)),
-
                     item_name6: this.itemName6,
                     img6: this.img6,
-
-
                     item_id7: this.item_id7, // Assuming item_id is accessible in this component
                     unit_price7: this.unit_price7,
                     qty_offer7: this.qty_offer7, // Assuming number is accessible in this component
                     // totalMoney7: this.totalMoney7,
                     totalMoney7: Number(parseFloat(this.totalMoney7).toFixed(3)),
-
                     item_name7: this.itemName7,
                     img7: this.img7,
-
-
                     item_id8: this.item_id8, // Assuming item_id is accessible in this component
                     unit_price8: this.unit_price8,
                     qty_offer8: this.qty_offer8, // Assuming number is accessible in this component
                     // totalMoney8: this.totalMoney8,
                     totalMoney8: Number(parseFloat(this.totalMoney8).toFixed(3)),
-
                     item_name8: this.itemName8,
                     img8: this.img8,
-
-
                     item_id9: this.item_id9, // Assuming item_id is accessible in this component
                     unit_price9: this.unit_price9,
                     qty_offer9: this.qty_offer9, // Assuming number is accessible in this component
                     // totalMoney9: this.totalMoney9,
                     totalMoney9: Number(parseFloat(this.totalMoney9).toFixed(3)),
-
                     item_name9: this.itemName9,
                     img9: this.img9,
-
-
                     // item_id10: this.item_id10, // Assuming item_id is accessible in this component
                     // unit_price10: this.unit_price10,
                     // qty_offer10: this.qty_offer10, // Assuming number is accessible in this component
                     // totalMoney10: this.totalMoney10,
                     // item_name10: this.itemName10,
                     // img10: this.img10,
-
-
                 };
                 console.log("send:", data);
-
                 const response = await this.$axios.$post('/saveofferpaper.service', data);
                 console.log("createReport:", response);
-
                 if (response?.status === '00') {
                     this.loading_processing = false;
-
                     this.onGetshowdata_table();
-
-
                 }
             } catch (error) {
                 console.log(error);
-
                 this.loading_processing = false;
             }
-            window.location.reload();
+            // window.location.reload();
         },
-
         async onGetshowdata_table() {
             try {
                 this.loading_processing = true;
+                let key_id = localStorage.getItem('key_id') ? localStorage.getItem('key_id') : null;
                 const response = await this.$axios.$post('showofferpaper.service', {
                     toKen: localStorage.getItem('toKen'),
+                    key_id: key_id,
                 });
-
                 console.log('API response:', response);
-
                 if (response?.status === '00' && response?.data) {
                     this.truck_data_list = response.data;
                 } else {
@@ -2421,25 +2198,17 @@ export default {
             } finally {
                 this.loading_processing = false;
             }
-
-
         },
-
-
-
         async onGetDatsForPrint(key, cusName, cusId) {
             this.cusName = cusName;
             this.cusId = cusId;
             this.loading_processing = true;
-
             const data = {
                 billNo: key,
                 toKen: localStorage.getItem("toKen")
             };
-
             try {
                 const response = await this.$axios.$post('/PintInvoiceByNo.service', data);
-
                 if (response?.status === '00') {
                     console.log("dataForprint:", response);
                     // Check if these properties exist before accessing them
@@ -2468,7 +2237,6 @@ export default {
                 this.loading_processing = false;
             }
         },
-
         async ondelete(offerCode, key_id) {
             try {
                 const response = await this.$axios.$post('/deletefferpaper.service', {
@@ -2476,23 +2244,17 @@ export default {
                     offer_CODE: offerCode,
                     realKey_id: key_id,
                 });
-
                 console.log('Print API response:', response);
-
-
             } catch (error) {
                 console.error('Print API error:', error);
                 // Handle the error, such as displaying an error message
             }
             window.location.reload();
-
         },
-
         // Other methods...
-
     },
-
     mounted() {
+        this.bouang = localStorage.getItem("bouang");
         this.onGetadd(); // Fetch truck footer data when component is mounted
         this.onGetshowdata_table(); // Fetch truck footer data when component is mounted
         this.onGetaddshow(); // Fetch truck footer data when component is mounted
@@ -2507,37 +2269,30 @@ export default {
             ];
         }
     },
-
 };
 </script>
-
 <style>
 @media screen {
     #print {
         display: none;
     }
 }
-
 .selected-currency {
     /* background-color: rgb(16, 38, 160); */
     color: rgb(228, 18, 18);
 }
-
 @media print {
     @page {
         size: A4;
         margin: 1in;
     }
-
     body * {
         visibility: hidden;
     }
-
     #print,
     #print * {
         visibility: visible;
     }
-
     #print {
         position: absolute;
         top: 0px;
@@ -2545,13 +2300,10 @@ export default {
         left: 0px;
     }
 }
-
-
 .v-divider {
     margin-top: 10px;
     margin-bottom: 10px;
 }
-
 .phoum10 {
     margin-top: 10px;
     margin-bottom: 10px;
@@ -2559,7 +2311,6 @@ export default {
     margin-right: 10px;
     width: 150px;
 }
-
 .huakhr {
     display: flex;
     justify-self: end;

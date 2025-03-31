@@ -34,7 +34,10 @@
                             placeholder="ຄົ້ນຫາ..." prepend-inner-icon="mdi-magnify" clearable></v-text-field>
                     </div>
                 </v-row>
-                <div style="background-color:#e5ac73;height: 70px; color: black; font-size: 18px; font-weight: bold;padding: 16px;" >
+                <v-chip color="#A7FFEB" class="mt-2 ml-4" v-if="bouang">
+                    {{ bouang }}
+                </v-chip>
+                <div class="mt-6" style="background-color:#e5ac73;height: 70px; color: black; font-size: 18px; font-weight: bold;padding: 16px;">
                     ລາຍການທີໄດ້ຮັບການສັ່ງຊື້ເເລ້ວ
                 </div>
                 <v-data-table :headers="truck_table_headers" :items="filteredItems" :search="search">
@@ -121,6 +124,7 @@
     </div>
 </template>
 <script>
+import Swal from "sweetalert2";// ในคอมโพเนนต์ที่ใช้ EventBus
 import Warehouse from '../wareHouse/warehouse.vue';
 
 export default {
@@ -146,6 +150,9 @@ export default {
                 { text: 'ວັນທີສ້າງ', value: 'dateCreate' },
             ],
             truck_data_list: [],
+            key_id: null,
+            bouang: null,
+
         }
     },
     computed: {
@@ -246,14 +253,32 @@ export default {
             section.appendChild(cloned);
             window.print();
         },
-        // Other methods...
+        testBor() {
+            Swal.fire({
+                title: 'ສຳເລັດ!',
+                text: 'ສາງອາໄຫຼ່ຂອງບໍ່',
+                icon: 'success',
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'OK',
+            });
+        }
     },
     mounted() {
-        this.onGetshowdata_table(); // Fetch truck footer data when component is mounted
-        this.total_count()
-        this.USER_ID = localStorage.getItem('USER_ID')
-        this.USER_NAME = localStorage.getItem('USER_NAME')
-        this.USER_ROLE = localStorage.getItem('USER_ROLE')
+        const { bouang, key_id } = this.$route.query;  // Destructure values from query params
+        if (key_id) {
+            // If 'key_id' has a truthy value in query params
+            this.bouang = bouang;
+            this.key_id = key_id;
+            // this.testBor();
+
+        } else {
+            // If 'key_id' is falsy (undefined, null, etc.)
+            this.onGetshowdata_table(); // Fetch truck footer data when component is mounted
+            this.total_count()
+            this.USER_ID = localStorage.getItem('USER_ID')
+            this.USER_NAME = localStorage.getItem('USER_NAME')
+            this.USER_ROLE = localStorage.getItem('USER_ROLE')
+        }
     },
 };
 </script>

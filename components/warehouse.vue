@@ -148,6 +148,7 @@
     </div>
 </template>
 <script>
+import Swal from "sweetalert2";// ในคอมโพเนนต์ที่ใช้ EventBus
 export default {
     data() {
         return {
@@ -171,24 +172,41 @@ export default {
             truck_data_list: [],
             sumFooter: null,  // Add sumFooter to data properties
             bouang1: "25000",
-            village: '',
+            key_id: '',
             bouang: '',
         }
     },
     mounted() {
-        const bouang = this.$route.query.bouang;
-        const village = this.$route.query.village;
-        if (bouang && village) {
+        const { bouang, key_id } = this.$route.query;  // Destructure values from query params
+        if (key_id) {
+            // If 'key_id' has a truthy value in query params
             this.bouang = bouang;
-            this.village = village;
+            this.key_id = key_id;
+            // this.TestSang();
+            this.onGetshowdata_table(); // Fetch truck footer data when component is mounted
+            this.total_count()
+            this.USER_ID = localStorage.getItem('USER_ID')
+            this.USER_NAME = localStorage.getItem('USER_NAME')
+            this.USER_ROLE = localStorage.getItem('USER_ROLE')
+        } else {
+            // If 'key_id' is falsy (undefined, null, etc.)
+            this.onGetshowdata_table(); // Fetch truck footer data when component is mounted
+            this.total_count()
+            this.USER_ID = localStorage.getItem('USER_ID')
+            this.USER_NAME = localStorage.getItem('USER_NAME')
+            this.USER_ROLE = localStorage.getItem('USER_ROLE')
         }
-        this.total_count();
-        this.USER_ID = localStorage.getItem('USER_ID');
-        this.USER_NAME = localStorage.getItem('USER_NAME');
-        this.USER_ROLE = localStorage.getItem('USER_ROLE');
-        this.onGetshowdata_table(); // ดึงข้อมูล
     },
     methods: {
+        TestSang() {
+            Swal.fire({
+                title: 'ສຳເລັດ!',
+                text: 'Successfully',
+                icon: 'success',
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'OK',
+            });
+        },
         print() {
             const modal = document.getElementById("modalInvoice")
             const cloned = modal.cloneNode(true)
@@ -275,17 +293,15 @@ export default {
         async onGetshowdata_table() {
             try {
                 this.loading_processing = true;
+                let borId = localStorage.getItem('key_id')
+                console.log('borId ສາງ:', borId);
                 const response = await this.$axios.$post('ReportStock.service', {
                     toKen: localStorage.getItem('toKen'),
+                    borId: borId,
                 });
                 console.log('API response:', response);
                 if (response?.status === '00' && response?.data) {
-                    // ตรวจสอบว่า bouang มีค่าหรือไม่
-                    if (this.bouang) {
-                        this.truck_data_list = response.data.filter(item => item.unitPirce === this.bouang);
-                    } else {
                         this.truck_data_list = response.data; // ถ้า bouang เป็น null ให้แสดงข้อมูลทั้งหมด
-                    }
                     this.sumFooter = response.sumFooter;
                 } else {
                     this.showErrorAlert('Error', 'Failed to fetch data from the API');

@@ -376,7 +376,10 @@
                                     </v-list-item-content>
                                 </template>
                                 <v-list-item>
-                                    <v-btn to="./repair/repair3" rounded>
+                                    <!-- <v-btn to="./repair/repair3" rounded>
+                                        ສາງອາໄຫຼ່ ແລະ ນໍໍ້າມັນ
+                                    </v-btn> -->
+                                    <v-btn @click="toBigSang" rounded>
                                         ສາງອາໄຫຼ່ ແລະ ນໍໍ້າມັນ
                                     </v-btn>
                                 </v-list-item>
@@ -590,7 +593,7 @@
                                     </v-list-item-content>
                                 </template>
                                 <v-list-item>
-                                    <v-btn rounded @click="toSang1(branch.b_name,)">
+                                    <v-btn rounded @click="toSang1(branch.b_name, branch.key_id,)">
                                         ສາງອະໄຫຼ່ ແລະ ນໍ້າມັນ
                                     </v-btn>
                                     <v-spacer></v-spacer>
@@ -900,16 +903,28 @@ export default {
                 query: { bouang, village },
             });
         },
+        toBigSang() {
+            // Remove key_id from localStorage (if needed)
+            localStorage.removeItem("key_id");
+            localStorage.removeItem("bouang");
+            // Navigate directly to the path /repair/repair3
+            this.$router.push({
+                path: "/repair/repair3",
+            });
+        },
         toSang(bouang, village) {
             this.$router.push({
                 path: "/wareHouse/warehouse1",
                 query: { bouang, village },
             });
         },
-        toSang1(bouang, village) {
+        toSang1(bouang, key_id) {
+            // เก็บ key_id ใน localStorage
+            localStorage.setItem("key_id", key_id);
+            localStorage.setItem("bouang", bouang);
             this.$router.push({
                 path: "/repair/repair3",
-                query: { bouang, village },
+                query: { bouang, key_id },
             });
         },
         paymentdoc(key_id, valueDoc, number, number1, number2) {

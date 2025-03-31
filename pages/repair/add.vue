@@ -1,8 +1,11 @@
 <template>
     <div>
         <v-card class="card-shadow" rounded="lg" style="border:0.5px solid #e0e0e0;border-radius:3px">
-            <v-card-title style="background-color:#cc7a26" class="white--text">
-                ເພີ້ມ ອາໄຫຼ່
+            <v-card-title v-if="bouang" style="background-color:#cc7a26" class="white--text mt-6">
+                ເພີ້ມອາໄຫຼ່ ({{ bouang }})
+            </v-card-title>
+            <v-card-title v-else style="background-color:#cc7a26" class="white--text mt-6">
+                ເພີ້ມອາໄຫຼ່
             </v-card-title>
             <div>
                 <v-form ref="form">
@@ -26,8 +29,6 @@
                                 <div class="tops">
                                 </div>
                             </v-col>
-
-
                             <v-col>
                                 <v-text-field label="* ລາຄາຕໍ່" dense outlined background-color="#f5f5f5"
                                     v-model="unit_price"></v-text-field>
@@ -86,14 +87,11 @@
                                     <span class="white--text">ອັບເດດ</span>
                                 </v-btn>
                             </td> -->
-
-
                             <td>
                                 <v-btn class="red" small @click="onDeleteEmpInfo(row.item.item_id)">
                                     <v-icon color="white">mdi-delete</v-icon>
                                     <span class="white--text">ລຶບ</span>
                                 </v-btn>
-
                             </td>
                         </tr>
                     </template>
@@ -101,10 +99,9 @@
             </div>
         </v-card>
         <!-- <v-divider></v-divider> -->
-
         <v-card class="card-shadow" rounded="lg" style="border:0.5px solid #e0e0e0;border-radius:3px">
             <v-card-title style="background-color:#dd9348" class="white--text">
-                ເພີ່ມ ບໍລິສັດ ຫຼື ຮ້ານ
+                ເພີ່ມບໍລິສັດ ຫຼື ຮ້ານ
             </v-card-title>
             <div style="display: flex;margin-top: 10px;margin-left: 10px;margin-left: 30px;margin-right: 30px;">
                 <v-row>
@@ -120,8 +117,6 @@
                         <div class="tops">
                         </div>
                     </v-col>
-
-
                     <v-col>
                         <v-text-field label="* ໂທ" dense outlined background-color="#f5f5f5"
                             v-model="phone"></v-text-field>
@@ -146,7 +141,6 @@
                         <div class="tops">
                         </div>
                     </v-col>
-
                 </v-row>
             </div>
             <div class="center-btn">
@@ -171,21 +165,17 @@
                         <td>{{ row?.item?.currency }}</td>
                         <td>{{ row?.item?.country }}</td>
                         <!-- <td>{{ row?.item?.branch }}</td> -->
-
                         <td>
                             <v-btn class="red" small @click="deleteshow(row.item.shop_id)">
                                 <v-icon color="white">mdi-delete</v-icon>
                                 <span class="white--text">ລຶບ</span>
                             </v-btn>
                         </td>
-
-
                     </tr>
                 </template>
             </v-data-table>
         </v-card>
     </div>
-
 </template>
 <script>
 import Swal from 'sweetalert2';
@@ -200,6 +190,15 @@ export default {
             img: null,
             unit_price: '',
             item_id: '',
+            shop_name: '',
+            address: '',
+            qty: '',
+            phone: '',
+            country: '',
+            currency: '',
+            amount_money: '',
+            branch: '',
+            shop_id: null, // Initialize shop_id to null
             files: null,
             truck_table_headers: [
                 { text: 'ລດ', value: '' },
@@ -222,18 +221,16 @@ export default {
             ],
             truck_table_repairs2: [],
             loading_processing: false,
+            bouang: null
         };
     }
     ,
-
-
     mounted() {
+        this.bouang = localStorage.getItem("bouang");
         this.onGetadd(); // Call the onGetadd method when the component is mounted
         this.onGetaddshow(); // Call the onGetadd method when the component is mounted
-
     },
     methods: {
-
         onGetrepImage(file) {
             if (file) {
                 this.url = URL.createObjectURL(this.img)
@@ -242,13 +239,33 @@ export default {
                 this.url = null
             }
         },
+        // async onGetadd() {
+        //     try {
+        //         this.loading_processing = true;
+        //         const response = await this.$axios.$post('ListItems.service', {
+        //             toKen: localStorage.getItem('toKen'),
+        //         });
+        //         console.log('API response:', response);
+        //         if (response?.status === '00' && response?.data) {
+        //             this.truck_data_list = response.data;
+        //         } else {
+        //             this.showErrorAlert('Error', 'Failed to fetch data from the API');
+        //         }
+        //     } catch (error) {
+        //         console.error('API error:', error);
+        //         this.showErrorAlert('Error', 'Failed to fetch data from the API');
+        //     } finally {
+        //         this.loading_processing = false;
+        //     }
+        // },
         async onGetadd() {
             try {
-                this.loading_processing = true;
+                // Check if 'key_id' exists in localStorage, if so, assign it to key_id, otherwise set key_id to null
+                let key_id = localStorage.getItem('key_id') ? localStorage.getItem('key_id') : null;
                 const response = await this.$axios.$post('ListItems.service', {
                     toKen: localStorage.getItem('toKen'),
+                    key_id: key_id  // Passing the key_id value in the request
                 });
-
                 console.log('API response:', response);
 
                 if (response?.status === '00' && response?.data) {
@@ -263,15 +280,15 @@ export default {
                 this.loading_processing = false;
             }
         },
+
         async onGetaddshow() {
             try {
-                this.loading_processing = true;
+                let key_id = localStorage.getItem('key_id') ? localStorage.getItem('key_id') : null;
                 const response = await this.$axios.$post('ListShops.service', {
                     toKen: localStorage.getItem('toKen'),
+                    key_id: key_id  // Passing the key_id value in the request
                 });
-
                 console.log('API response:', response);
-
                 if (response?.status === '00' && response?.data) {
                     this.truck_table_repairs2 = response.data;
                 } else {
@@ -286,6 +303,7 @@ export default {
         },
         async onSaveshow() {
             if (!this.$refs.form.validate()) return null
+            let borId = localStorage.getItem('key_id') ? localStorage.getItem('key_id') : null;
             let data = {
                 shop_name: this.shop_name,
                 address: this.address,
@@ -295,6 +313,10 @@ export default {
                 amount_money: this.amount_money,
                 branch: this.branch,
                 toKen: localStorage.getItem('toKen'),
+            }
+            // Conditionally add borId to data if it has a value
+            if (borId) {
+                data.borId = borId;
             }
             try {
                 this.$axios.$post('/InsertShop.service', data).then((data) => {
@@ -350,7 +372,6 @@ export default {
                 }
             });
         },
-
         async onDeleteshow() {
             try {
                 const data = {
@@ -358,12 +379,10 @@ export default {
                 };
                 this.loading_processing = true;
                 const response = await this.$axios.$post('DelShops.service', data);
-
                 if (response?.status == '00') {
                     console.log(this.shop_id);
                     this.loading_processing = false;
                     this.onGetaddshow();
-
                     Swal.fire({
                         title: 'ສຳເລັດ',
                         icon: 'success',
@@ -399,7 +418,6 @@ export default {
             } else {
                 this.url = null
             }
-
         },
         async onputadd() {
             try {
@@ -411,6 +429,11 @@ export default {
                 }
                 // Form is valid, proceed with form submission
                 const formdata = new FormData();
+                let borId = localStorage.getItem('key_id') ? localStorage.getItem('key_id') : null;
+                if (borId) {
+                    formdata.append('borId', borId); // Append key_id to the form data
+                }
+
                 formdata.append('itemName', this.itemName);
                 formdata.append('unit', this.unit);
                 formdata.append('unit_price', this.unit_price);
@@ -454,7 +477,6 @@ export default {
             }
         },
         // Your existing code...
-
         askBeforeDeleteCusInfo(key) {
             this.item_id = key; // Set item_id property
             Swal.fire({
@@ -467,11 +489,9 @@ export default {
                 confirmButtonText: 'Yes',
             }).then((result) => {
                 if (result.isConfirmed) {
-
                 }
             });
         },
-
         askBeforeupdateCusInfo(item_id) {
             this.$router.push({ path: '/updateitem', query: { item_id: item_id } });
         },
@@ -482,7 +502,6 @@ export default {
                 };
                 this.loading_processing = true;
                 const response = await this.$axios.$post('DelItem.service', data);
-
                 if (response?.status == '00') {
                     // console.log(item_id); // Log the item_id for debugging
                     Swal.fire({
@@ -522,12 +541,8 @@ export default {
             this.qty = '';
             this.files = null;
         },
-
     },
-
 };
-
-
 </script>
 <style>
 .v-divider {

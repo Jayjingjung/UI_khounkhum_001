@@ -2,8 +2,11 @@
     <div class="pt-6">
         <v-card class="card-shadow" rounded="lg">
             <v-card-title style="background-color:	#b76d22" class="white--text  mt-6">
-                ສະເໜີໃຊ້ອາໄຫຼ່ໃນສາງ ({{ bouang }})
+                ສະເໜີໃຊ້ອາໄຫຼ່ໃນສາງ
             </v-card-title>
+            <v-chip class="mt-4 ml-6" color="#A7FFEB" v-if="bouang">
+                {{ bouang }}
+            </v-chip>
             <!-- Error Card -->
             <v-alert v-if="showError" type="error" dense>
                 ຈຳນວນ (ອາໄຫຼ່)
@@ -269,10 +272,10 @@ export default {
             printData: null,
             branch_inventory: null,
             branches: [
-                { name: 'Thakhaek', value: 2 },
-                { name: 'XiengKhouang', value: 3 },
-                { name: 'Savannakhet', value: 4 },
-                { name: 'Vientiane', value: 5 },
+                { name: 'ທ່າແຂກ', value: 2 },
+                { name: 'ຊຽງຂວາງ', value: 3 },
+                { name: 'ສະຫວັນນະເຂດ', value: 4 },
+                { name: 'ວຽງຈັນ', value: 5 },
             ],
             showModal: false,
             dialogVisible: false,
@@ -352,9 +355,16 @@ export default {
             // console.log("Checking value:", numValue, "Type:", typeof numValue);
 
             if (numValue === 2) {
-                return 'Thakhaek'
-            } else if (!isNaN(numValue) && value !== null && value !== '') {
-                return 'vientiane';
+                return 'ທ່າແຂກ'
+            }  else if (numValue === 3) {
+                return 'ຊຽງຂວາງ'
+            } else if (numValue === 4) {
+                return 'ສະຫວັນນະເຂດ'
+            } else if (numValue === 5) {
+                return 'ວຽງຈັນ'
+            } 
+            else if (!isNaN(numValue) && value !== null && value !== '') {
+                return numValue;
             }
             return value;
         },

@@ -1,12 +1,12 @@
 <template>
     <div class="pt-6">
         <v-card class="card-shadow" rounded="lg">
-            <v-card-title v-if="bouang" style="background-color:#cc7a26" class="white--text mt-6">
-                ເພີ້ມອາໄຫຼ່ ({{ bouang }})
+            <v-card-title style="background-color:#cc7a26" class="white--text mt-6">
+                ເພີ້ມອາໄຫຼ່ 
             </v-card-title>
-            <v-card-title v-else style="background-color:#cc7a26" class="white--text mt-6">
-                ເພີ້ມອາໄຫຼ່
-            </v-card-title>
+            <v-chip class="mt-4 ml-6" color="#A7FFEB" v-if="bouang">
+                {{ bouang }}
+            </v-chip>
             <div>
                 <v-form ref="form">
                     <div style="display: flex;margin-top: 10px;margin-left: 10px;margin-left: 30px;margin-right: 30px;">

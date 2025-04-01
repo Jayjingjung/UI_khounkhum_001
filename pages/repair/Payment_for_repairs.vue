@@ -1,7 +1,7 @@
 <template>
-    <div>
-        <v-card class="card-shadow" rounded="lg" style="border:0.5px solid #e0e0e0;border-radius:3px;">
-            <v-card-title style="background-color:#edc69e" class="white--text mt-6">
+    <div class="pt-4">
+        <v-card class="card-shadow" rounded="lg" >
+            <v-card-title style="background-color:#b76d22" class="white--text mt-6">
                 ສະເໜີຊື້ອາໄຫຼ່
             </v-card-title>
             <v-chip class="mt-4 ml-6" color="#A7FFEB" v-if="bouang">
@@ -378,7 +378,7 @@
             </div>
             <div style="text-align: start; margin-bottom: 10px;">
                 <v-btn color="#448AFF" @click="showForm = !showForm">
-                    <span class="white--text">+ More</span>
+                    + MORE
                 </v-btn>
             </div>
             <v-data-table :items-per-page="5" :headers="truck_table_headers" :items="filteredItems" :search="search">
@@ -418,7 +418,7 @@
         </v-card>
         <v-card class="card-shadow" rounded="lg"
             style="border:0.5px solid #e0e0e0;border-radius:3px;margin-bottom: 400px;">
-            <v-card-title style="background-color:#f97964" class="white--text">
+            <v-card-title style="background-color:#b76d22" class="white--text">
                 ປະຫວັດສະເໜີຊື້
             </v-card-title>
             <v-card>

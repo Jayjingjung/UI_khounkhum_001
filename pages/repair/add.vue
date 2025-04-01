@@ -1,6 +1,6 @@
 <template>
-    <div>
-        <v-card class="card-shadow" rounded="lg" style="border:0.5px solid #e0e0e0;border-radius:3px">
+    <div class="pt-6">
+        <v-card class="card-shadow" rounded="lg">
             <v-card-title v-if="bouang" style="background-color:#cc7a26" class="white--text mt-6">
                 ເພີ້ມອາໄຫຼ່ ({{ bouang }})
             </v-card-title>

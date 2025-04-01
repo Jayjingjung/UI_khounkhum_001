@@ -1,22 +1,27 @@
 <template>
     <div>
         <v-card class="card-shadow" rounded="lg" style="border:0.5px solid #e0e0e0;border-radius:3px">
-            <v-card-title style="background-color:#a05de1" class="white--text">
+            <v-card-title style="border: 2px solid rgb(151,90,28);background-color:#E0F7FA; font-weight: bold;">
                 ອາໄຫຼ່ ແລະ ນໍ້າມັນໃນສາງ
             </v-card-title>
-            <v-row>
-                <div class="mt-2 ml-4 pt-6" style="width: 500px; ">
+            <v-card-text class=" pt-6">
+                <v-card-actions>
                     <v-text-field dense solo flat background-color="#f5f5f5" v-model="search" placeholder="ຄົ້ນຫາ..."
                         prepend-inner-icon="mdi-magnify" clearable></v-text-field>
-                </div>
-            </v-row>
-            <div v-if="sumFooter" class="sum-footer mt-4">
+                    <v-spacer></v-spacer>
+                    <div v-if="sumFooter" class="sum-footer "
+                        style="font-weight: bold; font-size: 18px;background-color:#E0F7FA;">
+                        ມູນລາຄ່າອາໄຫຼ່ທັງໝົດທີຢູ່ໃນສາງ: {{ sumFooter.totalValue }}
+                    </div>
+                </v-card-actions>
+            </v-card-text>
+            <!-- <div v-if="sumFooter" class="sum-footer mt-4">
                 <v-card>
                     <v-card-title class="text-right">
                         ມູນລາຄ່າອາໄຫຼ່ທັງໝົດທີຢູ່ໃນສາງ: {{ sumFooter.totalValue }}
                     </v-card-title>
                 </v-card>
-            </div>
+            </div> -->
             <div>
                 <!-- Date Range Dialog -->
                 <v-dialog v-model="dateDialog" persistent max-width="400px">
@@ -63,7 +68,7 @@
                 </v-dialog>
                 <!-- Data table -->
                 <v-row justify="center">
-                    <v-btn color="#f593b3" class="white--text" @click="print">
+                    <v-btn color="#E0F7FA"  @click="print">
                         <v-icon>mdi-printer</v-icon>ພິມລາຍງານທັງໝົດ
                     </v-btn>
                 </v-row>
@@ -301,7 +306,7 @@ export default {
                 });
                 console.log('API response:', response);
                 if (response?.status === '00' && response?.data) {
-                        this.truck_data_list = response.data; // ถ้า bouang เป็น null ให้แสดงข้อมูลทั้งหมด
+                    this.truck_data_list = response.data; // ถ้า bouang เป็น null ให้แสดงข้อมูลทั้งหมด
                     this.sumFooter = response.sumFooter;
                 } else {
                     this.showErrorAlert('Error', 'Failed to fetch data from the API');
@@ -335,13 +340,16 @@ export default {
         size: A4;
         margin: 1in;
     }
+
     body * {
         visibility: hidden;
     }
+
     #print,
     #print * {
         visibility: visible;
     }
+
     #print {
         position: absolute;
         top: 0px;
@@ -349,6 +357,7 @@ export default {
         left: 0px;
     }
 }
+
 .v-btn {
     margin-top: 10px;
     margin-bottom: 10px;
@@ -356,6 +365,7 @@ export default {
     margin-right: 10px;
     width: 150px;
 }
+
 .sum-footer {
     background-color: #f5f5f5;
     padding: 10px;

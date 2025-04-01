@@ -1,12 +1,12 @@
 <template>
-    <div>
-        <v-card class="card-shadow" rounded="lg" style="border:0.5px solid #e0e0e0;border-radius:3px;width: 100%;">
-            <v-card-title style="background-color:	#b76d22" class="white--text mt-6">
-                ສະເໜີໃຊ້ອາໄຫຼ່ໃນສາງ
+    <div class="pt-6">
+        <v-card class="card-shadow" rounded="lg">
+            <v-card-title style="background-color:	#b76d22" class="white--text  mt-6">
+                ສະເໜີໃຊ້ອາໄຫຼ່ໃນສາງ ({{ bouang }})
             </v-card-title>
             <!-- Error Card -->
             <v-alert v-if="showError" type="error" dense>
-                ຈຳນວນ (ອາໄລ)
+                ຈຳນວນ (ອາໄຫຼ່)
                 ຂອງສິນຄ້ານີ້ຕ້ອງຫຼາຍກວ່າ 5
             </v-alert>
             <!-- Error Message for ຢາງລົດວີໂກ້ qty <= 20 -->
@@ -180,7 +180,9 @@
                             <td>
                             </td>
                             <td>{{ row?.item?.item_name }}</td>
-                            <td>{{ row?.item?.branch_inventory }}</td>
+                            <!-- <td>{{ row?.item?.branch_inventory }}</td> -->
+                            <td>{{ formatBranchInventory(row?.item?.branch_inventory) }}</td>
+
                             <td>{{ row?.item?.qty_Fix }}</td>
                             <td>{{ row?.item?.total_Price }}</td>
                             <td>{{ row?.item?.description }}</td>
@@ -289,7 +291,7 @@ export default {
             search: '',
             truck_table_headers: [
                 { text: 'ຮູບພາບ', value: 'img' },
-                { text: 'ລາໄລ', value: 'item_name' },
+                { text: 'ອາໄຫຼ່', value: 'item_name' },
                 { text: 'ຈໍານວນ', value: 'qty' },
                 { text: 'ຫົວນວຍ', value: 'unit' },
                 { text: 'ລາຄາ', value: 'unitPirce' },
@@ -331,6 +333,7 @@ export default {
             updateTotalTid: '',
             search: '',
             showError: false,
+            bouang:""
             // Other data properties...
         };
     },
@@ -344,6 +347,17 @@ export default {
         }
     },
     methods: {
+        formatBranchInventory(value) {
+            const numValue = Number(value); // แปลงเป็นตัวเลข
+            // console.log("Checking value:", numValue, "Type:", typeof numValue);
+
+            if (numValue === 2) {
+                return 'Thakhaek'
+            } else if (!isNaN(numValue) && value !== null && value !== '') {
+                return 'vientiane';
+            }
+            return value;
+        },
         async onGetshowdata_table() {
             try {
                 this.loading_processing = true;
@@ -688,6 +702,7 @@ export default {
         // },
     },
     mounted() {
+        this.bouang = localStorage.getItem("bouang");
         this.onGetTruckFooter(); // Fetch truck footer data when component is mounted
         this.onGetTruckList(); // Fetch truck footer data when component is mounted
         this.onGetshowFix(); // Fetch truck footer data when component is mounted

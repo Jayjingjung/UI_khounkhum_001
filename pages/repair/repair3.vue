@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="pt-0">
+        <div class="pt-10">
             <v-card class="card-shadow" rounded="lg" style="border:0.2px solid #e0e0e0;border-radius:3px">
                 <!-- <v-card-title style="background-color:#e5ac73;height: 100px;" class="white--text">
                     ເມນູ ສ້ອມເເປງ
@@ -11,20 +11,20 @@
                         <v-col>
                             <!-- <v-btn style="border: 2px solid rgb(151,90,28);height: 70px;font-size: 25px;" to="./Create_bin" >ສະເໝີ ໃຊ້ </v-btn> -->
                             <v-btn style="width: 200px;border: 2px solid rgb(151,90,28);height: 70px;font-size: 18px;"
-                                to="/Create_bin1">ສະເໝີໃຊ້ອະໄຫຼ່ໃນສາງ </v-btn>
+                                to="/Create_bin1" color="#E0F7FA">ສະເໝີໃຊ້ອະໄຫຼ່ໃນສາງ </v-btn>
                         </v-col>
                     </div>
                     <div>
                         <v-col>
                             <v-btn style="width: 200px;border: 2px solid rgb(151,90,28);height: 70px;font-size: 18px;"
-                                to="./add">ເພີ່ມຂໍ້ມູນອາໄຫຼ່
+                                to="./add" color="#E0F7FA">ເພີ່ມຂໍ້ມູນອາໄຫຼ່
                                 ຫຼື ຮ້ານ</v-btn>
                         </v-col>
                     </div>
                     <div>
                         <v-col>
                             <v-btn style="width: 200px;border: 2px solid rgb(151,90,28);height: 70px;font-size: 18px;"
-                                to="./Payment_for_repairs">ສ້າງໃບສະເໝີຊື້ອາໄຫຼ່ເຂົ້າ</v-btn>
+                                to="./Payment_for_repairs" color="#E0F7FA">ສ້າງໃບສະເໝີຊື້ອາໄຫຼ່ເຂົ້າ</v-btn>
                             <v-badge style="margin-left: -10px;" :content="total_Offer_List" color="teal">
                             </v-badge>
                         </v-col>
@@ -37,7 +37,7 @@
                 <v-chip color="#A7FFEB" class="mt-2 ml-4" v-if="bouang">
                     {{ bouang }}
                 </v-chip>
-                <div class="mt-6" style="background-color:#e5ac73;height: 70px; color: black; font-size: 18px; font-weight: bold;padding: 16px;">
+                <div class="mt-6" style="background-color:#E0F7FA;height: 70px; color: black; font-size: 18px; font-weight: bold;padding: 16px;">
                     ລາຍການທີໄດ້ຮັບການສັ່ງຊື້ເເລ້ວ
                 </div>
                 <v-data-table :headers="truck_table_headers" :items="filteredItems" :search="search">
@@ -67,10 +67,10 @@
                         </tr>
                     </template> <!-- Your data table content here -->
                 </v-data-table>
-                <div>
+            </v-card>
+                <div class="mt-2">
                     <Warehouse />
                 </div>
-            </v-card>
             <!-- Data Table printer -->
             <div style="display:none">
                 <div id="modalInvoice">

@@ -62,7 +62,7 @@
         </v-card>
         <v-card>
             <v-card-title style="border-bottom:0.5px solid #e0e0e0;background-color:#E57373;color:white">
-                ລາຍງານໃບປອຍ
+                ລາຍງານໃບສະເໜີຊື້ອາໄຫຼ່ທີ່ຈ່າຍແລ້ວ
             </v-card-title>
             <v-data-table :items-per-page="5" :headers="truck_table_headers" :items="filteredItems" :search="search">
                 <template v-slot:item="row">
@@ -180,7 +180,7 @@ export default {
                 { text: 'ເລກທີໃບສ້າງໃບບິນ', value: 'offer_CODE' },
                 { text: 'ວັນທີສ້າງໃບບິນ', value: 'dateCreate' },
                 { text: 'ຈ່າຍຄ່າອາໄລ', value: 'real_totalMoney' },
-                { text: 'ສະທານະ', value: 'statusPO' },
+                { text: 'ສະຖານະ', value: 'statusPO' },
                 { text: 'ລາຍລະອຽດ', value: '' },
             ],
             search: '',

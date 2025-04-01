@@ -62,6 +62,9 @@
 
         <!-- แถบเมนูสำหรับ FOR_DOCUMENT_ADMIN และ BOR-HIN-KHUAT -->
         <v-app-bar color="#A7FFEB" fixed v-if="USER_NAME === 'sisnok' || userRole === 'BOR-HIN-KHUAT'">
+            <v-btn fab dark small>
+                <img @click="$router.back()" class="mx-auto" src="../assets/images/logo01.png" width="80" />
+            </v-btn>
             <v-spacer />
             <v-btn style="width: auto;" rounded elevation="0" text>
                 <v-icon color="black">mdi-account</v-icon>

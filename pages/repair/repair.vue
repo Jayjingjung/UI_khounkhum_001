@@ -3,31 +3,27 @@
         <div class="pt-0">
             <v-card class="card-shadow" rounded="lg" style="border:0.2px solid #e0e0e0;border-radius:3px">
                 <v-card-title style="background-color:#e5ac73;height: 100px;" class="white--text">
-                    ເມນູ ສ້ອມເເປງ
+                    ເມນູສ້ອມເເປງ
                 </v-card-title>
                 <v-row>
-                    <div>
-                        <!-- <v-col v-if="USER_ID === 'ADMIN' && USER_ROLE === 'ADMIN'"> -->
-                            <v-col >
-                            <!-- <v-btn style="border: 2px solid rgb(151,90,28);height: 70px;font-size: 25px;" to="./Create_bin" >ສະເໝີ ໃຊ້ </v-btn> -->
-                            <v-btn style="border: 2px solid rgb(151,90,28);height: 70px;font-size: 25px;"   to="/Create_bin1" >ສະເໝີ ໃຊ້ </v-btn>
-                         
-                        </v-col>
-                    </div>
-                    <div>
-                        <v-col>
-                            <v-btn style="width: 200px;border: 2px solid rgb(151,90,28);height: 70px;font-size: 18px;" to="./add">ເພີ່ມຂໍ້ມູນ ອາໄຫຼ່
-                                ຫຼື ຮ້ານ</v-btn>
-                        </v-col>
-                    </div>
-                    <div>
-                        <v-col>
-                            <v-btn style="border: 2px solid rgb(151,90,28);height: 70px;font-size: 25px;"
-                                to="./Payment_for_repairs">ສ້າງໃບສະເໝີ</v-btn>
-                            <v-badge style="margin-left: -10px;" :content="total_Offer_List" color="teal">
-                            </v-badge>
-                        </v-col>
-                    </div>
+                    <!-- <v-col v-if="USER_ID === 'ADMIN' && USER_ROLE === 'ADMIN'"> -->
+                    <v-col>
+                        <!-- <v-btn style="border: 2px solid rgb(151,90,28);height: 70px;font-size: 25px;" to="./Create_bin" >ສະເໝີ ໃຊ້ </v-btn> -->
+                        <v-btn style=" width: 200px;border: 2px solid rgb(151,90,28);height: 70px;font-size: 25px;" to="/Create_bin1">
+                            ສະເໝີໃຊ້ອະໄຫຼ່ </v-btn>
+
+                    </v-col>
+                    <v-col>
+                        <v-btn style="width: 290px;border: 2px solid rgb(151,90,28);height: 70px;font-size: 25px;"
+                            to="./add">ເພີ່ມຂໍ້ມູນອາໄຫຼ່
+                            ຫຼື ຮ້ານ</v-btn>
+                    </v-col>
+                    <v-col>
+                        <v-btn style=" width: 240px; border: 2px solid rgb(151,90,28);height: 70px;font-size: 25px;"
+                            to="./Payment_for_repairs">ສ້າງໃບສະເໝີຊື້ອາໄຫຼ່</v-btn>
+                        <v-badge style="margin-left: -10px;" :content="total_Offer_List" color="teal">
+                        </v-badge>
+                    </v-col>
 
                     <!-- <div style="margin-top:10px" class="ml-10">
                     <v-btn color="#e91e63" class="white--text"
@@ -39,7 +35,7 @@
                     </div>
                 </v-row>
                 <v-card-title style="background-color:#e5ac73;height: 50px;" class="white--text">
-                    ລາຍການ ທີໄດ້ຮັບ ການ ສັງຊືເເລ້ວໆ
+                    ລາຍການທີໄດ້ຮັບການສັ່ງຊື້ເເລ້ວ
                 </v-card-title>
                 <v-data-table :headers="truck_table_headers" :items="filteredItems" :search="search">
                     <template v-slot:item="row">
@@ -156,8 +152,8 @@ export default {
                 { text: 'ຫາງລົດ', value: 'f_CARD_NO' },
                 { text: 'ຫົວລົດ', value: 'h_VICIVLE_NUMBER' },
                 { text: 'ສະຖານະຮ້ານ', value: 'status' },
-                { text: 'ສະຖານະການສັງຊື', value: 'statusPO' },
-                { text: 'ສະຖານະການນໍາເຂົ້າ', value: 'stock_status' },
+                { text: 'ສະຖານະສັ່ງຊື້', value: 'statusPO' },
+                { text: 'ສະຖານະນໍາເຂົ້າ', value: 'stock_status' },
                 { text: 'ວັນທີສ້າງ', value: 'dateCreate' },
 
 
@@ -191,7 +187,7 @@ export default {
             return statusPO === 'NO' ? 'orange' : 'blue';
         },
         getStatusTextpo(statusPO) {
-            return statusPO === 'YES' ? 'ສັງຊືເເລ້ວ' : 'ຍັງບໍ່ໄດ້ສັງຊື';
+            return statusPO === 'YES' ? 'ສັ່ງຊື້ເເລ້ວ' : 'ຍັງບໍ່ໄດ້ສັ່ງຊື້';
         },
         getStatusClassstock_status(stock_status) {
             return stock_status === 'IN' ? '#e15d9e' : 'e15d9e';

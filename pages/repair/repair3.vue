@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="pt-0">
+        <div class="pt-10">
             <v-card class="card-shadow" rounded="lg" style="border:0.2px solid #e0e0e0;border-radius:3px">
                 <!-- <v-card-title style="background-color:#e5ac73;height: 100px;" class="white--text">
                     ເມນູ ສ້ອມເເປງ
@@ -11,20 +11,20 @@
                         <v-col>
                             <!-- <v-btn style="border: 2px solid rgb(151,90,28);height: 70px;font-size: 25px;" to="./Create_bin" >ສະເໝີ ໃຊ້ </v-btn> -->
                             <v-btn style="width: 200px;border: 2px solid rgb(151,90,28);height: 70px;font-size: 18px;"
-                                to="/Create_bin1">ສະເໝີໃຊ້ອະໄຫຼ່ໃນສາງ </v-btn>
+                                to="/Create_bin1" color="#E0F7FA">ສະເໝີໃຊ້ອະໄຫຼ່ໃນສາງ </v-btn>
                         </v-col>
                     </div>
                     <div>
                         <v-col>
                             <v-btn style="width: 200px;border: 2px solid rgb(151,90,28);height: 70px;font-size: 18px;"
-                                to="./add">ເພີ່ມຂໍ້ມູນອາໄຫຼ່
+                                to="./add" color="#E0F7FA">ເພີ່ມຂໍ້ມູນອາໄຫຼ່
                                 ຫຼື ຮ້ານ</v-btn>
                         </v-col>
                     </div>
                     <div>
                         <v-col>
                             <v-btn style="width: 200px;border: 2px solid rgb(151,90,28);height: 70px;font-size: 18px;"
-                                to="./Payment_for_repairs">ສ້າງໃບສະເໝີຊື້ອາໄຫຼ່ເຂົ້າ</v-btn>
+                                to="./Payment_for_repairs" color="#E0F7FA">ສ້າງໃບສະເໝີຊື້ອາໄຫຼ່ເຂົ້າ</v-btn>
                             <v-badge style="margin-left: -10px;" :content="total_Offer_List" color="teal">
                             </v-badge>
                         </v-col>
@@ -34,7 +34,10 @@
                             placeholder="ຄົ້ນຫາ..." prepend-inner-icon="mdi-magnify" clearable></v-text-field>
                     </div>
                 </v-row>
-                <div style="background-color:#e5ac73;height: 70px; color: black; font-size: 18px; font-weight: bold;padding: 16px;" >
+                <v-chip color="#A7FFEB" class="mt-2 ml-4" v-if="bouang">
+                    {{ bouang }}
+                </v-chip>
+                <div class="mt-6" style="background-color:#E0F7FA;height: 70px; color: black; font-size: 18px; font-weight: bold;padding: 16px;">
                     ລາຍການທີໄດ້ຮັບການສັ່ງຊື້ເເລ້ວ
                 </div>
                 <v-data-table :headers="truck_table_headers" :items="filteredItems" :search="search">
@@ -64,10 +67,10 @@
                         </tr>
                     </template> <!-- Your data table content here -->
                 </v-data-table>
-                <div>
+            </v-card>
+                <div class="mt-2">
                     <Warehouse />
                 </div>
-            </v-card>
             <!-- Data Table printer -->
             <div style="display:none">
                 <div id="modalInvoice">
@@ -121,6 +124,7 @@
     </div>
 </template>
 <script>
+import Swal from "sweetalert2";// ในคอมโพเนนต์ที่ใช้ EventBus
 import Warehouse from '../wareHouse/warehouse.vue';
 
 export default {
@@ -146,6 +150,9 @@ export default {
                 { text: 'ວັນທີສ້າງ', value: 'dateCreate' },
             ],
             truck_data_list: [],
+            key_id: null,
+            bouang: null,
+
         }
     },
     computed: {
@@ -246,14 +253,32 @@ export default {
             section.appendChild(cloned);
             window.print();
         },
-        // Other methods...
+        testBor() {
+            Swal.fire({
+                title: 'ສຳເລັດ!',
+                text: 'ສາງອາໄຫຼ່ຂອງບໍ່',
+                icon: 'success',
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'OK',
+            });
+        }
     },
     mounted() {
-        this.onGetshowdata_table(); // Fetch truck footer data when component is mounted
-        this.total_count()
-        this.USER_ID = localStorage.getItem('USER_ID')
-        this.USER_NAME = localStorage.getItem('USER_NAME')
-        this.USER_ROLE = localStorage.getItem('USER_ROLE')
+        const { bouang, key_id } = this.$route.query;  // Destructure values from query params
+        if (key_id) {
+            // If 'key_id' has a truthy value in query params
+            this.bouang = bouang;
+            this.key_id = key_id;
+            // this.testBor();
+
+        } else {
+            // If 'key_id' is falsy (undefined, null, etc.)
+            this.onGetshowdata_table(); // Fetch truck footer data when component is mounted
+            this.total_count()
+            this.USER_ID = localStorage.getItem('USER_ID')
+            this.USER_NAME = localStorage.getItem('USER_NAME')
+            this.USER_ROLE = localStorage.getItem('USER_ROLE')
+        }
     },
 };
 </script>

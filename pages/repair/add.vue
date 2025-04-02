@@ -221,7 +221,7 @@ export default {
             ],
             truck_table_repairs2: [],
             loading_processing: false,
-            bouang: null
+            bouang:''
         };
     }
     ,
@@ -264,9 +264,9 @@ export default {
                 let key_id = localStorage.getItem('key_id') ? localStorage.getItem('key_id') : null;
                 const response = await this.$axios.$post('ListItems.service', {
                     toKen: localStorage.getItem('toKen'),
-                    key_id: key_id  // Passing the key_id value in the request
+                    branch_id: key_id  // Passing the key_id value in the request
                 });
-                console.log('API response:', response);
+                // console.log('API response:', response);
 
                 if (response?.status === '00' && response?.data) {
                     this.truck_data_list = response.data;
@@ -286,7 +286,7 @@ export default {
                 let key_id = localStorage.getItem('key_id') ? localStorage.getItem('key_id') : null;
                 const response = await this.$axios.$post('ListShops.service', {
                     toKen: localStorage.getItem('toKen'),
-                    key_id: key_id  // Passing the key_id value in the request
+                    branch_id: key_id  // Passing the key_id value in the request
                 });
                 console.log('API response:', response);
                 if (response?.status === '00' && response?.data) {
@@ -303,7 +303,7 @@ export default {
         },
         async onSaveshow() {
             if (!this.$refs.form.validate()) return null
-            let borId = localStorage.getItem('key_id') ? localStorage.getItem('key_id') : null;
+            let key_id = localStorage.getItem('key_id') ? localStorage.getItem('key_id') : null;
             let data = {
                 shop_name: this.shop_name,
                 address: this.address,
@@ -314,9 +314,9 @@ export default {
                 branch: this.branch,
                 toKen: localStorage.getItem('toKen'),
             }
-            // Conditionally add borId to data if it has a value
-            if (borId) {
-                data.borId = borId;
+            // Conditionally add key_id to data if it has a value
+            if (key_id) {
+                data.branch_id = key_id;
             }
             try {
                 this.$axios.$post('/InsertShop.service', data).then((data) => {
@@ -429,9 +429,9 @@ export default {
                 }
                 // Form is valid, proceed with form submission
                 const formdata = new FormData();
-                let borId = localStorage.getItem('key_id') ? localStorage.getItem('key_id') : null;
-                if (borId) {
-                    formdata.append('borId', borId); // Append key_id to the form data
+                let key_id = localStorage.getItem('key_id') ? localStorage.getItem('key_id') : null;
+                if (key_id) {
+                    formdata.append('branch_id', key_id); // Append key_id to the form data
                 }
 
                 formdata.append('itemName', this.itemName);

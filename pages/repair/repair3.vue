@@ -37,7 +37,8 @@
                 <v-chip color="#A7FFEB" class="mt-2 ml-4" v-if="bouang">
                     {{ bouang }}
                 </v-chip>
-                <div class="mt-6" style="background-color:#E0F7FA;height: 70px; color: black; font-size: 18px; font-weight: bold;padding: 16px;">
+                <div class="mt-6"
+                    style="background-color:#E0F7FA;height: 70px; color: black; font-size: 18px; font-weight: bold;padding: 16px;">
                     ລາຍການທີໄດ້ຮັບການສັ່ງຊື້ເເລ້ວ
                 </div>
                 <v-data-table :headers="truck_table_headers" :items="filteredItems" :search="search">
@@ -68,9 +69,9 @@
                     </template> <!-- Your data table content here -->
                 </v-data-table>
             </v-card>
-                <div class="mt-2">
-                    <Warehouse />
-                </div>
+            <div class="mt-2">
+                <Warehouse />
+            </div>
             <!-- Data Table printer -->
             <div style="display:none">
                 <div id="modalInvoice">
@@ -188,8 +189,10 @@ export default {
         async onGetshowdata_table() {
             try {
                 this.loading_processing = true;
+                let key_id = localStorage.getItem('key_id') ? localStorage.getItem('key_id') : null;
                 const response = await this.$axios.$post('showofferpaper.service', {
                     toKen: localStorage.getItem('toKen'),
+                    branch_id: key_id
                 });
                 console.log('API response:', response);
                 if (response?.status === '00' && response?.data) {
@@ -271,14 +274,12 @@ export default {
             this.key_id = key_id;
             // this.testBor();
 
-        } else {
-            // If 'key_id' is falsy (undefined, null, etc.)
-            this.onGetshowdata_table(); // Fetch truck footer data when component is mounted
-            this.total_count()
-            this.USER_ID = localStorage.getItem('USER_ID')
-            this.USER_NAME = localStorage.getItem('USER_NAME')
-            this.USER_ROLE = localStorage.getItem('USER_ROLE')
         }
+        this.onGetshowdata_table(); // Fetch truck footer data when component is mounted
+        this.total_count()
+        this.USER_ID = localStorage.getItem('USER_ID')
+        this.USER_NAME = localStorage.getItem('USER_NAME')
+        this.USER_ROLE = localStorage.getItem('USER_ROLE')
     },
 };
 </script>

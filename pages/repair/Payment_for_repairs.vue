@@ -1329,6 +1329,7 @@ export default {
             loading_processing: false,
             moneyRate: "1",
             items: [],
+            bouang: ""
         };
     },
     computed: {
@@ -1664,15 +1665,10 @@ export default {
             section.appendChild(cloned);
             window.print();
         },
-        onGetDataListForPrint(keyId) {
-            // Placeholder method for fetching data for printing
-            console.log('Fetching data for printing with keyId:', keyId);
-            // Add your logic here to fetch the data for printing
-        },
         onGetMechanicequipment(item_id) {
             console.log(item_id);
             let data = this.Mechanicequipment.find((el) => el.item_id === item_id);
-            console.log('head:', data);
+            // console.log('head:', data);
             if (data) {
                 this.itemName = data.itemName;
                 this.item_id = item_id;
@@ -1683,7 +1679,6 @@ export default {
             }
         },
         onGetMechanicequipment1(item_id) {
-            console.log(item_id);
             // Use item_id1 to filter Mechanicequipment1 array
             let data = this.Mechanicequipment1.filter((el) => el.item_id === item_id);
             console.log('head:', data);
@@ -1697,10 +1692,8 @@ export default {
             }
         },
         onGetMechanicequipment2(item_id) {
-            console.log(item_id);
             // Use item_id1 to filter Mechanicequipment1 array
             let data = this.Mechanicequipment2.filter((el) => el.item_id === item_id);
-            console.log('head:', data);
             if (data.length > 0) {
                 this.itemName2 = data[0].itemName; // Access itemName directly from the first item in the filtered data
                 this.item_id2 = item_id;
@@ -1724,7 +1717,6 @@ export default {
                 console.error('Data not found for item_id1:', item_id);
             }
         }, onGetMechanicequipment4(item_id) {
-            console.log(item_id);
             // Use item_id1 to filter Mechanicequipment1 array
             let data = this.Mechanicequipment4.filter((el) => el.item_id === item_id);
             console.log('head:', data);
@@ -1737,7 +1729,6 @@ export default {
                 console.error('Data not found for item_id1:', item_id);
             }
         }, onGetMechanicequipment5(item_id) {
-            console.log(item_id);
             // Use item_id1 to filter Mechanicequipment1 array
             let data = this.Mechanicequipment5.filter((el) => el.item_id === item_id);
             console.log('head:', data);
@@ -1750,7 +1741,6 @@ export default {
                 console.error('Data not found for item_id1:', item_id);
             }
         }, onGetMechanicequipment6(item_id) {
-            console.log(item_id);
             // Use item_id1 to filter Mechanicequipment1 array
             let data = this.Mechanicequipment6.filter((el) => el.item_id === item_id);
             console.log('head:', data);
@@ -2009,7 +1999,7 @@ export default {
                 let key_id = localStorage.getItem('key_id') ? localStorage.getItem('key_id') : null;
                 const data = await this.$axios.$post('ListItems.service', {
                     toKen: localStorage.getItem('toKen'),
-                    key_id: key_id,
+                    branch_id: key_id,
                 });
                 console.log('itemName:', data?.data);
                 this.Mechanicequipment = data?.data || [];
@@ -2038,7 +2028,6 @@ export default {
                     toKen: localStorage.getItem('toKen'),
                     key_id: key_id,
                 });
-                console.log('itemName:', data?.data);
                 this.show_list = data?.data || [];
             } catch (error) {
                 console.log(error);
@@ -2052,7 +2041,7 @@ export default {
                 let key_id = localStorage.getItem('key_id') ? localStorage.getItem('key_id') : null;
                 const response = await this.$axios.$post('/GenOfferPaperNew.service', {
                     toKen: localStorage.getItem('toKen'),
-                    key_id: key_id,
+                    branch_id: key_id,
                 });
                 console.log("inv:", response);
                 if (response?.status === '00') {
@@ -2184,7 +2173,7 @@ export default {
                 let key_id = localStorage.getItem('key_id') ? localStorage.getItem('key_id') : null;
                 const response = await this.$axios.$post('showofferpaper.service', {
                     toKen: localStorage.getItem('toKen'),
-                    key_id: key_id,
+                    branch_id: key_id,
                 });
                 console.log('API response:', response);
                 if (response?.status === '00' && response?.data) {

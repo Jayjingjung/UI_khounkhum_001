@@ -749,6 +749,7 @@ export default {
             this.query = { number };
             this.number = number;
         },
+        // for pay, testData, survey doucument file.
         fetchAllData() {
             try {
                 this.$axios
@@ -771,6 +772,7 @@ export default {
                 });
             }
         },
+        //For each Branch or Bor
         async fetchBranches() {
             try {
                 const response = await this.$axios.$post(
@@ -792,6 +794,7 @@ export default {
                 });
             }
         },
+        //For hucho file.
         ShowAllListOfHole() {
             try {
                 this.$axios.$post('/ShowAllListOfHole.service', {
@@ -817,6 +820,7 @@ export default {
                 console.log(error);
             }
         },
+        //
         navigate(branch_id, village) {
             this.$router.push({
                 name: 'Add_a_hole1',
@@ -945,9 +949,6 @@ export default {
                 '_blank'
             );
         },
-        // refresher() {
-        //     window.location.reload();
-        // },
         refresher() {
             // this.key_id = null;
             this.fetchBranches();

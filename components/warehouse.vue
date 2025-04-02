@@ -68,7 +68,7 @@
                 </v-dialog>
                 <!-- Data table -->
                 <v-row justify="center">
-                    <v-btn color="#E0F7FA"  @click="print">
+                    <v-btn color="#E0F7FA" @click="print">
                         <v-icon>mdi-printer</v-icon>ພິມລາຍງານທັງໝົດ
                     </v-btn>
                 </v-row>
@@ -187,20 +187,12 @@ export default {
             // If 'key_id' has a truthy value in query params
             this.bouang = bouang;
             this.key_id = key_id;
-            // this.TestSang();
-            this.onGetshowdata_table(); // Fetch truck footer data when component is mounted
-            this.total_count()
-            this.USER_ID = localStorage.getItem('USER_ID')
-            this.USER_NAME = localStorage.getItem('USER_NAME')
-            this.USER_ROLE = localStorage.getItem('USER_ROLE')
-        } else {
-            // If 'key_id' is falsy (undefined, null, etc.)
-            this.onGetshowdata_table(); // Fetch truck footer data when component is mounted
-            this.total_count()
-            this.USER_ID = localStorage.getItem('USER_ID')
-            this.USER_NAME = localStorage.getItem('USER_NAME')
-            this.USER_ROLE = localStorage.getItem('USER_ROLE')
         }
+        this.onGetshowdata_table(); // Fetch truck footer data when component is mounted
+        this.total_count()
+        this.USER_ID = localStorage.getItem('USER_ID')
+        this.USER_NAME = localStorage.getItem('USER_NAME')
+        this.USER_ROLE = localStorage.getItem('USER_ROLE')
     },
     methods: {
         TestSang() {
@@ -298,11 +290,10 @@ export default {
         async onGetshowdata_table() {
             try {
                 this.loading_processing = true;
-                let borId = localStorage.getItem('key_id')
-                console.log('borId ສາງ:', borId);
+                let key_id = localStorage.getItem('key_id') ? localStorage.getItem('key_id') : null;
                 const response = await this.$axios.$post('ReportStock.service', {
                     toKen: localStorage.getItem('toKen'),
-                    borId: borId,
+                    branch_id: key_id,
                 });
                 console.log('API response:', response);
                 if (response?.status === '00' && response?.data) {

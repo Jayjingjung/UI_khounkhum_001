@@ -184,19 +184,19 @@
                             </td>
                             <td>{{ row?.item?.item_name }}</td>
                             <!-- <td>{{ row?.item?.branch_inventory }}</td> -->
-                            <td>{{ formatBranchInventory(row?.item?.branch_inventory) }}</td>
+                            <!-- <td>{{ formatBranchInventory(row?.item?.branch_inventory) }}</td> -->
 
                             <td>{{ row?.item?.qty_Fix }}</td>
                             <td>{{ row?.item?.total_Price }}</td>
                             <td>{{ row?.item?.description }}</td>
                             <td>{{ row?.item?.fix_Detail }}</td>
                             <td>{{ row?.item?.location_fix }}</td>
-                            <td>{{ row?.item?.dateFix }}</td>
                             <!-- <td>{{ row?.item?.footer_id }}</td> -->
                             <!-- <td>{{ row?.item?.item_id }}</td> -->
                             <td>{{ row?.item?.h_VICIVLE_NUMBER }}</td>
                             <td>{{ row?.item?.f_BRANCH }}</td>
                             <!-- <td>{{ row?.item?.header_id }}</td> -->
+                            <td>{{ row?.item?.dateFix }}</td>
                         </tr>
                     </template>
                 </v-data-table>
@@ -315,19 +315,19 @@ export default {
             ],
             truck_table_headersv2: [
                 { text: 'Checkbox', value: 'Checkbox' },
-                { text: 'ຊື່', value: 'item_name' },
-                { text: 'ສາຂາ', value: 'branch_inventory' },
+                { text: 'ຊື່ອະໄຫຼ່', value: 'item_name' },
+                // { text: 'ສາຂາ', value: 'branch_inventory' },
                 { text: 'ຈໍານວນ', value: 'qty_Fix' },
                 { text: 'ລາຄາ', value: 'total_Price' },
                 { text: 'ລາຍລະອຽດ', value: 'description' },
                 { text: 'ລາຍລະອຽດການເເປງ', value: 'fix_Detail' },
                 { text: 'ເເຂວງ', value: 'location_fix' },
-                { text: 'ວັນທີ', value: 'dateFix' },
                 // { text: 'footer_id', value: 'footer_id' },
                 // { text: 'item_id', value: 'item_id' },
                 { text: 'ຫົວລັດ', value: 'h_VICIVLE_NUMBER' },
                 // { text: 'ຫາງລົດ', value: 'header_id' },
                 { text: 'ຫາງລົດ', value: 'f_BRANCH' },
+                { text: 'ວັນທີ', value: 'dateFix' },
             ],
             showFix_data_list: [],
             dateFix: '',
@@ -478,7 +478,7 @@ export default {
                     await Swal.fire({
                         icon: 'success',
                         title: 'Success',
-                        text: 'Your message here', // Customize the success message
+                        text: 'ສະເໜີໃໍຊ້ແລ້ວ! ລໍຖ້າການຢືນຢັນ', // Customize the success message
                         confirmButtonText: 'OK',
                     });
                     window.location.reload();
@@ -670,7 +670,7 @@ export default {
                     startDate: this.startDate,
                     endDate: this.endDate,
                     toKen: localStorage.getItem('toKen'),
-                    key_id: key_id,
+                    branch_id: key_id,
                 };
                 const response = await this.$axios.$post('showListofFixReq.service', data);
                 if (response?.status === '00' && response?.data) {

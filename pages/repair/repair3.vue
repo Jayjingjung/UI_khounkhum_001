@@ -29,6 +29,12 @@
                             </v-badge>
                         </v-col>
                     </div>
+                    <div>
+                        <v-col>
+                            <v-btn style="width: 200px;border: 2px solid rgb(151,90,28);height: 70px;font-size: 18px;"
+                                to="/reportStockDayWeek" color="#E0F7FA">ລາຍງານສາງອາໄຫຼ່</v-btn>
+                        </v-col>
+                    </div>
                     <div class="mt-2 ml-4 pt-6" style="width: 500px; ">
                         <v-text-field dense solo flat background-color="#f5f5f5" v-model="search"
                             placeholder="ຄົ້ນຫາ..." prepend-inner-icon="mdi-magnify" clearable></v-text-field>

@@ -297,7 +297,7 @@ export default {
                 });
                 console.log('API response:', response);
                 if (response?.status === '00' && response?.data) {
-                    this.truck_data_list = response.data; // ถ้า bouang เป็น null ให้แสดงข้อมูลทั้งหมด
+                    this.truck_data_list = response.data; 
                     this.sumFooter = response.sumFooter;
                 } else {
                     this.showErrorAlert('Error', 'Failed to fetch data from the API');

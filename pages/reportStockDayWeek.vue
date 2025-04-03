@@ -415,12 +415,16 @@ export default {
         async reportStockDayWeek() {
             try {
                 this.loading_processing = true;
+                let key_id = localStorage.getItem('key_id') ? localStorage.getItem('key_id') : null;
                 let data = {
                     startDate: this.startDate,
                     endDate: this.endDate,
                     item_id: this.item_id,
                     toKen: localStorage.getItem('toKen'),
                 };
+                if(key_id){
+                    data.branch_id=key_id
+                }
                 const response = await this.$axios.$post('/reportStockDayWeek.service', data);
                 if (response?.status === "00") {
                     this.report_reportStockDayWeek = response?.data;
@@ -443,8 +447,10 @@ export default {
         async onGetadd() {
             try {
                 this.loading_processing = true;
+                let key_id = localStorage.getItem('key_id') ? localStorage.getItem('key_id') : null;
                 const response = await this.$axios.$post('ListItems.service', {
                     toKen: localStorage.getItem('toKen'),
+                    branch_id: key_id,
                 });
                 console.log('API response:', response);
                 if (response?.status === '00' && response?.data) {

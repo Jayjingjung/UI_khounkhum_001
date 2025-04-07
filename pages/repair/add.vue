@@ -98,6 +98,83 @@
                 </v-data-table>
             </div>
         </v-card>
+        <!-- <v-divider></v-divider> -->
+        <v-card class="card-shadow" rounded="lg" style="border:0.5px solid #e0e0e0;border-radius:3px">
+            <v-card-title style="background-color:#dd9348" class="white--text">
+                ເພີ່ມບໍລິສັດ ຫຼື ຮ້ານ
+            </v-card-title>
+            <div style="display: flex;margin-top: 10px;margin-left: 10px;margin-left: 30px;margin-right: 30px;">
+                <v-row>
+                    <v-col>
+                        <v-text-field label="* ຮ້ານ" dense outlined background-color="#f5f5f5"
+                            v-model="shop_name"></v-text-field>
+                        <div class="tops">
+                        </div>
+                    </v-col>
+                    <v-col>
+                        <v-text-field label="* ທີ່ຢູ່" dense outlined background-color="#f5f5f5"
+                            v-model="address"></v-text-field>
+                        <div class="tops">
+                        </div>
+                    </v-col>
+                    <v-col>
+                        <v-text-field label="* ໂທ" dense outlined background-color="#f5f5f5"
+                            v-model="phone"></v-text-field>
+                        <div class="tops">
+                        </div>
+                    </v-col>
+                    <!-- <v-col>
+                        <v-text-field label="* ຈຳນວນ_ເງິນ" dense outlined background-color="#f5f5f5"
+                            v-model="amount_money"></v-text-field>
+                        <div class="tops">
+                        </div>
+                    </v-col> -->
+                    <v-col>
+                        <v-text-field label="ສະກຸນເງິນ" outlined dense append-inner-icon="mdi-card-account-details"
+                            background-color="#f5f5f5" v-model="currency"></v-text-field>
+                        <div class="tops">
+                        </div>
+                    </v-col>
+                    <v-col>
+                        <v-text-field label="* ປະເທດ" dense outlined background-color="#f5f5f5"
+                            v-model="country"></v-text-field>
+                        <div class="tops">
+                        </div>
+                    </v-col>
+                </v-row>
+            </div>
+            <div class="center-btn">
+                <v-btn elevation="0" color="#448AFF" @click="onSaveshow">
+                    <v-icon color="white">mdi-check</v-icon>
+                    <span class="white--text">ບັນທຶກ</span>
+                </v-btn>
+            </div>
+            <div class="mt-2 ml-4 pt-6" style="width: 500px; ">
+                <v-text-field dense solo flat background-color="#f5f5f5" v-model="searchv2" placeholder="ຄົ້ນຫາ..."
+                    prepend-inner-icon="mdi-magnify" clearable></v-text-field>
+            </div>
+            <v-data-table :items-per-page="5" :headers="truck_table_repairs" :items="truck_table_repairs2"
+                :searchv2="searchv2">
+                <template v-slot:item="row">
+                    <tr>
+                        <td>{{ row?.index + 1 }}</td>
+                        <td>{{ row?.item?.shop_name }}</td>
+                        <td>{{ row?.item?.address }}</td>
+                        <td>{{ row?.item?.phone }}</td>
+                        <!-- <td>{{ row?.item?.amount_money }}</td> -->
+                        <td>{{ row?.item?.currency }}</td>
+                        <td>{{ row?.item?.country }}</td>
+                        <!-- <td>{{ row?.item?.branch }}</td> -->
+                        <td>
+                            <v-btn class="red" small @click="deleteshow(row.item.shop_id)">
+                                <v-icon color="white">mdi-delete</v-icon>
+                                <span class="white--text">ລຶບ</span>
+                            </v-btn>
+                        </td>
+                    </tr>
+                </template>
+            </v-data-table>
+        </v-card>
     </div>
 </template>
 <script>

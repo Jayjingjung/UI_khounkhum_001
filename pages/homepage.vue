@@ -22,8 +22,6 @@
             </v-card-text>
           </v-card>
         </div>
-
-
       </v-col>
 
       <!-- ຂໍ້ມູນຫາງລົດ -->
@@ -42,11 +40,6 @@
           </v-card>
         </div>
       </v-col>
-
-
-
-
-
       <!-- ຂໍ້ມູນພະນັກງານຂັບລົດ -->
 
       <v-col cols="12" md="3">
@@ -301,6 +294,23 @@
           </v-card>
         </div>
       </v-col>
+      <!-- ອະໄຫຼ່ -->
+      <v-col cols="12" md="3">
+        <div v-if="DEPARTMENT === 'OFFICE_VIENTAINE_INVENT' ">
+          <v-card to="/add1" height="100" elevation="2" rounded="lg" width="310px"
+            style="border: 1px solid rgb(41, 0, 245);">
+            <v-card-text>
+              <div class="d-flex align-center">
+                <v-icon color="indigo" size="55">mdi-truck</v-icon>
+                <div class="pl-5 pb-5 pt-5 pr-5 ">
+                  <span style="font-size: 18pt;font-weight: bold;">ອະໄຫຼ່</span><br />
+                  <!-- <div style="background-color: red;width: 30px;height: 30px;border-radius: 20px;display: flex;justify-content: center;align-items: center;color: white;"><span>10</span></div> -->
+                </div>
+              </div>
+            </v-card-text>
+          </v-card>
+        </div>
+      </v-col>
     </v-row>
 
   </div>
@@ -316,6 +326,7 @@ export default {
       USER_ID: '',
       USER_NAME: '',
       USER_ROLE: '',
+      DEPARTMENT: '',
       TOTAL: '',
       TOTAL_INVOICE: '',
       TOTAL_FORMANCE: '',
@@ -342,6 +353,7 @@ export default {
     this.USER_ID = localStorage.getItem('USER_ID')
     this.USER_NAME = localStorage.getItem('USER_NAME')
     this.USER_ROLE = localStorage.getItem('USER_ROLE')
+    this.DEPARTMENT = localStorage.getItem('DEPARTMENT')
     // this.launchFireworks(); // Automatically launch fireworks on load
 
   },

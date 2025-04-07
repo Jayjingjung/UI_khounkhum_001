@@ -17,8 +17,7 @@
                     <div>
                         <v-col>
                             <v-btn style="width: 200px;border: 2px solid rgb(151,90,28);height: 70px;font-size: 18px;"
-                                to="./add" color="#E0F7FA">ເພີ່ມຂໍ້ມູນອາໄຫຼ່
-                                ຫຼື ຮ້ານ</v-btn>
+                                to="./add1" color="#E0F7FA">ເພີ່ມຂໍ້ມູນອາໄຫຼ່</v-btn>
                         </v-col>
                     </div>
                     <div>

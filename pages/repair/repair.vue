@@ -269,14 +269,6 @@ export default {
         // Other methods...
     },
     mounted() {
-        const { bouang, key_id } = this.$route.query;  // Destructure values from query params
-        if (key_id) {
-            // If 'key_id' has a truthy value in query params
-            this.bouang = bouang;
-            this.key_id = key_id;
-            // this.testBor();
-
-        }
         this.onGetshowdata_table(); // Fetch truck footer data when component is mounted
         this.total_count()
         this.USER_ID = localStorage.getItem('USER_ID')

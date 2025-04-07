@@ -2,7 +2,7 @@
     <div class="pt-6">
         <v-card class="card-shadow" rounded="lg">
             <v-card-title style="background-color:#cc7a26" class="white--text mt-6">
-                ເພີ້ມອາໄຫຼ່ 
+                ເພີ່ມອາໄຫຼ່ 
             </v-card-title>
             <v-chip class="mt-4 ml-6" color="#A7FFEB" v-if="bouang">
                 {{ bouang }}
@@ -12,7 +12,14 @@
                     <div style="display: flex;margin-top: 10px;margin-left: 10px;margin-left: 30px;margin-right: 30px;">
                         <v-row>
                             <v-col>
-                                <v-text-field label="* ອາໄຫຼ່" dense outlined background-color="#f5f5f5"
+                                <v-file-input label="ອັບໂຫຼດຮູູບອາໄຫຼ່" outlined dense prepend-icon="mdi-camera"
+                                    append-inner-icon="mdi-card-account-details" background-color="#f5f5f5"
+                                    v-model="files"></v-file-input>
+                                <div class="tops">
+                                </div>
+                            </v-col>
+                            <v-col>
+                                <v-text-field label="* ຊື່ອາໄຫຼ່" dense outlined background-color="#f5f5f5"
                                     v-model="itemName"></v-text-field>
                                 <div class="tops">
                                 </div>
@@ -35,25 +42,18 @@
                                 <div class="tops">
                                 </div>
                             </v-col>
-                            <v-col>
+                            <!-- <v-col>
                                 <v-textarea label="* ລາຍລະອຽດ" type="commen" dense outlined background-color="#f5f5f5"
                                     v-model="unit_price"></v-textarea>
                                 <div class="tops">
                                 </div>
-                            </v-col>
+                            </v-col> -->
                             <!-- <v-col>
                                 <v-text-field label="* ຈໍານວນ" dense outlined background-color="#f5f5f5"
                                     v-model="qty"></v-text-field>
                                 <div class="tops">
                                 </div>
                             </v-col> -->
-                            <v-col>
-                                <v-file-input label="ອັບໂຫຼດຮູູບ" outlined dense prepend-icon="mdi-camera"
-                                    append-inner-icon="mdi-card-account-details" background-color="#f5f5f5"
-                                    v-model="files"></v-file-input>
-                                <div class="tops">
-                                </div>
-                            </v-col>
                         </v-row>
                     </div>
                 </v-form>
@@ -87,7 +87,7 @@
                                     <span class="white--text">ອັບເດດ</span>
                                 </v-btn>
                             </td> -->
-                            <td>
+                            <td  v-if="USER_NAME=='sisnok'" >
                                 <v-btn class="red" small @click="onDeleteEmpInfo(row.item.item_id)">
                                     <v-icon color="white">mdi-delete</v-icon>
                                     <span class="white--text">ລຶບ</span>
@@ -129,7 +129,7 @@ export default {
                 { text: 'ຮູບພາບ', value: 'img' },
                 { text: 'ຈໍານວນ', value: 'qty' },
                 { text: 'ຫົວໜວຍ', value: 'unit' },
-                { text: 'ລາຄາ', value: 'unit_price' },
+                { text: 'ລາຄາຕໍ່', value: 'unit_price' },
                 { text: '', value: '' },
             ],
             truck_data_list: [],
@@ -150,8 +150,8 @@ export default {
     ,
     mounted() {
         this.bouang = localStorage.getItem("bouang");
+        this.USER_NAME = localStorage.getItem("USER_NAME");
         this.onGetadd(); // Call the onGetadd method when the component is mounted
-        this.onGetaddshow(); // Call the onGetadd method when the component is mounted
     },
     methods: {
         onGetrepImage(file) {
@@ -162,25 +162,6 @@ export default {
                 this.url = null
             }
         },
-        // async onGetadd() {
-        //     try {
-        //         this.loading_processing = true;
-        //         const response = await this.$axios.$post('ListItems.service', {
-        //             toKen: localStorage.getItem('toKen'),
-        //         });
-        //         console.log('API response:', response);
-        //         if (response?.status === '00' && response?.data) {
-        //             this.truck_data_list = response.data;
-        //         } else {
-        //             this.showErrorAlert('Error', 'Failed to fetch data from the API');
-        //         }
-        //     } catch (error) {
-        //         console.error('API error:', error);
-        //         this.showErrorAlert('Error', 'Failed to fetch data from the API');
-        //     } finally {
-        //         this.loading_processing = false;
-        //     }
-        // },
         async onGetadd() {
             try {
                 // Check if 'key_id' exists in localStorage, if so, assign it to key_id, otherwise set key_id to null
@@ -203,137 +184,7 @@ export default {
                 this.loading_processing = false;
             }
         },
-
-        async onGetaddshow() {
-            try {
-                let key_id = localStorage.getItem('key_id') ? localStorage.getItem('key_id') : null;
-                const response = await this.$axios.$post('ListShops.service', {
-                    toKen: localStorage.getItem('toKen'),
-                    branch_id: key_id  // Passing the key_id value in the request
-                });
-                console.log('API response:', response);
-                if (response?.status === '00' && response?.data) {
-                    this.truck_table_repairs2 = response.data;
-                } else {
-                    this.showErrorAlert('Error', 'Failed to fetch data from the API');
-                }
-            } catch (error) {
-                console.error('API error:', error);
-                this.showErrorAlert('Error', 'Failed to fetch data from the API');
-            } finally {
-                this.loading_processing = false;
-            }
-        },
-        async onSaveshow() {
-            if (!this.$refs.form.validate()) return null
-            let key_id = localStorage.getItem('key_id') ? localStorage.getItem('key_id') : null;
-            let data = {
-                shop_name: this.shop_name,
-                address: this.address,
-                phone: this.phone,
-                country: this.country,
-                currency: this.currency,
-                amount_money: this.amount_money,
-                branch: this.branch,
-                toKen: localStorage.getItem('toKen'),
-            }
-            // Conditionally add key_id to data if it has a value
-            if (key_id) {
-                data.branch_id = key_id;
-            }
-            try {
-                this.$axios.$post('/InsertShop.service', data).then((data) => {
-                    if (data.status == '00') {
-                        Swal.fire({
-                            title: 'ເພີ່ມສຳເລັດ',
-                            icon: 'success',
-                            allowOutsideClick: false,
-                        });
-                        this.shop_name = '';
-                        this.address = '';
-                        this.phone = '';
-                        this.country = '';
-                        this.currency = '';
-                        this.onGetaddshow();
-                    } else {
-                        this.loading_processing = false;
-                        Swal.fire({
-                            title: 'ແຈ້ງເຕືອນ',
-                            text: response?.message,
-                            icon: 'error',
-                            allowOutsideClick: false,
-                            confirmButtonColor: '#3085d6',
-                            confirmButtonText: 'OK',
-                        });
-                    }
-                })
-            } catch (error) {
-                this.loading_processing = false;
-                Swal.fire({
-                    title: 'ແຈ້ງເຕືອນ',
-                    text: response?.message,
-                    icon: 'error',
-                    allowOutsideClick: false,
-                    confirmButtonColor: '#3085d6',
-                    confirmButtonText: 'OK',
-                });
-            }
-        },
-        deleteshow(key) {
-            this.shop_id = key; // Set item_id property
-            Swal.fire({
-                title: 'ທ່ານຕ້ອງການລຶບແທ້ບໍ ?',
-                icon: 'question',
-                showCancelButton: true,
-                allowOutsideClick: false,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes',
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    this.onDeleteshow();
-                }
-            });
-        },
-        async onDeleteshow() {
-            try {
-                const data = {
-                    shop_id: this.shop_id, // Use item_id property
-                };
-                this.loading_processing = true;
-                const response = await this.$axios.$post('DelShops.service', data);
-                if (response?.status == '00') {
-                    console.log(this.shop_id);
-                    this.loading_processing = false;
-                    this.onGetaddshow();
-                    Swal.fire({
-                        title: 'ສຳເລັດ',
-                        icon: 'success',
-                        allowOutsideClick: false,
-                    });
-                } else {
-                    this.loading_processing = false;
-                    Swal.fire({
-                        title: 'ແຈ້ງເຕືອນ',
-                        text: response?.message,
-                        icon: 'error',
-                        allowOutsideClick: false,
-                        confirmButtonColor: '#3085d6',
-                        confirmButtonText: 'OK',
-                    });
-                }
-            } catch (error) {
-                this.loading_processing = false;
-                Swal.fire({
-                    title: 'ແຈ້ງເຕືອນ',
-                    text: error.message || 'An error occurred while deleting',
-                    icon: 'error',
-                    allowOutsideClick: false,
-                    confirmButtonColor: '#3085d6',
-                    confirmButtonText: 'OK',
-                });
-            }
-        },
+        
         onGetEmpImage(file) {
             if (file) {
                 this.url = URL.createObjectURL(this.imageStaff)

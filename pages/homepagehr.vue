@@ -6,10 +6,23 @@
       <button @click="launchFireworks">Launch Fireworks</button>
     </div> -->
     <v-card class="">
-    
-      
-
       <v-row>
+        <v-col cols="12" md="3">
+          <div v-if="DEPARTMENT === 'OFFICE_VIENTAINE_INVENT'">
+            <v-card to="./repair/add1" height="100" elevation="2" rounded="lg" width="310px"
+              style="border: 1px solid  rgba(191, 0, 0, 0.8);">
+              <v-card-text>
+                <div class="d-flex align-center">
+                  <v-icon style="color: rgba(191, 0, 0, 0.8);" size="55">mdi-warehouse</v-icon>
+                  <div class="pl-5 pb-5 pt-5 pr-5 ">
+                    <span style="font-size: 18pt;font-weight: bold;">ສາງອະໄຫຼ່</span><br />
+
+                  </div>
+                </div>
+              </v-card-text>
+            </v-card>
+          </div>
+        </v-col>
         <!-- ລົດບໍລິຫານ -->
         <v-col cols="12" md="3">
           <div v-if="USER_ROLE === 'USER' || USER_ROLE === 'HR' || USER_NAME ==='JT'|| USER_NAME ==='Test-Vientaine'">
@@ -209,6 +222,7 @@ export default {
       USER_ID: '',
       USER_NAME: '',
       USER_ROLE: '',
+      DEPARTMENT: '',
       TOTAL: '',
       TOTAL_INVOICE: '',
       TOTAL_FORMANCE: '',
@@ -234,6 +248,7 @@ export default {
     this.USER_ID = localStorage.getItem('USER_ID')
     this.USER_NAME = localStorage.getItem('USER_NAME')
     this.USER_ROLE = localStorage.getItem('USER_ROLE')
+    this.DEPARTMENT = localStorage.getItem('DEPARTMENT')
 
     // this.launchFireworks(); // Automatically launch fireworks on load
   },

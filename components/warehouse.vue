@@ -89,12 +89,12 @@
                                 row?.item?.unitPirce?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</td>
                             <td style="font-size: 18px;">{{
                                 row?.item?.sumUnitWithPrice?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</td>
-                            <!-- <td>
+                            <td>
                                 <v-btn small color="primary" class="card-shadow"
                                     @click="openDateDialog(row.item.item_id, row.item.item_name)">
                                     <v-icon>mdi-folder-download</v-icon>ລາຍລະອຽດ
                                 </v-btn>
-                            </td> -->
+                            </td>
                         </tr>
                     </template>
                 </v-data-table>
@@ -107,45 +107,40 @@
                 <v-row
                     style="font-size:11px; margin-left: 50px; margin-top: 10px; display: flex; flex-direction: column;">
                     <div>
-                        <span>ສໍານັກງານຕັ້ງຢູ່ ອາຄານ ສະໜາມຍິງປືນ 20 ມັງກອນ, ສໍານັກງານຕັ້ງຢູ່, ບ້ານຈອມມະນີ</span>
-                        <span>ໂທລະສັບ: 020 92661111, 020 92 254 999</span>
-                        <span>ອີເມວ: kounkham@Mining | ເວັບໄຊ: kounkham</span>
+                        <div style="font-size: 18px;">ສໍານັກງານຕັ້ງຢູ່ ບ້ານໂພນຕ້ອງຈອມມະນີ, ເມືອງຈັນທະບຸລີ, ນະຄອນຫຼວງວຽງຈັນ</div>
+                        <div style="font-size: 18px;">ເບີໂທຕິດຕໍ່: 020 92661111, 020 92 254 999</div>
+                        <div style="font-size: 18px;">ອີເມວ: kounkham@Mining | ເວັບໄຊ: khounkham.com</div>
                     </div>
                 </v-row>
-                <div style="margin-top: 20px;">
-                    <div class="text-center">ລາຍງານອາໄລ</div>
-                    <table>
-                        <thead>
+                <div class="scroll-wrapper" style="padding-top: 35px;">
+                    <v-data-table :headers="forPrint" :items="truck_data_list" :search="search" hide-default-footer
+                        class="elevation-0">
+                        <template v-slot:item="row">
                             <tr>
-                                <td>ລຳດັບ</td>
-                                <td>ຮູບພາບ</td>
-                                <td>ອາໄຫຼ່</td>
-                                <td>ຈໍານວນ</td>
-                                <td>ຫົວໜ່ວຍ</td>
-                                <td>ລາຄາ</td>
-                                <td>ລາຄາທັງໝົດ</td>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr v-for="(item, i) in truck_data_list" :key="i">
-                                <td>{{ i + 1 }}</td>
+                                <td>{{ row?.index + 1 }}</td>
                                 <td>
-                                    <v-avatar style="width: 80px; height: 80px;">
-                                        <img :src="item.img" />
+                                    <v-avatar>
+                                        <img :src="row.item.img" />
                                     </v-avatar>
                                 </td>
-                                <td>{{ item.item_name }}</td>
-                                <td>{{ item.qty.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</td>
-                                <td>{{ item.unit }}</td>
-                                <td>{{ item.unitPirce.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</td>
-                                <td>{{ item.sumUnitWithPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</td>
+                                <td>{{ row?.item?.item_name }}</td>
+                                <td :class="{ 'red-text': row?.item?.qty < 5 }">{{ row?.item?.qty }}</td>
+                                <td>{{ row?.item?.unit }}</td>
+                                <td>{{ row?.item?.unitPirce }}</td>
+                                <td>
+                                    {{ row?.item?.sumUnitWithPrice?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}
+                                </td>
                             </tr>
-                        </tbody>
-                    </table>
-                    <div class="sum-footer" v-if="sumFooter">
-                        <span>ລາຄາລວມທັງໝົດ:</span>
-                        <span>{{ sumFooter.totalValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') }} ກີບ</span>
-                    </div>
+                        </template>
+                    </v-data-table>
+                </div>
+
+                <div v-if="sumFooter">
+                    <v-divider></v-divider>
+                    <v-card-actions>
+                        <v-spacer></v-spacer>
+                        <span> ລາຄາລວມທັງໝົດ: {{ sumFooter.totalValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') }} ກີບ</span>
+                    </v-card-actions>
                 </div>
             </div>
         </div>
@@ -170,7 +165,16 @@ export default {
                 { text: 'ຮູບພາບ', value: 'img' },
                 { text: 'ລາໄລ', value: 'item_name' },
                 { text: 'ຈໍານວນ', value: 'qty' },
-                { text: 'ຫົວນວຍ', value: 'unit' },
+                { text: 'ຫົວໜ່ວຍ', value: 'unit' },
+                { text: 'ລາຄາຕໍ່', value: 'unitPirce' },
+                { text: 'ລາຄາທັງໝົດ', value: 'sumUnitWithPrice' },
+            ],
+            forPrint: [
+                { text: 'ລຳດັບ', value: 'index' },
+                { text: 'ຮູບພາບ', value: 'img' },
+                { text: 'ອາໄຫຼ່', value: 'item_name' },
+                { text: 'ຈໍານວນ', value: 'qty' },
+                { text: 'ຫົວໜ່ວຍ', value: 'unit' },
                 { text: 'ລາຄາຕໍ່', value: 'unitPirce' },
                 { text: 'ລາຄາທັງໝົດ', value: 'sumUnitWithPrice' },
             ],
@@ -297,7 +301,7 @@ export default {
                 });
                 console.log('API response:', response);
                 if (response?.status === '00' && response?.data) {
-                    this.truck_data_list = response.data; 
+                    this.truck_data_list = response.data;
                     this.sumFooter = response.sumFooter;
                 } else {
                     this.showErrorAlert('Error', 'Failed to fetch data from the API');
@@ -326,7 +330,7 @@ export default {
 };
 </script>
 <style>
-@media print {
+/* @media print {
     @page {
         size: A4;
         margin: 1in;
@@ -347,6 +351,23 @@ export default {
         right: 0px;
         left: 0px;
     }
+} */
+@media print {
+  /* ซ่อนปุ่ม, input หรือสิ่งที่ไม่อยากให้แสดงตอน print */
+  .no-print {
+    display: none !important;
+  }
+
+  /* ปรับขนาด font หรือตารางให้เหมาะกับกระดาษ */
+  table {
+    font-size: 12px;
+  }
+
+  /* ซ่อน scroll bar ถ้าใช้ container ที่มี scroll */
+  .scroll-wrapper {
+    overflow: visible !important;
+    max-height: none !important;
+  }
 }
 
 .v-btn {
@@ -357,10 +378,4 @@ export default {
     width: 150px;
 }
 
-.sum-footer {
-    background-color: #f5f5f5;
-    padding: 10px;
-    border: 1px solid #e0e0e0;
-    border-radius: 3px;
-}
 </style>

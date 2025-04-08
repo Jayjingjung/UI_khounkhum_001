@@ -13,7 +13,6 @@
                 <p style="margin-right: 5px;"><strong>Offer Man Name:</strong> {{ paperDetail.offerManName }}</p>
                 <p style="margin-right: 5px;"><strong>Job:</strong> {{ paperDetail.job }}</p>
             </v-card-subtitle>
-
         </v-card>
         <div style="display: flex;">
             <v-card style="margin-top: 10px;margin-right: 5px;">

@@ -4,15 +4,22 @@
       <v-card-text>
         <v-card-actions>
           <div class="ml-10">
-            <p style="margin-right: 5px;"><strong> ລະຫັດ:</strong> {{ paperDetail.offer_CODE }}</p>
-            <p style="margin-right: 5px;"><strong>ຊື່ຜຸ້ສະເໜີ:</strong> {{ paperDetail.offerManName }}</p>
-            <p style="margin-right: 5px;"><strong>ອາຊີບ:</strong> {{ paperDetail.job }}</p>
+            <p style="margin-right: 5px;"><strong> ລະຫັດ:</strong> {{ paperDetail.offer_CODE }} |
+              <strong>ວັນທີ່:</strong> {{ paperDetail.dateCreate }} </p>
+            <p style="margin-right: 5px;"><strong>ຊື່ຜູ້ສະເໜີ:</strong> {{ paperDetail.offerManName }} |
+              <strong>ອາຊີບ:</strong> {{ paperDetail.job }} </p>
+            <p style="margin-right: 5px;"><strong>ຮ້ານ:</strong> {{ paperDetail.shopName }}</p>
             <p style="margin-right: 5px;"><strong>ລາຍລະອຽດ:</strong> {{ paperDetail.description }}</p>
           </div>
           <v-spacer></v-spacer>
-          <v-btn color="#f593b3" class="white--text mt-10" @click="print">
-            <v-icon>mdi-printer</v-icon>ພິມລາຍງານທັງໝົດ
-          </v-btn>
+            <v-btn color="#f593b3" class="white--text mt-10" @click="print">
+              <v-icon>mdi-printer</v-icon>ພິມລາຍງານທັງໝົດ
+            </v-btn>
+          <v-spacer></v-spacer>
+            <div style="font-size: 18px; font-weight: bold;">
+              ລວມຄ່າອະໄຫຼ່ທັງໝົດ: {{ paperDetail.real_totalMoney?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}
+              {{ currency }}
+            </div>
         </v-card-actions>
       </v-card-text>
     </v-card>
@@ -43,19 +50,17 @@
             <div style="font-size: 16px; font-weight: bold;">
               ສະໜາມ ບ້ານຫັງຄັງ, ເມືອງບົວລະພາ, ແຂວງຊຽງຂວາງ, ສປປ ລາວ
             </div>
-            <!-- <span>ສໍານັກງານຕັ້ງຢູ່ ອາຄານ ສະໜາມຍິງປືນ 20 ມັງກອນ, ສະໜາມກີລາກອງທັບ,</span>
-            <span> ບ້ານຈອມມະນີ, ເມືອງ ໄຊເສດຖາ, ນະຄອນຫຼວງວຽງຈັນ, ສປປ ລາວ</span>
-            <span>ໂທລະສັບ: 020 92661111, 020 92 254 999 </span>
-            <span> ອີເມວ: kounkham@Mining|ເວັບໄຊ: kounkham</span> -->
           </div>
         </v-row>
         <div class="text-center"
-          style="display:flex;justify-content:center;font-size:23px;font-weight:bold;margin-top: 30px;">
-          ລາຍງານລາຍລະອຽດອາໄຫຼ່</div>
-        <div>
-          <p style="margin-right: 5px;"><strong> ລະຫັດ:</strong> {{ paperDetail.offer_CODE }}</p>
-          <p style="margin-right: 5px;"><strong>ຊື່ຜຸ້ສະເໜີ:</strong> {{ paperDetail.offerManName }}</p>
-          <p style="margin-right: 5px;"><strong>ອາຊີບ:</strong> {{ paperDetail.job }}</p>
+          style="display:flex;justify-content:center;font-size:23px;font-weight:bold;margin-top: 60px; margin-bottom: 20px;">
+          ໃບສະເໜີສັ່ງຊື້ອະໄຫຼ່</div>
+        <div style="margin-bottom: 20px;">
+          <p style="margin-right: 5px;"><strong> ລະຫັດ:</strong> {{ paperDetail.offer_CODE }} | <strong>ວັນທີ່:</strong>
+            {{ paperDetail.dateCreate }} </p>
+          <p style="margin-right: 5px;"><strong>ຊື່ຜູ້ສະເໜີ:</strong> {{ paperDetail.offerManName }} |
+            <strong>ອາຊີບ:</strong> {{ paperDetail.job }} </p>
+          <p style="margin-right: 5px;"><strong>ຮ້ານ:</strong> {{ paperDetail.shopName }}</p>
           <p style="margin-right: 5px;"><strong>ລາຍລະອຽດ:</strong> {{ paperDetail.description }}</p>
         </div>
         <v-row v-for="(item, index) in filteredItems" :key="index">

@@ -89,12 +89,12 @@
                                 row?.item?.unitPirce?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</td>
                             <td style="font-size: 18px;">{{
                                 row?.item?.sumUnitWithPrice?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }}</td>
-                            <td>
+                            <!-- <td>
                                 <v-btn small color="primary" class="card-shadow"
                                     @click="openDateDialog(row.item.item_id, row.item.item_name)">
                                     <v-icon>mdi-folder-download</v-icon>ລາຍລະອຽດ
                                 </v-btn>
-                            </td>
+                            </td> -->
                         </tr>
                     </template>
                 </v-data-table>

@@ -98,10 +98,14 @@
                 </v-data-table>
             </div>
         </v-card>
+        <div v-if="DEPARTMENT === 'OFFICE_VIENTAINE_INVENT'">
+            <Warehouse />
+        </div>
     </div>
 </template>
 <script>
 import Swal from 'sweetalert2';
+import Warehouse from '../wareHouse/warehouse.vue';
 export default {
     data() {
         return {
@@ -151,6 +155,7 @@ export default {
     mounted() {
         this.bouang = localStorage.getItem("bouang");
         this.USER_NAME = localStorage.getItem("USER_NAME");
+        this.DEPARTMENT = localStorage.getItem("DEPARTMENT");
         this.onGetadd(); // Call the onGetadd method when the component is mounted
     },
     methods: {

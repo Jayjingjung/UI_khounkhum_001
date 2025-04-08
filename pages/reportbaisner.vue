@@ -1,17 +1,12 @@
 <template>
     <div>
-
         <div v-if="loading_processing">Loading...</div>
-        <div v-else>
-
-
+        <!-- <div v-else>
             <h3 class="red--text ">
-                ຈ່າຍຄ່າອາໄລ: {{ sumFooterI.totalMoney?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g,
+                ຈ່າຍຄ່າອາໄຫຼ່: {{ sumFooterI.totalMoney?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g,
                     ',') }} LAK
             </h3>
-
-            <!-- Render other data if needed -->
-        </div>
+        </div> -->
         <v-card style="margin-bottom: 10px;height: 200px;">
             <div>
                 <div style="width:100%;display:flex;justify-content:start;margin-top: 20px;" class="pt-4">
@@ -36,7 +31,6 @@
                             <v-date-picker v-model="endDate" no-title scrollable @input="updateEndDate"></v-date-picker>
                         </v-menu>
                     </div>
-
                     <v-row justify="start">
                         <v-btn class="mr-4 mt-5" width="130" color="success" @click="onGetshowdata_table">ຄົ້ນຫາ</v-btn>
                     </v-row>
@@ -47,16 +41,15 @@
                     </v-row>
                 </div>
             </div>
-
             <div style="display: flex;">
                 <div>
                     <v-btn style="width: auto;" v-for="month in 12" :key="month" @click="setMonth(month)">{{ month
-                        }}</v-btn>
+                    }}</v-btn>
                 </div>
                 <div>
                     <v-btn style="width: auto;" v-for="year in availableYears" :key="year" @click="setYear(year)">{{
                         year
-                        }}</v-btn>
+                    }}</v-btn>
                 </div>
             </div>
         </v-card>
@@ -67,27 +60,22 @@
             <v-data-table :items-per-page="5" :headers="truck_table_headers" :items="filteredItems" :search="search">
                 <template v-slot:item="row">
                     <tr>
-
                         <td>{{ row?.item?.offer_CODE }}</td>
                         <td>{{ formatDate(row?.item?.dateCreate) }}</td>
                         <td>{{ row?.item?.real_totalMoney?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g,
                             ',') }}</td>
                         <td>{{ row?.item?.statusPO }}</td>
-
                         <td>
                             <v-btn style="height: 40px;width: 100px;" small color="#b3da64"
                                 class="white--text card-shadow" @click="onGetinbox(row?.item?.offer_CODE)">
                                 <v-icon size="30" color="white">mdi-dropbox</v-icon>ລາຍລະອຽດ
                             </v-btn>
                         </td>
-
                     </tr>
                 </template>
             </v-data-table>
         </v-card>
-
         <div style="display:none">
-
             <div id="modalInvoice">
                 <Noti />
                 <v-row
@@ -121,7 +109,6 @@
                             v-for="(item, i) in truck_data_list" :key="i">
                             <td style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px;text-align: center;"
                                 class="font-weight-bold">{{ i + 1 }}</td>
-
                             <td style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px"
                                 class="font-weight-bold">
                                 <img :src="item.img" :alt="item.item_name" style="width:50px; height:50px;">
@@ -130,40 +117,28 @@
                                 class="font-weight-bold">{{
                                     item?.unit_price?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g,
                                         ',') }}</td>
-
                             <td style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px"
                                 class="font-weight-bold">{{
                                     item?.qty_offer?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g,
                                         ',') }}</td>
-
-
                             <td style="padding:10px;border: 0.5px solid #999;border-collapse: collapse;color:#000;border-top-right-radius:3px"
                                 class="font-weight-bold">{{
                                     item?.totalMoney?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g,
                                         ',') }}</td>
-
-
-
                         </tr>
                     </table>
-
                     <div v-if="loading_processing">Loading...</div>
                     <div v-else>
-
-
                         <h3 class="red--text ">
                             ຈ່າຍຄ່າອາໄລ: {{ sumFooterI.totalMoney?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g,
                                 ',') }} LAK
                         </h3>
-
-
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </template>
-
 <script>
 import Swal from 'sweetalert2';
 import moment from 'moment';
@@ -174,12 +149,10 @@ export default {
             sumFooterI: {},
             sumFooter: {},
             offer_CODE: '',
-
             truck_table_headers: [
-
                 { text: 'ເລກທີໃບສ້າງໃບບິນ', value: 'offer_CODE' },
                 { text: 'ວັນທີສ້າງໃບບິນ', value: 'dateCreate' },
-                { text: 'ຈ່າຍຄ່າອາໄລ', value: 'real_totalMoney' },
+                { text: 'ຈ່າຍຄ່າອາໄຫຼ່', value: 'real_totalMoney' },
                 { text: 'ສະຖານະ', value: 'statusPO' },
                 { text: 'ລາຍລະອຽດ', value: '' },
             ],
@@ -192,7 +165,6 @@ export default {
             endDateMenu: null,
             startDate: new Date().toISOString().substr(0, 10),
             endDate: new Date().toISOString().substr(0, 10),
-
         };
     },
     computed: {
@@ -247,7 +219,6 @@ export default {
             }
             return years;
         },
-
         onGetinbox(offerCode) {
             this.$router.push({ path: '/paperDetail', query: { offerCode: offerCode } });
         },
@@ -273,7 +244,6 @@ export default {
                     this.truck_data_list = response.data;
                     this.sumFooterI = response?.sumFooter;
                     console.log("new data footer:", this.sumFooter);
-
                 } else {
                     this.showErrorAlert('Error', 'Failed to fetch data from the API');
                 }
@@ -300,8 +270,6 @@ export default {
     },
 };
 </script>
-
-
 <style>
 @media screen {
     #print {

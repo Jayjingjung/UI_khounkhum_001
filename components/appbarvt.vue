@@ -2,19 +2,19 @@
     <div>
         <!-- แถบเมนูสำหรับ HR และ FOR_DOCUMENT -->
         <v-app-bar style="width: 100%;" fixed app color="#Bf0008" class="mt-2"
-            v-if="userRole === 'HR' || userRole === 'FOR_DOCUMENT' || userRole === 'FOR_DOCUMENT_ADMIN' && USER_NAME === 'JT'">
+            v-if="USER_NAME === 'over' ||userRole === 'HR' || userRole === 'FOR_DOCUMENT' || userRole === 'FOR_DOCUMENT_ADMIN' && USER_NAME === 'JT'">
             <v-btn fab dark small>
                 <img @click="$router.back()" class="mx-auto" src="../assets/images/logo01.png" width="80" />
             </v-btn>
             <div style="margin-left: 20px;">
                 <v-menu offset-y>
-                    <template v-slot:activator="{ on, attrs }">
+                    <!-- <template v-slot:activator="{ on, attrs }">
                         <v-btn color="white" v-bind="attrs" v-on="on" text elevation="0">
                             <v-icon color="#fff" size="18">mdi-book-open</v-icon>
                             ຈັດການບໍລິຫານ
                             <v-icon color="#fff">mdi-chevron-down-circle</v-icon>
                         </v-btn>
-                    </template>
+                    </template> -->
                     <v-list>
                         <!-- <v-list-item to="/customer">
                             <v-list-item-title>ລູກຄ້າ</v-list-item-title>

@@ -1,11 +1,10 @@
 <template>
   <v-app dark>
     <div>
-
       <appbarloginser />
     </div>
     <div
-      v-if="userRole === 'HR' || userRole === 'FOR_DOCUMENT' || userRole === 'FOR_DOCUMENT_ADMIN' || userRole === 'BOR-HIN-KHUAT'">
+      v-if=" USER_NAME === 'over' ||userRole === 'HR' || userRole === 'FOR_DOCUMENT' || userRole === 'FOR_DOCUMENT_ADMIN' || userRole === 'BOR-HIN-KHUAT'">
       <appbarvt />
     </div>
     <div class="content mt-5">
@@ -31,6 +30,7 @@ export default {
     // Retrieve user role from local storage
     this.userRole = localStorage.getItem("USER_ROLE");
     this.sprit_role = localStorage.getItem("USER_ROLE");
+    this.USER_NAME = localStorage.getItem("USER_NAME");
   }
 };
 </script>
